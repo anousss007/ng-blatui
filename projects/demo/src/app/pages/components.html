@@ -555,6 +555,39 @@
         />
       </app-example>
     }
+    @case ('combobox') {
+      <app-example [code]="code.combobox">
+        <bui-combobox
+          class="max-w-xs"
+          [(value)]="framework"
+          [options]="frameworks"
+          placeholder="Search frameworks…"
+        />
+      </app-example>
+    }
+    @case ('back-to-top') {
+      <app-example [code]="code.backToTop">
+        <button
+          type="button"
+          aria-label="Back to top"
+          class="inline-flex size-10 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-md"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            class="size-5"
+          >
+            <path d="m5 12 7-7 7 7" />
+            <path d="M12 19V5" />
+          </svg>
+        </button>
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

@@ -72,6 +72,8 @@ const COMPONENTS = [
   'spotlight-card',
   'tilt-card',
   'select',
+  'combobox',
+  'back-to-top',
 ];
 
 @Component({

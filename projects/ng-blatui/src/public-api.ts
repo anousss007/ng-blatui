@@ -64,3 +64,5 @@ export * from './lib/flip-card/flip-card';
 export * from './lib/spotlight-card/spotlight-card';
 export * from './lib/tilt-card/tilt-card';
 export * from './lib/select/select';
+export * from './lib/back-to-top/back-to-top';
+export * from './lib/combobox/combobox';

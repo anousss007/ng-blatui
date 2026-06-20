@@ -31,6 +31,7 @@ import {
   BuiAutosizeTextarea,
   BuiAvatar,
   BuiAvatarGroup,
+  BuiBackToTop,
   BuiBadge,
   BuiBanner,
   BuiBreadcrumb,
@@ -54,6 +55,7 @@ import {
   BuiCollapsible,
   BuiCollapsibleContent,
   BuiCollapsibleTrigger,
+  BuiCombobox,
   BuiComparisonTable,
   BuiContainer,
   BuiCopyButton,
@@ -249,6 +251,8 @@ const META: Record<string, { title: string; description: string }> = {
   },
   'tilt-card': { title: 'Tilt card', description: 'A card that tilts in 3D toward the cursor.' },
   select: { title: 'Select', description: 'An accessible select (combobox + listbox).' },
+  combobox: { title: 'Combobox', description: 'A filterable select with typeahead.' },
+  'back-to-top': { title: 'Back to top', description: 'A floating scroll-to-top button.' },
 };
 
 @Component({
@@ -391,6 +395,8 @@ const META: Record<string, { title: string; description: string }> = {
     BuiSpotlightCard,
     BuiTiltCard,
     BuiSelect,
+    BuiBackToTop,
+    BuiCombobox,
   ],
   templateUrl: './components.html',
 })
@@ -421,6 +427,13 @@ export class ComponentPage {
     { value: 'apple', label: 'Apple' },
     { value: 'banana', label: 'Banana' },
     { value: 'cherry', label: 'Cherry' },
+  ];
+  protected readonly framework = signal('');
+  protected readonly frameworks = [
+    { value: 'ng', label: 'Angular' },
+    { value: 're', label: 'React' },
+    { value: 'vu', label: 'Vue' },
+    { value: 'sv', label: 'Svelte' },
   ];
   protected readonly pricingRows = [
     { feature: 'Projects', values: ['3', 'Unlimited', 'Unlimited'] },
@@ -802,5 +815,12 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 
 <bui-select [(value)]="fruit" [options]="fruits" placeholder="Pick a fruit" />
 // fruits = [{ value: 'apple', label: 'Apple' }, ...]`,
+    combobox: `import { BuiCombobox } from 'ng-blatui';
+
+<bui-combobox [(value)]="framework" [options]="frameworks" />
+// frameworks = [{ value: 'ng', label: 'Angular' }, ...]`,
+    backToTop: `import { BuiBackToTop } from 'ng-blatui';
+
+<bui-back-to-top [threshold]="300" />`,
   };
 }
