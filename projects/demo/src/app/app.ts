@@ -55,6 +55,7 @@ const COMPONENTS = [
   'visually-hidden',
   'hover-card',
   'code-block',
+  'slider',
 ];
 
 @Component({

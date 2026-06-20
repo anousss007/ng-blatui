@@ -416,6 +416,11 @@
         />
       </app-example>
     }
+    @case ('slider') {
+      <app-example [code]="code.slider">
+        <bui-slider class="max-w-xs" [(value)]="volume" [min]="0" [max]="100" ariaLabel="Volume" />
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

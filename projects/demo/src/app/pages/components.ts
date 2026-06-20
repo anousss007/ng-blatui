@@ -91,6 +91,7 @@ import {
   BuiScrollArea,
   BuiSeparator,
   BuiSkeleton,
+  BuiSlider,
   BuiSpinner,
   BuiStat,
   BuiSwitch,
@@ -183,6 +184,10 @@ const META: Record<string, { title: string; description: string }> = {
   },
   'hover-card': { title: 'Hover card', description: 'Preview content on hover (Angular CDK).' },
   'code-block': { title: 'Code block', description: 'A dark code panel with copy-to-clipboard.' },
+  slider: {
+    title: 'Slider',
+    description: 'Pick a value from a range, with full keyboard support.',
+  },
 };
 
 @Component({
@@ -294,6 +299,7 @@ const META: Record<string, { title: string; description: string }> = {
     BuiCodeBlock,
     BuiHoverCard,
     BuiHoverCardContent,
+    BuiSlider,
   ],
   templateUrl: './components.html',
 })
@@ -314,6 +320,7 @@ export class ComponentPage {
 
   protected readonly terms = signal(true);
   protected readonly notifications = signal(true);
+  protected readonly volume = signal(60);
   protected readonly plan = signal('free');
   protected readonly team = [
     { name: 'Ada Lovelace' },
@@ -589,5 +596,8 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     codeBlock: `import { BuiCodeBlock } from 'ng-blatui';
 
 <bui-code-block filename="app.ts" code="const x = 1;" />`,
+    slider: `import { BuiSlider } from 'ng-blatui';
+
+<bui-slider [(value)]="volume" [min]="0" [max]="100" ariaLabel="Volume" />`,
   };
 }
