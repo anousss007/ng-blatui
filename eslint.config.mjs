@@ -113,6 +113,7 @@ export default tseslint.config(
     files: [
       'projects/ng-blatui/src/lib/checkbox/**/*.ts',
       'projects/ng-blatui/src/lib/switch/**/*.ts',
+      'projects/ng-blatui/src/lib/radio-group/**/*.ts',
     ],
     rules: {
       '@angular-eslint/component-selector': [

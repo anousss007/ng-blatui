@@ -27,9 +27,11 @@ const COMPONENTS = [
   'progress',
   'checkbox',
   'switch',
+  'radio-group',
   'accordion',
   'tabs',
   'dialog',
+  'tooltip',
 ];
 
 @Component({

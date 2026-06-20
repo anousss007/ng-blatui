@@ -21,3 +21,5 @@ export * from './lib/tabs/tabs';
 export * from './lib/dialog/dialog';
 export * from './lib/theme/theme';
 export * from './lib/theme/theme-customizer';
+export * from './lib/radio-group/radio-group';
+export * from './lib/tooltip/tooltip';

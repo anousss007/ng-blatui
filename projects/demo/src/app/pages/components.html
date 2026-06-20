@@ -135,6 +135,22 @@
     </app-example>
   </section>
 
+  <section id="radio-group" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Radio group</h2>
+    <app-example [code]="code.radioGroup">
+      <div buiRadioGroup [(value)]="plan">
+        <div class="flex items-center gap-2 text-sm">
+          <button buiRadioItem value="free" aria-label="Free"></button>
+          <span>Free</span>
+        </div>
+        <div class="flex items-center gap-2 text-sm">
+          <button buiRadioItem value="pro" aria-label="Pro"></button>
+          <span>Pro</span>
+        </div>
+      </div>
+    </app-example>
+  </section>
+
   <section id="accordion" class="scroll-mt-24 space-y-3">
     <h2 class="text-2xl font-semibold">
       Accordion <span class="text-sm text-muted-foreground">· Angular Aria</span>
@@ -207,5 +223,14 @@
         </div>
       </div>
     </ng-template>
+  </section>
+
+  <section id="tooltip" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">
+      Tooltip <span class="text-sm text-muted-foreground">· Angular CDK</span>
+    </h2>
+    <app-example [code]="code.tooltip">
+      <button buiButton variant="outline" buiTooltip="Add to library">Hover me</button>
+    </app-example>
   </section>
 </div>

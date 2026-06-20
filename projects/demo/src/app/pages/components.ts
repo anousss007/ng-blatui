@@ -30,6 +30,8 @@ import {
   BuiInput,
   BuiLabel,
   BuiProgress,
+  BuiRadioGroup,
+  BuiRadioGroupItem,
   BuiSeparator,
   BuiSkeleton,
   BuiSwitch,
@@ -38,6 +40,7 @@ import {
   BuiTabs,
   BuiTabTrigger,
   BuiTextarea,
+  BuiTooltip,
   Dialog,
   Tab,
   TabContent,
@@ -94,6 +97,9 @@ import { Example } from '../ui/example';
     BuiDialogTitle,
     BuiDialogDescription,
     BuiDialogFooter,
+    BuiRadioGroup,
+    BuiRadioGroupItem,
+    BuiTooltip,
   ],
   templateUrl: './components.html',
 })
@@ -103,6 +109,7 @@ export class Components {
 
   protected readonly terms = signal(true);
   protected readonly notifications = signal(true);
+  protected readonly plan = signal('free');
 
   protected openDialog(): void {
     this.dialog.open(this.dialogTpl(), { ariaModal: true });
@@ -207,5 +214,18 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     <p>Body…</p>
   </div>
 </ng-template>`,
+    radioGroup: `import { BuiRadioGroup, BuiRadioGroupItem } from 'ng-blatui';
+
+<div buiRadioGroup [(value)]="plan">
+  <label class="flex items-center gap-2">
+    <button buiRadioItem value="free" aria-label="Free"></button> Free
+  </label>
+  <label class="flex items-center gap-2">
+    <button buiRadioItem value="pro" aria-label="Pro"></button> Pro
+  </label>
+</div>`,
+    tooltip: `import { BuiTooltip } from 'ng-blatui';
+
+<button buiButton variant="outline" buiTooltip="Add to library">Hover me</button>`,
   };
 }
