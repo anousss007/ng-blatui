@@ -45,6 +45,8 @@ const COMPONENTS = [
   'banner',
   'table',
   'avatar-group',
+  'pagination',
+  'popover',
 ];
 
 @Component({

@@ -63,6 +63,13 @@ import {
   BuiInput,
   BuiKbd,
   BuiLabel,
+  BuiPagination,
+  BuiPaginationContent,
+  BuiPaginationEllipsis,
+  BuiPaginationItem,
+  BuiPaginationLink,
+  BuiPopover,
+  BuiPopoverContent,
   BuiProgress,
   BuiRadioGroup,
   BuiRadioGroupItem,
@@ -135,6 +142,11 @@ const META: Record<string, { title: string; description: string }> = {
   'avatar-group': {
     title: 'Avatar group',
     description: 'An overlapping stack of avatars with overflow.',
+  },
+  pagination: { title: 'Pagination', description: 'Navigate between pages of content.' },
+  popover: {
+    title: 'Popover',
+    description: 'Floating content anchored to a trigger (Angular CDK).',
   },
 };
 
@@ -222,6 +234,13 @@ const META: Record<string, { title: string; description: string }> = {
     BuiTableHead,
     BuiTableHeader,
     BuiTableRow,
+    BuiPagination,
+    BuiPaginationContent,
+    BuiPaginationEllipsis,
+    BuiPaginationItem,
+    BuiPaginationLink,
+    BuiPopover,
+    BuiPopoverContent,
   ],
   templateUrl: './components.html',
 })
@@ -451,5 +470,25 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 
 <bui-avatar-group [avatars]="team" [max]="3" />
 // team = [{ name: 'Ada Lovelace' }, { name: 'Alan Turing' }, ...]`,
+    pagination: `import {
+  BuiPagination, BuiPaginationContent, BuiPaginationItem, BuiPaginationLink, BuiPaginationEllipsis,
+} from 'ng-blatui';
+
+<nav buiPagination>
+  <ul buiPaginationContent>
+    <li buiPaginationItem><a buiPaginationLink href="#">1</a></li>
+    <li buiPaginationItem><a buiPaginationLink [active]="true" href="#">2</a></li>
+    <li buiPaginationItem><a buiPaginationLink href="#">3</a></li>
+    <li buiPaginationItem><bui-pagination-ellipsis /></li>
+  </ul>
+</nav>`,
+    popover: `import { BuiPopover, BuiPopoverContent } from 'ng-blatui';
+
+<button buiButton variant="outline" [buiPopover]="tpl">Open</button>
+<ng-template #tpl>
+  <div buiPopoverContent>
+    <p class="text-sm">Popover content goes here.</p>
+  </div>
+</ng-template>`,
   };
 }

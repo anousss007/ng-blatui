@@ -310,6 +310,28 @@
         <bui-avatar-group [avatars]="team" [max]="3" />
       </app-example>
     }
+    @case ('pagination') {
+      <app-example [code]="code.pagination">
+        <nav buiPagination>
+          <ul buiPaginationContent>
+            <li buiPaginationItem><a buiPaginationLink href="#">1</a></li>
+            <li buiPaginationItem><a buiPaginationLink [active]="true" href="#">2</a></li>
+            <li buiPaginationItem><a buiPaginationLink href="#">3</a></li>
+            <li buiPaginationItem><bui-pagination-ellipsis /></li>
+          </ul>
+        </nav>
+      </app-example>
+    }
+    @case ('popover') {
+      <app-example [code]="code.popover">
+        <button buiButton variant="outline" [buiPopover]="popoverTpl">Open popover</button>
+        <ng-template #popoverTpl>
+          <div buiPopoverContent>
+            <p class="text-sm">Popover content goes here.</p>
+          </div>
+        </ng-template>
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

@@ -37,3 +37,5 @@ export * from './lib/copy-button/copy-button';
 export * from './lib/banner/banner';
 export * from './lib/table/table';
 export * from './lib/avatar-group/avatar-group';
+export * from './lib/pagination/pagination';
+export * from './lib/popover/popover';
