@@ -74,6 +74,7 @@ import {
   BuiItemTitle,
   BuiKbd,
   BuiLabel,
+  BuiMeter,
   BuiPagination,
   BuiPaginationContent,
   BuiPaginationEllipsis,
@@ -88,6 +89,7 @@ import {
   BuiSeparator,
   BuiSkeleton,
   BuiSpinner,
+  BuiStat,
   BuiSwitch,
   BuiTable,
   BuiTableBody,
@@ -103,6 +105,7 @@ import {
   BuiTextarea,
   BuiToggle,
   BuiTooltip,
+  BuiVisuallyHidden,
   Dialog,
   Tab,
   TabContent,
@@ -168,6 +171,12 @@ const META: Record<string, { title: string; description: string }> = {
   'input-group': {
     title: 'Input group',
     description: 'Compose inputs with addons, text and buttons.',
+  },
+  meter: { title: 'Meter', description: 'A measurement within a known range (role=meter).' },
+  stat: { title: 'Stat', description: 'A KPI card with a trend-coloured change.' },
+  'visually-hidden': {
+    title: 'Visually hidden',
+    description: 'Hide content but keep it for screen readers.',
   },
 };
 
@@ -274,6 +283,9 @@ const META: Record<string, { title: string; description: string }> = {
     BuiInputGroupButton,
     BuiInputGroupInput,
     BuiInputGroupText,
+    BuiMeter,
+    BuiStat,
+    BuiVisuallyHidden,
   ],
   templateUrl: './components.html',
 })
@@ -551,5 +563,14 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     <button buiInputGroupButton>Send</button>
   </div>
 </div>`,
+    meter: `import { BuiMeter } from 'ng-blatui';
+
+<bui-meter [value]="72" label="CPU usage" />`,
+    stat: `import { BuiStat } from 'ng-blatui';
+
+<bui-stat label="Revenue" value="$12,000" change="+12%" caption="vs last month" />`,
+    visuallyHidden: `import { BuiVisuallyHidden } from 'ng-blatui';
+
+<span buiVisuallyHidden>Screen-reader only text</span>`,
   };
 }

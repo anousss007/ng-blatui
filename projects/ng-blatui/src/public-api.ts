@@ -42,3 +42,6 @@ export * from './lib/popover/popover';
 export * from './lib/item/item';
 export * from './lib/scroll-area/scroll-area';
 export * from './lib/input-group/input-group';
+export * from './lib/visually-hidden/visually-hidden';
+export * from './lib/meter/meter';
+export * from './lib/stat/stat';

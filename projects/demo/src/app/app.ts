@@ -50,6 +50,9 @@ const COMPONENTS = [
   'item',
   'scroll-area',
   'input-group',
+  'meter',
+  'stat',
+  'visually-hidden',
 ];
 
 @Component({
