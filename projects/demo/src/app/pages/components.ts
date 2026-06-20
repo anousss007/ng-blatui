@@ -1,4 +1,12 @@
-import { Component, inject, signal, type TemplateRef, viewChild } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  signal,
+  type TemplateRef,
+  viewChild,
+} from '@angular/core';
 
 import {
   AccordionContent,
@@ -73,6 +81,41 @@ import {
 } from 'ng-blatui';
 
 import { Example } from '../ui/example';
+
+const META: Record<string, { title: string; description: string }> = {
+  button: {
+    title: 'Button',
+    description: 'Trigger an action or event, in multiple variants and sizes.',
+  },
+  badge: { title: 'Badge', description: 'A small status descriptor for labels and counts.' },
+  card: {
+    title: 'Card',
+    description: 'A flexible content container with header, body and footer.',
+  },
+  alert: { title: 'Alert', description: 'A callout for user attention, with tone variants.' },
+  input: { title: 'Input', description: 'A styled single-line text input.' },
+  textarea: { title: 'Textarea', description: 'A styled multi-line text input.' },
+  label: { title: 'Label', description: 'An accessible label for a form control.' },
+  separator: { title: 'Separator', description: 'A visual or semantic divider.' },
+  skeleton: { title: 'Skeleton', description: 'A placeholder shown while content loads.' },
+  avatar: { title: 'Avatar', description: 'A user image with a text fallback.' },
+  progress: { title: 'Progress', description: 'Shows the completion progress of a task.' },
+  checkbox: { title: 'Checkbox', description: 'A checkbox with indeterminate support.' },
+  switch: { title: 'Switch', description: 'A toggle for an on/off setting.' },
+  'radio-group': { title: 'Radio group', description: 'A set of mutually exclusive options.' },
+  accordion: { title: 'Accordion', description: 'Expandable stacked sections (Angular Aria).' },
+  tabs: { title: 'Tabs', description: 'Switch between related panels (Angular Aria).' },
+  dialog: { title: 'Dialog', description: 'A modal dialog on the Angular CDK overlay.' },
+  tooltip: { title: 'Tooltip', description: 'A floating hint shown on hover or focus.' },
+  breadcrumb: { title: 'Breadcrumb', description: 'Shows the path to the current page.' },
+  'button-group': { title: 'Button group', description: 'Group related buttons into one control.' },
+  kbd: { title: 'Kbd', description: 'Styles a keyboard key.' },
+  'aspect-ratio': { title: 'Aspect ratio', description: 'Constrain content to a fixed ratio.' },
+  collapsible: { title: 'Collapsible', description: 'An accessible show/hide disclosure.' },
+  empty: { title: 'Empty', description: 'An empty-state placeholder.' },
+  field: { title: 'Field', description: 'Compose labels, controls, descriptions and errors.' },
+  container: { title: 'Container', description: 'A centered, padded page-width container.' },
+};
 
 @Component({
   selector: 'app-components',
@@ -149,7 +192,18 @@ import { Example } from '../ui/example';
   ],
   templateUrl: './components.html',
 })
-export class Components {
+export class ComponentPage {
+  readonly slug = input('');
+
+  protected readonly title = computed(() => {
+    const slug = this.slug();
+    return Object.hasOwn(META, slug) ? META[slug].title : slug;
+  });
+  protected readonly description = computed(() => {
+    const slug = this.slug();
+    return Object.hasOwn(META, slug) ? META[slug].description : '';
+  });
+
   private readonly dialog = inject(Dialog);
   protected readonly dialogTpl = viewChild.required<TemplateRef<unknown>>('dialogTpl');
 

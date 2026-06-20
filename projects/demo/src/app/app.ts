@@ -6,7 +6,6 @@ import { BuiButton, BuiThemeCustomizer } from 'ng-blatui';
 interface NavLink {
   readonly label: string;
   readonly path: string;
-  readonly fragment?: string;
 }
 interface NavGroup {
   readonly title: string;
@@ -61,9 +60,11 @@ export class App {
     {
       title: 'Components',
       links: COMPONENTS.map((slug) => ({
-        label: slug.charAt(0).toUpperCase() + slug.slice(1),
-        path: '/components',
-        fragment: slug,
+        label: slug
+          .split('-')
+          .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+          .join(' '),
+        path: `/components/${slug}`,
       })),
     },
   ];
