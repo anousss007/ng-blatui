@@ -48,3 +48,5 @@ export * from './lib/stat/stat';
 export * from './lib/hover-card/hover-card';
 export * from './lib/code-block/code-block';
 export * from './lib/slider/slider';
+export * from './lib/rating/rating';
+export * from './lib/quantity-selector/quantity-selector';

@@ -421,6 +421,16 @@
         <bui-slider class="max-w-xs" [(value)]="volume" [min]="0" [max]="100" ariaLabel="Volume" />
       </app-example>
     }
+    @case ('rating') {
+      <app-example [code]="code.rating">
+        <bui-rating [(value)]="score" [max]="5" ariaLabel="Rate this" />
+      </app-example>
+    }
+    @case ('quantity-selector') {
+      <app-example [code]="code.quantitySelector">
+        <bui-quantity-selector [(value)]="qty" [min]="1" [max]="10" />
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

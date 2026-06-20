@@ -1,0 +1,139 @@
+import { Component, computed, input, model } from '@angular/core';
+
+import { type ClassValue, cn } from '../utils/cn';
+
+const FIELD_HEIGHT = { sm: 'h-7 text-xs', default: 'h-8 text-sm', lg: 'h-9 text-base' } as const;
+const BTN_SIZE = {
+  sm: 'w-7 [&_svg]:size-3',
+  default: 'w-8 [&_svg]:size-3.5',
+  lg: 'w-9 [&_svg]:size-4',
+} as const;
+const FIELD_WIDTH = { sm: 'w-9', default: 'w-10', lg: 'w-12' } as const;
+
+/** A compact − [n] + quantity stepper (`role="group"` with a `spinbutton` field). */
+@Component({
+  selector: 'bui-quantity-selector',
+  host: { 'data-slot': 'quantity-selector', role: 'group', '[class]': 'computedClass()' },
+  template: `
+    <button
+      type="button"
+      aria-label="Decrease quantity"
+      [disabled]="disabled() || atMin()"
+      [class]="btnClass('e')"
+      (click)="dec()"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        aria-hidden="true"
+      >
+        <path d="M5 12h14" />
+      </svg>
+    </button>
+    <input
+      type="text"
+      inputmode="numeric"
+      role="spinbutton"
+      [attr.aria-label]="ariaLabel()"
+      [attr.aria-valuenow]="value()"
+      [attr.aria-valuemin]="min()"
+      [attr.aria-valuemax]="max()"
+      [disabled]="disabled()"
+      [value]="value()"
+      [class]="fieldClass()"
+      (input)="onInput($event)"
+      (blur)="onBlur()"
+    />
+    <button
+      type="button"
+      aria-label="Increase quantity"
+      [disabled]="disabled() || atMax()"
+      [class]="btnClass('s')"
+      (click)="inc()"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        aria-hidden="true"
+      >
+        <path d="M5 12h14" />
+        <path d="M12 5v14" />
+      </svg>
+    </button>
+  `,
+})
+export class BuiQuantitySelector {
+  readonly value = model(1);
+  readonly min = input(1);
+  readonly max = input<number | null>(null);
+  readonly step = input(1);
+  readonly size = input<keyof typeof FIELD_HEIGHT>('default');
+  readonly disabled = input(false);
+  readonly ariaLabel = input('Quantity');
+  readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+  protected readonly atMin = computed(() => this.value() <= this.min());
+  protected readonly atMax = computed(() => {
+    const max = this.max();
+    return max !== null && this.value() >= max;
+  });
+  protected readonly computedClass = computed(() =>
+    cn(
+      'inline-flex items-stretch overflow-hidden rounded-md border border-input bg-transparent shadow-xs transition-[color,box-shadow] focus-within:border-ring focus-within:ring-[3px] focus-within:ring-ring/50 has-[input:disabled]:pointer-events-none has-[input:disabled]:opacity-50 dark:bg-input/30',
+      this.userClass(),
+    ),
+  );
+
+  protected btnClass(side: 'e' | 's'): string {
+    return cn(
+      'flex shrink-0 items-center justify-center text-muted-foreground transition-colors outline-none not-disabled:cursor-pointer hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50',
+      side === 'e' ? 'border-e' : 'border-s',
+      'border-input',
+      BTN_SIZE[this.size()],
+      FIELD_HEIGHT[this.size()],
+    );
+  }
+
+  protected fieldClass(): string {
+    return cn(
+      'min-w-0 border-0 bg-transparent text-center font-medium tabular-nums outline-none',
+      FIELD_HEIGHT[this.size()],
+      FIELD_WIDTH[this.size()],
+    );
+  }
+
+  protected inc(): void {
+    if (!this.disabled() && !this.atMax()) {
+      this.value.set(this.clamp(this.value() + this.step()));
+    }
+  }
+
+  protected dec(): void {
+    if (!this.disabled() && !this.atMin()) {
+      this.value.set(this.clamp(this.value() - this.step()));
+    }
+  }
+
+  protected onInput(event: Event): void {
+    const raw = (event.target as HTMLInputElement).value.replaceAll(/[^\d-]/g, '');
+    this.value.set(raw === '' ? this.min() : Number(raw));
+  }
+
+  protected onBlur(): void {
+    const current = this.value();
+    this.value.set(this.clamp(Number.isNaN(current) ? this.min() : current));
+  }
+
+  private clamp(value: number): number {
+    let result = Math.max(this.min(), value);
+    const max = this.max();
+    if (max !== null && result > max) {
+      result = max;
+    }
+    return result;
+  }
+}

@@ -56,6 +56,8 @@ const COMPONENTS = [
   'hover-card',
   'code-block',
   'slider',
+  'rating',
+  'quantity-selector',
 ];
 
 @Component({

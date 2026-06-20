@@ -86,8 +86,10 @@ import {
   BuiPopover,
   BuiPopoverContent,
   BuiProgress,
+  BuiQuantitySelector,
   BuiRadioGroup,
   BuiRadioGroupItem,
+  BuiRating,
   BuiScrollArea,
   BuiSeparator,
   BuiSkeleton,
@@ -188,6 +190,8 @@ const META: Record<string, { title: string; description: string }> = {
     title: 'Slider',
     description: 'Pick a value from a range, with full keyboard support.',
   },
+  rating: { title: 'Rating', description: 'A star rating with hover preview and keyboard.' },
+  'quantity-selector': { title: 'Quantity selector', description: 'A compact − [n] + stepper.' },
 };
 
 @Component({
@@ -300,6 +304,8 @@ const META: Record<string, { title: string; description: string }> = {
     BuiHoverCard,
     BuiHoverCardContent,
     BuiSlider,
+    BuiQuantitySelector,
+    BuiRating,
   ],
   templateUrl: './components.html',
 })
@@ -321,6 +327,8 @@ export class ComponentPage {
   protected readonly terms = signal(true);
   protected readonly notifications = signal(true);
   protected readonly volume = signal(60);
+  protected readonly score = signal(4);
+  protected readonly qty = signal(2);
   protected readonly plan = signal('free');
   protected readonly team = [
     { name: 'Ada Lovelace' },
@@ -599,5 +607,11 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     slider: `import { BuiSlider } from 'ng-blatui';
 
 <bui-slider [(value)]="volume" [min]="0" [max]="100" ariaLabel="Volume" />`,
+    rating: `import { BuiRating } from 'ng-blatui';
+
+<bui-rating [(value)]="score" [max]="5" ariaLabel="Rate" />`,
+    quantitySelector: `import { BuiQuantitySelector } from 'ng-blatui';
+
+<bui-quantity-selector [(value)]="qty" [min]="1" [max]="10" />`,
   };
 }
