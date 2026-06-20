@@ -76,6 +76,12 @@ const COMPONENTS = [
   'back-to-top',
   'countdown',
   'number-ticker',
+  'link',
+  'gradient-text',
+  'page-header',
+  'quote',
+  'price',
+  'stack',
 ];
 
 @Component({

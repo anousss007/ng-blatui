@@ -79,6 +79,7 @@ import {
   BuiFieldDescription,
   BuiFieldLabel,
   BuiFlipCard,
+  BuiGradientText,
   BuiGridPattern,
   BuiHoverCard,
   BuiHoverCardContent,
@@ -96,10 +97,12 @@ import {
   BuiItemTitle,
   BuiKbd,
   BuiLabel,
+  BuiLink,
   BuiMenubar,
   BuiMenubarTrigger,
   BuiMeter,
   BuiNumberTicker,
+  BuiPageHeader,
   BuiPagination,
   BuiPaginationContent,
   BuiPaginationEllipsis,
@@ -107,8 +110,10 @@ import {
   BuiPaginationLink,
   BuiPopover,
   BuiPopoverContent,
+  BuiPrice,
   BuiProgress,
   BuiQuantitySelector,
+  BuiQuote,
   BuiRadioGroup,
   BuiRadioGroupItem,
   BuiRating,
@@ -120,6 +125,7 @@ import {
   BuiSlider,
   BuiSpinner,
   BuiSpotlightCard,
+  BuiStack,
   BuiStat,
   BuiSwitch,
   BuiTable,
@@ -257,6 +263,12 @@ const META: Record<string, { title: string; description: string }> = {
   'back-to-top': { title: 'Back to top', description: 'A floating scroll-to-top button.' },
   countdown: { title: 'Countdown', description: 'A live countdown timer to a target time.' },
   'number-ticker': { title: 'Number ticker', description: 'Animates a number counting up.' },
+  link: { title: 'Link', description: 'A styled, accessible anchor with variants.' },
+  'gradient-text': { title: 'Gradient text', description: 'Text painted with a CSS gradient.' },
+  'page-header': { title: 'Page header', description: 'A page title block with actions slot.' },
+  quote: { title: 'Quote', description: 'A blockquote / testimonial with attribution.' },
+  price: { title: 'Price', description: 'A price with compare-at and discount badge.' },
+  stack: { title: 'Stack', description: 'A flexbox stack layout helper.' },
 };
 
 @Component({
@@ -403,6 +415,12 @@ const META: Record<string, { title: string; description: string }> = {
     BuiCombobox,
     BuiCountdown,
     BuiNumberTicker,
+    BuiGradientText,
+    BuiLink,
+    BuiPageHeader,
+    BuiPrice,
+    BuiQuote,
+    BuiStack,
   ],
   templateUrl: './components.html',
 })
@@ -834,5 +852,28 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     numberTicker: `import { BuiNumberTicker } from 'ng-blatui';
 
 <bui-number-ticker [value]="12500" prefix="$" />`,
+    link: `import { BuiLink } from 'ng-blatui';
+
+<a buiLink href="/docs">Documentation</a>
+<a buiLink variant="muted" [external]="true" href="https://angular.dev">Angular</a>`,
+    gradientText: `import { BuiGradientText } from 'ng-blatui';
+
+<bui-gradient-text preset="brand" class="text-3xl">Gradient text</bui-gradient-text>`,
+    pageHeader: `import { BuiPageHeader } from 'ng-blatui';
+
+<bui-page-header heading="Settings" description="Manage your account.">
+  <button buiButton buiPageHeaderActions>Save</button>
+</bui-page-header>`,
+    quote: `import { BuiQuote } from 'ng-blatui';
+
+<bui-quote author="Ada Lovelace" role="Mathematician">
+  That brain of mine is something more than merely mortal.
+</bui-quote>`,
+    price: `import { BuiPrice } from 'ng-blatui';
+
+<bui-price [amount]="19.99" [compareAt]="29.99" size="lg" />`,
+    stack: `import { BuiStack } from 'ng-blatui';
+
+<div buiStack direction="row" gap="3">…</div>`,
   };
 }
