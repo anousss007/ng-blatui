@@ -1,10 +1,31 @@
 <div class="min-h-screen bg-background text-foreground">
   <div class="mx-auto max-w-5xl space-y-12 p-6 sm:p-10">
-    <header class="space-y-2">
-      <h1 class="text-3xl font-bold tracking-tight">ng-blatui</h1>
-      <p class="text-muted-foreground">
-        BlatUI components, ported to Angular. Built on signals, Angular Aria &amp; the CDK.
-      </p>
+    <header class="space-y-6 py-8">
+      <div class="space-y-3">
+        <span buiBadge tone="info" variant="soft">v1.0 · MIT · Angular 22</span>
+        <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">ng-blatui</h1>
+        <p class="max-w-2xl text-lg text-muted-foreground">
+          BlatUI, ported to Angular. Accessible, themeable components built on signals,
+          Angular&nbsp;Aria &amp; the CDK — styled with Tailwind&nbsp;CSS&nbsp;v4. Copy-paste
+          friendly, you own the code.
+        </p>
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <a buiButton href="https://www.npmjs.com/package/ng-blatui" rel="noreferrer">Get started</a>
+        <a
+          buiButton
+          variant="outline"
+          href="https://github.com/anousss007/ng-blatui"
+          rel="noreferrer"
+        >
+          GitHub
+        </a>
+      </div>
+      <div
+        class="w-fit max-w-full overflow-x-auto rounded-lg border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground"
+      >
+        npm i ng-blatui &#64;angular/cdk &#64;angular/aria
+      </div>
     </header>
 
     <!-- Buttons -->
@@ -256,6 +277,16 @@
         </div>
       </div>
     </section>
+
+    <footer
+      class="flex flex-col items-center justify-between gap-2 border-t pt-6 text-sm text-muted-foreground sm:flex-row"
+    >
+      <span>ng-blatui — MIT. Built by Remix-IT.</span>
+      <span class="flex gap-4">
+        <a class="hover:text-foreground" href="https://github.com/anousss007/ng-blatui">GitHub</a>
+        <a class="hover:text-foreground" href="https://www.npmjs.com/package/ng-blatui">npm</a>
+      </span>
+    </footer>
   </div>
 
   <bui-theme-customizer />
