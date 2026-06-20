@@ -58,6 +58,8 @@ const COMPONENTS = [
   'slider',
   'rating',
   'quantity-selector',
+  'alert-dialog',
+  'autosize-textarea',
 ];
 
 @Component({

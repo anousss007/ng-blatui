@@ -19,8 +19,16 @@ import {
   BuiAccordionTrigger,
   BuiAlert,
   BuiAlertDescription,
+  BuiAlertDialogAction,
+  BuiAlertDialogCancel,
+  BuiAlertDialogContent,
+  BuiAlertDialogDescription,
+  BuiAlertDialogFooter,
+  BuiAlertDialogHeader,
+  BuiAlertDialogTitle,
   BuiAlertTitle,
   BuiAspectRatio,
+  BuiAutosizeTextarea,
   BuiAvatar,
   BuiAvatarGroup,
   BuiBadge,
@@ -192,6 +200,14 @@ const META: Record<string, { title: string; description: string }> = {
   },
   rating: { title: 'Rating', description: 'A star rating with hover preview and keyboard.' },
   'quantity-selector': { title: 'Quantity selector', description: 'A compact − [n] + stepper.' },
+  'alert-dialog': {
+    title: 'Alert dialog',
+    description: 'A confirm modal (role=alertdialog) on the CDK.',
+  },
+  'autosize-textarea': {
+    title: 'Autosize textarea',
+    description: 'A textarea that grows with content.',
+  },
 };
 
 @Component({
@@ -306,6 +322,14 @@ const META: Record<string, { title: string; description: string }> = {
     BuiSlider,
     BuiQuantitySelector,
     BuiRating,
+    BuiAlertDialogAction,
+    BuiAlertDialogCancel,
+    BuiAlertDialogContent,
+    BuiAlertDialogDescription,
+    BuiAlertDialogFooter,
+    BuiAlertDialogHeader,
+    BuiAlertDialogTitle,
+    BuiAutosizeTextarea,
   ],
   templateUrl: './components.html',
 })
@@ -323,6 +347,7 @@ export class ComponentPage {
 
   private readonly dialog = inject(Dialog);
   protected readonly dialogTpl = viewChild.required<TemplateRef<unknown>>('dialogTpl');
+  protected readonly alertTpl = viewChild.required<TemplateRef<unknown>>('alertTpl');
 
   protected readonly terms = signal(true);
   protected readonly notifications = signal(true);
@@ -339,6 +364,10 @@ export class ComponentPage {
 
   protected openDialog(): void {
     this.dialog.open(this.dialogTpl(), { ariaModal: true });
+  }
+
+  protected openAlertDialog(): void {
+    this.dialog.open(this.alertTpl(), { ariaModal: true });
   }
 
   protected readonly code = {
@@ -613,5 +642,25 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     quantitySelector: `import { BuiQuantitySelector } from 'ng-blatui';
 
 <bui-quantity-selector [(value)]="qty" [min]="1" [max]="10" />`,
+    alertDialog: `import { Dialog } from 'ng-blatui';
+
+open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
+
+<button buiButton variant="destructive" (click)="open(tpl)">Delete…</button>
+<ng-template #tpl>
+  <div buiAlertDialogContent>
+    <div buiAlertDialogHeader>
+      <h2 buiAlertDialogTitle>Delete project?</h2>
+      <p buiAlertDialogDescription>This cannot be undone.</p>
+    </div>
+    <div buiAlertDialogFooter>
+      <button buiAlertDialogCancel>Cancel</button>
+      <button buiAlertDialogAction>Delete</button>
+    </div>
+  </div>
+</ng-template>`,
+    autosizeTextarea: `import { BuiAutosizeTextarea } from 'ng-blatui';
+
+<textarea buiAutosizeTextarea placeholder="Write a message…"></textarea>`,
   };
 }

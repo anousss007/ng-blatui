@@ -50,3 +50,5 @@ export * from './lib/code-block/code-block';
 export * from './lib/slider/slider';
 export * from './lib/rating/rating';
 export * from './lib/quantity-selector/quantity-selector';
+export * from './lib/alert-dialog/alert-dialog';
+export * from './lib/autosize-textarea/autosize-textarea';

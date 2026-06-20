@@ -88,6 +88,8 @@ export default tseslint.config(
       'unicorn/prefer-scoped-selector': 'off',
       // Idiomatic Angular lazy routes: `async () => (await import('…')).X`.
       'unicorn/no-await-expression-member': 'off',
+      // `parseFloat` is intentional for CSS unit strings (e.g. "16px"); Number() would be NaN.
+      'unicorn/prefer-number-coercion': 'off',
     },
   },
 

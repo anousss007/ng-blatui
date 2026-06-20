@@ -431,11 +431,34 @@
         <bui-quantity-selector [(value)]="qty" [min]="1" [max]="10" />
       </app-example>
     }
+    @case ('alert-dialog') {
+      <app-example [code]="code.alertDialog">
+        <button buiButton variant="destructive" (click)="openAlertDialog()">Delete…</button>
+      </app-example>
+    }
+    @case ('autosize-textarea') {
+      <app-example [code]="code.autosizeTextarea">
+        <textarea buiAutosizeTextarea class="max-w-xs" placeholder="Write a message…"></textarea>
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }
   }
 </article>
+
+<ng-template #alertTpl>
+  <div buiAlertDialogContent>
+    <div buiAlertDialogHeader>
+      <h2 buiAlertDialogTitle>Delete project?</h2>
+      <p buiAlertDialogDescription>This action cannot be undone.</p>
+    </div>
+    <div buiAlertDialogFooter>
+      <button buiAlertDialogCancel>Cancel</button>
+      <button buiAlertDialogAction>Delete</button>
+    </div>
+  </div>
+</ng-template>
 
 <ng-template #dialogTpl>
   <div buiDialogContent>
