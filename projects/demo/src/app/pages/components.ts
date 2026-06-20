@@ -13,6 +13,7 @@ import {
   AccordionGroup,
   AccordionPanel,
   AccordionTrigger,
+  BuiAccent,
   BuiAccordion,
   BuiAccordionContent,
   BuiAccordionItem,
@@ -34,6 +35,8 @@ import {
   BuiBackToTop,
   BuiBadge,
   BuiBanner,
+  BuiBentoGrid,
+  BuiBentoItem,
   BuiBreadcrumb,
   BuiBreadcrumbEllipsis,
   BuiBreadcrumbItem,
@@ -60,6 +63,8 @@ import {
   BuiContainer,
   BuiCopyButton,
   BuiCountdown,
+  BuiDescriptionItem,
+  BuiDescriptionList,
   BuiDialogContent,
   BuiDialogDescription,
   BuiDialogFooter,
@@ -79,6 +84,7 @@ import {
   BuiFieldDescription,
   BuiFieldLabel,
   BuiFlipCard,
+  BuiGallery,
   BuiGradientText,
   BuiGridPattern,
   BuiHoverCard,
@@ -96,11 +102,15 @@ import {
   BuiItemMedia,
   BuiItemTitle,
   BuiKbd,
+  BuiKbdGroup,
   BuiLabel,
   BuiLink,
+  BuiLoadingOverlay,
+  BuiMasonry,
   BuiMenubar,
   BuiMenubarTrigger,
   BuiMeter,
+  BuiNumberInput,
   BuiNumberTicker,
   BuiPageHeader,
   BuiPagination,
@@ -110,6 +120,7 @@ import {
   BuiPaginationLink,
   BuiPopover,
   BuiPopoverContent,
+  BuiPresence,
   BuiPrice,
   BuiProgress,
   BuiQuantitySelector,
@@ -142,9 +153,12 @@ import {
   BuiTerminal,
   BuiTextarea,
   BuiTiltCard,
+  BuiTimeline,
+  BuiTimelineItem,
   BuiToggle,
   BuiTooltip,
   BuiTypography,
+  BuiVariantSelector,
   BuiVisuallyHidden,
   Dialog,
   Menu,
@@ -269,6 +283,20 @@ const META: Record<string, { title: string; description: string }> = {
   quote: { title: 'Quote', description: 'A blockquote / testimonial with attribution.' },
   price: { title: 'Price', description: 'A price with compare-at and discount badge.' },
   stack: { title: 'Stack', description: 'A flexbox stack layout helper.' },
+  accent: { title: 'Accent', description: 'Re-theme a subtree with a custom accent colour.' },
+  'kbd-group': { title: 'Kbd group', description: 'Group several keyboard keys.' },
+  presence: { title: 'Presence', description: 'A status dot (online/away/busy/offline).' },
+  timeline: { title: 'Timeline', description: 'A vertical timeline of events.' },
+  'description-list': { title: 'Description list', description: 'Term/description pairs.' },
+  masonry: { title: 'Masonry', description: 'A CSS multi-column masonry grid.' },
+  'bento-grid': { title: 'Bento grid', description: 'A bento-style feature grid.' },
+  gallery: { title: 'Gallery', description: 'A responsive thumbnail grid.' },
+  'loading-overlay': { title: 'Loading overlay', description: 'A spinner veil over content.' },
+  'number-input': { title: 'Number input', description: 'A numeric stepper with bounds.' },
+  'variant-selector': {
+    title: 'Variant selector',
+    description: 'Pick a variant (pills or colours).',
+  },
 };
 
 @Component({
@@ -421,6 +449,20 @@ const META: Record<string, { title: string; description: string }> = {
     BuiPrice,
     BuiQuote,
     BuiStack,
+    BuiAccent,
+    BuiKbdGroup,
+    BuiPresence,
+    BuiTimeline,
+    BuiTimelineItem,
+    BuiDescriptionList,
+    BuiDescriptionItem,
+    BuiMasonry,
+    BuiBentoGrid,
+    BuiBentoItem,
+    BuiGallery,
+    BuiLoadingOverlay,
+    BuiNumberInput,
+    BuiVariantSelector,
   ],
   templateUrl: './components.html',
 })
@@ -446,6 +488,12 @@ export class ComponentPage {
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
   protected readonly view = signal('list');
+  protected readonly sizeChoice = signal('M');
+  protected readonly galleryImages = [
+    'https://picsum.photos/seed/a/300',
+    'https://picsum.photos/seed/b/300',
+    'https://picsum.photos/seed/c/300',
+  ];
   protected readonly fruit = signal('');
   protected readonly fruits = [
     { value: 'apple', label: 'Apple' },
@@ -875,5 +923,48 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     stack: `import { BuiStack } from 'ng-blatui';
 
 <div buiStack direction="row" gap="3">…</div>`,
+    accent: `import { BuiAccent, BuiButton } from 'ng-blatui';
+
+<div buiAccent color="#e11d48">
+  <button buiButton>Themed button</button>
+</div>`,
+    kbdGroup: `import { BuiKbdGroup, BuiKbd } from 'ng-blatui';
+
+<kbd buiKbdGroup><kbd buiKbd>⌘</kbd><kbd buiKbd>K</kbd></kbd>`,
+    presence: `import { BuiPresence } from 'ng-blatui';
+
+<bui-presence status="online" [pulse]="true" [showLabel]="true" />`,
+    timeline: `import { BuiTimeline, BuiTimelineItem } from 'ng-blatui';
+
+<ol buiTimeline>
+  <li buiTimelineItem time="09:00" title="Created" [active]="true">Order placed</li>
+  <li buiTimelineItem time="10:30" title="Shipped">On its way</li>
+</ol>`,
+    descriptionList: `import { BuiDescriptionList, BuiDescriptionItem } from 'ng-blatui';
+
+<dl buiDescriptionList [bordered]="true">
+  <bui-description-item term="Plan">Pro</bui-description-item>
+  <bui-description-item term="Seats">5</bui-description-item>
+</dl>`,
+    masonry: `import { BuiMasonry } from 'ng-blatui';
+
+<div buiMasonry [columns]="3">…tiles…</div>`,
+    bentoGrid: `import { BuiBentoGrid, BuiBentoItem } from 'ng-blatui';
+
+<div buiBentoGrid [columns]="3">
+  <bui-bento-item title="Fast" description="Blazing speed" [colSpan]="2" />
+</div>`,
+    gallery: `import { BuiGallery } from 'ng-blatui';
+
+<bui-gallery [images]="images" [columns]="3" />`,
+    loadingOverlay: `import { BuiLoadingOverlay } from 'ng-blatui';
+
+<bui-loading-overlay [show]="loading()">…content…</bui-loading-overlay>`,
+    numberInput: `import { BuiNumberInput } from 'ng-blatui';
+
+<bui-number-input [(value)]="qty" [min]="0" [max]="10" />`,
+    variantSelector: `import { BuiVariantSelector } from 'ng-blatui';
+
+<bui-variant-selector [(value)]="size" [options]="['S','M','L']" />`,
   };
 }

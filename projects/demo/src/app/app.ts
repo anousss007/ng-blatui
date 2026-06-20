@@ -82,6 +82,17 @@ const COMPONENTS = [
   'quote',
   'price',
   'stack',
+  'accent',
+  'kbd-group',
+  'presence',
+  'timeline',
+  'description-list',
+  'masonry',
+  'bento-grid',
+  'gallery',
+  'loading-overlay',
+  'number-input',
+  'variant-selector',
 ];
 
 @Component({

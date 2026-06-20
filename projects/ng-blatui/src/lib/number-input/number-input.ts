@@ -1,0 +1,110 @@
+import { Component, computed, input, model } from '@angular/core';
+
+import { type ClassValue, cn } from '../utils/cn';
+
+const BTN =
+  'border-input text-foreground hover:bg-accent inline-flex h-9 w-9 items-center justify-center border bg-transparent outline-none transition-colors disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4';
+
+/** A numeric stepper: − / + buttons around a number field, with min/max/step clamping. */
+@Component({
+  selector: 'bui-number-input',
+  host: { 'data-slot': 'number-input', '[class]': 'computedClass()' },
+  template: `
+    <button
+      type="button"
+      [class]="BTN + ' rounded-l-md'"
+      (click)="step(-1)"
+      [disabled]="disabled() || atMin()"
+      aria-label="Decrease"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M5 12h14" />
+      </svg>
+    </button>
+    <input
+      type="number"
+      inputmode="numeric"
+      [value]="value()"
+      [attr.min]="min()"
+      [attr.max]="max()"
+      [step]="stepBy()"
+      [disabled]="disabled()"
+      [attr.aria-label]="ariaLabel() || null"
+      class="h-9 w-16 [appearance:textfield] border-y border-input bg-transparent text-center text-sm tabular-nums outline-none focus-visible:relative focus-visible:z-10 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:opacity-50 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+      (input)="onInput($event)"
+      (change)="onInput($event)"
+    />
+    <button
+      type="button"
+      [class]="BTN + ' rounded-r-md'"
+      (click)="step(1)"
+      [disabled]="disabled() || atMax()"
+      aria-label="Increase"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M5 12h14" />
+        <path d="M12 5v14" />
+      </svg>
+    </button>
+  `,
+})
+export class BuiNumberInput {
+  readonly value = model(0);
+  readonly min = input<number | null>(null);
+  readonly max = input<number | null>(null);
+  readonly stepBy = input(1, { alias: 'step' });
+  readonly disabled = input(false);
+  readonly ariaLabel = input('');
+  readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+  protected readonly BTN = BTN;
+  protected readonly atMin = computed(() => {
+    const min = this.min();
+    return min !== null && this.value() <= min;
+  });
+  protected readonly atMax = computed(() => {
+    const max = this.max();
+    return max !== null && this.value() >= max;
+  });
+  protected readonly computedClass = computed(() =>
+    cn('inline-flex items-stretch', this.userClass()),
+  );
+
+  protected step(direction: number): void {
+    this.commit(this.value() + direction * this.stepBy());
+  }
+
+  protected onInput(event: Event): void {
+    const raw = Number.parseFloat((event.target as HTMLInputElement).value);
+    this.commit(Number.isNaN(raw) ? 0 : raw);
+  }
+
+  private commit(next: number): void {
+    let value = next;
+    const min = this.min();
+    const max = this.max();
+    if (min !== null && value < min) {
+      value = min;
+    }
+    if (max !== null && value > max) {
+      value = max;
+    }
+    this.value.set(value);
+  }
+}

@@ -642,6 +642,99 @@
         </div>
       </app-example>
     }
+    @case ('accent') {
+      <app-example [code]="code.accent">
+        <div buiAccent color="#e11d48" class="flex items-center gap-2">
+          <button buiButton>Themed</button>
+          <span buiBadge>Badge</span>
+        </div>
+      </app-example>
+    }
+    @case ('kbd-group') {
+      <app-example [code]="code.kbdGroup">
+        <kbd buiKbdGroup><kbd buiKbd>⌘</kbd><kbd buiKbd>K</kbd></kbd>
+      </app-example>
+    }
+    @case ('presence') {
+      <app-example [code]="code.presence">
+        <div class="flex items-center gap-4">
+          <bui-presence status="online" [pulse]="true" [showLabel]="true" />
+          <bui-presence status="away" [showLabel]="true" />
+          <bui-presence status="busy" [showLabel]="true" />
+          <bui-presence status="offline" [showLabel]="true" />
+        </div>
+      </app-example>
+    }
+    @case ('timeline') {
+      <app-example [code]="code.timeline">
+        <ol buiTimeline class="max-w-sm">
+          <li buiTimelineItem time="09:00" title="Order placed" [active]="true">
+            We received your order.
+          </li>
+          <li buiTimelineItem time="10:30" title="Shipped">Your package is on its way.</li>
+          <li buiTimelineItem time="14:00" title="Delivered">Left at the front door.</li>
+        </ol>
+      </app-example>
+    }
+    @case ('description-list') {
+      <app-example [code]="code.descriptionList">
+        <dl buiDescriptionList [bordered]="true" class="w-full max-w-md">
+          <bui-description-item term="Plan">Pro</bui-description-item>
+          <bui-description-item term="Seats">5 of 10</bui-description-item>
+          <bui-description-item term="Renews">Jan 1, 2027</bui-description-item>
+        </dl>
+      </app-example>
+    }
+    @case ('masonry') {
+      <app-example [code]="code.masonry">
+        <div buiMasonry [columns]="3" class="w-full">
+          <div class="rounded-lg border bg-card p-4">Short</div>
+          <div class="rounded-lg border bg-card p-4">
+            A taller tile with more text inside it here.
+          </div>
+          <div class="rounded-lg border bg-card p-4">Medium height tile</div>
+          <div class="rounded-lg border bg-card p-4">Tiny</div>
+        </div>
+      </app-example>
+    }
+    @case ('bento-grid') {
+      <app-example [code]="code.bentoGrid">
+        <div buiBentoGrid [columns]="3" class="w-full">
+          <bui-bento-item title="Fast" description="Blazing performance." [colSpan]="2" />
+          <bui-bento-item title="Secure" description="Encrypted by default." />
+          <bui-bento-item title="Simple" description="Easy to use." />
+        </div>
+      </app-example>
+    }
+    @case ('gallery') {
+      <app-example [code]="code.gallery">
+        <bui-gallery class="w-full max-w-md" [images]="galleryImages" [columns]="3" />
+      </app-example>
+    }
+    @case ('loading-overlay') {
+      <app-example [code]="code.loadingOverlay">
+        <bui-loading-overlay
+          [show]="true"
+          class="w-full max-w-sm rounded-lg border p-8 text-center"
+        >
+          <p class="text-sm">Dashboard content…</p>
+        </bui-loading-overlay>
+      </app-example>
+    }
+    @case ('number-input') {
+      <app-example [code]="code.numberInput">
+        <bui-number-input [(value)]="qty" [min]="0" [max]="10" ariaLabel="Quantity" />
+      </app-example>
+    }
+    @case ('variant-selector') {
+      <app-example [code]="code.variantSelector">
+        <bui-variant-selector
+          [(value)]="sizeChoice"
+          [options]="['XS', 'S', 'M', 'L', 'XL']"
+          label="Size"
+        />
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }
