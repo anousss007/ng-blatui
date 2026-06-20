@@ -43,6 +43,8 @@ const COMPONENTS = [
   'spinner',
   'copy-button',
   'banner',
+  'table',
+  'avatar-group',
 ];
 
 @Component({

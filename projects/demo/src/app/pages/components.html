@@ -281,6 +281,35 @@
         </bui-banner>
       </app-example>
     }
+    @case ('table') {
+      <app-example [code]="code.table">
+        <div buiTableContainer variant="card" class="w-full">
+          <table buiTable>
+            <thead buiTableHeader>
+              <tr buiTableRow>
+                <th buiTableHead>Name</th>
+                <th buiTableHead>Role</th>
+              </tr>
+            </thead>
+            <tbody buiTableBody>
+              <tr buiTableRow>
+                <td buiTableCell>Ada Lovelace</td>
+                <td buiTableCell>Admin</td>
+              </tr>
+              <tr buiTableRow>
+                <td buiTableCell>Alan Turing</td>
+                <td buiTableCell>Member</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </app-example>
+    }
+    @case ('avatar-group') {
+      <app-example [code]="code.avatarGroup">
+        <bui-avatar-group [avatars]="team" [max]="3" />
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

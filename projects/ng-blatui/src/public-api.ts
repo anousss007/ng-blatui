@@ -35,3 +35,5 @@ export * from './lib/toggle/toggle';
 export * from './lib/spinner/spinner';
 export * from './lib/copy-button/copy-button';
 export * from './lib/banner/banner';
+export * from './lib/table/table';
+export * from './lib/avatar-group/avatar-group';

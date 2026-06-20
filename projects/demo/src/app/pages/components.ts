@@ -22,6 +22,7 @@ import {
   BuiAlertTitle,
   BuiAspectRatio,
   BuiAvatar,
+  BuiAvatarGroup,
   BuiBadge,
   BuiBanner,
   BuiBreadcrumb,
@@ -69,6 +70,13 @@ import {
   BuiSkeleton,
   BuiSpinner,
   BuiSwitch,
+  BuiTable,
+  BuiTableBody,
+  BuiTableCell,
+  BuiTableContainer,
+  BuiTableHead,
+  BuiTableHeader,
+  BuiTableRow,
   BuiTabList,
   BuiTabPanel,
   BuiTabs,
@@ -123,6 +131,11 @@ const META: Record<string, { title: string; description: string }> = {
   spinner: { title: 'Spinner', description: 'A spinning loading indicator.' },
   'copy-button': { title: 'Copy button', description: 'Copy text to the clipboard with feedback.' },
   banner: { title: 'Banner', description: 'A full-width, dismissible announcement bar.' },
+  table: { title: 'Table', description: 'A semantic, styled data table.' },
+  'avatar-group': {
+    title: 'Avatar group',
+    description: 'An overlapping stack of avatars with overflow.',
+  },
 };
 
 @Component({
@@ -201,6 +214,14 @@ const META: Record<string, { title: string; description: string }> = {
     BuiCopyButton,
     BuiSpinner,
     BuiToggle,
+    BuiAvatarGroup,
+    BuiTable,
+    BuiTableBody,
+    BuiTableCell,
+    BuiTableContainer,
+    BuiTableHead,
+    BuiTableHeader,
+    BuiTableRow,
   ],
   templateUrl: './components.html',
 })
@@ -222,6 +243,12 @@ export class ComponentPage {
   protected readonly terms = signal(true);
   protected readonly notifications = signal(true);
   protected readonly plan = signal('free');
+  protected readonly team = [
+    { name: 'Ada Lovelace' },
+    { name: 'Alan Turing' },
+    { name: 'Grace Hopper' },
+    { name: 'Linus Torvalds' },
+  ];
 
   protected openDialog(): void {
     this.dialog.open(this.dialogTpl(), { ariaModal: true });
@@ -406,5 +433,23 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     banner: `import { BuiBanner } from 'ng-blatui';
 
 <bui-banner tone="info">New version available — refresh to update.</bui-banner>`,
+    table: `import {
+  BuiTableContainer, BuiTable, BuiTableHeader, BuiTableBody, BuiTableRow, BuiTableHead, BuiTableCell,
+} from 'ng-blatui';
+
+<div buiTableContainer variant="card">
+  <table buiTable>
+    <thead buiTableHeader>
+      <tr buiTableRow><th buiTableHead>Name</th><th buiTableHead>Role</th></tr>
+    </thead>
+    <tbody buiTableBody>
+      <tr buiTableRow><td buiTableCell>Ada</td><td buiTableCell>Admin</td></tr>
+    </tbody>
+  </table>
+</div>`,
+    avatarGroup: `import { BuiAvatarGroup } from 'ng-blatui';
+
+<bui-avatar-group [avatars]="team" [max]="3" />
+// team = [{ name: 'Ada Lovelace' }, { name: 'Alan Turing' }, ...]`,
   };
 }
