@@ -124,6 +124,11 @@ const COMPONENTS = [
   'prompt-input',
   'heatmap',
   'citation',
+  'resizable',
+  'video',
+  'color-picker',
+  'cookie-consent',
+  'infinite-scroll',
 ];
 
 @Component({

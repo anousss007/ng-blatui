@@ -981,6 +981,54 @@
         </p>
       </app-example>
     }
+    @case ('resizable') {
+      <app-example [code]="code.resizable">
+        <bui-resizable-panel-group
+          class="h-40 w-full max-w-md rounded-lg border"
+          [(size)]="resizeSize"
+        >
+          <div
+            buiResizablePanel
+            [primary]="true"
+            class="grid place-items-center bg-muted/40 text-sm"
+          >
+            Sidebar
+          </div>
+          <bui-resizable-handle [withHandle]="true" />
+          <div buiResizablePanel class="grid place-items-center text-sm">Content</div>
+        </bui-resizable-panel-group>
+      </app-example>
+    }
+    @case ('video') {
+      <app-example [code]="code.video">
+        <bui-video
+          class="w-full max-w-md"
+          poster="https://picsum.photos/seed/vid/640/360"
+          src="https://www.w3schools.com/html/mov_bbb.mp4"
+        />
+      </app-example>
+    }
+    @case ('color-picker') {
+      <app-example [code]="code.colorPicker">
+        <bui-color-picker [(value)]="colorValue" />
+      </app-example>
+    }
+    @case ('cookie-consent') {
+      <app-example [code]="code.cookieConsent">
+        <bui-cookie-consent class="w-full max-w-xl" [demo]="true" />
+      </app-example>
+    }
+    @case ('infinite-scroll') {
+      <app-example [code]="code.infiniteScroll">
+        <bui-infinite-scroll class="w-full max-w-md">
+          <div class="space-y-2">
+            <div class="rounded border p-2 text-sm">Item 1</div>
+            <div class="rounded border p-2 text-sm">Item 2</div>
+            <div class="rounded border p-2 text-sm">Item 3</div>
+          </div>
+        </bui-infinite-scroll>
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

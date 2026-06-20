@@ -66,10 +66,12 @@ import {
   BuiCollapsible,
   BuiCollapsibleContent,
   BuiCollapsibleTrigger,
+  BuiColorPicker,
   BuiCombobox,
   BuiComparisonTable,
   BuiConfetti,
   BuiContainer,
+  BuiCookieConsent,
   BuiCopyButton,
   BuiCountdown,
   BuiDescriptionItem,
@@ -101,6 +103,7 @@ import {
   BuiHoverCard,
   BuiHoverCardContent,
   BuiImage,
+  BuiInfiniteScroll,
   BuiInput,
   BuiInputGroup,
   BuiInputGroupAddon,
@@ -150,6 +153,9 @@ import {
   BuiRadioGroupItem,
   BuiRating,
   BuiReasoning,
+  BuiResizableHandle,
+  BuiResizablePanel,
+  BuiResizablePanelGroup,
   BuiScrollArea,
   BuiScrollspy,
   BuiSegmentedControl,
@@ -194,6 +200,7 @@ import {
   BuiTypewriter,
   BuiTypography,
   BuiVariantSelector,
+  BuiVideo,
   BuiVisuallyHidden,
   Dialog,
   Menu,
@@ -366,6 +373,11 @@ const META: Record<string, { title: string; description: string }> = {
   'prompt-input': { title: 'Prompt input', description: 'An autosizing chat composer.' },
   heatmap: { title: 'Heatmap', description: 'A contribution-style activity grid.' },
   citation: { title: 'Citation', description: 'An inline source citation marker.' },
+  resizable: { title: 'Resizable', description: 'Drag-to-resize panel groups.' },
+  video: { title: 'Video', description: 'An HTML5 video with a play facade.' },
+  'color-picker': { title: 'Color picker', description: 'A colour well, hex field and swatches.' },
+  'cookie-consent': { title: 'Cookie consent', description: 'A GDPR cookie banner.' },
+  'infinite-scroll': { title: 'Infinite scroll', description: 'Loads more content on scroll.' },
 };
 
 @Component({
@@ -567,6 +579,13 @@ const META: Record<string, { title: string; description: string }> = {
     BuiPromptInput,
     BuiHeatmap,
     BuiCitation,
+    BuiResizablePanelGroup,
+    BuiResizablePanel,
+    BuiResizableHandle,
+    BuiVideo,
+    BuiColorPicker,
+    BuiCookieConsent,
+    BuiInfiniteScroll,
   ],
   templateUrl: './components.html',
 })
@@ -592,6 +611,8 @@ export class ComponentPage {
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
   protected readonly view = signal('list');
+  protected readonly colorValue = signal('#22c55e');
+  protected readonly resizeSize = signal(40);
   protected readonly otpValue = signal('');
   protected readonly phoneNumber = signal('');
   protected readonly phoneCountry = signal('US');
@@ -1198,5 +1219,26 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     citation: `import { BuiCitation } from 'ng-blatui';
 
 The sky is blue<bui-citation [index]="1" title="Rayleigh scattering" url="https://en.wikipedia.org" />.`,
+    resizable: `import { BuiResizablePanelGroup, BuiResizablePanel, BuiResizableHandle } from 'ng-blatui';
+
+<bui-resizable-panel-group class="h-40">
+  <div buiResizablePanel [primary]="true">Sidebar</div>
+  <bui-resizable-handle [withHandle]="true" />
+  <div buiResizablePanel>Content</div>
+</bui-resizable-panel-group>`,
+    video: `import { BuiVideo } from 'ng-blatui';
+
+<bui-video src="/demo.mp4" poster="/poster.jpg" />`,
+    colorPicker: `import { BuiColorPicker } from 'ng-blatui';
+
+<bui-color-picker [(value)]="color" />`,
+    cookieConsent: `import { BuiCookieConsent } from 'ng-blatui';
+
+<bui-cookie-consent (decided)="onConsent($event)" />`,
+    infiniteScroll: `import { BuiInfiniteScroll } from 'ng-blatui';
+
+<bui-infinite-scroll [loading]="loading()" [finished]="done()" (more)="loadMore()">
+  …items…
+</bui-infinite-scroll>`,
   };
 }
