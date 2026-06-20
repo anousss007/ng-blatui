@@ -55,3 +55,6 @@ export * from './lib/autosize-textarea/autosize-textarea';
 export * from './lib/dropdown-menu/dropdown-menu';
 export * from './lib/menubar/menubar';
 export * from './lib/typography/typography';
+export * from './lib/dot-pattern/dot-pattern';
+export * from './lib/grid-pattern/grid-pattern';
+export * from './lib/segmented-control/segmented-control';

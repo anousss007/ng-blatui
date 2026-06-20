@@ -61,6 +61,7 @@ import {
   BuiDialogFooter,
   BuiDialogHeader,
   BuiDialogTitle,
+  BuiDotPattern,
   BuiDropdownMenu,
   BuiDropdownMenuItem,
   BuiDropdownMenuLabel,
@@ -73,6 +74,7 @@ import {
   BuiField,
   BuiFieldDescription,
   BuiFieldLabel,
+  BuiGridPattern,
   BuiHoverCard,
   BuiHoverCardContent,
   BuiInput,
@@ -105,6 +107,7 @@ import {
   BuiRadioGroupItem,
   BuiRating,
   BuiScrollArea,
+  BuiSegmentedControl,
   BuiSeparator,
   BuiSkeleton,
   BuiSlider,
@@ -222,6 +225,12 @@ const META: Record<string, { title: string; description: string }> = {
   'dropdown-menu': { title: 'Dropdown menu', description: 'A menu of actions (Angular Aria).' },
   menubar: { title: 'Menubar', description: 'A persistent application menu bar (Angular Aria).' },
   typography: { title: 'Typography', description: 'Headings, prose and inline text styles.' },
+  'segmented-control': {
+    title: 'Segmented control',
+    description: 'A single-select group of segments.',
+  },
+  'dot-pattern': { title: 'Dot pattern', description: 'A decorative dotted background layer.' },
+  'grid-pattern': { title: 'Grid pattern', description: 'A decorative grid background layer.' },
 };
 
 @Component({
@@ -355,6 +364,9 @@ const META: Record<string, { title: string; description: string }> = {
     BuiMenubar,
     BuiMenubarTrigger,
     BuiTypography,
+    BuiDotPattern,
+    BuiGridPattern,
+    BuiSegmentedControl,
   ],
   templateUrl: './components.html',
 })
@@ -379,6 +391,7 @@ export class ComponentPage {
   protected readonly volume = signal(60);
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
+  protected readonly view = signal('list');
   protected readonly plan = signal('free');
   protected readonly team = [
     { name: 'Ada Lovelace' },
@@ -715,6 +728,19 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
   <div ngMenu #file="ngMenu" buiDropdownMenu>
     <div ngMenuItem value="new" buiDropdownMenuItem>New tab</div>
   </div>
+</div>`,
+    segmentedControl: `import { BuiSegmentedControl } from 'ng-blatui';
+
+<bui-segmented-control [(value)]="view" [options]="['list', 'grid', 'board']" />`,
+    dotPattern: `import { BuiDotPattern } from 'ng-blatui';
+
+<div class="relative h-32 rounded-lg border">
+  <bui-dot-pattern [mask]="true" />
+</div>`,
+    gridPattern: `import { BuiGridPattern } from 'ng-blatui';
+
+<div class="relative h-32 rounded-lg border">
+  <bui-grid-pattern [mask]="true" />
 </div>`,
   };
 }

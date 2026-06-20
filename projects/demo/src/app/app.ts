@@ -63,6 +63,9 @@ const COMPONENTS = [
   'dropdown-menu',
   'menubar',
   'typography',
+  'segmented-control',
+  'dot-pattern',
+  'grid-pattern',
 ];
 
 @Component({

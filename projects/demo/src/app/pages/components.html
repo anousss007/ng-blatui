@@ -480,6 +480,25 @@
         </div>
       </app-example>
     }
+    @case ('segmented-control') {
+      <app-example [code]="code.segmentedControl">
+        <bui-segmented-control [(value)]="view" [options]="['list', 'grid', 'board']" />
+      </app-example>
+    }
+    @case ('dot-pattern') {
+      <app-example [code]="code.dotPattern">
+        <div class="relative h-32 w-full overflow-hidden rounded-lg border">
+          <bui-dot-pattern [mask]="true" />
+        </div>
+      </app-example>
+    }
+    @case ('grid-pattern') {
+      <app-example [code]="code.gridPattern">
+        <div class="relative h-32 w-full overflow-hidden rounded-lg border">
+          <bui-grid-pattern [mask]="true" />
+        </div>
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }
