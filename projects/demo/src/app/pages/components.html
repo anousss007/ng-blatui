@@ -277,4 +277,49 @@
       </bui-aspect-ratio>
     </app-example>
   </section>
+
+  <section id="collapsible" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Collapsible</h2>
+    <app-example [code]="code.collapsible">
+      <div buiCollapsible class="w-full max-w-sm space-y-2">
+        <button buiCollapsibleTrigger buiButton variant="outline">Toggle details</button>
+        <div buiCollapsibleContent class="rounded-md border p-3 text-sm text-muted-foreground">
+          Hidden content revealed on toggle.
+        </div>
+      </div>
+    </app-example>
+  </section>
+
+  <section id="empty" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Empty</h2>
+    <app-example [code]="code.empty">
+      <div buiEmpty class="w-full max-w-sm">
+        <div buiEmptyHeader>
+          <div buiEmptyMedia variant="icon">📭</div>
+          <div buiEmptyTitle>No projects</div>
+          <div buiEmptyDescription>Create your first project to get started.</div>
+        </div>
+      </div>
+    </app-example>
+  </section>
+
+  <section id="field" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Field</h2>
+    <app-example [code]="code.field">
+      <div buiField class="w-full max-w-sm">
+        <label buiFieldLabel for="field-email">Email</label>
+        <input id="field-email" buiInput type="email" placeholder="m&#64;example.com" />
+        <p buiFieldDescription>We'll never share it.</p>
+      </div>
+    </app-example>
+  </section>
+
+  <section id="container" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Container</h2>
+    <app-example [code]="code.container">
+      <div buiContainer size="sm" class="rounded-lg border border-dashed py-4 text-center text-sm">
+        Centered, max-width container
+      </div>
+    </app-example>
+  </section>
 </div>

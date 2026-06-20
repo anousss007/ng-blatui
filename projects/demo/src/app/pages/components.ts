@@ -32,11 +32,23 @@ import {
   BuiCardHeader,
   BuiCardTitle,
   BuiCheckbox,
+  BuiCollapsible,
+  BuiCollapsibleContent,
+  BuiCollapsibleTrigger,
+  BuiContainer,
   BuiDialogContent,
   BuiDialogDescription,
   BuiDialogFooter,
   BuiDialogHeader,
   BuiDialogTitle,
+  BuiEmpty,
+  BuiEmptyDescription,
+  BuiEmptyHeader,
+  BuiEmptyMedia,
+  BuiEmptyTitle,
+  BuiField,
+  BuiFieldDescription,
+  BuiFieldLabel,
   BuiInput,
   BuiKbd,
   BuiLabel,
@@ -122,6 +134,18 @@ import { Example } from '../ui/example';
     BuiButtonGroup,
     BuiButtonGroupText,
     BuiKbd,
+    BuiCollapsible,
+    BuiCollapsibleContent,
+    BuiCollapsibleTrigger,
+    BuiContainer,
+    BuiEmpty,
+    BuiEmptyDescription,
+    BuiEmptyHeader,
+    BuiEmptyMedia,
+    BuiEmptyTitle,
+    BuiField,
+    BuiFieldDescription,
+    BuiFieldLabel,
   ],
   templateUrl: './components.html',
 })
@@ -275,5 +299,32 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
   <button buiButton variant="outline">Prev</button>
   <button buiButton variant="outline">Next</button>
 </div>`,
+    collapsible: `import { BuiCollapsible, BuiCollapsibleTrigger, BuiCollapsibleContent } from 'ng-blatui';
+
+<div buiCollapsible>
+  <button buiCollapsibleTrigger buiButton variant="outline">Toggle</button>
+  <div buiCollapsibleContent class="pt-2">Hidden content</div>
+</div>`,
+    empty: `import {
+  BuiEmpty, BuiEmptyHeader, BuiEmptyMedia, BuiEmptyTitle, BuiEmptyDescription,
+} from 'ng-blatui';
+
+<div buiEmpty>
+  <div buiEmptyHeader>
+    <div buiEmptyMedia variant="icon">📭</div>
+    <div buiEmptyTitle>No projects</div>
+    <div buiEmptyDescription>Create your first project to get started.</div>
+  </div>
+</div>`,
+    field: `import { BuiField, BuiFieldLabel, BuiFieldDescription } from 'ng-blatui';
+
+<div buiField>
+  <label buiFieldLabel for="email">Email</label>
+  <input id="email" buiInput type="email" />
+  <p buiFieldDescription>We'll never share it.</p>
+</div>`,
+    container: `import { BuiContainer } from 'ng-blatui';
+
+<div buiContainer size="md"><!-- page content --></div>`,
   };
 }

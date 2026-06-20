@@ -36,6 +36,10 @@ const COMPONENTS = [
   'button-group',
   'kbd',
   'aspect-ratio',
+  'collapsible',
+  'empty',
+  'field',
+  'container',
 ];
 
 @Component({
