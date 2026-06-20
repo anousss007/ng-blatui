@@ -455,6 +455,31 @@
         </div>
       </app-example>
     }
+    @case ('menubar') {
+      <app-example [code]="code.menubar">
+        <div ngMenuBar buiMenubar>
+          <button ngMenuTrigger [menu]="fileMenu" buiMenubarTrigger>File</button>
+          <div ngMenu #fileMenu="ngMenu" buiDropdownMenu>
+            <div ngMenuItem value="new" buiDropdownMenuItem>New tab</div>
+            <div ngMenuItem value="open" buiDropdownMenuItem>Open…</div>
+          </div>
+          <button ngMenuTrigger [menu]="editMenu" buiMenubarTrigger>Edit</button>
+          <div ngMenu #editMenu="ngMenu" buiDropdownMenu>
+            <div ngMenuItem value="undo" buiDropdownMenuItem>Undo</div>
+            <div ngMenuItem value="redo" buiDropdownMenuItem>Redo</div>
+          </div>
+        </div>
+      </app-example>
+    }
+    @case ('typography') {
+      <app-example [code]="code.typography">
+        <div class="space-y-2">
+          <h1 buiTypography variant="h1">The quick brown fox</h1>
+          <p buiTypography variant="lead">A modern, accessible Angular UI library.</p>
+          <p buiTypography variant="muted">Built on signals, Angular Aria &amp; the CDK.</p>
+        </div>
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

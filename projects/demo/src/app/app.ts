@@ -61,6 +61,8 @@ const COMPONENTS = [
   'alert-dialog',
   'autosize-textarea',
   'dropdown-menu',
+  'menubar',
+  'typography',
 ];
 
 @Component({

@@ -89,6 +89,8 @@ import {
   BuiItemTitle,
   BuiKbd,
   BuiLabel,
+  BuiMenubar,
+  BuiMenubarTrigger,
   BuiMeter,
   BuiPagination,
   BuiPaginationContent,
@@ -123,9 +125,11 @@ import {
   BuiTextarea,
   BuiToggle,
   BuiTooltip,
+  BuiTypography,
   BuiVisuallyHidden,
   Dialog,
   Menu,
+  MenuBar,
   MenuItem,
   MenuTrigger,
   Tab,
@@ -216,6 +220,8 @@ const META: Record<string, { title: string; description: string }> = {
     description: 'A textarea that grows with content.',
   },
   'dropdown-menu': { title: 'Dropdown menu', description: 'A menu of actions (Angular Aria).' },
+  menubar: { title: 'Menubar', description: 'A persistent application menu bar (Angular Aria).' },
+  typography: { title: 'Typography', description: 'Headings, prose and inline text styles.' },
 };
 
 @Component({
@@ -345,6 +351,10 @@ const META: Record<string, { title: string; description: string }> = {
     Menu,
     MenuItem,
     MenuTrigger,
+    MenuBar,
+    BuiMenubar,
+    BuiMenubarTrigger,
+    BuiTypography,
   ],
   templateUrl: './components.html',
 })
@@ -689,6 +699,21 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     <div buiDropdownMenuSeparator></div>
     <div ngMenuItem value="profile" buiDropdownMenuItem>Profile</div>
     <div ngMenuItem value="settings" buiDropdownMenuItem>Settings</div>
+  </div>
+</div>`,
+    typography: `import { BuiTypography } from 'ng-blatui';
+
+<h1 buiTypography variant="h1">The quick brown fox</h1>
+<p buiTypography variant="lead">A modern Angular UI library.</p>`,
+    menubar: `import {
+  MenuBar, Menu, MenuItem, MenuTrigger,
+  BuiMenubar, BuiMenubarTrigger, BuiDropdownMenu, BuiDropdownMenuItem,
+} from 'ng-blatui';
+
+<div ngMenuBar buiMenubar>
+  <button ngMenuTrigger [menu]="file" buiMenubarTrigger>File</button>
+  <div ngMenu #file="ngMenu" buiDropdownMenu>
+    <div ngMenuItem value="new" buiDropdownMenuItem>New tab</div>
   </div>
 </div>`,
   };
