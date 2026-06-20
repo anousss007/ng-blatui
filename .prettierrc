@@ -1,0 +1,23 @@
+{
+  "printWidth": 100,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "semi": true,
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindStylesheet": "./projects/demo/src/styles.css",
+  "tailwindFunctions": ["cn", "cva", "clsx", "twMerge", "tv"],
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "parser": "angular"
+      }
+    },
+    {
+      "files": "index.html",
+      "options": {
+        "parser": "html"
+      }
+    }
+  ]
+}
