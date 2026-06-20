@@ -23,6 +23,7 @@ import {
   BuiAspectRatio,
   BuiAvatar,
   BuiBadge,
+  BuiBanner,
   BuiBreadcrumb,
   BuiBreadcrumbEllipsis,
   BuiBreadcrumbItem,
@@ -44,6 +45,7 @@ import {
   BuiCollapsibleContent,
   BuiCollapsibleTrigger,
   BuiContainer,
+  BuiCopyButton,
   BuiDialogContent,
   BuiDialogDescription,
   BuiDialogFooter,
@@ -65,12 +67,14 @@ import {
   BuiRadioGroupItem,
   BuiSeparator,
   BuiSkeleton,
+  BuiSpinner,
   BuiSwitch,
   BuiTabList,
   BuiTabPanel,
   BuiTabs,
   BuiTabTrigger,
   BuiTextarea,
+  BuiToggle,
   BuiTooltip,
   Dialog,
   Tab,
@@ -115,6 +119,10 @@ const META: Record<string, { title: string; description: string }> = {
   empty: { title: 'Empty', description: 'An empty-state placeholder.' },
   field: { title: 'Field', description: 'Compose labels, controls, descriptions and errors.' },
   container: { title: 'Container', description: 'A centered, padded page-width container.' },
+  toggle: { title: 'Toggle', description: 'A two-state button (aria-pressed).' },
+  spinner: { title: 'Spinner', description: 'A spinning loading indicator.' },
+  'copy-button': { title: 'Copy button', description: 'Copy text to the clipboard with feedback.' },
+  banner: { title: 'Banner', description: 'A full-width, dismissible announcement bar.' },
 };
 
 @Component({
@@ -189,6 +197,10 @@ const META: Record<string, { title: string; description: string }> = {
     BuiField,
     BuiFieldDescription,
     BuiFieldLabel,
+    BuiBanner,
+    BuiCopyButton,
+    BuiSpinner,
+    BuiToggle,
   ],
   templateUrl: './components.html',
 })
@@ -380,5 +392,19 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     container: `import { BuiContainer } from 'ng-blatui';
 
 <div buiContainer size="md"><!-- page content --></div>`,
+    toggle: `import { BuiToggle } from 'ng-blatui';
+
+<button buiToggle aria-label="Bold">B</button>
+<button buiToggle variant="outline" aria-label="Italic">I</button>`,
+    spinner: `import { BuiSpinner } from 'ng-blatui';
+
+<bui-spinner />
+<bui-spinner class="size-6" />`,
+    copyButton: `import { BuiCopyButton } from 'ng-blatui';
+
+<button buiCopyButton value="npm i ng-blatui" label="Copy command">Copy</button>`,
+    banner: `import { BuiBanner } from 'ng-blatui';
+
+<bui-banner tone="info">New version available — refresh to update.</bui-banner>`,
   };
 }

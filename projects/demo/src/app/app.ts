@@ -39,6 +39,10 @@ const COMPONENTS = [
   'empty',
   'field',
   'container',
+  'toggle',
+  'spinner',
+  'copy-button',
+  'banner',
 ];
 
 @Component({

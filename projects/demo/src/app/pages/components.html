@@ -257,6 +257,30 @@
         </div>
       </app-example>
     }
+    @case ('toggle') {
+      <app-example [code]="code.toggle">
+        <button buiToggle aria-label="Bold">B</button>
+        <button buiToggle variant="outline" aria-label="Italic">I</button>
+      </app-example>
+    }
+    @case ('spinner') {
+      <app-example [code]="code.spinner">
+        <bui-spinner />
+        <bui-spinner class="size-6" />
+      </app-example>
+    }
+    @case ('copy-button') {
+      <app-example [code]="code.copyButton">
+        <button buiCopyButton value="npm i ng-blatui" label="Copy command">Copy</button>
+      </app-example>
+    }
+    @case ('banner') {
+      <app-example [code]="code.banner">
+        <bui-banner tone="info" class="rounded-md border">
+          New version available — refresh to update.
+        </bui-banner>
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }
