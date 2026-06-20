@@ -119,6 +119,11 @@ const COMPONENTS = [
   'chat',
   'confetti',
   'stepper',
+  'input-otp',
+  'phone-input',
+  'prompt-input',
+  'heatmap',
+  'citation',
 ];
 
 @Component({

@@ -948,6 +948,39 @@
         </bui-stepper>
       </app-example>
     }
+    @case ('input-otp') {
+      <app-example [code]="code.inputOtp">
+        <bui-input-otp [(value)]="otpValue" [maxlength]="6" />
+      </app-example>
+    }
+    @case ('phone-input') {
+      <app-example [code]="code.phoneInput">
+        <bui-phone-input class="max-w-xs" [(value)]="phoneNumber" [(country)]="phoneCountry" />
+      </app-example>
+    }
+    @case ('prompt-input') {
+      <app-example [code]="code.promptInput">
+        <bui-prompt-input class="w-full max-w-md" [attachable]="true" />
+      </app-example>
+    }
+    @case ('heatmap') {
+      <app-example [code]="code.heatmap">
+        <bui-heatmap />
+      </app-example>
+    }
+    @case ('citation') {
+      <app-example [code]="code.citation">
+        <p class="text-sm">
+          The sky appears blue<bui-citation
+            [index]="1"
+            title="Rayleigh scattering"
+            url="https://en.wikipedia.org/wiki/Rayleigh_scattering"
+            snippet="Shorter wavelengths scatter more strongly."
+          />
+          due to the scattering of sunlight.
+        </p>
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

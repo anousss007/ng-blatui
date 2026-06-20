@@ -118,3 +118,8 @@ export * from './lib/chat/chat-message';
 export * from './lib/confetti/confetti';
 export * from './lib/stepper/stepper';
 export * from './lib/stepper/stepper-item';
+export * from './lib/input-otp/input-otp';
+export * from './lib/phone-input/phone-input';
+export * from './lib/prompt-input/prompt-input';
+export * from './lib/heatmap/heatmap';
+export * from './lib/citation/citation';

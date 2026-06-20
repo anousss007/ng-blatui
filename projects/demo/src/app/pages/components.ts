@@ -61,6 +61,7 @@ import {
   BuiChat,
   BuiChatMessage,
   BuiCheckbox,
+  BuiCitation,
   BuiCodeBlock,
   BuiCollapsible,
   BuiCollapsibleContent,
@@ -96,6 +97,7 @@ import {
   BuiGallery,
   BuiGradientText,
   BuiGridPattern,
+  BuiHeatmap,
   BuiHoverCard,
   BuiHoverCardContent,
   BuiImage,
@@ -105,6 +107,7 @@ import {
   BuiInputGroupButton,
   BuiInputGroupInput,
   BuiInputGroupText,
+  BuiInputOtp,
   BuiItem,
   BuiItemActions,
   BuiItemContent,
@@ -133,12 +136,14 @@ import {
   BuiPaginationLink,
   BuiParallax,
   BuiPasswordStrength,
+  BuiPhoneInput,
   BuiPopover,
   BuiPopoverContent,
   BuiPresence,
   BuiPrice,
   BuiProductCard,
   BuiProgress,
+  BuiPromptInput,
   BuiQuantitySelector,
   BuiQuote,
   BuiRadioGroup,
@@ -356,6 +361,11 @@ const META: Record<string, { title: string; description: string }> = {
   chat: { title: 'Chat', description: 'A conversation log with message bubbles.' },
   confetti: { title: 'Confetti', description: 'A celebratory particle burst.' },
   stepper: { title: 'Stepper', description: 'A multi-step progress indicator.' },
+  'input-otp': { title: 'Input OTP', description: 'A one-time-password box input.' },
+  'phone-input': { title: 'Phone input', description: 'A phone field with country code.' },
+  'prompt-input': { title: 'Prompt input', description: 'An autosizing chat composer.' },
+  heatmap: { title: 'Heatmap', description: 'A contribution-style activity grid.' },
+  citation: { title: 'Citation', description: 'An inline source citation marker.' },
 };
 
 @Component({
@@ -552,6 +562,11 @@ const META: Record<string, { title: string; description: string }> = {
     BuiConfetti,
     BuiStepper,
     BuiStepperItem,
+    BuiInputOtp,
+    BuiPhoneInput,
+    BuiPromptInput,
+    BuiHeatmap,
+    BuiCitation,
   ],
   templateUrl: './components.html',
 })
@@ -577,6 +592,9 @@ export class ComponentPage {
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
   protected readonly view = signal('list');
+  protected readonly otpValue = signal('');
+  protected readonly phoneNumber = signal('');
+  protected readonly phoneCountry = signal('US');
   protected readonly toggleAlign = signal<string | string[] | null>('center');
   protected readonly tagList = signal(['angular', 'signals']);
   protected readonly editName = signal('Ada Lovelace');
@@ -1165,5 +1183,20 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
   <li buiStepperItem [step]="2">Profile</li>
   <li buiStepperItem [step]="3">Done</li>
 </bui-stepper>`,
+    inputOtp: `import { BuiInputOtp } from 'ng-blatui';
+
+<bui-input-otp [(value)]="code" [maxlength]="6" />`,
+    phoneInput: `import { BuiPhoneInput } from 'ng-blatui';
+
+<bui-phone-input [(value)]="phone" [(country)]="country" />`,
+    promptInput: `import { BuiPromptInput } from 'ng-blatui';
+
+<bui-prompt-input [attachable]="true" (submitted)="send($event)" />`,
+    heatmap: `import { BuiHeatmap } from 'ng-blatui';
+
+<bui-heatmap [data]="activity" />`,
+    citation: `import { BuiCitation } from 'ng-blatui';
+
+The sky is blue<bui-citation [index]="1" title="Rayleigh scattering" url="https://en.wikipedia.org" />.`,
   };
 }
