@@ -110,6 +110,7 @@ import {
   BuiRating,
   BuiScrollArea,
   BuiSegmentedControl,
+  BuiSelect,
   BuiSeparator,
   BuiSkeleton,
   BuiSlider,
@@ -247,6 +248,7 @@ const META: Record<string, { title: string; description: string }> = {
     description: 'A card with a cursor-following glow.',
   },
   'tilt-card': { title: 'Tilt card', description: 'A card that tilts in 3D toward the cursor.' },
+  select: { title: 'Select', description: 'An accessible select (combobox + listbox).' },
 };
 
 @Component({
@@ -388,6 +390,7 @@ const META: Record<string, { title: string; description: string }> = {
     BuiFlipCard,
     BuiSpotlightCard,
     BuiTiltCard,
+    BuiSelect,
   ],
   templateUrl: './components.html',
 })
@@ -413,6 +416,12 @@ export class ComponentPage {
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
   protected readonly view = signal('list');
+  protected readonly fruit = signal('');
+  protected readonly fruits = [
+    { value: 'apple', label: 'Apple' },
+    { value: 'banana', label: 'Banana' },
+    { value: 'cherry', label: 'Cherry' },
+  ];
   protected readonly pricingRows = [
     { feature: 'Projects', values: ['3', 'Unlimited', 'Unlimited'] },
     { feature: 'Analytics', values: [false, true, true] },
@@ -789,5 +798,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     tiltCard: `import { BuiTiltCard } from 'ng-blatui';
 
 <bui-tilt-card><div class="p-6">Tilt me</div></bui-tilt-card>`,
+    select: `import { BuiSelect } from 'ng-blatui';
+
+<bui-select [(value)]="fruit" [options]="fruits" placeholder="Pick a fruit" />
+// fruits = [{ value: 'apple', label: 'Apple' }, ...]`,
   };
 }

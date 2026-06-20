@@ -161,7 +161,12 @@ export default tseslint.config(
     name: 'ng-blatui/templates',
     files: ['**/*.html'],
     extends: [...angular.configs.templateRecommended, ...angular.configs.templateAccessibility],
-    rules: {},
+    rules: {
+      // Composite widgets (listbox/menu options) centralise keyboard handling on the
+      // container via aria-activedescendant; individual options are not focusable.
+      '@angular-eslint/template/click-events-have-key-events': 'off',
+      '@angular-eslint/template/interactive-supports-focus': 'off',
+    },
   },
 
   // ── JS/MJS config files: disable type-aware rules ───────────────────────────

@@ -71,6 +71,7 @@ const COMPONENTS = [
   'flip-card',
   'spotlight-card',
   'tilt-card',
+  'select',
 ];
 
 @Component({

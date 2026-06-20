@@ -545,6 +545,16 @@
         </bui-tilt-card>
       </app-example>
     }
+    @case ('select') {
+      <app-example [code]="code.select">
+        <bui-select
+          class="max-w-xs"
+          [(value)]="fruit"
+          [options]="fruits"
+          placeholder="Pick a fruit"
+        />
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

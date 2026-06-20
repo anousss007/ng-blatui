@@ -63,3 +63,4 @@ export * from './lib/comparison-table/comparison-table';
 export * from './lib/flip-card/flip-card';
 export * from './lib/spotlight-card/spotlight-card';
 export * from './lib/tilt-card/tilt-card';
+export * from './lib/select/select';
