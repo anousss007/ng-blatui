@@ -18,6 +18,6 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - run: npm run build:lib # build first so the `ng-blatui` path (dist/) resolves for lint/types
       - run: npm run lint
       - run: npm run test:ci
-      - run: npm run build:lib

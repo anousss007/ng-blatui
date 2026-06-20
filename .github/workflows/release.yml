@@ -35,9 +35,9 @@ jobs:
           cache: npm
           registry-url: https://registry.npmjs.org
       - run: npm ci
+      - run: npm run build:lib # build first so the `ng-blatui` path (dist/) resolves for lint/types
       - run: npm run lint
       - run: npm run test:ci
-      - run: npm run build:lib
       - name: Release (GitHub release + npm publish)
         if: env.NPM_TOKEN != ''
         run: npx semantic-release
