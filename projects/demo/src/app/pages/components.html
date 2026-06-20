@@ -1,0 +1,211 @@
+<div class="max-w-3xl space-y-14">
+  <header class="space-y-2">
+    <h1 class="text-3xl font-bold tracking-tight">Components</h1>
+    <p class="text-muted-foreground">
+      Live previews with copy-paste code. Every component is standalone — import it and go.
+    </p>
+  </header>
+
+  <section id="button" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Button</h2>
+    <app-example [code]="code.button">
+      <button buiButton>Default</button>
+      <button buiButton variant="secondary">Secondary</button>
+      <button buiButton variant="destructive">Delete</button>
+      <button buiButton variant="outline" size="sm">Small</button>
+    </app-example>
+  </section>
+
+  <section id="badge" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Badge</h2>
+    <app-example [code]="code.badge">
+      <span buiBadge>Default</span>
+      <span buiBadge tone="success">Success</span>
+      <span buiBadge tone="danger" variant="solid">Solid</span>
+    </app-example>
+  </section>
+
+  <section id="card" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Card</h2>
+    <app-example [code]="code.card">
+      <div buiCard variant="sectioned" class="w-full max-w-sm">
+        <div buiCardHeader>
+          <h3 buiCardTitle>Sign in</h3>
+          <p buiCardDescription>Enter your credentials to continue.</p>
+        </div>
+        <div buiCardContent class="space-y-2">
+          <label buiLabel for="card-email">Email</label>
+          <input id="card-email" buiInput type="email" placeholder="m&#64;example.com" />
+        </div>
+        <div buiCardFooter><button buiButton class="w-full">Sign in</button></div>
+      </div>
+    </app-example>
+  </section>
+
+  <section id="alert" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Alert</h2>
+    <app-example [code]="code.alert">
+      <div buiAlert tone="success" class="w-full">
+        <h5 buiAlertTitle>Saved</h5>
+        <div buiAlertDescription>Your changes were saved successfully.</div>
+      </div>
+    </app-example>
+  </section>
+
+  <section id="input" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Input</h2>
+    <app-example [code]="code.input">
+      <input buiInput type="email" placeholder="m&#64;example.com" class="max-w-xs" />
+    </app-example>
+  </section>
+
+  <section id="textarea" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Textarea</h2>
+    <app-example [code]="code.textarea">
+      <textarea buiTextarea placeholder="Your message" class="max-w-xs"></textarea>
+    </app-example>
+  </section>
+
+  <section id="label" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Label</h2>
+    <app-example [code]="code.label">
+      <div class="space-y-2">
+        <label buiLabel for="demo-email">Email</label>
+        <input id="demo-email" buiInput class="max-w-xs" />
+      </div>
+    </app-example>
+  </section>
+
+  <section id="separator" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Separator</h2>
+    <app-example [code]="code.separator">
+      <div class="w-full space-y-3">
+        <div class="text-sm">Above</div>
+        <div buiSeparator></div>
+        <div class="text-sm">Below</div>
+      </div>
+    </app-example>
+  </section>
+
+  <section id="skeleton" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Skeleton</h2>
+    <app-example [code]="code.skeleton">
+      <div class="flex items-center gap-4">
+        <div buiSkeleton class="size-12 rounded-full"></div>
+        <div class="space-y-2">
+          <div buiSkeleton class="h-4 w-48"></div>
+          <div buiSkeleton class="h-4 w-32"></div>
+        </div>
+      </div>
+    </app-example>
+  </section>
+
+  <section id="avatar" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Avatar</h2>
+    <app-example [code]="code.avatar">
+      <bui-avatar>AB</bui-avatar>
+      <bui-avatar class="size-12">CD</bui-avatar>
+    </app-example>
+  </section>
+
+  <section id="progress" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Progress</h2>
+    <app-example [code]="code.progress">
+      <bui-progress class="max-w-xs" [value]="60" ariaLabel="Upload progress" />
+    </app-example>
+  </section>
+
+  <section id="checkbox" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Checkbox</h2>
+    <app-example [code]="code.checkbox">
+      <button buiCheckbox aria-labelledby="cb-lbl" [(checked)]="terms">
+        <span class="sr-only">Accept terms</span>
+      </button>
+      <span id="cb-lbl" class="text-sm">Accept terms and conditions</span>
+    </app-example>
+  </section>
+
+  <section id="switch" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Switch</h2>
+    <app-example [code]="code.switch">
+      <button buiSwitch aria-labelledby="sw-lbl" [(checked)]="notifications">
+        <span class="sr-only">Enable notifications</span>
+      </button>
+      <span id="sw-lbl" class="text-sm">Enable notifications</span>
+    </app-example>
+  </section>
+
+  <section id="accordion" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">
+      Accordion <span class="text-sm text-muted-foreground">· Angular Aria</span>
+    </h2>
+    <app-example [code]="code.accordion">
+      <div ngAccordionGroup buiAccordion class="w-full" [multiExpandable]="false">
+        <div buiAccordionItem>
+          <h3 class="flex">
+            <button ngAccordionTrigger buiAccordionTrigger [panel]="ap1">
+              Is it accessible?
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+          </h3>
+          <div ngAccordionPanel #ap1="ngAccordionPanel" buiAccordionContent>
+            <ng-template ngAccordionContent>
+              <div class="pb-4">Yes — behaviour and ARIA come from Angular Aria.</div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </app-example>
+  </section>
+
+  <section id="tabs" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">
+      Tabs <span class="text-sm text-muted-foreground">· Angular Aria</span>
+    </h2>
+    <app-example [code]="code.tabs">
+      <div ngTabs buiTabs class="w-full">
+        <div ngTabList buiTabList selectedTab="account">
+          <div ngTab value="account" buiTabTrigger>Account</div>
+          <div ngTab value="password" buiTabTrigger>Password</div>
+        </div>
+        <div ngTabPanel value="account" buiTabPanel class="pt-2 text-sm">
+          <ng-template ngTabContent>Manage your account settings.</ng-template>
+        </div>
+        <div ngTabPanel value="password" buiTabPanel class="pt-2 text-sm">
+          <ng-template ngTabContent>Change your password here.</ng-template>
+        </div>
+      </div>
+    </app-example>
+  </section>
+
+  <section id="dialog" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">
+      Dialog <span class="text-sm text-muted-foreground">· Angular CDK</span>
+    </h2>
+    <app-example [code]="code.dialog">
+      <button buiButton (click)="openDialog()">Open dialog</button>
+    </app-example>
+    <ng-template #dialogTpl>
+      <div buiDialogContent>
+        <div buiDialogHeader>
+          <h2 buiDialogTitle>Delete project?</h2>
+          <p buiDialogDescription>This action cannot be undone.</p>
+        </div>
+        <div buiDialogFooter>
+          <button buiButton variant="destructive">Delete</button>
+        </div>
+      </div>
+    </ng-template>
+  </section>
+</div>

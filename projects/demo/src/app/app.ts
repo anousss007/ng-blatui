@@ -1,95 +1,60 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
-import {
-  AccordionContent,
-  AccordionGroup,
-  AccordionPanel,
-  AccordionTrigger,
-  BuiAccordion,
-  BuiAccordionContent,
-  BuiAccordionItem,
-  BuiAccordionTrigger,
-  BuiAlert,
-  BuiAlertDescription,
-  BuiAlertTitle,
-  BuiAvatar,
-  BuiBadge,
-  BuiButton,
-  BuiCard,
-  BuiCardAction,
-  BuiCardContent,
-  BuiCardDescription,
-  BuiCardFooter,
-  BuiCardHeader,
-  BuiCardTitle,
-  BuiCheckbox,
-  BuiInput,
-  BuiLabel,
-  BuiProgress,
-  BuiSeparator,
-  BuiSkeleton,
-  BuiSwitch,
-  BuiTabList,
-  BuiTabPanel,
-  BuiTabs,
-  BuiTabTrigger,
-  BuiTextarea,
-  BuiThemeCustomizer,
-  Tab,
-  TabContent,
-  TabList,
-  TabPanel,
-  Tabs,
-} from 'ng-blatui';
+import { BuiButton, BuiThemeCustomizer } from 'ng-blatui';
+
+interface NavLink {
+  readonly label: string;
+  readonly path: string;
+  readonly fragment?: string;
+}
+interface NavGroup {
+  readonly title: string;
+  readonly links: readonly NavLink[];
+}
+
+const COMPONENTS = [
+  'button',
+  'badge',
+  'card',
+  'alert',
+  'input',
+  'textarea',
+  'label',
+  'separator',
+  'skeleton',
+  'avatar',
+  'progress',
+  'checkbox',
+  'switch',
+  'accordion',
+  'tabs',
+  'dialog',
+];
 
 @Component({
   selector: 'app-root',
-  imports: [
-    BuiButton,
-    BuiBadge,
-    BuiLabel,
-    BuiSeparator,
-    BuiSkeleton,
-    BuiCard,
-    BuiCardHeader,
-    BuiCardTitle,
-    BuiCardDescription,
-    BuiCardContent,
-    BuiCardFooter,
-    BuiCardAction,
-    BuiAlert,
-    BuiAlertTitle,
-    BuiAlertDescription,
-    BuiInput,
-    BuiTextarea,
-    BuiAvatar,
-    BuiProgress,
-    BuiCheckbox,
-    BuiSwitch,
-    AccordionGroup,
-    AccordionTrigger,
-    AccordionPanel,
-    AccordionContent,
-    BuiAccordion,
-    BuiAccordionItem,
-    BuiAccordionTrigger,
-    BuiAccordionContent,
-    Tabs,
-    TabList,
-    Tab,
-    TabPanel,
-    TabContent,
-    BuiTabs,
-    BuiTabList,
-    BuiTabTrigger,
-    BuiTabPanel,
-    BuiThemeCustomizer,
-  ],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, BuiButton, BuiThemeCustomizer],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
-  protected readonly terms = signal(true);
-  protected readonly newsletter = signal(false);
-  protected readonly notifications = signal(true);
+  protected readonly nav: readonly NavGroup[] = [
+    {
+      title: 'Getting started',
+      links: [
+        { label: 'Introduction', path: '/' },
+        { label: 'Installation', path: '/docs/installation' },
+        { label: 'Theming', path: '/docs/theming' },
+      ],
+    },
+    {
+      title: 'Components',
+      links: COMPONENTS.map((slug) => ({
+        label: slug.charAt(0).toUpperCase() + slug.slice(1),
+        path: '/components',
+        fragment: slug,
+      })),
+    },
+  ];
 }

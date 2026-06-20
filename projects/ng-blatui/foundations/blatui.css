@@ -1,10 +1,8 @@
-@import 'tailwindcss';
-
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../vendor/mallardduck/blade-lucide-icons/resources/svg/*.svg';
-@source '../../storage/framework/views/*.php';
-@source '../views';
-
+/* ng-blatui design tokens. In your app's styles.css:
+ *   @import 'tailwindcss';
+ *   @import 'ng-blatui/foundations/blatui.css';
+ *   @source '../node_modules/ng-blatui';   (so Tailwind generates the lib's utilities)
+ */
 @custom-variant dark (&:is(.dark *));
 
 /* -------------------------------------------------------------------------- */

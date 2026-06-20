@@ -14,6 +14,7 @@
     "build:lib": "ng build ng-blatui",
     "test:ci": "ng test ng-blatui --watch=false",
     "release": "semantic-release",
+    "deploy:site": "bash scripts/deploy-site.sh",
     "prepare": "husky"
   },
   "private": true,

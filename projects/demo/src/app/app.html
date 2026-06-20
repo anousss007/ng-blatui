@@ -1,292 +1,60 @@
 <div class="min-h-screen bg-background text-foreground">
-  <div class="mx-auto max-w-5xl space-y-12 p-6 sm:p-10">
-    <header class="space-y-6 py-8">
-      <div class="space-y-3">
-        <span buiBadge tone="info" variant="soft">v1.0 · MIT · Angular 22</span>
-        <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">ng-blatui</h1>
-        <p class="max-w-2xl text-lg text-muted-foreground">
-          BlatUI, ported to Angular. Accessible, themeable components built on signals,
-          Angular&nbsp;Aria &amp; the CDK — styled with Tailwind&nbsp;CSS&nbsp;v4. Copy-paste
-          friendly, you own the code.
-        </p>
-      </div>
-      <div class="flex flex-wrap items-center gap-3">
-        <a buiButton href="https://www.npmjs.com/package/ng-blatui" rel="noreferrer">Get started</a>
+  <header class="sticky top-0 z-40 border-b bg-background/80 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+      <a routerLink="/" class="text-lg font-bold tracking-tight">ng-blatui</a>
+      <nav class="flex items-center gap-1">
+        <a buiButton variant="ghost" size="sm" routerLink="/docs/installation">Docs</a>
+        <a buiButton variant="ghost" size="sm" routerLink="/components">Components</a>
         <a
           buiButton
-          variant="outline"
+          variant="ghost"
+          size="sm"
           href="https://github.com/anousss007/ng-blatui"
           rel="noreferrer"
         >
           GitHub
         </a>
-      </div>
-      <div
-        class="w-fit max-w-full overflow-x-auto rounded-lg border bg-muted/50 px-4 py-3 font-mono text-sm text-foreground"
-      >
-        npm i ng-blatui &#64;angular/cdk &#64;angular/aria
-      </div>
-    </header>
+        <a
+          buiButton
+          variant="ghost"
+          size="sm"
+          href="https://www.npmjs.com/package/ng-blatui"
+          rel="noreferrer"
+        >
+          npm
+        </a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- Buttons -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold">Buttons</h2>
-      <div class="flex flex-wrap items-center gap-3">
-        <button buiButton>Default</button>
-        <button buiButton variant="secondary">Secondary</button>
-        <button buiButton variant="destructive">Destructive</button>
-        <button buiButton variant="outline">Outline</button>
-        <button buiButton variant="ghost">Ghost</button>
-        <button buiButton variant="link">Link</button>
-        <button buiButton disabled>Disabled</button>
-      </div>
-      <div class="flex flex-wrap items-center gap-3">
-        <button buiButton size="sm">Small</button>
-        <button buiButton size="default">Default</button>
-        <button buiButton size="lg">Large</button>
-      </div>
-    </section>
+  <div class="mx-auto flex max-w-6xl gap-8 px-4 py-8">
+    <aside class="sticky top-20 hidden h-[calc(100vh-6rem)] w-52 shrink-0 overflow-y-auto md:block">
+      @for (group of nav; track group.title) {
+        <div class="mb-6">
+          <p class="mb-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+            {{ group.title }}
+          </p>
+          <ul class="space-y-0.5">
+            @for (link of group.links; track link.label) {
+              <li>
+                <a
+                  class="block rounded-md px-2 py-1 text-sm text-muted-foreground hover:bg-accent hover:text-foreground"
+                  [routerLink]="link.path"
+                  [fragment]="link.fragment"
+                  routerLinkActive="text-foreground font-medium"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  >{{ link.label }}</a
+                >
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </aside>
 
-    <!-- Badges -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold">Badges</h2>
-      <div class="flex flex-wrap items-center gap-2">
-        <span buiBadge>Default</span>
-        <span buiBadge variant="secondary">Secondary</span>
-        <span buiBadge variant="destructive">Destructive</span>
-        <span buiBadge variant="outline">Outline</span>
-      </div>
-      <div class="flex flex-wrap items-center gap-2">
-        <span buiBadge tone="success">Success</span>
-        <span buiBadge tone="warning">Warning</span>
-        <span buiBadge tone="danger">Danger</span>
-        <span buiBadge tone="info">Info</span>
-        <span buiBadge tone="neutral">Neutral</span>
-        <span buiBadge tone="success" variant="solid">Solid</span>
-        <span buiBadge tone="info" variant="outline">Outline</span>
-      </div>
-    </section>
-
-    <!-- Card -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold">Card</h2>
-      <div buiCard variant="sectioned" class="max-w-sm">
-        <div buiCardHeader>
-          <h3 buiCardTitle>Sign in</h3>
-          <p buiCardDescription>Enter your credentials to continue.</p>
-          <div buiCardAction>
-            <button buiButton variant="ghost" size="sm">Help</button>
-          </div>
-        </div>
-        <div buiCardContent class="space-y-4">
-          <div class="space-y-2">
-            <label buiLabel for="email">Email</label>
-            <input id="email" buiInput type="email" placeholder="m&#64;example.com" />
-          </div>
-          <div class="space-y-2">
-            <label buiLabel for="password">Password</label>
-            <input id="password" buiInput type="password" />
-          </div>
-        </div>
-        <div buiCardFooter class="border-t">
-          <button buiButton class="w-full">Sign in</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Alerts -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold">Alerts</h2>
-      <div class="grid gap-3 sm:grid-cols-2">
-        <div buiAlert>
-          <h5 buiAlertTitle>Heads up</h5>
-          <div buiAlertDescription>This is the default alert style.</div>
-        </div>
-        <div buiAlert tone="success">
-          <h5 buiAlertTitle>Saved</h5>
-          <div buiAlertDescription>Your changes were saved successfully.</div>
-        </div>
-        <div buiAlert tone="warning">
-          <h5 buiAlertTitle>Careful</h5>
-          <div buiAlertDescription>This action needs your attention.</div>
-        </div>
-        <div buiAlert tone="danger">
-          <h5 buiAlertTitle>Error</h5>
-          <div buiAlertDescription>Something went wrong.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Separator + Skeleton -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold">Separator &amp; Skeleton</h2>
-      <div class="flex items-center gap-3 text-sm">
-        <span>Docs</span>
-        <span buiSeparator [decorative]="false" orientation="vertical" class="h-4"></span>
-        <span>Guides</span>
-        <span buiSeparator [decorative]="false" orientation="vertical" class="h-4"></span>
-        <span>API</span>
-      </div>
-      <div buiSeparator class="my-2"></div>
-      <div class="flex items-center gap-4">
-        <div buiSkeleton class="size-12 rounded-full"></div>
-        <div class="space-y-2">
-          <div buiSkeleton class="h-4 w-48"></div>
-          <div buiSkeleton class="h-4 w-32"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Inputs -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold">Inputs</h2>
-      <div class="grid max-w-md gap-4">
-        <div class="space-y-2">
-          <label buiLabel for="name">Name</label>
-          <input id="name" buiInput placeholder="Jane Doe" />
-        </div>
-        <div class="space-y-2">
-          <label buiLabel for="bio">Bio</label>
-          <textarea id="bio" buiTextarea placeholder="A few words about you"></textarea>
-        </div>
-        <div class="flex flex-wrap gap-3">
-          <input buiInput size="sm" placeholder="Small" aria-label="Small input" class="max-w-40" />
-          <input
-            buiInput
-            size="default"
-            placeholder="Default"
-            aria-label="Default input"
-            class="max-w-40"
-          />
-          <input buiInput size="lg" placeholder="Large" aria-label="Large input" class="max-w-40" />
-        </div>
-      </div>
-    </section>
-
-    <!-- Avatars -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold">Avatars</h2>
-      <div class="flex items-center gap-3">
-        <bui-avatar>AB</bui-avatar>
-        <bui-avatar class="size-12">CD</bui-avatar>
-        <bui-avatar class="size-16 text-base">EF</bui-avatar>
-      </div>
-    </section>
-
-    <!-- Progress -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold">Progress</h2>
-      <div class="max-w-md space-y-3">
-        <bui-progress [value]="25" ariaLabel="25 percent" />
-        <bui-progress [value]="50" ariaLabel="50 percent" />
-        <bui-progress [value]="75" ariaLabel="75 percent" />
-      </div>
-    </section>
-
-    <!-- Checkbox & Switch -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold">Checkbox &amp; Switch</h2>
-      <div class="flex items-center gap-3">
-        <button buiCheckbox aria-labelledby="lbl-terms" [(checked)]="terms">
-          <span class="sr-only">Accept terms and conditions</span>
-        </button>
-        <span id="lbl-terms" class="text-sm leading-none">Accept terms and conditions</span>
-      </div>
-      <div class="flex items-center gap-3">
-        <button buiCheckbox aria-labelledby="lbl-news" [(checked)]="newsletter">
-          <span class="sr-only">Subscribe to the newsletter</span>
-        </button>
-        <span id="lbl-news" class="text-sm leading-none">Subscribe to the newsletter</span>
-      </div>
-      <div class="flex items-center gap-3">
-        <button buiSwitch aria-labelledby="lbl-notif" [(checked)]="notifications">
-          <span class="sr-only">Enable notifications</span>
-        </button>
-        <span id="lbl-notif" class="text-sm leading-none">Enable notifications</span>
-      </div>
-    </section>
-
-    <!-- Accordion (Angular Aria) -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold">Accordion</h2>
-      <div ngAccordionGroup buiAccordion class="max-w-xl" [multiExpandable]="false">
-        <div buiAccordionItem>
-          <h3 class="flex">
-            <button ngAccordionTrigger buiAccordionTrigger [panel]="ap1">
-              Is it accessible?
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="m6 9 6 6 6-6" />
-              </svg>
-            </button>
-          </h3>
-          <div ngAccordionPanel #ap1="ngAccordionPanel" buiAccordionContent>
-            <ng-template ngAccordionContent>
-              <div class="pb-4">Yes — behaviour and ARIA come from Angular Aria.</div>
-            </ng-template>
-          </div>
-        </div>
-        <div buiAccordionItem>
-          <h3 class="flex">
-            <button ngAccordionTrigger buiAccordionTrigger [panel]="ap2">
-              Is it styled?
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="m6 9 6 6 6-6" />
-              </svg>
-            </button>
-          </h3>
-          <div ngAccordionPanel #ap2="ngAccordionPanel" buiAccordionContent>
-            <ng-template ngAccordionContent>
-              <div class="pb-4">Yes — styling is BlatUI's oklch tokens via Tailwind v4.</div>
-            </ng-template>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Tabs (Angular Aria) -->
-    <section class="space-y-4">
-      <h2 class="text-xl font-semibold">Tabs</h2>
-      <div ngTabs buiTabs class="max-w-xl">
-        <div ngTabList buiTabList selectedTab="account">
-          <div ngTab value="account" buiTabTrigger>Account</div>
-          <div ngTab value="password" buiTabTrigger>Password</div>
-        </div>
-        <div ngTabPanel value="account" buiTabPanel class="pt-2 text-sm">
-          <ng-template ngTabContent>Manage your account settings here.</ng-template>
-        </div>
-        <div ngTabPanel value="password" buiTabPanel class="pt-2 text-sm">
-          <ng-template ngTabContent>Change your password here.</ng-template>
-        </div>
-      </div>
-    </section>
-
-    <footer
-      class="flex flex-col items-center justify-between gap-2 border-t pt-6 text-sm text-muted-foreground sm:flex-row"
-    >
-      <span>ng-blatui — MIT. Built by Remix-IT.</span>
-      <span class="flex gap-4">
-        <a class="hover:text-foreground" href="https://github.com/anousss007/ng-blatui">GitHub</a>
-        <a class="hover:text-foreground" href="https://www.npmjs.com/package/ng-blatui">npm</a>
-      </span>
-    </footer>
+    <main class="min-w-0 flex-1 pb-16">
+      <router-outlet />
+    </main>
   </div>
 
   <bui-theme-customizer />

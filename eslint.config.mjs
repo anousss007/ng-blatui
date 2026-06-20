@@ -86,6 +86,8 @@ export default tseslint.config(
       'unicorn/consistent-function-scoping': 'off',
       'unicorn/consistent-class-member-order': 'off',
       'unicorn/prefer-scoped-selector': 'off',
+      // Idiomatic Angular lazy routes: `async () => (await import('…')).X`.
+      'unicorn/no-await-expression-member': 'off',
     },
   },
 
