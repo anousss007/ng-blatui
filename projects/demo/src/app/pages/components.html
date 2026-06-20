@@ -394,6 +394,28 @@
         </button>
       </app-example>
     }
+    @case ('hover-card') {
+      <app-example [code]="code.hoverCard">
+        <span class="underline decoration-dotted underline-offset-4" [buiHoverCard]="hoverTpl">
+          hover me
+        </span>
+        <ng-template #hoverTpl>
+          <div buiHoverCardContent>
+            <p class="text-sm font-medium">Ada Lovelace</p>
+            <p class="text-sm text-muted-foreground">The first programmer, 1843.</p>
+          </div>
+        </ng-template>
+      </app-example>
+    }
+    @case ('code-block') {
+      <app-example [code]="code.codeBlock">
+        <bui-code-block
+          class="w-full"
+          filename="hello.ts"
+          code="const greet = (name: string) => `Hello, ${name}!`;"
+        />
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

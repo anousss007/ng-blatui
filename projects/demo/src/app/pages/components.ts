@@ -42,6 +42,7 @@ import {
   BuiCardHeader,
   BuiCardTitle,
   BuiCheckbox,
+  BuiCodeBlock,
   BuiCollapsible,
   BuiCollapsibleContent,
   BuiCollapsibleTrigger,
@@ -60,6 +61,8 @@ import {
   BuiField,
   BuiFieldDescription,
   BuiFieldLabel,
+  BuiHoverCard,
+  BuiHoverCardContent,
   BuiInput,
   BuiInputGroup,
   BuiInputGroupAddon,
@@ -178,6 +181,8 @@ const META: Record<string, { title: string; description: string }> = {
     title: 'Visually hidden',
     description: 'Hide content but keep it for screen readers.',
   },
+  'hover-card': { title: 'Hover card', description: 'Preview content on hover (Angular CDK).' },
+  'code-block': { title: 'Code block', description: 'A dark code panel with copy-to-clipboard.' },
 };
 
 @Component({
@@ -286,6 +291,9 @@ const META: Record<string, { title: string; description: string }> = {
     BuiMeter,
     BuiStat,
     BuiVisuallyHidden,
+    BuiCodeBlock,
+    BuiHoverCard,
+    BuiHoverCardContent,
   ],
   templateUrl: './components.html',
 })
@@ -572,5 +580,14 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     visuallyHidden: `import { BuiVisuallyHidden } from 'ng-blatui';
 
 <span buiVisuallyHidden>Screen-reader only text</span>`,
+    hoverCard: `import { BuiHoverCard, BuiHoverCardContent } from 'ng-blatui';
+
+<span [buiHoverCard]="tpl">@username</span>
+<ng-template #tpl>
+  <div buiHoverCardContent>Profile preview content…</div>
+</ng-template>`,
+    codeBlock: `import { BuiCodeBlock } from 'ng-blatui';
+
+<bui-code-block filename="app.ts" code="const x = 1;" />`,
   };
 }

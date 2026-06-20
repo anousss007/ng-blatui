@@ -45,3 +45,5 @@ export * from './lib/input-group/input-group';
 export * from './lib/visually-hidden/visually-hidden';
 export * from './lib/meter/meter';
 export * from './lib/stat/stat';
+export * from './lib/hover-card/hover-card';
+export * from './lib/code-block/code-block';

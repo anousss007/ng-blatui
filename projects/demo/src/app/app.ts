@@ -53,6 +53,8 @@ const COMPONENTS = [
   'meter',
   'stat',
   'visually-hidden',
+  'hover-card',
+  'code-block',
 ];
 
 @Component({
