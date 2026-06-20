@@ -74,6 +74,8 @@ const COMPONENTS = [
   'select',
   'combobox',
   'back-to-top',
+  'countdown',
+  'number-ticker',
 ];
 
 @Component({

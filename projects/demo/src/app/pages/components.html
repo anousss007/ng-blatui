@@ -588,6 +588,16 @@
         </button>
       </app-example>
     }
+    @case ('countdown') {
+      <app-example [code]="code.countdown">
+        <bui-countdown to="2026-12-31 23:59" />
+      </app-example>
+    }
+    @case ('number-ticker') {
+      <app-example [code]="code.numberTicker">
+        <bui-number-ticker class="text-3xl font-bold" [value]="12500" prefix="$" />
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

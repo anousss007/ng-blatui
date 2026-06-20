@@ -66,3 +66,5 @@ export * from './lib/tilt-card/tilt-card';
 export * from './lib/select/select';
 export * from './lib/back-to-top/back-to-top';
 export * from './lib/combobox/combobox';
+export * from './lib/countdown/countdown';
+export * from './lib/number-ticker/number-ticker';

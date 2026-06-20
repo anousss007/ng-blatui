@@ -59,6 +59,7 @@ import {
   BuiComparisonTable,
   BuiContainer,
   BuiCopyButton,
+  BuiCountdown,
   BuiDialogContent,
   BuiDialogDescription,
   BuiDialogFooter,
@@ -98,6 +99,7 @@ import {
   BuiMenubar,
   BuiMenubarTrigger,
   BuiMeter,
+  BuiNumberTicker,
   BuiPagination,
   BuiPaginationContent,
   BuiPaginationEllipsis,
@@ -253,6 +255,8 @@ const META: Record<string, { title: string; description: string }> = {
   select: { title: 'Select', description: 'An accessible select (combobox + listbox).' },
   combobox: { title: 'Combobox', description: 'A filterable select with typeahead.' },
   'back-to-top': { title: 'Back to top', description: 'A floating scroll-to-top button.' },
+  countdown: { title: 'Countdown', description: 'A live countdown timer to a target time.' },
+  'number-ticker': { title: 'Number ticker', description: 'Animates a number counting up.' },
 };
 
 @Component({
@@ -397,6 +401,8 @@ const META: Record<string, { title: string; description: string }> = {
     BuiSelect,
     BuiBackToTop,
     BuiCombobox,
+    BuiCountdown,
+    BuiNumberTicker,
   ],
   templateUrl: './components.html',
 })
@@ -822,5 +828,11 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     backToTop: `import { BuiBackToTop } from 'ng-blatui';
 
 <bui-back-to-top [threshold]="300" />`,
+    countdown: `import { BuiCountdown } from 'ng-blatui';
+
+<bui-countdown to="2026-12-31 23:59" />`,
+    numberTicker: `import { BuiNumberTicker } from 'ng-blatui';
+
+<bui-number-ticker [value]="12500" prefix="$" />`,
   };
 }
