@@ -23,3 +23,7 @@ export * from './lib/theme/theme';
 export * from './lib/theme/theme-customizer';
 export * from './lib/radio-group/radio-group';
 export * from './lib/tooltip/tooltip';
+export * from './lib/breadcrumb/breadcrumb';
+export * from './lib/kbd/kbd';
+export * from './lib/aspect-ratio/aspect-ratio';
+export * from './lib/button-group/button-group';

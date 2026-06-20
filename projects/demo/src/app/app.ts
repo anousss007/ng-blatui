@@ -32,6 +32,10 @@ const COMPONENTS = [
   'tabs',
   'dialog',
   'tooltip',
+  'breadcrumb',
+  'button-group',
+  'kbd',
+  'aspect-ratio',
 ];
 
 @Component({

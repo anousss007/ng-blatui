@@ -12,9 +12,19 @@ import {
   BuiAlert,
   BuiAlertDescription,
   BuiAlertTitle,
+  BuiAspectRatio,
   BuiAvatar,
   BuiBadge,
+  BuiBreadcrumb,
+  BuiBreadcrumbEllipsis,
+  BuiBreadcrumbItem,
+  BuiBreadcrumbLink,
+  BuiBreadcrumbList,
+  BuiBreadcrumbPage,
+  BuiBreadcrumbSeparator,
   BuiButton,
+  BuiButtonGroup,
+  BuiButtonGroupText,
   BuiCard,
   BuiCardContent,
   BuiCardDescription,
@@ -28,6 +38,7 @@ import {
   BuiDialogHeader,
   BuiDialogTitle,
   BuiInput,
+  BuiKbd,
   BuiLabel,
   BuiProgress,
   BuiRadioGroup,
@@ -100,6 +111,17 @@ import { Example } from '../ui/example';
     BuiRadioGroup,
     BuiRadioGroupItem,
     BuiTooltip,
+    BuiAspectRatio,
+    BuiBreadcrumb,
+    BuiBreadcrumbEllipsis,
+    BuiBreadcrumbItem,
+    BuiBreadcrumbLink,
+    BuiBreadcrumbList,
+    BuiBreadcrumbPage,
+    BuiBreadcrumbSeparator,
+    BuiButtonGroup,
+    BuiButtonGroupText,
+    BuiKbd,
   ],
   templateUrl: './components.html',
 })
@@ -227,5 +249,31 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     tooltip: `import { BuiTooltip } from 'ng-blatui';
 
 <button buiButton variant="outline" buiTooltip="Add to library">Hover me</button>`,
+    breadcrumb: `import {
+  BuiBreadcrumb, BuiBreadcrumbList, BuiBreadcrumbItem,
+  BuiBreadcrumbLink, BuiBreadcrumbPage, BuiBreadcrumbSeparator,
+} from 'ng-blatui';
+
+<nav buiBreadcrumb>
+  <ol buiBreadcrumbList>
+    <li buiBreadcrumbItem><a buiBreadcrumbLink href="/">Home</a></li>
+    <li buiBreadcrumbSeparator></li>
+    <li buiBreadcrumbItem><span buiBreadcrumbPage>Settings</span></li>
+  </ol>
+</nav>`,
+    kbd: `import { BuiKbd } from 'ng-blatui';
+
+<kbd buiKbd>Ctrl</kbd> <kbd buiKbd>K</kbd>`,
+    aspectRatio: `import { BuiAspectRatio } from 'ng-blatui';
+
+<bui-aspect-ratio ratio="16 / 9">
+  <img src="/cover.jpg" alt="" class="h-full w-full rounded-lg object-cover" />
+</bui-aspect-ratio>`,
+    buttonGroup: `import { BuiButtonGroup, BuiButton } from 'ng-blatui';
+
+<div buiButtonGroup>
+  <button buiButton variant="outline">Prev</button>
+  <button buiButton variant="outline">Next</button>
+</div>`,
   };
 }

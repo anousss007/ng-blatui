@@ -233,4 +233,48 @@
       <button buiButton variant="outline" buiTooltip="Add to library">Hover me</button>
     </app-example>
   </section>
+
+  <section id="breadcrumb" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Breadcrumb</h2>
+    <app-example [code]="code.breadcrumb">
+      <nav buiBreadcrumb>
+        <ol buiBreadcrumbList>
+          <li buiBreadcrumbItem><a buiBreadcrumbLink href="/">Home</a></li>
+          <li buiBreadcrumbSeparator></li>
+          <li buiBreadcrumbItem><a buiBreadcrumbLink href="/">Components</a></li>
+          <li buiBreadcrumbSeparator></li>
+          <li buiBreadcrumbItem><span buiBreadcrumbPage>Breadcrumb</span></li>
+        </ol>
+      </nav>
+    </app-example>
+  </section>
+
+  <section id="button-group" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Button group</h2>
+    <app-example [code]="code.buttonGroup">
+      <div buiButtonGroup>
+        <button buiButton variant="outline">Prev</button>
+        <button buiButton variant="outline">Next</button>
+      </div>
+    </app-example>
+  </section>
+
+  <section id="kbd" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Kbd</h2>
+    <app-example [code]="code.kbd">
+      <kbd buiKbd>Ctrl</kbd>
+      <kbd buiKbd>K</kbd>
+    </app-example>
+  </section>
+
+  <section id="aspect-ratio" class="scroll-mt-24 space-y-3">
+    <h2 class="text-2xl font-semibold">Aspect ratio</h2>
+    <app-example [code]="code.aspectRatio">
+      <bui-aspect-ratio ratio="16 / 9" class="w-64">
+        <div class="flex h-full w-full items-center justify-center rounded-lg bg-muted text-sm">
+          16 / 9
+        </div>
+      </bui-aspect-ratio>
+    </app-example>
+  </section>
 </div>
