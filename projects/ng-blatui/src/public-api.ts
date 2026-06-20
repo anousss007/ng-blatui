@@ -52,3 +52,4 @@ export * from './lib/rating/rating';
 export * from './lib/quantity-selector/quantity-selector';
 export * from './lib/alert-dialog/alert-dialog';
 export * from './lib/autosize-textarea/autosize-textarea';
+export * from './lib/dropdown-menu/dropdown-menu';

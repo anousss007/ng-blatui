@@ -441,6 +441,20 @@
         <textarea buiAutosizeTextarea class="max-w-xs" placeholder="Write a message…"></textarea>
       </app-example>
     }
+    @case ('dropdown-menu') {
+      <app-example [code]="code.dropdownMenu">
+        <div class="relative inline-block">
+          <button buiButton variant="outline" ngMenuTrigger [menu]="ddm">Open menu</button>
+          <div ngMenu #ddm="ngMenu" buiDropdownMenu>
+            <div buiDropdownMenuLabel>My account</div>
+            <div buiDropdownMenuSeparator></div>
+            <div ngMenuItem value="profile" buiDropdownMenuItem>Profile</div>
+            <div ngMenuItem value="settings" buiDropdownMenuItem>Settings</div>
+            <div ngMenuItem value="logout" buiDropdownMenuItem>Log out</div>
+          </div>
+        </div>
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

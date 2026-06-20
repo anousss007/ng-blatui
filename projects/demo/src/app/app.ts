@@ -60,6 +60,7 @@ const COMPONENTS = [
   'quantity-selector',
   'alert-dialog',
   'autosize-textarea',
+  'dropdown-menu',
 ];
 
 @Component({

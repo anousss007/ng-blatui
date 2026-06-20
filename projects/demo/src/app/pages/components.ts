@@ -61,6 +61,10 @@ import {
   BuiDialogFooter,
   BuiDialogHeader,
   BuiDialogTitle,
+  BuiDropdownMenu,
+  BuiDropdownMenuItem,
+  BuiDropdownMenuLabel,
+  BuiDropdownMenuSeparator,
   BuiEmpty,
   BuiEmptyDescription,
   BuiEmptyHeader,
@@ -121,6 +125,9 @@ import {
   BuiTooltip,
   BuiVisuallyHidden,
   Dialog,
+  Menu,
+  MenuItem,
+  MenuTrigger,
   Tab,
   TabContent,
   TabList,
@@ -208,6 +215,7 @@ const META: Record<string, { title: string; description: string }> = {
     title: 'Autosize textarea',
     description: 'A textarea that grows with content.',
   },
+  'dropdown-menu': { title: 'Dropdown menu', description: 'A menu of actions (Angular Aria).' },
 };
 
 @Component({
@@ -330,6 +338,13 @@ const META: Record<string, { title: string; description: string }> = {
     BuiAlertDialogHeader,
     BuiAlertDialogTitle,
     BuiAutosizeTextarea,
+    BuiDropdownMenu,
+    BuiDropdownMenuItem,
+    BuiDropdownMenuLabel,
+    BuiDropdownMenuSeparator,
+    Menu,
+    MenuItem,
+    MenuTrigger,
   ],
   templateUrl: './components.html',
 })
@@ -662,5 +677,19 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     autosizeTextarea: `import { BuiAutosizeTextarea } from 'ng-blatui';
 
 <textarea buiAutosizeTextarea placeholder="Write a message…"></textarea>`,
+    dropdownMenu: `import {
+  Menu, MenuItem, MenuTrigger,
+  BuiDropdownMenu, BuiDropdownMenuItem, BuiDropdownMenuLabel, BuiDropdownMenuSeparator,
+} from 'ng-blatui';
+
+<div class="relative inline-block">
+  <button buiButton variant="outline" ngMenuTrigger [menu]="m">Open menu</button>
+  <div ngMenu #m="ngMenu" buiDropdownMenu>
+    <div buiDropdownMenuLabel>My account</div>
+    <div buiDropdownMenuSeparator></div>
+    <div ngMenuItem value="profile" buiDropdownMenuItem>Profile</div>
+    <div ngMenuItem value="settings" buiDropdownMenuItem>Settings</div>
+  </div>
+</div>`,
   };
 }
