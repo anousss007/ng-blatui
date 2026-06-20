@@ -856,6 +856,42 @@
         />
       </app-example>
     }
+    @case ('time-field') {
+      <app-example [code]="code.timeField">
+        <bui-time-field [(value)]="timeValue" ariaLabel="Meeting time" />
+      </app-example>
+    }
+    @case ('toggle-group') {
+      <app-example [code]="code.toggleGroup">
+        <bui-toggle-group [(value)]="toggleAlign">
+          <button buiToggleGroupItem value="left">Left</button>
+          <button buiToggleGroupItem value="center">Center</button>
+          <button buiToggleGroupItem value="right">Right</button>
+        </bui-toggle-group>
+      </app-example>
+    }
+    @case ('tags-input') {
+      <app-example [code]="code.tagsInput">
+        <bui-tags-input class="w-full max-w-sm" [(tags)]="tagList" />
+      </app-example>
+    }
+    @case ('editable') {
+      <app-example [code]="code.editable">
+        <bui-editable class="w-full max-w-xs" [(value)]="editName" />
+      </app-example>
+    }
+    @case ('speed-dial') {
+      <app-example [code]="code.speedDial">
+        <div class="pt-28">
+          <bui-speed-dial [actions]="speedActions" />
+        </div>
+      </app-example>
+    }
+    @case ('knob') {
+      <app-example [code]="code.knob">
+        <bui-knob [(value)]="knobValue" [min]="0" [max]="100" label="Volume" />
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

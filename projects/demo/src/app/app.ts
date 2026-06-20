@@ -107,6 +107,12 @@ const COMPONENTS = [
   'text-reveal',
   'parallax',
   'scrollspy',
+  'time-field',
+  'toggle-group',
+  'tags-input',
+  'editable',
+  'speed-dial',
+  'knob',
 ];
 
 @Component({

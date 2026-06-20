@@ -80,6 +80,7 @@ import {
   BuiDropdownMenuItem,
   BuiDropdownMenuLabel,
   BuiDropdownMenuSeparator,
+  BuiEditable,
   BuiEmpty,
   BuiEmptyDescription,
   BuiEmptyHeader,
@@ -108,6 +109,7 @@ import {
   BuiItemTitle,
   BuiKbd,
   BuiKbdGroup,
+  BuiKnob,
   BuiLabel,
   BuiLink,
   BuiLoadingOverlay,
@@ -146,6 +148,7 @@ import {
   BuiSkeleton,
   BuiSlider,
   BuiSparkline,
+  BuiSpeedDial,
   BuiSpinner,
   BuiSpotlightCard,
   BuiStack,
@@ -163,13 +166,17 @@ import {
   BuiTabPanel,
   BuiTabs,
   BuiTabTrigger,
+  BuiTagsInput,
   BuiTerminal,
   BuiTextarea,
   BuiTextReveal,
   BuiTiltCard,
+  BuiTimeField,
   BuiTimeline,
   BuiTimelineItem,
   BuiToggle,
+  BuiToggleGroup,
+  BuiToggleGroupItem,
   BuiTooltip,
   BuiTypewriter,
   BuiTypography,
@@ -329,6 +336,12 @@ const META: Record<string, { title: string; description: string }> = {
   'text-reveal': { title: 'Text reveal', description: 'Words brighten as you scroll.' },
   parallax: { title: 'Parallax', description: 'Shifts content relative to scroll.' },
   scrollspy: { title: 'Scrollspy', description: 'Highlights the section in view.' },
+  'time-field': { title: 'Time field', description: 'A styled native time input.' },
+  'toggle-group': { title: 'Toggle group', description: 'A group of toggle buttons.' },
+  'tags-input': { title: 'Tags input', description: 'Type to add removable tag chips.' },
+  editable: { title: 'Editable', description: 'Click-to-edit inline text.' },
+  'speed-dial': { title: 'Speed dial', description: 'A FAB that expands to actions.' },
+  knob: { title: 'Knob', description: 'A rotary dial input (role=slider).' },
 };
 
 @Component({
@@ -510,6 +523,13 @@ const META: Record<string, { title: string; description: string }> = {
     BuiTextReveal,
     BuiParallax,
     BuiScrollspy,
+    BuiTimeField,
+    BuiToggleGroup,
+    BuiToggleGroupItem,
+    BuiTagsInput,
+    BuiEditable,
+    BuiSpeedDial,
+    BuiKnob,
   ],
   templateUrl: './components.html',
 })
@@ -535,6 +555,12 @@ export class ComponentPage {
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
   protected readonly view = signal('list');
+  protected readonly toggleAlign = signal<string | string[] | null>('center');
+  protected readonly tagList = signal(['angular', 'signals']);
+  protected readonly editName = signal('Ada Lovelace');
+  protected readonly knobValue = signal(40);
+  protected readonly timeValue = signal('09:30');
+  protected readonly speedActions = [{ label: 'Share' }, { label: 'Edit' }, { label: 'Delete' }];
   protected readonly sizeChoice = signal('M');
   protected readonly galleryImages = [
     'https://picsum.photos/seed/a/300',
@@ -1068,5 +1094,27 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     scrollspy: `import { BuiScrollspy } from 'ng-blatui';
 
 <bui-scrollspy [items]="[{ href: '#intro', label: 'Intro' }]" />`,
+    timeField: `import { BuiTimeField } from 'ng-blatui';
+
+<bui-time-field [(value)]="time" />`,
+    toggleGroup: `import { BuiToggleGroup, BuiToggleGroupItem } from 'ng-blatui';
+
+<bui-toggle-group [(value)]="align">
+  <button buiToggleGroupItem value="left">Left</button>
+  <button buiToggleGroupItem value="center">Center</button>
+  <button buiToggleGroupItem value="right">Right</button>
+</bui-toggle-group>`,
+    tagsInput: `import { BuiTagsInput } from 'ng-blatui';
+
+<bui-tags-input [(tags)]="tags" />`,
+    editable: `import { BuiEditable } from 'ng-blatui';
+
+<bui-editable [(value)]="name" />`,
+    speedDial: `import { BuiSpeedDial } from 'ng-blatui';
+
+<bui-speed-dial [actions]="[{ label: 'Share' }, { label: 'Edit' }]" />`,
+    knob: `import { BuiKnob } from 'ng-blatui';
+
+<bui-knob [(value)]="level" [min]="0" [max]="100" />`,
   };
 }
