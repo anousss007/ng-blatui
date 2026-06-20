@@ -517,6 +517,34 @@
         />
       </app-example>
     }
+    @case ('flip-card') {
+      <app-example [code]="code.flipCard">
+        <bui-flip-card class="max-w-xs" height="11rem">
+          <div class="flex h-full items-center justify-center font-medium">Front — hover me</div>
+          <div buiFlipBack class="flex h-full items-center justify-center font-medium">
+            Back content
+          </div>
+        </bui-flip-card>
+      </app-example>
+    }
+    @case ('spotlight-card') {
+      <app-example [code]="code.spotlightCard">
+        <bui-spotlight-card class="max-w-xs">
+          <h3 class="font-semibold">Spotlight</h3>
+          <p class="text-sm text-muted-foreground">Move your cursor across the card.</p>
+        </bui-spotlight-card>
+      </app-example>
+    }
+    @case ('tilt-card') {
+      <app-example [code]="code.tiltCard">
+        <bui-tilt-card class="max-w-xs">
+          <div class="p-6">
+            <h3 class="font-semibold">Tilt card</h3>
+            <p class="text-sm text-muted-foreground">Hover to tilt in 3D.</p>
+          </div>
+        </bui-tilt-card>
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

@@ -68,6 +68,9 @@ const COMPONENTS = [
   'grid-pattern',
   'terminal',
   'comparison-table',
+  'flip-card',
+  'spotlight-card',
+  'tilt-card',
 ];
 
 @Component({

@@ -60,3 +60,6 @@ export * from './lib/grid-pattern/grid-pattern';
 export * from './lib/segmented-control/segmented-control';
 export * from './lib/terminal/terminal';
 export * from './lib/comparison-table/comparison-table';
+export * from './lib/flip-card/flip-card';
+export * from './lib/spotlight-card/spotlight-card';
+export * from './lib/tilt-card/tilt-card';

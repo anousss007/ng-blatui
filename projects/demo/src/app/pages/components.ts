@@ -75,6 +75,7 @@ import {
   BuiField,
   BuiFieldDescription,
   BuiFieldLabel,
+  BuiFlipCard,
   BuiGridPattern,
   BuiHoverCard,
   BuiHoverCardContent,
@@ -113,6 +114,7 @@ import {
   BuiSkeleton,
   BuiSlider,
   BuiSpinner,
+  BuiSpotlightCard,
   BuiStat,
   BuiSwitch,
   BuiTable,
@@ -128,6 +130,7 @@ import {
   BuiTabTrigger,
   BuiTerminal,
   BuiTextarea,
+  BuiTiltCard,
   BuiToggle,
   BuiTooltip,
   BuiTypography,
@@ -238,6 +241,12 @@ const META: Record<string, { title: string; description: string }> = {
     title: 'Comparison table',
     description: 'A feature/pricing comparison grid.',
   },
+  'flip-card': { title: 'Flip card', description: 'A card that flips to reveal its back.' },
+  'spotlight-card': {
+    title: 'Spotlight card',
+    description: 'A card with a cursor-following glow.',
+  },
+  'tilt-card': { title: 'Tilt card', description: 'A card that tilts in 3D toward the cursor.' },
 };
 
 @Component({
@@ -376,6 +385,9 @@ const META: Record<string, { title: string; description: string }> = {
     BuiSegmentedControl,
     BuiComparisonTable,
     BuiTerminal,
+    BuiFlipCard,
+    BuiSpotlightCard,
+    BuiTiltCard,
   ],
   templateUrl: './components.html',
 })
@@ -765,5 +777,17 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     comparisonTable: `import { BuiComparisonTable } from 'ng-blatui';
 
 <bui-comparison-table [tiers]="['Free', 'Pro', 'Team']" [rows]="rows" [highlight]="1" />`,
+    flipCard: `import { BuiFlipCard } from 'ng-blatui';
+
+<bui-flip-card>
+  <div>Front content</div>
+  <div buiFlipBack>Back content</div>
+</bui-flip-card>`,
+    spotlightCard: `import { BuiSpotlightCard } from 'ng-blatui';
+
+<bui-spotlight-card>Hover for a spotlight glow.</bui-spotlight-card>`,
+    tiltCard: `import { BuiTiltCard } from 'ng-blatui';
+
+<bui-tilt-card><div class="p-6">Tilt me</div></bui-tilt-card>`,
   };
 }
