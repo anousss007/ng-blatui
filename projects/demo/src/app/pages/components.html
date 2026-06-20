@@ -786,6 +786,76 @@
         />
       </app-example>
     }
+    @case ('border-beam') {
+      <app-example [code]="code.borderBeam">
+        <bui-border-beam class="max-w-xs">
+          <h3 class="font-semibold">Pro plan</h3>
+          <p class="text-sm text-muted-foreground">A glowing animated border.</p>
+        </bui-border-beam>
+      </app-example>
+    }
+    @case ('meteors') {
+      <app-example [code]="code.meteors">
+        <bui-meteors
+          class="w-full max-w-sm rounded-xl border bg-card p-10 text-center"
+          [count]="20"
+        >
+          <p class="font-medium">Meteors ✦</p>
+        </bui-meteors>
+      </app-example>
+    }
+    @case ('aurora') {
+      <app-example [code]="code.aurora">
+        <bui-aurora class="w-full max-w-sm p-12 text-center text-white">
+          <p class="text-lg font-semibold">Aurora background</p>
+        </bui-aurora>
+      </app-example>
+    }
+    @case ('marquee') {
+      <app-example [code]="code.marquee">
+        <bui-marquee
+          class="w-full [--bui-marquee-gap:2rem]"
+          [items]="['Acme', 'Globex', 'Initech', 'Umbrella', 'Soylent']"
+        />
+      </app-example>
+    }
+    @case ('bottom-navigation') {
+      <app-example [code]="code.bottomNavigation">
+        <nav buiBottomNavigation class="max-w-sm rounded-xl border">
+          <a buiBottomNavItem href="#" label="Home" [active]="true">🏠</a>
+          <a buiBottomNavItem href="#" label="Search">🔍</a>
+          <a buiBottomNavItem href="#" label="Alerts" [badge]="3">🔔</a>
+          <a buiBottomNavItem href="#" label="Profile">👤</a>
+        </nav>
+      </app-example>
+    }
+    @case ('text-reveal') {
+      <app-example [code]="code.textReveal">
+        <bui-text-reveal
+          class="max-w-md text-xl"
+          text="This text reveals word by word as it scrolls into view."
+        />
+      </app-example>
+    }
+    @case ('parallax') {
+      <app-example [code]="code.parallax">
+        <bui-parallax class="rounded-lg border bg-card px-6 py-4" [speed]="0.3">
+          Parallax layer
+        </bui-parallax>
+      </app-example>
+    }
+    @case ('scrollspy') {
+      <app-example [code]="code.scrollspy">
+        <bui-scrollspy
+          class="w-48"
+          [items]="[
+            { href: '#intro', label: 'Introduction' },
+            { href: '#install', label: 'Installation' },
+            { href: '#usage', label: 'Usage' },
+          ]"
+        />
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

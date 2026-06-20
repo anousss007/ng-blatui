@@ -99,6 +99,14 @@ const COMPONENTS = [
   'product-card',
   'typewriter',
   'streaming-text',
+  'border-beam',
+  'meteors',
+  'aurora',
+  'marquee',
+  'bottom-navigation',
+  'text-reveal',
+  'parallax',
+  'scrollspy',
 ];
 
 @Component({

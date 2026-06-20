@@ -120,6 +120,7 @@ export default tseslint.config(
       'projects/ng-blatui/src/lib/toggle/**/*.ts',
       'projects/ng-blatui/src/lib/copy-button/**/*.ts',
       'projects/ng-blatui/src/lib/timeline/timeline-item.ts',
+      'projects/ng-blatui/src/lib/bottom-navigation/bottom-navigation-item.ts',
     ],
     rules: {
       '@angular-eslint/component-selector': [

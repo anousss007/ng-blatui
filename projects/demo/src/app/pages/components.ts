@@ -30,6 +30,7 @@ import {
   BuiAlertDialogTitle,
   BuiAlertTitle,
   BuiAspectRatio,
+  BuiAurora,
   BuiAutosizeTextarea,
   BuiAvatar,
   BuiAvatarGroup,
@@ -38,6 +39,9 @@ import {
   BuiBanner,
   BuiBentoGrid,
   BuiBentoItem,
+  BuiBorderBeam,
+  BuiBottomNavigation,
+  BuiBottomNavigationItem,
   BuiBreadcrumb,
   BuiBreadcrumbEllipsis,
   BuiBreadcrumbItem,
@@ -107,9 +111,11 @@ import {
   BuiLabel,
   BuiLink,
   BuiLoadingOverlay,
+  BuiMarquee,
   BuiMasonry,
   BuiMenubar,
   BuiMenubarTrigger,
+  BuiMeteors,
   BuiMeter,
   BuiNumberInput,
   BuiNumberTicker,
@@ -119,6 +125,7 @@ import {
   BuiPaginationEllipsis,
   BuiPaginationItem,
   BuiPaginationLink,
+  BuiParallax,
   BuiPasswordStrength,
   BuiPopover,
   BuiPopoverContent,
@@ -132,6 +139,7 @@ import {
   BuiRadioGroupItem,
   BuiRating,
   BuiScrollArea,
+  BuiScrollspy,
   BuiSegmentedControl,
   BuiSelect,
   BuiSeparator,
@@ -157,6 +165,7 @@ import {
   BuiTabTrigger,
   BuiTerminal,
   BuiTextarea,
+  BuiTextReveal,
   BuiTiltCard,
   BuiTimeline,
   BuiTimelineItem,
@@ -312,6 +321,14 @@ const META: Record<string, { title: string; description: string }> = {
   'product-card': { title: 'Product card', description: 'An e-commerce product card.' },
   typewriter: { title: 'Typewriter', description: 'Types and deletes cycling words.' },
   'streaming-text': { title: 'Streaming text', description: 'Reveals a passage token-by-token.' },
+  'border-beam': { title: 'Border beam', description: 'A card with a travelling border beam.' },
+  meteors: { title: 'Meteors', description: 'Animated falling meteor streaks.' },
+  aurora: { title: 'Aurora', description: 'An animated aurora gradient background.' },
+  marquee: { title: 'Marquee', description: 'A seamless infinite scroll of items.' },
+  'bottom-navigation': { title: 'Bottom navigation', description: 'A mobile bottom tab bar.' },
+  'text-reveal': { title: 'Text reveal', description: 'Words brighten as you scroll.' },
+  parallax: { title: 'Parallax', description: 'Shifts content relative to scroll.' },
+  scrollspy: { title: 'Scrollspy', description: 'Highlights the section in view.' },
 };
 
 @Component({
@@ -484,6 +501,15 @@ const META: Record<string, { title: string; description: string }> = {
     BuiProductCard,
     BuiTypewriter,
     BuiStreamingText,
+    BuiBorderBeam,
+    BuiMeteors,
+    BuiAurora,
+    BuiMarquee,
+    BuiBottomNavigation,
+    BuiBottomNavigationItem,
+    BuiTextReveal,
+    BuiParallax,
+    BuiScrollspy,
   ],
   templateUrl: './components.html',
 })
@@ -1014,5 +1040,33 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     streamingText: `import { BuiStreamingText } from 'ng-blatui';
 
 <bui-streaming-text text="Streaming responses, one token at a time." />`,
+    borderBeam: `import { BuiBorderBeam } from 'ng-blatui';
+
+<bui-border-beam class="max-w-xs">Travelling border beam.</bui-border-beam>`,
+    meteors: `import { BuiMeteors } from 'ng-blatui';
+
+<bui-meteors [count]="20" class="rounded-xl border p-10">Content above the meteors.</bui-meteors>`,
+    aurora: `import { BuiAurora } from 'ng-blatui';
+
+<bui-aurora class="p-12 text-white">Aurora background</bui-aurora>`,
+    marquee: `import { BuiMarquee } from 'ng-blatui';
+
+<bui-marquee [items]="['Acme', 'Globex', 'Initech', 'Umbrella']" />`,
+    bottomNavigation: `import { BuiBottomNavigation, BuiBottomNavigationItem } from 'ng-blatui';
+
+<nav buiBottomNavigation>
+  <a buiBottomNavItem href="#" label="Home" [active]="true">🏠</a>
+  <a buiBottomNavItem href="#" label="Search">🔍</a>
+  <a buiBottomNavItem href="#" label="Alerts" [badge]="3">🔔</a>
+</nav>`,
+    textReveal: `import { BuiTextReveal } from 'ng-blatui';
+
+<bui-text-reveal text="Scroll to reveal this text word by word." />`,
+    parallax: `import { BuiParallax } from 'ng-blatui';
+
+<bui-parallax [speed]="0.3">Floating layer</bui-parallax>`,
+    scrollspy: `import { BuiScrollspy } from 'ng-blatui';
+
+<bui-scrollspy [items]="[{ href: '#intro', label: 'Intro' }]" />`,
   };
 }
