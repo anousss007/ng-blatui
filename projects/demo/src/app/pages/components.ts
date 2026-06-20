@@ -30,6 +30,7 @@ import {
   BuiAlertDialogTitle,
   BuiAlertTitle,
   BuiAspectRatio,
+  BuiAudioPlayer,
   BuiAurora,
   BuiAutosizeTextarea,
   BuiAvatar,
@@ -81,6 +82,8 @@ import {
   BuiDialogFooter,
   BuiDialogHeader,
   BuiDialogTitle,
+  BuiDock,
+  BuiDockItem,
   BuiDotPattern,
   BuiDropdownMenu,
   BuiDropdownMenuItem,
@@ -161,6 +164,7 @@ import {
   BuiSegmentedControl,
   BuiSelect,
   BuiSeparator,
+  BuiSignaturePad,
   BuiSkeleton,
   BuiSlider,
   BuiSparkline,
@@ -197,6 +201,7 @@ import {
   BuiToggleGroupItem,
   BuiToolCall,
   BuiTooltip,
+  BuiTree,
   BuiTypewriter,
   BuiTypography,
   BuiVariantSelector,
@@ -378,6 +383,10 @@ const META: Record<string, { title: string; description: string }> = {
   'color-picker': { title: 'Color picker', description: 'A colour well, hex field and swatches.' },
   'cookie-consent': { title: 'Cookie consent', description: 'A GDPR cookie banner.' },
   'infinite-scroll': { title: 'Infinite scroll', description: 'Loads more content on scroll.' },
+  'audio-player': { title: 'Audio player', description: 'A compact audio player bar.' },
+  'signature-pad': { title: 'Signature pad', description: 'A canvas to draw a signature.' },
+  dock: { title: 'Dock', description: 'A macOS-style magnifying dock.' },
+  tree: { title: 'Tree', description: 'A collapsible hierarchical tree.' },
 };
 
 @Component({
@@ -586,6 +595,11 @@ const META: Record<string, { title: string; description: string }> = {
     BuiColorPicker,
     BuiCookieConsent,
     BuiInfiniteScroll,
+    BuiAudioPlayer,
+    BuiSignaturePad,
+    BuiDock,
+    BuiDockItem,
+    BuiTree,
   ],
   templateUrl: './components.html',
 })
@@ -611,6 +625,17 @@ export class ComponentPage {
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
   protected readonly view = signal('list');
+  protected readonly treeItems = [
+    {
+      label: 'src',
+      expanded: true,
+      children: [
+        { label: 'app', children: [{ label: 'app.ts' }, { label: 'app.html' }] },
+        { label: 'main.ts' },
+      ],
+    },
+    { label: 'package.json' },
+  ];
   protected readonly colorValue = signal('#22c55e');
   protected readonly resizeSize = signal(40);
   protected readonly otpValue = signal('');
@@ -1240,5 +1265,22 @@ The sky is blue<bui-citation [index]="1" title="Rayleigh scattering" url="https:
 <bui-infinite-scroll [loading]="loading()" [finished]="done()" (more)="loadMore()">
   …items…
 </bui-infinite-scroll>`,
+    audioPlayer: `import { BuiAudioPlayer } from 'ng-blatui';
+
+<bui-audio-player src="/track.mp3" title="Nightfall" artist="The Band" />`,
+    signaturePad: `import { BuiSignaturePad } from 'ng-blatui';
+
+<bui-signature-pad [height]="180" />`,
+    dock: `import { BuiDock, BuiDockItem } from 'ng-blatui';
+
+<bui-dock>
+  <bui-dock-item [active]="true">🏠</bui-dock-item>
+  <bui-dock-item>📁</bui-dock-item>
+  <bui-dock-item>✉️</bui-dock-item>
+</bui-dock>`,
+    tree: `import { BuiTree } from 'ng-blatui';
+
+<bui-tree [items]="files" />
+// files = [{ label: 'src', expanded: true, children: [...] }]`,
   };
 }

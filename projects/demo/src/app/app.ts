@@ -129,6 +129,10 @@ const COMPONENTS = [
   'color-picker',
   'cookie-consent',
   'infinite-scroll',
+  'audio-player',
+  'signature-pad',
+  'dock',
+  'tree',
 ];
 
 @Component({
