@@ -54,6 +54,7 @@ import {
   BuiCollapsible,
   BuiCollapsibleContent,
   BuiCollapsibleTrigger,
+  BuiComparisonTable,
   BuiContainer,
   BuiCopyButton,
   BuiDialogContent,
@@ -125,6 +126,7 @@ import {
   BuiTabPanel,
   BuiTabs,
   BuiTabTrigger,
+  BuiTerminal,
   BuiTextarea,
   BuiToggle,
   BuiTooltip,
@@ -231,6 +233,11 @@ const META: Record<string, { title: string; description: string }> = {
   },
   'dot-pattern': { title: 'Dot pattern', description: 'A decorative dotted background layer.' },
   'grid-pattern': { title: 'Grid pattern', description: 'A decorative grid background layer.' },
+  terminal: { title: 'Terminal', description: 'A console window for command output.' },
+  'comparison-table': {
+    title: 'Comparison table',
+    description: 'A feature/pricing comparison grid.',
+  },
 };
 
 @Component({
@@ -367,6 +374,8 @@ const META: Record<string, { title: string; description: string }> = {
     BuiDotPattern,
     BuiGridPattern,
     BuiSegmentedControl,
+    BuiComparisonTable,
+    BuiTerminal,
   ],
   templateUrl: './components.html',
 })
@@ -392,6 +401,11 @@ export class ComponentPage {
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
   protected readonly view = signal('list');
+  protected readonly pricingRows = [
+    { feature: 'Projects', values: ['3', 'Unlimited', 'Unlimited'] },
+    { feature: 'Analytics', values: [false, true, true] },
+    { feature: 'SSO', values: [false, false, true] },
+  ];
   protected readonly plan = signal('free');
   protected readonly team = [
     { name: 'Ada Lovelace' },
@@ -742,5 +756,14 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <div class="relative h-32 rounded-lg border">
   <bui-grid-pattern [mask]="true" />
 </div>`,
+    terminal: `import { BuiTerminal } from 'ng-blatui';
+
+<bui-terminal title="~/app — zsh">
+  <div><span class="prompt">$</span> npm i ng-blatui</div>
+  <div class="ok">✓ installed 1 package</div>
+</bui-terminal>`,
+    comparisonTable: `import { BuiComparisonTable } from 'ng-blatui';
+
+<bui-comparison-table [tiers]="['Free', 'Pro', 'Team']" [rows]="rows" [highlight]="1" />`,
   };
 }

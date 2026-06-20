@@ -499,6 +499,24 @@
         </div>
       </app-example>
     }
+    @case ('terminal') {
+      <app-example [code]="code.terminal">
+        <bui-terminal class="w-full max-w-md" title="~/app — zsh">
+          <div><span class="prompt">$</span> npm i ng-blatui</div>
+          <div class="ok">✓ installed 1 package</div>
+        </bui-terminal>
+      </app-example>
+    }
+    @case ('comparison-table') {
+      <app-example [code]="code.comparisonTable">
+        <bui-comparison-table
+          class="w-full"
+          [tiers]="['Free', 'Pro', 'Team']"
+          [rows]="pricingRows"
+          [highlight]="1"
+        />
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

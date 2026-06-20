@@ -58,3 +58,5 @@ export * from './lib/typography/typography';
 export * from './lib/dot-pattern/dot-pattern';
 export * from './lib/grid-pattern/grid-pattern';
 export * from './lib/segmented-control/segmented-control';
+export * from './lib/terminal/terminal';
+export * from './lib/comparison-table/comparison-table';

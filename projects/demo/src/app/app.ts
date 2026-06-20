@@ -66,6 +66,8 @@ const COMPONENTS = [
   'segmented-control',
   'dot-pattern',
   'grid-pattern',
+  'terminal',
+  'comparison-table',
 ];
 
 @Component({
