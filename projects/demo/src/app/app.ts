@@ -49,6 +49,7 @@ const COMPONENTS = [
   'popover',
   'item',
   'scroll-area',
+  'input-group',
 ];
 
 @Component({

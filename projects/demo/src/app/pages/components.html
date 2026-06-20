@@ -359,6 +359,17 @@
         </bui-scroll-area>
       </app-example>
     }
+    @case ('input-group') {
+      <app-example [code]="code.inputGroup">
+        <div buiInputGroup class="max-w-xs">
+          <div buiInputGroupAddon><span buiInputGroupText>&#64;</span></div>
+          <input buiInputGroupInput placeholder="username" />
+          <div buiInputGroupAddon align="inline-end">
+            <button buiInputGroupButton size="xs">Go</button>
+          </div>
+        </div>
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

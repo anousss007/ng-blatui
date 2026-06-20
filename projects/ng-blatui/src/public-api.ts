@@ -41,3 +41,4 @@ export * from './lib/pagination/pagination';
 export * from './lib/popover/popover';
 export * from './lib/item/item';
 export * from './lib/scroll-area/scroll-area';
+export * from './lib/input-group/input-group';

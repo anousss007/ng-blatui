@@ -61,6 +61,11 @@ import {
   BuiFieldDescription,
   BuiFieldLabel,
   BuiInput,
+  BuiInputGroup,
+  BuiInputGroupAddon,
+  BuiInputGroupButton,
+  BuiInputGroupInput,
+  BuiInputGroupText,
   BuiItem,
   BuiItemActions,
   BuiItemContent,
@@ -159,6 +164,10 @@ const META: Record<string, { title: string; description: string }> = {
   'scroll-area': {
     title: 'Scroll area',
     description: 'A scrollable region with a themed scrollbar.',
+  },
+  'input-group': {
+    title: 'Input group',
+    description: 'Compose inputs with addons, text and buttons.',
   },
 };
 
@@ -260,6 +269,11 @@ const META: Record<string, { title: string; description: string }> = {
     BuiItemMedia,
     BuiItemTitle,
     BuiScrollArea,
+    BuiInputGroup,
+    BuiInputGroupAddon,
+    BuiInputGroupButton,
+    BuiInputGroupInput,
+    BuiInputGroupText,
   ],
   templateUrl: './components.html',
 })
@@ -526,5 +540,16 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 <bui-scroll-area class="h-40 rounded-md border p-4">
   <!-- long content -->
 </bui-scroll-area>`,
+    inputGroup: `import {
+  BuiInputGroup, BuiInputGroupAddon, BuiInputGroupInput, BuiInputGroupButton,
+} from 'ng-blatui';
+
+<div buiInputGroup>
+  <div buiInputGroupAddon>$</div>
+  <input buiInputGroupInput placeholder="0.00" />
+  <div buiInputGroupAddon align="inline-end">
+    <button buiInputGroupButton>Send</button>
+  </div>
+</div>`,
   };
 }
