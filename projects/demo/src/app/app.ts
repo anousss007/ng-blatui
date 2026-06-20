@@ -47,6 +47,8 @@ const COMPONENTS = [
   'avatar-group',
   'pagination',
   'popover',
+  'item',
+  'scroll-area',
 ];
 
 @Component({

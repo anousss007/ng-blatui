@@ -61,6 +61,12 @@ import {
   BuiFieldDescription,
   BuiFieldLabel,
   BuiInput,
+  BuiItem,
+  BuiItemActions,
+  BuiItemContent,
+  BuiItemDescription,
+  BuiItemMedia,
+  BuiItemTitle,
   BuiKbd,
   BuiLabel,
   BuiPagination,
@@ -73,6 +79,7 @@ import {
   BuiProgress,
   BuiRadioGroup,
   BuiRadioGroupItem,
+  BuiScrollArea,
   BuiSeparator,
   BuiSkeleton,
   BuiSpinner,
@@ -147,6 +154,11 @@ const META: Record<string, { title: string; description: string }> = {
   popover: {
     title: 'Popover',
     description: 'Floating content anchored to a trigger (Angular CDK).',
+  },
+  item: { title: 'Item', description: 'A flexible list/row item with media, content and actions.' },
+  'scroll-area': {
+    title: 'Scroll area',
+    description: 'A scrollable region with a themed scrollbar.',
   },
 };
 
@@ -241,6 +253,13 @@ const META: Record<string, { title: string; description: string }> = {
     BuiPaginationLink,
     BuiPopover,
     BuiPopoverContent,
+    BuiItem,
+    BuiItemActions,
+    BuiItemContent,
+    BuiItemDescription,
+    BuiItemMedia,
+    BuiItemTitle,
+    BuiScrollArea,
   ],
   templateUrl: './components.html',
 })
@@ -490,5 +509,22 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     <p class="text-sm">Popover content goes here.</p>
   </div>
 </ng-template>`,
+    item: `import {
+  BuiItem, BuiItemMedia, BuiItemContent, BuiItemTitle, BuiItemDescription, BuiItemActions,
+} from 'ng-blatui';
+
+<div buiItem variant="outline">
+  <div buiItemMedia variant="icon">★</div>
+  <div buiItemContent>
+    <div buiItemTitle>Notifications</div>
+    <p buiItemDescription>Configure how you receive alerts.</p>
+  </div>
+  <div buiItemActions><button buiButton variant="ghost" size="sm">Edit</button></div>
+</div>`,
+    scrollArea: `import { BuiScrollArea } from 'ng-blatui';
+
+<bui-scroll-area class="h-40 rounded-md border p-4">
+  <!-- long content -->
+</bui-scroll-area>`,
   };
 }

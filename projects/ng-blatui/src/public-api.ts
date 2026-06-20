@@ -39,3 +39,5 @@ export * from './lib/table/table';
 export * from './lib/avatar-group/avatar-group';
 export * from './lib/pagination/pagination';
 export * from './lib/popover/popover';
+export * from './lib/item/item';
+export * from './lib/scroll-area/scroll-area';

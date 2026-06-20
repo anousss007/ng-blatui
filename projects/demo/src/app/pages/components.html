@@ -332,6 +332,33 @@
         </ng-template>
       </app-example>
     }
+    @case ('item') {
+      <app-example [code]="code.item">
+        <div buiItem variant="outline" class="w-full max-w-sm">
+          <div buiItemMedia variant="icon">★</div>
+          <div buiItemContent>
+            <div buiItemTitle>Notifications</div>
+            <p buiItemDescription>Configure how you receive alerts.</p>
+          </div>
+          <div buiItemActions>
+            <button buiButton variant="ghost" size="sm">Edit</button>
+          </div>
+        </div>
+      </app-example>
+    }
+    @case ('scroll-area') {
+      <app-example [code]="code.scrollArea">
+        <bui-scroll-area class="h-40 w-64 rounded-md border p-4 text-sm">
+          <p class="leading-relaxed">
+            Jokester began sneaking into the castle in the middle of the night and leaving jokes all
+            over the place: under the king's pillow, in his soup, even in the royal toilet. The king
+            was furious, but he couldn't seem to stop Jokester. And then, one day, the people of the
+            kingdom discovered that the jokes left by Jokester were so funny that they couldn't help
+            but laugh.
+          </p>
+        </bui-scroll-area>
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }
