@@ -58,6 +58,8 @@ import {
   BuiCardFooter,
   BuiCardHeader,
   BuiCardTitle,
+  BuiChat,
+  BuiChatMessage,
   BuiCheckbox,
   BuiCodeBlock,
   BuiCollapsible,
@@ -65,6 +67,7 @@ import {
   BuiCollapsibleTrigger,
   BuiCombobox,
   BuiComparisonTable,
+  BuiConfetti,
   BuiContainer,
   BuiCopyButton,
   BuiCountdown,
@@ -95,6 +98,7 @@ import {
   BuiGridPattern,
   BuiHoverCard,
   BuiHoverCardContent,
+  BuiImage,
   BuiInput,
   BuiInputGroup,
   BuiInputGroupAddon,
@@ -140,6 +144,7 @@ import {
   BuiRadioGroup,
   BuiRadioGroupItem,
   BuiRating,
+  BuiReasoning,
   BuiScrollArea,
   BuiScrollspy,
   BuiSegmentedControl,
@@ -153,6 +158,8 @@ import {
   BuiSpotlightCard,
   BuiStack,
   BuiStat,
+  BuiStepper,
+  BuiStepperItem,
   BuiStreamingText,
   BuiSwitch,
   BuiTable,
@@ -177,6 +184,7 @@ import {
   BuiToggle,
   BuiToggleGroup,
   BuiToggleGroupItem,
+  BuiToolCall,
   BuiTooltip,
   BuiTypewriter,
   BuiTypography,
@@ -342,6 +350,12 @@ const META: Record<string, { title: string; description: string }> = {
   editable: { title: 'Editable', description: 'Click-to-edit inline text.' },
   'speed-dial': { title: 'Speed dial', description: 'A FAB that expands to actions.' },
   knob: { title: 'Knob', description: 'A rotary dial input (role=slider).' },
+  image: { title: 'Image', description: 'A lazy image with placeholder and error state.' },
+  reasoning: { title: 'Reasoning', description: 'A collapsible chain-of-thought disclosure.' },
+  'tool-call': { title: 'Tool call', description: 'An AI tool-call card with args/result.' },
+  chat: { title: 'Chat', description: 'A conversation log with message bubbles.' },
+  confetti: { title: 'Confetti', description: 'A celebratory particle burst.' },
+  stepper: { title: 'Stepper', description: 'A multi-step progress indicator.' },
 };
 
 @Component({
@@ -530,6 +544,14 @@ const META: Record<string, { title: string; description: string }> = {
     BuiEditable,
     BuiSpeedDial,
     BuiKnob,
+    BuiImage,
+    BuiReasoning,
+    BuiToolCall,
+    BuiChat,
+    BuiChatMessage,
+    BuiConfetti,
+    BuiStepper,
+    BuiStepperItem,
   ],
   templateUrl: './components.html',
 })
@@ -1116,5 +1138,32 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     knob: `import { BuiKnob } from 'ng-blatui';
 
 <bui-knob [(value)]="level" [min]="0" [max]="100" />`,
+    image: `import { BuiImage } from 'ng-blatui';
+
+<bui-image src="/photo.jpg" alt="A scenic view" ratio="16/9" />`,
+    reasoning: `import { BuiReasoning } from 'ng-blatui';
+
+<bui-reasoning duration="2.4s">
+  First, I considered the constraints, then weighed the trade-offs…
+</bui-reasoning>`,
+    toolCall: `import { BuiToolCall } from 'ng-blatui';
+
+<bui-tool-call name="search_web" status="success" args="{ q: 'angular' }" result="3 results" />`,
+    chat: `import { BuiChat, BuiChatMessage } from 'ng-blatui';
+
+<div buiChat>
+  <bui-chat-message role="assistant" name="Bot">Hi! How can I help?</bui-chat-message>
+  <bui-chat-message role="user" name="You">Build me a UI library.</bui-chat-message>
+</div>`,
+    confetti: `import { BuiConfetti } from 'ng-blatui';
+
+<bui-confetti><button buiButton>Launch 🎉</button></bui-confetti>`,
+    stepper: `import { BuiStepper, BuiStepperItem } from 'ng-blatui';
+
+<bui-stepper [value]="2">
+  <li buiStepperItem [step]="1">Account</li>
+  <li buiStepperItem [step]="2">Profile</li>
+  <li buiStepperItem [step]="3">Done</li>
+</bui-stepper>`,
   };
 }

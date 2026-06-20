@@ -892,6 +892,62 @@
         <bui-knob [(value)]="knobValue" [min]="0" [max]="100" label="Volume" />
       </app-example>
     }
+    @case ('image') {
+      <app-example [code]="code.image">
+        <bui-image
+          class="w-full max-w-sm"
+          src="https://picsum.photos/seed/scenic/600/338"
+          alt="A scenic view"
+          ratio="16/9"
+        />
+      </app-example>
+    }
+    @case ('reasoning') {
+      <app-example [code]="code.reasoning">
+        <bui-reasoning class="max-w-md" duration="2.4s">
+          First, I considered the constraints, then weighed the trade-offs before settling on the
+          approach.
+        </bui-reasoning>
+      </app-example>
+    }
+    @case ('tool-call') {
+      <app-example [code]="code.toolCall">
+        <bui-tool-call
+          class="w-full max-w-md"
+          name="search_web"
+          status="success"
+          args="{ q: 'angular signals' }"
+          result="Found 3 results"
+        />
+      </app-example>
+    }
+    @case ('chat') {
+      <app-example [code]="code.chat">
+        <div buiChat class="h-64 w-full max-w-md rounded-lg border bg-muted/30">
+          <bui-chat-message role="assistant" name="Bot"
+            >Hi! How can I help you today?</bui-chat-message
+          >
+          <bui-chat-message role="user" name="Ada Lovelace"
+            >Build me a UI library.</bui-chat-message
+          >
+          <bui-chat-message role="assistant" name="Bot" [typing]="true" />
+        </div>
+      </app-example>
+    }
+    @case ('confetti') {
+      <app-example [code]="code.confetti">
+        <bui-confetti><button buiButton>Launch 🎉</button></bui-confetti>
+      </app-example>
+    }
+    @case ('stepper') {
+      <app-example [code]="code.stepper">
+        <bui-stepper [value]="2">
+          <li buiStepperItem [step]="1">Account</li>
+          <li buiStepperItem [step]="2">Profile</li>
+          <li buiStepperItem [step]="3">Done</li>
+        </bui-stepper>
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

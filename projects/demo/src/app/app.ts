@@ -113,6 +113,12 @@ const COMPONENTS = [
   'editable',
   'speed-dial',
   'knob',
+  'image',
+  'reasoning',
+  'tool-call',
+  'chat',
+  'confetti',
+  'stepper',
 ];
 
 @Component({
