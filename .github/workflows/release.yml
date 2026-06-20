@@ -1,8 +1,6 @@
 name: Release
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 # semantic-release needs to create tags/releases (contents), comment on issues/PRs,
