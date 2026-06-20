@@ -18,6 +18,7 @@ import {
   BuiAccordionContent,
   BuiAccordionItem,
   BuiAccordionTrigger,
+  BuiAddToCart,
   BuiAlert,
   BuiAlertDescription,
   BuiAlertDialogAction,
@@ -118,10 +119,12 @@ import {
   BuiPaginationEllipsis,
   BuiPaginationItem,
   BuiPaginationLink,
+  BuiPasswordStrength,
   BuiPopover,
   BuiPopoverContent,
   BuiPresence,
   BuiPrice,
+  BuiProductCard,
   BuiProgress,
   BuiQuantitySelector,
   BuiQuote,
@@ -134,10 +137,12 @@ import {
   BuiSeparator,
   BuiSkeleton,
   BuiSlider,
+  BuiSparkline,
   BuiSpinner,
   BuiSpotlightCard,
   BuiStack,
   BuiStat,
+  BuiStreamingText,
   BuiSwitch,
   BuiTable,
   BuiTableBody,
@@ -157,6 +162,7 @@ import {
   BuiTimelineItem,
   BuiToggle,
   BuiTooltip,
+  BuiTypewriter,
   BuiTypography,
   BuiVariantSelector,
   BuiVisuallyHidden,
@@ -297,6 +303,15 @@ const META: Record<string, { title: string; description: string }> = {
     title: 'Variant selector',
     description: 'Pick a variant (pills or colours).',
   },
+  sparkline: { title: 'Sparkline', description: 'A tiny inline trend chart.' },
+  'add-to-cart': { title: 'Add to cart', description: 'A stateful add-to-cart button.' },
+  'password-strength': {
+    title: 'Password strength',
+    description: 'A password field with a strength meter.',
+  },
+  'product-card': { title: 'Product card', description: 'An e-commerce product card.' },
+  typewriter: { title: 'Typewriter', description: 'Types and deletes cycling words.' },
+  'streaming-text': { title: 'Streaming text', description: 'Reveals a passage token-by-token.' },
 };
 
 @Component({
@@ -463,6 +478,12 @@ const META: Record<string, { title: string; description: string }> = {
     BuiLoadingOverlay,
     BuiNumberInput,
     BuiVariantSelector,
+    BuiSparkline,
+    BuiAddToCart,
+    BuiPasswordStrength,
+    BuiProductCard,
+    BuiTypewriter,
+    BuiStreamingText,
   ],
   templateUrl: './components.html',
 })
@@ -966,5 +987,32 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     variantSelector: `import { BuiVariantSelector } from 'ng-blatui';
 
 <bui-variant-selector [(value)]="size" [options]="['S','M','L']" />`,
+    sparkline: `import { BuiSparkline } from 'ng-blatui';
+
+<bui-sparkline [data]="[4, 8, 5, 12, 7, 14, 9]" />`,
+    addToCart: `import { BuiAddToCart } from 'ng-blatui';
+
+<bui-add-to-cart (triggered)="addItem()" />`,
+    passwordStrength: `import { BuiPasswordStrength } from 'ng-blatui';
+
+<bui-password-strength [minLength]="8" />`,
+    productCard: `import { BuiProductCard } from 'ng-blatui';
+
+<bui-product-card
+  title="Trail Runner"
+  image="/shoe.jpg"
+  [price]="49.99"
+  [compareAt]="69.99"
+  badge="Sale"
+  [rating]="4.5"
+  [reviews]="128"
+  [wishlist]="true"
+/>`,
+    typewriter: `import { BuiTypewriter } from 'ng-blatui';
+
+<bui-typewriter [words]="['design', 'build', 'ship']" />`,
+    streamingText: `import { BuiStreamingText } from 'ng-blatui';
+
+<bui-streaming-text text="Streaming responses, one token at a time." />`,
   };
 }

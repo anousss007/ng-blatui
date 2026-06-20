@@ -93,6 +93,12 @@ const COMPONENTS = [
   'loading-overlay',
   'number-input',
   'variant-selector',
+  'sparkline',
+  'add-to-cart',
+  'password-strength',
+  'product-card',
+  'typewriter',
+  'streaming-text',
 ];
 
 @Component({

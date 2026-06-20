@@ -735,6 +735,57 @@
         />
       </app-example>
     }
+    @case ('sparkline') {
+      <app-example [code]="code.sparkline">
+        <bui-sparkline
+          class="text-emerald-600"
+          [data]="[4, 8, 5, 12, 7, 14, 9, 11, 16]"
+          [width]="160"
+          [height]="40"
+        />
+      </app-example>
+    }
+    @case ('add-to-cart') {
+      <app-example [code]="code.addToCart">
+        <bui-add-to-cart />
+      </app-example>
+    }
+    @case ('password-strength') {
+      <app-example [code]="code.passwordStrength">
+        <bui-password-strength class="w-full max-w-sm" [minLength]="8" />
+      </app-example>
+    }
+    @case ('product-card') {
+      <app-example [code]="code.productCard">
+        <bui-product-card
+          class="w-full max-w-xs"
+          title="Trail Runner"
+          image="https://picsum.photos/seed/shoe/400"
+          category="Footwear"
+          [price]="49.99"
+          [compareAt]="69.99"
+          badge="Sale"
+          [rating]="4.5"
+          [reviews]="128"
+          [wishlist]="true"
+        />
+      </app-example>
+    }
+    @case ('typewriter') {
+      <app-example [code]="code.typewriter">
+        <span class="text-2xl font-bold">
+          We <bui-typewriter class="text-primary" [words]="['design.', 'build.', 'ship.']" />
+        </span>
+      </app-example>
+    }
+    @case ('streaming-text') {
+      <app-example [code]="code.streamingText">
+        <bui-streaming-text
+          class="text-sm"
+          text="Streaming responses, one token at a time — just like a chat assistant."
+        />
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }
