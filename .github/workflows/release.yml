@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# semantic-release needs to create tags/releases (contents), comment on issues/PRs,
+# and use OIDC for npm provenance.
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      HUSKY: 0
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          registry-url: https://registry.npmjs.org
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run test:ci
+      - run: npm run build:lib
+      - name: Release (GitHub release + npm publish)
+        if: env.NPM_TOKEN != ''
+        run: npx semantic-release
+      - name: Skip publish (no NPM_TOKEN secret)
+        if: env.NPM_TOKEN == ''
+        run: echo "::warning::NPM_TOKEN secret is not set — release skipped. Add it (gh secret set NPM_TOKEN) then re-run this workflow."

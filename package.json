@@ -11,9 +11,16 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "build:lib": "ng build ng-blatui",
+    "test:ci": "ng test ng-blatui --watch=false",
+    "release": "semantic-release",
     "prepare": "husky"
   },
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anousss007/ng-blatui.git"
+  },
   "packageManager": "npm@11.13.0",
   "dependencies": {
     "@angular/aria": "^22.0.2",
@@ -52,6 +59,7 @@
     "ng-packagr": "^22.0.0",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.8.0",
+    "semantic-release": "^25.0.5",
     "tailwindcss": "^4.3.1",
     "typescript": "~6.0.2",
     "typescript-eslint": "8.60.1",

@@ -1,12 +1,39 @@
 {
   "name": "ng-blatui",
   "version": "0.0.1",
+  "description": "BlatUI components, ported to Angular — built on signals, Angular Aria & the CDK.",
+  "keywords": [
+    "angular",
+    "ui",
+    "components",
+    "design-system",
+    "tailwindcss",
+    "blatui",
+    "shadcn",
+    "aria",
+    "cdk"
+  ],
+  "license": "MIT",
+  "author": "Anas B. <info@remix-it.be>",
+  "homepage": "https://github.com/anousss007/ng-blatui#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anousss007/ng-blatui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/anousss007/ng-blatui/issues"
+  },
   "peerDependencies": {
     "@angular/common": "^22.0.0",
-    "@angular/core": "^22.0.0"
+    "@angular/core": "^22.0.0",
+    "@angular/cdk": "^22.0.0",
+    "@angular/aria": "^22.0.0"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.6.0",
+    "class-variance-authority": "^0.7.1"
   },
   "sideEffects": false
 }
