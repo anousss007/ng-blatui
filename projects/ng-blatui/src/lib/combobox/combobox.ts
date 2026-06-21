@@ -6,6 +6,8 @@ import { type ClassValue, cn } from '../utils/cn';
 export interface ComboboxOption {
   value: string;
   label: string;
+  /** Optional leading icon, given as an SVG path `d` string. */
+  icon?: string;
 }
 
 /**
@@ -30,6 +32,8 @@ export interface ComboboxOption {
       [value]="display()"
       [placeholder]="placeholder()"
       [disabled]="disabled()"
+      [readonly]="!searchable()"
+      [class.cursor-pointer]="!searchable()"
       class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50"
       (input)="onInput($event)"
       (focus)="openList()"
@@ -51,6 +55,20 @@ export interface ComboboxOption {
             (click)="select(option)"
             (mouseenter)="active.set(i)"
           >
+            @if (option.icon; as icon) {
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                class="mr-2 size-4 shrink-0"
+              >
+                <path [attr.d]="icon" />
+              </svg>
+            }
             {{ option.label }}
           </li>
         }
@@ -63,6 +81,8 @@ export class BuiCombobox {
   readonly options = input<readonly ComboboxOption[]>([]);
   readonly placeholder = input('Search…');
   readonly disabled = input(false);
+  /** When false, the field can't be typed in — it just opens the full list (select-like). */
+  readonly searchable = input(true);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
   protected readonly listId = inject(_IdGenerator).getId('bui-combobox-');
@@ -75,6 +95,9 @@ export class BuiCombobox {
   );
   protected readonly display = computed(() => (this.open() ? this.query() : this.selectedLabel()));
   protected readonly filtered = computed(() => {
+    if (!this.searchable()) {
+      return this.options();
+    }
     const query = this.query().trim().toLowerCase();
     return query === ''
       ? this.options()
@@ -83,6 +106,9 @@ export class BuiCombobox {
   protected readonly computedClass = computed(() => cn('relative block', this.userClass()));
 
   protected onInput(event: Event): void {
+    if (!this.searchable()) {
+      return;
+    }
     this.query.set((event.target as HTMLInputElement).value);
     this.active.set(0);
     this.open.set(true);

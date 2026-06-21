@@ -6098,6 +6098,21 @@ This content is read-only and cannot be edited.</textarea
           placeholder="Disabled"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Statuses</h2>
+      <app-example [code]="code.comboboxStatuses">
+        <bui-combobox class="max-w-xs" [options]="comboboxStatuses" placeholder="Set status…" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Non-searchable</h2>
+      <app-example [code]="code.comboboxNonSearchable">
+        <bui-combobox
+          class="max-w-xs"
+          [options]="frameworks"
+          [searchable]="false"
+          placeholder="Pick one"
+        />
+      </app-example>
     }
     @case ('back-to-top') {
       <app-example [code]="code.backToTop">

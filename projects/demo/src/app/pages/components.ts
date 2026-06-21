@@ -1149,6 +1149,20 @@ export class ComponentPage {
     { value: 'vu', label: 'Vue' },
     { value: 'sv', label: 'Svelte' },
   ];
+  protected readonly comboboxStatuses = [
+    {
+      value: 'backlog',
+      label: 'Backlog',
+      icon: 'M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4',
+    },
+    { value: 'todo', label: 'Todo', icon: 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z' },
+    {
+      value: 'in-progress',
+      label: 'In progress',
+      icon: 'M12 2a10 10 0 0 1 10 10M12 22a10 10 0 0 1 0-20',
+    },
+    { value: 'done', label: 'Done', icon: 'M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4 12 14.01l-3-3' },
+  ];
   protected readonly pricingRows = [
     { feature: 'Projects', values: ['3', 'Unlimited', 'Unlimited'] },
     { feature: 'Analytics', values: [false, true, true] },
@@ -2455,6 +2469,11 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 // frameworks = [{ value: 'ng', label: 'Angular' }, ...]`,
     comboboxPreselected: `<bui-combobox [value]="'ng'" [options]="frameworks" />`,
     comboboxDisabled: `<bui-combobox [options]="frameworks" [disabled]="true" placeholder="Disabled" />`,
+    comboboxStatuses: `<!-- ComboboxOption now takes an optional icon (SVG path d) -->
+<bui-combobox [options]="statuses" placeholder="Set status…" />
+// statuses = [{ value: 'todo', label: 'Todo', icon: 'M12 22a10…' }, …]`,
+    comboboxNonSearchable: `<!-- [searchable]="false" makes it open the full list like a select -->
+<bui-combobox [options]="opts" [searchable]="false" placeholder="Pick one" />`,
     backToTop: `import { BuiBackToTop } from 'ng-blatui';
 
 <bui-back-to-top [threshold]="300" />`,
