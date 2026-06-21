@@ -1781,6 +1781,18 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
   <button buiCollapsibleTrigger class="flex w-full justify-between px-4 py-3">Title <svg><!-- chevron --></svg></button>
   <div buiCollapsibleContent class="border-t px-4 py-3">…</div>
 </div>`,
+    collapsibleAvatarList: `<div buiCollapsible class="space-y-2">
+  <button buiCollapsibleTrigger buiButton variant="outline" class="w-full justify-between">Team members (4) <svg><!-- chevron --></svg></button>
+  <div buiCollapsibleContent class="space-y-2">… avatar rows …</div>
+</div>`,
+    collapsibleFileTree: `<!-- nest a buiCollapsible inside the content for sub-folders -->
+<div buiCollapsible [open]="true">
+  <button buiCollapsibleTrigger buiButton variant="ghost" class="w-full justify-start gap-2"><svg><!-- folder --></svg> src</button>
+  <div buiCollapsibleContent class="ml-3 border-l pl-3">
+    <p>main.ts</p>
+    <div buiCollapsible>…nested folder…</div>
+  </div>
+</div>`,
     empty: `import {
   BuiEmpty, BuiEmptyHeader, BuiEmptyMedia, BuiEmptyTitle, BuiEmptyDescription,
 } from 'ng-blatui';
@@ -1951,6 +1963,9 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
   </ul>
 </nav>`,
     paginationRounded: `<a buiPaginationLink href="#" class="rounded-full">1</a>`,
+    paginationContained: `<nav buiPagination class="rounded-lg border bg-card p-1">…</nav>`,
+    paginationFirstLast: `<!-- first « / prev ‹ / pages / next › / last » -->
+<a buiPaginationLink href="#" aria-label="First"><svg><path d="m11 17-5-5 5-5" /><path d="m18 17-5-5 5-5" /></svg></a>`,
     paginationPageInfo: `<div class="flex items-center justify-between">
   <p class="text-sm">Page 1 of 10</p>
   <nav buiPagination class="mx-0 w-auto">…</nav>
