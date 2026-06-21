@@ -1,0 +1,170 @@
+<article class="space-y-6">
+  <header class="space-y-2">
+    <h1 class="text-3xl font-bold tracking-tight">{{ title() }}</h1>
+    @if (description()) {
+      <p class="text-muted-foreground">{{ description() }}</p>
+    }
+  </header>
+
+  @switch (slug()) {
+    @case ('auth') {
+      <div
+        class="flex min-h-[520px] w-full items-center justify-center rounded-lg border bg-muted p-6 md:p-10"
+      >
+        <div class="w-full max-w-sm">
+          <div class="mb-6 flex flex-col items-center gap-2 text-center">
+            <span
+              class="grid size-9 place-items-center rounded-lg bg-primary font-bold text-primary-foreground"
+              >B</span
+            >
+            <h2 class="text-xl font-semibold">Sign in to BlatUI</h2>
+            <p class="text-sm text-muted-foreground">Welcome back — please enter your details.</p>
+          </div>
+          <div buiCard variant="sectioned">
+            <div buiCardContent>
+              <form class="flex flex-col gap-6">
+                <div buiField>
+                  <label buiFieldLabel for="t-email">Email</label>
+                  <input
+                    id="t-email"
+                    buiInput
+                    type="email"
+                    placeholder="m&#64;example.com"
+                    required
+                  />
+                </div>
+                <div buiField>
+                  <label buiFieldLabel for="t-pw">Password</label>
+                  <input id="t-pw" buiInput type="password" required />
+                </div>
+                <button buiButton type="submit">Sign in</button>
+                <div class="flex items-center gap-3 text-xs">
+                  <span buiSeparator class="flex-1"></span>
+                  <span class="text-muted-foreground">Or</span>
+                  <span buiSeparator class="flex-1"></span>
+                </div>
+                <button buiButton variant="outline" type="button">Continue with Google</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    @case ('pricing') {
+      <div class="w-full space-y-10 rounded-lg border p-8">
+        <div class="mx-auto max-w-2xl text-center">
+          <span buiBadge variant="secondary">Pricing</span>
+          <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+            Plans for teams of all sizes
+          </h2>
+          <p class="mt-3 text-muted-foreground">
+            Start free, then pick a plan that scales with you.
+          </p>
+        </div>
+        <div class="mx-auto grid max-w-5xl gap-6 lg:grid-cols-3">
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <h3 buiCardTitle>Starter</h3>
+              <p buiCardDescription>For individuals.</p>
+            </div>
+            <div buiCardContent class="space-y-4">
+              <p>
+                <span class="text-3xl font-bold">$0</span
+                ><span class="text-muted-foreground">/mo</span>
+              </p>
+              <button buiButton variant="outline" class="w-full">Get started</button>
+            </div>
+          </div>
+          <div buiCard variant="sectioned" class="border-primary ring-2 ring-primary/20">
+            <div buiCardHeader>
+              <div class="flex items-center justify-between">
+                <h3 buiCardTitle>Team</h3>
+                <span buiBadge>Popular</span>
+              </div>
+              <p buiCardDescription>For growing teams.</p>
+            </div>
+            <div buiCardContent class="space-y-4">
+              <p>
+                <span class="text-3xl font-bold">$49</span
+                ><span class="text-muted-foreground">/mo</span>
+              </p>
+              <button buiButton class="w-full">Start trial</button>
+            </div>
+          </div>
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <h3 buiCardTitle>Enterprise</h3>
+              <p buiCardDescription>For organizations.</p>
+            </div>
+            <div buiCardContent class="space-y-4">
+              <p><span class="text-3xl font-bold">Custom</span></p>
+              <button buiButton variant="outline" class="w-full">Contact sales</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    @case ('dashboard') {
+      <div class="flex min-h-[560px] w-full overflow-hidden rounded-lg border">
+        <bui-sidebar>
+          <div class="px-2 pb-2 text-sm font-semibold">BlatUI</div>
+          <a buiSidebarMenuButton [isActive]="true" href="#">Overview</a>
+          <a buiSidebarMenuButton href="#">Analytics</a>
+          <a buiSidebarMenuButton href="#">Reports</a>
+          <a buiSidebarMenuButton href="#">Team</a>
+          <a buiSidebarMenuButton href="#">Settings</a>
+        </bui-sidebar>
+        <div class="flex-1 overflow-auto">
+          <header class="flex h-14 items-center gap-3 border-b px-4">
+            <h2 class="font-semibold">Overview</h2>
+            <bui-avatar class="ml-auto size-8 text-xs">JD</bui-avatar>
+          </header>
+          <div class="space-y-6 p-6">
+            <div class="grid gap-4 sm:grid-cols-3">
+              <bui-stat label="MRR" value="$24.5k" change="+9%" trend="up" />
+              <bui-stat label="Active users" value="8,210" change="+3%" trend="up" />
+              <bui-stat label="Tickets" value="42" change="-12%" trend="down" />
+            </div>
+            <div buiCard variant="sectioned">
+              <div buiCardHeader><h3 buiCardTitle>Recent activity</h3></div>
+              <div buiCardContent class="space-y-2 text-sm text-muted-foreground">
+                <p>Ada created a new project.</p>
+                <p>Grace invited 3 teammates.</p>
+                <p>Alan upgraded to the Team plan.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    @case ('blog') {
+      <div class="w-full space-y-8 rounded-lg border p-8">
+        <div class="space-y-2 text-center">
+          <span buiBadge variant="secondary">Blog</span>
+          <h2 class="text-3xl font-bold tracking-tight">From the team</h2>
+          <p class="text-muted-foreground">Notes on building accessible UI.</p>
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2">
+          @for (post of posts; track post.title) {
+            <div buiCard variant="sectioned">
+              <div buiCardHeader>
+                <span buiBadge variant="outline" class="w-fit">{{ post.tag }}</span>
+                <h3 buiCardTitle class="mt-2">{{ post.title }}</h3>
+                <p buiCardDescription>A short excerpt about this topic and why it matters.</p>
+              </div>
+              <div buiCardContent>
+                <div class="flex items-center gap-2">
+                  <bui-avatar class="size-7 text-xs">{{ post.initials }}</bui-avatar>
+                  <span class="text-sm text-muted-foreground">{{ post.author }} · 5 min read</span>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+    @default {
+      <p class="text-muted-foreground">Template not found.</p>
+    }
+  }
+</article>

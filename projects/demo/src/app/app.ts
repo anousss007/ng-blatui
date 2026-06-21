@@ -4,6 +4,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { BuiButton, BuiThemeCustomizer } from 'ng-blatui';
 
 import { BLOCKS } from './pages/blocks';
+import { TEMPLATES } from './pages/templates';
 
 interface NavLink {
   readonly label: string;
@@ -206,6 +207,16 @@ export class App {
           .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
           .join(' '),
         path: `/blocks/${slug}`,
+      })),
+    },
+    {
+      title: 'Templates',
+      links: TEMPLATES.map((slug) => ({
+        label: slug
+          .split('-')
+          .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+          .join(' '),
+        path: `/templates/${slug}`,
       })),
     },
   ];
