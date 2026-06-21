@@ -1079,6 +1079,8 @@ export class ComponentPage {
   protected readonly toggleAlign = signal<ToggleValue>('center');
   protected readonly toggleStyles = signal<ToggleValue>(['bold']);
   protected readonly tagList = signal(['angular', 'signals']);
+  protected readonly tagListPrefilled = signal(['design', 'frontend', 'accessibility', 'ssr']);
+  protected readonly sheetScrollOpen = signal(false);
   protected readonly editName = signal('Ada Lovelace');
   protected readonly knobValue = signal(40);
   protected readonly timeValue = signal('09:30');
@@ -2754,6 +2756,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-tags-input [(tags)]="tags" />`,
     tagsInputMax: `<bui-tags-input [tags]="['Design']" [max]="3" placeholder="Up to 3 tags…" />`,
     tagsInputDisabled: `<bui-tags-input [tags]="['Read-only', 'Tags']" [disabled]="true" />`,
+    tagsInputPrefilled: `<bui-tags-input [(tags)]="tags" />
+// tags = signal(['design', 'frontend', 'accessibility'])`,
     editable: `import { BuiEditable } from 'ng-blatui';
 
 <bui-editable [(value)]="name" label="title" />`,
@@ -3061,12 +3065,18 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     inputMaskDate: `<bui-input-mask mask="99/99/9999" inputmode="numeric" placeholder="MM/DD/YYYY" />`,
     inputMaskTime: `<bui-input-mask mask="99:99" inputmode="numeric" placeholder="HH:MM" />`,
     inputMaskCard: `<bui-input-mask mask="9999 9999 9999 9999" inputmode="numeric" />`,
+    inputMaskPostcode: `<bui-input-mask mask="99999-9999" inputmode="numeric" placeholder="12345-6789" />`,
     sheet: `import { BuiSheet } from 'ng-blatui';
 
 <button (click)="open.set(true)">Open</button>
 <bui-sheet [(open)]="open" side="right">…</bui-sheet>`,
     sheetLeft: `<bui-sheet [(open)]="open" side="left">…</bui-sheet>`,
     sheetBottom: `<bui-sheet [(open)]="open" side="bottom">…</bui-sheet>`,
+    sheetScroll: `<bui-sheet [(open)]="open" side="right">
+  <h2>Terms</h2>
+  <div class="flex-1 overflow-y-auto">…long content…</div>
+  <button buiButton>Accept</button>
+</bui-sheet>`,
     sonner: `import { BuiSonner, BuiToaster } from 'ng-blatui';
 
 // render once: <bui-sonner />

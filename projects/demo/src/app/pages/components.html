@@ -7147,6 +7147,11 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.tagsInputDisabled">
         <bui-tags-input class="w-full max-w-sm" [tags]="['Read-only', 'Tags']" [disabled]="true" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Prefilled</h2>
+      <app-example [code]="code.tagsInputPrefilled">
+        <bui-tags-input class="w-full max-w-sm" [(tags)]="tagListPrefilled" />
+      </app-example>
     }
     @case ('editable') {
       <app-example [code]="code.editable">
@@ -8201,6 +8206,16 @@ This content is read-only and cannot be edited.</textarea
           placeholder="1234 5678 9012 3456"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Postcode</h2>
+      <app-example [code]="code.inputMaskPostcode">
+        <bui-input-mask
+          class="w-56"
+          mask="99999-9999"
+          inputmode="numeric"
+          placeholder="12345-6789"
+        />
+      </app-example>
     }
     @case ('sheet') {
       <app-example [code]="code.sheet">
@@ -8239,6 +8254,23 @@ This content is read-only and cannot be edited.</textarea
           <button buiButton variant="outline" class="mt-2" (click)="sheetBottomOpen.set(false)">
             Close
           </button>
+        </bui-sheet>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Scrollable</h2>
+      <app-example [code]="code.sheetScroll">
+        <button buiButton variant="outline" (click)="sheetScrollOpen.set(true)">Terms</button>
+        <bui-sheet [(open)]="sheetScrollOpen" side="right">
+          <h2 class="text-lg font-semibold">Terms of service</h2>
+          <div class="-mr-2 flex-1 space-y-3 overflow-y-auto pr-2 text-sm text-muted-foreground">
+            @for (i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track i) {
+              <p>
+                {{ i }}. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua.
+              </p>
+            }
+          </div>
+          <button buiButton class="mt-2" (click)="sheetScrollOpen.set(false)">Accept</button>
         </bui-sheet>
       </app-example>
     }
