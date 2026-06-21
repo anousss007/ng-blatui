@@ -1500,11 +1500,34 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 <bui-aspect-ratio ratio="16 / 9">
   <img src="/cover.jpg" alt="" class="h-full w-full rounded-lg object-cover" />
 </bui-aspect-ratio>`,
-    buttonGroup: `import { BuiButtonGroup, BuiButton } from 'ng-blatui';
+    buttonGroup: `import { BuiButtonGroup, BuiButtonGroupText, BuiButton } from 'ng-blatui';
 
 <div buiButtonGroup>
-  <button buiButton variant="outline">Prev</button>
+  <button buiButton variant="outline">Previous</button>
   <button buiButton variant="outline">Next</button>
+</div>`,
+    buttonGroupIcon: `<div buiButtonGroup>
+  <button buiButton variant="outline" size="icon" aria-label="Align left">…</button>
+  <button buiButton variant="outline" size="icon" aria-label="Align center">…</button>
+</div>`,
+    buttonGroupVertical: `<div buiButtonGroup orientation="vertical">
+  <button buiButton variant="outline">Archive</button>
+  <button buiButton variant="outline">Delete</button>
+</div>`,
+    buttonGroupSplit: `<div buiButtonGroup>
+  <button buiButton variant="outline"><svg><!-- save --></svg> Save</button>
+  <button buiButton variant="outline" size="icon" aria-label="More">…</button>
+</div>`,
+    buttonGroupSolid: `<div buiButtonGroup class="*:not-last:border-primary-foreground/25 *:not-last:border-r">
+  <button buiButton>Day</button><button buiButton>Week</button><button buiButton>Month</button>
+</div>`,
+    buttonGroupText: `<div buiButtonGroup>
+  <span buiButtonGroupText>https://</span>
+  <input buiInput placeholder="example.com" class="rounded-l-none" />
+</div>`,
+    buttonGroupNested: `<div buiButtonGroup>
+  <div buiButtonGroup>…undo / redo…</div>
+  <div buiButtonGroup>…bold / italic…</div>
 </div>`,
     collapsible: `import { BuiCollapsible, BuiCollapsibleTrigger, BuiCollapsibleContent } from 'ng-blatui';
 
@@ -1512,16 +1535,32 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
   <button buiCollapsibleTrigger buiButton variant="outline">Toggle</button>
   <div buiCollapsibleContent class="pt-2">Hidden content</div>
 </div>`,
+    collapsibleOpen: `<div buiCollapsible [open]="true">…starts expanded…</div>`,
+    collapsibleCard: `<div buiCollapsible class="rounded-lg border">
+  <button buiCollapsibleTrigger class="flex w-full justify-between px-4 py-3">Title <svg><!-- chevron --></svg></button>
+  <div buiCollapsibleContent class="border-t px-4 py-3">…</div>
+</div>`,
     empty: `import {
   BuiEmpty, BuiEmptyHeader, BuiEmptyMedia, BuiEmptyTitle, BuiEmptyDescription,
 } from 'ng-blatui';
 
 <div buiEmpty>
   <div buiEmptyHeader>
-    <div buiEmptyMedia variant="icon">📭</div>
-    <div buiEmptyTitle>No projects</div>
-    <div buiEmptyDescription>Create your first project to get started.</div>
+    <div buiEmptyMedia variant="icon"><svg><!-- icon --></svg></div>
+    <div buiEmptyTitle>No projects yet</div>
+    <div buiEmptyDescription>Get started by creating your first project.</div>
   </div>
+  <div buiEmptyContent><button buiButton>Create project</button></div>
+</div>`,
+    emptySearch: `<div buiEmptyContent>
+  <div class="flex items-center gap-2">
+    <input buiInput placeholder="Search again…" />
+    <button buiButton variant="outline">Search</button>
+  </div>
+</div>`,
+    emptyLink: `<div buiEmptyContent>
+  <button buiButton>Connect storage</button>
+  <a href="#" class="text-sm hover:underline">Learn more</a>
 </div>`,
     field: `import { BuiField, BuiFieldLabel, BuiFieldDescription } from 'ng-blatui';
 

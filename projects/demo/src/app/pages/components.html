@@ -2348,8 +2348,164 @@ This content is read-only and cannot be edited.</textarea
     @case ('button-group') {
       <app-example [code]="code.buttonGroup">
         <div buiButtonGroup>
-          <button buiButton variant="outline">Prev</button>
+          <button buiButton variant="outline">Previous</button>
           <button buiButton variant="outline">Next</button>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With icon</h2>
+      <app-example [code]="code.buttonGroupIcon">
+        <div buiButtonGroup>
+          <button buiButton variant="outline" size="icon" aria-label="Align left">
+            <svg
+              class="size-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M15 12H3M17 18H3M21 6H3" />
+            </svg>
+          </button>
+          <button buiButton variant="outline" size="icon" aria-label="Align center">
+            <svg
+              class="size-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M17 12H7M19 18H5M21 6H3" />
+            </svg>
+          </button>
+          <button buiButton variant="outline" size="icon" aria-label="Align right">
+            <svg
+              class="size-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 12H9M21 18H7M21 6H3" />
+            </svg>
+          </button>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Vertical</h2>
+      <app-example [code]="code.buttonGroupVertical">
+        <div buiButtonGroup orientation="vertical">
+          <button buiButton variant="outline">Archive</button>
+          <button buiButton variant="outline">Report</button>
+          <button buiButton variant="outline">Delete</button>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Split</h2>
+      <app-example [code]="code.buttonGroupSplit">
+        <div buiButtonGroup>
+          <button buiButton variant="outline">
+            <svg
+              class="size-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z" />
+              <path d="M17 21v-8H7v8M7 3v5h8" />
+            </svg>
+            Save
+          </button>
+          <button buiButton variant="outline" size="icon" aria-label="More save options">
+            <svg
+              class="size-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Solid</h2>
+      <app-example [code]="code.buttonGroupSolid">
+        <div buiButtonGroup class="*:not-last:border-r *:not-last:border-primary-foreground/25">
+          <button buiButton>Day</button>
+          <button buiButton>Week</button>
+          <button buiButton>Month</button>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With text</h2>
+      <app-example [code]="code.buttonGroupText">
+        <div buiButtonGroup>
+          <span buiButtonGroupText>https://</span>
+          <input buiInput placeholder="example.com" class="rounded-l-none" />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Nested</h2>
+      <app-example [code]="code.buttonGroupNested">
+        <div buiButtonGroup>
+          <div buiButtonGroup>
+            <button buiButton variant="outline" size="icon" aria-label="Undo">
+              <svg
+                class="size-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M9 14 4 9l5-5" />
+                <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5 5.5 5.5 0 0 1-5.5 5.5H11" />
+              </svg>
+            </button>
+            <button buiButton variant="outline" size="icon" aria-label="Redo">
+              <svg
+                class="size-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m15 14 5-5-5-5" />
+                <path d="M20 9H9.5A5.5 5.5 0 0 0 4 14.5 5.5 5.5 0 0 0 9.5 20H13" />
+              </svg>
+            </button>
+          </div>
+          <div buiButtonGroup>
+            <button buiButton variant="outline" size="icon" aria-label="Bold">
+              <span class="font-bold">B</span>
+            </button>
+            <button buiButton variant="outline" size="icon" aria-label="Italic">
+              <span class="italic">I</span>
+            </button>
+          </div>
         </div>
       </app-example>
     }
@@ -2446,14 +2602,137 @@ This content is read-only and cannot be edited.</textarea
           </div>
         </div>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Open by default</h2>
+      <app-example [code]="code.collapsibleOpen">
+        <div buiCollapsible [open]="true" class="w-full max-w-sm space-y-2">
+          <button buiCollapsibleTrigger buiButton variant="outline">Toggle</button>
+          <div buiCollapsibleContent class="rounded-md border p-3 text-sm text-muted-foreground">
+            This panel starts open via [open]="true".
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Card</h2>
+      <app-example [code]="code.collapsibleCard">
+        <div buiCollapsible class="w-full max-w-sm rounded-lg border">
+          <button
+            buiCollapsibleTrigger
+            class="flex w-full items-center justify-between px-4 py-3 text-sm font-medium"
+          >
+            &#64;peduarte starred 3 repositories
+            <svg
+              class="size-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+          <div buiCollapsibleContent class="space-y-2 border-t px-4 py-3 text-sm">
+            <div class="rounded-md border px-3 py-2">&#64;radix-ui/primitives</div>
+            <div class="rounded-md border px-3 py-2">&#64;radix-ui/colors</div>
+          </div>
+        </div>
+      </app-example>
     }
     @case ('empty') {
       <app-example [code]="code.empty">
-        <div buiEmpty class="w-full max-w-sm">
+        <div buiEmpty class="w-full max-w-md">
           <div buiEmptyHeader>
-            <div buiEmptyMedia variant="icon">📭</div>
-            <div buiEmptyTitle>No projects</div>
-            <div buiEmptyDescription>Create your first project to get started.</div>
+            <div buiEmptyMedia variant="icon">
+              <svg
+                class="size-6"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path
+                  d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.55 6a2 2 0 0 1-1.94 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.93a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H18a2 2 0 0 1 2 2v2"
+                />
+              </svg>
+            </div>
+            <div buiEmptyTitle>No projects yet</div>
+            <div buiEmptyDescription>
+              You haven't created any projects yet. Get started by creating your first project.
+            </div>
+          </div>
+          <div buiEmptyContent>
+            <button buiButton>Create project</button>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Search</h2>
+      <app-example [code]="code.emptySearch">
+        <div buiEmpty class="w-full max-w-md">
+          <div buiEmptyHeader>
+            <div buiEmptyMedia variant="icon">
+              <svg
+                class="size-6"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+              </svg>
+            </div>
+            <div buiEmptyTitle>No results found</div>
+            <div buiEmptyDescription>
+              We couldn't find anything matching your search. Try a different term.
+            </div>
+          </div>
+          <div buiEmptyContent>
+            <div class="flex w-full max-w-xs items-center gap-2">
+              <input buiInput placeholder="Search again…" />
+              <button buiButton variant="outline">Search</button>
+            </div>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With link</h2>
+      <app-example [code]="code.emptyLink">
+        <div buiEmpty class="w-full max-w-md">
+          <div buiEmptyHeader>
+            <div buiEmptyMedia variant="icon">
+              <svg
+                class="size-6"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+              </svg>
+            </div>
+            <div buiEmptyTitle>No backups configured</div>
+            <div buiEmptyDescription>
+              Connect a storage provider to start backing up your data automatically.
+            </div>
+          </div>
+          <div buiEmptyContent>
+            <button buiButton>Connect storage</button>
+            <a href="#" class="text-sm text-muted-foreground underline-offset-4 hover:underline"
+              >Learn more</a
+            >
           </div>
         </div>
       </app-example>
