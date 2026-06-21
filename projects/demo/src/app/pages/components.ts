@@ -1693,6 +1693,17 @@ export class ComponentPage {
   <svg><!-- user --></svg> Account
 </div>`,
     tabsDisabled: `<div ngTab value="team" buiTabTrigger [disabled]="true">Team</div>`,
+    tabsLine: `<!-- underlined tabs: clear the list bg, border-b the triggers -->
+<div ngTabList buiTabList class="rounded-none border-b bg-transparent p-0">
+  <div ngTab buiTabTrigger class="rounded-none border-0 border-b-2 border-transparent aria-selected:border-b-primary aria-selected:bg-transparent aria-selected:shadow-none">Overview</div>
+</div>`,
+    tabsPills: `<div ngTab buiTabTrigger class="rounded-full border aria-selected:bg-primary aria-selected:text-primary-foreground">All</div>`,
+    tabsSimple: `<div ngTab buiTabTrigger class="aria-selected:bg-transparent aria-selected:text-primary aria-selected:shadow-none">Tab one</div>`,
+    tabsVertical: `<!-- flip the layout: flex-row tabs + a column tab list -->
+<div ngTabs buiTabs class="flex-row gap-4">
+  <div ngTabList buiTabList class="h-auto flex-col">…</div>
+  <div ngTabPanel buiTabPanel class="flex-1">…</div>
+</div>`,
     dialog: `import { inject, viewChild, TemplateRef } from '@angular/core';
 import { Dialog, BuiDialogContent, BuiDialogTitle } from 'ng-blatui';
 

@@ -3317,6 +3317,132 @@ This content is read-only and cannot be edited.</textarea
           </div>
         </div>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Line</h2>
+      <app-example [code]="code.tabsLine">
+        <div ngTabs buiTabs class="w-full max-w-md">
+          <div
+            ngTabList
+            buiTabList
+            selectedTab="overview"
+            class="w-full justify-start gap-4 rounded-none border-b bg-transparent p-0"
+          >
+            <div
+              ngTab
+              value="overview"
+              buiTabTrigger
+              class="rounded-none border-0 border-b-2 border-transparent aria-selected:border-b-primary aria-selected:bg-transparent aria-selected:text-foreground aria-selected:shadow-none"
+            >
+              Overview
+            </div>
+            <div
+              ngTab
+              value="analytics"
+              buiTabTrigger
+              class="rounded-none border-0 border-b-2 border-transparent aria-selected:border-b-primary aria-selected:bg-transparent aria-selected:text-foreground aria-selected:shadow-none"
+            >
+              Analytics
+            </div>
+          </div>
+          <div ngTabPanel value="overview" buiTabPanel class="pt-3 text-sm text-muted-foreground">
+            <ng-template ngTabContent>An underlined tab list.</ng-template>
+          </div>
+          <div ngTabPanel value="analytics" buiTabPanel class="pt-3 text-sm text-muted-foreground">
+            <ng-template ngTabContent>Analytics panel.</ng-template>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Pills</h2>
+      <app-example [code]="code.tabsPills">
+        <div ngTabs buiTabs class="w-full max-w-md">
+          <div ngTabList buiTabList selectedTab="all" class="h-auto gap-2 bg-transparent p-0">
+            <div
+              ngTab
+              value="all"
+              buiTabTrigger
+              class="rounded-full border aria-selected:border-primary aria-selected:bg-primary aria-selected:text-primary-foreground"
+            >
+              All
+            </div>
+            <div
+              ngTab
+              value="active"
+              buiTabTrigger
+              class="rounded-full border aria-selected:border-primary aria-selected:bg-primary aria-selected:text-primary-foreground"
+            >
+              Active
+            </div>
+            <div
+              ngTab
+              value="archived"
+              buiTabTrigger
+              class="rounded-full border aria-selected:border-primary aria-selected:bg-primary aria-selected:text-primary-foreground"
+            >
+              Archived
+            </div>
+          </div>
+          <div ngTabPanel value="all" buiTabPanel class="pt-3 text-sm text-muted-foreground">
+            <ng-template ngTabContent>All items.</ng-template>
+          </div>
+          <div ngTabPanel value="active" buiTabPanel class="pt-3 text-sm text-muted-foreground">
+            <ng-template ngTabContent>Active items.</ng-template>
+          </div>
+          <div ngTabPanel value="archived" buiTabPanel class="pt-3 text-sm text-muted-foreground">
+            <ng-template ngTabContent>Archived items.</ng-template>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Simple</h2>
+      <app-example [code]="code.tabsSimple">
+        <div ngTabs buiTabs class="w-full max-w-md">
+          <div ngTabList buiTabList selectedTab="tab1" class="gap-1 bg-transparent p-0">
+            <div
+              ngTab
+              value="tab1"
+              buiTabTrigger
+              class="aria-selected:bg-transparent aria-selected:text-primary aria-selected:shadow-none"
+            >
+              Tab one
+            </div>
+            <div
+              ngTab
+              value="tab2"
+              buiTabTrigger
+              class="aria-selected:bg-transparent aria-selected:text-primary aria-selected:shadow-none"
+            >
+              Tab two
+            </div>
+          </div>
+          <div ngTabPanel value="tab1" buiTabPanel class="pt-3 text-sm text-muted-foreground">
+            <ng-template ngTabContent>Minimal, text-only tabs.</ng-template>
+          </div>
+          <div ngTabPanel value="tab2" buiTabPanel class="pt-3 text-sm text-muted-foreground">
+            <ng-template ngTabContent>Second panel.</ng-template>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Vertical</h2>
+      <app-example [code]="code.tabsVertical">
+        <div ngTabs buiTabs class="w-full max-w-md flex-row gap-4">
+          <div ngTabList buiTabList selectedTab="general" class="h-auto flex-col">
+            <div ngTab value="general" buiTabTrigger class="w-full justify-start">General</div>
+            <div ngTab value="security" buiTabTrigger class="w-full justify-start">Security</div>
+            <div ngTab value="billing" buiTabTrigger class="w-full justify-start">Billing</div>
+          </div>
+          <div ngTabPanel value="general" buiTabPanel class="flex-1 text-sm text-muted-foreground">
+            <ng-template ngTabContent>General settings.</ng-template>
+          </div>
+          <div ngTabPanel value="security" buiTabPanel class="flex-1 text-sm text-muted-foreground">
+            <ng-template ngTabContent>Security settings.</ng-template>
+          </div>
+          <div ngTabPanel value="billing" buiTabPanel class="flex-1 text-sm text-muted-foreground">
+            <ng-template ngTabContent>Billing settings.</ng-template>
+          </div>
+        </div>
+      </app-example>
     }
     @case ('dialog') {
       <app-example [code]="code.dialog">
