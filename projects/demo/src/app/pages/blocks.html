@@ -312,6 +312,113 @@
         </div>
       </div>
     }
+    @case ('signup-02') {
+      <div class="grid min-h-[480px] w-full overflow-hidden rounded-lg border lg:grid-cols-2">
+        <div class="hidden bg-muted lg:block"></div>
+        <div class="flex items-center justify-center p-6 md:p-10">
+          <form class="flex w-full max-w-xs flex-col gap-6">
+            <div class="flex flex-col gap-1">
+              <h1 class="text-2xl font-bold">Create your account</h1>
+              <p class="text-sm text-muted-foreground">Enter your details to get started.</p>
+            </div>
+            <div buiField>
+              <label buiFieldLabel for="s2-name">Full name</label>
+              <input id="s2-name" buiInput placeholder="John Doe" required />
+            </div>
+            <div buiField>
+              <label buiFieldLabel for="s2-email">Email</label>
+              <input id="s2-email" buiInput type="email" placeholder="m&#64;example.com" required />
+            </div>
+            <div buiField>
+              <label buiFieldLabel for="s2-pw">Password</label>
+              <input id="s2-pw" buiInput type="password" required />
+            </div>
+            <button buiButton type="submit">Create account</button>
+          </form>
+        </div>
+      </div>
+    }
+    @case ('signup-03') {
+      <div
+        class="flex min-h-[480px] w-full items-center justify-center rounded-lg border bg-muted p-6 md:p-10"
+      >
+        <div class="w-full max-w-sm">
+          <div buiCard variant="sectioned">
+            <div buiCardHeader class="text-center">
+              <h3 buiCardTitle class="text-xl">Create your account</h3>
+              <p buiCardDescription>Sign up with email or a provider.</p>
+            </div>
+            <div buiCardContent>
+              <form class="flex flex-col gap-6">
+                <div buiField>
+                  <label buiFieldLabel for="s3-name">Full name</label>
+                  <input id="s3-name" buiInput placeholder="John Doe" required />
+                </div>
+                <div buiField>
+                  <label buiFieldLabel for="s3-email">Email</label>
+                  <input
+                    id="s3-email"
+                    buiInput
+                    type="email"
+                    placeholder="m&#64;example.com"
+                    required
+                  />
+                </div>
+                <button buiButton type="submit">Create account</button>
+                <div class="flex items-center gap-3 text-xs">
+                  <span buiSeparator class="flex-1"></span>
+                  <span class="text-muted-foreground">Or</span>
+                  <span buiSeparator class="flex-1"></span>
+                </div>
+                <button buiButton variant="outline" type="button">Continue with Google</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    @case ('marketing-01') {
+      <div class="w-full overflow-hidden rounded-lg border">
+        <header class="flex h-16 items-center gap-6 border-b px-6">
+          <span class="font-semibold">BlatUI</span>
+          <nav class="ml-auto hidden items-center gap-1 text-sm text-muted-foreground md:flex">
+            <a buiButton variant="ghost" size="sm" href="#">Features</a>
+            <a buiButton variant="ghost" size="sm" href="#">Pricing</a>
+            <a buiButton size="sm" href="#">Get started</a>
+          </nav>
+        </header>
+        <div class="mx-auto max-w-3xl px-6 py-20 text-center">
+          <span buiBadge class="rounded-full">New</span>
+          <h1 class="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">
+            Ship beautiful UI, faster
+          </h1>
+          <p class="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
+            A complete component system for Angular — accessible, themeable, SSR-ready.
+          </p>
+          <div class="mt-8 flex items-center justify-center gap-3">
+            <a buiButton size="lg" href="#">Start for free</a>
+            <a buiButton size="lg" variant="outline" href="#">Live demo</a>
+          </div>
+          <p class="mt-4 text-xs text-muted-foreground">No credit card required · 14-day trial</p>
+        </div>
+        <div class="px-6 pb-12">
+          <p
+            class="mb-6 text-center text-xs font-medium tracking-wide text-muted-foreground uppercase"
+          >
+            Trusted by teams at
+          </p>
+          <div
+            class="grid grid-cols-2 items-center justify-items-center gap-8 text-muted-foreground/70 sm:grid-cols-3 md:grid-cols-5"
+          >
+            <span class="text-lg font-semibold">Acme</span>
+            <span class="text-lg font-semibold">Globex</span>
+            <span class="text-lg font-semibold">Initech</span>
+            <span class="text-lg font-semibold">Umbrella</span>
+            <span class="text-lg font-semibold">Hooli</span>
+          </div>
+        </div>
+      </div>
+    }
     @default {
       <p class="text-muted-foreground">Block not found.</p>
     }
