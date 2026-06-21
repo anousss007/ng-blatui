@@ -44,7 +44,32 @@ function isoOf(date: Date): string {
           <path d="m15 18-6-6 6-6" />
         </svg>
       </button>
-      <div class="text-sm font-medium" aria-live="polite">{{ monthLabel() }}</div>
+      @if (captionLayout() === 'dropdown') {
+        <div class="flex items-center gap-1">
+          <select
+            aria-label="Month"
+            class="rounded-md border-0 bg-transparent py-1 text-sm font-medium outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+            [value]="viewMonth()"
+            (change)="setMonth($event)"
+          >
+            @for (month of months(); track month.value) {
+              <option [value]="month.value">{{ month.label }}</option>
+            }
+          </select>
+          <select
+            aria-label="Year"
+            class="rounded-md border-0 bg-transparent py-1 text-sm font-medium outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+            [value]="viewYear()"
+            (change)="setYear($event)"
+          >
+            @for (year of years(); track year) {
+              <option [value]="year">{{ year }}</option>
+            }
+          </select>
+        </div>
+      } @else {
+        <div class="text-sm font-medium" aria-live="polite">{{ monthLabel() }}</div>
+      }
       <button
         type="button"
         class="inline-flex size-7 items-center justify-center rounded-md hover:bg-accent"
@@ -88,17 +113,21 @@ function isoOf(date: Date): string {
             }
             @for (day of week; track day.iso) {
               <td class="p-0 text-center">
-                <button
-                  type="button"
-                  class="size-9 rounded-md text-sm"
-                  [class]="dayClass(day)"
-                  [attr.aria-pressed]="day.iso === value()"
-                  [attr.aria-current]="day.isToday ? 'date' : null"
-                  [disabled]="day.disabled"
-                  (click)="select(day.iso)"
-                >
-                  {{ day.num }}
-                </button>
+                @if (day.inMonth || !hideOutsideDays()) {
+                  <button
+                    type="button"
+                    class="size-9 rounded-md text-sm"
+                    [class]="dayClass(day)"
+                    [attr.aria-pressed]="day.iso === value()"
+                    [attr.aria-current]="day.isToday ? 'date' : null"
+                    [disabled]="day.disabled"
+                    (click)="select(day.iso)"
+                  >
+                    {{ day.num }}
+                  </button>
+                } @else {
+                  <span class="block size-9"></span>
+                }
               </td>
             }
           </tr>
@@ -118,6 +147,10 @@ export class BuiCalendar {
   readonly disableWeekends = input(false);
   /** Show an ISO week-number column on the left. */
   readonly showWeekNumbers = input(false);
+  /** `dropdown` swaps the month label for month + year selects. */
+  readonly captionLayout = input<'label' | 'dropdown'>('label');
+  /** Hide days that fall outside the current month. */
+  readonly hideOutsideDays = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
   private readonly view = signal(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
@@ -128,6 +161,18 @@ export class BuiCalendar {
   protected readonly monthLabel = computed(() =>
     this.view().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
   );
+  protected readonly viewMonth = computed(() => this.view().getMonth());
+  protected readonly viewYear = computed(() => this.view().getFullYear());
+  protected readonly months = computed(() =>
+    Array.from({ length: 12 }, (_, index) => ({
+      value: index,
+      label: new Date(2000, index, 1).toLocaleDateString('en-US', { month: 'long' }),
+    })),
+  );
+  protected readonly years = computed(() => {
+    const current = this.viewYear();
+    return Array.from({ length: 21 }, (_, index) => current - 10 + index);
+  });
   protected readonly weeks = computed<Day[][]>(() => {
     const view = this.view();
     const year = view.getFullYear();
@@ -164,6 +209,16 @@ export class BuiCalendar {
   protected changeMonth(delta: number): void {
     const view = this.view();
     this.view.set(new Date(view.getFullYear(), view.getMonth() + delta, 1));
+  }
+
+  protected setMonth(event: Event): void {
+    const month = Number((event.target as HTMLSelectElement).value);
+    this.view.set(new Date(this.viewYear(), month, 1));
+  }
+
+  protected setYear(event: Event): void {
+    const year = Number((event.target as HTMLSelectElement).value);
+    this.view.set(new Date(year, this.viewMonth(), 1));
   }
 
   protected select(iso: string): void {

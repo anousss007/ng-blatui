@@ -8033,6 +8033,16 @@ This content is read-only and cannot be edited.</textarea
           [(value)]="calDate"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Dropdown caption</h2>
+      <app-example [code]="code.calendarDropdown">
+        <bui-calendar class="border" [(value)]="calDate" captionLayout="dropdown" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Hide outside days</h2>
+      <app-example [code]="code.calendarHideOutside">
+        <bui-calendar class="border" [(value)]="calDate" [hideOutsideDays]="true" />
+      </app-example>
     }
     @case ('date-picker') {
       <app-example [code]="code.datePicker">
@@ -8080,6 +8090,16 @@ This content is read-only and cannot be edited.</textarea
       <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Week numbers</h2>
       <app-example [code]="code.datePickerWeekNumbers">
         <bui-date-picker class="w-56" [(value)]="dpDate" [showWeekNumbers]="true" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With dropdown</h2>
+      <app-example [code]="code.datePickerDropdown">
+        <bui-date-picker class="w-56" [(value)]="dpDate" captionLayout="dropdown" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">No outside days</h2>
+      <app-example [code]="code.datePickerNoOutside">
+        <bui-date-picker class="w-56" [(value)]="dpDate" [hideOutsideDays]="true" />
       </app-example>
     }
     @case ('carousel') {

@@ -44,6 +44,8 @@ import { type ClassValue, cn } from '../utils/cn';
           [disabledDates]="disabledDates()"
           [disableWeekends]="disableWeekends()"
           [showWeekNumbers]="showWeekNumbers()"
+          [captionLayout]="captionLayout()"
+          [hideOutsideDays]="hideOutsideDays()"
           (valueChange)="onPick($event)"
         />
       </div>
@@ -59,6 +61,8 @@ export class BuiDatePicker {
   readonly disabledDates = input<readonly string[]>([]);
   readonly disableWeekends = input(false);
   readonly showWeekNumbers = input(false);
+  readonly captionLayout = input<'label' | 'dropdown'>('label');
+  readonly hideOutsideDays = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);

@@ -3055,6 +3055,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     calendarWeekNumbers: `<bui-calendar [(value)]="date" [showWeekNumbers]="true" />`,
     calendarOutline: `<!-- outline each day cell via an arbitrary child selector -->
 <bui-calendar class="[&_tbody_button]:border [&_tbody_button]:border-border/60" [(value)]="date" />`,
+    calendarDropdown: `<!-- captionLayout="dropdown" swaps the label for month + year selects -->
+<bui-calendar [(value)]="date" captionLayout="dropdown" />`,
+    calendarHideOutside: `<bui-calendar [(value)]="date" [hideOutsideDays]="true" />`,
     datePicker: `import { BuiDatePicker } from 'ng-blatui';
 
 <bui-date-picker [(value)]="date" />`,
@@ -3068,6 +3071,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-date-picker [(value)]="date" [weekStart]="1" />`,
     datePickerDisabled: `<bui-date-picker [(value)]="date" [disabledDates]="['2026-06-10']" [disableWeekends]="true" />`,
     datePickerWeekNumbers: `<bui-date-picker [(value)]="date" [showWeekNumbers]="true" />`,
+    datePickerDropdown: `<!-- forwards captionLayout to the calendar -->
+<bui-date-picker [(value)]="date" captionLayout="dropdown" />`,
+    datePickerNoOutside: `<bui-date-picker [(value)]="date" [hideOutsideDays]="true" />`,
     carousel: `import { BuiCarousel } from 'ng-blatui';
 
 <bui-carousel>
