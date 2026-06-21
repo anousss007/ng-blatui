@@ -1507,93 +1507,364 @@
       </div>
     }
     @case ('brew') {
-      <div class="w-full rounded-lg border bg-amber-50 p-12 text-amber-950">
-        <span buiBadge variant="outline" class="border-amber-700/40 text-amber-800">Brew</span>
-        <h1 class="mt-4 text-4xl font-bold tracking-tight">Freshly roasted, daily</h1>
-        <p class="mt-4 max-w-xl text-lg text-amber-900/70">
-          A warm, cozy template for cafés and makers.
-        </p>
-        <a buiButton size="lg" class="mt-7 bg-amber-700 text-white" href="#">Order a bag</a>
+      <div class="bg-amber-50/70 text-amber-950">
+        <header class="border-b border-amber-200/70">
+          <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+            <span class="text-lg font-bold">Brew &amp; Co.</span
+            ><a
+              buiButton
+              size="sm"
+              class="ml-auto bg-amber-700 text-white hover:bg-amber-800"
+              href="#"
+              >Order a bag</a
+            >
+          </div>
+        </header>
+        <section class="mx-auto max-w-4xl px-6 py-28 text-center">
+          <span buiBadge variant="outline" class="border-amber-700/40 text-amber-800"
+            >☕ Small-batch roastery</span
+          >
+          <h1 class="mt-5 text-5xl font-bold tracking-tight text-balance sm:text-6xl">
+            Freshly roasted, every morning
+          </h1>
+          <p class="mx-auto mt-6 max-w-xl text-lg text-amber-900/70">
+            Ethically sourced beans, roasted in small batches and shipped within 24 hours.
+          </p>
+          <a buiButton size="lg" class="mt-8 bg-amber-700 text-white hover:bg-amber-800" href="#"
+            >Shop the roast</a
+          >
+        </section>
+        <section class="mx-auto max-w-6xl px-6 pb-24">
+          <div class="grid gap-6 sm:grid-cols-3">
+            @for (p of ['House Blend', 'Single Origin', 'Decaf']; track p) {
+              <div class="rounded-2xl border border-amber-200/70 bg-white/70 p-6">
+                <div
+                  class="mb-4 grid aspect-square place-items-center rounded-xl bg-amber-100 text-amber-700"
+                >
+                  Bag
+                </div>
+                <h3 class="font-semibold">{{ p }}</h3>
+                <p class="mt-1 text-sm text-amber-900/60">From $16 / 250g</p>
+              </div>
+            }
+          </div>
+        </section>
+        <footer class="border-t border-amber-200/70">
+          <div class="mx-auto max-w-6xl px-6 py-8 text-sm text-amber-900/60">
+            © 2026 Brew &amp; Co. Roasted with love.
+          </div>
+        </footer>
       </div>
     }
     @case ('brut') {
-      <div class="w-full border-4 border-black bg-yellow-300 p-10 text-black">
-        <h1 class="text-5xl font-black tracking-tighter uppercase">No frills.<br />Just ship.</h1>
-        <p class="mt-4 max-w-xl text-lg font-medium">
-          A brutalist, high-contrast statement template.
-        </p>
-        <a
-          buiButton
-          size="lg"
-          class="mt-7 rounded-none border-2 border-black bg-black text-white"
-          href="#"
-          >Enter</a
-        >
+      <div class="bg-yellow-300 text-black">
+        <header class="border-b-4 border-black">
+          <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+            <span class="text-xl font-black uppercase">BRUT</span
+            ><a
+              buiButton
+              size="sm"
+              class="ml-auto rounded-none border-2 border-black bg-black text-white"
+              href="#"
+              >Enter</a
+            >
+          </div>
+        </header>
+        <section class="mx-auto max-w-5xl px-6 py-24">
+          <h1 class="text-6xl font-black tracking-tighter uppercase sm:text-8xl">
+            No frills.<br />Just ship.
+          </h1>
+          <p class="mt-6 max-w-xl text-xl font-medium">
+            A brutalist, high-contrast statement template that refuses to be ignored.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a
+              buiButton
+              size="lg"
+              class="rounded-none border-2 border-black bg-black text-white"
+              href="#"
+              >Get started</a
+            >
+            <a
+              buiButton
+              size="lg"
+              variant="outline"
+              class="rounded-none border-2 border-black bg-transparent text-black"
+              href="#"
+              >Manifesto</a
+            >
+          </div>
+        </section>
+        <section class="border-y-4 border-black">
+          <div
+            class="mx-auto grid max-w-6xl grid-cols-1 divide-y-4 divide-black sm:grid-cols-3 sm:divide-x-4 sm:divide-y-0"
+          >
+            @for (f of saasFeatures.slice(0, 3); track f.title) {
+              <div class="p-8">
+                <div class="text-3xl">{{ f.icon }}</div>
+                <h3 class="mt-3 text-2xl font-black uppercase">{{ f.title }}</h3>
+                <p class="mt-2 font-medium">{{ f.body }}</p>
+              </div>
+            }
+          </div>
+        </section>
+        <footer class="border-t-4 border-black">
+          <div class="mx-auto max-w-6xl px-6 py-8 font-bold uppercase">© 2026 BRUT</div>
+        </footer>
       </div>
     }
     @case ('forge') {
-      <div class="w-full rounded-lg border bg-slate-900 p-10 text-slate-100">
-        <span buiBadge variant="outline" class="border-slate-700 text-slate-300">Forge</span>
-        <h1 class="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">Built to take a beating</h1>
-        <p class="mt-4 max-w-xl text-lg text-slate-400">
-          An industrial template for tools and infrastructure.
-        </p>
-        <div class="mt-7 flex gap-3">
-          <a buiButton size="lg" href="#">Get started</a
-          ><a buiButton size="lg" variant="outline" class="border-slate-700 text-slate-100" href="#"
-            >Docs</a
+      <div class="bg-slate-900 text-slate-100">
+        <header class="border-b border-slate-800">
+          <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+            <span class="text-lg font-bold">Forge</span>
+            <nav class="ml-4 hidden gap-6 text-sm text-slate-400 md:flex">
+              <a href="#" class="hover:text-white">Platform</a
+              ><a href="#" class="hover:text-white">Docs</a>
+            </nav>
+            <a buiButton size="sm" variant="secondary" class="ml-auto" href="#">Get started</a>
+          </div>
+        </header>
+        <section class="mx-auto max-w-4xl px-6 py-28 text-center">
+          <span buiBadge variant="outline" class="border-slate-700 text-slate-300"
+            >Infrastructure, forged</span
           >
-        </div>
+          <h1 class="mt-5 text-5xl font-bold tracking-tight text-balance sm:text-6xl">
+            Built to take a beating
+          </h1>
+          <p class="mx-auto mt-6 max-w-xl text-lg text-slate-400">
+            An industrial-grade platform for the tools and pipelines your team depends on.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a buiButton size="lg" variant="secondary" href="#">Start building</a
+            ><a
+              buiButton
+              size="lg"
+              variant="outline"
+              class="border-slate-700 text-slate-100 hover:bg-slate-800"
+              href="#"
+              >Read docs</a
+            >
+          </div>
+        </section>
+        <section class="border-y border-slate-800">
+          <div class="mx-auto grid max-w-5xl gap-8 px-6 py-14 text-center sm:grid-cols-3">
+            <div>
+              <div class="text-4xl font-bold">5M+</div>
+              <p class="mt-1 text-sm text-slate-400">Builds run</p>
+            </div>
+            <div>
+              <div class="text-4xl font-bold">8s</div>
+              <p class="mt-1 text-sm text-slate-400">Avg build</p>
+            </div>
+            <div>
+              <div class="text-4xl font-bold">99.9%</div>
+              <p class="mt-1 text-sm text-slate-400">Success rate</p>
+            </div>
+          </div>
+        </section>
+        <section class="mx-auto max-w-6xl px-6 py-20">
+          <div class="grid gap-6 sm:grid-cols-3">
+            @for (f of saasFeatures.slice(0, 3); track f.title) {
+              <div class="rounded-xl border border-slate-800 bg-slate-800/40 p-6">
+                <div class="mb-2 text-2xl">{{ f.icon }}</div>
+                <h3 class="font-semibold">{{ f.title }}</h3>
+                <p class="mt-1 text-sm text-slate-400">{{ f.body }}</p>
+              </div>
+            }
+          </div>
+        </section>
+        <footer class="border-t border-slate-800">
+          <div class="mx-auto max-w-6xl px-6 py-8 text-sm text-slate-500">© 2026 Forge.</div>
+        </footer>
       </div>
     }
     @case ('helix') {
-      <div class="w-full overflow-hidden rounded-lg border">
-        <div class="bg-gradient-to-r from-indigo-500/10 to-fuchsia-500/10 p-10">
-          <span buiBadge class="rounded-full">Helix</span>
-          <h1 class="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">Engineered to scale</h1>
-          <p class="mt-4 max-w-xl text-lg text-muted-foreground">
-            A tech template with gradient accents.
-          </p>
-          <a buiButton size="lg" class="mt-7" href="#">Start free</a>
+      <header class="border-b">
+        <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+          <span
+            class="bg-gradient-to-r from-indigo-500 to-cyan-500 bg-clip-text text-lg font-bold text-transparent"
+            >Helix</span
+          ><a
+            buiButton
+            size="sm"
+            class="ml-auto border-0 bg-gradient-to-r from-indigo-500 to-cyan-500 text-white"
+            href="#"
+            >Start free</a
+          >
         </div>
-      </div>
+      </header>
+      <section class="bg-gradient-to-br from-indigo-500/10 via-transparent to-cyan-500/10">
+        <div class="mx-auto max-w-4xl px-6 py-28 text-center">
+          <span
+            buiBadge
+            class="rounded-full border-transparent bg-gradient-to-r from-indigo-500 to-cyan-500 text-white"
+            >For builders</span
+          >
+          <h1 class="mt-5 text-5xl font-bold tracking-tight text-balance sm:text-6xl">
+            Engineered to scale
+          </h1>
+          <p class="mx-auto mt-6 max-w-xl text-lg text-muted-foreground">
+            A developer platform with the primitives you need and none of the bloat.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a
+              buiButton
+              size="lg"
+              class="border-0 bg-gradient-to-r from-indigo-500 to-cyan-500 text-white"
+              href="#"
+              >Start free</a
+            ><a buiButton size="lg" variant="outline" href="#">Documentation</a>
+          </div>
+        </div>
+      </section>
+      <section class="mx-auto max-w-6xl px-6 py-20">
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          @for (f of saasFeatures; track f.title) {
+            <div buiCard variant="sectioned">
+              <div buiCardHeader>
+                <div class="mb-2 text-2xl">{{ f.icon }}</div>
+                <h3 buiCardTitle>{{ f.title }}</h3>
+                <p buiCardDescription>{{ f.body }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+      <footer class="border-t">
+        <div class="mx-auto max-w-6xl px-6 py-8 text-sm text-muted-foreground">© 2026 Helix.</div>
+      </footer>
     }
     @case ('mono') {
-      <div class="w-full rounded-lg border p-12 font-mono">
-        <p class="text-xs text-muted-foreground">// mono</p>
-        <h1 class="mt-3 text-4xl font-bold tracking-tight">type. ship. repeat.</h1>
-        <p class="mt-4 max-w-xl text-muted-foreground">
-          A monochrome, typographic template for developers.
-        </p>
-        <a buiButton class="mt-7 rounded-none" href="#">$ npm i ng-blatui</a>
+      <div class="font-mono">
+        <header class="border-b">
+          <div class="mx-auto flex h-16 max-w-4xl items-center gap-4 px-6">
+            <span class="font-bold">mono</span
+            ><a buiButton size="sm" class="ml-auto rounded-none" href="#">$ install</a>
+          </div>
+        </header>
+        <section class="mx-auto max-w-4xl px-6 py-28">
+          <p class="text-xs text-muted-foreground">// a typographic template for developers</p>
+          <h1 class="mt-3 text-5xl font-bold tracking-tight">type. ship.<br />repeat.</h1>
+          <p class="mt-6 max-w-xl text-muted-foreground">
+            Black on white. No decoration. Just content, set in a single typeface.
+          </p>
+          <pre class="mt-8 w-fit rounded-none border bg-zinc-950 p-4 text-[13px] text-zinc-100">
+$ npm i ng-blatui</pre
+          >
+        </section>
+        <section class="mx-auto max-w-4xl border-t px-6 py-16">
+          <div class="grid gap-px bg-border sm:grid-cols-3">
+            @for (f of saasFeatures.slice(0, 3); track f.title) {
+              <div class="bg-background p-6">
+                <h3 class="font-bold">{{ f.title }}</h3>
+                <p class="mt-2 text-sm text-muted-foreground">{{ f.body }}</p>
+              </div>
+            }
+          </div>
+        </section>
+        <footer class="border-t">
+          <div class="mx-auto max-w-4xl px-6 py-8 text-sm text-muted-foreground">
+            // © 2026 mono
+          </div>
+        </footer>
       </div>
     }
     @case ('pulse') {
-      <div class="w-full space-y-8 rounded-lg border p-10">
-        <div class="text-center">
-          <span buiBadge tone="danger" variant="solid">Live</span>
-          <h1 class="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
-            Feel the pulse of your data
-          </h1>
+      <header class="border-b">
+        <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+          <span class="text-lg font-bold">Pulse</span
+          ><a buiButton size="sm" class="ml-auto bg-rose-500 text-white hover:bg-rose-600" href="#"
+            >Live demo</a
+          >
         </div>
-        <div class="grid gap-4 sm:grid-cols-4">
+      </header>
+      <section class="mx-auto max-w-4xl px-6 py-24 text-center">
+        <span buiBadge tone="danger" variant="solid" class="rounded-full">● Live</span>
+        <h1 class="mt-5 text-5xl font-bold tracking-tight text-balance sm:text-6xl">
+          Feel the pulse of your data
+        </h1>
+        <p class="mx-auto mt-6 max-w-xl text-lg text-muted-foreground">
+          Real-time metrics and alerts that keep your team a step ahead.
+        </p>
+        <a buiButton size="lg" class="mt-8 bg-rose-500 text-white hover:bg-rose-600" href="#"
+          >Start monitoring</a
+        >
+      </section>
+      <section class="border-y bg-gradient-to-r from-rose-500/10 to-orange-500/10">
+        <div class="mx-auto grid max-w-5xl gap-4 px-6 py-12 sm:grid-cols-4">
           <bui-stat label="Requests" value="1.2M" change="+18%" trend="up" />
           <bui-stat label="Latency" value="84ms" change="-6%" trend="down" />
           <bui-stat label="Errors" value="0.02%" change="-1%" trend="down" />
-          <bui-stat label="Uptime" value="99.99%" />
+          <bui-stat label="Uptime" value="99.99%" change="+0.1%" trend="up" />
         </div>
-      </div>
+      </section>
+      <section class="mx-auto max-w-6xl px-6 py-20">
+        <div class="grid gap-6 sm:grid-cols-3">
+          @for (f of saasFeatures.slice(3, 6); track f.title) {
+            <div buiCard variant="sectioned">
+              <div buiCardHeader>
+                <div class="mb-2 text-2xl">{{ f.icon }}</div>
+                <h3 buiCardTitle>{{ f.title }}</h3>
+                <p buiCardDescription>{{ f.body }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+      <footer class="border-t">
+        <div class="mx-auto max-w-6xl px-6 py-8 text-sm text-muted-foreground">© 2026 Pulse.</div>
+      </footer>
     }
     @case ('quantum') {
-      <div class="w-full overflow-hidden rounded-lg border bg-zinc-950 text-zinc-100">
-        <div class="bg-gradient-to-b from-cyan-500/10 to-transparent p-10 text-center">
-          <span buiBadge variant="outline" class="border-cyan-700 text-cyan-300">Quantum</span>
-          <h1 class="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">
-            Compute at the edge of possible
-          </h1>
-          <p class="mt-4 text-lg text-zinc-400">A futuristic, dark-tech template.</p>
-          <a buiButton size="lg" class="mt-7" href="#">Request access</a>
-        </div>
+      <div class="bg-zinc-950 text-zinc-100">
+        <header class="border-b border-zinc-800">
+          <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+            <span class="text-lg font-bold">Quantum</span
+            ><a buiButton size="sm" variant="secondary" class="ml-auto" href="#">Request access</a>
+          </div>
+        </header>
+        <section class="relative overflow-hidden">
+          <div
+            class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,theme(colors.violet.500/0.25),transparent_60%)]"
+          ></div>
+          <div class="relative mx-auto max-w-4xl px-6 py-32 text-center">
+            <span buiBadge variant="outline" class="border-violet-700 text-violet-300"
+              >Private beta</span
+            >
+            <h1 class="mt-5 text-5xl font-bold tracking-tight text-balance sm:text-7xl">
+              Compute at the edge of possible
+            </h1>
+            <p class="mx-auto mt-6 max-w-xl text-lg text-zinc-400">
+              A futuristic platform that bends latency, scale and cost in your favour.
+            </p>
+            <div class="mt-8 flex flex-wrap justify-center gap-3">
+              <a buiButton size="lg" variant="secondary" href="#">Request access</a
+              ><a
+                buiButton
+                size="lg"
+                variant="outline"
+                class="border-zinc-700 text-zinc-100 hover:bg-zinc-900"
+                href="#"
+                >Whitepaper</a
+              >
+            </div>
+          </div>
+        </section>
+        <section class="mx-auto max-w-6xl px-6 py-20">
+          <div class="grid gap-6 sm:grid-cols-3">
+            @for (f of saasFeatures.slice(0, 3); track f.title) {
+              <div class="rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
+                <div class="mb-2 text-2xl">{{ f.icon }}</div>
+                <h3 class="font-semibold">{{ f.title }}</h3>
+                <p class="mt-1 text-sm text-zinc-400">{{ f.body }}</p>
+              </div>
+            }
+          </div>
+        </section>
+        <footer class="border-t border-zinc-800">
+          <div class="mx-auto max-w-6xl px-6 py-8 text-sm text-zinc-500">© 2026 Quantum Labs.</div>
+        </footer>
       </div>
     }
     @case ('sprout') {
