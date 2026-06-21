@@ -5961,6 +5961,22 @@ This content is read-only and cannot be edited.</textarea
           </div>
         </div>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Simple</h2>
+      <app-example [code]="code.menubarSimple">
+        <div ngMenuBar buiMenubar>
+          <button ngMenuTrigger [menu]="simpleViewMenu" buiMenubarTrigger>View</button>
+          <div ngMenu #simpleViewMenu="ngMenu" buiDropdownMenu>
+            <div ngMenuItem value="zoom-in" buiDropdownMenuItem>Zoom in</div>
+            <div ngMenuItem value="zoom-out" buiDropdownMenuItem>Zoom out</div>
+          </div>
+          <button ngMenuTrigger [menu]="simpleHelpMenu" buiMenubarTrigger>Help</button>
+          <div ngMenu #simpleHelpMenu="ngMenu" buiDropdownMenu>
+            <div ngMenuItem value="docs" buiDropdownMenuItem>Documentation</div>
+            <div ngMenuItem value="about" buiDropdownMenuItem>About</div>
+          </div>
+        </div>
+      </app-example>
     }
     @case ('typography') {
       <app-example [code]="code.typography">
@@ -7839,6 +7855,11 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.markdownEditor">
         <bui-markdown-editor class="w-full max-w-md" [(value)]="mdValue" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Prefilled</h2>
+      <app-example [code]="code.markdownEditorPrefilled">
+        <bui-markdown-editor class="w-full max-w-md" [(value)]="mdPrefilled" />
+      </app-example>
     }
     @case ('calendar') {
       <app-example [code]="code.calendar">
@@ -8424,6 +8445,11 @@ This content is read-only and cannot be edited.</textarea
     @case ('rich-text-editor') {
       <app-example [code]="code.richTextEditor">
         <bui-rich-text-editor class="w-full max-w-lg" [(value)]="rteValue" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Prefilled</h2>
+      <app-example [code]="code.richTextEditorPrefilled">
+        <bui-rich-text-editor class="w-full max-w-lg" [(value)]="rtePrefilled" />
       </app-example>
     }
     @case ('sidebar') {

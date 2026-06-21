@@ -995,6 +995,12 @@ export class ComponentPage {
   protected readonly mdValue = signal(
     '# Hello\n\nThis is **markdown** with `code` and *emphasis*.',
   );
+  protected readonly mdPrefilled = signal(
+    '## Release notes\n\n- New **calendar** inputs\n- `bui-carousel` vertical mode\n\n> Ship it.',
+  );
+  protected readonly rtePrefilled = signal(
+    '<h3>Welcome</h3><p>This editor starts <strong>prefilled</strong> with <em>rich</em> content.</p>',
+  );
   protected readonly orgRoot = {
     name: 'Ada Lovelace',
     title: 'CEO',
@@ -2442,6 +2448,12 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     <div ngMenuItem value="new" buiDropdownMenuItem>New tab</div>
   </div>
 </div>`,
+    menubarSimple: `<div ngMenuBar buiMenubar>
+  <button ngMenuTrigger [menu]="view" buiMenubarTrigger>View</button>
+  <div ngMenu #view="ngMenu" buiDropdownMenu>
+    <div ngMenuItem value="zoom-in" buiDropdownMenuItem>Zoom in</div>
+  </div>
+</div>`,
     segmentedControl: `import { BuiSegmentedControl } from 'ng-blatui';
 
 <bui-segmented-control [(value)]="view" [options]="['list', 'grid', 'board']" />`,
@@ -2970,6 +2982,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     markdownEditor: `import { BuiMarkdownEditor } from 'ng-blatui';
 
 <bui-markdown-editor [(value)]="md" />`,
+    markdownEditorPrefilled: String.raw`<!-- seed the model with initial markdown -->
+<bui-markdown-editor [(value)]="md" />
+// md = signal('## Release notes\n- New calendar inputs')`,
     calendar: `import { BuiCalendar } from 'ng-blatui';
 
 <bui-calendar [(value)]="date" />`,
@@ -3130,6 +3145,9 @@ setTimeout(() => { this.toaster.dismiss(id); this.toaster.show({ title: 'Saved',
     richTextEditor: `import { BuiRichTextEditor } from 'ng-blatui';
 
 <bui-rich-text-editor [(value)]="html" />`,
+    richTextEditorPrefilled: `<!-- seed the model with initial HTML -->
+<bui-rich-text-editor [(value)]="html" />
+// html = signal('<h3>Welcome</h3><p>Starts <strong>prefilled</strong>.</p>')`,
     sidebar: `import { BuiSidebar, BuiSidebarMenuButton } from 'ng-blatui';
 
 <bui-sidebar [(open)]="open">
