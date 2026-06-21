@@ -61,6 +61,7 @@ import {
   BuiCardFooter,
   BuiCardHeader,
   BuiCardTitle,
+  BuiCarousel,
   BuiChat,
   BuiChatMessage,
   BuiCheckbox,
@@ -71,9 +72,11 @@ import {
   BuiCollapsibleTrigger,
   BuiColorPicker,
   BuiCombobox,
+  BuiCommand,
   BuiComparisonTable,
   BuiConfetti,
   BuiContainer,
+  BuiContextMenu,
   BuiCookieConsent,
   BuiCopyButton,
   BuiCountdown,
@@ -409,6 +412,9 @@ const META: Record<string, { title: string; description: string }> = {
   'markdown-editor': { title: 'Markdown editor', description: 'A textarea with live preview.' },
   calendar: { title: 'Calendar', description: 'A single-month date calendar.' },
   'date-picker': { title: 'Date picker', description: 'A date input with a calendar popover.' },
+  carousel: { title: 'Carousel', description: 'A slide carousel with arrows and dots.' },
+  command: { title: 'Command', description: 'A command palette (filterable actions).' },
+  'context-menu': { title: 'Context menu', description: 'A right-click menu at the cursor.' },
 };
 
 @Component({
@@ -633,6 +639,9 @@ const META: Record<string, { title: string; description: string }> = {
     BuiMarkdownEditor,
     BuiCalendar,
     BuiDatePicker,
+    BuiCarousel,
+    BuiCommand,
+    BuiContextMenu,
   ],
   templateUrl: './components.html',
 })
@@ -658,6 +667,26 @@ export class ComponentPage {
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
   protected readonly view = signal('list');
+  protected readonly cmdGroups = [
+    {
+      label: 'Suggestions',
+      items: [
+        { label: 'New file', shortcut: '⌘N' },
+        { label: 'Open folder', shortcut: '⌘O' },
+      ],
+    },
+    {
+      label: 'Settings',
+      items: [{ label: 'Toggle theme' }, { label: 'Keyboard shortcuts', shortcut: '⌘K' }],
+    },
+  ];
+  protected readonly ctxItems = [
+    { label: 'Back' },
+    { label: 'Reload', shortcut: '⌘R' },
+    { separator: true },
+    { label: 'Copy', shortcut: '⌘C' },
+    { label: 'Delete', danger: true },
+  ];
   protected readonly calDate = signal('');
   protected readonly dpDate = signal('');
   protected readonly diffBefore = 'const x = 1;\nconst y = 2;\nconsole.log(x);';
@@ -1415,5 +1444,19 @@ The sky is blue<bui-citation [index]="1" title="Rayleigh scattering" url="https:
     datePicker: `import { BuiDatePicker } from 'ng-blatui';
 
 <bui-date-picker [(value)]="date" />`,
+    carousel: `import { BuiCarousel } from 'ng-blatui';
+
+<bui-carousel>
+  <div>Slide 1</div>
+  <div>Slide 2</div>
+</bui-carousel>`,
+    command: `import { BuiCommand } from 'ng-blatui';
+
+<bui-command [groups]="groups" (selected)="run($event)" />`,
+    contextMenu: `import { BuiContextMenu } from 'ng-blatui';
+
+<bui-context-menu [items]="items">
+  <div>Right-click here</div>
+</bui-context-menu>`,
   };
 }

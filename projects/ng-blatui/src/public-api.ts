@@ -149,3 +149,6 @@ export * from './lib/tree-table/tree-table';
 export * from './lib/markdown-editor/markdown-editor';
 export * from './lib/calendar/calendar';
 export * from './lib/date-picker/date-picker';
+export * from './lib/carousel/carousel';
+export * from './lib/command/command';
+export * from './lib/context-menu/context-menu';

@@ -1152,6 +1152,31 @@
         <bui-date-picker class="w-56" [(value)]="dpDate" />
       </app-example>
     }
+    @case ('carousel') {
+      <app-example [code]="code.carousel">
+        <bui-carousel class="w-full max-w-md">
+          <div class="grid h-40 place-items-center bg-muted text-lg font-medium">Slide 1</div>
+          <div class="grid h-40 place-items-center bg-muted text-lg font-medium">Slide 2</div>
+          <div class="grid h-40 place-items-center bg-muted text-lg font-medium">Slide 3</div>
+        </bui-carousel>
+      </app-example>
+    }
+    @case ('command') {
+      <app-example [code]="code.command">
+        <bui-command class="w-full max-w-md" [groups]="cmdGroups" />
+      </app-example>
+    }
+    @case ('context-menu') {
+      <app-example [code]="code.contextMenu">
+        <bui-context-menu [items]="ctxItems">
+          <div
+            class="grid h-32 w-full max-w-md place-items-center rounded-lg border border-dashed border-input text-sm text-muted-foreground"
+          >
+            Right-click anywhere here
+          </div>
+        </bui-context-menu>
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

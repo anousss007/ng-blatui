@@ -144,6 +144,9 @@ const COMPONENTS = [
   'markdown-editor',
   'calendar',
   'date-picker',
+  'carousel',
+  'command',
+  'context-menu',
 ];
 
 @Component({
