@@ -747,6 +747,7 @@ export class ComponentPage {
   private readonly dialog = inject(Dialog);
   protected readonly dialogTpl = viewChild.required<TemplateRef<unknown>>('dialogTpl');
   protected readonly alertTpl = viewChild.required<TemplateRef<unknown>>('alertTpl');
+  protected readonly alertConfirmTpl = viewChild.required<TemplateRef<unknown>>('alertConfirmTpl');
   protected readonly dialogFormTpl = viewChild.required<TemplateRef<unknown>>('dialogFormTpl');
 
   protected readonly terms = signal(true);
@@ -1102,6 +1103,10 @@ export class ComponentPage {
 
   protected openAlertDialog(): void {
     this.dialog.open(this.alertTpl(), { ariaModal: true });
+  }
+
+  protected openConfirmDialog(): void {
+    this.dialog.open(this.alertConfirmTpl(), { ariaModal: true });
   }
 
   protected readonly code = {
@@ -1930,6 +1935,10 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     visuallyHidden: `import { BuiVisuallyHidden } from 'ng-blatui';
 
 <span buiVisuallyHidden>Screen-reader only text</span>`,
+    visuallyHiddenSkip: `<!-- visible only on keyboard focus -->
+<a href="#main" buiVisuallyHidden class="focus:not-sr-only focus:rounded-md focus:border focus:px-3 focus:py-1.5">
+  Skip to content
+</a>`,
     hoverCard: `import { BuiHoverCard, BuiHoverCardContent } from 'ng-blatui';
 
 <span [buiHoverCard]="tpl">@username</span>
@@ -1987,6 +1996,18 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     <div buiAlertDialogFooter>
       <button buiAlertDialogCancel>Cancel</button>
       <button buiAlertDialogAction>Delete</button>
+    </div>
+  </div>
+</ng-template>`,
+    alertDialogConfirm: `<ng-template #tpl>
+  <div buiAlertDialogContent>
+    <div buiAlertDialogHeader>
+      <h2 buiAlertDialogTitle>Leave this page?</h2>
+      <p buiAlertDialogDescription>You have unsaved changes.</p>
+    </div>
+    <div buiAlertDialogFooter>
+      <button buiAlertDialogCancel>Stay</button>
+      <button buiAlertDialogAction>Leave</button>
     </div>
   </div>
 </ng-template>`,

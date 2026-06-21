@@ -3750,6 +3750,17 @@ This content is read-only and cannot be edited.</textarea
           <span buiVisuallyHidden>Add to favourites</span>
         </button>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Skip link</h2>
+      <app-example [code]="code.visuallyHiddenSkip">
+        <a
+          href="#main"
+          buiVisuallyHidden
+          class="focus:not-sr-only focus:rounded-md focus:border focus:bg-background focus:px-3 focus:py-1.5 focus:text-sm focus:ring-2 focus:ring-ring"
+          >Skip to content</a
+        >
+        <p class="text-sm text-muted-foreground">Press Tab — the hidden link appears on focus.</p>
+      </app-example>
     }
     @case ('hover-card') {
       <app-example [code]="code.hoverCard">
@@ -3898,6 +3909,11 @@ This content is read-only and cannot be edited.</textarea
     @case ('alert-dialog') {
       <app-example [code]="code.alertDialog">
         <button buiButton variant="destructive" (click)="openAlertDialog()">Delete…</button>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Confirm</h2>
+      <app-example [code]="code.alertDialogConfirm">
+        <button buiButton variant="outline" (click)="openConfirmDialog()">Leave page…</button>
       </app-example>
     }
     @case ('autosize-textarea') {
@@ -6205,6 +6221,19 @@ This content is read-only and cannot be edited.</textarea
     <div buiAlertDialogFooter>
       <button buiAlertDialogCancel>Cancel</button>
       <button buiAlertDialogAction>Delete</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #alertConfirmTpl>
+  <div buiAlertDialogContent>
+    <div buiAlertDialogHeader>
+      <h2 buiAlertDialogTitle>Leave this page?</h2>
+      <p buiAlertDialogDescription>You have unsaved changes that will be lost.</p>
+    </div>
+    <div buiAlertDialogFooter>
+      <button buiAlertDialogCancel>Stay</button>
+      <button buiAlertDialogAction>Leave</button>
     </div>
   </div>
 </ng-template>
