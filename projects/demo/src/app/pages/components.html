@@ -4594,6 +4594,16 @@ This content is read-only and cannot be edited.</textarea
           label="Size"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With disabled options</h2>
+      <app-example [code]="code.variantSelectorDisabled">
+        <bui-variant-selector
+          [value]="'M'"
+          [options]="['XS', 'S', 'M', 'L', 'XL']"
+          label="Size"
+          [disabled]="true"
+        />
+      </app-example>
     }
     @case ('sparkline') {
       <app-example [code]="code.sparkline">
@@ -4634,12 +4644,34 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.productCard">
         <bui-product-card
           class="w-full max-w-xs"
-          title="Trail Runner"
-          image="https://picsum.photos/seed/shoe/400"
-          category="Footwear"
-          [price]="49.99"
-          [compareAt]="69.99"
+          title="Aeron Ergonomic Chair"
+          image="https://picsum.photos/seed/chair/400/300"
+          category="Furniture"
+          [price]="1395"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sale</h2>
+      <app-example [code]="code.productCardSale">
+        <bui-product-card
+          class="w-full max-w-xs"
+          title="Wireless Headphones"
+          image="https://picsum.photos/seed/cans/400/300"
+          category="Audio"
+          [price]="249"
+          [compareAt]="349"
           badge="Sale"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With rating</h2>
+      <app-example [code]="code.productCardRating">
+        <bui-product-card
+          class="w-full max-w-xs"
+          title="Classic Leather Backpack"
+          image="https://picsum.photos/seed/bag/400/300"
+          category="Bags"
+          [price]="129"
           [rating]="4.5"
           [reviews]="128"
           [wishlist]="true"
@@ -4658,6 +4690,33 @@ This content is read-only and cannot be edited.</textarea
         <bui-streaming-text
           class="text-sm"
           text="Streaming responses, one token at a time — just like a chat assistant."
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">By word</h2>
+      <app-example [code]="code.streamingTextWord">
+        <bui-streaming-text
+          class="text-sm"
+          by="word"
+          text="This reveals one whole word at a time instead of character by character."
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Fast</h2>
+      <app-example [code]="code.streamingTextFast">
+        <bui-streaming-text
+          class="text-sm"
+          [speed]="15"
+          text="A faster stream for snappier reveals."
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">No caret</h2>
+      <app-example [code]="code.streamingTextNoCaret">
+        <bui-streaming-text
+          class="text-sm"
+          [caret]="false"
+          text="Same effect, without the blinking cursor."
         />
       </app-example>
     }
@@ -4735,6 +4794,16 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.timeField">
         <bui-time-field [(value)]="timeValue" ariaLabel="Meeting time" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With seconds</h2>
+      <app-example [code]="code.timeFieldSeconds">
+        <bui-time-field [value]="'14:30:15'" [seconds]="true" ariaLabel="Precise time" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.timeFieldDisabled">
+        <bui-time-field [value]="'09:00'" [disabled]="true" ariaLabel="Disabled time" />
+      </app-example>
     }
     @case ('toggle-group') {
       <app-example [code]="code.toggleGroup">
@@ -4794,7 +4863,17 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('editable') {
       <app-example [code]="code.editable">
-        <bui-editable class="w-full max-w-xs" [(value)]="editName" />
+        <bui-editable class="w-full max-w-xs" [(value)]="editName" label="title" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With placeholder</h2>
+      <app-example [code]="code.editablePlaceholder">
+        <bui-editable
+          class="w-full max-w-xs"
+          [value]="''"
+          label="nickname"
+          placeholder="Add a nickname…"
+        />
       </app-example>
     }
     @case ('speed-dial') {
@@ -4908,14 +4987,46 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('chat') {
       <app-example [code]="code.chat">
-        <div buiChat class="h-64 w-full max-w-md rounded-lg border bg-muted/30">
-          <bui-chat-message role="assistant" name="Bot"
+        <div buiChat class="h-80 w-full max-w-md rounded-lg border bg-background">
+          <bui-chat-message role="assistant" name="Assistant" time="09:41"
             >Hi! How can I help you today?</bui-chat-message
           >
-          <bui-chat-message role="user" name="Ada Lovelace"
+          <bui-chat-message role="user" name="You" time="09:42"
             >Build me a UI library.</bui-chat-message
           >
-          <bui-chat-message role="assistant" name="Bot" [typing]="true" />
+          <bui-chat-message role="assistant" name="Assistant" time="09:42"
+            >On it — here's a starting point…</bui-chat-message
+          >
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Typing</h2>
+      <app-example [code]="code.chatTyping">
+        <div buiChat class="h-64 w-full max-w-md rounded-lg border bg-background">
+          <bui-chat-message role="user" name="You" time="11:20"
+            >Can you summarize the meeting notes?</bui-chat-message
+          >
+          <bui-chat-message role="assistant" name="Assistant" [typing]="true" />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With avatars</h2>
+      <app-example [code]="code.chatAvatars">
+        <div buiChat class="h-72 w-full max-w-md rounded-lg border bg-background">
+          <bui-chat-message
+            role="assistant"
+            name="Bot"
+            avatar="https://i.pravatar.cc/40?img=12"
+            time="14:01"
+            >Welcome back!</bui-chat-message
+          >
+          <bui-chat-message
+            role="user"
+            name="Sofia"
+            avatar="https://i.pravatar.cc/40?img=5"
+            time="14:02"
+            >Thanks 👋</bui-chat-message
+          >
         </div>
       </app-example>
     }
@@ -5403,6 +5514,18 @@ This content is read-only and cannot be edited.</textarea
           value="https://ngblatui.remix-it.com"
           [size]="180"
           label="ng-blatui docs"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Styled</h2>
+      <app-example [code]="code.qrCodeStyled">
+        <bui-qr-code
+          value="https://ngblatui.remix-it.com"
+          [size]="180"
+          foreground="#4f46e5"
+          background="#eef2ff"
+          [margin]="2"
+          label="Styled QR"
         />
       </app-example>
     }

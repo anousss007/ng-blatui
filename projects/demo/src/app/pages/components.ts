@@ -2124,6 +2124,7 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     variantSelector: `import { BuiVariantSelector } from 'ng-blatui';
 
 <bui-variant-selector [(value)]="size" [options]="['S','M','L']" />`,
+    variantSelectorDisabled: `<bui-variant-selector [value]="'M'" [options]="['XS','S','M','L']" [disabled]="true" />`,
     sparkline: `import { BuiSparkline } from 'ng-blatui';
 
 <bui-sparkline [data]="[4, 8, 5, 12, 7, 14, 9]" />`,
@@ -2143,16 +2144,18 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
   [price]="49.99"
   [compareAt]="69.99"
   badge="Sale"
-  [rating]="4.5"
-  [reviews]="128"
-  [wishlist]="true"
 />`,
+    productCardSale: `<bui-product-card title="Headphones" image="/cans.jpg" [price]="249" [compareAt]="349" badge="Sale" />`,
+    productCardRating: `<bui-product-card title="Backpack" image="/bag.jpg" [price]="129" [rating]="4.5" [reviews]="128" [wishlist]="true" />`,
     typewriter: `import { BuiTypewriter } from 'ng-blatui';
 
 <bui-typewriter [words]="['design', 'build', 'ship']" />`,
     streamingText: `import { BuiStreamingText } from 'ng-blatui';
 
 <bui-streaming-text text="Streaming responses, one token at a time." />`,
+    streamingTextWord: `<bui-streaming-text by="word" text="One whole word at a time." />`,
+    streamingTextFast: `<bui-streaming-text [speed]="15" text="A faster stream." />`,
+    streamingTextNoCaret: `<bui-streaming-text [caret]="false" text="No blinking cursor." />`,
     borderBeam: `import { BuiBorderBeam } from 'ng-blatui';
 
 <bui-border-beam class="max-w-xs">Travelling border beam.</bui-border-beam>`,
@@ -2184,6 +2187,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     timeField: `import { BuiTimeField } from 'ng-blatui';
 
 <bui-time-field [(value)]="time" />`,
+    timeFieldSeconds: `<bui-time-field [value]="'14:30:15'" [seconds]="true" />`,
+    timeFieldDisabled: `<bui-time-field [value]="'09:00'" [disabled]="true" />`,
     toggleGroup: `import { BuiToggleGroup, BuiToggleGroupItem } from 'ng-blatui';
 
 <bui-toggle-group [(value)]="align">
@@ -2207,7 +2212,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     tagsInputDisabled: `<bui-tags-input [tags]="['Read-only', 'Tags']" [disabled]="true" />`,
     editable: `import { BuiEditable } from 'ng-blatui';
 
-<bui-editable [(value)]="name" />`,
+<bui-editable [(value)]="name" label="title" />`,
+    editablePlaceholder: `<bui-editable [value]="''" label="nickname" placeholder="Add a nickname…" />`,
     speedDial: `import { BuiSpeedDial } from 'ng-blatui';
 
 <bui-speed-dial [actions]="[{ label: 'Share' }, { label: 'Edit' }]" />`,
@@ -2242,6 +2248,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
   <bui-chat-message role="assistant" name="Bot">Hi! How can I help?</bui-chat-message>
   <bui-chat-message role="user" name="You">Build me a UI library.</bui-chat-message>
 </div>`,
+    chatTyping: `<bui-chat-message role="assistant" name="Assistant" [typing]="true" />`,
+    chatAvatars: `<bui-chat-message role="assistant" name="Bot" avatar="/bot.png" time="14:01">Welcome back!</bui-chat-message>`,
     confetti: `import { BuiConfetti } from 'ng-blatui';
 
 <bui-confetti><button buiButton>Launch 🎉</button></bui-confetti>`,
@@ -2437,5 +2445,6 @@ this.toaster.show({ title: 'Saved', tone: 'success' });`,
     qrCode: `import { BuiQrCode } from 'ng-blatui';
 
 <bui-qr-code value="https://ngblatui.remix-it.com" [size]="180" />`,
+    qrCodeStyled: `<bui-qr-code value="…" [size]="180" foreground="#4f46e5" background="#eef2ff" [margin]="2" />`,
   };
 }
