@@ -1,3 +1,4 @@
+import { Overlay } from '@angular/cdk/overlay';
 import {
   Component,
   computed,
@@ -748,6 +749,7 @@ export class ComponentPage {
   });
 
   private readonly dialog = inject(Dialog);
+  private readonly overlay = inject(Overlay);
   protected readonly dialogTpl = viewChild.required<TemplateRef<unknown>>('dialogTpl');
   protected readonly alertTpl = viewChild.required<TemplateRef<unknown>>('alertTpl');
   protected readonly alertConfirmTpl = viewChild.required<TemplateRef<unknown>>('alertConfirmTpl');
@@ -757,6 +759,10 @@ export class ComponentPage {
   protected readonly dialogScrollTpl = viewChild.required<TemplateRef<unknown>>('dialogScrollTpl');
   protected readonly dialogFullscreenTpl =
     viewChild.required<TemplateRef<unknown>>('dialogFullscreenTpl');
+  protected readonly dialogPositionedTpl =
+    viewChild.required<TemplateRef<unknown>>('dialogPositionedTpl');
+  protected readonly dialogDispatchTpl =
+    viewChild.required<TemplateRef<unknown>>('dialogDispatchTpl');
 
   protected readonly terms = signal(true);
   protected readonly notifications = signal(true);
@@ -1164,6 +1170,17 @@ export class ComponentPage {
       height: '100vh',
       maxWidth: '100vw',
     });
+  }
+
+  protected openDialogPositioned(): void {
+    this.dialog.open(this.dialogPositionedTpl(), {
+      ariaModal: true,
+      positionStrategy: this.overlay.position().global().top('1.5rem').centerHorizontally(),
+    });
+  }
+
+  protected openDialogDispatch(): void {
+    this.dialog.open(this.dialogDispatchTpl(), { ariaModal: true });
   }
 
   protected openAlertDialog(): void {
@@ -1760,6 +1777,13 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     dialogFullscreen: `<!-- pass width/height to open(); make the content fill -->
 this.dialog.open(tpl, { ariaModal: true, width: '100vw', height: '100vh', maxWidth: '100vw' });
 // <div buiDialogContent class="h-full !max-w-none !rounded-none flex flex-col">…</div>`,
+    dialogPositioned: `<!-- anchor it with a global position strategy -->
+import { Overlay } from '@angular/cdk/overlay';
+overlay = inject(Overlay);
+this.dialog.open(tpl, { ariaModal: true,
+  positionStrategy: this.overlay.position().global().top('1.5rem').centerHorizontally() });`,
+    dialogDispatch: `<!-- open from anywhere via the Dialog service -->
+this.dialog.open(tpl, { ariaModal: true });`,
     radioGroup: `import { BuiRadioGroup, BuiRadioGroupItem } from 'ng-blatui';
 
 <div buiRadioGroup [(value)]="plan">

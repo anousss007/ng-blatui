@@ -3470,6 +3470,16 @@ This content is read-only and cannot be edited.</textarea
           Open fullscreen
         </button>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Positioned</h2>
+      <app-example [code]="code.dialogPositioned">
+        <button buiButton variant="outline" (click)="openDialogPositioned()">Open at top</button>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Dispatchable</h2>
+      <app-example [code]="code.dialogDispatch">
+        <button buiButton variant="outline" (click)="openDialogDispatch()">Notify me</button>
+      </app-example>
     }
     @case ('tooltip') {
       <app-example [code]="code.tooltip">
@@ -8178,5 +8188,23 @@ This content is read-only and cannot be edited.</textarea
       <button buiButton variant="outline">Close</button>
       <button buiButton>Done</button>
     </div>
+  </div>
+</ng-template>
+<ng-template #dialogPositionedTpl>
+  <div buiDialogContent class="sm:max-w-md">
+    <div buiDialogHeader>
+      <h2 buiDialogTitle>Positioned dialog</h2>
+      <p buiDialogDescription>Anchored near the top of the viewport.</p>
+    </div>
+    <div buiDialogFooter><button buiButton>Got it</button></div>
+  </div>
+</ng-template>
+<ng-template #dialogDispatchTpl>
+  <div buiDialogContent class="sm:max-w-sm">
+    <div buiDialogHeader>
+      <h2 buiDialogTitle>New message</h2>
+      <p buiDialogDescription>Opened programmatically from anywhere in your app.</p>
+    </div>
+    <div buiDialogFooter><button buiButton>Dismiss</button></div>
   </div>
 </ng-template>
