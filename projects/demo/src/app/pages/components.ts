@@ -1257,6 +1257,61 @@ export class ComponentPage {
   </div>
   <div buiCardContent>… member row …</div>
 </div>`,
+    cardBlog: `<div buiCard variant="sectioned" class="overflow-hidden pt-0">
+  <div class="bg-muted aspect-[16/9]">…cover…</div>
+  <div buiCardHeader>
+    <span buiBadge variant="outline" class="w-fit">Engineering</span>
+    <h3 buiCardTitle>Shipping a design system</h3>
+    <p buiCardDescription>How we built our library.</p>
+  </div>
+</div>`,
+    cardCta: `<div buiCard variant="sectioned" class="text-center">
+  <div buiCardHeader>
+    <h3 buiCardTitle>Ready to get started?</h3>
+    <p buiCardDescription>Create your account in under a minute.</p>
+  </div>
+  <div buiCardContent class="flex justify-center gap-3">
+    <button buiButton>Get started</button>
+    <button buiButton variant="outline">Contact sales</button>
+  </div>
+</div>`,
+    cardHoverGlow: `<!-- soft glow on hover -->
+<div buiCard variant="sectioned" class="transition-shadow hover:shadow-lg hover:shadow-primary/20">
+  …
+</div>`,
+    cardImageOverlay: `<div buiCard class="relative overflow-hidden p-0">
+  <div class="aspect-[4/3] bg-gradient-to-br from-zinc-600 to-zinc-900"></div>
+  <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/70 to-transparent p-4 text-white">
+    <h3 class="text-lg font-semibold">Mountain escape</h3>
+  </div>
+</div>`,
+    cardPayment: `<div buiCard variant="sectioned">
+  <div buiCardHeader><h3 buiCardTitle>Payment</h3></div>
+  <div buiCardContent class="space-y-4">
+    <div buiField><label buiFieldLabel for="n">Card number</label><input id="n" buiInput /></div>
+    <div class="grid grid-cols-2 gap-3">… expiry / cvc …</div>
+  </div>
+  <div buiCardFooter><button buiButton class="w-full">Pay</button></div>
+</div>`,
+    cardProfile: `<div buiCard variant="sectioned" class="text-center">
+  <div buiCardContent class="flex flex-col items-center gap-3 pt-6">
+    <span class="grid size-16 place-items-center rounded-full bg-primary text-primary-foreground">JD</span>
+    <div><p class="font-medium">Jane Doe</p><p class="text-muted-foreground text-sm">Designer</p></div>
+    <button buiButton class="w-full">Follow</button>
+  </div>
+</div>`,
+    cardShare: `<div buiCard variant="sectioned">
+  <div buiCardHeader><h3 buiCardTitle>Share this document</h3></div>
+  <div buiCardContent class="flex gap-2">
+    <input buiInput readonly value="https://…" />
+    <button buiButton variant="secondary">Copy</button>
+  </div>
+</div>`,
+    cardWithImage: `<div buiCard variant="sectioned" class="overflow-hidden pt-0">
+  <div class="bg-muted aspect-video">…image…</div>
+  <div buiCardHeader><h3 buiCardTitle>With image</h3></div>
+  <div buiCardContent>Content below the image.</div>
+</div>`,
     alert: `import { BuiAlert, BuiAlertTitle, BuiAlertDescription } from 'ng-blatui';
 
 <div buiAlert>
