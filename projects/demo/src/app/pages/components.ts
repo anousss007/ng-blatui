@@ -1119,10 +1119,35 @@ export class ComponentPage {
 </div>`,
     input: `import { BuiInput } from 'ng-blatui';
 
-<input buiInput type="email" placeholder="m@example.com" />
-<input buiInput placeholder="Disabled" disabled />
-<input buiInput aria-invalid="true" placeholder="Invalid" />
-<input buiInput type="file" />`,
+<input buiInput type="email" placeholder="Email" />`,
+    inputSizes: `<input buiInput size="sm" placeholder="Small" />
+<input buiInput placeholder="Default" />
+<input buiInput size="lg" placeholder="Large" />`,
+    inputWithLabel: `<label buiLabel for="email">Email</label>
+<input id="email" buiInput type="email" placeholder="Email" />`,
+    inputWithIcon: `<div class="relative">
+  <svg class="absolute top-1/2 left-3 size-4 -translate-y-1/2"><!-- mail --></svg>
+  <input buiInput type="email" class="pl-9" placeholder="you@example.com" />
+</div>`,
+    inputPassword: `<div class="relative">
+  <svg class="absolute top-1/2 left-3 size-4 -translate-y-1/2"><!-- lock --></svg>
+  <input buiInput type="password" class="pl-9" placeholder="••••••••" />
+</div>`,
+    inputWithButton: `<div class="flex items-center gap-2">
+  <input buiInput type="email" placeholder="Email" />
+  <button buiButton variant="outline">Subscribe</button>
+</div>`,
+    inputFile: `<label buiLabel for="pic">Picture</label>
+<input id="pic" buiInput type="file" />`,
+    inputTypes: `<input buiInput type="number" placeholder="Quantity" min="0" />
+<input buiInput type="date" aria-label="Date" />
+<input buiInput type="search" placeholder="Search…" />`,
+    inputDisabled: `<input buiInput type="email" placeholder="Email" disabled />`,
+    inputReadonly: `<input buiInput value="you@example.com" readonly aria-label="Email" />`,
+    inputInvalid: `<input buiInput value="not-an-email" aria-invalid="true" />
+<p class="text-destructive text-sm" role="alert">Please enter a valid email.</p>`,
+    inputBranded: `<!-- override the focus ring locally -->
+<input buiInput style="--ring: #16a34a" placeholder="Emerald focus" />`,
     textarea: `import { BuiTextarea } from 'ng-blatui';
 
 <textarea buiTextarea placeholder="Your message"></textarea>
@@ -1141,9 +1166,27 @@ export class ComponentPage {
 <div buiSkeleton class="h-4 w-48"></div>`,
     avatar: `import { BuiAvatar } from 'ng-blatui';
 
-<bui-avatar [src]="url" alt="Jane" />
-<bui-avatar>JD</bui-avatar>          <!-- text fallback -->
-<bui-avatar class="size-12">CD</bui-avatar>  <!-- size via class -->`,
+<bui-avatar src="/shadcn.png" alt="@shadcn">CN</bui-avatar>`,
+    avatarFallback: `<bui-avatar>JD</bui-avatar>`,
+    avatarSizes: `<bui-avatar class="size-6" src="/u.png" alt="">CN</bui-avatar>
+<bui-avatar class="size-8" src="/u.png" alt="">CN</bui-avatar>
+<bui-avatar src="/u.png" alt="">CN</bui-avatar>
+<bui-avatar class="size-12" src="/u.png" alt="">CN</bui-avatar>`,
+    avatarRounded: `<bui-avatar class="rounded-lg" src="/u.png" alt="">CN</bui-avatar>`,
+    avatarRing: `<bui-avatar class="ring-ring ring-offset-background size-10 ring-2 ring-offset-2" src="/u.png" alt="">CN</bui-avatar>`,
+    avatarStack: `<div class="flex -space-x-2 *:ring-2 *:ring-background">
+  <bui-avatar src="/a.png" alt="">CN</bui-avatar>
+  <bui-avatar src="/b.png" alt="">LR</bui-avatar>
+  <bui-avatar>+3</bui-avatar>
+</div>`,
+    avatarStatus: `<div class="relative inline-flex">
+  <bui-avatar class="size-10" src="/u.png" alt="">CN</bui-avatar>
+  <span class="border-background absolute end-0 bottom-0 size-3 rounded-full border-2 bg-green-600" aria-label="Online"></span>
+</div>`,
+    avatarBadge: `<div class="relative inline-flex">
+  <bui-avatar class="size-10" src="/u.png" alt="">CN</bui-avatar>
+  <span class="bg-primary text-primary-foreground absolute -end-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-xs">3</span>
+</div>`,
     progress: `import { BuiProgress } from 'ng-blatui';
 
 <bui-progress [value]="70" ariaLabel="Upload" />

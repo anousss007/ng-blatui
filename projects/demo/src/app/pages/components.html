@@ -773,12 +773,121 @@
     }
     @case ('input') {
       <app-example [code]="code.input">
-        <div class="w-full max-w-xs space-y-3">
-          <input buiInput type="email" placeholder="m&#64;example.com" />
-          <input buiInput value="Read only" readonly />
-          <input buiInput placeholder="Disabled" disabled />
-          <input buiInput placeholder="Invalid value" aria-invalid="true" />
-          <input buiInput type="file" />
+        <input buiInput type="email" placeholder="Email" class="max-w-sm" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.inputSizes">
+        <div class="flex w-full max-w-sm flex-col gap-3">
+          <input buiInput size="sm" placeholder="Small — h-8" />
+          <input buiInput placeholder="Default — h-9" />
+          <input buiInput size="lg" placeholder="Large — h-10" />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With label</h2>
+      <app-example [code]="code.inputWithLabel">
+        <div class="grid w-full max-w-sm gap-2">
+          <label buiLabel for="in-wl">Email</label>
+          <input id="in-wl" buiInput type="email" placeholder="Email" />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With icon</h2>
+      <app-example [code]="code.inputWithIcon">
+        <div class="relative w-full max-w-sm">
+          <svg
+            class="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect width="20" height="16" x="2" y="4" rx="2" />
+            <path d="m22 7-10 5L2 7" />
+          </svg>
+          <input buiInput type="email" class="pl-9" placeholder="you@example.com" />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Password</h2>
+      <app-example [code]="code.inputPassword">
+        <div class="grid w-full max-w-sm gap-2">
+          <div class="flex items-center justify-between">
+            <label buiLabel for="in-pw">Password</label>
+            <a href="#" class="text-sm underline-offset-4 hover:underline">Forgot password?</a>
+          </div>
+          <div class="relative">
+            <svg
+              class="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            <input id="in-pw" buiInput type="password" class="pl-9" placeholder="••••••••" />
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With button</h2>
+      <app-example [code]="code.inputWithButton">
+        <div class="flex w-full max-w-sm items-center gap-2">
+          <input buiInput type="email" placeholder="Email" />
+          <button buiButton variant="outline">Subscribe</button>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">File</h2>
+      <app-example [code]="code.inputFile">
+        <div class="grid w-full max-w-sm gap-2">
+          <label buiLabel for="in-file">Picture</label>
+          <input id="in-file" buiInput type="file" />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Types</h2>
+      <app-example [code]="code.inputTypes">
+        <div class="grid w-full max-w-sm gap-3">
+          <input buiInput type="number" placeholder="Quantity" min="0" />
+          <input buiInput type="date" aria-label="Date" />
+          <input buiInput type="search" placeholder="Search…" />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.inputDisabled">
+        <input buiInput type="email" class="max-w-sm" placeholder="Email" disabled />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Read only</h2>
+      <app-example [code]="code.inputReadonly">
+        <input buiInput class="max-w-sm" value="you@example.com" readonly aria-label="Email" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Invalid</h2>
+      <app-example [code]="code.inputInvalid">
+        <div class="grid w-full max-w-sm gap-2">
+          <label buiLabel for="in-iv">Email</label>
+          <input id="in-iv" buiInput value="not-an-email" aria-invalid="true" />
+          <p class="text-sm text-destructive" role="alert">Please enter a valid email address.</p>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Branded focus</h2>
+      <app-example [code]="code.inputBranded">
+        <div class="flex w-full max-w-sm flex-col gap-3">
+          <input buiInput style="--ring: #16a34a" placeholder="Emerald focus — click in" />
+          <input buiInput style="--ring: #db2777" type="email" placeholder="m@example.com" />
         </div>
       </app-example>
     }
@@ -829,10 +938,81 @@
     }
     @case ('avatar') {
       <app-example [code]="code.avatar">
-        <bui-avatar src="https://i.pravatar.cc/80?img=12" alt="Jane Doe" />
-        <bui-avatar>AB</bui-avatar>
-        <bui-avatar class="size-12">CD</bui-avatar>
-        <bui-avatar class="size-8 text-xs">EF</bui-avatar>
+        <bui-avatar src="https://github.com/shadcn.png" alt="@shadcn">CN</bui-avatar>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Fallback</h2>
+      <app-example [code]="code.avatarFallback">
+        <bui-avatar>JD</bui-avatar>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.avatarSizes">
+        <bui-avatar class="size-6 text-[0.6rem]" src="https://github.com/shadcn.png" alt=""
+          >CN</bui-avatar
+        >
+        <bui-avatar class="size-8 text-xs" src="https://github.com/shadcn.png" alt=""
+          >CN</bui-avatar
+        >
+        <bui-avatar src="https://github.com/shadcn.png" alt="">CN</bui-avatar>
+        <bui-avatar class="size-12" src="https://github.com/shadcn.png" alt="">CN</bui-avatar>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Rounded</h2>
+      <app-example [code]="code.avatarRounded">
+        <bui-avatar class="rounded-lg" src="https://github.com/shadcn.png" alt="">CN</bui-avatar>
+        <bui-avatar class="size-12 rounded-lg" src="https://github.com/evilrabbit.png" alt=""
+          >ER</bui-avatar
+        >
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Ring</h2>
+      <app-example [code]="code.avatarRing">
+        <bui-avatar
+          class="size-10 ring-2 ring-ring ring-offset-2 ring-offset-background"
+          src="https://github.com/shadcn.png"
+          alt=""
+          >CN</bui-avatar
+        >
+        <bui-avatar
+          class="size-10 ring-2 ring-green-600 ring-offset-2 ring-offset-background"
+          src="https://github.com/leerob.png"
+          alt=""
+          >LR</bui-avatar
+        >
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Group</h2>
+      <app-example [code]="code.avatarStack">
+        <div class="flex -space-x-2 *:ring-2 *:ring-background">
+          <bui-avatar src="https://github.com/shadcn.png" alt="">CN</bui-avatar>
+          <bui-avatar src="https://github.com/leerob.png" alt="">LR</bui-avatar>
+          <bui-avatar src="https://github.com/evilrabbit.png" alt="">ER</bui-avatar>
+          <bui-avatar>+3</bui-avatar>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Status</h2>
+      <app-example [code]="code.avatarStatus">
+        <div class="relative inline-flex">
+          <bui-avatar class="size-10" src="https://github.com/shadcn.png" alt="">CN</bui-avatar>
+          <span
+            class="absolute end-0 bottom-0 size-3 rounded-full border-2 border-background bg-green-600"
+            role="img"
+            aria-label="Online"
+          ></span>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Badge</h2>
+      <app-example [code]="code.avatarBadge">
+        <div class="relative inline-flex">
+          <bui-avatar class="size-10" src="https://github.com/shadcn.png" alt="">CN</bui-avatar>
+          <span
+            class="absolute -end-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-xs font-medium text-primary-foreground tabular-nums"
+            >3</span
+          >
+        </div>
       </app-example>
     }
     @case ('progress') {
