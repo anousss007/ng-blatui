@@ -2246,6 +2246,11 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.dialog">
         <button buiButton (click)="openDialog()">Open dialog</button>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Form dialog</h2>
+      <app-example [code]="code.dialogForm">
+        <button buiButton variant="outline" (click)="openFormDialog()">Edit profile</button>
+      </app-example>
     }
     @case ('tooltip') {
       <app-example [code]="code.tooltip">
@@ -6212,6 +6217,27 @@ This content is read-only and cannot be edited.</textarea
     </div>
     <div buiDialogFooter>
       <button buiButton variant="destructive">Delete</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #dialogFormTpl>
+  <div buiDialogContent class="sm:max-w-md">
+    <div buiDialogHeader>
+      <h2 buiDialogTitle>Edit profile</h2>
+      <p buiDialogDescription>Make changes to your profile, then save.</p>
+    </div>
+    <div class="grid gap-4 py-2">
+      <div class="grid gap-2">
+        <label buiLabel for="dlg-name">Name</label>
+        <input id="dlg-name" buiInput value="Sofia Carter" />
+      </div>
+      <div class="grid gap-2">
+        <label buiLabel for="dlg-username">Username</label>
+        <input id="dlg-username" buiInput value="@sofia" />
+      </div>
+    </div>
+    <div buiDialogFooter>
+      <button buiButton>Save changes</button>
     </div>
   </div>
 </ng-template>

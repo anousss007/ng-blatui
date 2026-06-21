@@ -747,6 +747,7 @@ export class ComponentPage {
   private readonly dialog = inject(Dialog);
   protected readonly dialogTpl = viewChild.required<TemplateRef<unknown>>('dialogTpl');
   protected readonly alertTpl = viewChild.required<TemplateRef<unknown>>('alertTpl');
+  protected readonly dialogFormTpl = viewChild.required<TemplateRef<unknown>>('dialogFormTpl');
 
   protected readonly terms = signal(true);
   protected readonly notifications = signal(true);
@@ -1093,6 +1094,10 @@ export class ComponentPage {
 
   protected openDialog(): void {
     this.dialog.open(this.dialogTpl(), { ariaModal: true });
+  }
+
+  protected openFormDialog(): void {
+    this.dialog.open(this.dialogFormTpl(), { ariaModal: true });
   }
 
   protected openAlertDialog(): void {
@@ -1531,6 +1536,13 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
   <div buiDialogContent>
     <h2 buiDialogTitle>Title</h2>
     <p>Body…</p>
+  </div>
+</ng-template>`,
+    dialogForm: `<ng-template #tpl>
+  <div buiDialogContent class="sm:max-w-md">
+    <div buiDialogHeader><h2 buiDialogTitle>Edit profile</h2></div>
+    <div class="grid gap-4 py-2"><!-- form fields --></div>
+    <div buiDialogFooter><button buiButton>Save changes</button></div>
   </div>
 </ng-template>`,
     radioGroup: `import { BuiRadioGroup, BuiRadioGroupItem } from 'ng-blatui';
