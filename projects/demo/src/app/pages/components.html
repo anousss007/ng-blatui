@@ -4171,6 +4171,16 @@ This content is read-only and cannot be edited.</textarea
           </div>
         </bui-flip-card>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Click to flip</h2>
+      <app-example [code]="code.flipCardClick">
+        <bui-flip-card class="max-w-xs" trigger="click" height="11rem">
+          <div class="flex h-full items-center justify-center font-medium">Tap to reveal</div>
+          <div buiFlipBack class="flex h-full items-center justify-center font-medium">
+            Tap again to flip back
+          </div>
+        </bui-flip-card>
+      </app-example>
     }
     @case ('spotlight-card') {
       <app-example [code]="code.spotlightCard">
@@ -4194,6 +4204,16 @@ This content is read-only and cannot be edited.</textarea
           <div class="p-6">
             <h3 class="font-semibold">Tilt card</h3>
             <p class="text-sm text-muted-foreground">Hover to tilt in 3D.</p>
+          </div>
+        </bui-tilt-card>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Stronger tilt</h2>
+      <app-example [code]="code.tiltCardStrong">
+        <bui-tilt-card class="max-w-xs" [max]="20" [scaleTo]="1.05">
+          <div class="p-6">
+            <h3 class="font-semibold">Dramatic</h3>
+            <p class="text-sm text-muted-foreground">A bigger max angle and a slight zoom.</p>
           </div>
         </bui-tilt-card>
       </app-example>
@@ -4953,8 +4973,18 @@ This content is read-only and cannot be edited.</textarea
     @case ('knob') {
       <app-example [code]="code.knob">
         <bui-knob [(value)]="knobValue" [min]="0" [max]="100" label="Volume" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.knobSizes">
         <bui-knob [value]="30" size="sm" label="Bass" />
+        <bui-knob [value]="55" label="Mid" />
         <bui-knob [value]="80" size="lg" label="Treble" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Custom range</h2>
+      <app-example [code]="code.knobRange">
+        <bui-knob [value]="6" [min]="0" [max]="11" [step]="1" label="Gain" />
       </app-example>
     }
     @case ('image') {
@@ -5319,6 +5349,11 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.tree">
         <bui-tree class="w-full max-w-xs" [items]="treeItems" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">File tree (icons)</h2>
+      <app-example [code]="code.treeFiles">
+        <bui-tree class="w-full max-w-xs" [items]="treeFiles" ariaLabel="Project files" />
+      </app-example>
     }
     @case ('repeater') {
       <app-example [code]="code.repeater">
@@ -5328,6 +5363,16 @@ This content is read-only and cannot be edited.</textarea
           [(rows)]="repeaterRows"
           [min]="1"
           [max]="5"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Multiple fields</h2>
+      <app-example [code]="code.repeaterMulti">
+        <bui-repeater
+          class="w-full max-w-xl"
+          [fields]="repeaterFields2"
+          [(rows)]="repeaterRows2"
+          addLabel="Add guest"
         />
       </app-example>
     }
@@ -5363,6 +5408,31 @@ This content is read-only and cannot be edited.</textarea
             </div>
             <div
               id="beam-b"
+              class="grid size-12 place-items-center rounded-xl border bg-card shadow-sm"
+            >
+              B
+            </div>
+          </div>
+        </bui-animated-beam>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Curved</h2>
+      <app-example [code]="code.animatedBeamCurved">
+        <bui-animated-beam
+          class="h-32 w-full max-w-sm"
+          from="#beam-c"
+          to="#beam-d"
+          [curvature]="60"
+        >
+          <div class="flex h-full items-center justify-between px-8">
+            <div
+              id="beam-c"
+              class="grid size-12 place-items-center rounded-xl border bg-card shadow-sm"
+            >
+              A
+            </div>
+            <div
+              id="beam-d"
               class="grid size-12 place-items-center rounded-xl border bg-card shadow-sm"
             >
               B

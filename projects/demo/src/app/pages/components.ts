@@ -949,6 +949,29 @@ export class ComponentPage {
     },
     { label: 'package.json' },
   ];
+  protected readonly treeFiles = [
+    {
+      label: 'src',
+      expanded: true,
+      children: [
+        {
+          label: 'components',
+          children: [
+            { label: 'button.ts', icon: 'file-code' },
+            { label: 'card.ts', icon: 'file-code' },
+          ],
+        },
+        { label: 'index.ts', icon: 'file-code' },
+        { label: 'styles.css', icon: 'file' },
+      ],
+    },
+    { label: 'README.md', icon: 'file-text' },
+  ];
+  protected readonly repeaterFields2 = [
+    { key: 'name', label: 'Name', placeholder: 'Ada Lovelace' },
+    { key: 'email', label: 'Email', placeholder: 'ada@example.com', type: 'email' },
+  ];
+  protected readonly repeaterRows2 = signal<Record<string, string>[]>([{ name: '', email: '' }]);
   protected readonly colorValue = signal('#22c55e');
   protected readonly resizeSize = signal(40);
   protected readonly otpValue = signal('');
@@ -1991,6 +2014,10 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
   <div>Front content</div>
   <div buiFlipBack>Back content</div>
 </bui-flip-card>`,
+    flipCardClick: `<bui-flip-card trigger="click">
+  <div>Tap to reveal</div>
+  <div buiFlipBack>Tap again to flip back</div>
+</bui-flip-card>`,
     spotlightCard: `import { BuiSpotlightCard } from 'ng-blatui';
 
 <bui-spotlight-card>Hover for a spotlight glow.</bui-spotlight-card>`,
@@ -1998,6 +2025,7 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     tiltCard: `import { BuiTiltCard } from 'ng-blatui';
 
 <bui-tilt-card><div class="p-6">Tilt me</div></bui-tilt-card>`,
+    tiltCardStrong: `<bui-tilt-card [max]="20" [scaleTo]="1.05"><div class="p-6">Dramatic</div></bui-tilt-card>`,
     select: `import { BuiSelect } from 'ng-blatui';
 
 <bui-select [(value)]="fruit" [options]="fruits" placeholder="Pick a fruit" />
@@ -2227,9 +2255,11 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-speed-dial [actions]="[{ label: 'Share' }, { label: 'Edit' }]" />`,
     knob: `import { BuiKnob } from 'ng-blatui';
 
-<!-- size="sm | default | lg" -->
-<bui-knob [(value)]="level" [min]="0" [max]="100" label="Volume" />
-<bui-knob [value]="30" size="sm" label="Bass" />`,
+<bui-knob [(value)]="level" [min]="0" [max]="100" label="Volume" />`,
+    knobSizes: `<!-- size="sm | default | lg" -->
+<bui-knob [value]="30" size="sm" label="Bass" />
+<bui-knob [value]="80" size="lg" label="Treble" />`,
+    knobRange: `<bui-knob [value]="6" [min]="0" [max]="11" [step]="1" label="Gain" />`,
     image: `import { BuiImage } from 'ng-blatui';
 
 <bui-image src="/photo.jpg" alt="A scenic view" />`,
@@ -2335,10 +2365,14 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 
 <bui-tree [items]="files" />
 // files = [{ label: 'src', expanded: true, children: [...] }]`,
+    treeFiles: `<bui-tree [items]="files" ariaLabel="Project files" />
+// leaf items can set icon: 'file-code' etc; parents auto-render folders`,
     repeater: `import { BuiRepeater } from 'ng-blatui';
 
 <bui-repeater [fields]="fields" [(rows)]="rows" />
 // fields = [{ key: 'name', label: 'Name' }, { key: 'email', label: 'Email' }]`,
+    repeaterMulti: `<bui-repeater [fields]="fields" [(rows)]="rows" addLabel="Add guest" />
+// fields = [{ key: 'name', label: 'Name' }, { key: 'email', label: 'Email', type: 'email' }]`,
     notificationCenter: `import { BuiNotificationCenter } from 'ng-blatui';
 
 <bui-notification-center [notifications]="feed" />`,
@@ -2358,6 +2392,7 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
   <div id="a">…</div>
   <div id="b">…</div>
 </bui-animated-beam>`,
+    animatedBeamCurved: `<bui-animated-beam from="#a" to="#b" [curvature]="60">…</bui-animated-beam>`,
     diffViewer: `import { BuiDiffViewer } from 'ng-blatui';
 
 <bui-diff-viewer [before]="oldText" [after]="newText" filename="config.ts" />`,
