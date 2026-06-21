@@ -147,6 +147,9 @@ const COMPONENTS = [
   'carousel',
   'command',
   'context-menu',
+  'data-table',
+  'chart',
+  'datetime-picker',
 ];
 
 @Component({

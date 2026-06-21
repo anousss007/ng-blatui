@@ -62,6 +62,7 @@ import {
   BuiCardHeader,
   BuiCardTitle,
   BuiCarousel,
+  BuiChart,
   BuiChat,
   BuiChatMessage,
   BuiCheckbox,
@@ -80,7 +81,9 @@ import {
   BuiCookieConsent,
   BuiCopyButton,
   BuiCountdown,
+  BuiDataTable,
   BuiDatePicker,
+  BuiDatetimePicker,
   BuiDescriptionItem,
   BuiDescriptionList,
   BuiDialogContent,
@@ -415,6 +418,9 @@ const META: Record<string, { title: string; description: string }> = {
   carousel: { title: 'Carousel', description: 'A slide carousel with arrows and dots.' },
   command: { title: 'Command', description: 'A command palette (filterable actions).' },
   'context-menu': { title: 'Context menu', description: 'A right-click menu at the cursor.' },
+  'data-table': { title: 'Data table', description: 'Search, sort, select and paginate rows.' },
+  chart: { title: 'Chart', description: 'A lightweight SVG line/area/bar chart.' },
+  'datetime-picker': { title: 'Datetime picker', description: 'Pick a date and time together.' },
 };
 
 @Component({
@@ -642,6 +648,9 @@ const META: Record<string, { title: string; description: string }> = {
     BuiCarousel,
     BuiCommand,
     BuiContextMenu,
+    BuiDataTable,
+    BuiChart,
+    BuiDatetimePicker,
   ],
   templateUrl: './components.html',
 })
@@ -667,6 +676,23 @@ export class ComponentPage {
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
   protected readonly view = signal('list');
+  protected readonly dtColumns = [
+    { key: 'name', label: 'Name' },
+    { key: 'email', label: 'Email' },
+    { key: 'role', label: 'Role', align: 'right' as const },
+  ];
+  protected readonly dtRows = [
+    { name: 'Ada Lovelace', email: 'ada@example.com', role: 'Owner' },
+    { name: 'Grace Hopper', email: 'grace@example.com', role: 'Admin' },
+    { name: 'Alan Turing', email: 'alan@example.com', role: 'Member' },
+    { name: 'Edsger Dijkstra', email: 'edsger@example.com', role: 'Member' },
+    { name: 'Linus Torvalds', email: 'linus@example.com', role: 'Admin' },
+    { name: 'Margaret Hamilton', email: 'margaret@example.com', role: 'Owner' },
+    { name: 'Donald Knuth', email: 'don@example.com', role: 'Member' },
+  ];
+  protected readonly chartSeries = [{ data: [12, 19, 9, 22, 16, 28, 24] }];
+  protected readonly chartLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  protected readonly dtmValue = signal('');
   protected readonly cmdGroups = [
     {
       label: 'Suggestions',
@@ -1458,5 +1484,14 @@ The sky is blue<bui-citation [index]="1" title="Rayleigh scattering" url="https:
 <bui-context-menu [items]="items">
   <div>Right-click here</div>
 </bui-context-menu>`,
+    dataTable: `import { BuiDataTable } from 'ng-blatui';
+
+<bui-data-table [columns]="columns" [rows]="rows" [pageSize]="5" />`,
+    chart: `import { BuiChart } from 'ng-blatui';
+
+<bui-chart type="area" [series]="series" [labels]="labels" />`,
+    datetimePicker: `import { BuiDatetimePicker } from 'ng-blatui';
+
+<bui-datetime-picker [(value)]="when" />`,
   };
 }

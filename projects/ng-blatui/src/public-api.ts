@@ -152,3 +152,6 @@ export * from './lib/date-picker/date-picker';
 export * from './lib/carousel/carousel';
 export * from './lib/command/command';
 export * from './lib/context-menu/context-menu';
+export * from './lib/data-table/data-table';
+export * from './lib/chart/chart';
+export * from './lib/datetime-picker/datetime-picker';

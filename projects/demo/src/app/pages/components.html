@@ -1177,6 +1177,27 @@
         </bui-context-menu>
       </app-example>
     }
+    @case ('data-table') {
+      <app-example [code]="code.dataTable">
+        <bui-data-table class="w-full" [columns]="dtColumns" [rows]="dtRows" [pageSize]="5" />
+      </app-example>
+    }
+    @case ('chart') {
+      <app-example [code]="code.chart">
+        <bui-chart
+          class="w-full max-w-lg"
+          type="area"
+          [series]="chartSeries"
+          [labels]="chartLabels"
+          label="Weekly visits"
+        />
+      </app-example>
+    }
+    @case ('datetime-picker') {
+      <app-example [code]="code.datetimePicker">
+        <bui-datetime-picker class="w-64" [(value)]="dtmValue" />
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }
