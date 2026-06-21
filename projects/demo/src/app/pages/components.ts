@@ -985,18 +985,44 @@ export class ComponentPage {
   protected readonly code = {
     button: `import { BuiButton } from 'ng-blatui';
 
-<!-- variants -->
-<button buiButton>Default</button>
+<button buiButton>Button</button>`,
+    buttonVariants: `<button buiButton>Default</button>
 <button buiButton variant="secondary">Secondary</button>
 <button buiButton variant="destructive">Destructive</button>
 <button buiButton variant="outline">Outline</button>
 <button buiButton variant="ghost">Ghost</button>
-<button buiButton variant="link">Link</button>
-
-<!-- sizes: xs | sm | default | lg | icon -->
-<button buiButton size="lg">Large</button>
-<button buiButton size="icon" aria-label="Add"><svg>…</svg></button>
-<button buiButton disabled>Disabled</button>`,
+<button buiButton variant="link">Link</button>`,
+    buttonSizes: `<button buiButton size="xs">Extra small</button>
+<button buiButton size="sm">Small</button>
+<button buiButton>Default</button>
+<button buiButton size="lg">Large</button>`,
+    buttonIcon: `<button buiButton variant="outline"><svg><!-- mail --></svg> Login with Email</button>
+<button buiButton><svg><!-- download --></svg> Download</button>`,
+    buttonLoading: `<button buiButton disabled>
+  <svg class="animate-spin"><!-- spinner --></svg> Please wait
+</button>`,
+    buttonPill: `<button buiButton class="rounded-full">Get started</button>
+<button buiButton variant="outline" class="rounded-full">Learn more</button>
+<button buiButton size="icon" variant="outline" class="rounded-full" aria-label="Like">…</button>`,
+    buttonGradient: `<button
+  buiButton
+  class="border-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white shadow-lg hover:opacity-90"
+>
+  <svg><!-- sparkles --></svg> Gradient
+</button>`,
+    buttonSocial: `<button buiButton variant="outline"><svg><!-- github --></svg> Continue with GitHub</button>
+<button buiButton variant="outline"><svg><!-- google --></svg> Continue with Google</button>`,
+    buttonColor: `<!-- recolor a region by overriding the tokens -->
+<div style="--primary: #be185d; --primary-foreground: #fff; --ring: #be185d">
+  <button buiButton>Primary</button>
+  <button buiButton variant="outline">Outline</button>
+</div>`,
+    buttonAsLink: `<a buiButton href="/docs" variant="link">Link button</a>
+<a buiButton href="/docs" variant="outline"><svg><!-- external --></svg> Visit docs</a>`,
+    buttonIconSizes: `<button buiButton size="icon-xs" variant="outline" aria-label="Favourite">…</button>
+<button buiButton size="icon-sm" variant="outline" aria-label="Add">…</button>
+<button buiButton size="icon" variant="outline" aria-label="Settings">…</button>
+<button buiButton size="icon-lg" variant="outline" aria-label="Star">…</button>`,
     badge: `import { BuiBadge } from 'ng-blatui';
 
 <!-- brand variants -->
