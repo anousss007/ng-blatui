@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, computed, inject, signal } from '@angular/core';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 import { BuiButton, BuiThemeCustomizer } from 'ng-blatui';
 
@@ -180,6 +180,19 @@ const COMPONENTS = [
   styleUrl: './app.css',
 })
 export class App {
+  private readonly router = inject(Router);
+  private readonly url = signal('/');
+  /** Home is full-bleed (showcase); every other route gets the docs sidebar layout. */
+  protected readonly isHome = computed(() => this.url() === '/' || this.url() === '');
+
+  constructor() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.url.set(event.urlAfterRedirects.split('?', 1)[0]);
+      }
+    });
+  }
+
   protected readonly nav: readonly NavGroup[] = [
     {
       title: 'Getting started',
