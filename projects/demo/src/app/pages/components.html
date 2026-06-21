@@ -96,7 +96,12 @@
     }
     @case ('textarea') {
       <app-example [code]="code.textarea">
-        <textarea buiTextarea placeholder="Your message" class="max-w-xs"></textarea>
+        <div class="w-full max-w-xs space-y-3">
+          <textarea buiTextarea placeholder="Your message"></textarea>
+          <textarea buiTextarea size="sm" placeholder="Small"></textarea>
+          <textarea buiTextarea placeholder="Disabled" disabled></textarea>
+          <textarea buiTextarea placeholder="Invalid" aria-invalid="true"></textarea>
+        </div>
       </app-example>
     }
     @case ('label') {
@@ -342,7 +347,10 @@
     @case ('toggle') {
       <app-example [code]="code.toggle">
         <button buiToggle aria-label="Bold">B</button>
-        <button buiToggle variant="outline" aria-label="Italic">I</button>
+        <button buiToggle [pressed]="true" aria-label="Italic">I</button>
+        <button buiToggle variant="outline" aria-label="Underline">U</button>
+        <button buiToggle size="sm" aria-label="Small">S</button>
+        <button buiToggle size="lg" aria-label="Large">L</button>
       </app-example>
     }
     @case ('spinner') {
@@ -510,7 +518,11 @@
     }
     @case ('rating') {
       <app-example [code]="code.rating">
-        <bui-rating [(value)]="score" [max]="5" ariaLabel="Rate this" />
+        <div class="space-y-3">
+          <bui-rating [(value)]="score" [max]="5" ariaLabel="Rate this" />
+          <bui-rating [value]="3" [readonly]="true" ariaLabel="3 of 5" />
+          <bui-rating [value]="4" size="lg" color="text-rose-500" ariaLabel="4 of 5" />
+        </div>
       </app-example>
     }
     @case ('quantity-selector') {

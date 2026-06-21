@@ -1037,7 +1037,9 @@ export class ComponentPage {
 <input buiInput type="file" />`,
     textarea: `import { BuiTextarea } from 'ng-blatui';
 
-<textarea buiTextarea placeholder="Your message"></textarea>`,
+<textarea buiTextarea placeholder="Your message"></textarea>
+<textarea buiTextarea size="sm" placeholder="Small"></textarea>
+<textarea buiTextarea aria-invalid="true" placeholder="Invalid"></textarea>`,
     label: `import { BuiLabel } from 'ng-blatui';
 
 <label buiLabel for="email">Email</label>
@@ -1178,8 +1180,9 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 <div buiContainer size="md"><!-- page content --></div>`,
     toggle: `import { BuiToggle } from 'ng-blatui';
 
-<button buiToggle aria-label="Bold">B</button>
-<button buiToggle variant="outline" aria-label="Italic">I</button>`,
+<button buiToggle [pressed]="true" aria-label="Bold">B</button>
+<button buiToggle variant="outline" aria-label="Italic">I</button>
+<button buiToggle size="sm" aria-label="Small">S</button>`,
     spinner: `import { BuiSpinner } from 'ng-blatui';
 
 <bui-spinner class="size-4" />
@@ -1282,7 +1285,9 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 <bui-slider [value]="60" [disabled]="true" ariaLabel="Disabled" />`,
     rating: `import { BuiRating } from 'ng-blatui';
 
-<bui-rating [(value)]="score" [max]="5" ariaLabel="Rate" />`,
+<bui-rating [(value)]="score" [max]="5" ariaLabel="Rate" />
+<bui-rating [value]="3" [readonly]="true" ariaLabel="3 of 5" />
+<bui-rating [value]="4" size="lg" color="text-rose-500" ariaLabel="4" />`,
     quantitySelector: `import { BuiQuantitySelector } from 'ng-blatui';
 
 <bui-quantity-selector [(value)]="qty" [min]="1" [max]="10" />`,
