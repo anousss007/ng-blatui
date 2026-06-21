@@ -6368,6 +6368,29 @@ This content is read-only and cannot be edited.</textarea
           </svg>
         </button>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Subtle</h2>
+      <app-example [code]="code.backToTopSubtle">
+        <button
+          type="button"
+          aria-label="Back to top"
+          class="inline-flex size-10 items-center justify-center rounded-full border border-input bg-card text-foreground shadow-sm hover:bg-accent"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            class="size-5"
+          >
+            <path d="m5 12 7-7 7 7" />
+            <path d="M12 19V5" />
+          </svg>
+        </button>
+      </app-example>
     }
     @case ('countdown') {
       <app-example [code]="code.countdown">
@@ -6761,6 +6784,15 @@ This content is read-only and cannot be edited.</textarea
       <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
       <app-example [code]="code.numberInputDisabled">
         <bui-number-input class="w-40" [value]="3" [disabled]="true" ariaLabel="Disabled" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.numberInputSizes">
+        <div class="flex items-center gap-4">
+          <bui-number-input [value]="2" size="sm" ariaLabel="Small" />
+          <bui-number-input [value]="2" ariaLabel="Default" />
+          <bui-number-input [value]="2" size="lg" ariaLabel="Large" />
+        </div>
       </app-example>
     }
     @case ('variant-selector') {
@@ -7459,6 +7491,11 @@ This content is read-only and cannot be edited.</textarea
           [disabled]="true"
           ariaLabel="Disabled code"
         />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With separator</h2>
+      <app-example [code]="code.inputOtpSeparator">
+        <bui-input-otp [(value)]="otpValue" [maxlength]="6" [groupSize]="3" />
       </app-example>
     }
     @case ('phone-input') {

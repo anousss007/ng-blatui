@@ -22,6 +22,9 @@ import { type ClassValue, cn } from '../utils/cn';
         (paste)="onPaste($event)"
         (focus)="onFocus($event)"
       />
+      @if (isSeparator(slot)) {
+        <span aria-hidden="true" class="text-muted-foreground select-none">-</span>
+      }
     }
   `,
 })
@@ -30,6 +33,8 @@ export class BuiInputOtp {
   readonly maxlength = input(6);
   readonly disabled = input(false);
   readonly alphanumeric = input(false);
+  /** Insert a visual separator after every N boxes (0 = none). */
+  readonly groupSize = input(0);
   readonly ariaLabel = input('One-time password');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
@@ -43,6 +48,11 @@ export class BuiInputOtp {
 
   protected charAt(index: number): string {
     return this.value().charAt(index);
+  }
+
+  protected isSeparator(index: number): boolean {
+    const size = this.groupSize();
+    return size > 0 && (index + 1) % size === 0 && index < this.maxlength() - 1;
   }
 
   protected onInput(index: number, event: Event): void {

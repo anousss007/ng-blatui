@@ -2549,6 +2549,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     backToTop: `import { BuiBackToTop } from 'ng-blatui';
 
 <bui-back-to-top [threshold]="300" />`,
+    backToTopSubtle: `<!-- variant="subtle" for a muted, bordered button -->
+<bui-back-to-top [threshold]="300" variant="subtle" />`,
     countdown: `import { BuiCountdown } from 'ng-blatui';
 
 <bui-countdown to="2026-12-31 23:59" />`,
@@ -2668,6 +2670,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     numberInputMinMax: `<bui-number-input [value]="2" [min]="1" [max]="10" ariaLabel="Guests" />`,
     numberInputStep: `<bui-number-input [value]="50" [step]="5" ariaLabel="Step of 5" />`,
     numberInputDisabled: `<bui-number-input [value]="3" [disabled]="true" ariaLabel="Disabled" />`,
+    numberInputSizes: `<!-- size = sm | default | lg -->
+<bui-number-input [value]="2" size="sm" />
+<bui-number-input [value]="2" size="lg" />`,
     variantSelector: `import { BuiVariantSelector } from 'ng-blatui';
 
 <bui-variant-selector [(value)]="size" [options]="['S','M','L']" />`,
@@ -2858,6 +2863,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     inputOtpFour: `<bui-input-otp [maxlength]="4" ariaLabel="4-digit code" />`,
     inputOtpAlpha: `<bui-input-otp [maxlength]="6" [alphanumeric]="true" />`,
     inputOtpDisabled: `<bui-input-otp [value]="'123'" [maxlength]="6" [disabled]="true" />`,
+    inputOtpSeparator: `<!-- groupSize inserts a separator every N boxes -->
+<bui-input-otp [(value)]="otp" [maxlength]="6" [groupSize]="3" />`,
     phoneInput: `import { BuiPhoneInput } from 'ng-blatui';
 
 <bui-phone-input [(value)]="phone" [(country)]="country" />`,

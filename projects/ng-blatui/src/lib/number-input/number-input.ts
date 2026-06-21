@@ -2,8 +2,22 @@ import { Component, computed, input, model } from '@angular/core';
 
 import { type ClassValue, cn } from '../utils/cn';
 
+export type NumberInputSize = 'sm' | 'default' | 'lg';
+
 const BTN =
-  'border-input text-foreground hover:bg-accent inline-flex h-9 w-9 items-center justify-center border bg-transparent outline-none transition-colors disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4';
+  'border-input text-foreground hover:bg-accent inline-flex items-center justify-center border bg-transparent outline-none transition-colors disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4';
+const INPUT =
+  'w-16 [appearance:textfield] border-y border-input bg-transparent text-center tabular-nums outline-none focus-visible:relative focus-visible:z-10 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:opacity-50 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none';
+const BTN_SIZE: Record<NumberInputSize, string> = {
+  sm: 'size-8',
+  default: 'size-9',
+  lg: 'size-10',
+};
+const INPUT_SIZE: Record<NumberInputSize, string> = {
+  sm: 'h-8 text-xs',
+  default: 'h-9 text-sm',
+  lg: 'h-10 text-base',
+};
 
 /** A numeric stepper: − / + buttons around a number field, with min/max/step clamping. */
 @Component({
@@ -12,7 +26,7 @@ const BTN =
   template: `
     <button
       type="button"
-      [class]="BTN + ' rounded-l-md'"
+      [class]="btnClass() + ' rounded-l-md'"
       (click)="step(-1)"
       [disabled]="disabled() || atMin()"
       aria-label="Decrease"
@@ -38,13 +52,13 @@ const BTN =
       [step]="stepBy()"
       [disabled]="disabled()"
       [attr.aria-label]="ariaLabel() || null"
-      class="h-9 w-16 [appearance:textfield] border-y border-input bg-transparent text-center text-sm tabular-nums outline-none focus-visible:relative focus-visible:z-10 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:opacity-50 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+      [class]="inputClass()"
       (input)="onInput($event)"
       (change)="onInput($event)"
     />
     <button
       type="button"
-      [class]="BTN + ' rounded-r-md'"
+      [class]="btnClass() + ' rounded-r-md'"
       (click)="step(1)"
       [disabled]="disabled() || atMax()"
       aria-label="Increase"
@@ -70,10 +84,12 @@ export class BuiNumberInput {
   readonly max = input<number | null>(null);
   readonly stepBy = input(1, { alias: 'step' });
   readonly disabled = input(false);
+  readonly size = input<NumberInputSize>('default');
   readonly ariaLabel = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
-  protected readonly BTN = BTN;
+  protected readonly btnClass = computed(() => cn(BTN, BTN_SIZE[this.size()]));
+  protected readonly inputClass = computed(() => cn(INPUT, INPUT_SIZE[this.size()]));
   protected readonly atMin = computed(() => {
     const min = this.min();
     return min !== null && this.value() <= min;
