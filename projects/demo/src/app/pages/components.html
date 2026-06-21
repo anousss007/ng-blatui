@@ -1198,6 +1198,57 @@
         <bui-datetime-picker class="w-64" [(value)]="dtmValue" />
       </app-example>
     }
+    @case ('autocomplete') {
+      <app-example [code]="code.autocomplete">
+        <bui-autocomplete
+          class="w-64"
+          [(value)]="acValue"
+          [options]="acOptions"
+          placeholder="Pick a framework"
+        />
+      </app-example>
+    }
+    @case ('comparison-slider') {
+      <app-example [code]="code.comparisonSlider">
+        <bui-comparison-slider
+          class="w-full max-w-md"
+          before="https://picsum.photos/seed/before/800/450"
+          after="https://picsum.photos/seed/after/800/450"
+          beforeLabel="Before"
+          afterLabel="After"
+          [(value)]="compareValue"
+        />
+      </app-example>
+    }
+    @case ('file-upload') {
+      <app-example [code]="code.fileUpload">
+        <bui-file-upload class="w-full max-w-md" [multiple]="true" hint="PNG, JPG up to 5MB" />
+      </app-example>
+    }
+    @case ('top-progress') {
+      <app-example [code]="code.topProgress">
+        <div class="w-full max-w-md space-y-3">
+          <bui-top-progress #tp [demo]="true" class="rounded bg-muted" />
+          <div class="flex gap-2">
+            <button buiButton size="sm" variant="outline" (click)="tp.start()">Start</button>
+            <button buiButton size="sm" variant="outline" (click)="tp.set(0.5)">50%</button>
+            <button buiButton size="sm" variant="outline" (click)="tp.done()">Done</button>
+          </div>
+        </div>
+      </app-example>
+    }
+    @case ('drawer') {
+      <app-example [code]="code.drawer">
+        <button buiButton (click)="drawerOpen.set(true)">Open drawer</button>
+        <bui-drawer [(open)]="drawerOpen" direction="right" class="w-80">
+          <h2 class="text-lg font-semibold">Settings</h2>
+          <p class="text-sm text-muted-foreground">Drawer panel content goes here.</p>
+          <button buiButton variant="outline" class="mt-auto" (click)="drawerOpen.set(false)">
+            Close
+          </button>
+        </bui-drawer>
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

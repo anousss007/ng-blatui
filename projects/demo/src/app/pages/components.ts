@@ -33,6 +33,7 @@ import {
   BuiAspectRatio,
   BuiAudioPlayer,
   BuiAurora,
+  BuiAutocomplete,
   BuiAutosizeTextarea,
   BuiAvatar,
   BuiAvatarGroup,
@@ -74,6 +75,7 @@ import {
   BuiColorPicker,
   BuiCombobox,
   BuiCommand,
+  BuiComparisonSlider,
   BuiComparisonTable,
   BuiConfetti,
   BuiContainer,
@@ -95,6 +97,7 @@ import {
   BuiDock,
   BuiDockItem,
   BuiDotPattern,
+  BuiDrawer,
   BuiDropdownMenu,
   BuiDropdownMenuItem,
   BuiDropdownMenuLabel,
@@ -108,6 +111,7 @@ import {
   BuiField,
   BuiFieldDescription,
   BuiFieldLabel,
+  BuiFileUpload,
   BuiFlipCard,
   BuiGallery,
   BuiGradientText,
@@ -217,6 +221,7 @@ import {
   BuiToggleGroupItem,
   BuiToolCall,
   BuiTooltip,
+  BuiTopProgress,
   BuiTree,
   BuiTreeTable,
   BuiTypewriter,
@@ -421,6 +426,14 @@ const META: Record<string, { title: string; description: string }> = {
   'data-table': { title: 'Data table', description: 'Search, sort, select and paginate rows.' },
   chart: { title: 'Chart', description: 'A lightweight SVG line/area/bar chart.' },
   'datetime-picker': { title: 'Datetime picker', description: 'Pick a date and time together.' },
+  autocomplete: { title: 'Autocomplete', description: 'A free-text input with suggestions.' },
+  'comparison-slider': {
+    title: 'Comparison slider',
+    description: 'A before/after image comparison.',
+  },
+  'file-upload': { title: 'File upload', description: 'A drag-and-drop file upload zone.' },
+  'top-progress': { title: 'Top progress', description: 'An NProgress-style page loading bar.' },
+  drawer: { title: 'Drawer', description: 'A slide-in panel anchored to an edge.' },
 };
 
 @Component({
@@ -651,6 +664,11 @@ const META: Record<string, { title: string; description: string }> = {
     BuiDataTable,
     BuiChart,
     BuiDatetimePicker,
+    BuiAutocomplete,
+    BuiComparisonSlider,
+    BuiFileUpload,
+    BuiTopProgress,
+    BuiDrawer,
   ],
   templateUrl: './components.html',
 })
@@ -676,6 +694,10 @@ export class ComponentPage {
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
   protected readonly view = signal('list');
+  protected readonly acValue = signal('');
+  protected readonly acOptions = ['Angular', 'React', 'Svelte', 'Vue', 'Solid', 'Qwik'];
+  protected readonly compareValue = signal(50);
+  protected readonly drawerOpen = signal(false);
   protected readonly dtColumns = [
     { key: 'name', label: 'Name' },
     { key: 'email', label: 'Email' },
@@ -1493,5 +1515,22 @@ The sky is blue<bui-citation [index]="1" title="Rayleigh scattering" url="https:
     datetimePicker: `import { BuiDatetimePicker } from 'ng-blatui';
 
 <bui-datetime-picker [(value)]="when" />`,
+    autocomplete: `import { BuiAutocomplete } from 'ng-blatui';
+
+<bui-autocomplete [(value)]="value" [options]="frameworks" />`,
+    comparisonSlider: `import { BuiComparisonSlider } from 'ng-blatui';
+
+<bui-comparison-slider before="/before.jpg" after="/after.jpg" beforeLabel="Before" afterLabel="After" />`,
+    fileUpload: `import { BuiFileUpload } from 'ng-blatui';
+
+<bui-file-upload [multiple]="true" hint="PNG, JPG up to 5MB" />`,
+    topProgress: `import { BuiTopProgress } from 'ng-blatui';
+
+<bui-top-progress #bar [demo]="true" />
+<button (click)="bar.start()">Start</button>`,
+    drawer: `import { BuiDrawer } from 'ng-blatui';
+
+<button (click)="open.set(true)">Open</button>
+<bui-drawer [(open)]="open" direction="right">Panel content</bui-drawer>`,
   };
 }

@@ -155,3 +155,8 @@ export * from './lib/context-menu/context-menu';
 export * from './lib/data-table/data-table';
 export * from './lib/chart/chart';
 export * from './lib/datetime-picker/datetime-picker';
+export * from './lib/autocomplete/autocomplete';
+export * from './lib/comparison-slider/comparison-slider';
+export * from './lib/file-upload/file-upload';
+export * from './lib/top-progress/top-progress';
+export * from './lib/drawer/drawer';

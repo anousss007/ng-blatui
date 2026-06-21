@@ -150,6 +150,11 @@ const COMPONENTS = [
   'data-table',
   'chart',
   'datetime-picker',
+  'autocomplete',
+  'comparison-slider',
+  'file-upload',
+  'top-progress',
+  'drawer',
 ];
 
 @Component({
