@@ -3897,7 +3897,31 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('autosize-textarea') {
       <app-example [code]="code.autosizeTextarea">
-        <textarea buiAutosizeTextarea class="max-w-xs" placeholder="Write a message…"></textarea>
+        <textarea
+          buiAutosizeTextarea
+          class="w-full max-w-sm"
+          placeholder="Type several lines and watch it grow…"
+        ></textarea>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Max rows</h2>
+      <app-example [code]="code.autosizeTextareaMax">
+        <textarea
+          buiAutosizeTextarea
+          [maxRows]="4"
+          class="w-full max-w-sm"
+          placeholder="Grows up to 4 rows, then scrolls…"
+        ></textarea>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Small</h2>
+      <app-example [code]="code.autosizeTextareaSmall">
+        <textarea
+          buiAutosizeTextarea
+          size="sm"
+          class="w-full max-w-sm"
+          placeholder="Compact size…"
+        ></textarea>
       </app-example>
     }
     @case ('dropdown-menu') {
@@ -4563,10 +4587,26 @@ This content is read-only and cannot be edited.</textarea
         <div buiMasonry [columns]="3" class="w-full">
           <div class="rounded-lg border bg-card p-4">Short</div>
           <div class="rounded-lg border bg-card p-4">
-            A taller tile with more text inside it here.
+            A taller tile with more text inside it here, spanning a couple of lines.
           </div>
           <div class="rounded-lg border bg-card p-4">Medium height tile</div>
           <div class="rounded-lg border bg-card p-4">Tiny</div>
+          <div class="rounded-lg border bg-card p-4">
+            Another block of moderate length to fill the layout.
+          </div>
+          <div class="rounded-lg border bg-card p-4">Last</div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Two columns</h2>
+      <app-example [code]="code.masonryTwo">
+        <div buiMasonry [columns]="2" gap="6" class="w-full max-w-md">
+          <div class="rounded-lg border bg-card p-4">One</div>
+          <div class="rounded-lg border bg-card p-4">
+            A taller tile that wraps across multiple lines of text.
+          </div>
+          <div class="rounded-lg border bg-card p-4">Three</div>
+          <div class="rounded-lg border bg-card p-4">Four</div>
         </div>
       </app-example>
     }
@@ -4647,6 +4687,20 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.addToCart">
         <bui-add-to-cart />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Custom labels</h2>
+      <app-example [code]="code.addToCartLabels">
+        <bui-add-to-cart label="Add to bag" addedLabel="Added ✓" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.addToCartSizes">
+        <div class="flex flex-wrap items-center gap-3">
+          <bui-add-to-cart size="sm" />
+          <bui-add-to-cart />
+          <bui-add-to-cart size="lg" />
+        </div>
+      </app-example>
     }
     @case ('password-strength') {
       <app-example [code]="code.passwordStrength">
@@ -4710,6 +4764,24 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.typewriter">
         <span class="text-2xl font-bold">
           We <bui-typewriter class="text-primary" [words]="['design.', 'build.', 'ship.']" />
+        </span>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">No cursor</h2>
+      <app-example [code]="code.typewriterNoCursor">
+        <span class="text-2xl font-bold">
+          <bui-typewriter
+            class="text-primary"
+            [cursor]="false"
+            [words]="['Fast', 'Accessible', 'Yours']"
+          />
+        </span>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Play once</h2>
+      <app-example [code]="code.typewriterOnce">
+        <span class="text-2xl font-bold">
+          <bui-typewriter [loop]="false" [words]="['Type once, then stop.']" />
         </span>
       </app-example>
     }

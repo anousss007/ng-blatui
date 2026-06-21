@@ -1932,6 +1932,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     autosizeTextarea: `import { BuiAutosizeTextarea } from 'ng-blatui';
 
 <textarea buiAutosizeTextarea placeholder="Write a message…"></textarea>`,
+    autosizeTextareaMax: `<textarea buiAutosizeTextarea [maxRows]="4" placeholder="Grows to 4 rows…"></textarea>`,
+    autosizeTextareaSmall: `<textarea buiAutosizeTextarea size="sm" placeholder="Compact…"></textarea>`,
     dropdownMenu: `import {
   Menu, MenuItem, MenuTrigger,
   BuiDropdownMenu, BuiDropdownMenuItem, BuiDropdownMenuLabel, BuiDropdownMenuSeparator,
@@ -2133,6 +2135,7 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     masonry: `import { BuiMasonry } from 'ng-blatui';
 
 <div buiMasonry [columns]="3">…tiles…</div>`,
+    masonryTwo: `<div buiMasonry [columns]="2" gap="6">…tiles…</div>`,
     bentoGrid: `import { BuiBentoGrid, BuiBentoItem } from 'ng-blatui';
 
 <div buiBentoGrid [columns]="3">
@@ -2160,6 +2163,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     addToCart: `import { BuiAddToCart } from 'ng-blatui';
 
 <bui-add-to-cart (triggered)="addItem()" />`,
+    addToCartLabels: `<bui-add-to-cart label="Add to bag" addedLabel="Added ✓" />`,
+    addToCartSizes: `<bui-add-to-cart size="sm" />
+<bui-add-to-cart size="lg" />`,
     passwordStrength: `import { BuiPasswordStrength } from 'ng-blatui';
 
 <bui-password-strength label="Password" [minLength]="8" />`,
@@ -2179,6 +2185,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     typewriter: `import { BuiTypewriter } from 'ng-blatui';
 
 <bui-typewriter [words]="['design', 'build', 'ship']" />`,
+    typewriterNoCursor: `<bui-typewriter [cursor]="false" [words]="['Fast', 'Accessible', 'Yours']" />`,
+    typewriterOnce: `<bui-typewriter [loop]="false" [words]="['Type once, then stop.']" />`,
     streamingText: `import { BuiStreamingText } from 'ng-blatui';
 
 <bui-streaming-text text="Streaming responses, one token at a time." />`,
