@@ -140,3 +140,7 @@ export * from './lib/repeater/repeater';
 export * from './lib/notification-center/notification-center';
 export * from './lib/json-viewer/json-viewer';
 export * from './lib/json-viewer/json-viewer-node';
+export * from './lib/org-chart/org-chart';
+export * from './lib/org-chart/org-chart-node';
+export * from './lib/mini-cart/mini-cart';
+export * from './lib/animated-beam/animated-beam';

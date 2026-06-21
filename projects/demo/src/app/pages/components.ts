@@ -29,6 +29,7 @@ import {
   BuiAlertDialogHeader,
   BuiAlertDialogTitle,
   BuiAlertTitle,
+  BuiAnimatedBeam,
   BuiAspectRatio,
   BuiAudioPlayer,
   BuiAurora,
@@ -133,9 +134,11 @@ import {
   BuiMenubarTrigger,
   BuiMeteors,
   BuiMeter,
+  BuiMiniCart,
   BuiNotificationCenter,
   BuiNumberInput,
   BuiNumberTicker,
+  BuiOrgChart,
   BuiPageHeader,
   BuiPagination,
   BuiPaginationContent,
@@ -609,6 +612,9 @@ const META: Record<string, { title: string; description: string }> = {
     BuiRepeater,
     BuiNotificationCenter,
     BuiJsonViewer,
+    BuiOrgChart,
+    BuiMiniCart,
+    BuiAnimatedBeam,
   ],
   templateUrl: './components.html',
 })
@@ -634,6 +640,22 @@ export class ComponentPage {
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
   protected readonly view = signal('list');
+  protected readonly orgRoot = {
+    name: 'Ada Lovelace',
+    title: 'CEO',
+    children: [
+      {
+        name: 'Grace Hopper',
+        title: 'CTO',
+        children: [{ name: 'Alan Turing', title: 'Engineer' }],
+      },
+      { name: 'Edsger Dijkstra', title: 'CFO' },
+    ],
+  };
+  protected readonly cartItems = [
+    { name: 'Wireless headphones', variant: 'Black', price: 199, qty: 1 },
+    { name: 'USB-C cable', price: 12, qty: 2 },
+  ];
   protected readonly repeaterFields = [
     { key: 'name', label: 'Name' },
     { key: 'email', label: 'Email' },
@@ -1324,5 +1346,18 @@ The sky is blue<bui-citation [index]="1" title="Rayleigh scattering" url="https:
     jsonViewer: `import { BuiJsonViewer } from 'ng-blatui';
 
 <bui-json-viewer [data]="response" />`,
+    orgChart: `import { BuiOrgChart } from 'ng-blatui';
+
+<bui-org-chart [node]="org" />
+// org = { name: 'CEO', children: [{ name: 'CTO' }, ...] }`,
+    miniCart: `import { BuiMiniCart } from 'ng-blatui';
+
+<bui-mini-cart [items]="cart" />`,
+    animatedBeam: `import { BuiAnimatedBeam } from 'ng-blatui';
+
+<bui-animated-beam from="#a" to="#b">
+  <div id="a">…</div>
+  <div id="b">…</div>
+</bui-animated-beam>`,
   };
 }

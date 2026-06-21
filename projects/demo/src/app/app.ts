@@ -136,6 +136,9 @@ const COMPONENTS = [
   'repeater',
   'notification-center',
   'json-viewer',
+  'org-chart',
+  'mini-cart',
+  'animated-beam',
 ];
 
 @Component({
