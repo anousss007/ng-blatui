@@ -55,58 +55,96 @@
       </div>
     }
     @case ('pricing') {
-      <div class="w-full space-y-10 rounded-lg border p-8">
-        <div class="mx-auto max-w-2xl text-center">
-          <span buiBadge variant="secondary">Pricing</span>
-          <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-            Plans for teams of all sizes
-          </h2>
-          <p class="mt-3 text-muted-foreground">
-            Start free, then pick a plan that scales with you.
-          </p>
-        </div>
-        <div class="mx-auto grid max-w-5xl gap-6 lg:grid-cols-3">
-          <div buiCard variant="sectioned">
-            <div buiCardHeader>
-              <h3 buiCardTitle>Starter</h3>
-              <p buiCardDescription>For individuals.</p>
-            </div>
-            <div buiCardContent class="space-y-4">
-              <p>
-                <span class="text-3xl font-bold">$0</span
-                ><span class="text-muted-foreground">/mo</span>
-              </p>
-              <button buiButton variant="outline" class="w-full">Get started</button>
-            </div>
-          </div>
-          <div buiCard variant="sectioned" class="border-primary ring-2 ring-primary/20">
-            <div buiCardHeader>
-              <div class="flex items-center justify-between">
-                <h3 buiCardTitle>Team</h3>
-                <span buiBadge>Popular</span>
+      <section class="mx-auto max-w-3xl px-6 py-20 text-center">
+        <span buiBadge variant="secondary" class="rounded-full">Pricing</span>
+        <h1 class="mt-5 text-4xl font-bold tracking-tight text-balance sm:text-5xl">
+          Simple pricing for teams of all sizes
+        </h1>
+        <p class="mx-auto mt-5 max-w-xl text-lg text-muted-foreground">
+          Start free, then pick a plan that scales with you. No hidden fees.
+        </p>
+      </section>
+
+      <section class="mx-auto max-w-6xl px-6 pb-20">
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          @for (plan of pricingPlans; track plan.name) {
+            <div
+              buiCard
+              variant="sectioned"
+              [class]="plan.highlight ? 'border-primary ring-2 ring-primary/30' : ''"
+            >
+              <div buiCardHeader>
+                <div class="flex items-center justify-between">
+                  <h3 buiCardTitle>{{ plan.name }}</h3>
+                  @if (plan.highlight) {
+                    <span buiBadge>Popular</span>
+                  }
+                </div>
+                <p buiCardDescription>{{ plan.tag }}</p>
               </div>
-              <p buiCardDescription>For growing teams.</p>
+              <div buiCardContent class="space-y-5">
+                <p>
+                  <span class="text-4xl font-bold tracking-tight">{{ plan.price }}</span>
+                  @if (plan.price !== 'Custom') {
+                    <span class="text-muted-foreground">/mo</span>
+                  }
+                </p>
+                <a
+                  buiButton
+                  [variant]="plan.highlight ? 'default' : 'outline'"
+                  class="w-full"
+                  href="#"
+                  >{{ plan.cta }}</a
+                >
+                <ul class="flex flex-col gap-2.5 text-sm">
+                  @for (feat of plan.features; track feat) {
+                    <li class="flex items-center gap-2">
+                      <svg
+                        class="size-4 shrink-0 text-primary"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 6 9 17l-5-5" />
+                      </svg>
+                      {{ feat }}
+                    </li>
+                  }
+                </ul>
+              </div>
             </div>
-            <div buiCardContent class="space-y-4">
-              <p>
-                <span class="text-3xl font-bold">$49</span
-                ><span class="text-muted-foreground">/mo</span>
-              </p>
-              <button buiButton class="w-full">Start trial</button>
-            </div>
-          </div>
-          <div buiCard variant="sectioned">
-            <div buiCardHeader>
-              <h3 buiCardTitle>Enterprise</h3>
-              <p buiCardDescription>For organizations.</p>
-            </div>
-            <div buiCardContent class="space-y-4">
-              <p><span class="text-3xl font-bold">Custom</span></p>
-              <button buiButton variant="outline" class="w-full">Contact sales</button>
-            </div>
-          </div>
+          }
         </div>
-      </div>
+      </section>
+
+      <section class="border-t bg-muted/30">
+        <div class="mx-auto max-w-3xl px-6 py-20">
+          <h2 class="text-center text-3xl font-bold tracking-tight">Frequently asked questions</h2>
+          <dl class="mt-10 space-y-6">
+            @for (faq of pricingFaqs; track faq.q) {
+              <div class="border-b pb-6">
+                <dt class="font-medium">{{ faq.q }}</dt>
+                <dd class="mt-2 text-sm text-muted-foreground">{{ faq.a }}</dd>
+              </div>
+            }
+          </dl>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-4xl px-6 py-20 text-center">
+        <h2 class="text-3xl font-bold tracking-tight">Still have questions?</h2>
+        <p class="mx-auto mt-3 max-w-xl text-muted-foreground">
+          Our team is happy to help you choose the right plan.
+        </p>
+        <div class="mt-7 flex flex-wrap justify-center gap-3">
+          <a buiButton size="lg" href="#">Start free trial</a>
+          <a buiButton size="lg" variant="outline" href="#">Talk to sales</a>
+        </div>
+      </section>
     }
     @case ('dashboard') {
       <div class="flex min-h-[560px] w-full overflow-hidden rounded-lg border">
@@ -142,19 +180,65 @@
       </div>
     }
     @case ('blog') {
-      <div class="w-full space-y-8 rounded-lg border p-8">
-        <div class="space-y-2 text-center">
-          <span buiBadge variant="secondary">Blog</span>
-          <h2 class="text-3xl font-bold tracking-tight">From the team</h2>
-          <p class="text-muted-foreground">Notes on building accessible UI.</p>
+      <header class="border-b">
+        <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+          <span class="text-xl font-bold tracking-tight">The Dispatch</span>
+          <nav class="ml-4 hidden items-center gap-1 text-sm md:flex">
+            <a buiButton variant="ghost" size="sm" href="#">Latest</a>
+            <a buiButton variant="ghost" size="sm" href="#">Design</a>
+            <a buiButton variant="ghost" size="sm" href="#">Engineering</a>
+            <a buiButton variant="ghost" size="sm" href="#">Culture</a>
+          </nav>
+          <a buiButton size="sm" class="ml-auto" href="#">Subscribe</a>
         </div>
-        <div class="grid gap-6 sm:grid-cols-2">
+      </header>
+
+      <section class="mx-auto max-w-6xl px-6 py-12">
+        <a href="#" class="group grid items-center gap-8 lg:grid-cols-2">
+          <div class="aspect-[16/10] overflow-hidden rounded-2xl border bg-muted">
+            <img
+              src="https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=1100&q=80&auto=format&fit=crop"
+              alt=""
+              loading="lazy"
+              class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+          <div>
+            <span buiBadge>Engineering</span>
+            <h1
+              class="mt-3 text-3xl font-bold tracking-tight text-balance group-hover:underline sm:text-4xl"
+            >
+              How we cut our build times by 70% with a smarter cache
+            </h1>
+            <p class="mt-4 text-pretty text-muted-foreground">
+              A deep dive into the content-addressable pipeline we built, the dead ends we hit, and
+              the three changes that actually moved the needle.
+            </p>
+            <div class="mt-5 flex items-center gap-2">
+              <bui-avatar class="size-8 text-xs">MC</bui-avatar>
+              <span class="text-sm text-muted-foreground"
+                >Marcus Chen · Jun 8, 2026 · 8 min read</span
+              >
+            </div>
+          </div>
+        </a>
+      </section>
+
+      <section class="mx-auto max-w-6xl px-6 pb-20">
+        <h2 class="mb-6 text-sm font-semibold tracking-wide text-muted-foreground uppercase">
+          Latest posts
+        </h2>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           @for (post of posts; track post.title) {
-            <div buiCard variant="sectioned">
+            <a href="#" buiCard variant="sectioned" class="group transition-shadow hover:shadow-md">
+              <div
+                class="-mx-px -mt-px mb-2 grid aspect-[16/10] place-items-center rounded-t-xl border-b bg-muted text-sm"
+              >
+                <span class="text-muted-foreground">Cover</span>
+              </div>
               <div buiCardHeader>
                 <span buiBadge variant="outline" class="w-fit">{{ post.tag }}</span>
-                <h3 buiCardTitle class="mt-2">{{ post.title }}</h3>
-                <p buiCardDescription>A short excerpt about this topic and why it matters.</p>
+                <h3 buiCardTitle class="mt-2 group-hover:underline">{{ post.title }}</h3>
               </div>
               <div buiCardContent>
                 <div class="flex items-center gap-2">
@@ -162,26 +246,60 @@
                   <span class="text-sm text-muted-foreground">{{ post.author }} · 5 min read</span>
                 </div>
               </div>
-            </div>
+            </a>
           }
         </div>
-      </div>
+      </section>
+
+      <section class="border-t bg-muted/30">
+        <div class="mx-auto flex max-w-3xl flex-col items-center gap-4 px-6 py-16 text-center">
+          <h2 class="text-2xl font-bold tracking-tight">Get the weekly dispatch</h2>
+          <p class="text-muted-foreground">Stories on craft & code, straight to your inbox.</p>
+          <div class="flex w-full max-w-sm items-center gap-2">
+            <input buiInput type="email" placeholder="you@example.com" />
+            <button buiButton>Subscribe</button>
+          </div>
+        </div>
+      </section>
     }
     @case ('store') {
-      <div class="w-full space-y-6 rounded-lg border p-6">
-        <div class="flex items-center gap-3">
-          <h2 class="text-lg font-semibold">Shop</h2>
-          <input
-            buiInput
-            class="ml-auto max-w-[220px]"
-            type="search"
-            placeholder="Search products"
-          />
+      <header class="sticky top-14 z-20 border-b bg-background/90 backdrop-blur">
+        <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+          <span class="text-lg font-bold">Mercado</span>
+          <input buiInput class="ml-auto max-w-xs" type="search" placeholder="Search products…" />
+          <button buiButton variant="outline" size="icon" aria-label="Cart">
+            <svg
+              class="size-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="8" cy="21" r="1" />
+              <circle cx="19" cy="21" r="1" />
+              <path
+                d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"
+              />
+            </svg>
+          </button>
         </div>
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      </header>
+
+      <section class="mx-auto max-w-6xl px-6 py-10">
+        <div class="flex flex-wrap items-center gap-2">
+          <span buiBadge>All</span>
+          <span buiBadge variant="outline">Audio</span>
+          <span buiBadge variant="outline">Accessories</span>
+          <span buiBadge variant="outline">Desk</span>
+          <span class="ml-auto text-sm text-muted-foreground">{{ products.length }} products</span>
+        </div>
+        <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           @for (product of products; track product.name) {
-            <div buiCard variant="sectioned">
-              <div class="relative grid h-40 place-items-center rounded-t-xl bg-muted text-sm">
+            <div buiCard variant="sectioned" class="overflow-hidden pt-0">
+              <div class="relative grid aspect-square place-items-center bg-muted text-sm">
                 @if (product.tag) {
                   <span
                     buiBadge
@@ -192,17 +310,30 @@
                 }
                 <span class="text-muted-foreground">Image</span>
               </div>
-              <div buiCardContent class="space-y-2 pt-4">
+              <div buiCardContent class="space-y-3">
                 <div class="flex items-center justify-between">
                   <h3 class="font-medium">{{ product.name }}</h3>
-                  <span class="font-semibold">{{ product.price }}</span>
+                  <span class="font-semibold tabular-nums">{{ product.price }}</span>
                 </div>
                 <button buiButton class="w-full">Add to cart</button>
               </div>
             </div>
           }
         </div>
-      </div>
+      </section>
+
+      <footer class="border-t">
+        <div
+          class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 py-8 text-sm text-muted-foreground sm:flex-row"
+        >
+          <p>© 2026 Mercado. Free shipping over $50.</p>
+          <div class="flex gap-4">
+            <a href="#" class="hover:text-foreground">Shipping</a
+            ><a href="#" class="hover:text-foreground">Returns</a
+            ><a href="#" class="hover:text-foreground">Support</a>
+          </div>
+        </div>
+      </footer>
     }
     @case ('saas') {
       <!-- Hero -->

@@ -138,6 +138,55 @@ export class TemplatesPage {
     { title: 'Theming with design tokens', tag: 'Design', author: 'Alan', initials: 'AT' },
     { title: 'Shipping a component library', tag: 'Product', author: 'Edsger', initials: 'ED' },
   ];
+  protected readonly pricingPlans = [
+    {
+      name: 'Free',
+      price: '$0',
+      tag: 'For individuals getting started',
+      cta: 'Start free',
+      highlight: false,
+      features: ['3 projects', '1 member', '7-day history', 'Community support'],
+    },
+    {
+      name: 'Team',
+      price: '$19',
+      tag: 'For small teams shipping fast',
+      cta: 'Start trial',
+      highlight: true,
+      features: ['Unlimited projects', '10 members', 'Automations', 'Priority support'],
+    },
+    {
+      name: 'Business',
+      price: '$49',
+      tag: 'For scaling organizations',
+      cta: 'Start trial',
+      highlight: false,
+      features: ['Everything in Team', '50 members', 'Audit logs', 'Custom roles'],
+    },
+    {
+      name: 'Enterprise',
+      price: 'Custom',
+      tag: 'For custom needs at scale',
+      cta: 'Contact sales',
+      highlight: false,
+      features: ['Unlimited members', 'SAML & SCIM', 'Dedicated CSM', '99.99% SLA'],
+    },
+  ];
+  protected readonly pricingFaqs = [
+    {
+      q: 'Can I change plans later?',
+      a: 'Yes — upgrade or downgrade anytime from billing. Changes are prorated to the day.',
+    },
+    { q: 'Do you offer annual billing?', a: 'Yes, save about 15% when you pay yearly.' },
+    {
+      q: 'Is there a nonprofit discount?',
+      a: '50% off for registered nonprofits and free access for open-source projects.',
+    },
+    {
+      q: 'What payment methods do you accept?',
+      a: 'All major cards via Stripe. Enterprise can pay by invoice and ACH.',
+    },
+  ];
   protected readonly saasFeatures = [
     {
       icon: '⚡',
