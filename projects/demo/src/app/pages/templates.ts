@@ -9,6 +9,7 @@ import {
   BuiCardDescription,
   BuiCardHeader,
   BuiCardTitle,
+  BuiDataTable,
   BuiField,
   BuiFieldLabel,
   BuiInput,
@@ -16,6 +17,7 @@ import {
   BuiSidebar,
   BuiSidebarMenuButton,
   BuiStat,
+  type DataTableColumn,
 } from 'ng-blatui';
 
 export const TEMPLATES = [
@@ -27,6 +29,10 @@ export const TEMPLATES = [
   'saas',
   'docs-site',
   'help-center',
+  'product',
+  'crm',
+  'account',
+  'agency',
 ];
 
 const META: Record<string, { title: string; description: string }> = {
@@ -38,6 +44,10 @@ const META: Record<string, { title: string; description: string }> = {
   saas: { title: 'SaaS', description: 'A SaaS landing page with features.' },
   'docs-site': { title: 'Docs site', description: 'A documentation layout.' },
   'help-center': { title: 'Help center', description: 'A support search and categories.' },
+  product: { title: 'Product', description: 'A product detail page.' },
+  crm: { title: 'CRM', description: 'A contacts app shell.' },
+  account: { title: 'Account', description: 'An account settings page.' },
+  agency: { title: 'Agency', description: 'An agency landing page.' },
 };
 
 /** Full-page BlatUI templates, composed from ng-blatui components. */
@@ -52,6 +62,7 @@ const META: Record<string, { title: string; description: string }> = {
     BuiCardDescription,
     BuiCardHeader,
     BuiCardTitle,
+    BuiDataTable,
     BuiField,
     BuiFieldLabel,
     BuiInput,
@@ -88,5 +99,17 @@ export class TemplatesPage {
     { name: '4K webcam', price: '$89', tag: '' },
     { name: 'Desk mat', price: '$29', tag: '' },
     { name: 'Laptop stand', price: '$45', tag: 'New' },
+  ];
+  protected readonly crmColumns: DataTableColumn[] = [
+    { key: 'name', label: 'Name' },
+    { key: 'company', label: 'Company' },
+    { key: 'stage', label: 'Stage' },
+    { key: 'value', label: 'Value', align: 'right' },
+  ];
+  protected readonly crmRows = [
+    { name: 'Ada Lovelace', company: 'Analytical Co', stage: 'Lead', value: '$4,200' },
+    { name: 'Grace Hopper', company: 'Naval Systems', stage: 'Proposal', value: '$12,000' },
+    { name: 'Alan Turing', company: 'Enigma Ltd', stage: 'Won', value: '$8,500' },
+    { name: 'Edsger Dijkstra', company: 'Shortest Path', stage: 'Lead', value: '$2,100' },
   ];
 }

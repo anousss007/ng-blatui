@@ -299,6 +299,128 @@
         </div>
       </div>
     }
+    @case ('product') {
+      <div class="grid w-full gap-8 rounded-lg border p-8 md:grid-cols-2">
+        <div class="grid h-72 place-items-center rounded-lg bg-muted text-sm">Product image</div>
+        <div class="space-y-4">
+          <span buiBadge variant="secondary">In stock</span>
+          <h2 class="text-2xl font-bold">Wireless headphones</h2>
+          <p class="text-3xl font-semibold">$199</p>
+          <p class="text-muted-foreground">
+            Premium noise-cancelling headphones with 30-hour battery life and a comfortable fit.
+          </p>
+          <div buiSeparator></div>
+          <div class="flex gap-3">
+            <button buiButton class="flex-1">Add to cart</button>
+            <button buiButton variant="outline">Save</button>
+          </div>
+          <ul class="space-y-1 text-sm text-muted-foreground">
+            <li>Free shipping over $50</li>
+            <li>30-day returns</li>
+            <li>2-year warranty</li>
+          </ul>
+        </div>
+      </div>
+    }
+    @case ('crm') {
+      <div class="flex min-h-[520px] w-full overflow-hidden rounded-lg border">
+        <bui-sidebar>
+          <div class="px-2 pb-2 text-sm font-semibold">CRM</div>
+          <a buiSidebarMenuButton [isActive]="true" href="#">Deals</a>
+          <a buiSidebarMenuButton href="#">Contacts</a>
+          <a buiSidebarMenuButton href="#">Companies</a>
+          <a buiSidebarMenuButton href="#">Reports</a>
+        </bui-sidebar>
+        <div class="flex-1 overflow-auto p-6">
+          <div class="mb-4 flex items-center gap-3">
+            <h2 class="text-lg font-semibold">Pipeline</h2>
+            <a buiButton size="sm" class="ml-auto" href="#">New deal</a>
+          </div>
+          <div class="mb-4 grid gap-4 sm:grid-cols-3">
+            <bui-stat label="Open deals" value="38" change="+5" trend="up" />
+            <bui-stat label="Won (mo)" value="$84k" change="+11%" trend="up" />
+            <bui-stat label="Win rate" value="42%" change="+2%" trend="up" />
+          </div>
+          <bui-data-table
+            [columns]="crmColumns"
+            [rows]="crmRows"
+            [pageSize]="5"
+            [selectable]="false"
+          />
+        </div>
+      </div>
+    }
+    @case ('account') {
+      <div class="grid w-full gap-6 rounded-lg border p-6 md:grid-cols-[12rem_1fr]">
+        <nav class="flex flex-col gap-1">
+          <a buiSidebarMenuButton [isActive]="true" href="#">Profile</a>
+          <a buiSidebarMenuButton href="#">Account</a>
+          <a buiSidebarMenuButton href="#">Notifications</a>
+          <a buiSidebarMenuButton href="#">Billing</a>
+        </nav>
+        <div buiCard variant="sectioned">
+          <div buiCardHeader>
+            <h3 buiCardTitle>Profile</h3>
+            <p buiCardDescription>Update your personal information.</p>
+          </div>
+          <div buiCardContent>
+            <form class="flex flex-col gap-6">
+              <div buiField>
+                <label buiFieldLabel for="ac-name">Name</label>
+                <input id="ac-name" buiInput value="Jane Doe" />
+              </div>
+              <div buiField>
+                <label buiFieldLabel for="ac-email">Email</label>
+                <input id="ac-email" buiInput type="email" value="jane&#64;example.com" />
+              </div>
+              <div class="flex gap-3">
+                <button buiButton type="submit">Save changes</button>
+                <button buiButton variant="outline" type="button">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    }
+    @case ('agency') {
+      <div class="w-full overflow-hidden rounded-lg border">
+        <header class="flex h-16 items-center gap-6 border-b px-6">
+          <span class="font-semibold">Studio</span>
+          <nav class="ml-auto hidden items-center gap-1 text-sm md:flex">
+            <a buiButton variant="ghost" size="sm" href="#">Work</a>
+            <a buiButton variant="ghost" size="sm" href="#">About</a>
+            <a buiButton size="sm" href="#">Contact</a>
+          </nav>
+        </header>
+        <div class="mx-auto max-w-3xl px-6 py-16 text-center">
+          <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">We design brands that move</h1>
+          <p class="mx-auto mt-5 max-w-xl text-lg text-muted-foreground">
+            A creative studio crafting identity, web and product experiences.
+          </p>
+          <a buiButton size="lg" class="mt-7" href="#">Start a project</a>
+        </div>
+        <div class="grid gap-6 border-t p-8 sm:grid-cols-3">
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <h3 buiCardTitle>Branding</h3>
+              <p buiCardDescription>Identity & strategy.</p>
+            </div>
+          </div>
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <h3 buiCardTitle>Web</h3>
+              <p buiCardDescription>Sites & platforms.</p>
+            </div>
+          </div>
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <h3 buiCardTitle>Product</h3>
+              <p buiCardDescription>Apps & design systems.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
     @default {
       <p class="text-muted-foreground">Template not found.</p>
     }
