@@ -147,3 +147,5 @@ export * from './lib/animated-beam/animated-beam';
 export * from './lib/diff-viewer/diff-viewer';
 export * from './lib/tree-table/tree-table';
 export * from './lib/markdown-editor/markdown-editor';
+export * from './lib/calendar/calendar';
+export * from './lib/date-picker/date-picker';

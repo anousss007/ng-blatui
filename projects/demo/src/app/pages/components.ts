@@ -54,6 +54,7 @@ import {
   BuiButton,
   BuiButtonGroup,
   BuiButtonGroupText,
+  BuiCalendar,
   BuiCard,
   BuiCardContent,
   BuiCardDescription,
@@ -76,6 +77,7 @@ import {
   BuiCookieConsent,
   BuiCopyButton,
   BuiCountdown,
+  BuiDatePicker,
   BuiDescriptionItem,
   BuiDescriptionList,
   BuiDialogContent,
@@ -399,6 +401,14 @@ const META: Record<string, { title: string; description: string }> = {
   repeater: { title: 'Repeater', description: 'A dynamic list of form rows.' },
   'notification-center': { title: 'Notification center', description: 'A bell + dropdown feed.' },
   'json-viewer': { title: 'JSON viewer', description: 'A collapsible JSON tree.' },
+  'org-chart': { title: 'Org chart', description: 'A top-down organizational chart.' },
+  'mini-cart': { title: 'Mini cart', description: 'A cart dropdown with line items.' },
+  'animated-beam': { title: 'Animated beam', description: 'An SVG beam linking two nodes.' },
+  'diff-viewer': { title: 'Diff viewer', description: 'A line-by-line text diff.' },
+  'tree-table': { title: 'Tree table', description: 'A table with expandable nested rows.' },
+  'markdown-editor': { title: 'Markdown editor', description: 'A textarea with live preview.' },
+  calendar: { title: 'Calendar', description: 'A single-month date calendar.' },
+  'date-picker': { title: 'Date picker', description: 'A date input with a calendar popover.' },
 };
 
 @Component({
@@ -621,6 +631,8 @@ const META: Record<string, { title: string; description: string }> = {
     BuiDiffViewer,
     BuiTreeTable,
     BuiMarkdownEditor,
+    BuiCalendar,
+    BuiDatePicker,
   ],
   templateUrl: './components.html',
 })
@@ -646,6 +658,8 @@ export class ComponentPage {
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
   protected readonly view = signal('list');
+  protected readonly calDate = signal('');
+  protected readonly dpDate = signal('');
   protected readonly diffBefore = 'const x = 1;\nconst y = 2;\nconsole.log(x);';
   protected readonly diffAfter = 'const x = 1;\nconst y = 3;\nconsole.log(x + y);';
   protected readonly ttColumns = [
@@ -1395,5 +1409,11 @@ The sky is blue<bui-citation [index]="1" title="Rayleigh scattering" url="https:
     markdownEditor: `import { BuiMarkdownEditor } from 'ng-blatui';
 
 <bui-markdown-editor [(value)]="md" />`,
+    calendar: `import { BuiCalendar } from 'ng-blatui';
+
+<bui-calendar [(value)]="date" />`,
+    datePicker: `import { BuiDatePicker } from 'ng-blatui';
+
+<bui-date-picker [(value)]="date" />`,
   };
 }

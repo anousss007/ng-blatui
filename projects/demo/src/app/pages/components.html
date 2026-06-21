@@ -1142,6 +1142,16 @@
         <bui-markdown-editor class="w-full max-w-md" [(value)]="mdValue" />
       </app-example>
     }
+    @case ('calendar') {
+      <app-example [code]="code.calendar">
+        <bui-calendar class="border" [(value)]="calDate" />
+      </app-example>
+    }
+    @case ('date-picker') {
+      <app-example [code]="code.datePicker">
+        <bui-date-picker class="w-56" [(value)]="dpDate" />
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

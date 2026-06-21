@@ -142,6 +142,8 @@ const COMPONENTS = [
   'diff-viewer',
   'tree-table',
   'markdown-editor',
+  'calendar',
+  'date-picker',
 ];
 
 @Component({
