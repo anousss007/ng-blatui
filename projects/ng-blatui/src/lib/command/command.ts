@@ -67,6 +67,24 @@ interface Row {
             (click)="choose(row.item!)"
             (mouseenter)="active.set(row.itemIndex)"
           >
+            @if (checkable()) {
+              <span class="flex w-4 shrink-0 justify-center">
+                @if (isChecked(row.item!)) {
+                  <svg
+                    class="size-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                }
+              </span>
+            }
             <span>{{ row.label }}</span>
             @if (row.item?.shortcut) {
               <kbd class="ms-auto text-xs text-muted-foreground">{{ row.item?.shortcut }}</kbd>
@@ -85,8 +103,16 @@ interface Row {
 export class BuiCommand {
   readonly groups = input<readonly CommandGroup[]>([]);
   readonly placeholder = input('Type a command or search…');
+  /** Render a checkmark column; activating an item toggles its checked state. */
+  readonly checkable = input(false);
   readonly selected = output<CommandItem>();
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+  protected readonly checkedValues = signal<ReadonlySet<string>>(new Set());
+
+  protected isChecked(item: CommandItem): boolean {
+    return this.checkedValues().has(item.value ?? item.label);
+  }
 
   protected readonly listId = inject(_IdGenerator).getId('bui-command-');
   protected readonly query = signal('');
@@ -145,6 +171,16 @@ export class BuiCommand {
   }
 
   protected choose(item: CommandItem): void {
+    if (this.checkable()) {
+      const key = item.value ?? item.label;
+      const next = new Set(this.checkedValues());
+      if (next.has(key)) {
+        next.delete(key);
+      } else {
+        next.add(key);
+      }
+      this.checkedValues.set(next);
+    }
     this.selected.emit(item);
   }
 }

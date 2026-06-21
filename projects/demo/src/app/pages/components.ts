@@ -806,6 +806,11 @@ export class ComponentPage {
       color: 'bg-emerald-500',
     },
   ];
+  protected readonly ganttMilestones = [
+    { name: 'Kickoff', date: '2026-01-01' },
+    { name: 'Beta', date: '2026-01-16' },
+    { name: 'GA', date: '2026-01-28' },
+  ];
   protected readonly schedulerEvents = [
     { title: 'Standup', day: 0, start: '09:00', end: '09:30' },
     { title: 'Design review', day: 1, start: '11:00', end: '12:30', color: 'bg-violet-500' },
@@ -3083,6 +3088,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 
 <bui-command [groups]="groups" (selected)="run($event)" />`,
     commandSimple: `<bui-command [groups]="[{ label: 'Actions', items: [...] }]" />`,
+    commandCheckable: `<!-- [checkable]="true" adds a checkmark column; items toggle on select -->
+<bui-command [groups]="groups" [checkable]="true" />`,
     contextMenu: `import { BuiContextMenu } from 'ng-blatui';
 
 <bui-context-menu [items]="items">
@@ -3197,6 +3204,8 @@ setTimeout(() => { this.toaster.dismiss(id); this.toaster.show({ title: 'Saved',
     gantt: `import { BuiGantt } from 'ng-blatui';
 
 <bui-gantt [tasks]="tasks" />`,
+    ganttMilestones: `<!-- diamond markers from [milestones] = [{ name, date }] -->
+<bui-gantt [tasks]="tasks" [milestones]="[{ name: 'GA', date: '2026-01-28' }]" />`,
     scheduler: `import { BuiScheduler } from 'ng-blatui';
 
 <bui-scheduler [events]="events" [startHour]="8" [endHour]="18" />`,

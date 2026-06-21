@@ -8122,6 +8122,11 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.commandSimple">
         <bui-command class="w-full max-w-md" [groups]="cmdGroupsSimple" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Checkable</h2>
+      <app-example [code]="code.commandCheckable">
+        <bui-command class="w-full max-w-md" [groups]="cmdGroupsSimple" [checkable]="true" />
+      </app-example>
     }
     @case ('context-menu') {
       <app-example [code]="code.contextMenu">
@@ -8577,6 +8582,11 @@ This content is read-only and cannot be edited.</textarea
     @case ('gantt') {
       <app-example [code]="code.gantt">
         <bui-gantt class="w-full max-w-lg" [tasks]="ganttTasks" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Milestones</h2>
+      <app-example [code]="code.ganttMilestones">
+        <bui-gantt class="w-full max-w-lg" [tasks]="ganttTasks" [milestones]="ganttMilestones" />
       </app-example>
     }
     @case ('scheduler') {

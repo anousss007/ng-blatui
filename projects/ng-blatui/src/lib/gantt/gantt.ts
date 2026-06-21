@@ -9,6 +9,10 @@ export interface GanttTask {
   progress?: number;
   color?: string;
 }
+export interface GanttMilestone {
+  name: string;
+  date: string;
+}
 interface GanttRow {
   name: string;
   left: number;
@@ -52,6 +56,18 @@ function label(iso: string): string {
       } @empty {
         <p class="text-sm text-muted-foreground">No tasks.</p>
       }
+      @for (milestone of milestoneRows(); track milestone.name) {
+        <div class="grid grid-cols-[8rem_1fr] items-center gap-3">
+          <span class="truncate text-sm text-muted-foreground">{{ milestone.name }}</span>
+          <div class="relative h-6">
+            <span
+              class="absolute top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[2px] bg-amber-500"
+              [style.left.%]="milestone.left"
+              [attr.title]="milestone.name"
+            ></span>
+          </div>
+        </div>
+      }
     </div>
     @if (rows().length > 0) {
       <div class="mt-2 grid grid-cols-[8rem_1fr] gap-3 text-xs text-muted-foreground">
@@ -66,9 +82,20 @@ function label(iso: string): string {
 })
 export class BuiGantt {
   readonly tasks = input<readonly GanttTask[]>([]);
+  readonly milestones = input<readonly GanttMilestone[]>([]);
   readonly start = input('');
   readonly end = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+  protected readonly milestoneRows = computed(() => {
+    const { min, span } = this.bounds();
+    return this.milestones()
+      .filter((milestone) => milestone.date !== '')
+      .map((milestone) => ({
+        name: milestone.name,
+        left: ((toDay(milestone.date) - min) / span) * 100,
+      }));
+  });
 
   private readonly bounds = computed(() => {
     const tasks = this.tasks().filter((task) => task.start !== '' && task.end !== '');
