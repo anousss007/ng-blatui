@@ -4304,6 +4304,11 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.countdown">
         <bui-countdown to="2026-12-31 23:59" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Expired</h2>
+      <app-example [code]="code.countdownExpired">
+        <bui-countdown to="2020-01-01 00:00" expired="This sale has ended." />
+      </app-example>
     }
     @case ('number-ticker') {
       <app-example [code]="code.numberTicker">
@@ -4616,6 +4621,25 @@ This content is read-only and cannot be edited.</textarea
           <bui-bento-item title="Fast" description="Blazing performance." [colSpan]="2" />
           <bui-bento-item title="Secure" description="Encrypted by default." />
           <bui-bento-item title="Simple" description="Easy to use." />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Feature grid</h2>
+      <app-example [code]="code.bentoGridFeatures">
+        <div buiBentoGrid [columns]="3" class="w-full">
+          <bui-bento-item
+            title="Analytics"
+            description="Real-time dashboards and insights."
+            [colSpan]="2"
+            [rowSpan]="2"
+          />
+          <bui-bento-item title="Automation" description="Build powerful workflows." />
+          <bui-bento-item title="Collaboration" description="Work together in real time." />
+          <bui-bento-item
+            title="Security"
+            description="Encrypted, audited, compliant."
+            [colSpan]="2"
+          />
         </div>
       </app-example>
     }
@@ -5263,6 +5287,14 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.phoneInput">
         <bui-phone-input class="max-w-xs" [(value)]="phoneNumber" [(country)]="phoneCountry" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With label</h2>
+      <app-example [code]="code.phoneInputLabel">
+        <div class="grid w-full max-w-xs gap-2">
+          <label buiLabel for="pi-phone">Phone number</label>
+          <bui-phone-input id="pi-phone" [(value)]="phoneNumber" [(country)]="phoneCountry" />
+        </div>
+      </app-example>
     }
     @case ('prompt-input') {
       <app-example [code]="code.promptInput">
@@ -5452,10 +5484,20 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.notificationCenter">
         <bui-notification-center [notifications]="notifItems" [open]="true" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Empty</h2>
+      <app-example [code]="code.notificationCenterEmpty">
+        <bui-notification-center [notifications]="[]" [open]="true" />
+      </app-example>
     }
     @case ('json-viewer') {
       <app-example [code]="code.jsonViewer">
         <bui-json-viewer class="w-full max-w-md" [data]="jsonData" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Collapsed</h2>
+      <app-example [code]="code.jsonViewerCollapsed">
+        <bui-json-viewer class="w-full max-w-md" [data]="jsonData" [expanded]="false" />
       </app-example>
     }
     @case ('org-chart') {
@@ -5466,6 +5508,11 @@ This content is read-only and cannot be edited.</textarea
     @case ('mini-cart') {
       <app-example [code]="code.miniCart">
         <bui-mini-cart [items]="cartItems" [open]="true" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Empty</h2>
+      <app-example [code]="code.miniCartEmpty">
+        <bui-mini-cart [items]="[]" [open]="true" />
       </app-example>
     }
     @case ('animated-beam') {
@@ -5587,6 +5634,28 @@ This content is read-only and cannot be edited.</textarea
           label="Weekly visits"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Bar</h2>
+      <app-example [code]="code.chartBar">
+        <bui-chart
+          class="w-full max-w-lg"
+          type="bar"
+          [series]="chartSeries"
+          [labels]="chartLabels"
+          label="Weekly visits"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Line</h2>
+      <app-example [code]="code.chartLine">
+        <bui-chart
+          class="w-full max-w-lg"
+          type="line"
+          [series]="chartSeries"
+          [labels]="chartLabels"
+          label="Weekly visits"
+        />
+      </app-example>
     }
     @case ('datetime-picker') {
       <app-example [code]="code.datetimePicker">
@@ -5703,6 +5772,15 @@ This content is read-only and cannot be edited.</textarea
         <bui-mention-input
           class="w-full max-w-sm"
           [(value)]="mentionValue"
+          [mentions]="mentionItems"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Prefilled</h2>
+      <app-example [code]="code.mentionInputPrefilled">
+        <bui-mention-input
+          class="w-full max-w-sm"
+          [value]="'Thanks @ada for the review!'"
           [mentions]="mentionItems"
         />
       </app-example>

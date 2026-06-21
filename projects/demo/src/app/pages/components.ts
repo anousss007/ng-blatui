@@ -2045,6 +2045,7 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     countdown: `import { BuiCountdown } from 'ng-blatui';
 
 <bui-countdown to="2026-12-31 23:59" />`,
+    countdownExpired: `<bui-countdown to="2020-01-01 00:00" expired="This sale has ended." />`,
     numberTicker: `import { BuiNumberTicker } from 'ng-blatui';
 
 <bui-number-ticker [value]="1284" />`,
@@ -2140,6 +2141,11 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 
 <div buiBentoGrid [columns]="3">
   <bui-bento-item title="Fast" description="Blazing speed" [colSpan]="2" />
+</div>`,
+    bentoGridFeatures: `<div buiBentoGrid [columns]="3">
+  <bui-bento-item title="Analytics" [colSpan]="2" [rowSpan]="2" />
+  <bui-bento-item title="Automation" />
+  <bui-bento-item title="Security" [colSpan]="2" />
 </div>`,
     gallery: `import { BuiGallery } from 'ng-blatui';
 
@@ -2322,6 +2328,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     phoneInput: `import { BuiPhoneInput } from 'ng-blatui';
 
 <bui-phone-input [(value)]="phone" [(country)]="country" />`,
+    phoneInputLabel: `<label buiLabel for="phone">Phone number</label>
+<bui-phone-input id="phone" [(value)]="phone" [(country)]="country" />`,
     promptInput: `import { BuiPromptInput } from 'ng-blatui';
 
 <bui-prompt-input [attachable]="true" (submitted)="send($event)" />`,
@@ -2384,9 +2392,11 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     notificationCenter: `import { BuiNotificationCenter } from 'ng-blatui';
 
 <bui-notification-center [notifications]="feed" />`,
+    notificationCenterEmpty: `<bui-notification-center [notifications]="[]" />`,
     jsonViewer: `import { BuiJsonViewer } from 'ng-blatui';
 
 <bui-json-viewer [data]="response" />`,
+    jsonViewerCollapsed: `<bui-json-viewer [data]="response" [expanded]="false" />`,
     orgChart: `import { BuiOrgChart } from 'ng-blatui';
 
 <bui-org-chart [node]="org" />
@@ -2394,6 +2404,7 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     miniCart: `import { BuiMiniCart } from 'ng-blatui';
 
 <bui-mini-cart [items]="cart" />`,
+    miniCartEmpty: `<bui-mini-cart [items]="[]" />`,
     animatedBeam: `import { BuiAnimatedBeam } from 'ng-blatui';
 
 <bui-animated-beam from="#a" to="#b">
@@ -2436,6 +2447,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     chart: `import { BuiChart } from 'ng-blatui';
 
 <bui-chart type="area" [series]="series" [labels]="labels" />`,
+    chartBar: `<bui-chart type="bar" [series]="series" [labels]="labels" />`,
+    chartLine: `<bui-chart type="line" [series]="series" [labels]="labels" />`,
     datetimePicker: `import { BuiDatetimePicker } from 'ng-blatui';
 
 <bui-datetime-picker [(value)]="when" />`,
@@ -2476,6 +2489,7 @@ this.toaster.show({ title: 'Saved', tone: 'success' });`,
     mentionInput: `import { BuiMentionInput } from 'ng-blatui';
 
 <bui-mention-input [(value)]="text" [mentions]="people" />`,
+    mentionInputPrefilled: `<bui-mention-input [value]="'Thanks @ada for the review!'" [mentions]="people" />`,
     map: `import { BuiMap } from 'ng-blatui';
 
 <bui-map [lat]="48.8584" [lon]="2.2945" label="Eiffel Tower" />`,
