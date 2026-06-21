@@ -1594,6 +1594,32 @@ export class ComponentPage {
     <span class="flex items-center gap-2"><svg><!-- icon --></svg> Help</span><svg><!-- chevron --></svg>
   </button>
 </div>`,
+    accordionDefaultOpen: `<!-- open one panel initially with [expanded] (Aria model) -->
+<button ngAccordionTrigger buiAccordionTrigger [panel]="p1" [expanded]="true">Title <svg><!-- chevron --></svg></button>`,
+    accordionChevronUpdown: `<!-- swap the chevron-down for an up/down chevrons icon -->
+<button ngAccordionTrigger buiAccordionTrigger [panel]="p1">
+  Title <svg><path d="m7 15 5 5 5-5" /><path d="m7 9 5-5 5 5" /></svg>
+</button>`,
+    accordionIconLeft: `<!-- chevron on the left: place it first + justify-start -->
+<button ngAccordionTrigger buiAccordionTrigger class="justify-start gap-2" [panel]="p1">
+  <svg><path d="m9 18 6-6-6-6" /></svg> Title
+</button>`,
+    accordionActiveCard: `<!-- the open item lifts into a card via has-[] -->
+<div buiAccordionItem class="rounded-lg border-b-0 px-4 has-[button[aria-expanded=true]]:bg-card has-[button[aria-expanded=true]]:border has-[button[aria-expanded=true]]:shadow-sm">…</div>`,
+    accordionActiveFill: `<!-- subtle fill on the open item -->
+<div buiAccordionItem class="rounded-lg border-b-0 px-4 has-[button[aria-expanded=true]]:bg-primary/5">…</div>`,
+    accordionPlusMinus: `<!-- wrap the icons in a span (not a direct >svg child, so the base 180° rotate is skipped) -->
+<button ngAccordionTrigger buiAccordionTrigger class="[&[aria-expanded=true]_.acc-plus]:hidden [&[aria-expanded=true]_.acc-minus]:inline" [panel]="p1">
+  Title
+  <span class="inline-flex">
+    <svg class="acc-plus"><path d="M5 12h14M12 5v14" /></svg>
+    <svg class="acc-minus hidden"><path d="M5 12h14" /></svg>
+  </span>
+</button>`,
+    accordionPlusRotate: `<!-- a plus that rotates 45° into an × on expand -->
+<button ngAccordionTrigger buiAccordionTrigger class="[&[aria-expanded=true]_.acc-rot]:rotate-45" [panel]="p1">
+  Title <span class="inline-flex"><svg class="acc-rot transition-transform"><path d="M5 12h14M12 5v14" /></svg></span>
+</button>`,
     tabs: `import {
   Tabs, TabList, Tab, TabPanel, TabContent,
   BuiTabs, BuiTabList, BuiTabTrigger, BuiTabPanel,
