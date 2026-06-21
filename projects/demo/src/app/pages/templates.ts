@@ -47,6 +47,14 @@ export const TEMPLATES = [
   'helix',
   'mono',
   'pulse',
+  'quantum',
+  'sprout',
+  'terroir',
+  'verdure',
+  'vinyl',
+  'arcade',
+  'atelier',
+  'estate',
 ];
 
 const META: Record<string, { title: string; description: string }> = {
@@ -76,6 +84,14 @@ const META: Record<string, { title: string; description: string }> = {
   helix: { title: 'Helix', description: 'A tech, gradient-accent template.' },
   mono: { title: 'Mono', description: 'A monochrome, typographic template.' },
   pulse: { title: 'Pulse', description: 'An energetic, stat-led template.' },
+  quantum: { title: 'Quantum', description: 'A futuristic, dark-tech template.' },
+  sprout: { title: 'Sprout', description: 'A fresh, green startup template.' },
+  terroir: { title: 'Terroir', description: 'An earthy, artisanal template.' },
+  verdure: { title: 'Verdure', description: 'A botanical, calm template.' },
+  vinyl: { title: 'Vinyl', description: 'A retro, music-shop template.' },
+  arcade: { title: 'Arcade', description: 'A playful, neon template.' },
+  atelier: { title: 'Atelier', description: 'A refined, gallery template.' },
+  estate: { title: 'Estate', description: 'A real-estate listing template.' },
 };
 
 /** Full-page BlatUI templates, composed from ng-blatui components. */

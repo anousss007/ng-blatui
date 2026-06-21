@@ -657,6 +657,115 @@
         </div>
       </div>
     }
+    @case ('quantum') {
+      <div class="w-full overflow-hidden rounded-lg border bg-zinc-950 text-zinc-100">
+        <div class="bg-gradient-to-b from-cyan-500/10 to-transparent p-10 text-center">
+          <span buiBadge variant="outline" class="border-cyan-700 text-cyan-300">Quantum</span>
+          <h1 class="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">
+            Compute at the edge of possible
+          </h1>
+          <p class="mt-4 text-lg text-zinc-400">A futuristic, dark-tech template.</p>
+          <a buiButton size="lg" class="mt-7" href="#">Request access</a>
+        </div>
+      </div>
+    }
+    @case ('sprout') {
+      <div class="w-full rounded-lg border bg-emerald-50 p-12 text-emerald-950">
+        <span buiBadge class="border-transparent bg-emerald-600 text-white">Sprout</span>
+        <h1 class="mt-4 text-4xl font-bold tracking-tight">Grow your startup</h1>
+        <p class="mt-4 max-w-xl text-lg text-emerald-900/70">
+          A fresh, green template for early-stage teams.
+        </p>
+        <a buiButton size="lg" class="mt-7 bg-emerald-600 text-white" href="#">Get growing</a>
+      </div>
+    }
+    @case ('terroir') {
+      <div class="w-full rounded-lg border bg-stone-100 p-12 text-stone-900">
+        <p class="text-xs font-medium tracking-[0.2em] text-stone-500 uppercase">Terroir</p>
+        <h1 class="mt-3 font-serif text-4xl tracking-tight">From the land, to your table</h1>
+        <p class="mt-4 max-w-xl text-lg text-stone-600">
+          An earthy, artisanal template for makers.
+        </p>
+        <a buiButton size="lg" class="mt-7 bg-stone-800 text-white" href="#">Our story</a>
+      </div>
+    }
+    @case ('verdure') {
+      <div class="w-full rounded-lg border bg-green-50 p-12 text-green-950">
+        <h1 class="text-4xl font-semibold tracking-tight">Breathe a little greener</h1>
+        <p class="mt-4 max-w-xl text-lg text-green-900/70">
+          A botanical, calm template with plenty of space.
+        </p>
+        <a buiButton size="lg" class="mt-7 bg-green-700 text-white" href="#">Explore</a>
+      </div>
+    }
+    @case ('vinyl') {
+      <div class="w-full rounded-lg border bg-neutral-900 p-10 text-neutral-100">
+        <span buiBadge tone="warning" variant="solid">Vinyl</span>
+        <h1 class="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">Records, remastered</h1>
+        <p class="mt-4 max-w-xl text-lg text-neutral-400">
+          A retro music-shop template with warm contrast.
+        </p>
+        <a buiButton size="lg" class="mt-7 bg-amber-400 text-neutral-900" href="#"
+          >Shop the crate</a
+        >
+      </div>
+    }
+    @case ('arcade') {
+      <div class="w-full rounded-lg border bg-indigo-950 p-12 text-center text-indigo-50">
+        <span buiBadge class="border-transparent bg-fuchsia-500 text-white">Arcade</span>
+        <h1 class="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">Press start</h1>
+        <p class="mx-auto mt-4 max-w-xl text-lg text-indigo-200/70">
+          A playful, neon template for games and fun.
+        </p>
+        <a buiButton size="lg" class="mt-7 bg-fuchsia-500 text-white" href="#">Insert coin</a>
+      </div>
+    }
+    @case ('atelier') {
+      <div class="w-full rounded-lg border bg-white p-12 text-zinc-900">
+        <p class="text-xs tracking-[0.3em] text-zinc-400 uppercase">Atelier</p>
+        <h1 class="mt-3 font-serif text-5xl tracking-tight">Crafted with intent</h1>
+        <p class="mt-5 max-w-xl text-lg text-zinc-500">
+          A refined, gallery-style template for studios.
+        </p>
+        <a buiButton size="lg" variant="outline" class="mt-7" href="#">View work</a>
+      </div>
+    }
+    @case ('estate') {
+      <div class="w-full space-y-6 rounded-lg border p-8">
+        <div class="flex items-center gap-3">
+          <h2 class="text-lg font-semibold">Featured homes</h2>
+          <input
+            buiInput
+            class="ml-auto max-w-[220px]"
+            type="search"
+            placeholder="Search listings"
+          />
+        </div>
+        <div class="grid gap-6 sm:grid-cols-3">
+          <div buiCard variant="sectioned">
+            <div class="grid h-32 place-items-center rounded-t-xl bg-muted text-sm">Photo</div>
+            <div buiCardContent class="pt-4">
+              <p class="font-semibold">$640,000</p>
+              <p class="text-sm text-muted-foreground">3 bd · 2 ba · Portland, OR</p>
+            </div>
+          </div>
+          <div buiCard variant="sectioned">
+            <div class="grid h-32 place-items-center rounded-t-xl bg-muted text-sm">Photo</div>
+            <div buiCardContent class="pt-4">
+              <p class="font-semibold">$1.2M</p>
+              <p class="text-sm text-muted-foreground">4 bd · 3 ba · Austin, TX</p>
+            </div>
+          </div>
+          <div buiCard variant="sectioned">
+            <div class="grid h-32 place-items-center rounded-t-xl bg-muted text-sm">Photo</div>
+            <div buiCardContent class="pt-4">
+              <p class="font-semibold">$420,000</p>
+              <p class="text-sm text-muted-foreground">2 bd · 1 ba · Denver, CO</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
     @default {
       <p class="text-muted-foreground">Template not found.</p>
     }
