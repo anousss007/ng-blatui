@@ -5864,11 +5864,39 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('drawer') {
       <app-example [code]="code.drawer">
-        <button buiButton (click)="drawerOpen.set(true)">Open drawer</button>
+        <button buiButton (click)="drawerOpen.set(true)">Open drawer (right)</button>
         <bui-drawer [(open)]="drawerOpen" direction="right" class="w-80">
           <h2 class="text-lg font-semibold">Settings</h2>
           <p class="text-sm text-muted-foreground">Drawer panel content goes here.</p>
           <button buiButton variant="outline" class="mt-auto" (click)="drawerOpen.set(false)">
+            Close
+          </button>
+        </bui-drawer>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">From bottom</h2>
+      <app-example [code]="code.drawerBottom">
+        <button buiButton variant="outline" (click)="drawerBottomOpen.set(true)">
+          Open from bottom
+        </button>
+        <bui-drawer [(open)]="drawerBottomOpen" direction="bottom">
+          <h2 class="text-lg font-semibold">Filters</h2>
+          <p class="text-sm text-muted-foreground">A bottom drawer, great for mobile.</p>
+          <button buiButton variant="outline" class="mt-2" (click)="drawerBottomOpen.set(false)">
+            Close
+          </button>
+        </bui-drawer>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">From left</h2>
+      <app-example [code]="code.drawerLeft">
+        <button buiButton variant="outline" (click)="drawerLeftOpen.set(true)">
+          Open from left
+        </button>
+        <bui-drawer [(open)]="drawerLeftOpen" direction="left" class="w-80">
+          <h2 class="text-lg font-semibold">Menu</h2>
+          <p class="text-sm text-muted-foreground">A left-anchored drawer.</p>
+          <button buiButton variant="outline" class="mt-auto" (click)="drawerLeftOpen.set(false)">
             Close
           </button>
         </bui-drawer>
@@ -5912,11 +5940,39 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('sheet') {
       <app-example [code]="code.sheet">
-        <button buiButton (click)="sheetOpen.set(true)">Open sheet</button>
+        <button buiButton (click)="sheetOpen.set(true)">Open sheet (right)</button>
         <bui-sheet [(open)]="sheetOpen" side="right">
           <h2 class="text-lg font-semibold">Edit profile</h2>
           <p class="text-sm text-muted-foreground">Make changes to your profile here.</p>
           <button buiButton variant="outline" class="mt-auto" (click)="sheetOpen.set(false)">
+            Close
+          </button>
+        </bui-sheet>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Left side</h2>
+      <app-example [code]="code.sheetLeft">
+        <button buiButton variant="outline" (click)="sheetLeftOpen.set(true)">
+          Open from left
+        </button>
+        <bui-sheet [(open)]="sheetLeftOpen" side="left">
+          <h2 class="text-lg font-semibold">Navigation</h2>
+          <p class="text-sm text-muted-foreground">A left-anchored sheet.</p>
+          <button buiButton variant="outline" class="mt-auto" (click)="sheetLeftOpen.set(false)">
+            Close
+          </button>
+        </bui-sheet>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Bottom side</h2>
+      <app-example [code]="code.sheetBottom">
+        <button buiButton variant="outline" (click)="sheetBottomOpen.set(true)">
+          Open from bottom
+        </button>
+        <bui-sheet [(open)]="sheetBottomOpen" side="bottom">
+          <h2 class="text-lg font-semibold">Quick actions</h2>
+          <p class="text-sm text-muted-foreground">A bottom-anchored sheet.</p>
+          <button buiButton variant="outline" class="mt-2" (click)="sheetBottomOpen.set(false)">
             Close
           </button>
         </bui-sheet>

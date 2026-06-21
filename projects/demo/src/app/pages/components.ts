@@ -810,6 +810,10 @@ export class ComponentPage {
   private readonly toaster = inject(BuiToaster);
   protected readonly maskValue = signal('');
   protected readonly sheetOpen = signal(false);
+  protected readonly sheetLeftOpen = signal(false);
+  protected readonly sheetBottomOpen = signal(false);
+  protected readonly drawerBottomOpen = signal(false);
+  protected readonly drawerLeftOpen = signal(false);
   protected readonly mentionValue = signal('');
   protected readonly mentionItems = [
     { value: 'ada', label: 'Ada Lovelace' },
@@ -2493,6 +2497,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 
 <button (click)="open.set(true)">Open</button>
 <bui-drawer [(open)]="open" direction="right">Panel content</bui-drawer>`,
+    drawerBottom: `<bui-drawer [(open)]="open" direction="bottom">…</bui-drawer>`,
+    drawerLeft: `<bui-drawer [(open)]="open" direction="left">…</bui-drawer>`,
     inputMask: `import { BuiInputMask } from 'ng-blatui';
 
 <bui-input-mask mask="(999) 999-9999" inputmode="numeric" [(value)]="phone" />`,
@@ -2503,6 +2509,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 
 <button (click)="open.set(true)">Open</button>
 <bui-sheet [(open)]="open" side="right">…</bui-sheet>`,
+    sheetLeft: `<bui-sheet [(open)]="open" side="left">…</bui-sheet>`,
+    sheetBottom: `<bui-sheet [(open)]="open" side="bottom">…</bui-sheet>`,
     sonner: `import { BuiSonner, BuiToaster } from 'ng-blatui';
 
 // render once: <bui-sonner />
