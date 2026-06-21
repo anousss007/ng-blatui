@@ -134,6 +134,184 @@
         </div>
       </div>
     }
+    @case ('login-04') {
+      <div
+        class="flex min-h-[480px] w-full items-center justify-center rounded-lg border bg-muted p-6 md:p-10"
+      >
+        <div class="w-full max-w-4xl">
+          <div buiCard variant="sectioned" class="overflow-hidden p-0">
+            <div buiCardContent class="grid p-0 md:grid-cols-2">
+              <form class="flex flex-col gap-6 p-6 md:p-8">
+                <div class="flex flex-col items-center gap-1 text-center">
+                  <h1 class="text-2xl font-bold">Welcome back</h1>
+                  <p class="text-sm text-muted-foreground">Login to your Acme Inc account</p>
+                </div>
+                <div buiField>
+                  <label buiFieldLabel for="l4-email">Email</label>
+                  <input
+                    id="l4-email"
+                    buiInput
+                    type="email"
+                    placeholder="m&#64;example.com"
+                    required
+                  />
+                </div>
+                <div buiField>
+                  <div class="flex items-center">
+                    <label buiFieldLabel for="l4-pw">Password</label>
+                    <a href="#" class="ml-auto text-sm underline-offset-2 hover:underline"
+                      >Forgot?</a
+                    >
+                  </div>
+                  <input id="l4-pw" buiInput type="password" required />
+                </div>
+                <button buiButton type="submit">Login</button>
+              </form>
+              <div class="hidden bg-muted md:block"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    @case ('login-05') {
+      <div
+        class="flex min-h-[480px] w-full flex-col items-center justify-center rounded-lg border p-6 md:p-10"
+      >
+        <form class="flex w-full max-w-sm flex-col gap-6">
+          <div class="flex flex-col items-center gap-1 text-center">
+            <h1 class="text-xl font-bold">Welcome to Acme Inc.</h1>
+            <p buiFieldDescription>
+              Don't have an account? <a href="#" class="underline underline-offset-4">Sign up</a>
+            </p>
+          </div>
+          <div buiField>
+            <label buiFieldLabel for="l5-email">Email</label>
+            <input id="l5-email" buiInput type="email" placeholder="m&#64;example.com" required />
+          </div>
+          <button buiButton type="submit">Login</button>
+          <div class="flex items-center gap-3 text-xs">
+            <span buiSeparator class="flex-1"></span>
+            <span class="text-muted-foreground">Or</span>
+            <span buiSeparator class="flex-1"></span>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2">
+            <button buiButton variant="outline" type="button">Apple</button>
+            <button buiButton variant="outline" type="button">Google</button>
+          </div>
+        </form>
+      </div>
+    }
+    @case ('signup-01') {
+      <div
+        class="flex min-h-[480px] w-full items-center justify-center rounded-lg border bg-muted/30 p-6"
+      >
+        <div class="w-full max-w-sm">
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <h3 buiCardTitle>Create an account</h3>
+              <p buiCardDescription>Enter your information below to create your account.</p>
+            </div>
+            <div buiCardContent>
+              <form class="flex flex-col gap-6">
+                <div buiField>
+                  <label buiFieldLabel for="su-name">Full name</label>
+                  <input id="su-name" buiInput placeholder="John Doe" required />
+                </div>
+                <div buiField>
+                  <label buiFieldLabel for="su-email">Email</label>
+                  <input
+                    id="su-email"
+                    buiInput
+                    type="email"
+                    placeholder="m&#64;example.com"
+                    required
+                  />
+                  <p buiFieldDescription>We'll never share your email.</p>
+                </div>
+                <div buiField>
+                  <label buiFieldLabel for="su-pw">Password</label>
+                  <input id="su-pw" buiInput type="password" required />
+                  <p buiFieldDescription>Must be at least 8 characters.</p>
+                </div>
+                <button buiButton type="submit">Create account</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    @case ('pricing-01') {
+      <div class="w-full space-y-10 py-6">
+        <div class="mx-auto max-w-2xl text-center">
+          <span buiBadge variant="secondary">Pricing</span>
+          <h1 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+            Simple, transparent pricing
+          </h1>
+          <p class="mt-3 text-muted-foreground">Start free. Upgrade as you grow. Cancel anytime.</p>
+        </div>
+        <div class="mx-auto grid max-w-5xl gap-6 lg:grid-cols-3">
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <h3 buiCardTitle>Hobby</h3>
+              <p buiCardDescription>For side projects.</p>
+            </div>
+            <div buiCardContent class="space-y-4">
+              <p>
+                <span class="text-3xl font-bold">$0</span
+                ><span class="text-muted-foreground">/mo</span>
+              </p>
+              <ul class="space-y-2 text-sm text-muted-foreground">
+                <li>1 project</li>
+                <li>10k requests / mo</li>
+                <li>Community support</li>
+              </ul>
+              <button buiButton variant="outline" class="w-full">Start for free</button>
+            </div>
+          </div>
+          <div buiCard variant="sectioned" class="border-primary ring-2 ring-primary/20">
+            <div buiCardHeader>
+              <div class="flex items-center justify-between">
+                <h3 buiCardTitle>Pro</h3>
+                <span buiBadge>Popular</span>
+              </div>
+              <p buiCardDescription>For growing teams.</p>
+            </div>
+            <div buiCardContent class="space-y-4">
+              <p>
+                <span class="text-3xl font-bold">$29</span
+                ><span class="text-muted-foreground">/mo</span>
+              </p>
+              <ul class="space-y-2 text-sm text-muted-foreground">
+                <li>Unlimited projects</li>
+                <li>1M requests / mo</li>
+                <li>Priority support</li>
+                <li>Advanced analytics</li>
+              </ul>
+              <button buiButton class="w-full">Start free trial</button>
+            </div>
+          </div>
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <h3 buiCardTitle>Enterprise</h3>
+              <p buiCardDescription>For large organizations.</p>
+            </div>
+            <div buiCardContent class="space-y-4">
+              <p>
+                <span class="text-3xl font-bold">$99</span
+                ><span class="text-muted-foreground">/mo</span>
+              </p>
+              <ul class="space-y-2 text-sm text-muted-foreground">
+                <li>SSO &amp; SAML</li>
+                <li>Unlimited requests</li>
+                <li>Dedicated support</li>
+                <li>SLA &amp; audit logs</li>
+              </ul>
+              <button buiButton variant="outline" class="w-full">Contact sales</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
     @default {
       <p class="text-muted-foreground">Block not found.</p>
     }
