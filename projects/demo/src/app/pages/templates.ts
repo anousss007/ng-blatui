@@ -1,4 +1,5 @@
 import { Component, computed, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import {
   BuiAvatar,
@@ -98,6 +99,7 @@ const META: Record<string, { title: string; description: string }> = {
 @Component({
   selector: 'app-templates',
   imports: [
+    RouterLink,
     BuiAvatar,
     BuiBadge,
     BuiButton,

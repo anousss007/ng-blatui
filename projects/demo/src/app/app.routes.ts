@@ -26,13 +26,21 @@ export const routes: Routes = [
     loadComponent: async () => (await import('./pages/components')).ComponentPage,
     title: 'Components · ng-blatui',
   },
-  { path: 'blocks', redirectTo: 'blocks/login-01', pathMatch: 'full' },
+  {
+    path: 'blocks',
+    loadComponent: async () => (await import('./pages/blocks-index')).BlocksIndex,
+    title: 'Blocks · ng-blatui',
+  },
   {
     path: 'blocks/:slug',
     loadComponent: async () => (await import('./pages/blocks')).BlocksPage,
     title: 'Blocks · ng-blatui',
   },
-  { path: 'templates', redirectTo: 'templates/auth', pathMatch: 'full' },
+  {
+    path: 'templates',
+    loadComponent: async () => (await import('./pages/templates-index')).TemplatesIndex,
+    title: 'Templates · ng-blatui',
+  },
   {
     path: 'templates/:slug',
     loadComponent: async () => (await import('./pages/templates')).TemplatesPage,

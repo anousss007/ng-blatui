@@ -1,4 +1,5 @@
 import { Component, computed, input, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import {
   BuiBadge,
@@ -67,6 +68,7 @@ const META: Record<string, { title: string; description: string }> = {
 @Component({
   selector: 'app-blocks',
   imports: [
+    RouterLink,
     BuiBadge,
     BuiButton,
     BuiCalendar,
