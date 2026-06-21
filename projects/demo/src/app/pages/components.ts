@@ -899,6 +899,31 @@ export class ComponentPage {
       tone: 'warning',
     });
   }
+  protected showToastStack(): void {
+    this.toaster.show({ title: 'File uploaded' });
+    this.toaster.show({ title: 'Comment posted', tone: 'success' });
+    this.toaster.show({ title: 'Sync complete', tone: 'info' });
+  }
+  protected showToastPromise(): void {
+    const id = this.toaster.show({ title: 'Saving changes…', duration: 0 });
+    setTimeout(() => {
+      this.toaster.dismiss(id);
+      this.toaster.show({ title: 'Changes saved', tone: 'success' });
+    }, 1500);
+  }
+  protected showToastAction(): void {
+    this.toaster.show({
+      title: 'Message archived',
+      tone: 'default',
+      action: { label: 'Undo' },
+    });
+  }
+  protected showToastRich(): void {
+    this.toaster.show({
+      title: 'Deployment ready',
+      description: 'ngblatui.remix-it.com is live with your latest changes.',
+    });
+  }
   protected readonly acValue = signal('');
   protected readonly acOptions = ['Angular', 'React', 'Svelte', 'Vue', 'Solid', 'Qwik'];
   protected readonly compareValue = signal(50);
@@ -2939,6 +2964,15 @@ this.toaster.show({ title: 'Saved', tone: 'success' });`,
     sonnerTones: `// tone: 'default' | 'success' | 'error' | 'warning' | 'info'
 this.toaster.show({ title: 'Something went wrong', tone: 'error' });
 this.toaster.show({ title: 'Storage almost full', tone: 'warning' });`,
+    sonnerRich: `this.toaster.show({ title: 'Deployment ready', description: 'Your site is live.' });`,
+    sonnerAction: `// ToastOptions.action renders an inline button
+this.toaster.show({ title: 'Message archived', action: { label: 'Undo', onClick: () => restore() } });`,
+    sonnerStack: `// call show() several times — they stack
+this.toaster.show({ title: 'File uploaded' });
+this.toaster.show({ title: 'Comment posted', tone: 'success' });`,
+    sonnerPromise: `// loading toast (duration: 0) → dismiss → success
+const id = this.toaster.show({ title: 'Saving…', duration: 0 });
+setTimeout(() => { this.toaster.dismiss(id); this.toaster.show({ title: 'Saved', tone: 'success' }); }, 1500);`,
     navigationMenu: `import { BuiNavigationMenu } from 'ng-blatui';
 
 <bui-navigation-menu [items]="items" />`,

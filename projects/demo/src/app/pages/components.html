@@ -7904,6 +7904,28 @@ This content is read-only and cannot be edited.</textarea
           <button buiButton variant="outline" (click)="showToastInfo()">Info</button>
         </div>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Rich content</h2>
+      <app-example [code]="code.sonnerRich">
+        <button buiButton variant="outline" (click)="showToastRich()">Title + description</button>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With action</h2>
+      <app-example [code]="code.sonnerAction">
+        <button buiButton variant="outline" (click)="showToastAction()">Archive (with Undo)</button>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Stack</h2>
+      <app-example [code]="code.sonnerStack">
+        <button buiButton variant="outline" (click)="showToastStack()">Show three</button>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Promise</h2>
+      <app-example [code]="code.sonnerPromise">
+        <button buiButton variant="outline" (click)="showToastPromise()">
+          Save (loading → done)
+        </button>
+      </app-example>
     }
     @case ('navigation-menu') {
       <app-example [code]="code.navigationMenu">

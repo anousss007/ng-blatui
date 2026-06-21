@@ -8,6 +8,8 @@ export interface ToastOptions {
   description?: string;
   tone?: ToastTone;
   duration?: number;
+  /** Optional inline action button (e.g. Undo). */
+  action?: { label: string; onClick?: () => void };
 }
 interface Toast extends ToastOptions {
   id: number;
@@ -75,6 +77,15 @@ const TONE: Record<ToastTone, string> = {
             @if (toast.description) {
               <p class="text-sm opacity-90">{{ toast.description }}</p>
             }
+            @if (toast.action) {
+              <button
+                type="button"
+                class="mt-2 text-sm font-medium underline underline-offset-4 hover:opacity-80"
+                (click)="runAction(toast)"
+              >
+                {{ toast.action.label }}
+              </button>
+            }
           </div>
           <button
             type="button"
@@ -108,5 +119,10 @@ export class BuiSonner {
 
   protected toneClass(tone: ToastTone | undefined): string {
     return TONE[tone ?? 'default'];
+  }
+
+  protected runAction(toast: Toast): void {
+    toast.action?.onClick?.();
+    this.toaster.dismiss(toast.id);
   }
 }
