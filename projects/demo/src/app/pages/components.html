@@ -264,16 +264,201 @@
     }
     @case ('badge') {
       <app-example [code]="code.badge">
+        <span buiBadge>Badge</span>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Variants</h2>
+      <app-example [code]="code.badgeVariants">
         <span buiBadge>Default</span>
         <span buiBadge variant="secondary">Secondary</span>
         <span buiBadge variant="destructive">Destructive</span>
         <span buiBadge variant="outline">Outline</span>
-        <span buiBadge tone="success">Success</span>
-        <span buiBadge tone="warning" variant="solid">Warning</span>
-        <span buiBadge tone="danger" variant="outline">Danger</span>
-        <span buiBadge tone="info">Info</span>
-        <span buiBadge tone="neutral">Neutral</span>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Tones</h2>
+      <app-example [code]="code.badgeTones">
+        <div class="flex flex-col gap-3">
+          <div class="flex flex-wrap items-center gap-2">
+            <span buiBadge tone="success">Confirmed</span>
+            <span buiBadge tone="warning">Pending</span>
+            <span buiBadge tone="danger">Declined</span>
+            <span buiBadge tone="info">Info</span>
+            <span buiBadge tone="neutral">Draft</span>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <span buiBadge tone="success" variant="solid">Confirmed</span>
+            <span buiBadge tone="warning" variant="solid">Pending</span>
+            <span buiBadge tone="danger" variant="solid">Declined</span>
+            <span buiBadge tone="info" variant="solid">Info</span>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <span buiBadge tone="success" variant="outline">Confirmed</span>
+            <span buiBadge tone="warning" variant="outline">Pending</span>
+            <span buiBadge tone="danger" variant="outline">Declined</span>
+            <span buiBadge tone="info" variant="outline">Info</span>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.badgeSizes">
+        <span buiBadge size="sm">Small</span>
+        <span buiBadge>Default</span>
         <span buiBadge size="lg">Large</span>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Status</h2>
+      <app-example [code]="code.badgeStatus">
+        <span buiBadge variant="outline" class="gap-1.5"
+          ><span class="size-1.5 rounded-full bg-emerald-500"></span> Online</span
+        >
+        <span buiBadge variant="outline" class="gap-1.5"
+          ><span class="size-1.5 rounded-full bg-amber-500"></span> Away</span
+        >
+        <span buiBadge variant="outline" class="gap-1.5"
+          ><span class="size-1.5 rounded-full bg-muted-foreground"></span> Offline</span
+        >
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Numbers</h2>
+      <app-example [code]="code.badgeNumbers">
+        <span buiBadge class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">8</span>
+        <span
+          buiBadge
+          variant="destructive"
+          class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"
+          >99</span
+        >
+        <span
+          buiBadge
+          variant="outline"
+          class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"
+          >20+</span
+        >
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With icon</h2>
+      <app-example [code]="code.badgeIcon">
+        <span buiBadge>
+          <svg
+            class="size-3"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path
+              d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"
+            />
+            <path d="m9 12 2 2 4-4" />
+          </svg>
+          Verified
+        </span>
+        <span buiBadge variant="secondary">
+          <svg
+            class="size-3"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <line x1="6" x2="6" y1="3" y2="15" />
+            <circle cx="18" cy="6" r="3" />
+            <circle cx="6" cy="18" r="3" />
+            <path d="M18 9a9 9 0 0 1-9 9" />
+          </svg>
+          main
+        </span>
+        <span buiBadge variant="destructive">
+          <svg
+            class="size-3"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+            <path d="M12 9v4M12 17h.01" />
+          </svg>
+          Error
+        </span>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Dismissible</h2>
+      <app-example [code]="code.badgeDismissible">
+        @for (tag of badgeTags(); track tag) {
+          <span buiBadge variant="secondary" class="gap-1 pr-1">
+            {{ tag }}
+            <button
+              type="button"
+              class="-my-px ml-0.5 inline-flex size-3.5 items-center justify-center rounded-full hover:bg-foreground/10"
+              [attr.aria-label]="'Remove ' + tag"
+              (click)="removeBadgeTag(tag)"
+            >
+              <svg
+                class="size-3"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                aria-hidden="true"
+              >
+                <path d="M18 6 6 18M6 6l12 12" />
+              </svg>
+            </button>
+          </span>
+        }
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Rich</h2>
+      <app-example [code]="code.badgeRich">
+        <span buiBadge variant="outline" class="h-auto gap-1.5 rounded-full py-1 pl-1">
+          <bui-avatar
+            class="size-4 text-[0.5rem]"
+            src="https://i.pravatar.cc/40?img=5"
+            alt="shadcn"
+          />
+          shadcn
+        </span>
+        <span buiBadge variant="secondary" class="rounded-full"
+          ><span class="size-1.5 rounded-full bg-emerald-500"></span> Active</span
+        >
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">As link</h2>
+      <app-example [code]="code.badgeAsLink">
+        <a buiBadge href="#">Docs</a>
+        <a buiBadge href="#" variant="secondary">v1.1.0</a>
+        <a buiBadge href="#" variant="outline">Source</a>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Gradient</h2>
+      <app-example [code]="code.badgeGradient">
+        <span
+          buiBadge
+          class="border-transparent bg-gradient-to-r from-indigo-500 to-pink-500 text-white"
+          >Pro</span
+        >
+        <span
+          buiBadge
+          class="border-transparent bg-gradient-to-r from-sky-500 to-emerald-500 text-white"
+          >New</span
+        >
+        <span
+          buiBadge
+          class="border-transparent bg-gradient-to-r from-amber-500 to-rose-500 text-white"
+          >Featured</span
+        >
       </app-example>
     }
     @case ('card') {

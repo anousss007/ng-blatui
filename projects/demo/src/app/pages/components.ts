@@ -742,6 +742,10 @@ export class ComponentPage {
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
   protected readonly view = signal('list');
+  protected readonly badgeTags = signal(['Design', 'Engineering', 'Marketing']);
+  protected removeBadgeTag(tag: string): void {
+    this.badgeTags.set(this.badgeTags().filter((t) => t !== tag));
+  }
   protected readonly rteValue = signal('<p>Edit <strong>me</strong> — try the toolbar.</p>');
   protected readonly sidebarOpen = signal(true);
   protected readonly tourOpen = signal(false);
@@ -1025,17 +1029,35 @@ export class ComponentPage {
 <button buiButton size="icon-lg" variant="outline" aria-label="Star">…</button>`,
     badge: `import { BuiBadge } from 'ng-blatui';
 
-<!-- brand variants -->
-<span buiBadge>Default</span>
+<span buiBadge>Badge</span>`,
+    badgeVariants: `<span buiBadge>Default</span>
 <span buiBadge variant="secondary">Secondary</span>
 <span buiBadge variant="destructive">Destructive</span>
-<span buiBadge variant="outline">Outline</span>
-
-<!-- semantic tones × intensity (soft | solid | outline) -->
-<span buiBadge tone="success">Success</span>
-<span buiBadge tone="warning" variant="solid">Warning</span>
-<span buiBadge tone="danger" variant="outline">Danger</span>
-<span buiBadge tone="info" size="lg">Info</span>`,
+<span buiBadge variant="outline">Outline</span>`,
+    badgeTones: `<!-- tone="success | warning | danger | info | neutral", variant="soft | solid | outline" -->
+<span buiBadge tone="success">Confirmed</span>
+<span buiBadge tone="warning" variant="solid">Pending</span>
+<span buiBadge tone="danger" variant="outline">Declined</span>`,
+    badgeSizes: `<span buiBadge size="sm">Small</span>
+<span buiBadge>Default</span>
+<span buiBadge size="lg">Large</span>`,
+    badgeStatus: `<span buiBadge variant="outline" class="gap-1.5">
+  <span class="size-1.5 rounded-full bg-emerald-500"></span> Online
+</span>`,
+    badgeNumbers: `<span buiBadge class="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">8</span>
+<span buiBadge variant="destructive" class="h-5 min-w-5 rounded-full px-1 tabular-nums">99</span>`,
+    badgeIcon: `<span buiBadge><svg><!-- check --></svg> Verified</span>
+<span buiBadge variant="destructive"><svg><!-- alert --></svg> Error</span>`,
+    badgeDismissible: `<span buiBadge variant="secondary" class="gap-1 pr-1">
+  {{ tag }}
+  <button (click)="remove(tag)" aria-label="Remove"><svg><!-- x --></svg></button>
+</span>`,
+    badgeRich: `<span buiBadge variant="outline" class="h-auto gap-1.5 rounded-full py-1 pl-1">
+  <bui-avatar class="size-4" src="/avatar.png" alt="shadcn" /> shadcn
+</span>`,
+    badgeAsLink: `<a buiBadge href="/docs">Docs</a>
+<a buiBadge href="#" variant="secondary">v1.1.0</a>`,
+    badgeGradient: `<span buiBadge class="border-transparent bg-gradient-to-r from-indigo-500 to-pink-500 text-white">Pro</span>`,
     card: `import { BuiCard, BuiCardHeader, BuiCardTitle, BuiCardContent } from 'ng-blatui';
 
 <div buiCard variant="sectioned">
