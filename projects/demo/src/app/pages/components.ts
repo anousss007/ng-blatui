@@ -839,6 +839,27 @@ export class ComponentPage {
       tone: 'success',
     });
   }
+  protected showToastError(): void {
+    this.toaster.show({
+      title: 'Something went wrong',
+      description: 'Please try again.',
+      tone: 'error',
+    });
+  }
+  protected showToastInfo(): void {
+    this.toaster.show({
+      title: 'New update available',
+      description: 'Refresh to get version 2.0.',
+      tone: 'info',
+    });
+  }
+  protected showToastWarning(): void {
+    this.toaster.show({
+      title: 'Storage almost full',
+      description: '92% of your quota used.',
+      tone: 'warning',
+    });
+  }
   protected readonly acValue = signal('');
   protected readonly acOptions = ['Angular', 'React', 'Svelte', 'Vue', 'Solid', 'Qwik'];
   protected readonly compareValue = signal(50);
@@ -2434,6 +2455,7 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     diffViewer: `import { BuiDiffViewer } from 'ng-blatui';
 
 <bui-diff-viewer [before]="oldText" [after]="newText" filename="config.ts" />`,
+    diffViewerNoFilename: `<bui-diff-viewer [before]="oldText" [after]="newText" />`,
     treeTable: `import { BuiTreeTable } from 'ng-blatui';
 
 <bui-tree-table [columns]="columns" [rows]="rows" />`,
@@ -2516,6 +2538,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 // render once: <bui-sonner />
 toaster = inject(BuiToaster);
 this.toaster.show({ title: 'Saved', tone: 'success' });`,
+    sonnerTones: `// tone: 'default' | 'success' | 'error' | 'warning' | 'info'
+this.toaster.show({ title: 'Something went wrong', tone: 'error' });
+this.toaster.show({ title: 'Storage almost full', tone: 'warning' });`,
     navigationMenu: `import { BuiNavigationMenu } from 'ng-blatui';
 
 <bui-navigation-menu [items]="items" />`,

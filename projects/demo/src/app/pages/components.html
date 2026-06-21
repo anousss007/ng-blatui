@@ -5649,6 +5649,11 @@ This content is read-only and cannot be edited.</textarea
           filename="config.ts"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Without filename</h2>
+      <app-example [code]="code.diffViewerNoFilename">
+        <bui-diff-viewer class="w-full max-w-md" [before]="diffBefore" [after]="diffAfter" />
+      </app-example>
     }
     @case ('tree-table') {
       <app-example [code]="code.treeTable">
@@ -5982,6 +5987,16 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.sonner">
         <button buiButton (click)="showToast()">Show toast</button>
         <bui-sonner />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Tones</h2>
+      <app-example [code]="code.sonnerTones">
+        <div class="flex flex-wrap gap-2">
+          <button buiButton variant="outline" (click)="showToast()">Success</button>
+          <button buiButton variant="outline" (click)="showToastError()">Error</button>
+          <button buiButton variant="outline" (click)="showToastWarning()">Warning</button>
+          <button buiButton variant="outline" (click)="showToastInfo()">Info</button>
+        </div>
       </app-example>
     }
     @case ('navigation-menu') {
