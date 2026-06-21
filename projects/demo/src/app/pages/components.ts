@@ -1032,6 +1032,11 @@ export class ComponentPage {
     components: ['button', 'select', 'tree'],
     meta: { stars: 0, license: 'MIT' },
   };
+  protected readonly jsonArray = [
+    { id: 1, name: 'Ada Lovelace', role: 'Admin' },
+    { id: 2, name: 'Grace Hopper', role: 'Editor' },
+    { id: 3, name: 'Alan Turing', role: 'Viewer' },
+  ];
   protected readonly treeItems = [
     {
       label: 'src',
@@ -1537,6 +1542,8 @@ export class ComponentPage {
 <p class="text-destructive text-sm" role="alert">Please enter a valid email.</p>`,
     inputBranded: `<!-- override the focus ring locally -->
 <input buiInput style="--ring: #16a34a" placeholder="Emerald focus" />`,
+    inputUtility: `<!-- a native input styled entirely with utility classes -->
+<input type="email" class="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50" />`,
     textarea: `import { BuiTextarea } from 'ng-blatui';
 
 <textarea buiTextarea placeholder="Type your message here."></textarea>`,
@@ -1558,6 +1565,13 @@ export class ComponentPage {
     textareaNoResize: `<textarea buiTextarea class="resize-none" placeholder="Can't be resized."></textarea>`,
     textareaReadonly: `<textarea buiTextarea readonly class="bg-muted" aria-label="Read-only">…</textarea>`,
     textareaDisabled: `<textarea buiTextarea placeholder="…" disabled></textarea>`,
+    textareaUtility: `<!-- a native textarea styled with utility classes -->
+<textarea rows="3" class="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"></textarea>`,
+    fieldGroup: `<!-- lay out related fields in a grid -->
+<div class="grid grid-cols-2 gap-4">
+  <div buiField><label buiFieldLabel for="f">First name</label><input id="f" buiInput /></div>
+  <div buiField><label buiFieldLabel for="l">Last name</label><input id="l" buiInput /></div>
+</div>`,
     label: `import { BuiLabel } from 'ng-blatui';
 
 <label buiLabel for="username">Username</label>
@@ -2428,6 +2442,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 
 <bui-segmented-control [(value)]="view" [options]="['list', 'grid', 'board']" />`,
     segmentedDisabled: `<bui-segmented-control [value]="'grid'" [options]="['list', 'grid', 'board']" [disabled]="true" />`,
+    segmentedSizes: `<!-- size via an arbitrary child selector -->
+<bui-segmented-control class="text-xs [&_button]:px-2 [&_button]:py-1" [options]="['list','grid']" />`,
     dotPattern: `import { BuiDotPattern } from 'ng-blatui';
 
 <div class="relative overflow-hidden rounded-xl border">
@@ -2916,6 +2932,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 
 <bui-json-viewer [data]="response" />`,
     jsonViewerCollapsed: `<bui-json-viewer [data]="response" [expanded]="false" />`,
+    jsonViewerArray: `<!-- a JSON array at the root -->
+<bui-json-viewer [data]="rows" />
+// rows = [{ id: 1, name: 'Ada' }, …]`,
     orgChart: `import { BuiOrgChart } from 'ng-blatui';
 
 <bui-org-chart [node]="org" />

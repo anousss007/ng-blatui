@@ -1387,6 +1387,16 @@
           <input buiInput style="--ring: #db2777" type="email" placeholder="m@example.com" />
         </div>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Utility class</h2>
+      <app-example [code]="code.inputUtility">
+        <input
+          aria-label="Email"
+          type="email"
+          placeholder="m@example.com"
+          class="h-9 w-full max-w-sm rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+        />
+      </app-example>
     }
     @case ('textarea') {
       <app-example [code]="code.textarea">
@@ -1482,6 +1492,16 @@ This content is read-only and cannot be edited.</textarea
           class="w-full max-w-sm"
           placeholder="Type your message here."
           disabled
+        ></textarea>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Utility class</h2>
+      <app-example [code]="code.textareaUtility">
+        <textarea
+          aria-label="Message"
+          rows="3"
+          placeholder="Type your message…"
+          class="w-full max-w-sm rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
         ></textarea>
       </app-example>
     }
@@ -4382,6 +4402,20 @@ This content is read-only and cannot be edited.</textarea
           </div>
         </fieldset>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Field group</h2>
+      <app-example [code]="code.fieldGroup">
+        <div class="grid w-full max-w-sm grid-cols-2 gap-4">
+          <div buiField>
+            <label buiFieldLabel for="fg-first">First name</label>
+            <input id="fg-first" buiInput value="Ada" />
+          </div>
+          <div buiField>
+            <label buiFieldLabel for="fg-last">Last name</label>
+            <input id="fg-last" buiInput value="Lovelace" />
+          </div>
+        </div>
+      </app-example>
     }
     @case ('container') {
       <app-example [code]="code.container">
@@ -5999,6 +6033,18 @@ This content is read-only and cannot be edited.</textarea
           [options]="['list', 'grid', 'board']"
           [disabled]="true"
         />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.segmentedSizes">
+        <div class="flex flex-col items-start gap-3">
+          <bui-segmented-control
+            class="text-xs [&_button]:px-2 [&_button]:py-1"
+            [value]="'list'"
+            [options]="['list', 'grid', 'board']"
+          />
+          <bui-segmented-control [value]="'list'" [options]="['list', 'grid', 'board']" />
+        </div>
       </app-example>
     }
     @case ('dot-pattern') {
@@ -7676,6 +7722,11 @@ This content is read-only and cannot be edited.</textarea
       <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Collapsed</h2>
       <app-example [code]="code.jsonViewerCollapsed">
         <bui-json-viewer class="w-full max-w-md" [data]="jsonData" [expanded]="false" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Array</h2>
+      <app-example [code]="code.jsonViewerArray">
+        <bui-json-viewer class="w-full max-w-md" [data]="jsonArray" />
       </app-example>
     }
     @case ('org-chart') {
