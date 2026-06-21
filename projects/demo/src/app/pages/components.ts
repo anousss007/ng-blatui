@@ -1327,6 +1327,10 @@ export class ComponentPage {
   <div ngTabPanel value="a" buiTabPanel><ng-template ngTabContent>…</ng-template></div>
   <div ngTabPanel value="b" buiTabPanel><ng-template ngTabContent>…</ng-template></div>
 </div>`,
+    tabsWithIcons: `<div ngTab value="account" buiTabTrigger>
+  <svg><!-- user --></svg> Account
+</div>`,
+    tabsDisabled: `<div ngTab value="team" buiTabTrigger [disabled]="true">Team</div>`,
     dialog: `import { inject, viewChild, TemplateRef } from '@angular/core';
 import { Dialog, BuiDialogContent, BuiDialogTitle } from 'ng-blatui';
 
@@ -1354,6 +1358,11 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     tooltip: `import { BuiTooltip } from 'ng-blatui';
 
 <button buiButton variant="outline" buiTooltip="Add to library">Hover me</button>`,
+    tooltipIcon: `<button buiButton variant="outline" size="icon" buiTooltip="Add to library" aria-label="Add to library">
+  <svg><!-- plus --></svg>
+</button>`,
+    tooltipTriggers: `<button buiButton variant="outline" buiTooltip="Save your changes">Save</button>
+<button buiButton variant="outline" buiTooltip="Share with your team">Share</button>`,
     breadcrumb: `import {
   BuiBreadcrumb, BuiBreadcrumbList, BuiBreadcrumbItem,
   BuiBreadcrumbLink, BuiBreadcrumbPage, BuiBreadcrumbSeparator,

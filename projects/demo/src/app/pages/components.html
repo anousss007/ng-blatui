@@ -1509,15 +1509,78 @@
     }
     @case ('tabs') {
       <app-example [code]="code.tabs">
-        <div ngTabs buiTabs class="w-full">
-          <div ngTabList buiTabList selectedTab="account">
+        <div ngTabs buiTabs class="w-full max-w-md">
+          <div ngTabList buiTabList selectedTab="account" class="grid w-full grid-cols-2">
             <div ngTab value="account" buiTabTrigger>Account</div>
             <div ngTab value="password" buiTabTrigger>Password</div>
           </div>
-          <div ngTabPanel value="account" buiTabPanel class="pt-2 text-sm">
-            <ng-template ngTabContent>Manage your account settings.</ng-template>
+          <div ngTabPanel value="account" buiTabPanel class="pt-3 text-sm text-muted-foreground">
+            <ng-template ngTabContent>Manage your account settings and preferences.</ng-template>
           </div>
-          <div ngTabPanel value="password" buiTabPanel class="pt-2 text-sm">
+          <div ngTabPanel value="password" buiTabPanel class="pt-3 text-sm text-muted-foreground">
+            <ng-template ngTabContent>Change your password here.</ng-template>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With icons</h2>
+      <app-example [code]="code.tabsWithIcons">
+        <div ngTabs buiTabs class="w-full max-w-md">
+          <div ngTabList buiTabList selectedTab="account">
+            <div ngTab value="account" buiTabTrigger>
+              <svg
+                class="size-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              Account
+            </div>
+            <div ngTab value="billing" buiTabTrigger>
+              <svg
+                class="size-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <rect width="20" height="14" x="2" y="5" rx="2" />
+                <path d="M2 10h20" />
+              </svg>
+              Billing
+            </div>
+          </div>
+          <div ngTabPanel value="account" buiTabPanel class="pt-3 text-sm text-muted-foreground">
+            <ng-template ngTabContent>Manage your profile and personal details.</ng-template>
+          </div>
+          <div ngTabPanel value="billing" buiTabPanel class="pt-3 text-sm text-muted-foreground">
+            <ng-template ngTabContent>Update your billing information.</ng-template>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled tab</h2>
+      <app-example [code]="code.tabsDisabled">
+        <div ngTabs buiTabs class="w-full max-w-md">
+          <div ngTabList buiTabList selectedTab="account" class="grid w-full grid-cols-3">
+            <div ngTab value="account" buiTabTrigger>Account</div>
+            <div ngTab value="password" buiTabTrigger>Password</div>
+            <div ngTab value="team" buiTabTrigger [disabled]="true">Team</div>
+          </div>
+          <div ngTabPanel value="account" buiTabPanel class="pt-3 text-sm text-muted-foreground">
+            <ng-template ngTabContent>The "Team" tab is disabled.</ng-template>
+          </div>
+          <div ngTabPanel value="password" buiTabPanel class="pt-3 text-sm text-muted-foreground">
             <ng-template ngTabContent>Change your password here.</ng-template>
           </div>
         </div>
@@ -1531,6 +1594,38 @@
     @case ('tooltip') {
       <app-example [code]="code.tooltip">
         <button buiButton variant="outline" buiTooltip="Add to library">Hover me</button>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Icon button</h2>
+      <app-example [code]="code.tooltipIcon">
+        <button
+          buiButton
+          variant="outline"
+          size="icon"
+          buiTooltip="Add to library"
+          aria-label="Add to library"
+        >
+          <svg
+            class="size-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M5 12h14M12 5v14" />
+          </svg>
+        </button>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">On many triggers</h2>
+      <app-example [code]="code.tooltipTriggers">
+        <div class="flex flex-wrap items-center gap-3">
+          <button buiButton variant="outline" buiTooltip="Save your changes">Save</button>
+          <button buiButton variant="outline" buiTooltip="Share with your team">Share</button>
+          <button buiButton variant="outline" buiTooltip="Delete permanently">Delete</button>
+        </div>
       </app-example>
     }
     @case ('breadcrumb') {
