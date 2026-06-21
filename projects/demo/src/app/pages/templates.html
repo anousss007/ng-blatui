@@ -12,44 +12,65 @@
 
   @switch (slug()) {
     @case ('auth') {
-      <div
-        class="flex min-h-[520px] w-full items-center justify-center rounded-lg border bg-muted p-6 md:p-10"
-      >
-        <div class="w-full max-w-sm">
-          <div class="mb-6 flex flex-col items-center gap-2 text-center">
+      <div class="grid min-h-[calc(100vh-7rem)] w-full lg:grid-cols-2">
+        <div
+          class="relative hidden flex-col justify-between overflow-hidden bg-zinc-950 p-12 text-zinc-100 lg:flex"
+        >
+          <div
+            class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,theme(colors.primary/0.25),transparent_60%)]"
+          ></div>
+          <div class="relative flex items-center gap-2.5">
             <span
-              class="grid size-9 place-items-center rounded-lg bg-primary font-bold text-primary-foreground"
+              class="grid size-8 place-items-center rounded-lg bg-primary font-bold text-primary-foreground"
               >B</span
             >
-            <h2 class="text-xl font-semibold">Sign in to BlatUI</h2>
-            <p class="text-sm text-muted-foreground">Welcome back — please enter your details.</p>
+            <span class="font-semibold">BlatUI</span>
           </div>
-          <div buiCard variant="sectioned">
-            <div buiCardContent>
-              <form class="flex flex-col gap-6">
-                <div buiField>
-                  <label buiFieldLabel for="t-email">Email</label>
-                  <input
-                    id="t-email"
-                    buiInput
-                    type="email"
-                    placeholder="m&#64;example.com"
-                    required
-                  />
-                </div>
-                <div buiField>
-                  <label buiFieldLabel for="t-pw">Password</label>
-                  <input id="t-pw" buiInput type="password" required />
-                </div>
-                <button buiButton type="submit">Sign in</button>
-                <div class="flex items-center gap-3 text-xs">
-                  <span buiSeparator class="flex-1"></span>
-                  <span class="text-muted-foreground">Or</span>
-                  <span buiSeparator class="flex-1"></span>
-                </div>
-                <button buiButton variant="outline" type="button">Continue with Google</button>
-              </form>
+          <blockquote class="relative">
+            <p class="text-2xl font-medium text-balance">
+              "This toolkit saved us months of work. The accessibility is just there from day one."
+            </p>
+            <footer class="mt-4 text-sm text-zinc-400">Sofia Davis · Head of Design, Acme</footer>
+          </blockquote>
+        </div>
+        <div class="flex items-center justify-center p-6 md:p-10">
+          <div class="w-full max-w-sm">
+            <div class="mb-6 flex flex-col items-center gap-2 text-center">
+              <h2 class="text-2xl font-semibold tracking-tight">Sign in to your account</h2>
+              <p class="text-sm text-muted-foreground">Welcome back — please enter your details.</p>
             </div>
+            <form class="flex flex-col gap-5">
+              <div buiField>
+                <label buiFieldLabel for="t-email">Email</label>
+                <input
+                  id="t-email"
+                  buiInput
+                  type="email"
+                  placeholder="m&#64;example.com"
+                  required
+                />
+              </div>
+              <div buiField>
+                <div class="flex items-center justify-between">
+                  <label buiFieldLabel for="t-pw">Password</label>
+                  <a href="#" class="text-xs text-muted-foreground hover:text-foreground"
+                    >Forgot?</a
+                  >
+                </div>
+                <input id="t-pw" buiInput type="password" required />
+              </div>
+              <button buiButton type="submit">Sign in</button>
+              <div class="flex items-center gap-3 text-xs">
+                <span buiSeparator class="flex-1"></span>
+                <span class="text-muted-foreground">Or continue with</span>
+                <span buiSeparator class="flex-1"></span>
+              </div>
+              <button buiButton variant="outline" type="button">Continue with Google</button>
+              <p class="text-center text-sm text-muted-foreground">
+                Don't have an account?
+                <a href="#" class="text-foreground underline-offset-4 hover:underline">Sign up</a>
+              </p>
+            </form>
           </div>
         </div>
       </div>
