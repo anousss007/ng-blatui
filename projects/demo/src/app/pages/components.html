@@ -3453,6 +3453,23 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.dialogForm">
         <button buiButton variant="outline" (click)="openFormDialog()">Edit profile</button>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Confirmation</h2>
+      <app-example [code]="code.dialogConfirm">
+        <button buiButton variant="outline" (click)="openDialogConfirm()">Confirm action</button>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Scrollable</h2>
+      <app-example [code]="code.dialogScroll">
+        <button buiButton variant="outline" (click)="openDialogScroll()">Terms of service</button>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Fullscreen</h2>
+      <app-example [code]="code.dialogFullscreen">
+        <button buiButton variant="outline" (click)="openDialogFullscreen()">
+          Open fullscreen
+        </button>
+      </app-example>
     }
     @case ('tooltip') {
       <app-example [code]="code.tooltip">
@@ -8115,6 +8132,51 @@ This content is read-only and cannot be edited.</textarea
     </div>
     <div buiDialogFooter>
       <button buiButton>Save changes</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #dialogConfirmTpl>
+  <div buiDialogContent class="sm:max-w-md">
+    <div buiDialogHeader>
+      <h2 buiDialogTitle>Are you sure?</h2>
+      <p buiDialogDescription>This will permanently remove the item. You can't undo this.</p>
+    </div>
+    <div buiDialogFooter>
+      <button buiButton variant="outline">Cancel</button>
+      <button buiButton variant="destructive">Delete</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #dialogScrollTpl>
+  <div buiDialogContent class="sm:max-w-md">
+    <div buiDialogHeader>
+      <h2 buiDialogTitle>Terms of service</h2>
+      <p buiDialogDescription>Please read the terms below.</p>
+    </div>
+    <div class="max-h-[50vh] space-y-3 overflow-y-auto py-2 text-sm text-muted-foreground">
+      @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
+        <p>
+          {{ i }}. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.
+        </p>
+      }
+    </div>
+    <div buiDialogFooter>
+      <button buiButton variant="outline">Decline</button>
+      <button buiButton>Accept</button>
+    </div>
+  </div>
+</ng-template>
+<ng-template #dialogFullscreenTpl>
+  <div buiDialogContent class="flex h-full !max-w-none flex-col !rounded-none">
+    <div buiDialogHeader>
+      <h2 buiDialogTitle>Fullscreen dialog</h2>
+      <p buiDialogDescription>Fills the whole viewport — great on mobile.</p>
+    </div>
+    <div class="flex-1 py-4 text-sm text-muted-foreground">Your full-screen content goes here.</div>
+    <div buiDialogFooter>
+      <button buiButton variant="outline">Close</button>
+      <button buiButton>Done</button>
     </div>
   </div>
 </ng-template>

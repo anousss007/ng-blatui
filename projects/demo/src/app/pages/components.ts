@@ -752,6 +752,11 @@ export class ComponentPage {
   protected readonly alertTpl = viewChild.required<TemplateRef<unknown>>('alertTpl');
   protected readonly alertConfirmTpl = viewChild.required<TemplateRef<unknown>>('alertConfirmTpl');
   protected readonly dialogFormTpl = viewChild.required<TemplateRef<unknown>>('dialogFormTpl');
+  protected readonly dialogConfirmTpl =
+    viewChild.required<TemplateRef<unknown>>('dialogConfirmTpl');
+  protected readonly dialogScrollTpl = viewChild.required<TemplateRef<unknown>>('dialogScrollTpl');
+  protected readonly dialogFullscreenTpl =
+    viewChild.required<TemplateRef<unknown>>('dialogFullscreenTpl');
 
   protected readonly terms = signal(true);
   protected readonly notifications = signal(true);
@@ -1142,6 +1147,23 @@ export class ComponentPage {
 
   protected openFormDialog(): void {
     this.dialog.open(this.dialogFormTpl(), { ariaModal: true });
+  }
+
+  protected openDialogConfirm(): void {
+    this.dialog.open(this.dialogConfirmTpl(), { ariaModal: true });
+  }
+
+  protected openDialogScroll(): void {
+    this.dialog.open(this.dialogScrollTpl(), { ariaModal: true });
+  }
+
+  protected openDialogFullscreen(): void {
+    this.dialog.open(this.dialogFullscreenTpl(), {
+      ariaModal: true,
+      width: '100vw',
+      height: '100vh',
+      maxWidth: '100vw',
+    });
   }
 
   protected openAlertDialog(): void {
@@ -1725,6 +1747,19 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     <div buiDialogFooter><button buiButton>Save changes</button></div>
   </div>
 </ng-template>`,
+    dialogConfirm: `<!-- a confirm dialog: title + description + cancel/destructive -->
+<div buiDialogContent>
+  <div buiDialogHeader><h2 buiDialogTitle>Are you sure?</h2></div>
+  <div buiDialogFooter>
+    <button buiButton variant="outline">Cancel</button>
+    <button buiButton variant="destructive">Delete</button>
+  </div>
+</div>`,
+    dialogScroll: `<!-- long body: cap height + overflow-y-auto -->
+<div class="max-h-[50vh] overflow-y-auto py-2">…long content…</div>`,
+    dialogFullscreen: `<!-- pass width/height to open(); make the content fill -->
+this.dialog.open(tpl, { ariaModal: true, width: '100vw', height: '100vh', maxWidth: '100vw' });
+// <div buiDialogContent class="h-full !max-w-none !rounded-none flex flex-col">…</div>`,
     radioGroup: `import { BuiRadioGroup, BuiRadioGroupItem } from 'ng-blatui';
 
 <div buiRadioGroup [(value)]="plan">
