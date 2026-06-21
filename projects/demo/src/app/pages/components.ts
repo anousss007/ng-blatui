@@ -2947,6 +2947,14 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-date-picker [(value)]="date" />`,
     datePickerPlaceholder: `<bui-date-picker [(value)]="date" placeholder="Choose a date…" />`,
     datePickerMinMax: `<bui-date-picker [(value)]="date" minDate="2026-01-01" maxDate="2026-12-31" />`,
+    datePickerLabel: `<div buiField>
+  <label buiFieldLabel for="dob">Date of birth</label>
+  <bui-date-picker id="dob" [(value)]="date" />
+</div>`,
+    datePickerMonday: `<!-- forwards weekStart to the inner calendar -->
+<bui-date-picker [(value)]="date" [weekStart]="1" />`,
+    datePickerDisabled: `<bui-date-picker [(value)]="date" [disabledDates]="['2026-06-10']" [disableWeekends]="true" />`,
+    datePickerWeekNumbers: `<bui-date-picker [(value)]="date" [showWeekNumbers]="true" />`,
     carousel: `import { BuiCarousel } from 'ng-blatui';
 
 <bui-carousel>

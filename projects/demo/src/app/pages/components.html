@@ -7764,6 +7764,34 @@ This content is read-only and cannot be edited.</textarea
           maxDate="2026-12-31"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With label</h2>
+      <app-example [code]="code.datePickerLabel">
+        <div buiField class="w-56">
+          <label buiFieldLabel for="dp-l">Date of birth</label>
+          <bui-date-picker id="dp-l" [(value)]="dpDate" />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Week starts Monday</h2>
+      <app-example [code]="code.datePickerMonday">
+        <bui-date-picker class="w-56" [(value)]="dpDate" [weekStart]="1" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled dates</h2>
+      <app-example [code]="code.datePickerDisabled">
+        <bui-date-picker
+          class="w-56"
+          [(value)]="dpDate"
+          [disabledDates]="calDisabledDates"
+          [disableWeekends]="true"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Week numbers</h2>
+      <app-example [code]="code.datePickerWeekNumbers">
+        <bui-date-picker class="w-56" [(value)]="dpDate" [showWeekNumbers]="true" />
+      </app-example>
     }
     @case ('carousel') {
       <app-example [code]="code.carousel">
