@@ -2954,6 +2954,15 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 
 <bui-autocomplete [(value)]="value" [options]="frameworks" />`,
     autocompleteDisabled: `<bui-autocomplete [options]="frameworks" [disabled]="true" placeholder="Disabled" />`,
+    autocompleteLabel: `<div buiField>
+  <label buiFieldLabel for="fw">Framework</label>
+  <bui-autocomplete id="fw" [options]="opts" />
+</div>`,
+    autocompleteSizes: `<!-- size = sm | default | lg -->
+<bui-autocomplete [options]="opts" size="sm" />
+<bui-autocomplete [options]="opts" size="lg" />`,
+    autocompleteIcon: `<!-- icon = an SVG path d string (leading icon) -->
+<bui-autocomplete [options]="opts" icon="m21 21-4.3-4.3M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z" />`,
     comparisonSlider: `import { BuiComparisonSlider } from 'ng-blatui';
 
 <bui-comparison-slider before="/before.jpg" after="/after.jpg" beforeLabel="Before" afterLabel="After" />`,

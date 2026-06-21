@@ -7761,6 +7761,33 @@ This content is read-only and cannot be edited.</textarea
           placeholder="Disabled"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With label</h2>
+      <app-example [code]="code.autocompleteLabel">
+        <div buiField class="w-64">
+          <label buiFieldLabel for="ac-fw">Framework</label>
+          <bui-autocomplete id="ac-fw" [options]="acOptions" placeholder="Pick a framework" />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.autocompleteSizes">
+        <div class="flex flex-col gap-3">
+          <bui-autocomplete class="w-64" [options]="acOptions" size="sm" placeholder="Small" />
+          <bui-autocomplete class="w-64" [options]="acOptions" placeholder="Default" />
+          <bui-autocomplete class="w-64" [options]="acOptions" size="lg" placeholder="Large" />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With icon</h2>
+      <app-example [code]="code.autocompleteIcon">
+        <bui-autocomplete
+          class="w-64"
+          [options]="acOptions"
+          icon="m21 21-4.3-4.3M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"
+          placeholder="Search…"
+        />
+      </app-example>
     }
     @case ('comparison-slider') {
       <app-example [code]="code.comparisonSlider">

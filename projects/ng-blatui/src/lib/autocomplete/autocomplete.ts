@@ -3,6 +3,13 @@ import { Component, computed, ElementRef, inject, input, model, signal } from '@
 
 import { type ClassValue, cn } from '../utils/cn';
 
+export type AutocompleteSize = 'sm' | 'default' | 'lg';
+const AC_SIZE: Record<AutocompleteSize, string> = {
+  sm: 'h-8 text-xs',
+  default: 'h-9 text-sm',
+  lg: 'h-11 text-base',
+};
+
 /** A free-text input with a filtered suggestion list. */
 @Component({
   selector: 'bui-autocomplete',
@@ -12,6 +19,20 @@ import { type ClassValue, cn } from '../utils/cn';
     '(document:click)': 'onDocumentClick($event)',
   },
   template: `
+    @if (icon(); as icon) {
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        class="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+      >
+        <path [attr.d]="icon" />
+      </svg>
+    }
     <input
       type="text"
       role="combobox"
@@ -22,7 +43,7 @@ import { type ClassValue, cn } from '../utils/cn';
       [placeholder]="placeholder()"
       [disabled]="disabled()"
       [attr.name]="name() || null"
-      class="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+      [class]="inputClass()"
       (input)="onInput($event)"
       (focus)="open.set(true)"
       (keydown)="onKeydown($event)"
@@ -62,7 +83,18 @@ export class BuiAutocomplete {
   readonly empty = input('No results found.');
   readonly disabled = input(false);
   readonly name = input('');
+  readonly size = input<AutocompleteSize>('default');
+  /** Optional leading icon, given as an SVG path `d` string. */
+  readonly icon = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+  protected readonly inputClass = computed(() =>
+    cn(
+      'w-full rounded-md border border-input bg-transparent shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50',
+      AC_SIZE[this.size()],
+      this.icon() ? 'pr-3 pl-9' : 'px-3',
+    ),
+  );
 
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly listId = inject(_IdGenerator).getId('bui-autocomplete-');
