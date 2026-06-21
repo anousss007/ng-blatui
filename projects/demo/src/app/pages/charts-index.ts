@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 
 import { BuiChart } from 'ng-blatui';
 
-import { type ChartExample, CHARTS } from './charts';
+import { CHART_FAMILIES, type ChartExample, CHARTS } from './charts';
 
 /** Gallery index for /charts — a grid of chart previews, grouped by family, like BlatUI. */
 @Component({
@@ -13,8 +13,7 @@ import { type ChartExample, CHARTS } from './charts';
     <div class="space-y-3">
       <h1 class="text-4xl font-bold tracking-tight">Charts</h1>
       <p class="text-lg text-muted-foreground">
-        {{ all.length }} ready-to-use charts — area, bar and line — built on the bui-chart
-        component.
+        {{ all.length }} ready-to-use charts — open any to see it full size with its data.
       </p>
     </div>
 
@@ -29,13 +28,15 @@ import { type ChartExample, CHARTS } from './charts';
               [routerLink]="['/charts', chart.slug]"
               class="group block overflow-hidden rounded-xl border bg-card p-4 transition-colors hover:border-ring"
             >
-              <bui-chart
-                [type]="chart.type"
-                [series]="chart.series"
-                [labels]="chart.labels"
-                [height]="120"
-                [label]="chart.title"
-              />
+              @if (chart.kind === 'xy') {
+                <bui-chart
+                  [type]="$any(chart.type)"
+                  [series]="chart.series ?? []"
+                  [labels]="chart.labels ?? []"
+                  [height]="120"
+                  [label]="chart.title"
+                />
+              }
               <div class="mt-3">
                 <p class="text-sm font-medium">{{ chart.title }}</p>
                 <p class="text-xs text-muted-foreground">{{ chart.description }}</p>
@@ -49,10 +50,9 @@ import { type ChartExample, CHARTS } from './charts';
 })
 export class ChartsIndex {
   protected readonly all = CHARTS;
-  protected readonly groups: readonly { label: string; items: ChartExample[] }[] = (() => {
-    const families: ChartExample['family'][] = ['Area', 'Bar', 'Line'];
-    return families
-      .map((label) => ({ label, items: CHARTS.filter((c) => c.family === label) }))
-      .filter((g) => g.items.length > 0);
-  })();
+  protected readonly groups: readonly { label: string; items: ChartExample[] }[] =
+    CHART_FAMILIES.map((label) => ({
+      label,
+      items: CHARTS.filter((c) => c.family === label),
+    })).filter((g) => g.items.length > 0);
 }
