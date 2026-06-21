@@ -155,6 +155,11 @@ const COMPONENTS = [
   'file-upload',
   'top-progress',
   'drawer',
+  'input-mask',
+  'sheet',
+  'sonner',
+  'navigation-menu',
+  'mention-input',
 ];
 
 @Component({

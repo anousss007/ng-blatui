@@ -1249,6 +1249,49 @@
         </bui-drawer>
       </app-example>
     }
+    @case ('input-mask') {
+      <app-example [code]="code.inputMask">
+        <bui-input-mask
+          class="w-56"
+          mask="(999) 999-9999"
+          inputmode="numeric"
+          placeholder="(555) 123-4567"
+          [(value)]="maskValue"
+        />
+      </app-example>
+    }
+    @case ('sheet') {
+      <app-example [code]="code.sheet">
+        <button buiButton (click)="sheetOpen.set(true)">Open sheet</button>
+        <bui-sheet [(open)]="sheetOpen" side="right">
+          <h2 class="text-lg font-semibold">Edit profile</h2>
+          <p class="text-sm text-muted-foreground">Make changes to your profile here.</p>
+          <button buiButton variant="outline" class="mt-auto" (click)="sheetOpen.set(false)">
+            Close
+          </button>
+        </bui-sheet>
+      </app-example>
+    }
+    @case ('sonner') {
+      <app-example [code]="code.sonner">
+        <button buiButton (click)="showToast()">Show toast</button>
+        <bui-sonner />
+      </app-example>
+    }
+    @case ('navigation-menu') {
+      <app-example [code]="code.navigationMenu">
+        <bui-navigation-menu [items]="navItems" />
+      </app-example>
+    }
+    @case ('mention-input') {
+      <app-example [code]="code.mentionInput">
+        <bui-mention-input
+          class="w-full max-w-sm"
+          [(value)]="mentionValue"
+          [mentions]="mentionItems"
+        />
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

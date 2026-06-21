@@ -127,6 +127,7 @@ import {
   BuiInputGroupButton,
   BuiInputGroupInput,
   BuiInputGroupText,
+  BuiInputMask,
   BuiInputOtp,
   BuiItem,
   BuiItemActions,
@@ -144,11 +145,13 @@ import {
   BuiMarkdownEditor,
   BuiMarquee,
   BuiMasonry,
+  BuiMentionInput,
   BuiMenubar,
   BuiMenubarTrigger,
   BuiMeteors,
   BuiMeter,
   BuiMiniCart,
+  BuiNavigationMenu,
   BuiNotificationCenter,
   BuiNumberInput,
   BuiNumberTicker,
@@ -184,9 +187,11 @@ import {
   BuiSegmentedControl,
   BuiSelect,
   BuiSeparator,
+  BuiSheet,
   BuiSignaturePad,
   BuiSkeleton,
   BuiSlider,
+  BuiSonner,
   BuiSparkline,
   BuiSpeedDial,
   BuiSpinner,
@@ -216,6 +221,7 @@ import {
   BuiTimeField,
   BuiTimeline,
   BuiTimelineItem,
+  BuiToaster,
   BuiToggle,
   BuiToggleGroup,
   BuiToggleGroupItem,
@@ -434,6 +440,14 @@ const META: Record<string, { title: string; description: string }> = {
   'file-upload': { title: 'File upload', description: 'A drag-and-drop file upload zone.' },
   'top-progress': { title: 'Top progress', description: 'An NProgress-style page loading bar.' },
   drawer: { title: 'Drawer', description: 'A slide-in panel anchored to an edge.' },
+  'input-mask': { title: 'Input mask', description: 'A text input formatted against a mask.' },
+  sheet: { title: 'Sheet', description: 'An overlay panel sliding from an edge.' },
+  sonner: { title: 'Sonner', description: 'Stacked toast notifications.' },
+  'navigation-menu': { title: 'Navigation menu', description: 'A horizontal menu with dropdowns.' },
+  'mention-input': {
+    title: 'Mention input',
+    description: 'A textarea with @-mention suggestions.',
+  },
 };
 
 @Component({
@@ -669,6 +683,11 @@ const META: Record<string, { title: string; description: string }> = {
     BuiFileUpload,
     BuiTopProgress,
     BuiDrawer,
+    BuiInputMask,
+    BuiSheet,
+    BuiSonner,
+    BuiNavigationMenu,
+    BuiMentionInput,
   ],
   templateUrl: './components.html',
 })
@@ -694,6 +713,34 @@ export class ComponentPage {
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
   protected readonly view = signal('list');
+  private readonly toaster = inject(BuiToaster);
+  protected readonly maskValue = signal('');
+  protected readonly sheetOpen = signal(false);
+  protected readonly mentionValue = signal('');
+  protected readonly mentionItems = [
+    { value: 'ada', label: 'Ada Lovelace' },
+    { value: 'grace', label: 'Grace Hopper' },
+    { value: 'alan', label: 'Alan Turing' },
+  ];
+  protected readonly navItems = [
+    {
+      label: 'Products',
+      links: [
+        { label: 'Analytics', description: 'Understand your traffic' },
+        { label: 'Automation', description: 'Build powerful workflows' },
+      ],
+    },
+    { label: 'Docs', href: '/docs' },
+    { label: 'Pricing', href: '/pricing' },
+  ];
+
+  protected showToast(): void {
+    this.toaster.show({
+      title: 'Event created',
+      description: 'Sat, Jun 21 at 9:00 AM',
+      tone: 'success',
+    });
+  }
   protected readonly acValue = signal('');
   protected readonly acOptions = ['Angular', 'React', 'Svelte', 'Vue', 'Solid', 'Qwik'];
   protected readonly compareValue = signal(50);
@@ -1532,5 +1579,23 @@ The sky is blue<bui-citation [index]="1" title="Rayleigh scattering" url="https:
 
 <button (click)="open.set(true)">Open</button>
 <bui-drawer [(open)]="open" direction="right">Panel content</bui-drawer>`,
+    inputMask: `import { BuiInputMask } from 'ng-blatui';
+
+<bui-input-mask mask="(999) 999-9999" inputmode="numeric" [(value)]="phone" />`,
+    sheet: `import { BuiSheet } from 'ng-blatui';
+
+<button (click)="open.set(true)">Open</button>
+<bui-sheet [(open)]="open" side="right">…</bui-sheet>`,
+    sonner: `import { BuiSonner, BuiToaster } from 'ng-blatui';
+
+// render once: <bui-sonner />
+toaster = inject(BuiToaster);
+this.toaster.show({ title: 'Saved', tone: 'success' });`,
+    navigationMenu: `import { BuiNavigationMenu } from 'ng-blatui';
+
+<bui-navigation-menu [items]="items" />`,
+    mentionInput: `import { BuiMentionInput } from 'ng-blatui';
+
+<bui-mention-input [(value)]="text" [mentions]="people" />`,
   };
 }
