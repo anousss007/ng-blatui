@@ -7,6 +7,10 @@ export interface SelectOption {
   value: string;
   label: string;
   disabled?: boolean;
+  /** Optional leading icon, given as an SVG path `d` string. */
+  icon?: string;
+  /** Optional group label; consecutive options sharing a group get a header. */
+  group?: string;
 }
 
 /**
@@ -35,7 +39,23 @@ export interface SelectOption {
       (click)="toggle()"
       (keydown)="onKeydown($event)"
     >
-      <span class="truncate">{{ selectedLabel() || placeholder() }}</span>
+      <span class="flex min-w-0 items-center gap-2 truncate">
+        @if (selectedOption()?.icon; as icon) {
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            class="size-4 shrink-0"
+          >
+            <path [attr.d]="icon" />
+          </svg>
+        }
+        {{ selectedLabel() || placeholder() }}
+      </span>
       <svg
         viewBox="0 0 24 24"
         fill="none"
@@ -56,6 +76,11 @@ export interface SelectOption {
         class="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md"
       >
         @for (option of options(); track option.value; let i = $index) {
+          @if (option.group && option.group !== options()[i - 1]?.group) {
+            <li role="presentation" class="px-2 py-1.5 text-xs font-medium text-muted-foreground">
+              {{ option.group }}
+            </li>
+          }
           <li
             [id]="listId + '-' + i"
             role="option"
@@ -66,7 +91,23 @@ export interface SelectOption {
             (click)="select(option)"
             (mouseenter)="active.set(i)"
           >
-            <span class="truncate">{{ option.label }}</span>
+            <span class="flex min-w-0 items-center gap-2 truncate">
+              @if (option.icon; as icon) {
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  class="size-4 shrink-0"
+                >
+                  <path [attr.d]="icon" />
+                </svg>
+              }
+              {{ option.label }}
+            </span>
             @if (option.value === value()) {
               <svg
                 viewBox="0 0 24 24"
@@ -98,9 +139,10 @@ export class BuiSelect {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly open = signal(false);
   protected readonly active = signal(0);
-  protected readonly selectedLabel = computed(
-    () => this.options().find((option) => option.value === this.value())?.label ?? '',
+  protected readonly selectedOption = computed(() =>
+    this.options().find((option) => option.value === this.value()),
   );
+  protected readonly selectedLabel = computed(() => this.selectedOption()?.label ?? '');
   protected readonly computedClass = computed(() => cn('relative block', this.userClass()));
 
   protected toggle(): void {

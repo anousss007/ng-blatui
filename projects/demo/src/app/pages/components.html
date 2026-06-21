@@ -5875,6 +5875,16 @@ This content is read-only and cannot be edited.</textarea
           <option>Enterprise</option>
         </select>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With icons</h2>
+      <app-example [code]="code.selectWithIcons">
+        <bui-select class="max-w-xs" [options]="selectIconOptions" placeholder="Account" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Grouped</h2>
+      <app-example [code]="code.selectGrouped">
+        <bui-select class="max-w-xs" [options]="selectGroupedOptions" placeholder="Pick produce" />
+      </app-example>
     }
     @case ('combobox') {
       <app-example [code]="code.combobox">

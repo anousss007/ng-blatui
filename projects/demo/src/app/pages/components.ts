@@ -1074,6 +1074,22 @@ export class ComponentPage {
     { value: 'banana', label: 'Banana' },
     { value: 'cherry', label: 'Cherry' },
   ];
+  protected readonly selectIconOptions = [
+    {
+      value: 'profile',
+      label: 'Profile',
+      icon: 'M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8',
+    },
+    { value: 'billing', label: 'Billing', icon: 'M2 5h20v14H2zM2 10h20' },
+    { value: 'settings', label: 'Settings', icon: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z' },
+  ];
+  protected readonly selectGroupedOptions = [
+    { value: 'apple', label: 'Apple', group: 'Fruits' },
+    { value: 'banana', label: 'Banana', group: 'Fruits' },
+    { value: 'carrot', label: 'Carrot', group: 'Vegetables' },
+    { value: 'potato', label: 'Potato', group: 'Vegetables' },
+    { value: 'basil', label: 'Basil', group: 'Herbs' },
+  ];
   protected readonly timezone = signal('');
   protected readonly timezones = [
     { value: 'utc', label: 'UTC' },
@@ -2320,6 +2336,12 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     selectNative: `<select aria-label="Fruit" class="h-9 rounded-md border border-input bg-transparent px-3 text-sm">
   <option>Apple</option><option>Banana</option>
 </select>`,
+    selectWithIcons: `<!-- SelectOption now takes an optional icon (SVG path d) -->
+<bui-select [options]="opts" placeholder="Account" />
+// opts = [{ value: 'profile', label: 'Profile', icon: 'M19 21v-2a4 4…' }, …]`,
+    selectGrouped: `<!-- consecutive options sharing a group get a header -->
+<bui-select [options]="opts" />
+// opts = [{ value: 'apple', label: 'Apple', group: 'Fruits' }, { value: 'carrot', label: 'Carrot', group: 'Vegetables' }]`,
     selectUtility: `<!-- a native select styled entirely with utility classes -->
 <select aria-label="Plan" class="h-9 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50">…</select>`,
     combobox: `import { BuiCombobox } from 'ng-blatui';
