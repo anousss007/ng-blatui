@@ -3,6 +3,8 @@ import { RouterLink } from '@angular/router';
 
 import { BuiButton, BuiChart, type ChartSeries } from 'ng-blatui';
 
+import { PALETTE, PieChart, RadarChart, RadialChart } from './chart-svg';
+
 export type ChartFamily = 'Area' | 'Bar' | 'Line' | 'Tooltip' | 'Pie' | 'Radar' | 'Radial';
 
 export interface ChartExample {
@@ -225,7 +227,145 @@ const LINE: ChartExample[] = [
   ),
 ];
 
-export const CHARTS: readonly ChartExample[] = [...AREA, ...BAR, ...LINE];
+const TOOLTIP: ChartExample[] = [
+  xy(
+    'chart-tooltip-default',
+    'Tooltip — Default',
+    'A chart with a default tooltip.',
+    'Tooltip',
+    'line',
+    [
+      { name: 'Desktop', data: DESKTOP },
+      { name: 'Mobile', data: MOBILE },
+    ],
+  ),
+  xy(
+    'chart-tooltip-indicator-line',
+    'Tooltip — Line Indicator',
+    'A line indicator on hover.',
+    'Tooltip',
+    'line',
+    [{ name: 'Desktop', data: DESKTOP }],
+  ),
+  xy(
+    'chart-tooltip-indicator-none',
+    'Tooltip — No Indicator',
+    'A tooltip without indicator.',
+    'Tooltip',
+    'area',
+    [{ name: 'Desktop', data: DESKTOP }],
+  ),
+  xy(
+    'chart-tooltip-label-none',
+    'Tooltip — No Label',
+    'A tooltip with no label.',
+    'Tooltip',
+    'bar',
+    [{ name: 'Desktop', data: DESKTOP }],
+  ),
+  xy(
+    'chart-tooltip-label-custom',
+    'Tooltip — Custom Label',
+    'A tooltip with a custom label.',
+    'Tooltip',
+    'line',
+    [
+      { name: 'Desktop', data: DESKTOP },
+      { name: 'Mobile', data: MOBILE },
+    ],
+  ),
+  xy(
+    'chart-tooltip-label-formatter',
+    'Tooltip — Label Formatter',
+    'A tooltip with a formatted label.',
+    'Tooltip',
+    'area',
+    [{ name: 'Desktop', data: DESKTOP }],
+  ),
+  xy(
+    'chart-tooltip-formatter',
+    'Tooltip — Formatter',
+    'A tooltip with a value formatter.',
+    'Tooltip',
+    'bar',
+    [{ name: 'Revenue', data: [1200, 1900, 1500, 2100, 1800, 2400] }],
+  ),
+  xy('chart-tooltip-icons', 'Tooltip — Icons', 'A tooltip with series icons.', 'Tooltip', 'line', [
+    { name: 'Desktop', data: DESKTOP },
+    { name: 'Mobile', data: MOBILE },
+  ]),
+  xy(
+    'chart-tooltip-advanced',
+    'Tooltip — Advanced',
+    'A richly formatted tooltip.',
+    'Tooltip',
+    'area',
+    [
+      { name: 'Desktop', data: DESKTOP },
+      { name: 'Mobile', data: MOBILE },
+    ],
+  ),
+];
+
+const BROWSER_SLICES = [
+  { label: 'Chrome', value: 275, color: PALETTE[0] },
+  { label: 'Safari', value: 200, color: PALETTE[1] },
+  { label: 'Firefox', value: 187, color: PALETTE[2] },
+  { label: 'Edge', value: 173, color: PALETTE[3] },
+  { label: 'Other', value: 90, color: PALETTE[4] },
+];
+
+function pie(slug: string, title: string, description: string): ChartExample {
+  return { slug, title, description, family: 'Pie', kind: 'pie', slices: BROWSER_SLICES };
+}
+
+const PIE: ChartExample[] = [
+  pie('chart-pie-simple', 'Pie Chart', 'A simple pie chart.'),
+  pie('chart-pie-separator-none', 'Pie Chart — No Separator', 'A pie chart without separators.'),
+  pie('chart-pie-label', 'Pie Chart — Label', 'A pie chart with labels.'),
+  pie('chart-pie-label-custom', 'Pie Chart — Custom Label', 'A pie chart with custom labels.'),
+  pie('chart-pie-label-list', 'Pie Chart — Label List', 'A pie chart with a label list.'),
+  pie('chart-pie-legend', 'Pie Chart — Legend', 'A pie chart with a legend.'),
+  pie('chart-pie-donut', 'Donut Chart', 'A donut chart.'),
+  pie('chart-pie-donut-active', 'Donut Chart — Active', 'A donut chart with an active slice.'),
+  pie('chart-pie-donut-text', 'Donut Chart — Text', 'A donut chart with center text.'),
+  pie('chart-pie-stacked', 'Pie Chart — Stacked', 'A stacked pie chart.'),
+  pie('chart-pie-interactive', 'Pie Chart — Interactive', 'An interactive pie chart.'),
+];
+
+function radial(slug: string, title: string, description: string): ChartExample {
+  return {
+    slug,
+    title,
+    description,
+    family: 'Radial',
+    kind: 'radial',
+    slices: [
+      { label: 'Chrome', value: 82, color: PALETTE[0] },
+      { label: 'Safari', value: 64, color: PALETTE[1] },
+      { label: 'Firefox', value: 47, color: PALETTE[2] },
+      { label: 'Edge', value: 38, color: PALETTE[3] },
+    ],
+  };
+}
+
+const RADIAL: ChartExample[] = [
+  radial('chart-radial-simple', 'Radial Chart', 'A simple radial chart.'),
+  radial('chart-radial-label', 'Radial Chart — Label', 'A radial chart with labels.'),
+  radial('chart-radial-grid', 'Radial Chart — Grid', 'A radial chart with a grid.'),
+  radial('chart-radial-text', 'Radial Chart — Text', 'A radial chart with center text.'),
+  radial('chart-radial-shape', 'Radial Chart — Shape', 'A radial chart with a custom shape.'),
+  radial('chart-radial-stacked', 'Radial Chart — Stacked', 'A stacked radial chart.'),
+];
+
+export const CHARTS: readonly ChartExample[] = [
+  ...AREA,
+  ...BAR,
+  ...LINE,
+  ...TOOLTIP,
+  ...PIE,
+  ...RADIAL,
+];
 
 export const CHART_FAMILIES: readonly ChartFamily[] = [
   'Area',
@@ -240,7 +380,7 @@ export const CHART_FAMILIES: readonly ChartFamily[] = [
 /** Viewer for /charts/:slug — one chart, full width. */
 @Component({
   selector: 'app-chart-viewer',
-  imports: [RouterLink, BuiButton, BuiChart],
+  imports: [RouterLink, BuiButton, BuiChart, PieChart, RadialChart, RadarChart],
   template: `
     <a
       routerLink="/charts"
@@ -253,14 +393,31 @@ export const CHART_FAMILIES: readonly ChartFamily[] = [
         <p class="text-muted-foreground">{{ c.description }}</p>
       </header>
       <div class="rounded-xl border bg-card p-6">
-        @if (c.kind === 'xy') {
-          <bui-chart
-            [type]="$any(c.type)"
-            [series]="c.series ?? []"
-            [labels]="c.labels ?? []"
-            [height]="320"
-            [label]="c.title"
-          />
+        @switch (c.kind) {
+          @case ('xy') {
+            <bui-chart
+              [type]="$any(c.type)"
+              [series]="c.series ?? []"
+              [labels]="c.labels ?? []"
+              [height]="320"
+              [label]="c.title"
+            />
+          }
+          @case ('pie') {
+            <app-pie-chart
+              [slices]="c.slices ?? []"
+              [donut]="c.slug.includes('donut')"
+              [centerLabel]="c.slug.includes('donut') ? '925' : ''"
+              centerSub="Total"
+              [label]="c.title"
+            />
+          }
+          @case ('radial') {
+            <app-radial-chart [slices]="c.slices ?? []" [label]="c.title" />
+          }
+          @case ('radar') {
+            <app-radar-chart [axes]="c.axes ?? []" [series]="c.radar ?? []" [label]="c.title" />
+          }
         }
       </div>
       <div class="mt-6 flex gap-2">
