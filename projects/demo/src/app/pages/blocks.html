@@ -419,6 +419,65 @@
         </div>
       </div>
     }
+    @case ('dashboard-01') {
+      <div class="flex min-h-[520px] w-full overflow-hidden rounded-lg border">
+        <bui-sidebar class="hidden md:flex">
+          <div class="px-2 pb-2 text-sm font-semibold">Acme Inc</div>
+          <a buiSidebarMenuButton [isActive]="true" href="#">Dashboard</a>
+          <a buiSidebarMenuButton href="#">Orders</a>
+          <a buiSidebarMenuButton href="#">Products</a>
+          <a buiSidebarMenuButton href="#">Customers</a>
+          <a buiSidebarMenuButton href="#">Settings</a>
+        </bui-sidebar>
+        <div class="flex-1 overflow-auto">
+          <header class="flex h-14 items-center gap-3 border-b px-4">
+            <h2 class="font-semibold">Dashboard</h2>
+            <a buiButton size="sm" class="ml-auto" href="#">New order</a>
+          </header>
+          <div class="space-y-6 p-4">
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <bui-stat label="Revenue" value="$45.2k" change="+12%" trend="up" />
+              <bui-stat label="Orders" value="1,240" change="+4%" trend="up" />
+              <bui-stat label="Customers" value="3,100" change="-1%" trend="down" />
+              <bui-stat label="Churn" value="2.4%" change="-0.3%" trend="down" />
+            </div>
+            <bui-data-table
+              [columns]="dashColumns"
+              [rows]="dashRows"
+              [pageSize]="5"
+              [selectable]="false"
+            />
+          </div>
+        </div>
+      </div>
+    }
+    @case ('dashboard-02') {
+      <div class="min-h-[520px] w-full space-y-6 rounded-lg border p-6">
+        <div class="flex items-center gap-3">
+          <h2 class="text-lg font-semibold">Analytics</h2>
+          <a buiButton variant="outline" size="sm" class="ml-auto" href="#">Export</a>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-3">
+          <bui-stat label="Visitors" value="24.5k" change="+8%" trend="up" />
+          <bui-stat label="Signups" value="1,120" change="+15%" trend="up" />
+          <bui-stat label="Bounce" value="38%" change="-2%" trend="down" />
+        </div>
+        <div buiCard variant="sectioned">
+          <div buiCardHeader>
+            <h3 buiCardTitle>Weekly traffic</h3>
+            <p buiCardDescription>Visits over the last 7 days.</p>
+          </div>
+          <div buiCardContent>
+            <bui-chart
+              type="area"
+              [series]="dashSeries"
+              [labels]="dashLabels"
+              label="Weekly traffic"
+            />
+          </div>
+        </div>
+      </div>
+    }
     @default {
       <p class="text-muted-foreground">Block not found.</p>
     }
