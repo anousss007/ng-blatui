@@ -33,6 +33,12 @@ export const TEMPLATES = [
   'crm',
   'account',
   'agency',
+  'startup',
+  'event',
+  'aurora',
+  'cosmos',
+  'prism',
+  'lumen',
 ];
 
 const META: Record<string, { title: string; description: string }> = {
@@ -48,6 +54,12 @@ const META: Record<string, { title: string; description: string }> = {
   crm: { title: 'CRM', description: 'A contacts app shell.' },
   account: { title: 'Account', description: 'An account settings page.' },
   agency: { title: 'Agency', description: 'An agency landing page.' },
+  startup: { title: 'Startup', description: 'A startup landing page.' },
+  event: { title: 'Event', description: 'A conference / event landing page.' },
+  aurora: { title: 'Aurora', description: 'A gradient-hero landing template.' },
+  cosmos: { title: 'Cosmos', description: 'A dark, spacious landing template.' },
+  prism: { title: 'Prism', description: 'A feature-grid landing template.' },
+  lumen: { title: 'Lumen', description: 'A minimal, light landing template.' },
 };
 
 /** Full-page BlatUI templates, composed from ng-blatui components. */
