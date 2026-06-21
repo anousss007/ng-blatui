@@ -5584,6 +5584,11 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.orgChart">
         <bui-org-chart [node]="orgRoot" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With avatars</h2>
+      <app-example [code]="code.orgChartAvatars">
+        <bui-org-chart [node]="orgRootAvatars" />
+      </app-example>
     }
     @case ('mini-cart') {
       <app-example [code]="code.miniCart">
@@ -5721,6 +5726,11 @@ This content is read-only and cannot be edited.</textarea
     @case ('command') {
       <app-example [code]="code.command">
         <bui-command class="w-full max-w-md" [groups]="cmdGroups" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Single group</h2>
+      <app-example [code]="code.commandSimple">
+        <bui-command class="w-full max-w-md" [groups]="cmdGroupsSimple" />
       </app-example>
     }
     @case ('context-menu') {
@@ -6002,6 +6012,11 @@ This content is read-only and cannot be edited.</textarea
     @case ('navigation-menu') {
       <app-example [code]="code.navigationMenu">
         <bui-navigation-menu [items]="navItems" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Simple (no dropdowns)</h2>
+      <app-example [code]="code.navigationMenuSimple">
+        <bui-navigation-menu [items]="navItemsSimple" />
       </app-example>
     }
     @case ('mention-input') {

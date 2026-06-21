@@ -831,6 +831,27 @@ export class ComponentPage {
     { label: 'Docs', href: '/docs' },
     { label: 'Pricing', href: '/pricing' },
   ];
+  protected readonly navItemsSimple = [
+    { label: 'Home', href: '/' },
+    { label: 'Features', href: '/features' },
+    { label: 'Pricing', href: '/pricing' },
+    { label: 'Docs', href: '/docs' },
+  ];
+  protected readonly cmdGroupsSimple = [
+    {
+      label: 'Actions',
+      items: [{ label: 'New file' }, { label: 'Search' }, { label: 'Settings' }],
+    },
+  ];
+  protected readonly orgRootAvatars = {
+    name: 'Ada Lovelace',
+    title: 'CEO',
+    avatar: 'https://i.pravatar.cc/64?img=1',
+    children: [
+      { name: 'Grace Hopper', title: 'CTO', avatar: 'https://i.pravatar.cc/64?img=5' },
+      { name: 'Edsger Dijkstra', title: 'CFO', avatar: 'https://i.pravatar.cc/64?img=12' },
+    ],
+  };
 
   protected showToast(): void {
     this.toaster.show({
@@ -2441,6 +2462,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 
 <bui-org-chart [node]="org" />
 // org = { name: 'CEO', children: [{ name: 'CTO' }, ...] }`,
+    orgChartAvatars: `<bui-org-chart [node]="org" />
+// nodes can include avatar: '/u.png'`,
     miniCart: `import { BuiMiniCart } from 'ng-blatui';
 
 <bui-mini-cart [items]="cart" />`,
@@ -2481,6 +2504,7 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     command: `import { BuiCommand } from 'ng-blatui';
 
 <bui-command [groups]="groups" (selected)="run($event)" />`,
+    commandSimple: `<bui-command [groups]="[{ label: 'Actions', items: [...] }]" />`,
     contextMenu: `import { BuiContextMenu } from 'ng-blatui';
 
 <bui-context-menu [items]="items">
@@ -2544,6 +2568,8 @@ this.toaster.show({ title: 'Storage almost full', tone: 'warning' });`,
     navigationMenu: `import { BuiNavigationMenu } from 'ng-blatui';
 
 <bui-navigation-menu [items]="items" />`,
+    navigationMenuSimple: `<bui-navigation-menu [items]="items" />
+// flat items (no links) render as plain links, no dropdown`,
     mentionInput: `import { BuiMentionInput } from 'ng-blatui';
 
 <bui-mention-input [(value)]="text" [mentions]="people" />`,
