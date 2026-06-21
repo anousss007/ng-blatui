@@ -1525,6 +1525,11 @@ export class ComponentPage {
     checkboxIndeterminate: `<button buiCheckbox [indeterminate]="true" aria-label="Select all"></button>`,
     checkboxDisabled: `<button buiCheckbox [disabled]="true" aria-label="Off"></button>
 <button buiCheckbox [checked]="true" [disabled]="true" aria-label="On"></button>`,
+    checkboxNative: `<label class="flex items-center gap-2 text-sm">
+  <input type="checkbox" class="size-4" /> Native checkbox
+</label>`,
+    checkboxUtility: `<!-- a native input tinted with the theme primary -->
+<input type="checkbox" class="size-4 rounded border border-input" style="accent-color: var(--primary)" />`,
     switch: `import { BuiSwitch } from 'ng-blatui';
 
 <button buiSwitch [(checked)]="enabled" aria-labelledby="l"></button>
@@ -2057,6 +2062,16 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
   <textarea buiInputGroupInput class="min-h-20 resize-none border-0 shadow-none"></textarea>
   <div buiInputGroupAddon align="block-end"><button buiInputGroupButton size="xs">Send</button></div>
 </div>`,
+    inputGroupPassword: `<div buiInputGroup>
+  <input buiInputGroupInput type="password" placeholder="Password" />
+  <div buiInputGroupAddon align="inline-end">
+    <button buiInputGroupButton aria-label="Show password"><svg><!-- eye --></svg></button>
+  </div>
+</div>`,
+    inputGroupSpinner: `<div buiInputGroup>
+  <input buiInputGroupInput placeholder="Checking…" />
+  <div buiInputGroupAddon align="inline-end"><svg class="animate-spin"><!-- spinner --></svg></div>
+</div>`,
     meter: `import { BuiMeter } from 'ng-blatui';
 
 <bui-meter [value]="72" label="Storage" />`,
@@ -2548,6 +2563,16 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
   <li buiStepperItem [step]="1">Account details</li>
   <li buiStepperItem [step]="2">Company info</li>
 </bui-stepper>`,
+    stepperLabels: `<bui-stepper [value]="3">
+  <li buiStepperItem [step]="1">Cart</li>
+  <li buiStepperItem [step]="2">Shipping</li>
+  <li buiStepperItem [step]="3">Payment</li>
+  <li buiStepperItem [step]="4">Confirm</li>
+</bui-stepper>`,
+    stepperDescription: `<li buiStepperItem [step]="1">
+  <span class="font-medium">Account</span>
+  <span class="block text-xs font-normal text-muted-foreground">Your login details</span>
+</li>`,
     inputOtp: `import { BuiInputOtp } from 'ng-blatui';
 
 <bui-input-otp [(value)]="code" [maxlength]="6" />`,
