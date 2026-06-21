@@ -3779,10 +3779,15 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('code-block') {
       <app-example [code]="code.codeBlock">
+        <bui-code-block class="w-full max-w-md" [code]="'npm install ng-blatui'" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With filename</h2>
+      <app-example [code]="code.codeBlockFilename">
         <bui-code-block
-          class="w-full"
+          class="w-full max-w-lg"
           filename="hello.ts"
-          code="const greet = (name: string) => `Hello, ${name}!`;"
+          [code]="'const greet = (name: string) => `Hello, ${name}!`;'"
         />
       </app-example>
     }
@@ -4607,7 +4612,22 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('password-strength') {
       <app-example [code]="code.passwordStrength">
-        <bui-password-strength class="w-full max-w-sm" [minLength]="8" />
+        <bui-password-strength class="w-full max-w-sm" label="Password" [minLength]="8" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With checklist</h2>
+      <app-example [code]="code.passwordStrengthChecklist">
+        <bui-password-strength
+          class="w-full max-w-sm"
+          label="New password"
+          [minLength]="10"
+          [showChecklist]="true"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">No checklist</h2>
+      <app-example [code]="code.passwordStrengthNoChecklist">
+        <bui-password-strength class="w-full max-w-sm" label="Password" [showChecklist]="false" />
       </app-example>
     }
     @case ('product-card') {
@@ -4756,6 +4776,21 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.tagsInput">
         <bui-tags-input class="w-full max-w-sm" [(tags)]="tagList" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Max tags</h2>
+      <app-example [code]="code.tagsInputMax">
+        <bui-tags-input
+          class="w-full max-w-sm"
+          [tags]="['Design']"
+          [max]="3"
+          placeholder="Up to 3 tags…"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.tagsInputDisabled">
+        <bui-tags-input class="w-full max-w-sm" [tags]="['Read-only', 'Tags']" [disabled]="true" />
+      </app-example>
     }
     @case ('editable') {
       <app-example [code]="code.editable">
@@ -4818,9 +4853,24 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('reasoning') {
       <app-example [code]="code.reasoning">
-        <bui-reasoning class="max-w-md" duration="2.4s">
-          First, I considered the constraints, then weighed the trade-offs before settling on the
-          approach.
+        <bui-reasoning class="max-w-md">
+          The user is asking for the capital of Australia. A common mistake is to assume it's
+          Sydney, but it is Canberra.
+        </bui-reasoning>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Open</h2>
+      <app-example [code]="code.reasoningOpen">
+        <bui-reasoning class="max-w-md" [open]="true">
+          First, break the problem into steps. The request is to sum the even numbers, so filter
+          then reduce.
+        </bui-reasoning>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With duration</h2>
+      <app-example [code]="code.reasoningDuration">
+        <bui-reasoning class="max-w-md" duration="4s" [open]="true">
+          Considering several phrasings for the greeting, weighing tone and brevity.
         </bui-reasoning>
       </app-example>
     }
@@ -4828,10 +4878,31 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.toolCall">
         <bui-tool-call
           class="w-full max-w-md"
-          name="search_web"
+          name="get_weather"
           status="success"
-          args="{ q: 'angular signals' }"
-          result="Found 3 results"
+          args="{ location: 'San Francisco' }"
+          result="18°C, sunny"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Running</h2>
+      <app-example [code]="code.toolCallRunning">
+        <bui-tool-call
+          class="w-full max-w-md"
+          name="run_query"
+          status="running"
+          args="{ query: 'SELECT * FROM orders' }"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Error</h2>
+      <app-example [code]="code.toolCallError">
+        <bui-tool-call
+          class="w-full max-w-md"
+          name="read_file"
+          status="error"
+          args="{ path: '/etc/app/config.json' }"
+          result="ENOENT: no such file"
         />
       </app-example>
     }
@@ -4855,16 +4926,50 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('stepper') {
       <app-example [code]="code.stepper">
-        <bui-stepper [value]="2">
+        <bui-stepper class="w-full max-w-xl" [value]="2">
           <li buiStepperItem [step]="1">Account</li>
           <li buiStepperItem [step]="2">Profile</li>
           <li buiStepperItem [step]="3">Done</li>
+        </bui-stepper>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Vertical</h2>
+      <app-example [code]="code.stepperVertical">
+        <bui-stepper class="w-full max-w-md" [value]="2" orientation="vertical">
+          <li buiStepperItem [step]="1">Account details</li>
+          <li buiStepperItem [step]="2">Company info</li>
+          <li buiStepperItem [step]="3">Review</li>
         </bui-stepper>
       </app-example>
     }
     @case ('input-otp') {
       <app-example [code]="code.inputOtp">
         <bui-input-otp [(value)]="otpValue" [maxlength]="6" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Four digits</h2>
+      <app-example [code]="code.inputOtpFour">
+        <bui-input-otp [value]="''" [maxlength]="4" ariaLabel="4-digit code" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Alphanumeric</h2>
+      <app-example [code]="code.inputOtpAlpha">
+        <bui-input-otp
+          [value]="''"
+          [maxlength]="6"
+          [alphanumeric]="true"
+          ariaLabel="Alphanumeric code"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.inputOtpDisabled">
+        <bui-input-otp
+          [value]="'123'"
+          [maxlength]="6"
+          [disabled]="true"
+          ariaLabel="Disabled code"
+        />
       </app-example>
     }
     @case ('phone-input') {
@@ -4884,14 +4989,41 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('citation') {
       <app-example [code]="code.citation">
-        <p class="text-sm">
+        <p class="max-w-prose text-sm leading-relaxed">
+          Large language models are trained on vast text corpora and learn to predict the next
+          token<bui-citation
+            [index]="1"
+            title="Attention Is All You Need"
+            url="https://arxiv.org/abs/1706.03762"
+          />.
+        </p>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With snippet</h2>
+      <app-example [code]="code.citationSnippet">
+        <p class="max-w-prose text-sm leading-relaxed">
           The sky appears blue<bui-citation
             [index]="1"
             title="Rayleigh scattering"
             url="https://en.wikipedia.org/wiki/Rayleigh_scattering"
-            snippet="Shorter wavelengths scatter more strongly."
+            snippet="Shorter wavelengths scatter more strongly than longer ones."
           />
           due to the scattering of sunlight.
+        </p>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Multiple</h2>
+      <app-example [code]="code.citationMultiple">
+        <p class="max-w-prose text-sm leading-relaxed">
+          Retrieval-augmented generation grounds output in retrieved documents<bui-citation
+            [index]="1"
+            title="RAG paper"
+            url="https://arxiv.org/abs/2005.11401"
+          />, reducing hallucination<bui-citation
+            [index]="2"
+            title="Survey of hallucination"
+            url="https://arxiv.org/abs/2311.05232"
+          />.
         </p>
       </app-example>
     }

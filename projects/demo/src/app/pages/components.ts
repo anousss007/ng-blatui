@@ -1860,7 +1860,8 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 </ng-template>`,
     codeBlock: `import { BuiCodeBlock } from 'ng-blatui';
 
-<bui-code-block filename="app.ts" code="const x = 1;" />`,
+<bui-code-block [code]="'npm install ng-blatui'" />`,
+    codeBlockFilename: `<bui-code-block filename="hello.ts" [code]="'const x = 1;'" />`,
     slider: `import { BuiSlider } from 'ng-blatui';
 
 <bui-slider [(value)]="volume" [min]="0" [max]="100" ariaLabel="Volume" />`,
@@ -2131,7 +2132,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-add-to-cart (triggered)="addItem()" />`,
     passwordStrength: `import { BuiPasswordStrength } from 'ng-blatui';
 
-<bui-password-strength [minLength]="8" />`,
+<bui-password-strength label="Password" [minLength]="8" />`,
+    passwordStrengthChecklist: `<bui-password-strength label="New password" [minLength]="10" [showChecklist]="true" />`,
+    passwordStrengthNoChecklist: `<bui-password-strength label="Password" [showChecklist]="false" />`,
     productCard: `import { BuiProductCard } from 'ng-blatui';
 
 <bui-product-card
@@ -2200,6 +2203,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     tagsInput: `import { BuiTagsInput } from 'ng-blatui';
 
 <bui-tags-input [(tags)]="tags" />`,
+    tagsInputMax: `<bui-tags-input [tags]="['Design']" [max]="3" placeholder="Up to 3 tags…" />`,
+    tagsInputDisabled: `<bui-tags-input [tags]="['Read-only', 'Tags']" [disabled]="true" />`,
     editable: `import { BuiEditable } from 'ng-blatui';
 
 <bui-editable [(value)]="name" />`,
@@ -2221,12 +2226,16 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-image src="/missing.jpg" alt="" ratio="16/9" />`,
     reasoning: `import { BuiReasoning } from 'ng-blatui';
 
-<bui-reasoning duration="2.4s">
-  First, I considered the constraints, then weighed the trade-offs…
+<bui-reasoning>
+  The capital of Australia is Canberra, not Sydney.
 </bui-reasoning>`,
+    reasoningOpen: `<bui-reasoning [open]="true">First, break the problem into steps…</bui-reasoning>`,
+    reasoningDuration: `<bui-reasoning duration="4s" [open]="true">Weighing tone and brevity…</bui-reasoning>`,
     toolCall: `import { BuiToolCall } from 'ng-blatui';
 
-<bui-tool-call name="search_web" status="success" args="{ q: 'angular' }" result="3 results" />`,
+<bui-tool-call name="get_weather" status="success" args="{ location: 'SF' }" result="18°C, sunny" />`,
+    toolCallRunning: `<bui-tool-call name="run_query" status="running" args="{ query: 'SELECT …' }" />`,
+    toolCallError: `<bui-tool-call name="read_file" status="error" args="{ path: '/x' }" result="ENOENT" />`,
     chat: `import { BuiChat, BuiChatMessage } from 'ng-blatui';
 
 <div buiChat>
@@ -2243,9 +2252,16 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
   <li buiStepperItem [step]="2">Profile</li>
   <li buiStepperItem [step]="3">Done</li>
 </bui-stepper>`,
+    stepperVertical: `<bui-stepper [value]="2" orientation="vertical">
+  <li buiStepperItem [step]="1">Account details</li>
+  <li buiStepperItem [step]="2">Company info</li>
+</bui-stepper>`,
     inputOtp: `import { BuiInputOtp } from 'ng-blatui';
 
 <bui-input-otp [(value)]="code" [maxlength]="6" />`,
+    inputOtpFour: `<bui-input-otp [maxlength]="4" ariaLabel="4-digit code" />`,
+    inputOtpAlpha: `<bui-input-otp [maxlength]="6" [alphanumeric]="true" />`,
+    inputOtpDisabled: `<bui-input-otp [value]="'123'" [maxlength]="6" [disabled]="true" />`,
     phoneInput: `import { BuiPhoneInput } from 'ng-blatui';
 
 <bui-phone-input [(value)]="phone" [(country)]="country" />`,
@@ -2257,7 +2273,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-heatmap [data]="activity" />`,
     citation: `import { BuiCitation } from 'ng-blatui';
 
-The sky is blue<bui-citation [index]="1" title="Rayleigh scattering" url="https://en.wikipedia.org" />.`,
+…next token<bui-citation [index]="1" title="Attention Is All You Need" url="https://arxiv.org/abs/1706.03762" />.`,
+    citationSnippet: `…appears blue<bui-citation [index]="1" title="Rayleigh scattering" url="…" snippet="Shorter wavelengths scatter more." />.`,
+    citationMultiple: `…retrieved documents<bui-citation [index]="1" title="RAG" url="…" />, reducing hallucination<bui-citation [index]="2" title="Survey" url="…" />.`,
     resizable: `import { BuiResizablePanelGroup, BuiResizablePanel, BuiResizableHandle } from 'ng-blatui';
 
 <bui-resizable-panel-group class="h-40">
