@@ -746,6 +746,7 @@ export class ComponentPage {
   protected removeBadgeTag(tag: string): void {
     this.badgeTags.set(this.badgeTags().filter((t) => t !== tag));
   }
+  protected readonly alertShow = signal(true);
   protected readonly rteValue = signal('<p>Edit <strong>me</strong> — try the toolbar.</p>');
   protected readonly sidebarOpen = signal(true);
   protected readonly tourOpen = signal(false);
@@ -1069,14 +1070,53 @@ export class ComponentPage {
 </div>`,
     alert: `import { BuiAlert, BuiAlertTitle, BuiAlertDescription } from 'ng-blatui';
 
-<!-- variant="default | destructive" or tone="success | warning | danger | info | neutral" -->
 <div buiAlert>
-  <h5 buiAlertTitle>Heads up</h5>
-  <div buiAlertDescription>A neutral, default callout.</div>
-</div>
-<div buiAlert tone="success"><h5 buiAlertTitle>Saved</h5></div>
-<div buiAlert tone="warning"><h5 buiAlertTitle>Careful</h5></div>
-<div buiAlert variant="destructive"><h5 buiAlertTitle>Error</h5></div>`,
+  <svg><!-- circle-check --></svg>
+  <h5 buiAlertTitle>Success! Your changes have been saved</h5>
+  <div buiAlertDescription>This is an alert with icon, title and description.</div>
+</div>`,
+    alertDestructive: `<div buiAlert variant="destructive">
+  <svg><!-- circle-alert --></svg>
+  <h5 buiAlertTitle>Unable to process your payment.</h5>
+  <div buiAlertDescription>Please verify your billing information and try again.</div>
+</div>`,
+    alertDismissible: `<div buiAlert class="relative pe-10">
+  <svg><!-- info --></svg>
+  <h5 buiAlertTitle>Verify your email</h5>
+  <button class="absolute top-3 right-3" aria-label="Dismiss" (click)="show.set(false)">✕</button>
+</div>`,
+    alertInfo: `<div buiAlert class="border-blue-200 bg-blue-50 text-blue-900 [&>svg]:text-blue-600">
+  <svg><!-- info --></svg>
+  <h5 buiAlertTitle>Heads up!</h5>
+  <div buiAlertDescription>A new software update is available.</div>
+</div>`,
+    alertWarning: `<div buiAlert class="border-amber-200 bg-amber-50 text-amber-900 [&>svg]:text-amber-600">
+  <svg><!-- triangle-alert --></svg>
+  <h5 buiAlertTitle>Your subscription is expiring soon</h5>
+</div>`,
+    alertTones: `<!-- tone="success | warning | danger | info | neutral" -->
+<div buiAlert tone="success">…</div>
+<div buiAlert tone="warning">…</div>
+<div buiAlert tone="info">…</div>`,
+    alertLeftAccent: `<div buiAlert class="bg-success/10 text-success border-success rounded-md border-0 border-l-4">
+  <svg><!-- icon --></svg>
+  <h5 buiAlertTitle>Your request to join the team is approved.</h5>
+</div>`,
+    alertSolid: `<div buiAlert class="bg-primary text-primary-foreground border-none">
+  <svg><!-- info --></svg>
+  <h5 buiAlertTitle>Editing your profile</h5>
+</div>`,
+    alertSimple: `<div buiAlert>
+  <svg><!-- terminal --></svg>
+  <h5 buiAlertTitle>You can add components using the CLI.</h5>
+</div>`,
+    alertWithAction: `<div buiAlert class="flex items-center justify-between gap-3">
+  <div class="flex items-center gap-3">
+    <bui-avatar class="size-9 rounded-md">SR</bui-avatar>
+    <div><h5 buiAlertTitle>Sara replied to your photo</h5></div>
+  </div>
+  <button buiButton variant="outline" size="sm">View</button>
+</div>`,
     input: `import { BuiInput } from 'ng-blatui';
 
 <input buiInput type="email" placeholder="m@example.com" />
