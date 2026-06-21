@@ -83,6 +83,7 @@ import {
   BuiDialogFooter,
   BuiDialogHeader,
   BuiDialogTitle,
+  BuiDiffViewer,
   BuiDock,
   BuiDockItem,
   BuiDotPattern,
@@ -128,6 +129,7 @@ import {
   BuiLabel,
   BuiLink,
   BuiLoadingOverlay,
+  BuiMarkdownEditor,
   BuiMarquee,
   BuiMasonry,
   BuiMenubar,
@@ -208,6 +210,7 @@ import {
   BuiToolCall,
   BuiTooltip,
   BuiTree,
+  BuiTreeTable,
   BuiTypewriter,
   BuiTypography,
   BuiVariantSelector,
@@ -615,6 +618,9 @@ const META: Record<string, { title: string; description: string }> = {
     BuiOrgChart,
     BuiMiniCart,
     BuiAnimatedBeam,
+    BuiDiffViewer,
+    BuiTreeTable,
+    BuiMarkdownEditor,
   ],
   templateUrl: './components.html',
 })
@@ -640,6 +646,27 @@ export class ComponentPage {
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
   protected readonly view = signal('list');
+  protected readonly diffBefore = 'const x = 1;\nconst y = 2;\nconsole.log(x);';
+  protected readonly diffAfter = 'const x = 1;\nconst y = 3;\nconsole.log(x + y);';
+  protected readonly ttColumns = [
+    { key: 'name', label: 'Name' },
+    { key: 'type', label: 'Type', align: 'right' as const },
+  ];
+  protected readonly ttRows = [
+    {
+      name: 'src',
+      type: 'folder',
+      expanded: true,
+      children: [
+        { name: 'app.ts', type: 'file' },
+        { name: 'main.ts', type: 'file' },
+      ],
+    },
+    { name: 'package.json', type: 'file' },
+  ];
+  protected readonly mdValue = signal(
+    '# Hello\n\nThis is **markdown** with `code` and *emphasis*.',
+  );
   protected readonly orgRoot = {
     name: 'Ada Lovelace',
     title: 'CEO',
@@ -1359,5 +1386,14 @@ The sky is blue<bui-citation [index]="1" title="Rayleigh scattering" url="https:
   <div id="a">…</div>
   <div id="b">…</div>
 </bui-animated-beam>`,
+    diffViewer: `import { BuiDiffViewer } from 'ng-blatui';
+
+<bui-diff-viewer [before]="oldText" [after]="newText" filename="config.ts" />`,
+    treeTable: `import { BuiTreeTable } from 'ng-blatui';
+
+<bui-tree-table [columns]="columns" [rows]="rows" />`,
+    markdownEditor: `import { BuiMarkdownEditor } from 'ng-blatui';
+
+<bui-markdown-editor [(value)]="md" />`,
   };
 }

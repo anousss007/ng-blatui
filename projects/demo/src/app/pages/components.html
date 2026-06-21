@@ -1118,6 +1118,30 @@
         </bui-animated-beam>
       </app-example>
     }
+    @case ('diff-viewer') {
+      <app-example [code]="code.diffViewer">
+        <bui-diff-viewer
+          class="w-full max-w-md"
+          [before]="diffBefore"
+          [after]="diffAfter"
+          filename="config.ts"
+        />
+      </app-example>
+    }
+    @case ('tree-table') {
+      <app-example [code]="code.treeTable">
+        <bui-tree-table
+          class="w-full max-w-md rounded-lg border"
+          [columns]="ttColumns"
+          [rows]="ttRows"
+        />
+      </app-example>
+    }
+    @case ('markdown-editor') {
+      <app-example [code]="code.markdownEditor">
+        <bui-markdown-editor class="w-full max-w-md" [(value)]="mdValue" />
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

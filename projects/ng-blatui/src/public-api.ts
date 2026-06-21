@@ -144,3 +144,6 @@ export * from './lib/org-chart/org-chart';
 export * from './lib/org-chart/org-chart-node';
 export * from './lib/mini-cart/mini-cart';
 export * from './lib/animated-beam/animated-beam';
+export * from './lib/diff-viewer/diff-viewer';
+export * from './lib/tree-table/tree-table';
+export * from './lib/markdown-editor/markdown-editor';

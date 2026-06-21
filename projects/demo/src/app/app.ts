@@ -139,6 +139,9 @@ const COMPONENTS = [
   'org-chart',
   'mini-cart',
   'animated-beam',
+  'diff-viewer',
+  'tree-table',
+  'markdown-editor',
 ];
 
 @Component({
