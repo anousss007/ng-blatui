@@ -463,18 +463,32 @@
     }
     @case ('meter') {
       <app-example [code]="code.meter">
-        <bui-meter class="max-w-xs" [value]="72" label="CPU usage" />
+        <div class="w-full max-w-xs space-y-3">
+          <bui-meter [value]="72" label="CPU usage" />
+          <bui-meter [value]="40" tone="success" label="Storage" />
+          <bui-meter [value]="85" tone="warning" label="Memory" />
+          <bui-meter [value]="95" tone="danger" label="Quota" />
+        </div>
       </app-example>
     }
     @case ('stat') {
       <app-example [code]="code.stat">
-        <bui-stat
-          class="w-full max-w-xs"
-          label="Revenue"
-          value="$12,000"
-          change="+12%"
-          caption="vs last month"
-        />
+        <div class="grid w-full max-w-md grid-cols-2 gap-4">
+          <bui-stat
+            label="Revenue"
+            value="$12,000"
+            change="+12%"
+            trend="up"
+            caption="vs last month"
+          />
+          <bui-stat
+            label="Churn"
+            value="2.4%"
+            change="-0.5%"
+            trend="down"
+            caption="vs last month"
+          />
+        </div>
       </app-example>
     }
     @case ('visually-hidden') {
@@ -822,7 +836,11 @@
     }
     @case ('number-input') {
       <app-example [code]="code.numberInput">
-        <bui-number-input [(value)]="qty" [min]="0" [max]="10" ariaLabel="Quantity" />
+        <div class="flex flex-wrap items-center gap-3">
+          <bui-number-input [(value)]="qty" [min]="0" [max]="10" ariaLabel="Quantity" />
+          <bui-number-input [value]="50" [step]="5" ariaLabel="Step of 5" />
+          <bui-number-input [value]="3" [disabled]="true" ariaLabel="Disabled" />
+        </div>
       </app-example>
     }
     @case ('variant-selector') {

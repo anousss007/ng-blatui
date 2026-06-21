@@ -1262,10 +1262,13 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 </div>`,
     meter: `import { BuiMeter } from 'ng-blatui';
 
-<bui-meter [value]="72" label="CPU usage" />`,
+<!-- tone="default | success | warning | danger" -->
+<bui-meter [value]="72" label="CPU usage" />
+<bui-meter [value]="85" tone="warning" label="Memory" />`,
     stat: `import { BuiStat } from 'ng-blatui';
 
-<bui-stat label="Revenue" value="$12,000" change="+12%" caption="vs last month" />`,
+<bui-stat label="Revenue" value="$12,000" change="+12%" trend="up" caption="vs last month" />
+<bui-stat label="Churn" value="2.4%" change="-0.5%" trend="down" />`,
     visuallyHidden: `import { BuiVisuallyHidden } from 'ng-blatui';
 
 <span buiVisuallyHidden>Screen-reader only text</span>`,
@@ -1453,7 +1456,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-loading-overlay [show]="loading()">…content…</bui-loading-overlay>`,
     numberInput: `import { BuiNumberInput } from 'ng-blatui';
 
-<bui-number-input [(value)]="qty" [min]="0" [max]="10" />`,
+<bui-number-input [(value)]="qty" [min]="0" [max]="10" />
+<bui-number-input [value]="50" [step]="5" />
+<bui-number-input [value]="3" [disabled]="true" />`,
     variantSelector: `import { BuiVariantSelector } from 'ng-blatui';
 
 <bui-variant-selector [(value)]="size" [options]="['S','M','L']" />`,
