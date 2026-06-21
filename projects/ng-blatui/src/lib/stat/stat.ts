@@ -25,6 +25,24 @@ const TREND_CLASS = {
         }
       </span>
     }
+    @if (sparkPoints()) {
+      <svg
+        viewBox="0 0 100 32"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+        [class]="'mt-2 h-8 w-full ' + trendClass()"
+      >
+        <polyline
+          [attr.points]="sparkPoints()"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linejoin="round"
+          stroke-linecap="round"
+          vector-effect="non-scaling-stroke"
+        />
+      </svg>
+    }
   `,
 })
 export class BuiStat {
@@ -33,7 +51,23 @@ export class BuiStat {
   readonly change = input<string | null>(null);
   readonly trend = input<'up' | 'down' | 'neutral' | null>(null);
   readonly caption = input<string | null>(null);
+  /** Optional inline sparkline drawn from a series of numbers. */
+  readonly sparkline = input<readonly number[]>([]);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+  protected readonly sparkPoints = computed(() => {
+    const values = this.sparkline();
+    if (values.length < 2) {
+      return '';
+    }
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const span = max - min || 1;
+    const step = 100 / (values.length - 1);
+    return values
+      .map((value, index) => `${index * step},${30 - ((value - min) / span) * 28}`)
+      .join(' ');
+  });
 
   protected readonly resolvedTrend = computed<'up' | 'down' | 'neutral'>(() => {
     const explicit = this.trend();

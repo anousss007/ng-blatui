@@ -1118,6 +1118,7 @@ export class ComponentPage {
     { at: 60, tone: 'warning' as const },
     { at: 85, tone: 'danger' as const },
   ];
+  protected readonly statSpark = [8, 11, 9, 14, 12, 18, 16, 22, 20, 26];
   protected readonly variantColors = [
     { value: 'black', label: 'Black', color: '#18181b' },
     { value: 'blue', label: 'Blue', color: '#2563eb' },
@@ -2323,6 +2324,9 @@ this.dialog.open(tpl, { ariaModal: true });`,
 <bui-stat label="Total Revenue" value="$45,231.89" />`,
     statTrend: `<bui-stat label="New Customers" value="1,204" change="+12.5%" trend="up" caption="vs last month" />
 <bui-stat label="Churn rate" value="2.4%" change="-0.5%" trend="down" />`,
+    statSparkline: `<!-- [sparkline] draws an inline trend line -->
+<bui-stat label="Active users" value="2,318" change="+12.4%" trend="up" [sparkline]="series" />
+// series = [8, 11, 9, 14, 12, 18, 16, 22]`,
     statGrid: `<div class="grid gap-4 sm:grid-cols-4">
   <bui-stat label="Revenue" value="$45.2k" change="+12.5%" trend="up" />
   <bui-stat label="Users" value="2,340" change="+4.1%" trend="up" />
@@ -2352,6 +2356,16 @@ this.dialog.open(tpl, { ariaModal: true });`,
 
 <bui-code-block [code]="'npm install ng-blatui'" />`,
     codeBlockFilename: `<bui-code-block filename="hello.ts" [code]="'const x = 1;'" />`,
+    codeBlockTabs: `<!-- compose tabs with a code block per panel -->
+<div ngTabs buiTabs>
+  <div ngTabList buiTabList selectedTab="npm">
+    <div ngTab value="npm" buiTabTrigger>npm</div>
+    <div ngTab value="pnpm" buiTabTrigger>pnpm</div>
+  </div>
+  <div ngTabPanel value="npm" buiTabPanel>
+    <ng-template ngTabContent><bui-code-block [code]="'npm install ng-blatui'" /></ng-template>
+  </div>
+</div>`,
     slider: `import { BuiSlider } from 'ng-blatui';
 
 <bui-slider [(value)]="volume" [min]="0" [max]="100" ariaLabel="Volume" />`,
@@ -3105,6 +3119,11 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-file-upload hint="Up to 10MB" />`,
     fileUploadMultiple: `<bui-file-upload [multiple]="true" accept=".pdf,.doc,.docx" hint="Max 5 files" />`,
     fileUploadImages: `<bui-file-upload [multiple]="true" accept="image/*" hint="PNG, JPG or GIF" />`,
+    fileUploadProgress: `<!-- pair an upload row with bui-progress for an in-flight upload -->
+<div class="flex items-center gap-3">
+  <span class="font-medium">report-q2.pdf</span>
+  <bui-progress [value]="70" />
+</div>`,
     topProgress: `import { BuiTopProgress } from 'ng-blatui';
 
 <bui-top-progress #bar [demo]="true" />

@@ -5584,6 +5584,18 @@ This content is read-only and cannot be edited.</textarea
           <bui-stat label="Refunds" value="34" change="-8.0%" trend="down" />
         </div>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With sparkline</h2>
+      <app-example [code]="code.statSparkline">
+        <bui-stat
+          class="max-w-56"
+          label="Active users"
+          value="2,318"
+          change="+12.4%"
+          trend="up"
+          [sparkline]="statSpark"
+        />
+      </app-example>
     }
     @case ('visually-hidden') {
       <app-example [code]="code.visuallyHidden">
@@ -5664,6 +5676,28 @@ This content is read-only and cannot be edited.</textarea
           filename="hello.ts"
           [code]="'const greet = (name: string) => `Hello, ${name}!`;'"
         />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Tabs</h2>
+      <app-example [code]="code.codeBlockTabs">
+        <div ngTabs buiTabs class="w-full max-w-lg">
+          <div ngTabList buiTabList selectedTab="npm" class="w-max">
+            <div ngTab value="npm" buiTabTrigger>npm</div>
+            <div ngTab value="pnpm" buiTabTrigger>pnpm</div>
+            <div ngTab value="yarn" buiTabTrigger>yarn</div>
+          </div>
+          <div ngTabPanel value="npm" buiTabPanel class="pt-3">
+            <ng-template ngTabContent
+              ><bui-code-block [code]="'npm install ng-blatui'"
+            /></ng-template>
+          </div>
+          <div ngTabPanel value="pnpm" buiTabPanel class="pt-3">
+            <ng-template ngTabContent><bui-code-block [code]="'pnpm add ng-blatui'" /></ng-template>
+          </div>
+          <div ngTabPanel value="yarn" buiTabPanel class="pt-3">
+            <ng-template ngTabContent><bui-code-block [code]="'yarn add ng-blatui'" /></ng-template>
+          </div>
+        </div>
       </app-example>
     }
     @case ('slider') {
@@ -8232,6 +8266,34 @@ This content is read-only and cannot be edited.</textarea
           accept="image/*"
           hint="PNG, JPG or GIF"
         />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With progress</h2>
+      <app-example [code]="code.fileUploadProgress">
+        <div class="w-full max-w-md rounded-lg border p-4">
+          <div class="flex items-center gap-3">
+            <svg
+              class="size-8 shrink-0 text-muted-foreground"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5z" />
+              <path d="M14 2v6h6" />
+            </svg>
+            <div class="min-w-0 flex-1">
+              <div class="flex justify-between text-sm">
+                <span class="truncate font-medium">report-q2.pdf</span>
+                <span class="text-muted-foreground tabular-nums">70%</span>
+              </div>
+              <bui-progress class="mt-2" [value]="70" ariaLabel="Uploading report-q2.pdf" />
+            </div>
+          </div>
+        </div>
       </app-example>
     }
     @case ('top-progress') {
