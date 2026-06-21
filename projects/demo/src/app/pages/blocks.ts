@@ -1,8 +1,9 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 
 import {
   BuiBadge,
   BuiButton,
+  BuiCalendar,
   BuiCard,
   BuiCardContent,
   BuiCardDescription,
@@ -34,6 +35,10 @@ export const BLOCKS = [
   'pricing-01',
   'dashboard-01',
   'dashboard-02',
+  'sidebar-01',
+  'sidebar-07',
+  'calendar-01',
+  'calendar-02',
 ];
 
 const META: Record<string, { title: string; description: string }> = {
@@ -52,6 +57,10 @@ const META: Record<string, { title: string; description: string }> = {
     description: 'An app shell with sidebar, stats and a table.',
   },
   'dashboard-02': { title: 'Dashboard 02', description: 'An analytics overview with a chart.' },
+  'sidebar-01': { title: 'Sidebar 01', description: 'A classic app sidebar with content.' },
+  'sidebar-07': { title: 'Sidebar 07', description: 'A grouped-navigation sidebar.' },
+  'calendar-01': { title: 'Calendar 01', description: 'A date-picker calendar card.' },
+  'calendar-02': { title: 'Calendar 02', description: 'A calendar with an events list.' },
 };
 
 /** Pre-composed BlatUI blocks (full sections built from ng-blatui components). */
@@ -60,6 +69,7 @@ const META: Record<string, { title: string; description: string }> = {
   imports: [
     BuiBadge,
     BuiButton,
+    BuiCalendar,
     BuiCard,
     BuiCardContent,
     BuiCardDescription,
@@ -102,4 +112,5 @@ export class BlocksPage {
   ];
   protected readonly dashSeries = [{ data: [12, 19, 14, 23, 21, 30, 28] }];
   protected readonly dashLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  protected readonly calValue = signal('');
 }

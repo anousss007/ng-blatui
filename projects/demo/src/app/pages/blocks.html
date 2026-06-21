@@ -478,6 +478,78 @@
         </div>
       </div>
     }
+    @case ('sidebar-01') {
+      <div class="flex min-h-[520px] w-full overflow-hidden rounded-lg border">
+        <bui-sidebar>
+          <div class="px-2 pb-2 text-sm font-semibold">Acme</div>
+          <a buiSidebarMenuButton [isActive]="true" href="#">Home</a>
+          <a buiSidebarMenuButton href="#">Inbox</a>
+          <a buiSidebarMenuButton href="#">Calendar</a>
+          <a buiSidebarMenuButton href="#">Search</a>
+          <a buiSidebarMenuButton href="#">Settings</a>
+        </bui-sidebar>
+        <div class="flex-1 p-6">
+          <h2 class="text-lg font-semibold">Home</h2>
+          <p class="mt-1 text-sm text-muted-foreground">Your main content area lives here.</p>
+        </div>
+      </div>
+    }
+    @case ('sidebar-07') {
+      <div class="flex min-h-[520px] w-full overflow-hidden rounded-lg border">
+        <bui-sidebar>
+          <div class="px-2 pb-1 text-sm font-semibold">Acme</div>
+          <p class="px-2 pt-2 text-xs font-medium text-muted-foreground">Platform</p>
+          <a buiSidebarMenuButton [isActive]="true" href="#">Dashboard</a>
+          <a buiSidebarMenuButton href="#">Projects</a>
+          <a buiSidebarMenuButton href="#">Tasks</a>
+          <p class="px-2 pt-3 text-xs font-medium text-muted-foreground">Account</p>
+          <a buiSidebarMenuButton href="#">Billing</a>
+          <a buiSidebarMenuButton href="#">Team</a>
+        </bui-sidebar>
+        <div class="flex-1 p-6">
+          <h2 class="text-lg font-semibold">Dashboard</h2>
+          <p class="mt-1 text-sm text-muted-foreground">Grouped navigation in the sidebar.</p>
+        </div>
+      </div>
+    }
+    @case ('calendar-01') {
+      <div
+        class="flex min-h-[480px] w-full items-center justify-center rounded-lg border bg-muted/30 p-6"
+      >
+        <div buiCard variant="sectioned">
+          <div buiCardHeader>
+            <h3 buiCardTitle>Pick a date</h3>
+            <p buiCardDescription>Select a day from the calendar.</p>
+          </div>
+          <div buiCardContent>
+            <bui-calendar [(value)]="calValue" />
+          </div>
+        </div>
+      </div>
+    }
+    @case ('calendar-02') {
+      <div class="grid min-h-[480px] w-full gap-6 rounded-lg border p-6 md:grid-cols-[auto_1fr]">
+        <bui-calendar class="border" [(value)]="calValue" />
+        <div class="space-y-3">
+          <h3 class="font-semibold">Upcoming</h3>
+          <div buiCard variant="sectioned">
+            <div buiCardContent class="py-3 text-sm">
+              <span class="font-medium">Standup</span> · 9:00 AM
+            </div>
+          </div>
+          <div buiCard variant="sectioned">
+            <div buiCardContent class="py-3 text-sm">
+              <span class="font-medium">Design review</span> · 11:30 AM
+            </div>
+          </div>
+          <div buiCard variant="sectioned">
+            <div buiCardContent class="py-3 text-sm">
+              <span class="font-medium">1:1 with Ada</span> · 3:00 PM
+            </div>
+          </div>
+        </div>
+      </div>
+    }
     @default {
       <p class="text-muted-foreground">Block not found.</p>
     }
