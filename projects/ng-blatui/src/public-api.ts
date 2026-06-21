@@ -169,3 +169,6 @@ export * from './lib/map/map';
 export * from './lib/gantt/gantt';
 export * from './lib/scheduler/scheduler';
 export * from './lib/kanban/kanban';
+export * from './lib/rich-text-editor/rich-text-editor';
+export * from './lib/sidebar/sidebar';
+export * from './lib/onboarding-tour/onboarding-tour';

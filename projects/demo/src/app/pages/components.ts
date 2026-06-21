@@ -158,6 +158,7 @@ import {
   BuiNotificationCenter,
   BuiNumberInput,
   BuiNumberTicker,
+  BuiOnboardingTour,
   BuiOrgChart,
   BuiPageHeader,
   BuiPagination,
@@ -185,6 +186,7 @@ import {
   BuiResizableHandle,
   BuiResizablePanel,
   BuiResizablePanelGroup,
+  BuiRichTextEditor,
   BuiScheduler,
   BuiScrollArea,
   BuiScrollspy,
@@ -192,6 +194,8 @@ import {
   BuiSelect,
   BuiSeparator,
   BuiSheet,
+  BuiSidebar,
+  BuiSidebarMenuButton,
   BuiSignaturePad,
   BuiSkeleton,
   BuiSlider,
@@ -456,6 +460,12 @@ const META: Record<string, { title: string; description: string }> = {
   gantt: { title: 'Gantt', description: 'A timeline of task bars over a date range.' },
   scheduler: { title: 'Scheduler', description: 'A week/day calendar of events.' },
   kanban: { title: 'Kanban', description: 'A drag-and-drop board of cards.' },
+  'rich-text-editor': {
+    title: 'Rich text editor',
+    description: 'A contenteditable editor with a toolbar.',
+  },
+  sidebar: { title: 'Sidebar', description: 'A collapsible navigation sidebar.' },
+  'onboarding-tour': { title: 'Onboarding tour', description: 'A guided spotlight product tour.' },
 };
 
 @Component({
@@ -700,6 +710,10 @@ const META: Record<string, { title: string; description: string }> = {
     BuiGantt,
     BuiScheduler,
     BuiKanban,
+    BuiRichTextEditor,
+    BuiSidebar,
+    BuiSidebarMenuButton,
+    BuiOnboardingTour,
   ],
   templateUrl: './components.html',
 })
@@ -725,6 +739,13 @@ export class ComponentPage {
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
   protected readonly view = signal('list');
+  protected readonly rteValue = signal('<p>Edit <strong>me</strong> — try the toolbar.</p>');
+  protected readonly sidebarOpen = signal(true);
+  protected readonly tourOpen = signal(false);
+  protected readonly tourSteps = [
+    { target: '#tour-1', title: 'Search', body: 'Find anything fast from here.' },
+    { target: '#tour-2', title: 'Create', body: 'Add a new item with one click.' },
+  ];
   protected readonly ganttTasks = [
     { name: 'Research', start: '2026-01-01', end: '2026-01-06', progress: 100 },
     {
@@ -1661,5 +1682,17 @@ this.toaster.show({ title: 'Saved', tone: 'success' });`,
     kanban: `import { BuiKanban } from 'ng-blatui';
 
 <bui-kanban [columns]="columns" (changed)="save($event)" />`,
+    richTextEditor: `import { BuiRichTextEditor } from 'ng-blatui';
+
+<bui-rich-text-editor [(value)]="html" />`,
+    sidebar: `import { BuiSidebar, BuiSidebarMenuButton } from 'ng-blatui';
+
+<bui-sidebar [(open)]="open">
+  <a buiSidebarMenuButton [isActive]="true" href="#">Dashboard</a>
+</bui-sidebar>`,
+    onboardingTour: `import { BuiOnboardingTour } from 'ng-blatui';
+
+<button (click)="open.set(true)">Start tour</button>
+<bui-onboarding-tour [(open)]="open" [steps]="steps" />`,
   };
 }

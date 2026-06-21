@@ -164,6 +164,9 @@ const COMPONENTS = [
   'gantt',
   'scheduler',
   'kanban',
+  'rich-text-editor',
+  'sidebar',
+  'onboarding-tour',
 ];
 
 @Component({

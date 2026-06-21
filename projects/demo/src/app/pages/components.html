@@ -1317,6 +1317,39 @@
         <bui-kanban class="w-full" [columns]="kanbanColumns" />
       </app-example>
     }
+    @case ('rich-text-editor') {
+      <app-example [code]="code.richTextEditor">
+        <bui-rich-text-editor class="w-full max-w-lg" [(value)]="rteValue" />
+      </app-example>
+    }
+    @case ('sidebar') {
+      <app-example [code]="code.sidebar">
+        <div class="flex h-64 w-full max-w-lg overflow-hidden rounded-lg border">
+          <bui-sidebar [(open)]="sidebarOpen">
+            <a buiSidebarMenuButton [isActive]="true" href="#">Dashboard</a>
+            <a buiSidebarMenuButton href="#">Projects</a>
+            <a buiSidebarMenuButton href="#">Settings</a>
+          </bui-sidebar>
+          <div class="flex-1 p-4">
+            <button buiButton variant="outline" size="sm" (click)="sidebarOpen.set(!sidebarOpen())">
+              Toggle sidebar
+            </button>
+          </div>
+        </div>
+      </app-example>
+    }
+    @case ('onboarding-tour') {
+      <app-example [code]="code.onboardingTour">
+        <div class="w-full max-w-lg space-y-3">
+          <div class="flex items-center justify-between">
+            <button id="tour-1" buiButton variant="outline">Search</button>
+            <button id="tour-2" buiButton variant="outline">Create</button>
+          </div>
+          <button buiButton (click)="tourOpen.set(true)">Start tour</button>
+        </div>
+        <bui-onboarding-tour [(open)]="tourOpen" [steps]="tourSteps" />
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }
