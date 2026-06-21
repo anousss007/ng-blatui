@@ -15,7 +15,7 @@ interface NavGroup {
   readonly links: readonly NavLink[];
 }
 
-const COMPONENTS = [
+export const COMPONENTS = [
   'button',
   'badge',
   'card',

@@ -16,7 +16,11 @@ export const routes: Routes = [
     loadComponent: async () => (await import('./pages/theming')).Theming,
     title: 'Theming · ng-blatui',
   },
-  { path: 'components', redirectTo: 'components/button', pathMatch: 'full' },
+  {
+    path: 'components',
+    loadComponent: async () => (await import('./pages/components-index')).ComponentsIndex,
+    title: 'Components · ng-blatui',
+  },
   {
     path: 'components/:slug',
     loadComponent: async () => (await import('./pages/components')).ComponentPage,
