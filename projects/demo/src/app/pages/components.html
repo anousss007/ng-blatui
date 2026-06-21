@@ -7731,6 +7731,19 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.calendarWeekends">
         <bui-calendar class="border" [(value)]="calDate" [disableWeekends]="true" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Week numbers</h2>
+      <app-example [code]="code.calendarWeekNumbers">
+        <bui-calendar class="border" [(value)]="calDate" [showWeekNumbers]="true" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Outline days</h2>
+      <app-example [code]="code.calendarOutline">
+        <bui-calendar
+          class="border [&_tbody_button]:border [&_tbody_button]:border-border/60"
+          [(value)]="calDate"
+        />
+      </app-example>
     }
     @case ('date-picker') {
       <app-example [code]="code.datePicker">

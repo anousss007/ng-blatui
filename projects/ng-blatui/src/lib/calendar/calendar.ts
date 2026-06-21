@@ -68,6 +68,9 @@ function isoOf(date: Date): string {
     <table role="grid" class="w-full border-collapse">
       <thead>
         <tr>
+          @if (showWeekNumbers()) {
+            <th scope="col" class="size-9 text-xs font-normal text-muted-foreground">#</th>
+          }
           @for (weekday of weekdays(); track weekday) {
             <th scope="col" class="size-9 text-xs font-normal text-muted-foreground">
               {{ weekday }}
@@ -78,6 +81,11 @@ function isoOf(date: Date): string {
       <tbody>
         @for (week of weeks(); track $index) {
           <tr>
+            @if (showWeekNumbers()) {
+              <td class="size-9 text-center text-xs text-muted-foreground/70 tabular-nums">
+                {{ weekNum(week[0].iso) }}
+              </td>
+            }
             @for (day of week; track day.iso) {
               <td class="p-0 text-center">
                 <button
@@ -108,6 +116,8 @@ export class BuiCalendar {
   readonly disabledDates = input<readonly string[]>([]);
   /** Disable Saturdays and Sundays. */
   readonly disableWeekends = input(false);
+  /** Show an ISO week-number column on the left. */
+  readonly showWeekNumbers = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
   private readonly view = signal(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
@@ -141,6 +151,15 @@ export class BuiCalendar {
   protected readonly computedClass = computed(() =>
     cn('inline-block rounded-lg bg-card p-3', this.userClass()),
   );
+
+  protected weekNum(iso: string): number {
+    const [year, month, day] = iso.split('-').map(Number);
+    const date = new Date(Date.UTC(year, month - 1, day));
+    const dayNumber = (date.getUTCDay() + 6) % 7;
+    date.setUTCDate(date.getUTCDate() - dayNumber + 3);
+    const firstThursday = new Date(Date.UTC(date.getUTCFullYear(), 0, 4));
+    return 1 + Math.round((date.getTime() - firstThursday.getTime()) / (7 * 24 * 3600 * 1000));
+  }
 
   protected changeMonth(delta: number): void {
     const view = this.view();

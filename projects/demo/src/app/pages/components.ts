@@ -2939,6 +2939,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     calendarDisabledDates: `<!-- disable specific ISO dates -->
 <bui-calendar [(value)]="date" [disabledDates]="['2026-06-10', '2026-06-16']" />`,
     calendarWeekends: `<bui-calendar [(value)]="date" [disableWeekends]="true" />`,
+    calendarWeekNumbers: `<bui-calendar [(value)]="date" [showWeekNumbers]="true" />`,
+    calendarOutline: `<!-- outline each day cell via an arbitrary child selector -->
+<bui-calendar class="[&_tbody_button]:border [&_tbody_button]:border-border/60" [(value)]="date" />`,
     datePicker: `import { BuiDatePicker } from 'ng-blatui';
 
 <bui-date-picker [(value)]="date" />`,
