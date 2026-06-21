@@ -5819,6 +5819,62 @@ This content is read-only and cannot be edited.</textarea
           placeholder="Select a timezone"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.selectSizes">
+        <div class="flex flex-col gap-3">
+          <bui-select
+            class="max-w-xs [&>button]:h-8 [&>button]:text-xs"
+            [options]="fruits"
+            placeholder="Small"
+          />
+          <bui-select class="max-w-xs" [options]="fruits" placeholder="Default" />
+          <bui-select class="max-w-xs [&>button]:h-11" [options]="fruits" placeholder="Large" />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Options array</h2>
+      <app-example [code]="code.selectOptionsArray">
+        <bui-select
+          class="max-w-xs"
+          [(value)]="timezone"
+          [options]="timezones"
+          placeholder="Timezone"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Branded</h2>
+      <app-example [code]="code.selectBranded">
+        <bui-select
+          class="max-w-xs [&>button]:border-primary [&>button]:text-primary [&>button]:ring-primary/20"
+          [options]="fruits"
+          placeholder="Branded trigger"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Native</h2>
+      <app-example [code]="code.selectNative">
+        <select
+          aria-label="Fruit"
+          class="h-9 max-w-xs rounded-md border border-input bg-transparent px-3 text-sm"
+        >
+          <option>Apple</option>
+          <option>Banana</option>
+          <option>Cherry</option>
+        </select>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Utility class</h2>
+      <app-example [code]="code.selectUtility">
+        <select
+          aria-label="Plan"
+          class="h-9 max-w-xs rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+        >
+          <option>Free</option>
+          <option>Pro</option>
+          <option>Enterprise</option>
+        </select>
+      </app-example>
     }
     @case ('combobox') {
       <app-example [code]="code.combobox">

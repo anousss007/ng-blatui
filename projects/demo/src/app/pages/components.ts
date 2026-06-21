@@ -2311,6 +2311,17 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     selectDisabled: `<bui-select [options]="fruits" [disabled]="true" placeholder="Disabled" />`,
     selectScrollable: `<!-- long lists scroll inside the popover -->
 <bui-select [(value)]="timezone" [options]="timezones" placeholder="Select a timezone" />`,
+    selectSizes: `<!-- size the trigger via an arbitrary child selector -->
+<bui-select class="[&>button]:h-8 [&>button]:text-xs" [options]="opts" placeholder="Small" />
+<bui-select class="[&>button]:h-11" [options]="opts" placeholder="Large" />`,
+    selectOptionsArray: `<bui-select [(value)]="tz" [options]="timezones" placeholder="Timezone" />
+// timezones = [{ value: 'utc', label: 'UTC' }, …]`,
+    selectBranded: `<bui-select class="[&>button]:border-primary [&>button]:text-primary" [options]="opts" />`,
+    selectNative: `<select aria-label="Fruit" class="h-9 rounded-md border border-input bg-transparent px-3 text-sm">
+  <option>Apple</option><option>Banana</option>
+</select>`,
+    selectUtility: `<!-- a native select styled entirely with utility classes -->
+<select aria-label="Plan" class="h-9 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50">…</select>`,
     combobox: `import { BuiCombobox } from 'ng-blatui';
 
 <bui-combobox [(value)]="framework" [options]="frameworks" />
