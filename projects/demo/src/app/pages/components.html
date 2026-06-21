@@ -3279,6 +3279,19 @@ This content is read-only and cannot be edited.</textarea
           </p>
         </bui-scroll-area>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Horizontal</h2>
+      <app-example [code]="code.scrollAreaHorizontal">
+        <bui-scroll-area class="w-80 rounded-md border whitespace-nowrap">
+          <div class="flex gap-3 p-4">
+            @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
+              <div class="grid size-28 shrink-0 place-items-center rounded-md bg-muted text-sm">
+                Tile {{ i }}
+              </div>
+            }
+          </div>
+        </bui-scroll-area>
+      </app-example>
     }
     @case ('input-group') {
       <app-example [code]="code.inputGroup">
@@ -3293,31 +3306,60 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('meter') {
       <app-example [code]="code.meter">
-        <div class="w-full max-w-xs space-y-3">
-          <bui-meter [value]="72" label="CPU usage" />
-          <bui-meter [value]="40" tone="good" label="Storage" />
-          <bui-meter [value]="85" tone="warning" label="Memory" />
-          <bui-meter [value]="95" tone="danger" label="Quota" />
+        <bui-meter class="w-full max-w-sm" [value]="72" label="Storage" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">No label</h2>
+      <app-example [code]="code.meterNoLabel">
+        <bui-meter
+          class="w-full max-w-sm"
+          [value]="58"
+          [showValue]="false"
+          ariaLabel="Battery level"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Tones</h2>
+      <app-example [code]="code.meterTones">
+        <div class="flex w-full max-w-sm flex-col gap-4">
+          <bui-meter [value]="32" label="Disk usage" tone="good" />
+          <bui-meter [value]="78" label="Memory" tone="warning" />
+          <bui-meter [value]="94" label="Quota" tone="danger" />
         </div>
       </app-example>
     }
     @case ('stat') {
       <app-example [code]="code.stat">
-        <div class="grid w-full max-w-md grid-cols-2 gap-4">
+        <bui-stat class="max-w-xs" label="Total Revenue" value="$45,231.89" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With trend</h2>
+      <app-example [code]="code.statTrend">
+        <div class="grid w-full max-w-md gap-4 sm:grid-cols-2">
           <bui-stat
-            label="Revenue"
-            value="$12,000"
-            change="+12%"
+            label="New Customers"
+            value="1,204"
+            change="+12.5%"
             trend="up"
             caption="vs last month"
           />
           <bui-stat
-            label="Churn"
+            label="Churn rate"
             value="2.4%"
             change="-0.5%"
             trend="down"
             caption="vs last month"
           />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Grid</h2>
+      <app-example [code]="code.statGrid">
+        <div class="grid w-full gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <bui-stat label="Revenue" value="$45.2k" change="+12.5%" trend="up" />
+          <bui-stat label="Users" value="2,340" change="+4.1%" trend="up" />
+          <bui-stat label="Orders" value="1,210" change="-2.0%" trend="down" />
+          <bui-stat label="Refunds" value="34" change="-8.0%" trend="down" />
         </div>
       </app-example>
     }
@@ -3397,16 +3439,57 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('rating') {
       <app-example [code]="code.rating">
-        <div class="space-y-3">
-          <bui-rating [(value)]="score" [max]="5" ariaLabel="Rate this" />
-          <bui-rating [value]="3" [readonly]="true" ariaLabel="3 of 5" />
-          <bui-rating [value]="4" size="lg" color="text-rose-500" ariaLabel="4 of 5" />
+        <bui-rating [(value)]="score" [max]="5" ariaLabel="Rate this" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Readonly</h2>
+      <app-example [code]="code.ratingReadonly">
+        <div class="flex items-center gap-2">
+          <bui-rating [value]="4" [readonly]="true" ariaLabel="4 of 5" />
+          <span class="text-sm text-muted-foreground">4.0 out of 5</span>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.ratingSizes">
+        <div class="flex flex-col items-start gap-3">
+          <bui-rating [value]="3" size="sm" ariaLabel="Small" />
+          <bui-rating [value]="3" ariaLabel="Default" />
+          <bui-rating [value]="3" size="lg" ariaLabel="Large" />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Colors</h2>
+      <app-example [code]="code.ratingColors">
+        <div class="flex flex-col gap-3">
+          <bui-rating [value]="4" color="text-rose-500" ariaLabel="Rose" />
+          <bui-rating [value]="4" color="text-amber-500" ariaLabel="Amber" />
+          <bui-rating [value]="4" color="text-sky-500" ariaLabel="Sky" />
         </div>
       </app-example>
     }
     @case ('quantity-selector') {
       <app-example [code]="code.quantitySelector">
-        <bui-quantity-selector [(value)]="qty" [min]="1" [max]="10" />
+        <bui-quantity-selector [(value)]="qty" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With min/max</h2>
+      <app-example [code]="code.quantityMax">
+        <bui-quantity-selector [value]="2" [min]="1" [max]="10" ariaLabel="Quantity" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.quantitySizes">
+        <div class="flex flex-wrap items-center gap-4">
+          <bui-quantity-selector [value]="1" size="sm" ariaLabel="Small" />
+          <bui-quantity-selector [value]="1" ariaLabel="Default" />
+          <bui-quantity-selector [value]="1" size="lg" ariaLabel="Large" />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.quantityDisabled">
+        <bui-quantity-selector [value]="3" [disabled]="true" ariaLabel="Disabled" />
       </app-example>
     }
     @case ('alert-dialog') {
@@ -3542,6 +3625,15 @@ This content is read-only and cannot be edited.</textarea
     @case ('segmented-control') {
       <app-example [code]="code.segmentedControl">
         <bui-segmented-control [(value)]="view" [options]="['list', 'grid', 'board']" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.segmentedDisabled">
+        <bui-segmented-control
+          [value]="'grid'"
+          [options]="['list', 'grid', 'board']"
+          [disabled]="true"
+        />
       </app-example>
     }
     @case ('dot-pattern') {
@@ -3797,11 +3889,22 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('number-input') {
       <app-example [code]="code.numberInput">
-        <div class="flex flex-wrap items-center gap-3">
-          <bui-number-input [(value)]="qty" [min]="0" [max]="10" ariaLabel="Quantity" />
-          <bui-number-input [value]="50" [step]="5" ariaLabel="Step of 5" />
-          <bui-number-input [value]="3" [disabled]="true" ariaLabel="Disabled" />
-        </div>
+        <bui-number-input class="w-40" [(value)]="qty" ariaLabel="Quantity" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Min / max</h2>
+      <app-example [code]="code.numberInputMinMax">
+        <bui-number-input class="w-40" [value]="2" [min]="1" [max]="10" ariaLabel="Guests" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Step</h2>
+      <app-example [code]="code.numberInputStep">
+        <bui-number-input class="w-40" [value]="50" [step]="5" ariaLabel="Step of 5" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.numberInputDisabled">
+        <bui-number-input class="w-40" [value]="3" [disabled]="true" ariaLabel="Disabled" />
       </app-example>
     }
     @case ('variant-selector') {
@@ -3945,6 +4048,33 @@ This content is read-only and cannot be edited.</textarea
           <button buiToggleGroupItem value="left">Left</button>
           <button buiToggleGroupItem value="center">Center</button>
           <button buiToggleGroupItem value="right">Right</button>
+        </bui-toggle-group>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Multiple</h2>
+      <app-example [code]="code.toggleGroupMultiple">
+        <bui-toggle-group type="multiple" [(value)]="toggleStyles">
+          <button buiToggleGroupItem value="bold"><span class="font-bold">B</span></button>
+          <button buiToggleGroupItem value="italic"><span class="italic">I</span></button>
+          <button buiToggleGroupItem value="underline"><span class="underline">U</span></button>
+        </bui-toggle-group>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Vertical</h2>
+      <app-example [code]="code.toggleGroupVertical">
+        <bui-toggle-group orientation="vertical" [(value)]="toggleAlign">
+          <button buiToggleGroupItem value="left">Left</button>
+          <button buiToggleGroupItem value="center">Center</button>
+          <button buiToggleGroupItem value="right">Right</button>
+        </bui-toggle-group>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.toggleGroupDisabled">
+        <bui-toggle-group [value]="'center'">
+          <button buiToggleGroupItem value="left" [disabled]="true">Left</button>
+          <button buiToggleGroupItem value="center" [disabled]="true">Center</button>
+          <button buiToggleGroupItem value="right" [disabled]="true">Right</button>
         </bui-toggle-group>
       </app-example>
     }

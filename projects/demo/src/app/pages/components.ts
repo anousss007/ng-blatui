@@ -955,6 +955,7 @@ export class ComponentPage {
   protected readonly phoneNumber = signal('');
   protected readonly phoneCountry = signal('US');
   protected readonly toggleAlign = signal<string | string[] | null>('center');
+  protected readonly toggleStyles = signal<string | string[] | null>(['bold']);
   protected readonly tagList = signal(['angular', 'signals']);
   protected readonly editName = signal('Ada Lovelace');
   protected readonly knobValue = signal(40);
@@ -1733,6 +1734,9 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 <bui-scroll-area class="h-40 rounded-md border p-4">
   <!-- long content -->
 </bui-scroll-area>`,
+    scrollAreaHorizontal: `<bui-scroll-area class="w-80 rounded-md border whitespace-nowrap">
+  <div class="flex gap-3 p-4">… tiles …</div>
+</bui-scroll-area>`,
     inputGroup: `import {
   BuiInputGroup, BuiInputGroupAddon, BuiInputGroupInput, BuiInputGroupButton,
 } from 'ng-blatui';
@@ -1746,13 +1750,21 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 </div>`,
     meter: `import { BuiMeter } from 'ng-blatui';
 
-<!-- tone="default | success | warning | danger" -->
-<bui-meter [value]="72" label="CPU usage" />
-<bui-meter [value]="85" tone="warning" label="Memory" />`,
+<bui-meter [value]="72" label="Storage" />`,
+    meterNoLabel: `<bui-meter [value]="58" [showValue]="false" ariaLabel="Battery level" />`,
+    meterTones: `<!-- tone="good | warning | danger" -->
+<bui-meter [value]="32" label="Disk usage" tone="good" />
+<bui-meter [value]="78" label="Memory" tone="warning" />
+<bui-meter [value]="94" label="Quota" tone="danger" />`,
     stat: `import { BuiStat } from 'ng-blatui';
 
-<bui-stat label="Revenue" value="$12,000" change="+12%" trend="up" caption="vs last month" />
-<bui-stat label="Churn" value="2.4%" change="-0.5%" trend="down" />`,
+<bui-stat label="Total Revenue" value="$45,231.89" />`,
+    statTrend: `<bui-stat label="New Customers" value="1,204" change="+12.5%" trend="up" caption="vs last month" />
+<bui-stat label="Churn rate" value="2.4%" change="-0.5%" trend="down" />`,
+    statGrid: `<div class="grid gap-4 sm:grid-cols-4">
+  <bui-stat label="Revenue" value="$45.2k" change="+12.5%" trend="up" />
+  <bui-stat label="Users" value="2,340" change="+4.1%" trend="up" />
+</div>`,
     visuallyHidden: `import { BuiVisuallyHidden } from 'ng-blatui';
 
 <span buiVisuallyHidden>Screen-reader only text</span>`,
@@ -1778,12 +1790,20 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     sliderVertical: `<bui-slider class="h-40" orientation="vertical" [value]="40" ariaLabel="Volume" />`,
     rating: `import { BuiRating } from 'ng-blatui';
 
-<bui-rating [(value)]="score" [max]="5" ariaLabel="Rate" />
-<bui-rating [value]="3" [readonly]="true" ariaLabel="3 of 5" />
-<bui-rating [value]="4" size="lg" color="text-rose-500" ariaLabel="4" />`,
+<bui-rating [(value)]="score" [max]="5" ariaLabel="Rate" />`,
+    ratingReadonly: `<bui-rating [value]="4" [readonly]="true" ariaLabel="4 of 5" />`,
+    ratingSizes: `<bui-rating [value]="3" size="sm" ariaLabel="Small" />
+<bui-rating [value]="3" ariaLabel="Default" />
+<bui-rating [value]="3" size="lg" ariaLabel="Large" />`,
+    ratingColors: `<bui-rating [value]="4" color="text-rose-500" ariaLabel="Rose" />
+<bui-rating [value]="4" color="text-amber-500" ariaLabel="Amber" />`,
     quantitySelector: `import { BuiQuantitySelector } from 'ng-blatui';
 
-<bui-quantity-selector [(value)]="qty" [min]="1" [max]="10" />`,
+<bui-quantity-selector [(value)]="qty" />`,
+    quantityMax: `<bui-quantity-selector [value]="2" [min]="1" [max]="10" ariaLabel="Quantity" />`,
+    quantitySizes: `<bui-quantity-selector [value]="1" size="sm" ariaLabel="Small" />
+<bui-quantity-selector [value]="1" size="lg" ariaLabel="Large" />`,
+    quantityDisabled: `<bui-quantity-selector [value]="3" [disabled]="true" ariaLabel="Disabled" />`,
     alertDialog: `import { Dialog } from 'ng-blatui';
 
 open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
@@ -1846,6 +1866,7 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     segmentedControl: `import { BuiSegmentedControl } from 'ng-blatui';
 
 <bui-segmented-control [(value)]="view" [options]="['list', 'grid', 'board']" />`,
+    segmentedDisabled: `<bui-segmented-control [value]="'grid'" [options]="['list', 'grid', 'board']" [disabled]="true" />`,
     dotPattern: `import { BuiDotPattern } from 'ng-blatui';
 
 <div class="relative h-32 rounded-lg border">
@@ -1959,9 +1980,10 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-loading-overlay [show]="loading()">…content…</bui-loading-overlay>`,
     numberInput: `import { BuiNumberInput } from 'ng-blatui';
 
-<bui-number-input [(value)]="qty" [min]="0" [max]="10" />
-<bui-number-input [value]="50" [step]="5" />
-<bui-number-input [value]="3" [disabled]="true" />`,
+<bui-number-input [(value)]="qty" ariaLabel="Quantity" />`,
+    numberInputMinMax: `<bui-number-input [value]="2" [min]="1" [max]="10" ariaLabel="Guests" />`,
+    numberInputStep: `<bui-number-input [value]="50" [step]="5" ariaLabel="Step of 5" />`,
+    numberInputDisabled: `<bui-number-input [value]="3" [disabled]="true" ariaLabel="Disabled" />`,
     variantSelector: `import { BuiVariantSelector } from 'ng-blatui';
 
 <bui-variant-selector [(value)]="size" [options]="['S','M','L']" />`,
@@ -2029,6 +2051,15 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
   <button buiToggleGroupItem value="left">Left</button>
   <button buiToggleGroupItem value="center">Center</button>
   <button buiToggleGroupItem value="right">Right</button>
+</bui-toggle-group>`,
+    toggleGroupMultiple: `<!-- type="multiple" → value is an array -->
+<bui-toggle-group type="multiple" [(value)]="styles">
+  <button buiToggleGroupItem value="bold">B</button>
+  <button buiToggleGroupItem value="italic">I</button>
+</bui-toggle-group>`,
+    toggleGroupVertical: `<bui-toggle-group orientation="vertical" [(value)]="align">…</bui-toggle-group>`,
+    toggleGroupDisabled: `<bui-toggle-group [value]="'center'">
+  <button buiToggleGroupItem value="left" [disabled]="true">Left</button>
 </bui-toggle-group>`,
     tagsInput: `import { BuiTagsInput } from 'ng-blatui';
 
