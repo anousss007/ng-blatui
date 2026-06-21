@@ -39,6 +39,14 @@ export const TEMPLATES = [
   'cosmos',
   'prism',
   'lumen',
+  'atlas',
+  'bloom',
+  'brew',
+  'brut',
+  'forge',
+  'helix',
+  'mono',
+  'pulse',
 ];
 
 const META: Record<string, { title: string; description: string }> = {
@@ -60,6 +68,14 @@ const META: Record<string, { title: string; description: string }> = {
   cosmos: { title: 'Cosmos', description: 'A dark, spacious landing template.' },
   prism: { title: 'Prism', description: 'A feature-grid landing template.' },
   lumen: { title: 'Lumen', description: 'A minimal, light landing template.' },
+  atlas: { title: 'Atlas', description: 'A bold editorial landing template.' },
+  bloom: { title: 'Bloom', description: 'A soft, rounded landing template.' },
+  brew: { title: 'Brew', description: 'A warm, cozy landing template.' },
+  brut: { title: 'Brut', description: 'A brutalist, high-contrast template.' },
+  forge: { title: 'Forge', description: 'An industrial, slate landing template.' },
+  helix: { title: 'Helix', description: 'A tech, gradient-accent template.' },
+  mono: { title: 'Mono', description: 'A monochrome, typographic template.' },
+  pulse: { title: 'Pulse', description: 'An energetic, stat-led template.' },
 };
 
 /** Full-page BlatUI templates, composed from ng-blatui components. */
