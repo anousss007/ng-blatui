@@ -2162,6 +2162,399 @@ This content is read-only and cannot be edited.</textarea
           </div>
         </div>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Outline</h2>
+      <app-example [code]="code.accordionOutline">
+        <div
+          ngAccordionGroup
+          buiAccordion
+          class="flex w-full max-w-lg flex-col gap-2"
+          [multiExpandable]="false"
+        >
+          <div buiAccordionItem class="rounded-lg border bg-card px-4">
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="ao1">
+                Overview<svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #ao1="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">Each item is its own outlined card.</div></ng-template
+              >
+            </div>
+          </div>
+          <div buiAccordionItem class="rounded-lg border bg-card px-4">
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="ao2">
+                Details<svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #ao2="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">Borders wrap every panel.</div></ng-template
+              >
+            </div>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Filled header</h2>
+      <app-example [code]="code.accordionFilled">
+        <div
+          ngAccordionGroup
+          buiAccordion
+          class="flex w-full max-w-lg flex-col gap-2"
+          [multiExpandable]="false"
+        >
+          <div buiAccordionItem class="border-b-0">
+            <h3 class="flex">
+              <button
+                ngAccordionTrigger
+                buiAccordionTrigger
+                class="rounded-md bg-muted px-3 hover:no-underline"
+                [panel]="af1"
+              >
+                General<svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #af1="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="px-3 pb-4">The trigger sits on a filled header.</div></ng-template
+              >
+            </div>
+          </div>
+          <div buiAccordionItem class="border-b-0">
+            <h3 class="flex">
+              <button
+                ngAccordionTrigger
+                buiAccordionTrigger
+                class="rounded-md bg-muted px-3 hover:no-underline"
+                [panel]="af2"
+              >
+                Advanced<svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #af2="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="px-3 pb-4">Great for grouped settings.</div></ng-template
+              >
+            </div>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With avatar</h2>
+      <app-example [code]="code.accordionAvatar">
+        <div ngAccordionGroup buiAccordion class="w-full max-w-lg" [multiExpandable]="false">
+          <div buiAccordionItem>
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="aav1">
+                <span class="flex items-center gap-3">
+                  <span
+                    class="grid size-7 place-items-center rounded-full bg-primary text-xs font-medium text-primary-foreground"
+                    >JD</span
+                  >
+                  Jane Doe
+                </span>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #aav1="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">Product designer · joined 2024.</div></ng-template
+              >
+            </div>
+          </div>
+          <div buiAccordionItem>
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="aav2">
+                <span class="flex items-center gap-3">
+                  <span
+                    class="grid size-7 place-items-center rounded-full bg-emerald-500 text-xs font-medium text-white"
+                    >AL</span
+                  >
+                  Ada Lovelace
+                </span>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #aav2="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">Engineer · joined 2023.</div></ng-template
+              >
+            </div>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Icon + subtitle</h2>
+      <app-example [code]="code.accordionSubtitle">
+        <div ngAccordionGroup buiAccordion class="w-full max-w-lg" [multiExpandable]="false">
+          <div buiAccordionItem>
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="aic1">
+                <span class="flex flex-col items-start">
+                  <span>Notifications</span>
+                  <span class="text-xs font-normal text-muted-foreground"
+                    >Email & push preferences</span
+                  >
+                </span>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #aic1="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">Choose how we reach you.</div></ng-template
+              >
+            </div>
+          </div>
+          <div buiAccordionItem>
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="aic2">
+                <span class="flex flex-col items-start">
+                  <span>Billing</span>
+                  <span class="text-xs font-normal text-muted-foreground"
+                    >Plan & payment methods</span
+                  >
+                </span>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #aic2="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">Manage invoices and cards.</div></ng-template
+              >
+            </div>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Highlight active</h2>
+      <app-example [code]="code.accordionHighlight">
+        <div
+          ngAccordionGroup
+          buiAccordion
+          class="flex w-full max-w-lg flex-col gap-1"
+          [multiExpandable]="false"
+        >
+          <div
+            buiAccordionItem
+            class="rounded-lg border-b-0 px-4 transition-colors has-[button[aria-expanded=true]]:bg-accent"
+          >
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="ahl1">
+                Step one<svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #ahl1="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">The open item is highlighted.</div></ng-template
+              >
+            </div>
+          </div>
+          <div
+            buiAccordionItem
+            class="rounded-lg border-b-0 px-4 transition-colors has-[button[aria-expanded=true]]:bg-accent"
+          >
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="ahl2">
+                Step two<svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #ahl2="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">Uses a has-[] arbitrary variant.</div></ng-template
+              >
+            </div>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Bordered + icon</h2>
+      <app-example [code]="code.accordionBorderedIcon">
+        <div
+          ngAccordionGroup
+          buiAccordion
+          class="w-full max-w-lg divide-y rounded-lg border [&>*]:px-4"
+          [multiExpandable]="false"
+        >
+          <div buiAccordionItem>
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="abi1">
+                <span class="flex items-center gap-2">
+                  <svg
+                    class="size-4 text-muted-foreground"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 16v-4M12 8h.01" />
+                  </svg>
+                  Help
+                </span>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #abi1="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">Bordered group with leading icons.</div></ng-template
+              >
+            </div>
+          </div>
+          <div buiAccordionItem>
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="abi2">
+                <span class="flex items-center gap-2">
+                  <svg
+                    class="size-4 text-muted-foreground"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" />
+                  </svg>
+                  Security
+                </span>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #abi2="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">Two-factor and password.</div></ng-template
+              >
+            </div>
+          </div>
+        </div>
+      </app-example>
     }
     @case ('tabs') {
       <app-example [code]="code.tabs">

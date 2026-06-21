@@ -1512,6 +1512,33 @@ export class ComponentPage {
   <span class="flex items-center gap-2"><span class="inline-flex"><svg><!-- icon --></svg></span> Billing</span>
   <svg><!-- chevron (the trigger rotates the first >svg) --></svg>
 </button>`,
+    accordionOutline: `<!-- gap + a full border per item -->
+<div ngAccordionGroup buiAccordion class="flex flex-col gap-2">
+  <div buiAccordionItem class="bg-card rounded-lg border px-4">…</div>
+</div>`,
+    accordionFilled: `<!-- filled header: style the trigger -->
+<button ngAccordionTrigger buiAccordionTrigger class="bg-muted rounded-md px-3 hover:no-underline" [panel]="p1">
+  General <svg><!-- chevron --></svg>
+</button>`,
+    accordionAvatar: `<button ngAccordionTrigger buiAccordionTrigger [panel]="p1">
+  <span class="flex items-center gap-3"><span class="grid size-7 place-items-center rounded-full bg-primary text-xs">JD</span> Jane Doe</span>
+  <svg><!-- chevron --></svg>
+</button>`,
+    accordionSubtitle: `<button ngAccordionTrigger buiAccordionTrigger [panel]="p1">
+  <span class="flex flex-col items-start">
+    <span>Notifications</span>
+    <span class="text-muted-foreground text-xs font-normal">Email & push</span>
+  </span>
+  <svg><!-- chevron --></svg>
+</button>`,
+    accordionHighlight: `<!-- highlight the open item with a has-[] variant -->
+<div buiAccordionItem class="rounded-lg px-4 has-[button[aria-expanded=true]]:bg-accent">…</div>`,
+    accordionBorderedIcon: `<!-- bordered group + a leading icon per trigger -->
+<div ngAccordionGroup buiAccordion class="divide-y rounded-lg border [&>*]:px-4">
+  <button ngAccordionTrigger buiAccordionTrigger [panel]="p1">
+    <span class="flex items-center gap-2"><svg><!-- icon --></svg> Help</span><svg><!-- chevron --></svg>
+  </button>
+</div>`,
     tabs: `import {
   Tabs, TabList, Tab, TabPanel, TabContent,
   BuiTabs, BuiTabList, BuiTabTrigger, BuiTabPanel,
