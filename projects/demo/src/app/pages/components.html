@@ -2586,11 +2586,37 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('aspect-ratio') {
       <app-example [code]="code.aspectRatio">
-        <bui-aspect-ratio ratio="16 / 9" class="w-64">
-          <div class="flex h-full w-full items-center justify-center rounded-lg bg-muted text-sm">
+        <bui-aspect-ratio ratio="16 / 9" class="w-[28rem] max-w-full rounded-lg bg-muted">
+          <div class="flex h-full w-full items-center justify-center text-sm text-muted-foreground">
             16 / 9
           </div>
         </bui-aspect-ratio>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Image</h2>
+      <app-example [code]="code.aspectRatioImage">
+        <bui-aspect-ratio ratio="16 / 9" class="w-[28rem] max-w-full">
+          <img
+            src="https://images.unsplash.com/photo-1535025183041-0991a977e25b?w=800&q=80"
+            alt="Landscape"
+            class="size-full rounded-lg object-cover"
+          />
+        </bui-aspect-ratio>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Ratios</h2>
+      <app-example [code]="code.aspectRatioRatios">
+        <div class="grid w-full max-w-2xl grid-cols-2 gap-4 sm:grid-cols-4">
+          @for (r of ['1 / 1', '4 / 3', '16 / 9', '3 / 4']; track r) {
+            <bui-aspect-ratio [ratio]="r" class="rounded-lg bg-muted">
+              <div
+                class="flex h-full w-full items-center justify-center text-xs text-muted-foreground"
+              >
+                {{ r }}
+              </div>
+            </bui-aspect-ratio>
+          }
+        </div>
       </app-example>
     }
     @case ('collapsible') {
@@ -2740,10 +2766,82 @@ This content is read-only and cannot be edited.</textarea
     @case ('field') {
       <app-example [code]="code.field">
         <div buiField class="w-full max-w-sm">
-          <label buiFieldLabel for="field-email">Email</label>
-          <input id="field-email" buiInput type="email" placeholder="m&#64;example.com" />
-          <p buiFieldDescription>We'll never share it.</p>
+          <label buiFieldLabel for="field-username">Username</label>
+          <input id="field-username" buiInput type="text" placeholder="shadcn" />
+          <p buiFieldDescription>This is your public display name.</p>
         </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Horizontal</h2>
+      <app-example [code]="code.fieldHorizontal">
+        <div buiField orientation="horizontal" class="w-full max-w-sm">
+          <div buiFieldContent>
+            <label buiFieldLabel for="fh-notif">Email notifications</label>
+            <p buiFieldDescription>Receive emails about your account activity.</p>
+          </div>
+          <button buiSwitch aria-label="Email notifications"></button>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Checkbox</h2>
+      <app-example [code]="code.fieldCheckbox">
+        <div buiField orientation="horizontal" class="w-full max-w-sm">
+          <button
+            id="fc-terms"
+            buiCheckbox
+            aria-label="Accept terms and conditions"
+            class="mt-0.5"
+          ></button>
+          <div buiFieldContent>
+            <label buiFieldLabel for="fc-terms">Accept terms and conditions</label>
+            <p buiFieldDescription>You agree to our Terms of Service and Privacy Policy.</p>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Form</h2>
+      <app-example [code]="code.fieldForm">
+        <form class="w-full max-w-sm" (submit)="$event.preventDefault()">
+          <div buiFieldGroup>
+            <div buiField>
+              <label buiFieldLabel for="ff-name">Name</label>
+              <input id="ff-name" buiInput placeholder="Evil Rabbit" />
+            </div>
+            <div buiField>
+              <label buiFieldLabel for="ff-email">Email</label>
+              <input id="ff-email" buiInput type="email" placeholder="you@example.com" />
+              <p buiFieldDescription>We'll never share your email.</p>
+            </div>
+            <button buiButton type="submit">Submit</button>
+          </div>
+        </form>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Error</h2>
+      <app-example [code]="code.fieldError">
+        <div buiField class="w-full max-w-sm">
+          <label buiFieldLabel for="fe-email">Email</label>
+          <input id="fe-email" buiInput type="email" value="not-an-email" aria-invalid="true" />
+          <p buiFieldError>Please enter a valid email address.</p>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Fieldset</h2>
+      <app-example [code]="code.fieldSet">
+        <fieldset buiFieldSet class="w-full max-w-sm">
+          <legend buiFieldLegend>Profile</legend>
+          <p buiFieldDescription>Update your personal details.</p>
+          <div buiFieldGroup>
+            <div buiField>
+              <label buiFieldLabel for="fs-first">First name</label>
+              <input id="fs-first" buiInput placeholder="Evil" />
+            </div>
+            <div buiField>
+              <label buiFieldLabel for="fs-last">Last name</label>
+              <input id="fs-last" buiInput placeholder="Rabbit" />
+            </div>
+          </div>
+        </fieldset>
       </app-example>
     }
     @case ('container') {
@@ -2754,6 +2852,44 @@ This content is read-only and cannot be edited.</textarea
           class="rounded-lg border border-dashed py-4 text-center text-sm"
         >
           Centered, max-width container
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.containerSizes">
+        <div class="w-full space-y-3">
+          <div
+            buiContainer
+            size="sm"
+            class="rounded-lg border border-dashed py-3 text-center text-sm"
+          >
+            sm
+          </div>
+          <div
+            buiContainer
+            size="md"
+            class="rounded-lg border border-dashed py-3 text-center text-sm"
+          >
+            md
+          </div>
+          <div
+            buiContainer
+            size="lg"
+            class="rounded-lg border border-dashed py-3 text-center text-sm"
+          >
+            lg
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Prose</h2>
+      <app-example [code]="code.containerProse">
+        <div buiContainer size="sm" class="prose prose-sm dark:prose-invert">
+          <h3>Readable measure</h3>
+          <p class="text-sm text-muted-foreground">
+            A container caps line length for comfortable reading, centering content with responsive
+            padding.
+          </p>
         </div>
       </app-example>
     }
@@ -3003,15 +3139,131 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('item') {
       <app-example [code]="code.item">
-        <div buiItem variant="outline" class="w-full max-w-sm">
-          <div buiItemMedia variant="icon">★</div>
+        <div buiItem variant="outline" class="w-full max-w-md">
+          <div buiItemMedia variant="icon">
+            <svg
+              class="size-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M10.268 21a2 2 0 0 0 3.464 0M22 8c0-2.3-.8-4.3-2-6" />
+              <path
+                d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"
+              />
+            </svg>
+          </div>
           <div buiItemContent>
             <div buiItemTitle>Notifications</div>
-            <p buiItemDescription>Configure how you receive alerts.</p>
+            <p buiItemDescription>You have 3 unread messages.</p>
+          </div>
+          <div buiItemActions><button buiButton variant="outline" size="sm">View</button></div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Variants</h2>
+      <app-example [code]="code.itemVariants">
+        <div class="flex w-full max-w-md flex-col gap-3">
+          <div buiItem variant="default">
+            <div buiItemMedia variant="icon">★</div>
+            <div buiItemContent>
+              <div buiItemTitle>Default</div>
+              <p buiItemDescription>A transparent item with no border.</p>
+            </div>
+          </div>
+          <div buiItem variant="outline">
+            <div buiItemMedia variant="icon">★</div>
+            <div buiItemContent>
+              <div buiItemTitle>Outline</div>
+              <p buiItemDescription>A bordered, rounded item.</p>
+            </div>
+          </div>
+          <div buiItem variant="muted">
+            <div buiItemMedia variant="icon">★</div>
+            <div buiItemContent>
+              <div buiItemTitle>Muted</div>
+              <p buiItemDescription>A filled, muted background item.</p>
+            </div>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Group</h2>
+      <app-example [code]="code.itemGroup">
+        <div buiItemGroup class="w-full max-w-md divide-y rounded-lg border">
+          <div buiItem>
+            <bui-avatar class="text-xs">SC</bui-avatar>
+            <div buiItemContent>
+              <div buiItemTitle>Sofia Carter</div>
+              <p buiItemDescription>sofia&#64;example.com</p>
+            </div>
+            <div buiItemActions><button buiButton variant="ghost" size="sm">Invite</button></div>
+          </div>
+          <div buiItem>
+            <bui-avatar class="text-xs">JD</bui-avatar>
+            <div buiItemContent>
+              <div buiItemTitle>Jackson Doe</div>
+              <p buiItemDescription>jackson&#64;example.com</p>
+            </div>
+            <div buiItemActions><button buiButton variant="ghost" size="sm">Invite</button></div>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With switch</h2>
+      <app-example [code]="code.itemSwitch">
+        <div buiItem variant="outline" class="w-full max-w-md">
+          <div buiItemContent>
+            <div buiItemTitle>Push notifications</div>
+            <p buiItemDescription>Receive push notifications on this device.</p>
           </div>
           <div buiItemActions>
-            <button buiButton variant="ghost" size="sm">Edit</button>
+            <button buiSwitch [checked]="true" aria-label="Push notifications"></button>
           </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Link</h2>
+      <app-example [code]="code.itemLink">
+        <div buiItemGroup class="w-full max-w-md divide-y rounded-lg border">
+          <a buiItem href="#" class="transition-colors hover:bg-accent">
+            <div buiItemContent><div buiItemTitle>Account</div></div>
+            <div buiItemActions>
+              <svg
+                class="size-4 text-muted-foreground"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </div>
+          </a>
+          <a buiItem href="#" class="transition-colors hover:bg-accent">
+            <div buiItemContent><div buiItemTitle>Billing</div></div>
+            <div buiItemActions>
+              <svg
+                class="size-4 text-muted-foreground"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </div>
+          </a>
         </div>
       </app-example>
     }

@@ -109,8 +109,13 @@ import {
   BuiEmptyMedia,
   BuiEmptyTitle,
   BuiField,
+  BuiFieldContent,
   BuiFieldDescription,
+  BuiFieldError,
+  BuiFieldGroup,
   BuiFieldLabel,
+  BuiFieldLegend,
+  BuiFieldSet,
   BuiFileUpload,
   BuiFlipCard,
   BuiGallery,
@@ -134,6 +139,7 @@ import {
   BuiItemActions,
   BuiItemContent,
   BuiItemDescription,
+  BuiItemGroup,
   BuiItemMedia,
   BuiItemTitle,
   BuiJsonViewer,
@@ -540,8 +546,13 @@ const META: Record<string, { title: string; description: string }> = {
     BuiEmptyMedia,
     BuiEmptyTitle,
     BuiField,
+    BuiFieldContent,
     BuiFieldDescription,
+    BuiFieldError,
+    BuiFieldGroup,
     BuiFieldLabel,
+    BuiFieldLegend,
+    BuiFieldSet,
     BuiBanner,
     BuiCopyButton,
     BuiSpinner,
@@ -564,6 +575,7 @@ const META: Record<string, { title: string; description: string }> = {
     BuiItem,
     BuiItemActions,
     BuiItemContent,
+    BuiItemGroup,
     BuiItemDescription,
     BuiItemMedia,
     BuiItemTitle,
@@ -1497,9 +1509,15 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 </div>`,
     aspectRatio: `import { BuiAspectRatio } from 'ng-blatui';
 
-<bui-aspect-ratio ratio="16 / 9">
-  <img src="/cover.jpg" alt="" class="h-full w-full rounded-lg object-cover" />
+<bui-aspect-ratio ratio="16 / 9" class="bg-muted rounded-lg">
+  <div class="flex h-full w-full items-center justify-center">16 / 9</div>
 </bui-aspect-ratio>`,
+    aspectRatioImage: `<bui-aspect-ratio ratio="16 / 9">
+  <img src="/cover.jpg" alt="" class="size-full rounded-lg object-cover" />
+</bui-aspect-ratio>`,
+    aspectRatioRatios: `@for (r of ['1 / 1', '4 / 3', '16 / 9', '3 / 4']; track r) {
+  <bui-aspect-ratio [ratio]="r" class="bg-muted rounded-lg">{{ r }}</bui-aspect-ratio>
+}`,
     buttonGroup: `import { BuiButtonGroup, BuiButtonGroupText, BuiButton } from 'ng-blatui';
 
 <div buiButtonGroup>
@@ -1565,13 +1583,50 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     field: `import { BuiField, BuiFieldLabel, BuiFieldDescription } from 'ng-blatui';
 
 <div buiField>
-  <label buiFieldLabel for="email">Email</label>
-  <input id="email" buiInput type="email" />
-  <p buiFieldDescription>We'll never share it.</p>
+  <label buiFieldLabel for="username">Username</label>
+  <input id="username" buiInput type="text" placeholder="shadcn" />
+  <p buiFieldDescription>This is your public display name.</p>
 </div>`,
+    fieldHorizontal: `<div buiField orientation="horizontal">
+  <div buiFieldContent>
+    <label buiFieldLabel>Email notifications</label>
+    <p buiFieldDescription>Receive emails about your account activity.</p>
+  </div>
+  <button buiSwitch aria-label="Email notifications"></button>
+</div>`,
+    fieldCheckbox: `<div buiField orientation="horizontal">
+  <button buiCheckbox aria-label="Accept terms"></button>
+  <div buiFieldContent>
+    <label buiFieldLabel>Accept terms and conditions</label>
+    <p buiFieldDescription>You agree to our Terms of Service.</p>
+  </div>
+</div>`,
+    fieldForm: `<div buiFieldGroup>
+  <div buiField>
+    <label buiFieldLabel for="name">Name</label>
+    <input id="name" buiInput />
+  </div>
+  <button buiButton type="submit">Submit</button>
+</div>`,
+    fieldError: `<div buiField>
+  <label buiFieldLabel for="email">Email</label>
+  <input id="email" buiInput value="not-an-email" aria-invalid="true" />
+  <p buiFieldError>Please enter a valid email address.</p>
+</div>`,
+    fieldSet: `<fieldset buiFieldSet>
+  <legend buiFieldLegend>Profile</legend>
+  <div buiFieldGroup>… fields …</div>
+</fieldset>`,
     container: `import { BuiContainer } from 'ng-blatui';
 
 <div buiContainer size="md"><!-- page content --></div>`,
+    containerSizes: `<div buiContainer size="sm">sm</div>
+<div buiContainer size="md">md</div>
+<div buiContainer size="lg">lg</div>`,
+    containerProse: `<div buiContainer size="sm" class="prose dark:prose-invert">
+  <h3>Readable measure</h3>
+  <p>Caps line length for comfortable reading.</p>
+</div>`,
     toggle: `import { BuiToggle } from 'ng-blatui';
 
 <button buiToggle aria-label="Toggle bold"><svg><!-- bold --></svg></button>`,
@@ -1645,16 +1700,33 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
   </div>
 </ng-template>`,
     item: `import {
-  BuiItem, BuiItemMedia, BuiItemContent, BuiItemTitle, BuiItemDescription, BuiItemActions,
+  BuiItem, BuiItemMedia, BuiItemContent, BuiItemTitle, BuiItemDescription, BuiItemActions, BuiItemGroup,
 } from 'ng-blatui';
 
 <div buiItem variant="outline">
-  <div buiItemMedia variant="icon">★</div>
+  <div buiItemMedia variant="icon"><svg><!-- bell --></svg></div>
   <div buiItemContent>
     <div buiItemTitle>Notifications</div>
-    <p buiItemDescription>Configure how you receive alerts.</p>
+    <p buiItemDescription>You have 3 unread messages.</p>
   </div>
-  <div buiItemActions><button buiButton variant="ghost" size="sm">Edit</button></div>
+  <div buiItemActions><button buiButton variant="outline" size="sm">View</button></div>
+</div>`,
+    itemVariants: `<div buiItem variant="default">…</div>
+<div buiItem variant="outline">…</div>
+<div buiItem variant="muted">…</div>`,
+    itemGroup: `<div buiItemGroup class="divide-y rounded-lg border">
+  <div buiItem>… member row …</div>
+  <div buiItem>… member row …</div>
+</div>`,
+    itemSwitch: `<div buiItem variant="outline">
+  <div buiItemContent><div buiItemTitle>Push notifications</div></div>
+  <div buiItemActions><button buiSwitch [checked]="true" aria-label="Push"></button></div>
+</div>`,
+    itemLink: `<div buiItemGroup class="divide-y rounded-lg border">
+  <a buiItem href="/account" class="hover:bg-accent">
+    <div buiItemContent><div buiItemTitle>Account</div></div>
+    <div buiItemActions><svg><!-- chevron --></svg></div>
+  </a>
 </div>`,
     scrollArea: `import { BuiScrollArea } from 'ng-blatui';
 
