@@ -133,6 +133,9 @@ const COMPONENTS = [
   'signature-pad',
   'dock',
   'tree',
+  'repeater',
+  'notification-center',
+  'json-viewer',
 ];
 
 @Component({

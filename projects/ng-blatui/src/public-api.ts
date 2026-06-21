@@ -136,3 +136,7 @@ export * from './lib/dock/dock';
 export * from './lib/dock/dock-item';
 export * from './lib/tree/tree';
 export * from './lib/tree/tree-node';
+export * from './lib/repeater/repeater';
+export * from './lib/notification-center/notification-center';
+export * from './lib/json-viewer/json-viewer';
+export * from './lib/json-viewer/json-viewer-node';

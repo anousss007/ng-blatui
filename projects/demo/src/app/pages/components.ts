@@ -120,6 +120,7 @@ import {
   BuiItemDescription,
   BuiItemMedia,
   BuiItemTitle,
+  BuiJsonViewer,
   BuiKbd,
   BuiKbdGroup,
   BuiKnob,
@@ -132,6 +133,7 @@ import {
   BuiMenubarTrigger,
   BuiMeteors,
   BuiMeter,
+  BuiNotificationCenter,
   BuiNumberInput,
   BuiNumberTicker,
   BuiPageHeader,
@@ -156,6 +158,7 @@ import {
   BuiRadioGroupItem,
   BuiRating,
   BuiReasoning,
+  BuiRepeater,
   BuiResizableHandle,
   BuiResizablePanel,
   BuiResizablePanelGroup,
@@ -387,6 +390,9 @@ const META: Record<string, { title: string; description: string }> = {
   'signature-pad': { title: 'Signature pad', description: 'A canvas to draw a signature.' },
   dock: { title: 'Dock', description: 'A macOS-style magnifying dock.' },
   tree: { title: 'Tree', description: 'A collapsible hierarchical tree.' },
+  repeater: { title: 'Repeater', description: 'A dynamic list of form rows.' },
+  'notification-center': { title: 'Notification center', description: 'A bell + dropdown feed.' },
+  'json-viewer': { title: 'JSON viewer', description: 'A collapsible JSON tree.' },
 };
 
 @Component({
@@ -600,6 +606,9 @@ const META: Record<string, { title: string; description: string }> = {
     BuiDock,
     BuiDockItem,
     BuiTree,
+    BuiRepeater,
+    BuiNotificationCenter,
+    BuiJsonViewer,
   ],
   templateUrl: './components.html',
 })
@@ -625,6 +634,29 @@ export class ComponentPage {
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
   protected readonly view = signal('list');
+  protected readonly repeaterFields = [
+    { key: 'name', label: 'Name' },
+    { key: 'email', label: 'Email' },
+  ];
+  protected readonly repeaterRows = signal<Record<string, string>[]>([
+    { name: 'Ada Lovelace', email: 'ada@example.com' },
+  ]);
+  protected readonly notifItems = [
+    {
+      title: 'New comment on your post',
+      body: 'Grace replied to you.',
+      time: '2m ago',
+      read: false,
+    },
+    { title: 'Build succeeded', time: '1h ago', read: false },
+    { title: 'Weekly digest is ready', time: 'Yesterday', read: true },
+  ];
+  protected readonly jsonData = {
+    name: 'ng-blatui',
+    ssr: true,
+    components: ['button', 'select', 'tree'],
+    meta: { stars: 0, license: 'MIT' },
+  };
   protected readonly treeItems = [
     {
       label: 'src',
@@ -1282,5 +1314,15 @@ The sky is blue<bui-citation [index]="1" title="Rayleigh scattering" url="https:
 
 <bui-tree [items]="files" />
 // files = [{ label: 'src', expanded: true, children: [...] }]`,
+    repeater: `import { BuiRepeater } from 'ng-blatui';
+
+<bui-repeater [fields]="fields" [(rows)]="rows" />
+// fields = [{ key: 'name', label: 'Name' }, { key: 'email', label: 'Email' }]`,
+    notificationCenter: `import { BuiNotificationCenter } from 'ng-blatui';
+
+<bui-notification-center [notifications]="feed" />`,
+    jsonViewer: `import { BuiJsonViewer } from 'ng-blatui';
+
+<bui-json-viewer [data]="response" />`,
   };
 }
