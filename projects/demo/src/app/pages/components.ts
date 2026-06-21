@@ -1061,10 +1061,13 @@ export class ComponentPage {
     checkbox: `import { BuiCheckbox } from 'ng-blatui';
 
 <button buiCheckbox [(checked)]="accepted" aria-labelledby="t"></button>
-<span id="t">Accept terms</span>`,
+<button buiCheckbox [indeterminate]="true" aria-label="Select all"></button>
+<button buiCheckbox [checked]="true" [disabled]="true" aria-label="Done"></button>`,
     switch: `import { BuiSwitch } from 'ng-blatui';
 
-<button buiSwitch [(checked)]="enabled" aria-label="Notifications"></button>`,
+<button buiSwitch [(checked)]="enabled" aria-label="Notifications"></button>
+<button buiSwitch size="sm" [checked]="true" aria-label="Small"></button>
+<button buiSwitch [disabled]="true" aria-label="Disabled"></button>`,
     accordion: `import {
   AccordionGroup, AccordionTrigger, AccordionPanel, AccordionContent,
   BuiAccordion, BuiAccordionItem, BuiAccordionTrigger, BuiAccordionContent,
@@ -1274,7 +1277,9 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 <bui-code-block filename="app.ts" code="const x = 1;" />`,
     slider: `import { BuiSlider } from 'ng-blatui';
 
-<bui-slider [(value)]="volume" [min]="0" [max]="100" ariaLabel="Volume" />`,
+<bui-slider [(value)]="volume" [min]="0" [max]="100" ariaLabel="Volume" />
+<bui-slider [value]="40" [step]="10" ariaLabel="Steps" />
+<bui-slider [value]="60" [disabled]="true" ariaLabel="Disabled" />`,
     rating: `import { BuiRating } from 'ng-blatui';
 
 <bui-rating [(value)]="score" [max]="5" ariaLabel="Rate" />`,

@@ -146,18 +146,50 @@
     }
     @case ('checkbox') {
       <app-example [code]="code.checkbox">
-        <button buiCheckbox aria-labelledby="cb-lbl" [(checked)]="terms">
-          <span class="sr-only">Accept terms</span>
-        </button>
-        <span id="cb-lbl" class="text-sm">Accept terms and conditions</span>
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <button buiCheckbox aria-labelledby="cb1" [(checked)]="terms">
+              <span class="sr-only">Accept terms</span>
+            </button>
+            <span id="cb1" class="text-sm">Accept terms and conditions</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button buiCheckbox aria-labelledby="cb2" [indeterminate]="true">
+              <span class="sr-only">Select all</span>
+            </button>
+            <span id="cb2" class="text-sm">Indeterminate</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button buiCheckbox aria-labelledby="cb3" [checked]="true" [disabled]="true">
+              <span class="sr-only">Disabled</span>
+            </button>
+            <span id="cb3" class="text-sm text-muted-foreground">Checked &amp; disabled</span>
+          </div>
+        </div>
       </app-example>
     }
     @case ('switch') {
       <app-example [code]="code.switch">
-        <button buiSwitch aria-labelledby="sw-lbl" [(checked)]="notifications">
-          <span class="sr-only">Enable notifications</span>
-        </button>
-        <span id="sw-lbl" class="text-sm">Enable notifications</span>
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <button buiSwitch aria-labelledby="sw1" [(checked)]="notifications">
+              <span class="sr-only">Enable notifications</span>
+            </button>
+            <span id="sw1" class="text-sm">Enable notifications</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button buiSwitch size="sm" aria-labelledby="sw2" [checked]="true">
+              <span class="sr-only">Small switch</span>
+            </button>
+            <span id="sw2" class="text-sm">Small, on</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button buiSwitch aria-labelledby="sw3" [checked]="true" [disabled]="true">
+              <span class="sr-only">Disabled switch</span>
+            </button>
+            <span id="sw3" class="text-sm text-muted-foreground">Disabled</span>
+          </div>
+        </div>
       </app-example>
     }
     @case ('radio-group') {
@@ -469,7 +501,11 @@
     }
     @case ('slider') {
       <app-example [code]="code.slider">
-        <bui-slider class="max-w-xs" [(value)]="volume" [min]="0" [max]="100" ariaLabel="Volume" />
+        <div class="w-full max-w-xs space-y-5">
+          <bui-slider [(value)]="volume" [min]="0" [max]="100" ariaLabel="Volume" />
+          <bui-slider [value]="40" [min]="0" [max]="100" [step]="10" ariaLabel="Steps of 10" />
+          <bui-slider [value]="60" [disabled]="true" ariaLabel="Disabled" />
+        </div>
       </app-example>
     }
     @case ('rating') {
