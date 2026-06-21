@@ -4672,6 +4672,22 @@ This content is read-only and cannot be edited.</textarea
           <p class="text-sm">Dashboard content…</p>
         </bui-loading-overlay>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Toggle</h2>
+      <app-example [code]="code.loadingOverlayToggle">
+        <div class="space-y-3">
+          <button buiButton variant="outline" size="sm" (click)="loadingShow.set(!loadingShow())">
+            {{ loadingShow() ? 'Hide' : 'Show' }} overlay
+          </button>
+          <bui-loading-overlay
+            [show]="loadingShow()"
+            message="Saving…"
+            class="w-full max-w-sm rounded-lg border p-8 text-center"
+          >
+            <p class="text-sm">Form content…</p>
+          </bui-loading-overlay>
+        </div>
+      </app-example>
     }
     @case ('number-input') {
       <app-example [code]="code.numberInput">
@@ -5080,6 +5096,13 @@ This content is read-only and cannot be edited.</textarea
           <bui-speed-dial [actions]="speedActions" />
         </div>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Opens downward</h2>
+      <app-example [code]="code.speedDialDown">
+        <div class="pb-28">
+          <bui-speed-dial [actions]="speedActions" direction="down" />
+        </div>
+      </app-example>
     }
     @case ('knob') {
       <app-example [code]="code.knob">
@@ -5447,6 +5470,15 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.cookieConsent">
         <bui-cookie-consent class="w-full max-w-xl" [demo]="true" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Custom message</h2>
+      <app-example [code]="code.cookieConsentCustom">
+        <bui-cookie-consent
+          class="w-full max-w-xl"
+          [demo]="true"
+          message="We use cookies to personalise content and analyse traffic."
+        />
+      </app-example>
     }
     @case ('infinite-scroll') {
       <app-example [code]="code.infiniteScroll">
@@ -5472,6 +5504,11 @@ This content is read-only and cannot be edited.</textarea
     @case ('signature-pad') {
       <app-example [code]="code.signaturePad">
         <bui-signature-pad class="w-full max-w-sm" [height]="160" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Colored pen</h2>
+      <app-example [code]="code.signaturePadColor">
+        <bui-signature-pad class="w-full max-w-sm" [height]="160" penColor="#4f46e5" />
       </app-example>
     }
     @case ('dock') {
@@ -5736,6 +5773,18 @@ This content is read-only and cannot be edited.</textarea
           [(value)]="compareValue"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">No labels</h2>
+      <app-example [code]="code.comparisonSliderNoLabels">
+        <bui-comparison-slider
+          class="w-full max-w-md"
+          before="https://picsum.photos/seed/before2/800/450"
+          after="https://picsum.photos/seed/after2/800/450"
+          beforeLabel=""
+          afterLabel=""
+          [value]="50"
+        />
+      </app-example>
     }
     @case ('file-upload') {
       <app-example [code]="code.fileUpload">
@@ -5866,6 +5915,22 @@ This content is read-only and cannot be edited.</textarea
     @case ('map') {
       <app-example [code]="code.map">
         <bui-map class="w-full max-w-lg" [lat]="48.8584" [lon]="2.2945" label="Eiffel Tower" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">No marker</h2>
+      <app-example [code]="code.mapNoMarker">
+        <bui-map class="w-full max-w-lg" [lat]="48.8584" [lon]="2.2945" [marker]="false" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Tall</h2>
+      <app-example [code]="code.mapTall">
+        <bui-map
+          class="w-full max-w-lg"
+          [lat]="40.7128"
+          [lon]="-74.006"
+          label="New York"
+          [height]="480"
+        />
       </app-example>
     }
     @case ('gantt') {

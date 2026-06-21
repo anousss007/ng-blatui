@@ -839,6 +839,7 @@ export class ComponentPage {
   protected readonly acOptions = ['Angular', 'React', 'Svelte', 'Vue', 'Solid', 'Qwik'];
   protected readonly compareValue = signal(50);
   protected readonly drawerOpen = signal(false);
+  protected readonly loadingShow = signal(true);
   protected readonly dtColumns = [
     { key: 'name', label: 'Name' },
     { key: 'email', label: 'Email' },
@@ -2155,6 +2156,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     loadingOverlay: `import { BuiLoadingOverlay } from 'ng-blatui';
 
 <bui-loading-overlay [show]="loading()">…content…</bui-loading-overlay>`,
+    loadingOverlayToggle: `<button buiButton (click)="show.set(!show())">Toggle</button>
+<bui-loading-overlay [show]="show()" message="Saving…">…content…</bui-loading-overlay>`,
     numberInput: `import { BuiNumberInput } from 'ng-blatui';
 
 <bui-number-input [(value)]="qty" ariaLabel="Quantity" />`,
@@ -2269,6 +2272,7 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     speedDial: `import { BuiSpeedDial } from 'ng-blatui';
 
 <bui-speed-dial [actions]="[{ label: 'Share' }, { label: 'Edit' }]" />`,
+    speedDialDown: `<bui-speed-dial [actions]="actions" direction="down" />`,
     knob: `import { BuiKnob } from 'ng-blatui';
 
 <bui-knob [(value)]="level" [min]="0" [max]="100" label="Volume" />`,
@@ -2368,6 +2372,7 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     cookieConsent: `import { BuiCookieConsent } from 'ng-blatui';
 
 <bui-cookie-consent (decided)="onConsent($event)" />`,
+    cookieConsentCustom: `<bui-cookie-consent message="We use cookies to personalise content and analyse traffic." />`,
     infiniteScroll: `import { BuiInfiniteScroll } from 'ng-blatui';
 
 <bui-infinite-scroll [loading]="loading()" [finished]="done()" (more)="loadMore()">
@@ -2379,6 +2384,7 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     signaturePad: `import { BuiSignaturePad } from 'ng-blatui';
 
 <bui-signature-pad [height]="180" />`,
+    signaturePadColor: `<bui-signature-pad [height]="180" penColor="#4f46e5" />`,
     dock: `import { BuiDock, BuiDockItem } from 'ng-blatui';
 
 <bui-dock>
@@ -2468,6 +2474,7 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     comparisonSlider: `import { BuiComparisonSlider } from 'ng-blatui';
 
 <bui-comparison-slider before="/before.jpg" after="/after.jpg" beforeLabel="Before" afterLabel="After" />`,
+    comparisonSliderNoLabels: `<bui-comparison-slider before="/before.jpg" after="/after.jpg" beforeLabel="" afterLabel="" />`,
     fileUpload: `import { BuiFileUpload } from 'ng-blatui';
 
 <bui-file-upload hint="Up to 10MB" />`,
@@ -2506,6 +2513,8 @@ this.toaster.show({ title: 'Saved', tone: 'success' });`,
     map: `import { BuiMap } from 'ng-blatui';
 
 <bui-map [lat]="48.8584" [lon]="2.2945" label="Eiffel Tower" />`,
+    mapNoMarker: `<bui-map [lat]="48.8584" [lon]="2.2945" [marker]="false" />`,
+    mapTall: `<bui-map [lat]="40.7128" [lon]="-74.006" label="New York" [height]="480" />`,
     gantt: `import { BuiGantt } from 'ng-blatui';
 
 <bui-gantt [tasks]="tasks" />`,
