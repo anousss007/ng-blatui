@@ -163,6 +163,142 @@
         </div>
       </div>
     }
+    @case ('store') {
+      <div class="w-full space-y-6 rounded-lg border p-6">
+        <div class="flex items-center gap-3">
+          <h2 class="text-lg font-semibold">Shop</h2>
+          <input
+            buiInput
+            class="ml-auto max-w-[220px]"
+            type="search"
+            placeholder="Search products"
+          />
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          @for (product of products; track product.name) {
+            <div buiCard variant="sectioned">
+              <div class="relative grid h-40 place-items-center rounded-t-xl bg-muted text-sm">
+                @if (product.tag) {
+                  <span
+                    buiBadge
+                    class="absolute top-2 left-2"
+                    [variant]="product.tag === 'Sale' ? 'destructive' : 'default'"
+                    >{{ product.tag }}</span
+                  >
+                }
+                <span class="text-muted-foreground">Image</span>
+              </div>
+              <div buiCardContent class="space-y-2 pt-4">
+                <div class="flex items-center justify-between">
+                  <h3 class="font-medium">{{ product.name }}</h3>
+                  <span class="font-semibold">{{ product.price }}</span>
+                </div>
+                <button buiButton class="w-full">Add to cart</button>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+    @case ('saas') {
+      <div class="w-full overflow-hidden rounded-lg border">
+        <header class="flex h-16 items-center gap-6 border-b px-6">
+          <span class="font-semibold">BlatUI Cloud</span>
+          <nav class="ml-auto hidden items-center gap-1 text-sm md:flex">
+            <a buiButton variant="ghost" size="sm" href="#">Product</a>
+            <a buiButton variant="ghost" size="sm" href="#">Pricing</a>
+            <a buiButton size="sm" href="#">Sign up</a>
+          </nav>
+        </header>
+        <div class="mx-auto max-w-3xl px-6 py-16 text-center">
+          <span buiBadge variant="secondary" class="rounded-full">v2.0 is here</span>
+          <h1 class="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">
+            The platform for modern teams
+          </h1>
+          <p class="mx-auto mt-5 max-w-xl text-lg text-muted-foreground">
+            Build, ship and scale with one accessible toolkit.
+          </p>
+          <div class="mt-7 flex items-center justify-center gap-3">
+            <a buiButton size="lg" href="#">Get started</a>
+            <a buiButton size="lg" variant="outline" href="#">Book a demo</a>
+          </div>
+        </div>
+        <div class="grid gap-6 border-t p-8 sm:grid-cols-3">
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <h3 buiCardTitle>Fast</h3>
+              <p buiCardDescription>Sub-second interactions everywhere.</p>
+            </div>
+          </div>
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <h3 buiCardTitle>Accessible</h3>
+              <p buiCardDescription>WCAG-ready out of the box.</p>
+            </div>
+          </div>
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <h3 buiCardTitle>Themeable</h3>
+              <p buiCardDescription>Design tokens, light & dark.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    @case ('docs-site') {
+      <div class="flex min-h-[520px] w-full overflow-hidden rounded-lg border">
+        <bui-sidebar>
+          <div class="px-2 pb-2 text-sm font-semibold">Docs</div>
+          <a buiSidebarMenuButton [isActive]="true" href="#">Introduction</a>
+          <a buiSidebarMenuButton href="#">Installation</a>
+          <a buiSidebarMenuButton href="#">Theming</a>
+          <a buiSidebarMenuButton href="#">Components</a>
+        </bui-sidebar>
+        <div class="flex-1 overflow-auto p-8">
+          <span buiBadge variant="outline">Guide</span>
+          <h2 class="mt-2 text-2xl font-bold">Getting started</h2>
+          <p class="mt-3 max-w-2xl text-muted-foreground">
+            Install the package, import the components you need, and compose your UI.
+          </p>
+          <div buiSeparator class="my-6"></div>
+          <h3 class="font-semibold">Installation</h3>
+          <p class="mt-2 text-sm text-muted-foreground">Add ng-blatui to your Angular workspace.</p>
+        </div>
+      </div>
+    }
+    @case ('help-center') {
+      <div class="w-full space-y-8 rounded-lg border p-8">
+        <div class="space-y-3 text-center">
+          <h2 class="text-3xl font-bold tracking-tight">How can we help?</h2>
+          <input
+            buiInput
+            class="mx-auto max-w-md"
+            type="search"
+            placeholder="Search the help center"
+          />
+        </div>
+        <div class="grid gap-6 sm:grid-cols-3">
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <h3 buiCardTitle>Getting started</h3>
+              <p buiCardDescription>Set up your account and first project.</p>
+            </div>
+          </div>
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <h3 buiCardTitle>Billing</h3>
+              <p buiCardDescription>Plans, invoices and payment methods.</p>
+            </div>
+          </div>
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <h3 buiCardTitle>Troubleshooting</h3>
+              <p buiCardDescription>Fix common issues quickly.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
     @default {
       <p class="text-muted-foreground">Template not found.</p>
     }
