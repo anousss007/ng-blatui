@@ -2439,9 +2439,13 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     calendar: `import { BuiCalendar } from 'ng-blatui';
 
 <bui-calendar [(value)]="date" />`,
+    calendarMonday: `<bui-calendar [(value)]="date" [weekStart]="1" />`,
+    calendarMinMax: `<bui-calendar [(value)]="date" minDate="2026-06-01" maxDate="2026-06-30" />`,
     datePicker: `import { BuiDatePicker } from 'ng-blatui';
 
 <bui-date-picker [(value)]="date" />`,
+    datePickerPlaceholder: `<bui-date-picker [(value)]="date" placeholder="Choose a date…" />`,
+    datePickerMinMax: `<bui-date-picker [(value)]="date" minDate="2026-01-01" maxDate="2026-12-31" />`,
     carousel: `import { BuiCarousel } from 'ng-blatui';
 
 <bui-carousel>
@@ -2467,6 +2471,7 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     datetimePicker: `import { BuiDatetimePicker } from 'ng-blatui';
 
 <bui-datetime-picker [(value)]="when" />`,
+    datetimePickerPlaceholder: `<bui-datetime-picker [(value)]="when" placeholder="Pick date & time…" />`,
     autocomplete: `import { BuiAutocomplete } from 'ng-blatui';
 
 <bui-autocomplete [(value)]="value" [options]="frameworks" />`,

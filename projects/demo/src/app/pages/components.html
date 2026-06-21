@@ -5668,10 +5668,40 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.calendar">
         <bui-calendar class="border" [(value)]="calDate" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Week starts Monday</h2>
+      <app-example [code]="code.calendarMonday">
+        <bui-calendar class="border" [(value)]="calDate" [weekStart]="1" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Min / max range</h2>
+      <app-example [code]="code.calendarMinMax">
+        <bui-calendar
+          class="border"
+          [(value)]="calDate"
+          minDate="2026-06-01"
+          maxDate="2026-06-30"
+        />
+      </app-example>
     }
     @case ('date-picker') {
       <app-example [code]="code.datePicker">
         <bui-date-picker class="w-56" [(value)]="dpDate" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Custom placeholder</h2>
+      <app-example [code]="code.datePickerPlaceholder">
+        <bui-date-picker class="w-56" [(value)]="dpDate" placeholder="Choose a date…" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Min / max</h2>
+      <app-example [code]="code.datePickerMinMax">
+        <bui-date-picker
+          class="w-56"
+          [(value)]="dpDate"
+          minDate="2026-01-01"
+          maxDate="2026-12-31"
+        />
       </app-example>
     }
     @case ('carousel') {
@@ -5740,6 +5770,15 @@ This content is read-only and cannot be edited.</textarea
     @case ('datetime-picker') {
       <app-example [code]="code.datetimePicker">
         <bui-datetime-picker class="w-64" [(value)]="dtmValue" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Custom placeholder</h2>
+      <app-example [code]="code.datetimePickerPlaceholder">
+        <bui-datetime-picker
+          class="w-64"
+          [(value)]="dtmValue"
+          placeholder="Pick date &amp; time…"
+        />
       </app-example>
     }
     @case ('autocomplete') {
