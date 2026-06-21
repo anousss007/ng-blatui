@@ -33,7 +33,7 @@ import { type ClassValue, cn } from '../utils/cn';
         }
       </svg>
     </button>
-    @if (title()) {
+    @if (title() && !compact()) {
       <div class="min-w-0">
         <div class="truncate text-sm font-medium">{{ title() }}</div>
         @if (artist()) {
@@ -53,22 +53,24 @@ import { type ClassValue, cn } from '../utils/cn';
       (input)="seek($event)"
     />
     <span class="text-xs text-muted-foreground tabular-nums">{{ format(duration()) }}</span>
-    <button
-      type="button"
-      class="shrink-0 text-muted-foreground hover:text-foreground"
-      [attr.aria-label]="muted() ? 'Unmute' : 'Mute'"
-      (click)="toggleMute()"
-    >
-      <svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        @if (muted()) {
-          <path
-            d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v2.2l2.45 2.45c.03-.21.05-.43.05-.65z"
-          />
-        } @else {
-          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z" />
-        }
-      </svg>
-    </button>
+    @if (!compact()) {
+      <button
+        type="button"
+        class="shrink-0 text-muted-foreground hover:text-foreground"
+        [attr.aria-label]="muted() ? 'Unmute' : 'Mute'"
+        (click)="toggleMute()"
+      >
+        <svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          @if (muted()) {
+            <path
+              d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v2.2l2.45 2.45c.03-.21.05-.43.05-.65z"
+            />
+          } @else {
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z" />
+          }
+        </svg>
+      </button>
+    }
   `,
 })
 export class BuiAudioPlayer {
@@ -76,6 +78,8 @@ export class BuiAudioPlayer {
   readonly title = input('');
   readonly artist = input('');
   readonly autoplay = input(false);
+  /** Condensed layout: hides the title block and mute button. */
+  readonly compact = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
   private readonly a = viewChild<ElementRef<HTMLAudioElement>>('a');

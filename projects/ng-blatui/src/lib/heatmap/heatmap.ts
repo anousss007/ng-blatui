@@ -7,11 +7,11 @@ import { type ClassValue, cn } from '../utils/cn';
   selector: 'bui-heatmap',
   host: { 'data-slot': 'heatmap', '[class]': 'computedClass()' },
   template: `
-    <div class="grid grid-flow-col grid-rows-7 gap-1">
+    <div [class]="gridClass()">
       @for (cell of cells(); track $index) {
         <span
-          class="size-3 rounded-[2px]"
-          [class]="levelClass(cell)"
+          class="rounded-[2px]"
+          [class]="cellClass(cell)"
           [attr.title]="cell + ' contributions'"
         ></span>
       }
@@ -20,7 +20,13 @@ import { type ClassValue, cn } from '../utils/cn';
 })
 export class BuiHeatmap {
   readonly data = input<readonly number[]>([]);
+  /** Smaller cells + tighter gaps. */
+  readonly compact = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+  protected readonly gridClass = computed(() =>
+    cn('grid grid-flow-col grid-rows-7', this.compact() ? 'gap-0.5' : 'gap-1'),
+  );
 
   protected readonly cells = computed(() => {
     const data = this.data();
@@ -34,6 +40,10 @@ export class BuiHeatmap {
   });
   private readonly max = computed(() => Math.max(1, ...this.cells()));
   protected readonly computedClass = computed(() => cn('inline-block', this.userClass()));
+
+  protected cellClass(count: number): string {
+    return cn(this.compact() ? 'size-2' : 'size-3', this.levelClass(count));
+  }
 
   protected levelClass(count: number): string {
     if (count <= 0) {

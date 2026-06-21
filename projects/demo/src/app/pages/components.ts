@@ -2912,6 +2912,7 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     heatmap: `import { BuiHeatmap } from 'ng-blatui';
 
 <bui-heatmap [data]="activity" />`,
+    heatmapCompact: `<bui-heatmap [compact]="true" />`,
     citation: `import { BuiCitation } from 'ng-blatui';
 
 …next token<bui-citation [index]="1" title="Attention Is All You Need" url="https://arxiv.org/abs/1706.03762" />.`,
@@ -2967,6 +2968,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     audioPlayer: `import { BuiAudioPlayer } from 'ng-blatui';
 
 <bui-audio-player src="/track.mp3" title="Nightfall" artist="The Band" />`,
+    audioPlayerCompact: `<!-- compact hides the title block + mute button -->
+<bui-audio-player src="/track.mp3" [compact]="true" />`,
     signaturePad: `import { BuiSignaturePad } from 'ng-blatui';
 
 <bui-signature-pad [height]="180" />`,

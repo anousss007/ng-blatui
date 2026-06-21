@@ -7591,6 +7591,11 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.heatmap">
         <bui-heatmap />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Compact</h2>
+      <app-example [code]="code.heatmapCompact">
+        <bui-heatmap [compact]="true" />
+      </app-example>
     }
     @case ('citation') {
       <app-example [code]="code.citation">
@@ -7774,6 +7779,15 @@ This content is read-only and cannot be edited.</textarea
           src="https://www.w3schools.com/html/horse.mp3"
           title="Nightfall"
           artist="The Band"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Compact</h2>
+      <app-example [code]="code.audioPlayerCompact">
+        <bui-audio-player
+          class="w-full max-w-xs"
+          src="https://www.w3schools.com/html/horse.mp3"
+          [compact]="true"
         />
       </app-example>
     }
