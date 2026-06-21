@@ -1552,14 +1552,137 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('radio-group') {
       <app-example [code]="code.radioGroup">
-        <div buiRadioGroup [(value)]="plan">
+        <div buiRadioGroup [(value)]="plan" class="gap-3">
+          <div class="flex items-center gap-3 text-sm">
+            <button buiRadioItem value="free" aria-label="Default"></button><span>Default</span>
+          </div>
+          <div class="flex items-center gap-3 text-sm">
+            <button buiRadioItem value="pro" aria-label="Comfortable"></button
+            ><span>Comfortable</span>
+          </div>
+          <div class="flex items-center gap-3 text-sm">
+            <button buiRadioItem value="max" aria-label="Compact"></button><span>Compact</span>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Horizontal</h2>
+      <app-example [code]="code.radioHorizontal">
+        <div buiRadioGroup [(value)]="radioPay" class="flex flex-wrap items-center gap-5">
           <div class="flex items-center gap-2 text-sm">
-            <button buiRadioItem value="free" aria-label="Free"></button>
-            <span>Free</span>
+            <button buiRadioItem value="card" aria-label="Card"></button><span>Card</span>
           </div>
           <div class="flex items-center gap-2 text-sm">
-            <button buiRadioItem value="pro" aria-label="Pro"></button>
-            <span>Pro</span>
+            <button buiRadioItem value="paypal" aria-label="PayPal"></button><span>PayPal</span>
+          </div>
+          <div class="flex items-center gap-2 text-sm">
+            <button buiRadioItem value="apple" aria-label="Apple Pay"></button
+            ><span>Apple Pay</span>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With description</h2>
+      <app-example [code]="code.radioDescription">
+        <div buiRadioGroup [(value)]="radioNotify" class="gap-4">
+          <div class="flex items-start gap-3">
+            <button buiRadioItem value="all" aria-label="All new messages" class="mt-0.5"></button>
+            <div class="grid gap-1">
+              <span class="text-sm font-medium">All new messages</span>
+              <p class="text-sm text-muted-foreground">Get notified for every new message.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <button
+              buiRadioItem
+              value="mentions"
+              aria-label="Direct messages and mentions"
+              class="mt-0.5"
+            ></button>
+            <div class="grid gap-1">
+              <span class="text-sm font-medium">Direct messages and mentions</span>
+              <p class="text-sm text-muted-foreground">Only when someone @mentions you.</p>
+            </div>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Colors</h2>
+      <app-example [code]="code.radioColors">
+        <div buiRadioGroup [(value)]="radioColor" class="flex flex-wrap items-center gap-5">
+          <div class="flex items-center gap-2 text-sm">
+            <button
+              buiRadioItem
+              value="success"
+              aria-label="Success"
+              class="text-success data-[state=checked]:border-success"
+            ></button
+            ><span>Success</span>
+          </div>
+          <div class="flex items-center gap-2 text-sm">
+            <button
+              buiRadioItem
+              value="info"
+              aria-label="Info"
+              class="text-info data-[state=checked]:border-info"
+            ></button
+            ><span>Info</span>
+          </div>
+          <div class="flex items-center gap-2 text-sm">
+            <button
+              buiRadioItem
+              value="danger"
+              aria-label="Danger"
+              class="text-destructive data-[state=checked]:border-destructive"
+            ></button
+            ><span>Danger</span>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Cards</h2>
+      <app-example [code]="code.radioCards">
+        <div buiRadioGroup [(value)]="radioCards" class="grid w-full max-w-md gap-3 sm:grid-cols-3">
+          <div
+            class="relative flex flex-col gap-1 rounded-lg border border-input p-4 has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:ring-[3px] has-[[data-state=checked]]:ring-ring/40"
+          >
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium">Starter</span
+              ><button buiRadioItem value="starter" aria-label="Starter plan"></button>
+            </div>
+            <span class="text-xs text-muted-foreground">$0 / month</span>
+          </div>
+          <div
+            class="relative flex flex-col gap-1 rounded-lg border border-input p-4 has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:ring-[3px] has-[[data-state=checked]]:ring-ring/40"
+          >
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium">Pro</span
+              ><button buiRadioItem value="pro" aria-label="Pro plan"></button>
+            </div>
+            <span class="text-xs text-muted-foreground">$29 / month</span>
+          </div>
+          <div
+            class="relative flex flex-col gap-1 rounded-lg border border-input p-4 has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:ring-[3px] has-[[data-state=checked]]:ring-ring/40"
+          >
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium">Team</span
+              ><button buiRadioItem value="team" aria-label="Team plan"></button>
+            </div>
+            <span class="text-xs text-muted-foreground">$99 / month</span>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.radioDisabled">
+        <div buiRadioGroup [(value)]="plan" class="gap-3">
+          <div class="flex items-center gap-3 text-sm">
+            <button buiRadioItem value="free" [disabled]="true" aria-label="Default"></button
+            ><span class="text-muted-foreground">Default</span>
+          </div>
+          <div class="flex items-center gap-3 text-sm">
+            <button buiRadioItem value="pro" [disabled]="true" aria-label="Comfortable"></button
+            ><span class="text-muted-foreground">Comfortable</span>
           </div>
         </div>
       </app-example>
@@ -2284,6 +2407,21 @@ This content is read-only and cannot be edited.</textarea
           [(value)]="fruit"
           [options]="fruits"
           placeholder="Pick a fruit"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.selectDisabled">
+        <bui-select class="max-w-xs" [options]="fruits" [disabled]="true" placeholder="Disabled" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Scrollable</h2>
+      <app-example [code]="code.selectScrollable">
+        <bui-select
+          class="max-w-xs"
+          [(value)]="timezone"
+          [options]="timezones"
+          placeholder="Select a timezone"
         />
       </app-example>
     }

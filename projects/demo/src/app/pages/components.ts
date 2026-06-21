@@ -960,6 +960,22 @@ export class ComponentPage {
     { value: 'banana', label: 'Banana' },
     { value: 'cherry', label: 'Cherry' },
   ];
+  protected readonly timezone = signal('');
+  protected readonly timezones = [
+    { value: 'utc', label: 'UTC' },
+    { value: 'est', label: 'Eastern (EST)' },
+    { value: 'cst', label: 'Central (CST)' },
+    { value: 'mst', label: 'Mountain (MST)' },
+    { value: 'pst', label: 'Pacific (PST)' },
+    { value: 'gmt', label: 'London (GMT)' },
+    { value: 'cet', label: 'Paris (CET)' },
+    { value: 'eet', label: 'Athens (EET)' },
+    { value: 'msk', label: 'Moscow (MSK)' },
+    { value: 'ist', label: 'India (IST)' },
+    { value: 'cst-a', label: 'Beijing (CST)' },
+    { value: 'jst', label: 'Tokyo (JST)' },
+    { value: 'aest', label: 'Sydney (AEST)' },
+  ];
   protected readonly framework = signal('');
   protected readonly frameworks = [
     { value: 'ng', label: 'Angular' },
@@ -973,6 +989,10 @@ export class ComponentPage {
     { feature: 'SSO', values: [false, false, true] },
   ];
   protected readonly plan = signal('free');
+  protected readonly radioNotify = signal('all');
+  protected readonly radioPay = signal('card');
+  protected readonly radioColor = signal('success');
+  protected readonly radioCards = signal('pro');
   protected readonly team = [
     { name: 'Ada Lovelace' },
     { name: 'Alan Turing' },
@@ -1365,13 +1385,30 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     radioGroup: `import { BuiRadioGroup, BuiRadioGroupItem } from 'ng-blatui';
 
 <div buiRadioGroup [(value)]="plan">
-  <label class="flex items-center gap-2">
-    <button buiRadioItem value="free" aria-label="Free"></button> Free
-  </label>
-  <label class="flex items-center gap-2">
-    <button buiRadioItem value="pro" aria-label="Pro"></button> Pro
+  <div class="flex items-center gap-3">
+    <button buiRadioItem value="free" aria-label="Default"></button><span>Default</span>
+  </div>
+  <div class="flex items-center gap-3">
+    <button buiRadioItem value="pro" aria-label="Comfortable"></button><span>Comfortable</span>
+  </div>
+</div>`,
+    radioHorizontal: `<div buiRadioGroup [(value)]="pay" class="flex items-center gap-5">
+  <div class="flex items-center gap-2"><button buiRadioItem value="card" aria-label="Card"></button><span>Card</span></div>
+  <div class="flex items-center gap-2"><button buiRadioItem value="paypal" aria-label="PayPal"></button><span>PayPal</span></div>
+</div>`,
+    radioDescription: `<div class="flex items-start gap-3">
+  <button buiRadioItem value="all" aria-label="All new messages" class="mt-0.5"></button>
+  <div><span class="font-medium">All new messages</span><p class="text-muted-foreground text-sm">Notify for every message.</p></div>
+</div>`,
+    radioColors: `<!-- override the dot/border via data-state -->
+<button buiRadioItem value="success" class="text-success data-[state=checked]:border-success" aria-label="Success"></button>`,
+    radioCards: `<div buiRadioGroup [(value)]="plan" class="grid gap-3 sm:grid-cols-3">
+  <label class="has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:ring-ring/40 flex flex-col gap-1 rounded-lg border p-4 has-[[data-state=checked]]:ring-[3px]">
+    <div class="flex items-center justify-between"><span class="font-medium">Pro</span><button buiRadioItem value="pro" aria-label="Pro"></button></div>
+    <span class="text-muted-foreground text-xs">$29 / month</span>
   </label>
 </div>`,
+    radioDisabled: `<button buiRadioItem value="free" [disabled]="true" aria-label="Default"></button>`,
     tooltip: `import { BuiTooltip } from 'ng-blatui';
 
 <button buiButton variant="outline" buiTooltip="Add to library">Hover me</button>`,
@@ -1651,6 +1688,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 
 <bui-select [(value)]="fruit" [options]="fruits" placeholder="Pick a fruit" />
 // fruits = [{ value: 'apple', label: 'Apple' }, ...]`,
+    selectDisabled: `<bui-select [options]="fruits" [disabled]="true" placeholder="Disabled" />`,
+    selectScrollable: `<!-- long lists scroll inside the popover -->
+<bui-select [(value)]="timezone" [options]="timezones" placeholder="Select a timezone" />`,
     combobox: `import { BuiCombobox } from 'ng-blatui';
 
 <bui-combobox [(value)]="framework" [options]="frameworks" />
