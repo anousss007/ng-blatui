@@ -11,15 +11,39 @@
       <app-example [code]="code.button">
         <button buiButton>Default</button>
         <button buiButton variant="secondary">Secondary</button>
-        <button buiButton variant="destructive">Delete</button>
-        <button buiButton variant="outline" size="sm">Small</button>
+        <button buiButton variant="destructive">Destructive</button>
+        <button buiButton variant="outline">Outline</button>
+        <button buiButton variant="ghost">Ghost</button>
+        <button buiButton variant="link">Link</button>
+        <button buiButton size="sm">Small</button>
+        <button buiButton size="lg">Large</button>
+        <button buiButton size="icon" aria-label="Add">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M5 12h14M12 5v14" />
+          </svg>
+        </button>
+        <button buiButton disabled>Disabled</button>
       </app-example>
     }
     @case ('badge') {
       <app-example [code]="code.badge">
         <span buiBadge>Default</span>
+        <span buiBadge variant="secondary">Secondary</span>
+        <span buiBadge variant="destructive">Destructive</span>
+        <span buiBadge variant="outline">Outline</span>
         <span buiBadge tone="success">Success</span>
-        <span buiBadge tone="danger" variant="solid">Solid</span>
+        <span buiBadge tone="warning" variant="solid">Warning</span>
+        <span buiBadge tone="danger" variant="outline">Danger</span>
+        <span buiBadge tone="info">Info</span>
+        <span buiBadge tone="neutral">Neutral</span>
+        <span buiBadge size="lg">Large</span>
       </app-example>
     }
     @case ('card') {
@@ -39,15 +63,35 @@
     }
     @case ('alert') {
       <app-example [code]="code.alert">
-        <div buiAlert tone="success" class="w-full">
-          <h5 buiAlertTitle>Saved</h5>
-          <div buiAlertDescription>Your changes were saved successfully.</div>
+        <div class="w-full space-y-3">
+          <div buiAlert>
+            <h5 buiAlertTitle>Heads up</h5>
+            <div buiAlertDescription>A neutral, default callout for general information.</div>
+          </div>
+          <div buiAlert tone="success">
+            <h5 buiAlertTitle>Saved</h5>
+            <div buiAlertDescription>Your changes were saved successfully.</div>
+          </div>
+          <div buiAlert tone="warning">
+            <h5 buiAlertTitle>Careful</h5>
+            <div buiAlertDescription>This action needs your attention.</div>
+          </div>
+          <div buiAlert variant="destructive">
+            <h5 buiAlertTitle>Something went wrong</h5>
+            <div buiAlertDescription>Please try again later.</div>
+          </div>
         </div>
       </app-example>
     }
     @case ('input') {
       <app-example [code]="code.input">
-        <input buiInput type="email" placeholder="m&#64;example.com" class="max-w-xs" />
+        <div class="w-full max-w-xs space-y-3">
+          <input buiInput type="email" placeholder="m&#64;example.com" />
+          <input buiInput value="Read only" readonly />
+          <input buiInput placeholder="Disabled" disabled />
+          <input buiInput placeholder="Invalid value" aria-invalid="true" />
+          <input buiInput type="file" />
+        </div>
       </app-example>
     }
     @case ('textarea') {
@@ -85,13 +129,19 @@
     }
     @case ('avatar') {
       <app-example [code]="code.avatar">
+        <bui-avatar src="https://i.pravatar.cc/80?img=12" alt="Jane Doe" />
         <bui-avatar>AB</bui-avatar>
         <bui-avatar class="size-12">CD</bui-avatar>
+        <bui-avatar class="size-8 text-xs">EF</bui-avatar>
       </app-example>
     }
     @case ('progress') {
       <app-example [code]="code.progress">
-        <bui-progress class="max-w-xs" [value]="60" ariaLabel="Upload progress" />
+        <div class="w-full max-w-xs space-y-3">
+          <bui-progress [value]="30" ariaLabel="30 percent" />
+          <bui-progress [value]="70" ariaLabel="70 percent" />
+          <bui-progress [indeterminate]="true" ariaLabel="Loading" />
+        </div>
       </app-example>
     }
     @case ('checkbox') {
@@ -265,8 +315,9 @@
     }
     @case ('spinner') {
       <app-example [code]="code.spinner">
-        <bui-spinner />
+        <bui-spinner class="size-4" />
         <bui-spinner class="size-6" />
+        <bui-spinner class="size-8 text-primary" />
       </app-example>
     }
     @case ('copy-button') {

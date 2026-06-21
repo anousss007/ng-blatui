@@ -985,15 +985,31 @@ export class ComponentPage {
   protected readonly code = {
     button: `import { BuiButton } from 'ng-blatui';
 
+<!-- variants -->
 <button buiButton>Default</button>
 <button buiButton variant="secondary">Secondary</button>
-<button buiButton variant="destructive">Delete</button>
-<button buiButton variant="outline" size="sm">Small</button>`,
+<button buiButton variant="destructive">Destructive</button>
+<button buiButton variant="outline">Outline</button>
+<button buiButton variant="ghost">Ghost</button>
+<button buiButton variant="link">Link</button>
+
+<!-- sizes: xs | sm | default | lg | icon -->
+<button buiButton size="lg">Large</button>
+<button buiButton size="icon" aria-label="Add"><svg>…</svg></button>
+<button buiButton disabled>Disabled</button>`,
     badge: `import { BuiBadge } from 'ng-blatui';
 
+<!-- brand variants -->
 <span buiBadge>Default</span>
+<span buiBadge variant="secondary">Secondary</span>
+<span buiBadge variant="destructive">Destructive</span>
+<span buiBadge variant="outline">Outline</span>
+
+<!-- semantic tones × intensity (soft | solid | outline) -->
 <span buiBadge tone="success">Success</span>
-<span buiBadge tone="danger" variant="solid">Solid</span>`,
+<span buiBadge tone="warning" variant="solid">Warning</span>
+<span buiBadge tone="danger" variant="outline">Danger</span>
+<span buiBadge tone="info" size="lg">Info</span>`,
     card: `import { BuiCard, BuiCardHeader, BuiCardTitle, BuiCardContent } from 'ng-blatui';
 
 <div buiCard variant="sectioned">
@@ -1005,13 +1021,20 @@ export class ComponentPage {
 </div>`,
     alert: `import { BuiAlert, BuiAlertTitle, BuiAlertDescription } from 'ng-blatui';
 
-<div buiAlert tone="success">
-  <h5 buiAlertTitle>Saved</h5>
-  <div buiAlertDescription>Your changes were saved.</div>
-</div>`,
+<!-- variant="default | destructive" or tone="success | warning | danger | info | neutral" -->
+<div buiAlert>
+  <h5 buiAlertTitle>Heads up</h5>
+  <div buiAlertDescription>A neutral, default callout.</div>
+</div>
+<div buiAlert tone="success"><h5 buiAlertTitle>Saved</h5></div>
+<div buiAlert tone="warning"><h5 buiAlertTitle>Careful</h5></div>
+<div buiAlert variant="destructive"><h5 buiAlertTitle>Error</h5></div>`,
     input: `import { BuiInput } from 'ng-blatui';
 
-<input buiInput type="email" placeholder="m@example.com" />`,
+<input buiInput type="email" placeholder="m@example.com" />
+<input buiInput placeholder="Disabled" disabled />
+<input buiInput aria-invalid="true" placeholder="Invalid" />
+<input buiInput type="file" />`,
     textarea: `import { BuiTextarea } from 'ng-blatui';
 
 <textarea buiTextarea placeholder="Your message"></textarea>`,
@@ -1028,10 +1051,13 @@ export class ComponentPage {
 <div buiSkeleton class="h-4 w-48"></div>`,
     avatar: `import { BuiAvatar } from 'ng-blatui';
 
-<bui-avatar [src]="url" alt="Jane">JD</bui-avatar>`,
+<bui-avatar [src]="url" alt="Jane" />
+<bui-avatar>JD</bui-avatar>          <!-- text fallback -->
+<bui-avatar class="size-12">CD</bui-avatar>  <!-- size via class -->`,
     progress: `import { BuiProgress } from 'ng-blatui';
 
-<bui-progress [value]="60" ariaLabel="Upload" />`,
+<bui-progress [value]="70" ariaLabel="Upload" />
+<bui-progress [indeterminate]="true" ariaLabel="Loading" />`,
     checkbox: `import { BuiCheckbox } from 'ng-blatui';
 
 <button buiCheckbox [(checked)]="accepted" aria-labelledby="t"></button>
@@ -1153,8 +1179,9 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 <button buiToggle variant="outline" aria-label="Italic">I</button>`,
     spinner: `import { BuiSpinner } from 'ng-blatui';
 
-<bui-spinner />
-<bui-spinner class="size-6" />`,
+<bui-spinner class="size-4" />
+<bui-spinner class="size-6" />
+<bui-spinner class="size-8 text-primary" />`,
     copyButton: `import { BuiCopyButton } from 'ng-blatui';
 
 <button buiCopyButton value="npm i ng-blatui" label="Copy command">Copy</button>`,
