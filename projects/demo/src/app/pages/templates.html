@@ -1868,101 +1868,374 @@ $ npm i ng-blatui</pre
       </div>
     }
     @case ('sprout') {
-      <div class="w-full rounded-lg border bg-emerald-50 p-12 text-emerald-950">
-        <span buiBadge class="border-transparent bg-emerald-600 text-white">Sprout</span>
-        <h1 class="mt-4 text-4xl font-bold tracking-tight">Grow your startup</h1>
-        <p class="mt-4 max-w-xl text-lg text-emerald-900/70">
-          A fresh, green template for early-stage teams.
-        </p>
-        <a buiButton size="lg" class="mt-7 bg-emerald-600 text-white" href="#">Get growing</a>
+      <div class="bg-emerald-50/60 text-emerald-950">
+        <header class="border-b border-emerald-200/60">
+          <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+            <span class="text-lg font-bold">Sprout</span
+            ><a
+              buiButton
+              size="sm"
+              class="ml-auto bg-emerald-600 text-white hover:bg-emerald-700"
+              href="#"
+              >Get growing</a
+            >
+          </div>
+        </header>
+        <section class="mx-auto max-w-4xl px-6 py-28 text-center">
+          <span buiBadge class="border-transparent bg-emerald-600 text-white"
+            >🌱 For early-stage teams</span
+          >
+          <h1 class="mt-5 text-5xl font-bold tracking-tight text-balance sm:text-6xl">
+            Grow your startup from seed
+          </h1>
+          <p class="mx-auto mt-6 max-w-xl text-lg text-emerald-900/70">
+            A fresh, focused toolkit that scales with you from first commit to Series A.
+          </p>
+          <a
+            buiButton
+            size="lg"
+            class="mt-8 bg-emerald-600 text-white hover:bg-emerald-700"
+            href="#"
+            >Start free</a
+          >
+        </section>
+        <section class="border-y border-emerald-200/60">
+          <div class="mx-auto grid max-w-5xl gap-8 px-6 py-12 text-center sm:grid-cols-3">
+            <div>
+              <div class="text-4xl font-bold">3k+</div>
+              <p class="mt-1 text-sm text-emerald-900/60">Startups</p>
+            </div>
+            <div>
+              <div class="text-4xl font-bold">$2B</div>
+              <p class="mt-1 text-sm text-emerald-900/60">Raised</p>
+            </div>
+            <div>
+              <div class="text-4xl font-bold">4.9★</div>
+              <p class="mt-1 text-sm text-emerald-900/60">Rating</p>
+            </div>
+          </div>
+        </section>
+        <section class="mx-auto max-w-6xl px-6 py-20">
+          <div class="grid gap-6 sm:grid-cols-3">
+            @for (f of saasFeatures.slice(0, 3); track f.title) {
+              <div class="rounded-2xl border border-emerald-200/60 bg-white/70 p-6">
+                <div class="mb-2 text-2xl">{{ f.icon }}</div>
+                <h3 class="font-semibold">{{ f.title }}</h3>
+                <p class="mt-1 text-sm text-emerald-900/60">{{ f.body }}</p>
+              </div>
+            }
+          </div>
+        </section>
+        <footer class="border-t border-emerald-200/60">
+          <div class="mx-auto max-w-6xl px-6 py-8 text-sm text-emerald-900/60">© 2026 Sprout.</div>
+        </footer>
       </div>
     }
     @case ('terroir') {
-      <div class="w-full rounded-lg border bg-stone-100 p-12 text-stone-900">
-        <p class="text-xs font-medium tracking-[0.2em] text-stone-500 uppercase">Terroir</p>
-        <h1 class="mt-3 font-serif text-4xl tracking-tight">From the land, to your table</h1>
-        <p class="mt-4 max-w-xl text-lg text-stone-600">
-          An earthy, artisanal template for makers.
-        </p>
-        <a buiButton size="lg" class="mt-7 bg-stone-800 text-white" href="#">Our story</a>
+      <div class="bg-stone-100 text-stone-900">
+        <header class="border-b border-stone-300">
+          <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+            <span class="font-serif text-lg">Terroir</span
+            ><a
+              buiButton
+              size="sm"
+              class="ml-auto bg-stone-800 text-white hover:bg-stone-900"
+              href="#"
+              >Our story</a
+            >
+          </div>
+        </header>
+        <section class="mx-auto max-w-4xl px-6 py-28 text-center">
+          <p class="text-xs font-medium tracking-[0.3em] text-stone-500 uppercase">
+            Est. 1998 · Single estate
+          </p>
+          <h1 class="mt-4 font-serif text-5xl tracking-tight text-balance sm:text-6xl">
+            From the land, to your table
+          </h1>
+          <p class="mx-auto mt-6 max-w-xl text-lg text-stone-600">
+            Hand-harvested, slow-made goods that taste of where they're from.
+          </p>
+          <a buiButton size="lg" class="mt-8 bg-stone-800 text-white hover:bg-stone-900" href="#"
+            >Shop the harvest</a
+          >
+        </section>
+        <section class="mx-auto max-w-6xl px-6 pb-24">
+          <div class="grid gap-6 sm:grid-cols-3">
+            @for (p of ['Olive oil', 'Honey', 'Preserves']; track p) {
+              <div class="rounded-lg border border-stone-300 bg-white p-6">
+                <div
+                  class="mb-4 grid aspect-[4/3] place-items-center rounded bg-stone-200 text-stone-500"
+                >
+                  Photo
+                </div>
+                <h3 class="font-serif text-xl">{{ p }}</h3>
+                <p class="mt-1 text-sm text-stone-600">Small-batch · estate-grown</p>
+              </div>
+            }
+          </div>
+        </section>
+        <footer class="border-t border-stone-300">
+          <div class="mx-auto max-w-6xl px-6 py-8 text-sm text-stone-500">© 2026 Terroir.</div>
+        </footer>
       </div>
     }
     @case ('verdure') {
-      <div class="w-full rounded-lg border bg-green-50 p-12 text-green-950">
-        <h1 class="text-4xl font-semibold tracking-tight">Breathe a little greener</h1>
-        <p class="mt-4 max-w-xl text-lg text-green-900/70">
-          A botanical, calm template with plenty of space.
-        </p>
-        <a buiButton size="lg" class="mt-7 bg-green-700 text-white" href="#">Explore</a>
+      <div class="bg-green-50/60 text-green-950">
+        <header class="border-b border-green-200/60">
+          <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+            <span class="text-lg font-semibold">Verdure</span
+            ><a
+              buiButton
+              size="sm"
+              class="ml-auto bg-green-700 text-white hover:bg-green-800"
+              href="#"
+              >Explore</a
+            >
+          </div>
+        </header>
+        <section class="mx-auto max-w-3xl px-6 py-32 text-center">
+          <h1 class="text-5xl font-semibold tracking-tight text-balance sm:text-6xl">
+            Breathe a little greener
+          </h1>
+          <p class="mx-auto mt-6 max-w-lg text-lg text-pretty text-green-900/70">
+            A botanical, unhurried space for brands that care about the planet.
+          </p>
+          <a buiButton size="lg" class="mt-8 bg-green-700 text-white hover:bg-green-800" href="#"
+            >Discover more</a
+          >
+        </section>
+        <section class="mx-auto max-w-5xl px-6 pb-24">
+          <div class="grid gap-12 text-center sm:grid-cols-3">
+            <div>
+              <div class="mb-2 text-3xl">🌿</div>
+              <h3 class="font-medium">Sustainable</h3>
+              <p class="mt-2 text-sm text-green-900/60">Carbon-neutral by design.</p>
+            </div>
+            <div>
+              <div class="mb-2 text-3xl">💧</div>
+              <h3 class="font-medium">Mindful</h3>
+              <p class="mt-2 text-sm text-green-900/60">Less, but better.</p>
+            </div>
+            <div>
+              <div class="mb-2 text-3xl">🌍</div>
+              <h3 class="font-medium">Rooted</h3>
+              <p class="mt-2 text-sm text-green-900/60">Local, always.</p>
+            </div>
+          </div>
+        </section>
+        <footer class="border-t border-green-200/60">
+          <div class="mx-auto max-w-5xl px-6 py-8 text-center text-sm text-green-900/60">
+            © 2026 Verdure.
+          </div>
+        </footer>
       </div>
     }
     @case ('vinyl') {
-      <div class="w-full rounded-lg border bg-neutral-900 p-10 text-neutral-100">
-        <span buiBadge tone="warning" variant="solid">Vinyl</span>
-        <h1 class="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">Records, remastered</h1>
-        <p class="mt-4 max-w-xl text-lg text-neutral-400">
-          A retro music-shop template with warm contrast.
-        </p>
-        <a buiButton size="lg" class="mt-7 bg-amber-400 text-neutral-900" href="#"
-          >Shop the crate</a
-        >
+      <div class="bg-neutral-900 text-neutral-100">
+        <header class="border-b border-neutral-800">
+          <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+            <span class="text-lg font-bold text-amber-400">◉ Vinyl</span
+            ><a
+              buiButton
+              size="sm"
+              class="ml-auto rounded-full bg-amber-400 text-neutral-900 hover:bg-amber-300"
+              href="#"
+              >Shop crates</a
+            >
+          </div>
+        </header>
+        <section class="mx-auto max-w-4xl px-6 py-28 text-center">
+          <span buiBadge tone="warning" variant="solid" class="rounded-full"
+            >New pressings weekly</span
+          >
+          <h1 class="mt-5 text-5xl font-bold tracking-tight text-balance sm:text-7xl">
+            Records, <span class="text-amber-400">remastered</span>
+          </h1>
+          <p class="mx-auto mt-6 max-w-xl text-lg text-neutral-400">
+            A retro record shop for crate-diggers and first-time listeners alike.
+          </p>
+          <a
+            buiButton
+            size="lg"
+            class="mt-8 rounded-full bg-amber-400 text-neutral-900 hover:bg-amber-300"
+            href="#"
+            >Browse the crate</a
+          >
+        </section>
+        <section class="mx-auto max-w-6xl px-6 pb-24">
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            @for (i of [1, 2, 3, 4]; track i) {
+              <div class="rounded-2xl border border-neutral-800 bg-neutral-800/40 p-4">
+                <div
+                  class="grid aspect-square place-items-center rounded-full bg-gradient-to-br from-amber-500 to-rose-600 text-neutral-900"
+                >
+                  <div class="size-6 rounded-full bg-neutral-900"></div>
+                </div>
+                <p class="mt-3 font-medium">Album {{ i }}</p>
+                <p class="text-sm text-neutral-400">$28 · LP</p>
+              </div>
+            }
+          </div>
+        </section>
+        <footer class="border-t border-neutral-800">
+          <div class="mx-auto max-w-6xl px-6 py-8 text-sm text-neutral-500">
+            © 2026 Vinyl Records Co.
+          </div>
+        </footer>
       </div>
     }
     @case ('arcade') {
-      <div class="w-full rounded-lg border bg-indigo-950 p-12 text-center text-indigo-50">
-        <span buiBadge class="border-transparent bg-fuchsia-500 text-white">Arcade</span>
-        <h1 class="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">Press start</h1>
-        <p class="mx-auto mt-4 max-w-xl text-lg text-indigo-200/70">
-          A playful, neon template for games and fun.
-        </p>
-        <a buiButton size="lg" class="mt-7 bg-fuchsia-500 text-white" href="#">Insert coin</a>
+      <div class="bg-[#0a0a16] text-fuchsia-50">
+        <header class="border-b border-fuchsia-500/20">
+          <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+            <span class="text-lg font-black tracking-widest text-fuchsia-400">ARCADE</span
+            ><a
+              buiButton
+              size="sm"
+              class="ml-auto bg-fuchsia-500 text-white hover:bg-fuchsia-400"
+              href="#"
+              >Insert coin</a
+            >
+          </div>
+        </header>
+        <section class="relative overflow-hidden">
+          <div
+            class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,theme(colors.fuchsia.500/0.2),transparent_60%)]"
+          ></div>
+          <div class="relative mx-auto max-w-4xl px-6 py-32 text-center">
+            <span buiBadge class="border-transparent bg-cyan-400 text-[#0a0a16]"
+              >▶ Now playing</span
+            >
+            <h1 class="mt-5 text-6xl font-black tracking-tight text-balance sm:text-7xl">
+              <span class="text-fuchsia-400">PRESS</span> <span class="text-cyan-400">START</span>
+            </h1>
+            <p class="mx-auto mt-6 max-w-xl text-lg text-fuchsia-100/70">
+              A playful, neon-soaked template for games, communities and fun.
+            </p>
+            <div class="mt-8 flex flex-wrap justify-center gap-3">
+              <a buiButton size="lg" class="bg-fuchsia-500 text-white hover:bg-fuchsia-400" href="#"
+                >Play now</a
+              ><a
+                buiButton
+                size="lg"
+                variant="outline"
+                class="border-cyan-400/50 text-cyan-300 hover:bg-cyan-400/10"
+                href="#"
+                >Leaderboard</a
+              >
+            </div>
+          </div>
+        </section>
+        <section class="mx-auto max-w-6xl px-6 py-20">
+          <div class="grid gap-6 sm:grid-cols-3">
+            @for (f of saasFeatures.slice(0, 3); track f.title) {
+              <div class="rounded-xl border border-fuchsia-500/20 bg-fuchsia-500/5 p-6">
+                <div class="mb-2 text-2xl">{{ f.icon }}</div>
+                <h3 class="font-bold text-cyan-300">{{ f.title }}</h3>
+                <p class="mt-1 text-sm text-fuchsia-100/60">{{ f.body }}</p>
+              </div>
+            }
+          </div>
+        </section>
+        <footer class="border-t border-fuchsia-500/20">
+          <div class="mx-auto max-w-6xl px-6 py-8 text-sm text-fuchsia-100/50">
+            © 2026 Arcade · Game on.
+          </div>
+        </footer>
       </div>
     }
     @case ('atelier') {
-      <div class="w-full rounded-lg border bg-white p-12 text-zinc-900">
-        <p class="text-xs tracking-[0.3em] text-zinc-400 uppercase">Atelier</p>
-        <h1 class="mt-3 font-serif text-5xl tracking-tight">Crafted with intent</h1>
-        <p class="mt-5 max-w-xl text-lg text-zinc-500">
-          A refined, gallery-style template for studios.
+      <header class="border-b">
+        <div class="mx-auto flex h-16 max-w-5xl items-center gap-4 px-6">
+          <span class="font-serif text-lg tracking-tight">Atelier</span>
+          <nav class="ml-6 hidden gap-6 text-sm text-muted-foreground md:flex">
+            <a href="#" class="hover:text-foreground">Work</a
+            ><a href="#" class="hover:text-foreground">Studio</a
+            ><a href="#" class="hover:text-foreground">Contact</a>
+          </nav>
+          <a buiButton size="sm" variant="outline" class="ml-auto" href="#">Enquire</a>
+        </div>
+      </header>
+      <section class="mx-auto max-w-4xl px-6 py-32 text-center">
+        <p class="text-xs tracking-[0.3em] text-muted-foreground uppercase">
+          Design studio · since 2012
         </p>
-        <a buiButton size="lg" variant="outline" class="mt-7" href="#">View work</a>
-      </div>
+        <h1 class="mt-4 font-serif text-6xl tracking-tight text-balance">Crafted with intent</h1>
+        <p class="mx-auto mt-6 max-w-lg text-lg text-pretty text-muted-foreground">
+          A refined, gallery-style practice making considered work for considered brands.
+        </p>
+        <a buiButton size="lg" variant="outline" class="mt-8" href="#">View portfolio</a>
+      </section>
+      <section class="mx-auto max-w-6xl px-6 pb-24">
+        <div class="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
+          @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+            <a href="#" class="group block bg-background"
+              ><div
+                class="grid aspect-[4/5] place-items-center bg-muted text-sm transition-opacity group-hover:opacity-80"
+              >
+                <span class="text-muted-foreground">Plate {{ i }}</span>
+              </div>
+              <div class="px-1 py-3">
+                <p class="font-serif">Work № {{ i }}</p>
+                <p class="text-sm text-muted-foreground">Identity · 2026</p>
+              </div></a
+            >
+          }
+        </div>
+      </section>
+      <footer class="border-t">
+        <div class="mx-auto max-w-5xl px-6 py-8 text-sm text-muted-foreground">© 2026 Atelier.</div>
+      </footer>
     }
     @case ('estate') {
-      <div class="w-full space-y-6 rounded-lg border p-8">
-        <div class="flex items-center gap-3">
-          <h2 class="text-lg font-semibold">Featured homes</h2>
-          <input
-            buiInput
-            class="ml-auto max-w-[220px]"
-            type="search"
-            placeholder="Search listings"
-          />
+      <header class="border-b">
+        <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+          <span class="text-lg font-bold">Homestead</span>
+          <nav class="ml-4 hidden gap-6 text-sm text-muted-foreground md:flex">
+            <a href="#" class="hover:text-foreground">Buy</a
+            ><a href="#" class="hover:text-foreground">Rent</a
+            ><a href="#" class="hover:text-foreground">Sell</a>
+          </nav>
+          <a buiButton size="sm" class="ml-auto" href="#">List a home</a>
         </div>
-        <div class="grid gap-6 sm:grid-cols-3">
-          <div buiCard variant="sectioned">
-            <div class="grid h-32 place-items-center rounded-t-xl bg-muted text-sm">Photo</div>
-            <div buiCardContent class="pt-4">
-              <p class="font-semibold">$640,000</p>
-              <p class="text-sm text-muted-foreground">3 bd · 2 ba · Portland, OR</p>
-            </div>
-          </div>
-          <div buiCard variant="sectioned">
-            <div class="grid h-32 place-items-center rounded-t-xl bg-muted text-sm">Photo</div>
-            <div buiCardContent class="pt-4">
-              <p class="font-semibold">$1.2M</p>
-              <p class="text-sm text-muted-foreground">4 bd · 3 ba · Austin, TX</p>
-            </div>
-          </div>
-          <div buiCard variant="sectioned">
-            <div class="grid h-32 place-items-center rounded-t-xl bg-muted text-sm">Photo</div>
-            <div buiCardContent class="pt-4">
-              <p class="font-semibold">$420,000</p>
-              <p class="text-sm text-muted-foreground">2 bd · 1 ba · Denver, CO</p>
-            </div>
+      </header>
+      <section class="bg-gradient-to-b from-primary/5 to-transparent">
+        <div class="mx-auto max-w-3xl px-6 py-20 text-center">
+          <h1 class="text-4xl font-bold tracking-tight text-balance sm:text-5xl">
+            Find your next place
+          </h1>
+          <p class="mt-3 text-muted-foreground">Thousands of listings, updated daily.</p>
+          <div class="mx-auto mt-6 flex w-full max-w-lg items-center gap-2">
+            <input buiInput class="h-11" type="search" placeholder="City, neighbourhood or ZIP…" />
+            <button buiButton size="lg">Search</button>
           </div>
         </div>
-      </div>
+      </section>
+      <section class="mx-auto max-w-6xl px-6 py-16">
+        <h2 class="mb-6 text-2xl font-bold tracking-tight">Featured homes</h2>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          @for (home of estateListings; track home.place) {
+            <div buiCard variant="sectioned" class="overflow-hidden pt-0">
+              <div class="relative grid aspect-[4/3] place-items-center bg-muted text-sm">
+                @if (home.tag) {
+                  <span buiBadge class="absolute top-2 left-2">{{ home.tag }}</span>
+                }
+                <span class="text-muted-foreground">Photo</span>
+              </div>
+              <div buiCardContent class="space-y-1 pt-3">
+                <p class="text-xl font-semibold tabular-nums">{{ home.price }}</p>
+                <p class="text-sm text-muted-foreground">{{ home.specs }}</p>
+                <p class="text-sm font-medium">{{ home.place }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+      <footer class="border-t">
+        <div class="mx-auto max-w-6xl px-6 py-8 text-sm text-muted-foreground">
+          © 2026 Homestead Realty.
+        </div>
+      </footer>
     }
     @default {
       <p class="p-8 text-muted-foreground">Template not found.</p>

@@ -139,6 +139,24 @@ export class TemplatesPage {
     { title: 'Shipping a component library', tag: 'Product', author: 'Edsger', initials: 'ED' },
   ];
   protected readonly dashBars = [40, 55, 35, 60, 50, 72, 58, 80, 65, 90, 75, 95];
+  protected readonly estateListings = [
+    { price: '$640,000', specs: '3 bd · 2 ba · 1,840 sqft', place: 'Portland, OR', tag: 'New' },
+    { price: '$1,200,000', specs: '4 bd · 3 ba · 2,950 sqft', place: 'Austin, TX', tag: '' },
+    {
+      price: '$420,000',
+      specs: '2 bd · 1 ba · 1,100 sqft',
+      place: 'Denver, CO',
+      tag: 'Open house',
+    },
+    { price: '$875,000', specs: '3 bd · 2.5 ba · 2,200 sqft', place: 'Seattle, WA', tag: '' },
+    {
+      price: '$2,400,000',
+      specs: '5 bd · 4 ba · 4,300 sqft',
+      place: 'San Diego, CA',
+      tag: 'Luxury',
+    },
+    { price: '$310,000', specs: '1 bd · 1 ba · 720 sqft', place: 'Boise, ID', tag: '' },
+  ];
   protected readonly eventSpeakers = [
     { name: 'Ada Lovelace', role: 'Keynote · Acme', init: 'AL' },
     { name: 'Grace Hopper', role: 'Engineering · Naval', init: 'GH' },
