@@ -8,6 +8,8 @@ export interface ContextMenuItem {
   shortcut?: string;
   danger?: boolean;
   separator?: boolean;
+  /** Optional leading icon, given as an SVG path `d` string. */
+  icon?: string;
 }
 
 /** A right-click context menu. Project the target; pass menu `items`. */
@@ -40,6 +42,20 @@ export interface ContextMenuItem {
               [class.text-destructive]="item.danger"
               (click)="select(item)"
             >
+              @if (item.icon) {
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  class="size-4 shrink-0"
+                >
+                  <path [attr.d]="item.icon" />
+                </svg>
+              }
               <span>{{ item.label }}</span>
               @if (item.shortcut) {
                 <span class="ms-auto text-xs text-muted-foreground">{{ item.shortcut }}</span>

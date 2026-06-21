@@ -3754,6 +3754,34 @@ This content is read-only and cannot be edited.</textarea
           </ol>
         </nav>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Dropdown</h2>
+      <app-example [code]="code.breadcrumbDropdown">
+        <nav buiBreadcrumb>
+          <ol buiBreadcrumbList>
+            <li buiBreadcrumbItem><a buiBreadcrumbLink href="/">Home</a></li>
+            <li buiBreadcrumbSeparator></li>
+            <li buiBreadcrumbItem class="relative inline-block">
+              <button
+                buiBreadcrumbLink
+                ngMenuTrigger
+                [menu]="bcMenu"
+                aria-label="More"
+                class="cursor-pointer"
+              >
+                …
+              </button>
+              <div ngMenu #bcMenu="ngMenu" buiDropdownMenu>
+                <div ngMenuItem value="docs" buiDropdownMenuItem>Documentation</div>
+                <div ngMenuItem value="themes" buiDropdownMenuItem>Themes</div>
+                <div ngMenuItem value="github" buiDropdownMenuItem>GitHub</div>
+              </div>
+            </li>
+            <li buiBreadcrumbSeparator></li>
+            <li buiBreadcrumbItem><span buiBreadcrumbPage>Breadcrumb</span></li>
+          </ol>
+        </nav>
+      </app-example>
     }
     @case ('button-group') {
       <app-example [code]="code.buttonGroup">
@@ -3916,6 +3944,17 @@ This content is read-only and cannot be edited.</textarea
               <span class="italic">I</span>
             </button>
           </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With separator</h2>
+      <app-example [code]="code.buttonGroupSeparator">
+        <div buiButtonGroup>
+          <button buiButton variant="outline">Copy</button>
+          <div class="w-px self-stretch bg-border" aria-hidden="true"></div>
+          <button buiButton variant="outline">Paste</button>
+          <div class="w-px self-stretch bg-border" aria-hidden="true"></div>
+          <button buiButton variant="outline">Cut</button>
         </div>
       </app-example>
     }
@@ -7165,6 +7204,11 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.timeFieldDisabled">
         <bui-time-field [value]="'09:00'" [disabled]="true" ariaLabel="Disabled time" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Select</h2>
+      <app-example [code]="code.timeFieldSelect">
+        <bui-time-field mode="select" [(value)]="tfSelectValue" ariaLabel="Pick a time" />
+      </app-example>
     }
     @case ('toggle-group') {
       <app-example [code]="code.toggleGroup">
@@ -8132,6 +8176,22 @@ This content is read-only and cannot be edited.</textarea
           <div class="grid h-full place-items-center bg-muted text-lg font-medium">Slide 3</div>
         </bui-carousel>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Testimonials</h2>
+      <app-example [code]="code.carouselTestimonials">
+        <bui-carousel class="w-full max-w-md">
+          @for (t of testimonials; track t.name) {
+            <div class="p-1">
+              <figure class="flex h-40 flex-col justify-center gap-3 rounded-md border bg-card p-6">
+                <blockquote class="text-sm">“{{ t.quote }}”</blockquote>
+                <figcaption class="text-xs font-medium text-muted-foreground">
+                  — {{ t.name }}
+                </figcaption>
+              </figure>
+            </div>
+          }
+        </bui-carousel>
+      </app-example>
     }
     @case ('command') {
       <app-example [code]="code.command">
@@ -8155,6 +8215,17 @@ This content is read-only and cannot be edited.</textarea
             class="grid h-32 w-full max-w-md place-items-center rounded-lg border border-dashed border-input text-sm text-muted-foreground"
           >
             Right-click anywhere here
+          </div>
+        </bui-context-menu>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With icons</h2>
+      <app-example [code]="code.contextMenuIcons">
+        <bui-context-menu [items]="ctxItemsIcons">
+          <div
+            class="grid h-32 w-full max-w-md place-items-center rounded-lg border border-dashed border-input text-sm text-muted-foreground"
+          >
+            Right-click for an icon menu
           </div>
         </bui-context-menu>
       </app-example>

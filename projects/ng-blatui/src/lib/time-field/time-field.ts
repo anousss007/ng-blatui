@@ -2,24 +2,57 @@ import { Component, computed, input, model } from '@angular/core';
 
 import { type ClassValue, cn } from '../utils/cn';
 
-/** A styled native time input (`<input type="time">`). */
+export type TimeFieldMode = 'input' | 'select';
+
+const SELECT_CLASS =
+  'h-9 rounded-md border border-input bg-background px-2 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50';
+
+/** A styled time field: a native `<input type="time">`, or hour/minute selects in `select` mode. */
 @Component({
   selector: 'bui-time-field',
   host: { 'data-slot': 'time-field', '[class]': 'computedClass()' },
   template: `
-    <input
-      type="time"
-      [value]="value()"
-      [attr.name]="name() || null"
-      [attr.id]="id() || null"
-      [attr.min]="min() || null"
-      [attr.max]="max() || null"
-      [attr.step]="seconds() ? 1 : null"
-      [disabled]="disabled()"
-      [attr.aria-label]="ariaLabel() || null"
-      class="h-9 rounded-md border border-input bg-background px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50"
-      (input)="onInput($event)"
-    />
+    @if (mode() === 'select') {
+      <div class="inline-flex items-center gap-1">
+        <select
+          [class]="selectClass"
+          [value]="hourPart()"
+          [disabled]="disabled()"
+          [attr.aria-label]="(ariaLabel() || 'Time') + ' hours'"
+          (change)="setHour($event)"
+        >
+          @for (hour of hours(); track hour) {
+            <option [value]="hour">{{ hour }}</option>
+          }
+        </select>
+        <span aria-hidden="true" class="text-muted-foreground">:</span>
+        <select
+          [class]="selectClass"
+          [value]="minutePart()"
+          [disabled]="disabled()"
+          [attr.aria-label]="(ariaLabel() || 'Time') + ' minutes'"
+          (change)="setMinute($event)"
+        >
+          @for (minute of minutes(); track minute) {
+            <option [value]="minute">{{ minute }}</option>
+          }
+        </select>
+      </div>
+    } @else {
+      <input
+        type="time"
+        [value]="value()"
+        [attr.name]="name() || null"
+        [attr.id]="id() || null"
+        [attr.min]="min() || null"
+        [attr.max]="max() || null"
+        [attr.step]="seconds() ? 1 : null"
+        [disabled]="disabled()"
+        [attr.aria-label]="ariaLabel() || null"
+        class="h-9 rounded-md border border-input bg-background px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50"
+        (input)="onInput($event)"
+      />
+    }
   `,
 })
 export class BuiTimeField {
@@ -30,11 +63,40 @@ export class BuiTimeField {
   readonly max = input('');
   readonly seconds = input(false);
   readonly disabled = input(false);
+  /** `select` renders hour + minute dropdowns instead of a native time input. */
+  readonly mode = input<TimeFieldMode>('input');
+  /** Minute step used in `select` mode. */
+  readonly minuteStep = input(5);
   readonly ariaLabel = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+  protected readonly selectClass = SELECT_CLASS;
+  protected readonly hourPart = computed(() =>
+    (this.value().split(':', 1)[0] || '12').padStart(2, '0'),
+  );
+  protected readonly minutePart = computed(() =>
+    (this.value().split(':', 2)[1] || '00').padStart(2, '0'),
+  );
+  protected readonly hours = computed(() =>
+    Array.from({ length: 24 }, (_, hour) => String(hour).padStart(2, '0')),
+  );
+  protected readonly minutes = computed(() => {
+    const step = Math.max(1, this.minuteStep());
+    return Array.from({ length: Math.ceil(60 / step) }, (_, index) =>
+      String(index * step).padStart(2, '0'),
+    );
+  });
   protected readonly computedClass = computed(() => cn('inline-block', this.userClass()));
 
   protected onInput(event: Event): void {
     this.value.set((event.target as HTMLInputElement).value);
+  }
+
+  protected setHour(event: Event): void {
+    this.value.set(`${(event.target as HTMLSelectElement).value}:${this.minutePart()}`);
+  }
+
+  protected setMinute(event: Event): void {
+    this.value.set(`${this.hourPart()}:${(event.target as HTMLSelectElement).value}`);
   }
 }

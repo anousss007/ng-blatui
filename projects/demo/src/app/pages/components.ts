@@ -992,6 +992,29 @@ export class ComponentPage {
     { label: 'Copy', shortcut: '⌘C' },
     { label: 'Delete', danger: true },
   ];
+  protected readonly ctxItemsIcons = [
+    {
+      label: 'Profile',
+      icon: 'M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z',
+    },
+    {
+      label: 'Copy',
+      shortcut: '⌘C',
+      icon: 'M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2M9 2h6a1 1 0 0 1 1 1v2H8V3a1 1 0 0 1 1-1Z',
+    },
+    { separator: true },
+    {
+      label: 'Delete',
+      danger: true,
+      icon: 'M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2',
+    },
+  ];
+  protected readonly tfSelectValue = signal('09:30');
+  protected readonly testimonials = [
+    { quote: 'ng-blatui shipped our redesign weeks early.', name: 'Ada L.' },
+    { quote: 'Signals-first and SSR-ready out of the box.', name: 'Grace H.' },
+    { quote: 'The most complete Angular UI kit we tried.', name: 'Alan T.' },
+  ];
   protected readonly calDate = signal('');
   protected readonly calDisabledDates = ['2026-06-10', '2026-06-16', '2026-06-24'];
   protected readonly dpDate = signal('');
@@ -1953,6 +1976,13 @@ this.dialog.open(tpl, { ariaModal: true });`,
 <li buiBreadcrumbSeparator><svg><!-- slash --></svg></li>`,
     breadcrumbDotSep: `<li buiBreadcrumbSeparator><span class="bg-muted-foreground block size-1 rounded-full"></span></li>`,
     breadcrumbContained: `<ol buiBreadcrumbList class="bg-background min-h-9 w-fit rounded-md border px-3 py-1">…</ol>`,
+    breadcrumbDropdown: `<!-- collapse middle crumbs into a dropdown menu -->
+<li buiBreadcrumbItem class="relative inline-block">
+  <button buiBreadcrumbLink ngMenuTrigger [menu]="m" aria-label="More">…</button>
+  <div ngMenu #m="ngMenu" buiDropdownMenu>
+    <div ngMenuItem value="docs" buiDropdownMenuItem>Documentation</div>
+  </div>
+</li>`,
     breadcrumbBadge: `<li buiBreadcrumbItem class="flex items-center gap-2">
   <span buiBreadcrumbPage>Settings</span><span buiBadge variant="secondary">Beta</span>
 </li>`,
@@ -2005,6 +2035,11 @@ this.dialog.open(tpl, { ariaModal: true });`,
     buttonGroupNested: `<div buiButtonGroup>
   <div buiButtonGroup>…undo / redo…</div>
   <div buiButtonGroup>…bold / italic…</div>
+</div>`,
+    buttonGroupSeparator: `<div buiButtonGroup>
+  <button buiButton variant="outline">Copy</button>
+  <div class="bg-border w-px self-stretch" aria-hidden="true"></div>
+  <button buiButton variant="outline">Paste</button>
 </div>`,
     collapsible: `import { BuiCollapsible, BuiCollapsibleTrigger, BuiCollapsibleContent } from 'ng-blatui';
 
@@ -2793,6 +2828,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-time-field [(value)]="time" />`,
     timeFieldSeconds: `<bui-time-field [value]="'14:30:15'" [seconds]="true" />`,
     timeFieldDisabled: `<bui-time-field [value]="'09:00'" [disabled]="true" />`,
+    timeFieldSelect: `<!-- mode="select" renders hour + minute dropdowns -->
+<bui-time-field mode="select" [(value)]="time" />`,
     toggleGroup: `import { BuiToggleGroup, BuiToggleGroupItem } from 'ng-blatui';
 
 <bui-toggle-group [(value)]="align">
@@ -3090,6 +3127,12 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
   <div class="h-full">Slide 1</div>
   <div class="h-full">Slide 2</div>
 </bui-carousel>`,
+    carouselTestimonials: `<!-- slides styled as quote cards -->
+<bui-carousel>
+  @for (t of testimonials; track t.name) {
+    <div class="p-1"><figure>“{{ t.quote }}” — {{ t.name }}</figure></div>
+  }
+</bui-carousel>`,
     command: `import { BuiCommand } from 'ng-blatui';
 
 <bui-command [groups]="groups" (selected)="run($event)" />`,
@@ -3101,6 +3144,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-context-menu [items]="items">
   <div>Right-click here</div>
 </bui-context-menu>`,
+    contextMenuIcons: `<!-- each item takes an optional icon (SVG path d) -->
+<bui-context-menu [items]="items" />
+// items = [{ label: 'Profile', icon: 'M19 21v-2…' }, …]`,
     dataTable: `import { BuiDataTable } from 'ng-blatui';
 
 <bui-data-table [columns]="columns" [rows]="rows" [pageSize]="5" />`,
