@@ -104,6 +104,10 @@ export class BuiCalendar {
   readonly weekStart = input(0);
   readonly minDate = input('');
   readonly maxDate = input('');
+  /** Specific ISO dates (yyyy-mm-dd) to disable. */
+  readonly disabledDates = input<readonly string[]>([]);
+  /** Disable Saturdays and Sundays. */
+  readonly disableWeekends = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
   private readonly view = signal(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
@@ -129,7 +133,7 @@ export class BuiCalendar {
           num: date.getDate(),
           inMonth: date.getMonth() === month,
           isToday: iso === today,
-          disabled: this.isDisabled(iso),
+          disabled: this.isDisabled(iso, date),
         };
       }),
     );
@@ -158,9 +162,19 @@ export class BuiCalendar {
     );
   }
 
-  private isDisabled(iso: string): boolean {
+  private isDisabled(iso: string, date: Date): boolean {
     const min = this.minDate();
     const max = this.maxDate();
-    return (min !== '' && iso < min) || (max !== '' && iso > max);
+    if ((min !== '' && iso < min) || (max !== '' && iso > max)) {
+      return true;
+    }
+    if (this.disabledDates().includes(iso)) {
+      return true;
+    }
+    if (this.disableWeekends()) {
+      const day = date.getDay();
+      return day === 0 || day === 6;
+    }
+    return false;
   }
 }

@@ -7721,6 +7721,16 @@ This content is read-only and cannot be edited.</textarea
           maxDate="2026-06-30"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled dates</h2>
+      <app-example [code]="code.calendarDisabledDates">
+        <bui-calendar class="border" [(value)]="calDate" [disabledDates]="calDisabledDates" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled weekends</h2>
+      <app-example [code]="code.calendarWeekends">
+        <bui-calendar class="border" [(value)]="calDate" [disableWeekends]="true" />
+      </app-example>
     }
     @case ('date-picker') {
       <app-example [code]="code.datePicker">

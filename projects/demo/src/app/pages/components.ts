@@ -970,6 +970,7 @@ export class ComponentPage {
     { label: 'Delete', danger: true },
   ];
   protected readonly calDate = signal('');
+  protected readonly calDisabledDates = ['2026-06-10', '2026-06-16', '2026-06-24'];
   protected readonly dpDate = signal('');
   protected readonly diffBefore = 'const x = 1;\nconst y = 2;\nconsole.log(x);';
   protected readonly diffAfter = 'const x = 1;\nconst y = 3;\nconsole.log(x + y);';
@@ -2935,6 +2936,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-calendar [(value)]="date" />`,
     calendarMonday: `<bui-calendar [(value)]="date" [weekStart]="1" />`,
     calendarMinMax: `<bui-calendar [(value)]="date" minDate="2026-06-01" maxDate="2026-06-30" />`,
+    calendarDisabledDates: `<!-- disable specific ISO dates -->
+<bui-calendar [(value)]="date" [disabledDates]="['2026-06-10', '2026-06-16']" />`,
+    calendarWeekends: `<bui-calendar [(value)]="date" [disableWeekends]="true" />`,
     datePicker: `import { BuiDatePicker } from 'ng-blatui';
 
 <bui-date-picker [(value)]="date" />`,
