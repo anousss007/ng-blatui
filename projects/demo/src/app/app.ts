@@ -3,8 +3,7 @@ import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } fro
 
 import { BuiButton, BuiThemeCustomizer } from 'ng-blatui';
 
-import { BLOCKS } from './pages/blocks';
-import { TEMPLATES } from './pages/templates';
+import { CATEGORIES, labelFor } from './pages/categories';
 
 interface NavLink {
   readonly label: string;
@@ -182,12 +181,14 @@ export const COMPONENTS = [
 export class App {
   private readonly router = inject(Router);
   private readonly url = signal('/');
-  /** Home is full-bleed (showcase); every other route gets the docs sidebar layout. */
+  /** Home is full-bleed (showcase). */
   protected readonly isHome = computed(() => this.url() === '/' || this.url() === '');
   /** Home + individual template pages render full-bleed (standalone, no sidebar). */
   protected readonly isFullBleed = computed(
     () => this.isHome() || this.url().startsWith('/templates/'),
   );
+  /** Component routes (/components, /components/:slug) get the categorized docs sidebar. */
+  protected readonly isComponentRoute = computed(() => this.url().startsWith('/components'));
   /** Mobile slide-over navigation (hamburger menu). */
   protected readonly mobileNavOpen = signal(false);
 
@@ -202,44 +203,33 @@ export class App {
     });
   }
 
-  protected readonly nav: readonly NavGroup[] = [
-    {
-      title: 'Getting started',
-      links: [
-        { label: 'Introduction', path: '/' },
-        { label: 'Installation', path: '/docs/installation' },
-        { label: 'Theming', path: '/docs/theming' },
-      ],
-    },
-    {
-      title: 'Components',
-      links: COMPONENTS.map((slug) => ({
-        label: slug
-          .split('-')
-          .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-          .join(' '),
-        path: `/components/${slug}`,
-      })),
-    },
-    {
-      title: 'Blocks',
-      links: BLOCKS.map((slug) => ({
-        label: slug
-          .split('-')
-          .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-          .join(' '),
-        path: `/blocks/${slug}`,
-      })),
-    },
-    {
-      title: 'Templates',
-      links: TEMPLATES.map((slug) => ({
-        label: slug
-          .split('-')
-          .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-          .join(' '),
-        path: `/templates/${slug}`,
-      })),
-    },
+  /** Top-level sections in the header, in BlatUI's order. */
+  protected readonly sections: readonly NavLink[] = [
+    { label: 'Docs', path: '/docs/installation' },
+    { label: 'Components', path: '/components' },
+    { label: 'Blocks', path: '/blocks' },
+    { label: 'Templates', path: '/templates' },
+    { label: 'Charts', path: '/charts' },
+    { label: 'Themes', path: '/themes' },
   ];
+
+  /** Categorized component sidebar — mirrors BlatUI's docs sidebar (config/docs.php). */
+  protected readonly componentGroups: readonly NavGroup[] = (() => {
+    const present = new Set(COMPONENTS);
+    const categorized = new Set(CATEGORIES.flatMap((c) => c.slugs));
+    const groups: NavGroup[] = CATEGORIES.map((c) => ({
+      title: c.label,
+      links: c.slugs
+        .filter((slug) => present.has(slug))
+        .map((slug) => ({ label: labelFor(slug), path: `/components/${slug}` })),
+    })).filter((g) => g.links.length > 0);
+    const others = COMPONENTS.filter((slug) => !categorized.has(slug));
+    if (others.length > 0) {
+      groups.push({
+        title: 'Other',
+        links: others.map((slug) => ({ label: labelFor(slug), path: `/components/${slug}` })),
+      });
+    }
+    return groups;
+  })();
 }

@@ -43,30 +43,14 @@
         <span class="font-mono text-[15px]">ng-blatui</span>
       </a>
       <nav class="ml-3 hidden items-center gap-0.5 text-sm lg:flex">
-        <a
-          class="rounded-md px-3 py-1.5 font-medium transition-colors"
-          routerLink="/components"
-          routerLinkActive="bg-accent text-accent-foreground"
-          >Components</a
-        >
-        <a
-          class="rounded-md px-3 py-1.5 font-medium transition-colors"
-          routerLink="/blocks"
-          routerLinkActive="bg-accent text-accent-foreground"
-          >Blocks</a
-        >
-        <a
-          class="rounded-md px-3 py-1.5 font-medium transition-colors"
-          routerLink="/templates"
-          routerLinkActive="bg-accent text-accent-foreground"
-          >Templates</a
-        >
-        <a
-          class="rounded-md px-3 py-1.5 font-medium transition-colors"
-          routerLink="/docs/installation"
-          routerLinkActive="bg-accent text-accent-foreground"
-          >Docs</a
-        >
+        @for (section of sections; track section.path) {
+          <a
+            class="rounded-md px-3 py-1.5 font-medium text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
+            [routerLink]="section.path"
+            routerLinkActive="bg-accent text-accent-foreground"
+            >{{ section.label }}</a
+          >
+        }
       </nav>
       <div class="ml-auto flex items-center gap-1.5">
         <a
@@ -118,7 +102,22 @@
           </button>
         </div>
         <nav class="flex-1 overflow-y-auto px-4 py-4">
-          @for (group of nav; track group.title) {
+          <div class="mb-6">
+            <ul class="space-y-0.5">
+              @for (section of sections; track section.path) {
+                <li>
+                  <a
+                    class="block rounded-md px-2 py-1.5 text-sm font-medium hover:bg-accent"
+                    [routerLink]="section.path"
+                    routerLinkActive="bg-accent text-accent-foreground"
+                    (click)="mobileNavOpen.set(false)"
+                    >{{ section.label }}</a
+                  >
+                </li>
+              }
+            </ul>
+          </div>
+          @for (group of componentGroups; track group.title) {
             <div class="mb-6">
               <p class="mb-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
                 {{ group.title }}
@@ -148,34 +147,46 @@
     <main class="min-w-0">
       <router-outlet />
     </main>
-  } @else {
-    <div class="mx-auto flex max-w-screen-2xl gap-8 px-4 py-8 lg:px-6">
+  } @else if (isComponentRoute()) {
+    <div class="mx-auto flex max-w-screen-2xl">
       <aside
-        class="sticky top-20 hidden h-[calc(100vh-6rem)] w-52 shrink-0 overflow-y-auto md:block"
+        class="sticky top-14 hidden h-[calc(100svh-3.5rem)] w-64 shrink-0 overflow-y-auto border-r bg-background p-4 md:block"
       >
-        @for (group of nav; track group.title) {
-          <div class="mb-6">
-            <p class="mb-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-              {{ group.title }}
-            </p>
-            <ul class="space-y-0.5">
-              @for (link of group.links; track link.label) {
-                <li>
-                  <a
-                    class="block rounded-md px-2 py-1 text-sm text-muted-foreground hover:bg-accent hover:text-foreground"
-                    [routerLink]="link.path"
-                    routerLinkActive="text-foreground font-medium"
-                    [routerLinkActiveOptions]="{ exact: true }"
-                    >{{ link.label }}</a
-                  >
-                </li>
-              }
-            </ul>
-          </div>
-        }
+        <nav class="space-y-6 text-sm">
+          @for (group of componentGroups; track group.title) {
+            <div>
+              <p
+                class="mb-1.5 px-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase"
+              >
+                {{ group.title }}
+              </p>
+              <ul class="space-y-0.5">
+                @for (link of group.links; track link.label) {
+                  <li>
+                    <a
+                      class="block rounded-md px-2 py-1.5 text-foreground transition-colors hover:bg-accent/60"
+                      [routerLink]="link.path"
+                      routerLinkActive="bg-accent text-accent-foreground font-medium"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      >{{ link.label }}</a
+                    >
+                  </li>
+                }
+              </ul>
+            </div>
+          }
+        </nav>
       </aside>
 
-      <main class="min-w-0 flex-1 pb-16">
+      <main class="min-w-0 flex-1 px-4 py-8 lg:px-10">
+        <div class="mx-auto max-w-3xl">
+          <router-outlet />
+        </div>
+      </main>
+    </div>
+  } @else {
+    <div class="mx-auto max-w-screen-2xl px-4 py-8 lg:px-6">
+      <main class="min-w-0 pb-16">
         <router-outlet />
       </main>
     </div>

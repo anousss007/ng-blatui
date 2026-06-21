@@ -1,0 +1,258 @@
+<!-- Action bar -->
+<div
+  class="sticky top-14 z-30 -mx-4 mb-8 border-b bg-background/80 px-4 py-3 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 lg:-mx-6 lg:px-6"
+>
+  <div class="flex flex-wrap items-center gap-3">
+    <div class="mr-auto">
+      <h1 class="text-base leading-none font-semibold">Theme editor</h1>
+      <p class="mt-1 text-xs text-muted-foreground">
+        Pure CSS variables. Tune it live, then copy it as your
+        <code class="rounded bg-muted px-1 text-[11px]">styles.css</code>.
+      </p>
+    </div>
+    <button buiButton variant="ghost" size="sm" (click)="theme.reset()">Reset</button>
+    <button buiButton size="sm" (click)="copyCss()">
+      {{ copied() ? 'Copied ✓' : 'Copy theme CSS' }}
+    </button>
+  </div>
+</div>
+
+<div class="grid gap-8 lg:grid-cols-[20rem_1fr]">
+  <!-- Controls -->
+  <div class="space-y-6">
+    <!-- Mode -->
+    <div class="space-y-1.5">
+      <span class="text-xs font-medium">Mode</span>
+      <div class="grid grid-cols-3 gap-2">
+        @for (m of modes; track m.value) {
+          <button
+            type="button"
+            class="inline-flex h-8 items-center justify-center rounded-md border border-input text-xs font-medium transition-colors hover:bg-accent data-[active=true]:border-primary data-[active=true]:bg-accent"
+            [attr.data-active]="theme.mode() === m.value"
+            (click)="theme.setMode(m.value)"
+          >
+            {{ m.label }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Base color -->
+    <div class="space-y-1.5">
+      <span class="text-xs font-medium">Base color</span>
+      <div class="grid grid-cols-9 gap-2">
+        @for (b of bases; track b.value) {
+          <button
+            type="button"
+            class="h-8 rounded-md border border-input ring-offset-2 ring-offset-background transition-all data-[active=true]:ring-2 data-[active=true]:ring-ring"
+            [style.background]="b.color"
+            [attr.data-active]="theme.base() === b.value"
+            (click)="theme.setBase(b.value)"
+            [attr.aria-label]="b.value"
+          ></button>
+        }
+      </div>
+    </div>
+
+    <!-- Accent -->
+    <div class="space-y-1.5">
+      <span class="text-xs font-medium">Accent</span>
+      <div class="grid grid-cols-8 gap-2">
+        @for (a of accents; track a.value) {
+          <button
+            type="button"
+            class="h-8 rounded-md border border-input ring-offset-2 ring-offset-background transition-all data-[active=true]:ring-2 data-[active=true]:ring-ring"
+            [style.background]="a.color"
+            [attr.data-active]="theme.preset() === a.value"
+            (click)="theme.setPreset(a.value)"
+            [attr.aria-label]="a.value"
+          ></button>
+        }
+      </div>
+    </div>
+
+    <!-- Radius -->
+    <div class="space-y-1.5">
+      <span class="text-xs font-medium">Radius</span>
+      <div class="grid grid-cols-6 gap-2">
+        @for (r of radii; track r) {
+          <button
+            type="button"
+            class="inline-flex h-8 items-center justify-center rounded-md border border-input text-xs font-medium transition-colors hover:bg-accent data-[active=true]:border-primary data-[active=true]:bg-accent"
+            [attr.data-active]="theme.radius() === r"
+            (click)="theme.setRadius(r)"
+          >
+            {{ r }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Input style -->
+    <div class="space-y-1.5">
+      <span class="text-xs font-medium">Input style</span>
+      <div class="grid grid-cols-3 gap-2">
+        @for (i of inputStyles; track i.value) {
+          <button
+            type="button"
+            class="inline-flex h-8 items-center justify-center rounded-md border border-input text-xs font-medium transition-colors hover:bg-accent data-[active=true]:border-primary data-[active=true]:bg-accent"
+            [attr.data-active]="theme.inputStyle() === i.value"
+            (click)="theme.setInputStyle(i.value)"
+          >
+            {{ i.label }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Body font -->
+    <div class="space-y-1.5">
+      <span class="text-xs font-medium">Body font</span>
+      <div class="grid grid-cols-3 gap-2">
+        @for (f of fonts; track f.value) {
+          <button
+            type="button"
+            class="inline-flex h-8 items-center justify-center rounded-md border border-input text-xs font-medium transition-colors hover:bg-accent data-[active=true]:border-primary data-[active=true]:bg-accent"
+            [attr.data-active]="theme.font() === f.value"
+            (click)="theme.setFont(f.value)"
+          >
+            {{ f.label }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Heading font -->
+    <div class="space-y-1.5">
+      <span class="text-xs font-medium">Heading font</span>
+      <div class="grid grid-cols-3 gap-2">
+        @for (f of fonts; track f.value) {
+          <button
+            type="button"
+            class="inline-flex h-8 items-center justify-center rounded-md border border-input text-xs font-medium transition-colors hover:bg-accent data-[active=true]:border-primary data-[active=true]:bg-accent"
+            [attr.data-active]="theme.fontHeading() === f.value"
+            (click)="theme.setFontHeading(f.value)"
+          >
+            {{ f.label }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Shadow -->
+    <div class="space-y-1.5">
+      <span class="text-xs font-medium">Shadow</span>
+      <div class="grid grid-cols-5 gap-2">
+        @for (s of shadows; track s.value) {
+          <button
+            type="button"
+            class="inline-flex h-8 items-center justify-center rounded-md border border-input text-xs font-medium transition-colors hover:bg-accent data-[active=true]:border-primary data-[active=true]:bg-accent"
+            [attr.data-active]="theme.shadow() === s.value"
+            (click)="theme.setShadow(s.value)"
+          >
+            {{ s.label }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Spacing -->
+    <div class="space-y-1.5">
+      <span class="text-xs font-medium">Spacing</span>
+      <div class="grid grid-cols-3 gap-2">
+        @for (s of spacings; track s.value) {
+          <button
+            type="button"
+            class="inline-flex h-8 items-center justify-center rounded-md border border-input text-xs font-medium transition-colors hover:bg-accent data-[active=true]:border-primary data-[active=true]:bg-accent"
+            [attr.data-active]="theme.spacing() === s.value"
+            (click)="theme.setSpacing(s.value)"
+          >
+            {{ s.label }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Tracking -->
+    <div class="space-y-1.5">
+      <span class="text-xs font-medium">Tracking</span>
+      <div class="grid grid-cols-3 gap-2">
+        @for (t of trackings; track t.value) {
+          <button
+            type="button"
+            class="inline-flex h-8 items-center justify-center rounded-md border border-input text-xs font-medium transition-colors hover:bg-accent data-[active=true]:border-primary data-[active=true]:bg-accent"
+            [attr.data-active]="theme.tracking() === t.value"
+            (click)="theme.setTracking(t.value)"
+          >
+            {{ t.label }}
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Live preview -->
+  <div class="space-y-6">
+    <p class="text-xs font-semibold tracking-wide text-muted-foreground uppercase">Live preview</p>
+
+    <div class="flex flex-wrap items-center gap-3">
+      <button buiButton>Primary</button>
+      <button buiButton variant="secondary">Secondary</button>
+      <button buiButton variant="outline">Outline</button>
+      <button buiButton variant="ghost">Ghost</button>
+      <button buiButton variant="destructive">Destructive</button>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2">
+      <span buiBadge>Badge</span>
+      <span buiBadge variant="secondary">Secondary</span>
+      <span buiBadge variant="outline">Outline</span>
+      <span buiBadge tone="success" variant="soft">Success</span>
+      <span buiBadge tone="warning" variant="soft">Warning</span>
+      <span buiBadge tone="danger" variant="soft">Danger</span>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2">
+      <div buiCard variant="sectioned">
+        <div buiCardHeader>
+          <h3 buiCardTitle>Create account</h3>
+          <p buiCardDescription>Enter your details to get started.</p>
+        </div>
+        <div buiCardContent class="space-y-4">
+          <div buiField>
+            <label buiFieldLabel for="th-email">Email</label>
+            <input id="th-email" buiInput type="email" placeholder="you@example.com" />
+          </div>
+          <div buiField>
+            <label buiFieldLabel for="th-pw">Password</label>
+            <input id="th-pw" buiInput type="password" />
+          </div>
+          <button buiButton class="w-full">Sign up</button>
+        </div>
+      </div>
+
+      <div class="space-y-5">
+        <div buiAlert>
+          <p buiAlertTitle>Heads up</p>
+          <p buiAlertDescription>This preview updates live as you tune the theme.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <bui-avatar class="size-10 text-xs">JD</bui-avatar>
+          <div class="text-sm">
+            <p class="font-medium">Jane Doe</p>
+            <p class="text-muted-foreground">Product designer</p>
+          </div>
+        </div>
+        <div buiSeparator></div>
+        <div class="flex items-center gap-3">
+          <button buiSwitch aria-label="Notifications"></button>
+          <span class="text-sm">Enable notifications</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <input buiInput class="max-w-[200px]" placeholder="Type something…" />
+          <button buiButton variant="outline">Go</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

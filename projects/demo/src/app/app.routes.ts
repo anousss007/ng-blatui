@@ -46,5 +46,20 @@ export const routes: Routes = [
     loadComponent: async () => (await import('./pages/templates')).TemplatesPage,
     title: 'Templates · ng-blatui',
   },
+  {
+    path: 'charts',
+    loadComponent: async () => (await import('./pages/charts-index')).ChartsIndex,
+    title: 'Charts · ng-blatui',
+  },
+  {
+    path: 'charts/:slug',
+    loadComponent: async () => (await import('./pages/charts')).ChartViewer,
+    title: 'Charts · ng-blatui',
+  },
+  {
+    path: 'themes',
+    loadComponent: async () => (await import('./pages/themes')).Themes,
+    title: 'Themes · ng-blatui',
+  },
   { path: '**', redirectTo: '' },
 ];
