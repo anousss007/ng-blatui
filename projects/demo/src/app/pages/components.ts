@@ -1263,11 +1263,36 @@ export class ComponentPage {
 <input id="email" buiInput />`,
     separator: `import { BuiSeparator } from 'ng-blatui';
 
-<div buiSeparator></div>
+<div buiSeparator class="my-4"></div>
 <span buiSeparator orientation="vertical" [decorative]="false" class="h-4"></span>`,
+    separatorList: `<div class="rounded-lg border">
+  <div class="px-4 py-3">Profile</div>
+  <div buiSeparator></div>
+  <div class="px-4 py-3">Billing</div>
+</div>`,
+    separatorWithLabel: `<div class="relative">
+  <div buiSeparator></div>
+  <span class="bg-background absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-2 text-xs uppercase">Or</span>
+</div>`,
     skeleton: `import { BuiSkeleton } from 'ng-blatui';
 
-<div buiSkeleton class="h-4 w-48"></div>`,
+<div buiSkeleton class="size-12 rounded-full"></div>
+<div buiSkeleton class="h-4 w-[250px]"></div>`,
+    skeletonCard: `<div buiSkeleton class="h-40 w-full rounded-xl"></div>
+<div buiSkeleton class="h-4 w-full"></div>
+<div buiSkeleton class="h-4 w-3/4"></div>`,
+    skeletonList: `@for (i of [1, 2, 3]; track i) {
+  <div class="flex items-center gap-4">
+    <div buiSkeleton class="size-10 rounded-full"></div>
+    <div buiSkeleton class="h-4 w-1/2"></div>
+  </div>
+}`,
+    skeletonTable: `<div class="rounded-md border">
+  <div class="flex gap-4 border-b px-4 py-3">
+    <div buiSkeleton class="h-4 w-24"></div>
+    <div buiSkeleton class="h-4 w-32"></div>
+  </div>
+</div>`,
     avatar: `import { BuiAvatar } from 'ng-blatui';
 
 <bui-avatar src="/shadcn.png" alt="@shadcn">CN</bui-avatar>`,
@@ -1460,9 +1485,16 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 <li buiBreadcrumbSeparator><svg><!-- slash --></svg></li>`,
     breadcrumbDotSep: `<li buiBreadcrumbSeparator><span class="bg-muted-foreground block size-1 rounded-full"></span></li>`,
     breadcrumbContained: `<ol buiBreadcrumbList class="bg-background min-h-9 w-fit rounded-md border px-3 py-1">…</ol>`,
-    kbd: `import { BuiKbd } from 'ng-blatui';
+    kbd: `import { BuiKbd, BuiKbdGroup } from 'ng-blatui';
 
-<kbd buiKbd>Ctrl</kbd> <kbd buiKbd>K</kbd>`,
+<kbd buiKbdGroup><kbd buiKbd>⌘</kbd><kbd buiKbd>K</kbd></kbd>`,
+    kbdIcons: `<kbd buiKbd aria-label="Command"><svg><!-- command --></svg></kbd>
+<kbd buiKbd aria-label="Enter"><svg><!-- enter --></svg></kbd>`,
+    kbdInButton: `<button buiButton variant="outline" size="sm">Accept <kbd buiKbd>⏎</kbd></button>`,
+    kbdShortcuts: `<div class="flex items-center justify-between">
+  <span>Open command menu</span>
+  <kbd buiKbdGroup><kbd buiKbd>⌘</kbd><kbd buiKbd>K</kbd></kbd>
+</div>`,
     aspectRatio: `import { BuiAspectRatio } from 'ng-blatui';
 
 <bui-aspect-ratio ratio="16 / 9">
@@ -1517,9 +1549,18 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 <button buiToggle variant="outline" [disabled]="true" aria-label="Italic">I</button>`,
     spinner: `import { BuiSpinner } from 'ng-blatui';
 
-<bui-spinner class="size-4" />
+<bui-spinner />`,
+    spinnerSizes: `<bui-spinner class="size-4" />
 <bui-spinner class="size-6" />
-<bui-spinner class="size-8 text-primary" />`,
+<bui-spinner class="size-8" />`,
+    spinnerColors: `<bui-spinner class="text-primary" />
+<bui-spinner class="text-destructive" />`,
+    spinnerLabel: `<div class="text-muted-foreground flex items-center gap-2 text-sm">
+  <bui-spinner class="size-4" /> <span>Loading…</span>
+</div>`,
+    spinnerButton: `<button buiButton disabled>
+  <bui-spinner class="size-4" /> Please wait
+</button>`,
     copyButton: `import { BuiCopyButton } from 'ng-blatui';
 
 <button buiCopyButton value="npm i ng-blatui" label="Copy command">Copy</button>`,

@@ -1247,10 +1247,12 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('separator') {
       <app-example [code]="code.separator">
-        <div class="w-full space-y-3">
-          <div class="text-sm">Above</div>
-          <div buiSeparator></div>
-          <div class="text-sm">Below</div>
+        <div class="w-full max-w-sm">
+          <div class="space-y-1">
+            <h4 class="text-sm leading-none font-medium">ng-blatui</h4>
+            <p class="text-sm text-muted-foreground">An accessible Angular UI library.</p>
+          </div>
+          <div buiSeparator class="my-4"></div>
           <div class="flex h-5 items-center gap-3 text-sm">
             <span>Docs</span>
             <span buiSeparator orientation="vertical" [decorative]="false"></span>
@@ -1260,15 +1262,81 @@ This content is read-only and cannot be edited.</textarea
           </div>
         </div>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">List</h2>
+      <app-example [code]="code.separatorList">
+        <div class="w-full max-w-xs rounded-lg border bg-card text-sm">
+          <div class="px-4 py-3">Profile</div>
+          <div buiSeparator></div>
+          <div class="px-4 py-3">Billing</div>
+          <div buiSeparator></div>
+          <div class="px-4 py-3">Settings</div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With label</h2>
+      <app-example [code]="code.separatorWithLabel">
+        <div class="relative w-full max-w-sm">
+          <div buiSeparator></div>
+          <span
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-2 text-xs text-muted-foreground uppercase"
+            >Or</span
+          >
+        </div>
+      </app-example>
     }
     @case ('skeleton') {
       <app-example [code]="code.skeleton">
         <div class="flex items-center gap-4">
           <div buiSkeleton class="size-12 rounded-full"></div>
           <div class="space-y-2">
-            <div buiSkeleton class="h-4 w-48"></div>
-            <div buiSkeleton class="h-4 w-32"></div>
+            <div buiSkeleton class="h-4 w-[250px]"></div>
+            <div buiSkeleton class="h-4 w-[200px]"></div>
           </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Card</h2>
+      <app-example [code]="code.skeletonCard">
+        <div class="flex w-full max-w-sm flex-col gap-3">
+          <div buiSkeleton class="h-40 w-full rounded-xl"></div>
+          <div class="flex flex-col gap-2">
+            <div buiSkeleton class="h-4 w-full"></div>
+            <div buiSkeleton class="h-4 w-3/4"></div>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">List</h2>
+      <app-example [code]="code.skeletonList">
+        <div class="flex w-full max-w-sm flex-col gap-4">
+          @for (i of [1, 2, 3]; track i) {
+            <div class="flex items-center gap-4">
+              <div buiSkeleton class="size-10 rounded-full"></div>
+              <div class="flex flex-1 flex-col gap-2">
+                <div buiSkeleton class="h-4 w-1/2"></div>
+                <div buiSkeleton class="h-4 w-1/3"></div>
+              </div>
+            </div>
+          }
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Table</h2>
+      <app-example [code]="code.skeletonTable">
+        <div class="w-full max-w-lg overflow-hidden rounded-md border">
+          <div class="flex items-center gap-4 border-b bg-muted/40 px-4 py-3">
+            <div buiSkeleton class="h-4 w-24"></div>
+            <div buiSkeleton class="h-4 w-32"></div>
+            <div buiSkeleton class="ml-auto h-4 w-16"></div>
+          </div>
+          @for (i of [1, 2, 3]; track i) {
+            <div class="flex items-center gap-4 px-4 py-3">
+              <div buiSkeleton class="h-4 w-24"></div>
+              <div buiSkeleton class="h-4 w-32"></div>
+              <div buiSkeleton class="ml-auto h-4 w-16"></div>
+            </div>
+          }
         </div>
       </app-example>
     }
@@ -2287,8 +2355,77 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('kbd') {
       <app-example [code]="code.kbd">
-        <kbd buiKbd>Ctrl</kbd>
-        <kbd buiKbd>K</kbd>
+        <kbd buiKbdGroup><kbd buiKbd>⌘</kbd><kbd buiKbd>K</kbd></kbd>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Icons</h2>
+      <app-example [code]="code.kbdIcons">
+        <kbd buiKbd aria-label="Command"
+          ><svg
+            class="size-3.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path
+              d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"
+            /></svg
+        ></kbd>
+        <kbd buiKbd aria-label="Shift"
+          ><svg
+            class="size-3.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" transform="rotate(-90 12 12)" /></svg
+        ></kbd>
+        <kbd buiKbd aria-label="Enter"
+          ><svg
+            class="size-3.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M9 10 4 15l5 5" />
+            <path d="M20 4v7a4 4 0 0 1-4 4H4" /></svg
+        ></kbd>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">In button</h2>
+      <app-example [code]="code.kbdInButton">
+        <button buiButton variant="outline" size="sm">Accept <kbd buiKbd>⏎</kbd></button>
+        <button buiButton variant="outline" size="sm">
+          Search <kbd buiKbdGroup><kbd buiKbd>⌘</kbd><kbd buiKbd>K</kbd></kbd>
+        </button>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Shortcuts</h2>
+      <app-example [code]="code.kbdShortcuts">
+        <div class="flex w-full max-w-sm flex-col gap-3 text-sm">
+          <div class="flex items-center justify-between">
+            <span>Open command menu</span
+            ><kbd buiKbdGroup><kbd buiKbd>⌘</kbd><kbd buiKbd>K</kbd></kbd>
+          </div>
+          <div class="flex items-center justify-between">
+            <span>Search</span><kbd buiKbdGroup><kbd buiKbd>⌘</kbd><kbd buiKbd>F</kbd></kbd>
+          </div>
+          <div class="flex items-center justify-between">
+            <span>Save</span><kbd buiKbdGroup><kbd buiKbd>⌘</kbd><kbd buiKbd>S</kbd></kbd>
+          </div>
+        </div>
       </app-example>
     }
     @case ('aspect-ratio') {
@@ -2488,9 +2625,38 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('spinner') {
       <app-example [code]="code.spinner">
+        <bui-spinner />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.spinnerSizes">
         <bui-spinner class="size-4" />
         <bui-spinner class="size-6" />
-        <bui-spinner class="size-8 text-primary" />
+        <bui-spinner class="size-8" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Colors</h2>
+      <app-example [code]="code.spinnerColors">
+        <bui-spinner class="text-primary" />
+        <bui-spinner class="text-sky-600 dark:text-sky-400" />
+        <bui-spinner class="text-green-600 dark:text-green-400" />
+        <bui-spinner class="text-destructive" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With label</h2>
+      <app-example [code]="code.spinnerLabel">
+        <div class="flex items-center gap-2 text-sm text-muted-foreground">
+          <bui-spinner class="size-4" />
+          <span>Loading…</span>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">In button</h2>
+      <app-example [code]="code.spinnerButton">
+        <button buiButton disabled>
+          <bui-spinner class="size-4" />
+          Please wait
+        </button>
       </app-example>
     }
     @case ('copy-button') {
