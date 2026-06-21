@@ -1239,9 +1239,43 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('label') {
       <app-example [code]="code.label">
-        <div class="space-y-2">
-          <label buiLabel for="demo-email">Email</label>
-          <input id="demo-email" buiInput class="max-w-xs" />
+        <div class="grid w-full max-w-sm gap-2">
+          <label buiLabel for="demo-username">Username</label>
+          <input id="demo-username" buiInput type="text" placeholder="shadcn" />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Required</h2>
+      <app-example [code]="code.labelRequired">
+        <div class="grid w-full max-w-sm gap-2">
+          <label buiLabel for="req-email">Email <span class="text-destructive">*</span></label>
+          <input id="req-email" buiInput type="email" placeholder="you@example.com" required />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With checkbox</h2>
+      <app-example [code]="code.labelCheckbox">
+        <div class="flex items-center gap-2">
+          <button id="label-terms" buiCheckbox aria-label="Accept terms and conditions"></button>
+          <label buiLabel for="label-terms">Accept terms and conditions</label>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.labelDisabled">
+        <div class="flex items-center gap-2 opacity-60">
+          <button id="label-dis" buiCheckbox [disabled]="true" aria-label="Accept terms"></button>
+          <label buiLabel for="label-dis">Accept terms and conditions</label>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With badge</h2>
+      <app-example [code]="code.labelBadge">
+        <div class="grid w-full max-w-sm gap-2">
+          <label buiLabel for="badge-field" class="justify-between">
+            Recovery email <span buiBadge variant="secondary">Optional</span>
+          </label>
+          <input id="badge-field" buiInput type="email" placeholder="backup@example.com" />
         </div>
       </app-example>
     }
@@ -4047,15 +4081,61 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('dot-pattern') {
       <app-example [code]="code.dotPattern">
-        <div class="relative h-32 w-full overflow-hidden rounded-lg border">
+        <div
+          class="relative flex h-40 w-full items-center justify-center overflow-hidden rounded-xl border bg-card"
+        >
+          <bui-dot-pattern />
+          <p class="relative text-sm text-muted-foreground">Default dot pattern</p>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Dense</h2>
+      <app-example [code]="code.dotPatternDense">
+        <div
+          class="relative flex h-40 w-full items-center justify-center overflow-hidden rounded-xl border bg-card"
+        >
+          <bui-dot-pattern [gap]="10" />
+          <p class="relative text-sm text-muted-foreground">Tighter gap</p>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Masked</h2>
+      <app-example [code]="code.dotPatternMasked">
+        <div
+          class="relative flex h-40 w-full items-center justify-center overflow-hidden rounded-xl border bg-card"
+        >
           <bui-dot-pattern [mask]="true" />
+          <p class="relative text-sm text-muted-foreground">Radial mask fade</p>
         </div>
       </app-example>
     }
     @case ('grid-pattern') {
       <app-example [code]="code.gridPattern">
-        <div class="relative h-32 w-full overflow-hidden rounded-lg border">
+        <div
+          class="relative flex h-48 w-full max-w-2xl items-center justify-center overflow-hidden rounded-xl border bg-card"
+        >
+          <bui-grid-pattern />
+          <p class="relative text-sm text-muted-foreground">Default grid</p>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Large</h2>
+      <app-example [code]="code.gridPatternLarge">
+        <div
+          class="relative flex h-48 w-full max-w-2xl items-center justify-center overflow-hidden rounded-xl border bg-card"
+        >
+          <bui-grid-pattern [gap]="48" />
+          <p class="relative text-sm text-muted-foreground">Wider cells</p>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Masked</h2>
+      <app-example [code]="code.gridPatternMasked">
+        <div
+          class="relative flex h-48 w-full max-w-2xl items-center justify-center overflow-hidden rounded-xl border bg-card"
+        >
           <bui-grid-pattern [mask]="true" />
+          <p class="relative text-sm text-muted-foreground">Radial mask fade</p>
         </div>
       </app-example>
     }
@@ -4170,7 +4250,45 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('number-ticker') {
       <app-example [code]="code.numberTicker">
-        <bui-number-ticker class="text-3xl font-bold" [value]="12500" prefix="$" />
+        <bui-number-ticker class="text-4xl font-semibold" [value]="1284" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Prefix</h2>
+      <app-example [code]="code.numberTickerPrefix">
+        <bui-number-ticker class="text-5xl font-bold tracking-tight" [value]="1284930" prefix="$" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Decimals</h2>
+      <app-example [code]="code.numberTickerDecimals">
+        <bui-number-ticker
+          class="text-4xl font-semibold text-emerald-500"
+          [value]="99.9"
+          [decimals]="1"
+          suffix="%"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Grid</h2>
+      <app-example [code]="code.numberTickerGrid">
+        <div class="grid w-full gap-6 sm:grid-cols-3">
+          <div class="flex flex-col gap-1 rounded-lg border p-6">
+            <span class="text-sm text-muted-foreground">Total users</span>
+            <bui-number-ticker class="text-3xl font-semibold" [value]="48291" />
+          </div>
+          <div class="flex flex-col gap-1 rounded-lg border p-6">
+            <span class="text-sm text-muted-foreground">Revenue</span>
+            <bui-number-ticker class="text-3xl font-semibold" [value]="92450" prefix="$" />
+          </div>
+          <div class="flex flex-col gap-1 rounded-lg border p-6">
+            <span class="text-sm text-muted-foreground">Uptime</span>
+            <bui-number-ticker
+              class="text-3xl font-semibold"
+              [value]="99.98"
+              [decimals]="2"
+              suffix="%"
+            />
+          </div>
+        </div>
       </app-example>
     }
     @case ('link') {
@@ -4232,9 +4350,35 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('page-header') {
       <app-example [code]="code.pageHeader">
-        <bui-page-header class="w-full" heading="Settings" description="Manage your account.">
-          <button buiButton buiPageHeaderActions>Save</button>
+        <bui-page-header
+          class="w-full"
+          heading="Dashboard"
+          description="An overview of your account activity and recent metrics."
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With actions</h2>
+      <app-example [code]="code.pageHeaderActions">
+        <bui-page-header
+          class="w-full"
+          heading="Projects"
+          description="Manage and organize all of your team's work in one place."
+        >
+          <div buiPageHeaderActions class="flex gap-2">
+            <button buiButton variant="outline">Export</button>
+            <button buiButton>New project</button>
+          </div>
         </bui-page-header>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With separator</h2>
+      <app-example [code]="code.pageHeaderSeparator">
+        <bui-page-header
+          class="w-full"
+          heading="Billing settings"
+          description="Update your plan and payment method."
+          [separator]="true"
+        />
       </app-example>
     }
     @case ('quote') {
@@ -4272,10 +4416,33 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('stack') {
       <app-example [code]="code.stack">
+        <div buiStack gap="3" class="w-full max-w-sm">
+          <div class="rounded-md border bg-card p-4 text-sm">First</div>
+          <div class="rounded-md border bg-card p-4 text-sm">Second</div>
+          <div class="rounded-md border bg-card p-4 text-sm">Third</div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Horizontal</h2>
+      <app-example [code]="code.stackHorizontal">
         <div buiStack direction="row" gap="3">
-          <span buiBadge>One</span>
-          <span buiBadge>Two</span>
-          <span buiBadge>Three</span>
+          <div class="rounded-md border bg-card p-4 text-sm">One</div>
+          <div class="rounded-md border bg-card p-4 text-sm">Two</div>
+          <div class="rounded-md border bg-card p-4 text-sm">Three</div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Aligned</h2>
+      <app-example [code]="code.stackAligned">
+        <div
+          buiStack
+          direction="row"
+          justify="between"
+          align="center"
+          class="w-full max-w-md rounded-lg border p-4"
+        >
+          <div class="text-sm font-medium">Project status</div>
+          <span buiBadge>Active</span>
         </div>
       </app-example>
     }
@@ -4613,8 +4780,38 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.image">
         <bui-image
           class="w-full max-w-sm"
-          src="https://picsum.photos/seed/scenic/600/338"
-          alt="A scenic view"
+          src="https://picsum.photos/id/1015/600/400"
+          alt="A river valley"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With ratio</h2>
+      <app-example [code]="code.imageRatio">
+        <bui-image
+          class="w-full max-w-sm"
+          src="https://picsum.photos/id/1016/800/450"
+          alt="A misty forest"
+          ratio="16/9"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Placeholder (blur-up)</h2>
+      <app-example [code]="code.imagePlaceholder">
+        <bui-image
+          class="w-full max-w-sm"
+          src="https://picsum.photos/id/1018/800/450"
+          placeholder="https://picsum.photos/id/1018/20/11"
+          alt="Mountains"
+          ratio="16/9"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Fallback</h2>
+      <app-example [code]="code.imageFallback">
+        <bui-image
+          class="w-full max-w-sm"
+          src="https://picsum.photos/this-does-not-exist.jpg"
+          alt="Broken image falls back"
           ratio="16/9"
         />
       </app-example>

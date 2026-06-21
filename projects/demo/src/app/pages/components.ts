@@ -1278,8 +1278,19 @@ export class ComponentPage {
     textareaDisabled: `<textarea buiTextarea placeholder="…" disabled></textarea>`,
     label: `import { BuiLabel } from 'ng-blatui';
 
-<label buiLabel for="email">Email</label>
-<input id="email" buiInput />`,
+<label buiLabel for="username">Username</label>
+<input id="username" buiInput placeholder="shadcn" />`,
+    labelRequired: `<label buiLabel for="email">Email <span class="text-destructive">*</span></label>
+<input id="email" buiInput required />`,
+    labelCheckbox: `<button id="terms" buiCheckbox aria-label="Accept terms"></button>
+<label buiLabel for="terms">Accept terms and conditions</label>`,
+    labelDisabled: `<div class="opacity-60">
+  <button id="t" buiCheckbox [disabled]="true" aria-label="Accept"></button>
+  <label buiLabel for="t">Accept terms and conditions</label>
+</div>`,
+    labelBadge: `<label buiLabel for="f" class="justify-between">
+  Recovery email <span buiBadge variant="secondary">Optional</span>
+</label>`,
     separator: `import { BuiSeparator } from 'ng-blatui';
 
 <div buiSeparator class="my-4"></div>
@@ -1952,14 +1963,18 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     segmentedDisabled: `<bui-segmented-control [value]="'grid'" [options]="['list', 'grid', 'board']" [disabled]="true" />`,
     dotPattern: `import { BuiDotPattern } from 'ng-blatui';
 
-<div class="relative h-32 rounded-lg border">
-  <bui-dot-pattern [mask]="true" />
+<div class="relative overflow-hidden rounded-xl border">
+  <bui-dot-pattern />
 </div>`,
+    dotPatternDense: `<bui-dot-pattern [gap]="10" />`,
+    dotPatternMasked: `<bui-dot-pattern [mask]="true" />`,
     gridPattern: `import { BuiGridPattern } from 'ng-blatui';
 
-<div class="relative h-32 rounded-lg border">
-  <bui-grid-pattern [mask]="true" />
+<div class="relative overflow-hidden rounded-xl border">
+  <bui-grid-pattern />
 </div>`,
+    gridPatternLarge: `<bui-grid-pattern [gap]="48" />`,
+    gridPatternMasked: `<bui-grid-pattern [mask]="true" />`,
     terminal: `import { BuiTerminal } from 'ng-blatui';
 
 <bui-terminal title="~/app — zsh">
@@ -2000,7 +2015,11 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-countdown to="2026-12-31 23:59" />`,
     numberTicker: `import { BuiNumberTicker } from 'ng-blatui';
 
-<bui-number-ticker [value]="12500" prefix="$" />`,
+<bui-number-ticker [value]="1284" />`,
+    numberTickerPrefix: `<bui-number-ticker [value]="1284930" prefix="$" />`,
+    numberTickerDecimals: `<bui-number-ticker [value]="99.9" [decimals]="1" suffix="%" />`,
+    numberTickerGrid: `<bui-number-ticker [value]="48291" />
+<bui-number-ticker [value]="92450" prefix="$" />`,
     link: `import { BuiLink } from 'ng-blatui';
 
 <a buiLink href="/docs">Documentation</a>
@@ -2018,9 +2037,14 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     gradientTextInline: `Ship with <bui-gradient-text preset="aurora">ng-blatui</bui-gradient-text> today.`,
     pageHeader: `import { BuiPageHeader } from 'ng-blatui';
 
-<bui-page-header heading="Settings" description="Manage your account.">
-  <button buiButton buiPageHeaderActions>Save</button>
+<bui-page-header heading="Dashboard" description="An overview of your account." />`,
+    pageHeaderActions: `<bui-page-header heading="Projects" description="Manage your team's work.">
+  <div buiPageHeaderActions class="flex gap-2">
+    <button buiButton variant="outline">Export</button>
+    <button buiButton>New project</button>
+  </div>
 </bui-page-header>`,
+    pageHeaderSeparator: `<bui-page-header heading="Billing" description="…" [separator]="true" />`,
     quote: `import { BuiQuote } from 'ng-blatui';
 
 <bui-quote author="Ada Lovelace" role="Mathematician">
@@ -2037,7 +2061,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-price [amount]="29" [compareAt]="39" size="lg" />`,
     stack: `import { BuiStack } from 'ng-blatui';
 
-<div buiStack direction="row" gap="3">…</div>`,
+<div buiStack gap="3">…</div>`,
+    stackHorizontal: `<div buiStack direction="row" gap="3">…</div>`,
+    stackAligned: `<div buiStack direction="row" justify="between" align="center">…</div>`,
     accent: `import { BuiAccent, BuiButton } from 'ng-blatui';
 
 <div buiAccent color="#e11d48">
@@ -2187,7 +2213,12 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-knob [value]="30" size="sm" label="Bass" />`,
     image: `import { BuiImage } from 'ng-blatui';
 
-<bui-image src="/photo.jpg" alt="A scenic view" ratio="16/9" />`,
+<bui-image src="/photo.jpg" alt="A scenic view" />`,
+    imageRatio: `<bui-image src="/photo.jpg" alt="" ratio="16/9" />`,
+    imagePlaceholder: `<!-- blur-up from a tiny placeholder -->
+<bui-image src="/full.jpg" placeholder="/tiny.jpg" alt="" ratio="16/9" />`,
+    imageFallback: `<!-- shows a fallback when the src fails to load -->
+<bui-image src="/missing.jpg" alt="" ratio="16/9" />`,
     reasoning: `import { BuiReasoning } from 'ng-blatui';
 
 <bui-reasoning duration="2.4s">
