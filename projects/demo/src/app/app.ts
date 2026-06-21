@@ -184,6 +184,10 @@ export class App {
   private readonly url = signal('/');
   /** Home is full-bleed (showcase); every other route gets the docs sidebar layout. */
   protected readonly isHome = computed(() => this.url() === '/' || this.url() === '');
+  /** Home + individual template pages render full-bleed (standalone, no sidebar). */
+  protected readonly isFullBleed = computed(
+    () => this.isHome() || this.url().startsWith('/templates/'),
+  );
   /** Mobile slide-over navigation (hamburger menu). */
   protected readonly mobileNavOpen = signal(false);
 

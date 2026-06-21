@@ -1,15 +1,14 @@
-<article class="space-y-6">
-  <a
-    routerLink="/templates"
-    class="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
-    >← All templates</a
-  >
-  <header class="space-y-2">
-    <h1 class="text-3xl font-bold tracking-tight">{{ title() }}</h1>
-    @if (description()) {
-      <p class="text-muted-foreground">{{ description() }}</p>
-    }
-  </header>
+<div class="min-h-screen">
+  <div class="sticky top-14 z-30 border-b bg-background/80 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-screen-2xl items-center justify-between gap-3 px-4 py-2 lg:px-6">
+      <a
+        routerLink="/templates"
+        class="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+        >← All templates</a
+      >
+      <span class="truncate text-sm font-medium text-muted-foreground">{{ title() }}</span>
+    </div>
+  </div>
 
   @switch (slug()) {
     @case ('auth') {
@@ -206,49 +205,175 @@
       </div>
     }
     @case ('saas') {
-      <div class="w-full overflow-hidden rounded-lg border">
-        <header class="flex h-16 items-center gap-6 border-b px-6">
-          <span class="font-semibold">BlatUI Cloud</span>
-          <nav class="ml-auto hidden items-center gap-1 text-sm md:flex">
-            <a buiButton variant="ghost" size="sm" href="#">Product</a>
-            <a buiButton variant="ghost" size="sm" href="#">Pricing</a>
-            <a buiButton size="sm" href="#">Sign up</a>
-          </nav>
-        </header>
-        <div class="mx-auto max-w-3xl px-6 py-16 text-center">
-          <span buiBadge variant="secondary" class="rounded-full">v2.0 is here</span>
-          <h1 class="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">
-            The platform for modern teams
+      <!-- Hero -->
+      <section class="relative overflow-hidden bg-gradient-to-b from-primary/5 to-transparent">
+        <div class="mx-auto max-w-5xl px-6 py-24 text-center lg:py-32">
+          <span buiBadge variant="secondary" class="rounded-full">✦ v2.0 is here</span>
+          <h1 class="mt-5 text-4xl font-bold tracking-tight text-balance sm:text-6xl">
+            The platform for modern product teams
           </h1>
-          <p class="mx-auto mt-5 max-w-xl text-lg text-muted-foreground">
-            Build, ship and scale with one accessible toolkit.
+          <p class="mx-auto mt-6 max-w-2xl text-lg text-pretty text-muted-foreground">
+            Build, ship and scale with one accessible toolkit — signals-first, SSR-safe, and yours
+            to own.
           </p>
-          <div class="mt-7 flex items-center justify-center gap-3">
-            <a buiButton size="lg" href="#">Get started</a>
+          <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <a buiButton size="lg" href="#">Start free trial</a>
             <a buiButton size="lg" variant="outline" href="#">Book a demo</a>
           </div>
+          <p class="mt-4 text-sm text-muted-foreground">No credit card required · 14-day trial</p>
         </div>
-        <div class="grid gap-6 border-t p-8 sm:grid-cols-3">
-          <div buiCard variant="sectioned">
-            <div buiCardHeader>
-              <h3 buiCardTitle>Fast</h3>
-              <p buiCardDescription>Sub-second interactions everywhere.</p>
-            </div>
-          </div>
-          <div buiCard variant="sectioned">
-            <div buiCardHeader>
-              <h3 buiCardTitle>Accessible</h3>
-              <p buiCardDescription>WCAG-ready out of the box.</p>
-            </div>
-          </div>
-          <div buiCard variant="sectioned">
-            <div buiCardHeader>
-              <h3 buiCardTitle>Themeable</h3>
-              <p buiCardDescription>Design tokens, light & dark.</p>
-            </div>
+      </section>
+
+      <!-- Logos -->
+      <section class="border-y">
+        <div class="mx-auto max-w-5xl px-6 py-8">
+          <p class="text-center text-xs font-medium tracking-wide text-muted-foreground uppercase">
+            Trusted by teams at
+          </p>
+          <div
+            class="mt-4 flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-lg font-semibold text-muted-foreground/70"
+          >
+            <span>Acme</span><span>Globex</span><span>Initech</span><span>Umbrella</span
+            ><span>Soylent</span><span>Hooli</span>
           </div>
         </div>
-      </div>
+      </section>
+
+      <!-- Features -->
+      <section class="mx-auto max-w-6xl px-6 py-20">
+        <div class="mx-auto max-w-2xl text-center">
+          <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Everything you need to ship</h2>
+          <p class="mt-3 text-muted-foreground">
+            A complete toolkit, from prototype to production.
+          </p>
+        </div>
+        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          @for (f of saasFeatures; track f.title) {
+            <div buiCard variant="sectioned">
+              <div buiCardHeader>
+                <div
+                  class="mb-2 grid size-10 place-items-center rounded-lg bg-primary/10 text-lg text-primary"
+                >
+                  {{ f.icon }}
+                </div>
+                <h3 buiCardTitle>{{ f.title }}</h3>
+                <p buiCardDescription>{{ f.body }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+
+      <!-- Stats -->
+      <section class="border-y bg-muted/30">
+        <div class="mx-auto grid max-w-5xl gap-8 px-6 py-16 text-center sm:grid-cols-3">
+          <div>
+            <div class="text-4xl font-bold tracking-tight">99.99%</div>
+            <p class="mt-1 text-sm text-muted-foreground">Uptime SLA</p>
+          </div>
+          <div>
+            <div class="text-4xl font-bold tracking-tight">12k+</div>
+            <p class="mt-1 text-sm text-muted-foreground">Teams onboard</p>
+          </div>
+          <div>
+            <div class="text-4xl font-bold tracking-tight">4.9/5</div>
+            <p class="mt-1 text-sm text-muted-foreground">Average rating</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing teaser -->
+      <section class="mx-auto max-w-5xl px-6 py-20">
+        <div class="mx-auto max-w-2xl text-center">
+          <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Simple, transparent pricing</h2>
+          <p class="mt-3 text-muted-foreground">Start free. Upgrade when you grow.</p>
+        </div>
+        <div class="mt-12 grid gap-6 md:grid-cols-3">
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <h3 buiCardTitle>Starter</h3>
+              <p buiCardDescription>For side projects.</p>
+            </div>
+            <div buiCardContent>
+              <p class="text-3xl font-bold">
+                $0<span class="text-base font-normal text-muted-foreground">/mo</span>
+              </p>
+            </div>
+            <div buiCardContent>
+              <a buiButton variant="outline" class="w-full" href="#">Get started</a>
+            </div>
+          </div>
+          <div buiCard variant="sectioned" class="border-primary ring-2 ring-primary/30">
+            <div buiCardHeader>
+              <div class="flex items-center justify-between">
+                <h3 buiCardTitle>Pro</h3>
+                <span buiBadge>Popular</span>
+              </div>
+              <p buiCardDescription>For growing teams.</p>
+            </div>
+            <div buiCardContent>
+              <p class="text-3xl font-bold">
+                $29<span class="text-base font-normal text-muted-foreground">/mo</span>
+              </p>
+            </div>
+            <div buiCardContent><a buiButton class="w-full" href="#">Start trial</a></div>
+          </div>
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <h3 buiCardTitle>Enterprise</h3>
+              <p buiCardDescription>For scale.</p>
+            </div>
+            <div buiCardContent><p class="text-3xl font-bold">Custom</p></div>
+            <div buiCardContent>
+              <a buiButton variant="outline" class="w-full" href="#">Contact sales</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonial -->
+      <section class="border-t bg-muted/30">
+        <div class="mx-auto max-w-3xl px-6 py-20 text-center">
+          <p class="text-amber-500">★★★★★</p>
+          <blockquote class="mt-4 text-2xl font-medium text-balance">
+            "We shipped our redesign in two weeks instead of two months. The accessibility is just
+            there."
+          </blockquote>
+          <div class="mt-6 flex items-center justify-center gap-3">
+            <bui-avatar class="size-10 text-xs">AB</bui-avatar>
+            <div class="text-left text-sm">
+              <div class="font-medium">Amelia Bell</div>
+              <div class="text-muted-foreground">CTO, Acme Inc</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="mx-auto max-w-4xl px-6 py-20 text-center">
+        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Ready to build?</h2>
+        <p class="mx-auto mt-3 max-w-xl text-muted-foreground">
+          Join thousands of teams shipping with confidence.
+        </p>
+        <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
+          <a buiButton size="lg" href="#">Start free trial</a>
+          <a buiButton size="lg" variant="outline" href="#">Talk to sales</a>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="border-t">
+        <div
+          class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 py-8 text-sm text-muted-foreground sm:flex-row"
+        >
+          <p>© 2026 BlatUI Cloud. All rights reserved.</p>
+          <div class="flex gap-4">
+            <a href="#" class="hover:text-foreground">Privacy</a
+            ><a href="#" class="hover:text-foreground">Terms</a
+            ><a href="#" class="hover:text-foreground">Status</a>
+          </div>
+        </div>
+      </footer>
     }
     @case ('docs-site') {
       <div class="flex min-h-[520px] w-full overflow-hidden rounded-lg border">
@@ -772,7 +897,7 @@
       </div>
     }
     @default {
-      <p class="text-muted-foreground">Template not found.</p>
+      <p class="p-8 text-muted-foreground">Template not found.</p>
     }
   }
-</article>
+</div>

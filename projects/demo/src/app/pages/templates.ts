@@ -138,6 +138,34 @@ export class TemplatesPage {
     { title: 'Theming with design tokens', tag: 'Design', author: 'Alan', initials: 'AT' },
     { title: 'Shipping a component library', tag: 'Product', author: 'Edsger', initials: 'ED' },
   ];
+  protected readonly saasFeatures = [
+    {
+      icon: '⚡',
+      title: 'Blazing fast',
+      body: 'Sub-second interactions with signals and zoneless change detection.',
+    },
+    {
+      icon: '♿',
+      title: 'Accessible',
+      body: 'WCAG-ready components built on Angular Aria and the CDK.',
+    },
+    {
+      icon: '🎨',
+      title: 'Themeable',
+      body: 'Design tokens in oklch, light & dark, customised at runtime.',
+    },
+    {
+      icon: '🔒',
+      title: 'Secure',
+      body: 'SSR-safe by default with encrypted, audited infrastructure.',
+    },
+    {
+      icon: '🧩',
+      title: 'Composable',
+      body: 'Copy-paste primitives you own and adapt to any product.',
+    },
+    { icon: '📈', title: 'Observable', body: 'Real-time dashboards and insights, out of the box.' },
+  ];
   protected readonly products = [
     { name: 'Wireless headphones', price: '$199', tag: 'New' },
     { name: 'Mechanical keyboard', price: '$129', tag: '' },
