@@ -1,0 +1,141 @@
+<article class="space-y-6">
+  <header class="space-y-2">
+    <h1 class="text-3xl font-bold tracking-tight">{{ title() }}</h1>
+    @if (description()) {
+      <p class="text-muted-foreground">{{ description() }}</p>
+    }
+  </header>
+
+  @switch (slug()) {
+    @case ('login-01') {
+      <div
+        class="flex min-h-[480px] w-full items-center justify-center rounded-lg border bg-muted/30 p-6"
+      >
+        <div class="w-full max-w-sm">
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <h3 buiCardTitle>Login to your account</h3>
+              <p buiCardDescription>Enter your email below to login to your account.</p>
+            </div>
+            <div buiCardContent>
+              <form class="flex flex-col gap-6">
+                <div buiField>
+                  <label buiFieldLabel for="l1-email">Email</label>
+                  <input
+                    id="l1-email"
+                    buiInput
+                    type="email"
+                    placeholder="m&#64;example.com"
+                    required
+                  />
+                </div>
+                <div buiField>
+                  <div class="flex items-center">
+                    <label buiFieldLabel for="l1-pw">Password</label>
+                    <a href="#" class="ml-auto text-sm underline-offset-4 hover:underline"
+                      >Forgot your password?</a
+                    >
+                  </div>
+                  <input id="l1-pw" buiInput type="password" required />
+                </div>
+                <div class="flex flex-col gap-2">
+                  <button buiButton type="submit">Login</button>
+                  <button buiButton variant="outline" type="button">Login with Google</button>
+                  <p buiFieldDescription class="text-center">
+                    Don't have an account?
+                    <a href="#" class="underline underline-offset-4">Sign up</a>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    @case ('login-02') {
+      <div class="grid min-h-[480px] w-full overflow-hidden rounded-lg border lg:grid-cols-2">
+        <div class="flex flex-col gap-4 p-6 md:p-10">
+          <a href="#" class="flex items-center gap-2 font-medium">
+            <span
+              class="grid size-6 place-items-center rounded-md bg-primary text-xs text-primary-foreground"
+              >B</span
+            >
+            BlatUI Inc.
+          </a>
+          <div class="flex flex-1 items-center justify-center">
+            <form class="flex w-full max-w-xs flex-col gap-6">
+              <div class="flex flex-col items-center gap-1 text-center">
+                <h1 class="text-2xl font-bold">Login to your account</h1>
+                <p class="text-sm text-muted-foreground">Enter your email below to login.</p>
+              </div>
+              <div buiField>
+                <label buiFieldLabel for="l2-email">Email</label>
+                <input
+                  id="l2-email"
+                  buiInput
+                  type="email"
+                  placeholder="m&#64;example.com"
+                  required
+                />
+              </div>
+              <div buiField>
+                <label buiFieldLabel for="l2-pw">Password</label>
+                <input id="l2-pw" buiInput type="password" required />
+              </div>
+              <button buiButton type="submit">Login</button>
+            </form>
+          </div>
+        </div>
+        <div class="hidden bg-muted lg:block"></div>
+      </div>
+    }
+    @case ('login-03') {
+      <div
+        class="flex min-h-[480px] w-full flex-col items-center justify-center gap-6 rounded-lg border bg-muted p-6 md:p-10"
+      >
+        <a href="#" class="flex items-center gap-2 self-center font-medium">
+          <span
+            class="grid size-6 place-items-center rounded-md bg-primary text-xs text-primary-foreground"
+            >B</span
+          >
+          BlatUI Inc.
+        </a>
+        <div class="w-full max-w-sm">
+          <div buiCard variant="sectioned">
+            <div buiCardHeader class="text-center">
+              <h3 buiCardTitle class="text-xl">Welcome back</h3>
+              <p buiCardDescription>Login with your Apple or Google account.</p>
+            </div>
+            <div buiCardContent>
+              <form class="flex flex-col gap-6">
+                <div class="flex flex-col gap-2">
+                  <button buiButton variant="outline" type="button">Continue with Apple</button>
+                  <button buiButton variant="outline" type="button">Continue with Google</button>
+                </div>
+                <div class="flex items-center gap-3 text-xs">
+                  <span buiSeparator class="flex-1"></span>
+                  <span class="text-muted-foreground">Or continue with</span>
+                  <span buiSeparator class="flex-1"></span>
+                </div>
+                <div buiField>
+                  <label buiFieldLabel for="l3-email">Email</label>
+                  <input
+                    id="l3-email"
+                    buiInput
+                    type="email"
+                    placeholder="m&#64;example.com"
+                    required
+                  />
+                </div>
+                <button buiButton type="submit">Login</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    @default {
+      <p class="text-muted-foreground">Block not found.</p>
+    }
+  }
+</article>
