@@ -1994,6 +1994,7 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     spotlightCard: `import { BuiSpotlightCard } from 'ng-blatui';
 
 <bui-spotlight-card>Hover for a spotlight glow.</bui-spotlight-card>`,
+    spotlightCardColored: `<bui-spotlight-card color="#22c55e">…</bui-spotlight-card>`,
     tiltCard: `import { BuiTiltCard } from 'ng-blatui';
 
 <bui-tilt-card><div class="p-6">Tilt me</div></bui-tilt-card>`,
@@ -2159,15 +2160,21 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     borderBeam: `import { BuiBorderBeam } from 'ng-blatui';
 
 <bui-border-beam class="max-w-xs">Travelling border beam.</bui-border-beam>`,
+    borderBeamColored: `<bui-border-beam color="#ec4899">…</bui-border-beam>`,
+    borderBeamFast: `<bui-border-beam [duration]="4">…</bui-border-beam>`,
     meteors: `import { BuiMeteors } from 'ng-blatui';
 
 <bui-meteors [count]="20" class="rounded-xl border p-10">Content above the meteors.</bui-meteors>`,
+    meteorsColored: `<bui-meteors [count]="40" color="#38bdf8">…</bui-meteors>`,
     aurora: `import { BuiAurora } from 'ng-blatui';
 
 <bui-aurora class="p-12 text-white">Aurora background</bui-aurora>`,
+    auroraCustom: `<bui-aurora [blur]="40" [speed]="8">…</bui-aurora>`,
     marquee: `import { BuiMarquee } from 'ng-blatui';
 
 <bui-marquee [items]="['Acme', 'Globex', 'Initech', 'Umbrella']" />`,
+    marqueeReverse: `<bui-marquee direction="right" [items]="[…]" />`,
+    marqueePause: `<bui-marquee [pauseOnHover]="true" [items]="[…]" />`,
     bottomNavigation: `import { BuiBottomNavigation, BuiBottomNavigationItem } from 'ng-blatui';
 
 <nav buiBottomNavigation>
@@ -2181,6 +2188,7 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     parallax: `import { BuiParallax } from 'ng-blatui';
 
 <bui-parallax [speed]="0.3">Floating layer</bui-parallax>`,
+    parallaxHorizontal: `<bui-parallax axis="x" [speed]="0.4">Moves on the X axis</bui-parallax>`,
     scrollspy: `import { BuiScrollspy } from 'ng-blatui';
 
 <bui-scrollspy [items]="[{ href: '#intro', label: 'Intro' }]" />`,
@@ -2253,6 +2261,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     confetti: `import { BuiConfetti } from 'ng-blatui';
 
 <bui-confetti><button buiButton>Launch 🎉</button></bui-confetti>`,
+    confettiColors: `<bui-confetti [colors]="['#f43f5e', '#8b5cf6', '#0ea5e9']" [count]="120">
+  <button buiButton variant="outline">Celebrate 🎊</button>
+</bui-confetti>`,
     stepper: `import { BuiStepper, BuiStepperItem } from 'ng-blatui';
 
 <bui-stepper [value]="2">
@@ -2297,6 +2308,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     colorPicker: `import { BuiColorPicker } from 'ng-blatui';
 
 <bui-color-picker [(value)]="color" />`,
+    colorPickerSwatches: `<bui-color-picker [value]="'#0ea5e9'" [swatches]="['#0ea5e9', '#10b981', '#f43f5e', '#8b5cf6']" />`,
+    colorPickerDisabled: `<bui-color-picker [value]="'#6366f1'" [disabled]="true" />`,
     cookieConsent: `import { BuiCookieConsent } from 'ng-blatui';
 
 <bui-cookie-consent (decided)="onConsent($event)" />`,
@@ -2391,7 +2404,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-comparison-slider before="/before.jpg" after="/after.jpg" beforeLabel="Before" afterLabel="After" />`,
     fileUpload: `import { BuiFileUpload } from 'ng-blatui';
 
-<bui-file-upload [multiple]="true" hint="PNG, JPG up to 5MB" />`,
+<bui-file-upload hint="Up to 10MB" />`,
+    fileUploadMultiple: `<bui-file-upload [multiple]="true" accept=".pdf,.doc,.docx" hint="Max 5 files" />`,
+    fileUploadImages: `<bui-file-upload [multiple]="true" accept="image/*" hint="PNG, JPG or GIF" />`,
     topProgress: `import { BuiTopProgress } from 'ng-blatui';
 
 <bui-top-progress #bar [demo]="true" />

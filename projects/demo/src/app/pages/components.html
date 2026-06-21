@@ -4179,6 +4179,14 @@ This content is read-only and cannot be edited.</textarea
           <p class="text-sm text-muted-foreground">Move your cursor across the card.</p>
         </bui-spotlight-card>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Colored</h2>
+      <app-example [code]="code.spotlightCardColored">
+        <bui-spotlight-card class="max-w-xs" color="#22c55e">
+          <h3 class="font-semibold">Emerald glow</h3>
+          <p class="text-sm text-muted-foreground">Custom spotlight colour.</p>
+        </bui-spotlight-card>
+      </app-example>
     }
     @case ('tilt-card') {
       <app-example [code]="code.tiltCard">
@@ -4727,6 +4735,22 @@ This content is read-only and cannot be edited.</textarea
           <p class="text-sm text-muted-foreground">A glowing animated border.</p>
         </bui-border-beam>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Colored</h2>
+      <app-example [code]="code.borderBeamColored">
+        <bui-border-beam class="max-w-xs" color="#ec4899">
+          <h3 class="font-semibold">Featured</h3>
+          <p class="text-sm text-muted-foreground">Custom beam colour.</p>
+        </bui-border-beam>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Fast</h2>
+      <app-example [code]="code.borderBeamFast">
+        <bui-border-beam class="max-w-xs" [duration]="4">
+          <h3 class="font-semibold">Speedy</h3>
+          <p class="text-sm text-muted-foreground">A shorter duration.</p>
+        </bui-border-beam>
+      </app-example>
     }
     @case ('meteors') {
       <app-example [code]="code.meteors">
@@ -4737,11 +4761,29 @@ This content is read-only and cannot be edited.</textarea
           <p class="font-medium">Meteors ✦</p>
         </bui-meteors>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Colored, dense</h2>
+      <app-example [code]="code.meteorsColored">
+        <bui-meteors
+          class="w-full max-w-sm rounded-xl border bg-card p-10 text-center"
+          [count]="40"
+          color="#38bdf8"
+        >
+          <p class="font-medium">A denser shower</p>
+        </bui-meteors>
+      </app-example>
     }
     @case ('aurora') {
       <app-example [code]="code.aurora">
         <bui-aurora class="w-full max-w-sm p-12 text-center text-white">
           <p class="text-lg font-semibold">Aurora background</p>
+        </bui-aurora>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Custom</h2>
+      <app-example [code]="code.auroraCustom">
+        <bui-aurora class="w-full max-w-sm p-12 text-center text-white" [blur]="40" [speed]="8">
+          <p class="text-lg font-semibold">Softer &amp; slower</p>
         </bui-aurora>
       </app-example>
     }
@@ -4750,6 +4792,24 @@ This content is read-only and cannot be edited.</textarea
         <bui-marquee
           class="w-full [--bui-marquee-gap:2rem]"
           [items]="['Acme', 'Globex', 'Initech', 'Umbrella', 'Soylent']"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Reverse</h2>
+      <app-example [code]="code.marqueeReverse">
+        <bui-marquee
+          class="w-full [--bui-marquee-gap:2rem]"
+          direction="right"
+          [items]="['React', 'Vue', 'Svelte', 'Angular', 'Solid']"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Pause on hover</h2>
+      <app-example [code]="code.marqueePause">
+        <bui-marquee
+          class="w-full [--bui-marquee-gap:2rem]"
+          [pauseOnHover]="true"
+          [items]="['Hover', 'to', 'pause', 'the', 'scroll']"
         />
       </app-example>
     }
@@ -4773,9 +4833,16 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('parallax') {
       <app-example [code]="code.parallax">
-        <bui-parallax class="rounded-lg border bg-card px-6 py-4" [speed]="0.3">
-          Parallax layer
-        </bui-parallax>
+        <bui-parallax class="rounded-lg border bg-card px-6 py-4" [speed]="0.3"
+          >Parallax layer</bui-parallax
+        >
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Horizontal</h2>
+      <app-example [code]="code.parallaxHorizontal">
+        <bui-parallax class="rounded-lg border bg-card px-6 py-4" axis="x" [speed]="0.4"
+          >Moves on the X axis</bui-parallax
+        >
       </app-example>
     }
     @case ('scrollspy') {
@@ -5034,6 +5101,13 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.confetti">
         <bui-confetti><button buiButton>Launch 🎉</button></bui-confetti>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Custom colors</h2>
+      <app-example [code]="code.confettiColors">
+        <bui-confetti [colors]="['#f43f5e', '#8b5cf6', '#0ea5e9']" [count]="120">
+          <button buiButton variant="outline">Celebrate 🎊</button>
+        </bui-confetti>
+      </app-example>
     }
     @case ('stepper') {
       <app-example [code]="code.stepper">
@@ -5168,6 +5242,28 @@ This content is read-only and cannot be edited.</textarea
     @case ('color-picker') {
       <app-example [code]="code.colorPicker">
         <bui-color-picker [(value)]="colorValue" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Custom swatches</h2>
+      <app-example [code]="code.colorPickerSwatches">
+        <bui-color-picker
+          [value]="'#0ea5e9'"
+          [swatches]="[
+            '#0ea5e9',
+            '#06b6d4',
+            '#10b981',
+            '#facc15',
+            '#fb923c',
+            '#f43f5e',
+            '#8b5cf6',
+            '#64748b',
+          ]"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.colorPickerDisabled">
+        <bui-color-picker [value]="'#6366f1'" [disabled]="true" />
       </app-example>
     }
     @case ('cookie-consent') {
@@ -5379,7 +5475,27 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('file-upload') {
       <app-example [code]="code.fileUpload">
-        <bui-file-upload class="w-full max-w-md" [multiple]="true" hint="PNG, JPG up to 5MB" />
+        <bui-file-upload class="w-full max-w-md" hint="Up to 10MB" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Multiple</h2>
+      <app-example [code]="code.fileUploadMultiple">
+        <bui-file-upload
+          class="w-full max-w-md"
+          [multiple]="true"
+          accept=".pdf,.doc,.docx"
+          hint="Max 5 files"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Image preview</h2>
+      <app-example [code]="code.fileUploadImages">
+        <bui-file-upload
+          class="w-full max-w-md"
+          [multiple]="true"
+          accept="image/*"
+          hint="PNG, JPG or GIF"
+        />
       </app-example>
     }
     @case ('top-progress') {
