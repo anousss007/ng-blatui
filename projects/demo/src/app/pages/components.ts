@@ -1733,6 +1733,13 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 </button>`,
     tooltipTriggers: `<button buiButton variant="outline" buiTooltip="Save your changes">Save</button>
 <button buiButton variant="outline" buiTooltip="Share with your team">Share</button>`,
+    tooltipSides: `<!-- side = top | right | bottom | left -->
+<button buiButton buiTooltip="Right" side="right">Right</button>`,
+    tooltipDelayed: `<!-- delay the show by N ms -->
+<button buiButton buiTooltip="Appears after 600ms" [delay]="600">Hover and wait</button>`,
+    tooltipColors: `<!-- recolour the bubble via tooltipClass -->
+<button buiButton buiTooltip="Saved" tooltipClass="bg-emerald-600 text-white">Success</button>`,
+    tooltipNoArrow: `<button buiButton buiTooltip="A clean, arrowless tooltip">Hover me</button>`,
     breadcrumb: `import {
   BuiBreadcrumb, BuiBreadcrumbList, BuiBreadcrumbItem,
   BuiBreadcrumbLink, BuiBreadcrumbPage, BuiBreadcrumbSeparator,

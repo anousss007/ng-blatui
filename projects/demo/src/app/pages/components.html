@@ -3364,6 +3364,60 @@ This content is read-only and cannot be edited.</textarea
           <button buiButton variant="outline" buiTooltip="Delete permanently">Delete</button>
         </div>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sides</h2>
+      <app-example [code]="code.tooltipSides">
+        <div class="flex flex-wrap items-center gap-3">
+          <button buiButton variant="outline" buiTooltip="Top" side="top">Top</button>
+          <button buiButton variant="outline" buiTooltip="Right" side="right">Right</button>
+          <button buiButton variant="outline" buiTooltip="Bottom" side="bottom">Bottom</button>
+          <button buiButton variant="outline" buiTooltip="Left" side="left">Left</button>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Delayed</h2>
+      <app-example [code]="code.tooltipDelayed">
+        <button buiButton variant="outline" buiTooltip="Appears after 600ms" [delay]="600">
+          Hover and wait
+        </button>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Colors</h2>
+      <app-example [code]="code.tooltipColors">
+        <div class="flex flex-wrap items-center gap-3">
+          <button
+            buiButton
+            variant="outline"
+            buiTooltip="Saved"
+            tooltipClass="bg-emerald-600 text-white"
+          >
+            Success
+          </button>
+          <button
+            buiButton
+            variant="outline"
+            buiTooltip="Careful"
+            tooltipClass="bg-amber-500 text-white"
+          >
+            Warning
+          </button>
+          <button
+            buiButton
+            variant="outline"
+            buiTooltip="Deleted"
+            tooltipClass="bg-destructive text-white"
+          >
+            Danger
+          </button>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">No arrow</h2>
+      <app-example [code]="code.tooltipNoArrow">
+        <button buiButton variant="outline" buiTooltip="A clean, arrowless tooltip">
+          Hover me
+        </button>
+      </app-example>
     }
     @case ('breadcrumb') {
       <app-example [code]="code.breadcrumb">
