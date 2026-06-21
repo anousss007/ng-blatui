@@ -5759,6 +5759,88 @@ This content is read-only and cannot be edited.</textarea
           </div>
         </div>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Checkboxes</h2>
+      <app-example [code]="code.dropdownCheckboxes">
+        <div class="relative inline-block">
+          <button buiButton variant="outline" ngMenuTrigger [menu]="ddc">View</button>
+          <div ngMenu #ddc="ngMenu" buiDropdownMenu>
+            <div buiDropdownMenuLabel>Appearance</div>
+            <div buiDropdownMenuSeparator></div>
+            <div
+              ngMenuItem
+              value="status"
+              buiDropdownMenuItem
+              (click)="dmStatusBar.set(!dmStatusBar())"
+            >
+              <span class="inline-flex w-4 justify-center">
+                @if (dmStatusBar()) {
+                  <svg
+                    class="size-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                }
+              </span>
+              Status bar
+            </div>
+            <div
+              ngMenuItem
+              value="activity"
+              buiDropdownMenuItem
+              (click)="dmActivityBar.set(!dmActivityBar())"
+            >
+              <span class="inline-flex w-4 justify-center">
+                @if (dmActivityBar()) {
+                  <svg
+                    class="size-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                }
+              </span>
+              Activity bar
+            </div>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Radio group</h2>
+      <app-example [code]="code.dropdownRadio">
+        <div class="relative inline-block">
+          <button buiButton variant="outline" ngMenuTrigger [menu]="ddr">Panel position</button>
+          <div ngMenu #ddr="ngMenu" buiDropdownMenu>
+            <div buiDropdownMenuLabel>Panel position</div>
+            <div buiDropdownMenuSeparator></div>
+            @for (pos of ['top', 'bottom', 'right']; track pos) {
+              <div ngMenuItem [value]="pos" buiDropdownMenuItem (click)="dmPanel.set(pos)">
+                <span class="inline-flex w-4 justify-center">
+                  @if (dmPanel() === pos) {
+                    <svg class="size-2.5 fill-current" viewBox="0 0 8 8" aria-hidden="true">
+                      <circle cx="4" cy="4" r="4" />
+                    </svg>
+                  }
+                </span>
+                <span class="capitalize">{{ pos }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      </app-example>
     }
     @case ('menubar') {
       <app-example [code]="code.menubar">

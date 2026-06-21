@@ -766,6 +766,9 @@ export class ComponentPage {
 
   protected readonly terms = signal(true);
   protected readonly notifications = signal(true);
+  protected readonly dmStatusBar = signal(true);
+  protected readonly dmActivityBar = signal(false);
+  protected readonly dmPanel = signal('bottom');
   protected readonly volume = signal(60);
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
@@ -2369,6 +2372,20 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 </div>
 <div buiDropdownMenuSeparator></div>
 <div ngMenuItem value="profile" buiDropdownMenuItem>Profile</div>`,
+    dropdownCheckboxes: `<!-- compose a checkbox item: a signal + a conditional check indicator -->
+<div ngMenuItem buiDropdownMenuItem (click)="statusBar.set(!statusBar())">
+  <span class="inline-flex w-4 justify-center">
+    @if (statusBar()) { <svg><path d="M20 6 9 17l-5-5" /></svg> }
+  </span>
+  Status bar
+</div>`,
+    dropdownRadio: `<!-- radio: one signal holds the selected value -->
+<div ngMenuItem [value]="pos" buiDropdownMenuItem (click)="panel.set(pos)">
+  <span class="inline-flex w-4 justify-center">
+    @if (panel() === pos) { <svg viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" /></svg> }
+  </span>
+  {{ pos }}
+</div>`,
     typography: `import { BuiTypography } from 'ng-blatui';
 
 <h1 buiTypography variant="h1">The quick brown fox</h1>
