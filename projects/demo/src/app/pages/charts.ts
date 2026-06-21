@@ -358,12 +358,71 @@ const RADIAL: ChartExample[] = [
   radial('chart-radial-stacked', 'Radial Chart — Stacked', 'A stacked radial chart.'),
 ];
 
+const RADAR_AXES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+const RADAR_A = [86, 72, 64, 90, 70, 80];
+const RADAR_B = [60, 85, 78, 55, 92, 68];
+
+function radar(slug: string, title: string, description: string, isMultiple = false): ChartExample {
+  return {
+    slug,
+    title,
+    description,
+    family: 'Radar',
+    kind: 'radar',
+    axes: RADAR_AXES,
+    radar: isMultiple
+      ? [
+          { name: 'Desktop', data: RADAR_A, color: PALETTE[0] },
+          { name: 'Mobile', data: RADAR_B, color: PALETTE[1] },
+        ]
+      : [{ name: 'Desktop', data: RADAR_A, color: PALETTE[0] }],
+  };
+}
+
+const RADAR: ChartExample[] = [
+  radar('chart-radar-default', 'Radar Chart', 'A simple radar chart.'),
+  radar('chart-radar-dots', 'Radar Chart — Dots', 'A radar chart with dots.'),
+  radar('chart-radar-lines-only', 'Radar Chart — Lines Only', 'A radar outline without fill.'),
+  radar('chart-radar-multiple', 'Radar Chart — Multiple', 'Two overlaid series.', true),
+  radar('chart-radar-legend', 'Radar Chart — Legend', 'A radar chart with a legend.', true),
+  radar(
+    'chart-radar-grid-circle',
+    'Radar Chart — Circle Grid',
+    'A radar chart with a circular grid.',
+  ),
+  radar(
+    'chart-radar-grid-circle-fill',
+    'Radar Chart — Circle Filled',
+    'A circular grid with fill.',
+  ),
+  radar(
+    'chart-radar-grid-circle-no-lines',
+    'Radar Chart — Circle No Lines',
+    'A circular grid without spokes.',
+  ),
+  radar(
+    'chart-radar-grid-custom',
+    'Radar Chart — Custom Grid',
+    'A radar chart with a custom grid.',
+  ),
+  radar('chart-radar-grid-fill', 'Radar Chart — Grid Fill', 'A radar chart with a filled grid.'),
+  radar('chart-radar-grid-none', 'Radar Chart — No Grid', 'A radar chart without a grid.'),
+  radar('chart-radar-icons', 'Radar Chart — Icons', 'A radar chart with axis icons.'),
+  radar(
+    'chart-radar-label-custom',
+    'Radar Chart — Custom Label',
+    'A radar chart with custom labels.',
+  ),
+  radar('chart-radar-radius', 'Radar Chart — Radius Axis', 'A radar chart with a radius axis.'),
+];
+
 export const CHARTS: readonly ChartExample[] = [
   ...AREA,
   ...BAR,
   ...LINE,
   ...TOOLTIP,
   ...PIE,
+  ...RADAR,
   ...RADIAL,
 ];
 
