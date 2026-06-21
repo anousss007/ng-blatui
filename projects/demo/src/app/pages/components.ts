@@ -1759,6 +1759,9 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 <li buiBreadcrumbSeparator><svg><!-- slash --></svg></li>`,
     breadcrumbDotSep: `<li buiBreadcrumbSeparator><span class="bg-muted-foreground block size-1 rounded-full"></span></li>`,
     breadcrumbContained: `<ol buiBreadcrumbList class="bg-background min-h-9 w-fit rounded-md border px-3 py-1">…</ol>`,
+    breadcrumbBadge: `<li buiBreadcrumbItem class="flex items-center gap-2">
+  <span buiBreadcrumbPage>Settings</span><span buiBadge variant="secondary">Beta</span>
+</li>`,
     kbd: `import { BuiKbd, BuiKbdGroup } from 'ng-blatui';
 
 <kbd buiKbdGroup><kbd buiKbd>⌘</kbd><kbd buiKbd>K</kbd></kbd>`,
@@ -2653,6 +2656,24 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
   <div buiResizablePanel [primary]="true">Header</div>
   <bui-resizable-handle [withHandle]="true" />
   <div buiResizablePanel>Body</div>
+</bui-resizable-panel-group>`,
+    resizableNoHandle: `<!-- omit [withHandle] for a plain divider -->
+<bui-resizable-panel-group>
+  <div buiResizablePanel [primary]="true">One</div>
+  <bui-resizable-handle />
+  <div buiResizablePanel>Two</div>
+</bui-resizable-panel-group>`,
+    resizableNested: `<!-- nest a vertical group inside a panel -->
+<bui-resizable-panel-group>
+  <div buiResizablePanel [primary]="true">Sidebar</div>
+  <bui-resizable-handle [withHandle]="true" />
+  <div buiResizablePanel>
+    <bui-resizable-panel-group direction="vertical" class="h-full">
+      <div buiResizablePanel [primary]="true">Top</div>
+      <bui-resizable-handle [withHandle]="true" />
+      <div buiResizablePanel>Bottom</div>
+    </bui-resizable-panel-group>
+  </div>
 </bui-resizable-panel-group>`,
     video: `import { BuiVideo } from 'ng-blatui';
 

@@ -3513,6 +3513,22 @@ This content is read-only and cannot be edited.</textarea
           </ol>
         </nav>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With badge</h2>
+      <app-example [code]="code.breadcrumbBadge">
+        <nav buiBreadcrumb>
+          <ol buiBreadcrumbList>
+            <li buiBreadcrumbItem><a buiBreadcrumbLink href="/">Home</a></li>
+            <li buiBreadcrumbSeparator></li>
+            <li buiBreadcrumbItem><a buiBreadcrumbLink href="/">Projects</a></li>
+            <li buiBreadcrumbSeparator></li>
+            <li buiBreadcrumbItem class="flex items-center gap-2">
+              <span buiBreadcrumbPage>Settings</span>
+              <span buiBadge variant="secondary">Beta</span>
+            </li>
+          </ol>
+        </nav>
+      </app-example>
     }
     @case ('button-group') {
       <app-example [code]="code.buttonGroup">
@@ -7045,6 +7061,44 @@ This content is read-only and cannot be edited.</textarea
           </div>
           <bui-resizable-handle [withHandle]="true" />
           <div buiResizablePanel class="grid place-items-center text-sm">Body</div>
+        </bui-resizable-panel-group>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Without handle</h2>
+      <app-example [code]="code.resizableNoHandle">
+        <bui-resizable-panel-group class="h-40 w-full max-w-md rounded-lg border">
+          <div
+            buiResizablePanel
+            [primary]="true"
+            class="grid place-items-center bg-muted/40 text-sm"
+          >
+            One
+          </div>
+          <bui-resizable-handle />
+          <div buiResizablePanel class="grid place-items-center text-sm">Two</div>
+        </bui-resizable-panel-group>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Nested</h2>
+      <app-example [code]="code.resizableNested">
+        <bui-resizable-panel-group class="h-56 w-full max-w-md rounded-lg border">
+          <div
+            buiResizablePanel
+            [primary]="true"
+            class="grid place-items-center bg-muted/40 text-sm"
+          >
+            Sidebar
+          </div>
+          <bui-resizable-handle [withHandle]="true" />
+          <div buiResizablePanel class="min-w-0">
+            <bui-resizable-panel-group direction="vertical" class="h-full">
+              <div buiResizablePanel [primary]="true" class="grid place-items-center text-sm">
+                Top
+              </div>
+              <bui-resizable-handle [withHandle]="true" />
+              <div buiResizablePanel class="grid place-items-center text-sm">Bottom</div>
+            </bui-resizable-panel-group>
+          </div>
         </bui-resizable-panel-group>
       </app-example>
     }
