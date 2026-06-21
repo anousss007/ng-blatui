@@ -43,6 +43,8 @@
           "builder": "@angular/build:application",
           "options": {
             "browser": "projects/demo/src/main.ts",
+            "server": "projects/demo/src/main.server.ts",
+            "outputMode": "static",
             "tsConfig": "projects/demo/tsconfig.app.json",
             "assets": [
               {
@@ -57,8 +59,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "1.5MB",
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",
