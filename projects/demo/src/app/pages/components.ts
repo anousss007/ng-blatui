@@ -931,6 +931,8 @@ export class ComponentPage {
   protected readonly acOptions = ['Angular', 'React', 'Svelte', 'Vue', 'Solid', 'Qwik'];
   protected readonly compareValue = signal(50);
   protected readonly drawerOpen = signal(false);
+  protected readonly drawerScrollOpen = signal(false);
+  protected readonly repeaterRowsMax = signal<Record<string, string>[]>([{ name: '', email: '' }]);
   protected readonly loadingShow = signal(true);
   protected readonly dtColumns = [
     { key: 'name', label: 'Name' },
@@ -2928,6 +2930,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 // fields = [{ key: 'name', label: 'Name' }, { key: 'email', label: 'Email' }]`,
     repeaterMulti: `<bui-repeater [fields]="fields" [(rows)]="rows" addLabel="Add guest" />
 // fields = [{ key: 'name', label: 'Name' }, { key: 'email', label: 'Email', type: 'email' }]`,
+    repeaterMax: `<!-- [max] caps the rows and disables the add button -->
+<bui-repeater [fields]="fields" [(rows)]="rows" [min]="1" [max]="3" />`,
     notificationCenter: `import { BuiNotificationCenter } from 'ng-blatui';
 
 <bui-notification-center [notifications]="feed" />`,
@@ -3058,6 +3062,11 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <button (click)="open.set(true)">Open</button>
 <bui-drawer [(open)]="open" direction="right">Panel content</bui-drawer>`,
     drawerBottom: `<bui-drawer [(open)]="open" direction="bottom">…</bui-drawer>`,
+    drawerScroll: `<bui-drawer [(open)]="open" direction="right" class="w-80">
+  <h2>Changelog</h2>
+  <div class="flex-1 overflow-y-auto">…long content…</div>
+  <button buiButton>Close</button>
+</bui-drawer>`,
     drawerLeft: `<bui-drawer [(open)]="open" direction="left">…</bui-drawer>`,
     inputMask: `import { BuiInputMask } from 'ng-blatui';
 

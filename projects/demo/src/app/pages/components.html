@@ -7708,6 +7708,18 @@ This content is read-only and cannot be edited.</textarea
           addLabel="Add guest"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With max</h2>
+      <app-example [code]="code.repeaterMax">
+        <bui-repeater
+          class="w-full max-w-md"
+          [fields]="repeaterFields2"
+          [(rows)]="repeaterRowsMax"
+          [min]="1"
+          [max]="3"
+          addLabel="Add contact (max 3)"
+        />
+      </app-example>
     }
     @case ('notification-center') {
       <app-example [code]="code.notificationCenter">
@@ -8168,6 +8180,23 @@ This content is read-only and cannot be edited.</textarea
           <button buiButton variant="outline" class="mt-auto" (click)="drawerLeftOpen.set(false)">
             Close
           </button>
+        </bui-drawer>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Scrollable</h2>
+      <app-example [code]="code.drawerScroll">
+        <button buiButton variant="outline" (click)="drawerScrollOpen.set(true)">Changelog</button>
+        <bui-drawer [(open)]="drawerScrollOpen" direction="right" class="w-80">
+          <h2 class="text-lg font-semibold">Changelog</h2>
+          <div class="-mr-2 flex-1 space-y-3 overflow-y-auto pr-2 text-sm text-muted-foreground">
+            @for (i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track i) {
+              <p>
+                v1.{{ i }}.0 — Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt.
+              </p>
+            }
+          </div>
+          <button buiButton class="mt-2" (click)="drawerScrollOpen.set(false)">Close</button>
         </bui-drawer>
       </app-example>
     }
