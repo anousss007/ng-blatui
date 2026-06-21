@@ -1676,6 +1676,16 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     </tbody>
   </table>
 </div>`,
+    tableStriped: `<table buiTable class="[&_tbody_tr:nth-child(odd)]:bg-muted/50">
+  …rows…
+</table>`,
+    tableSelection: `<tr buiTableRow data-state="selected" class="data-[state=selected]:bg-muted">
+  <td buiTableCell><button buiCheckbox [checked]="true" aria-label="Select"></button></td>
+  <td buiTableCell>Sofia Carter</td>
+</tr>`,
+    tableActions: `<td buiTableCell>
+  <button buiButton variant="ghost" size="icon" aria-label="Row actions"><svg><!-- ⋯ --></svg></button>
+</td>`,
     avatarGroup: `import { BuiAvatarGroup } from 'ng-blatui';
 
 <bui-avatar-group [avatars]="team" [max]="3" />
@@ -1709,6 +1719,24 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 <ng-template #tpl>
   <div buiPopoverContent>
     <p class="text-sm">Popover content goes here.</p>
+  </div>
+</ng-template>`,
+    popoverSettings: `<ng-template #tpl>
+  <div buiPopoverContent class="w-80">
+    <h4 class="font-medium">Dimensions</h4>
+    <div class="grid grid-cols-3 items-center gap-4">
+      <label buiLabel for="w">Width</label>
+      <input id="w" buiInput value="100%" class="col-span-2 h-8" />
+    </div>
+  </div>
+</ng-template>`,
+    popoverShare: `<ng-template #tpl>
+  <div buiPopoverContent class="w-80">
+    <h4 class="font-medium">Share link</h4>
+    <div class="flex gap-2">
+      <input buiInput value="https://…" class="h-8" readonly />
+      <button buiButton size="sm">Copy</button>
+    </div>
   </div>
 </ng-template>`,
     item: `import {
@@ -1797,6 +1825,12 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 <span [buiHoverCard]="tpl">@username</span>
 <ng-template #tpl>
   <div buiHoverCardContent>Profile preview content…</div>
+</ng-template>`,
+    hoverCardUser: `<a buiButton variant="link" [buiHoverCard]="tpl">@sofia</a>
+<ng-template #tpl>
+  <div buiHoverCardContent class="w-72">
+    <div class="flex gap-3"><bui-avatar>SC</bui-avatar> Sofia Carter — Product designer.</div>
+  </div>
 </ng-template>`,
     codeBlock: `import { BuiCodeBlock } from 'ng-blatui';
 

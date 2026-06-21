@@ -3092,18 +3092,130 @@ This content is read-only and cannot be edited.</textarea
           <table buiTable>
             <thead buiTableHeader>
               <tr buiTableRow>
+                <th buiTableHead class="w-[100px]">Invoice</th>
+                <th buiTableHead>Status</th>
+                <th buiTableHead>Method</th>
+                <th buiTableHead class="text-right">Amount</th>
+              </tr>
+            </thead>
+            <tbody buiTableBody>
+              <tr buiTableRow>
+                <td buiTableCell class="font-medium">INV001</td>
+                <td buiTableCell>Paid</td>
+                <td buiTableCell>Credit Card</td>
+                <td buiTableCell class="text-right tabular-nums">$250.00</td>
+              </tr>
+              <tr buiTableRow>
+                <td buiTableCell class="font-medium">INV002</td>
+                <td buiTableCell>Pending</td>
+                <td buiTableCell>PayPal</td>
+                <td buiTableCell class="text-right tabular-nums">$150.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Striped</h2>
+      <app-example [code]="code.tableStriped">
+        <div buiTableContainer variant="card" class="w-full">
+          <table buiTable class="[&_tbody_tr:nth-child(odd)]:bg-muted/50">
+            <thead buiTableHeader>
+              <tr buiTableRow>
                 <th buiTableHead>Name</th>
+                <th buiTableHead>Email</th>
                 <th buiTableHead>Role</th>
               </tr>
             </thead>
             <tbody buiTableBody>
               <tr buiTableRow>
-                <td buiTableCell>Ada Lovelace</td>
-                <td buiTableCell>Admin</td>
+                <td buiTableCell class="font-medium">Olivia Martin</td>
+                <td buiTableCell class="text-muted-foreground">olivia&#64;example.com</td>
+                <td buiTableCell>Owner</td>
               </tr>
               <tr buiTableRow>
-                <td buiTableCell>Alan Turing</td>
+                <td buiTableCell class="font-medium">Jackson Lee</td>
+                <td buiTableCell class="text-muted-foreground">jackson&#64;example.com</td>
                 <td buiTableCell>Member</td>
+              </tr>
+              <tr buiTableRow>
+                <td buiTableCell class="font-medium">Isabella Nguyen</td>
+                <td buiTableCell class="text-muted-foreground">bella&#64;example.com</td>
+                <td buiTableCell>Member</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Selection</h2>
+      <app-example [code]="code.tableSelection">
+        <div buiTableContainer variant="card" class="w-full">
+          <table buiTable>
+            <thead buiTableHeader>
+              <tr buiTableRow>
+                <th buiTableHead class="w-10">
+                  <button buiCheckbox aria-label="Select all rows"></button>
+                </th>
+                <th buiTableHead>Customer</th>
+                <th buiTableHead>Status</th>
+                <th buiTableHead class="text-right">Amount</th>
+              </tr>
+            </thead>
+            <tbody buiTableBody>
+              <tr buiTableRow class="data-[state=selected]:bg-muted" data-state="selected">
+                <td buiTableCell>
+                  <button buiCheckbox [checked]="true" aria-label="Select Sofia"></button>
+                </td>
+                <td buiTableCell class="font-medium">Sofia Carter</td>
+                <td buiTableCell><span buiBadge variant="secondary">Paid</span></td>
+                <td buiTableCell class="text-right tabular-nums">$250.00</td>
+              </tr>
+              <tr buiTableRow>
+                <td buiTableCell><button buiCheckbox aria-label="Select Jackson"></button></td>
+                <td buiTableCell class="font-medium">Jackson Doe</td>
+                <td buiTableCell><span buiBadge variant="secondary">Pending</span></td>
+                <td buiTableCell class="text-right tabular-nums">$150.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Actions</h2>
+      <app-example [code]="code.tableActions">
+        <div buiTableContainer variant="card" class="w-full">
+          <table buiTable>
+            <thead buiTableHeader>
+              <tr buiTableRow>
+                <th buiTableHead>Invoice</th>
+                <th buiTableHead>Status</th>
+                <th buiTableHead class="text-right">Amount</th>
+                <th buiTableHead class="w-10"><span class="sr-only">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody buiTableBody>
+              <tr buiTableRow>
+                <td buiTableCell class="font-medium">INV001</td>
+                <td buiTableCell><span buiBadge tone="success" variant="soft">Paid</span></td>
+                <td buiTableCell class="text-right tabular-nums">$250.00</td>
+                <td buiTableCell>
+                  <button buiButton variant="ghost" size="icon" aria-label="Row actions">
+                    <svg
+                      class="size-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="12" r="1" />
+                      <circle cx="19" cy="12" r="1" />
+                      <circle cx="5" cy="12" r="1" />
+                    </svg>
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -3202,6 +3314,48 @@ This content is read-only and cannot be edited.</textarea
         <ng-template #popoverTpl>
           <div buiPopoverContent>
             <p class="text-sm">Popover content goes here.</p>
+          </div>
+        </ng-template>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Settings</h2>
+      <app-example [code]="code.popoverSettings">
+        <button buiButton variant="outline" [buiPopover]="popoverSettingsTpl">Dimensions</button>
+        <ng-template #popoverSettingsTpl>
+          <div buiPopoverContent class="w-80">
+            <div class="space-y-3">
+              <div class="space-y-1">
+                <h4 class="leading-none font-medium">Dimensions</h4>
+                <p class="text-sm text-muted-foreground">Set the dimensions for the layer.</p>
+              </div>
+              <div class="grid gap-2">
+                <div class="grid grid-cols-3 items-center gap-4">
+                  <label buiLabel for="pp-w">Width</label>
+                  <input id="pp-w" buiInput value="100%" class="col-span-2 h-8" />
+                </div>
+                <div class="grid grid-cols-3 items-center gap-4">
+                  <label buiLabel for="pp-h">Height</label>
+                  <input id="pp-h" buiInput value="25px" class="col-span-2 h-8" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Share</h2>
+      <app-example [code]="code.popoverShare">
+        <button buiButton variant="outline" [buiPopover]="popoverShareTpl">Share</button>
+        <ng-template #popoverShareTpl>
+          <div buiPopoverContent class="w-80">
+            <div class="space-y-2">
+              <h4 class="leading-none font-medium">Share link</h4>
+              <p class="text-sm text-muted-foreground">Anyone with the link can view this.</p>
+              <div class="flex gap-2">
+                <input buiInput value="https://ngblatui.remix-it.com/x/8f2" class="h-8" readonly />
+                <button buiButton size="sm">Copy</button>
+              </div>
+            </div>
           </div>
         </ng-template>
       </app-example>
@@ -3514,6 +3668,24 @@ This content is read-only and cannot be edited.</textarea
           <div buiHoverCardContent>
             <p class="text-sm font-medium">Ada Lovelace</p>
             <p class="text-sm text-muted-foreground">The first programmer, 1843.</p>
+          </div>
+        </ng-template>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">User card</h2>
+      <app-example [code]="code.hoverCardUser">
+        <a buiButton variant="link" [buiHoverCard]="hoverUserTpl">&#64;sofia</a>
+        <ng-template #hoverUserTpl>
+          <div buiHoverCardContent class="w-72">
+            <div class="flex gap-3">
+              <bui-avatar class="size-12 text-xs">SC</bui-avatar>
+              <div class="space-y-1">
+                <p class="text-sm font-semibold">Sofia Carter</p>
+                <p class="text-sm text-muted-foreground">
+                  Product designer building delightful UIs. Joined March 2021.
+                </p>
+              </div>
+            </div>
           </div>
         </ng-template>
       </app-example>
