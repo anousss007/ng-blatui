@@ -1353,10 +1353,67 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('progress') {
       <app-example [code]="code.progress">
-        <div class="w-full max-w-xs space-y-3">
-          <bui-progress [value]="30" ariaLabel="30 percent" />
-          <bui-progress [value]="70" ariaLabel="70 percent" />
-          <bui-progress [indeterminate]="true" ariaLabel="Loading" />
+        <bui-progress class="w-full max-w-sm" [value]="60" ariaLabel="60 percent" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Values</h2>
+      <app-example [code]="code.progressValues">
+        <div class="flex w-full max-w-sm flex-col gap-3">
+          <bui-progress [value]="25" ariaLabel="25 percent" />
+          <bui-progress [value]="50" ariaLabel="50 percent" />
+          <bui-progress [value]="75" ariaLabel="75 percent" />
+          <bui-progress [value]="100" ariaLabel="100 percent" />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.progressSizes">
+        <div class="flex w-full max-w-sm flex-col gap-4">
+          <bui-progress class="h-1" [value]="60" ariaLabel="Thin" />
+          <bui-progress class="h-2" [value]="60" ariaLabel="Default" />
+          <bui-progress class="h-3" [value]="60" ariaLabel="Thick" />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Colors</h2>
+      <app-example [code]="code.progressColors">
+        <div class="flex w-full max-w-sm flex-col gap-4">
+          <bui-progress
+            class="bg-success/20 *:data-[slot=progress-indicator]:bg-success"
+            [value]="72"
+            ariaLabel="Success"
+          />
+          <bui-progress
+            class="bg-info/20 *:data-[slot=progress-indicator]:bg-info"
+            [value]="56"
+            ariaLabel="Info"
+          />
+          <bui-progress
+            class="bg-warning/20 *:data-[slot=progress-indicator]:bg-warning"
+            [value]="38"
+            ariaLabel="Warning"
+          />
+          <bui-progress
+            class="bg-destructive/20 *:data-[slot=progress-indicator]:bg-destructive"
+            [value]="20"
+            ariaLabel="Danger"
+          />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Indeterminate</h2>
+      <app-example [code]="code.progressIndeterminate">
+        <bui-progress class="w-full max-w-sm" [indeterminate]="true" ariaLabel="Loading" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With label</h2>
+      <app-example [code]="code.progressWithLabel">
+        <div class="grid w-full max-w-sm gap-2">
+          <div class="flex items-center justify-between text-sm">
+            <span class="font-medium">Uploading files…</span>
+            <span class="text-muted-foreground tabular-nums">60%</span>
+          </div>
+          <bui-progress [value]="60" ariaLabel="Upload progress" />
         </div>
       </app-example>
     }
@@ -2137,6 +2194,88 @@ This content is read-only and cannot be edited.</textarea
           </ol>
         </nav>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With icon</h2>
+      <app-example [code]="code.breadcrumbIcon">
+        <nav buiBreadcrumb>
+          <ol buiBreadcrumbList>
+            <li buiBreadcrumbItem>
+              <a buiBreadcrumbLink href="/" class="inline-flex items-center gap-1.5">
+                <svg
+                  class="size-3.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <path d="M9 22V12h6v10" />
+                </svg>
+                Home
+              </a>
+            </li>
+            <li buiBreadcrumbSeparator></li>
+            <li buiBreadcrumbItem><span buiBreadcrumbPage>Settings</span></li>
+          </ol>
+        </nav>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Custom separator</h2>
+      <app-example [code]="code.breadcrumbCustomSep">
+        <nav buiBreadcrumb>
+          <ol buiBreadcrumbList>
+            <li buiBreadcrumbItem><a buiBreadcrumbLink href="/">Home</a></li>
+            <li buiBreadcrumbSeparator>
+              <svg
+                class="size-3.5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M22 2 2 22" />
+              </svg>
+            </li>
+            <li buiBreadcrumbItem><span buiBreadcrumbPage>Docs</span></li>
+          </ol>
+        </nav>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Dot separator</h2>
+      <app-example [code]="code.breadcrumbDotSep">
+        <nav buiBreadcrumb>
+          <ol buiBreadcrumbList>
+            <li buiBreadcrumbItem><a buiBreadcrumbLink href="/">Home</a></li>
+            <li buiBreadcrumbSeparator>
+              <span class="block size-1 rounded-full bg-muted-foreground"></span>
+            </li>
+            <li buiBreadcrumbItem><a buiBreadcrumbLink href="/">Library</a></li>
+            <li buiBreadcrumbSeparator>
+              <span class="block size-1 rounded-full bg-muted-foreground"></span>
+            </li>
+            <li buiBreadcrumbItem><span buiBreadcrumbPage>Data</span></li>
+          </ol>
+        </nav>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Contained</h2>
+      <app-example [code]="code.breadcrumbContained">
+        <nav buiBreadcrumb>
+          <ol buiBreadcrumbList class="min-h-9 w-fit rounded-md border bg-background px-3 py-1">
+            <li buiBreadcrumbItem><a buiBreadcrumbLink href="/">Home</a></li>
+            <li buiBreadcrumbSeparator></li>
+            <li buiBreadcrumbItem><a buiBreadcrumbLink href="/">Projects</a></li>
+            <li buiBreadcrumbSeparator></li>
+            <li buiBreadcrumbItem><span buiBreadcrumbPage>Acme</span></li>
+          </ol>
+        </nav>
+      </app-example>
     }
     @case ('button-group') {
       <app-example [code]="code.buttonGroup">
@@ -2592,6 +2731,87 @@ This content is read-only and cannot be edited.</textarea
             <div buiDropdownMenuSeparator></div>
             <div ngMenuItem value="profile" buiDropdownMenuItem>Profile</div>
             <div ngMenuItem value="settings" buiDropdownMenuItem>Settings</div>
+            <div ngMenuItem value="logout" buiDropdownMenuItem>Log out</div>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With icons</h2>
+      <app-example [code]="code.dropdownIcons">
+        <div class="relative inline-block">
+          <button buiButton variant="outline" ngMenuTrigger [menu]="ddi">Account</button>
+          <div ngMenu #ddi="ngMenu" buiDropdownMenu>
+            <div ngMenuItem value="profile" buiDropdownMenuItem>
+              <svg
+                class="size-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              Profile
+            </div>
+            <div ngMenuItem value="billing" buiDropdownMenuItem>
+              <svg
+                class="size-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <rect width="20" height="14" x="2" y="5" rx="2" />
+                <path d="M2 10h20" />
+              </svg>
+              Billing
+            </div>
+            <div buiDropdownMenuSeparator></div>
+            <div ngMenuItem value="logout" buiDropdownMenuItem>
+              <svg
+                class="size-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
+              </svg>
+              Log out
+            </div>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Account</h2>
+      <app-example [code]="code.dropdownAccount">
+        <div class="relative inline-block">
+          <button buiButton variant="outline" ngMenuTrigger [menu]="dda">
+            <bui-avatar class="size-6 text-[0.6rem]">SC</bui-avatar>
+            Sofia
+          </button>
+          <div ngMenu #dda="ngMenu" buiDropdownMenu class="w-56">
+            <div buiDropdownMenuLabel>
+              <div class="flex flex-col">
+                <span class="text-sm font-medium">Sofia Carter</span>
+                <span class="text-xs text-muted-foreground">sofia&#64;example.com</span>
+              </div>
+            </div>
+            <div buiDropdownMenuSeparator></div>
+            <div ngMenuItem value="profile" buiDropdownMenuItem>Profile</div>
+            <div ngMenuItem value="settings" buiDropdownMenuItem>Settings</div>
+            <div ngMenuItem value="team" buiDropdownMenuItem>Team</div>
+            <div buiDropdownMenuSeparator></div>
             <div ngMenuItem value="logout" buiDropdownMenuItem>Log out</div>
           </div>
         </div>

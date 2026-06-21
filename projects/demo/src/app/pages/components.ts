@@ -1293,8 +1293,19 @@ export class ComponentPage {
 </div>`,
     progress: `import { BuiProgress } from 'ng-blatui';
 
-<bui-progress [value]="70" ariaLabel="Upload" />
-<bui-progress [indeterminate]="true" ariaLabel="Loading" />`,
+<bui-progress [value]="60" ariaLabel="60 percent" />`,
+    progressValues: `<bui-progress [value]="25" ariaLabel="25%" />
+<bui-progress [value]="50" ariaLabel="50%" />
+<bui-progress [value]="100" ariaLabel="100%" />`,
+    progressSizes: `<bui-progress class="h-1" [value]="60" ariaLabel="Thin" />
+<bui-progress class="h-3" [value]="60" ariaLabel="Thick" />`,
+    progressColors: `<!-- recolor track + indicator via classes -->
+<bui-progress class="bg-success/20 *:data-[slot=progress-indicator]:bg-success" [value]="72" ariaLabel="Success" />`,
+    progressIndeterminate: `<bui-progress [indeterminate]="true" ariaLabel="Loading" />`,
+    progressWithLabel: `<div class="flex justify-between text-sm">
+  <span class="font-medium">Uploading…</span><span class="tabular-nums">60%</span>
+</div>
+<bui-progress [value]="60" ariaLabel="Upload progress" />`,
     checkbox: `import { BuiCheckbox } from 'ng-blatui';
 
 <button buiCheckbox [(checked)]="accepted" aria-labelledby="t"></button>
@@ -1442,6 +1453,13 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     <li buiBreadcrumbItem><span buiBreadcrumbPage>Settings</span></li>
   </ol>
 </nav>`,
+    breadcrumbIcon: `<li buiBreadcrumbItem>
+  <a buiBreadcrumbLink href="/" class="inline-flex items-center gap-1.5"><svg><!-- home --></svg> Home</a>
+</li>`,
+    breadcrumbCustomSep: `<!-- the separator projects its content -->
+<li buiBreadcrumbSeparator><svg><!-- slash --></svg></li>`,
+    breadcrumbDotSep: `<li buiBreadcrumbSeparator><span class="bg-muted-foreground block size-1 rounded-full"></span></li>`,
+    breadcrumbContained: `<ol buiBreadcrumbList class="bg-background min-h-9 w-fit rounded-md border px-3 py-1">…</ol>`,
     kbd: `import { BuiKbd } from 'ng-blatui';
 
 <kbd buiKbd>Ctrl</kbd> <kbd buiKbd>K</kbd>`,
@@ -1648,6 +1666,16 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     <div ngMenuItem value="settings" buiDropdownMenuItem>Settings</div>
   </div>
 </div>`,
+    dropdownIcons: `<div ngMenuItem value="profile" buiDropdownMenuItem>
+  <svg><!-- user --></svg> Profile
+</div>
+<div buiDropdownMenuSeparator></div>
+<div ngMenuItem value="logout" buiDropdownMenuItem><svg><!-- logout --></svg> Log out</div>`,
+    dropdownAccount: `<div buiDropdownMenuLabel>
+  <div class="flex flex-col"><span class="font-medium">Sofia Carter</span><span class="text-muted-foreground text-xs">sofia@example.com</span></div>
+</div>
+<div buiDropdownMenuSeparator></div>
+<div ngMenuItem value="profile" buiDropdownMenuItem>Profile</div>`,
     typography: `import { BuiTypography } from 'ng-blatui';
 
 <h1 buiTypography variant="h1">The quick brown fox</h1>
