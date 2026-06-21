@@ -1538,7 +1538,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-speed-dial [actions]="[{ label: 'Share' }, { label: 'Edit' }]" />`,
     knob: `import { BuiKnob } from 'ng-blatui';
 
-<bui-knob [(value)]="level" [min]="0" [max]="100" />`,
+<!-- size="sm | default | lg" -->
+<bui-knob [(value)]="level" [min]="0" [max]="100" label="Volume" />
+<bui-knob [value]="30" size="sm" label="Bass" />`,
     image: `import { BuiImage } from 'ng-blatui';
 
 <bui-image src="/photo.jpg" alt="A scenic view" ratio="16/9" />`,

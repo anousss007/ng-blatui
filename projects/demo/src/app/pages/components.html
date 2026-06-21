@@ -118,6 +118,13 @@
           <div class="text-sm">Above</div>
           <div buiSeparator></div>
           <div class="text-sm">Below</div>
+          <div class="flex h-5 items-center gap-3 text-sm">
+            <span>Docs</span>
+            <span buiSeparator orientation="vertical" [decorative]="false"></span>
+            <span>Source</span>
+            <span buiSeparator orientation="vertical" [decorative]="false"></span>
+            <span>API</span>
+          </div>
         </div>
       </app-example>
     }
@@ -1007,6 +1014,8 @@
     @case ('knob') {
       <app-example [code]="code.knob">
         <bui-knob [(value)]="knobValue" [min]="0" [max]="100" label="Volume" />
+        <bui-knob [value]="30" size="sm" label="Bass" />
+        <bui-knob [value]="80" size="lg" label="Treble" />
       </app-example>
     }
     @case ('image') {
