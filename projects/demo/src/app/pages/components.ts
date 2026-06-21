@@ -2039,6 +2039,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 
 <bui-combobox [(value)]="framework" [options]="frameworks" />
 // frameworks = [{ value: 'ng', label: 'Angular' }, ...]`,
+    comboboxPreselected: `<bui-combobox [value]="'ng'" [options]="frameworks" />`,
+    comboboxDisabled: `<bui-combobox [options]="frameworks" [disabled]="true" placeholder="Disabled" />`,
     backToTop: `import { BuiBackToTop } from 'ng-blatui';
 
 <bui-back-to-top [threshold]="300" />`,
@@ -2333,6 +2335,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     promptInput: `import { BuiPromptInput } from 'ng-blatui';
 
 <bui-prompt-input [attachable]="true" (submitted)="send($event)" />`,
+    promptInputPlain: `<bui-prompt-input placeholder="Ask anything…" />`,
+    promptInputDisabled: `<bui-prompt-input [disabled]="true" placeholder="Sending…" />`,
     heatmap: `import { BuiHeatmap } from 'ng-blatui';
 
 <bui-heatmap [data]="activity" />`,
@@ -2347,6 +2351,11 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
   <div buiResizablePanel [primary]="true">Sidebar</div>
   <bui-resizable-handle [withHandle]="true" />
   <div buiResizablePanel>Content</div>
+</bui-resizable-panel-group>`,
+    resizableVertical: `<bui-resizable-panel-group direction="vertical" class="h-56">
+  <div buiResizablePanel [primary]="true">Header</div>
+  <bui-resizable-handle [withHandle]="true" />
+  <div buiResizablePanel>Body</div>
 </bui-resizable-panel-group>`,
     video: `import { BuiVideo } from 'ng-blatui';
 
@@ -2455,6 +2464,7 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     autocomplete: `import { BuiAutocomplete } from 'ng-blatui';
 
 <bui-autocomplete [(value)]="value" [options]="frameworks" />`,
+    autocompleteDisabled: `<bui-autocomplete [options]="frameworks" [disabled]="true" placeholder="Disabled" />`,
     comparisonSlider: `import { BuiComparisonSlider } from 'ng-blatui';
 
 <bui-comparison-slider before="/before.jpg" after="/after.jpg" beforeLabel="Before" afterLabel="After" />`,
@@ -2474,6 +2484,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     inputMask: `import { BuiInputMask } from 'ng-blatui';
 
 <bui-input-mask mask="(999) 999-9999" inputmode="numeric" [(value)]="phone" />`,
+    inputMaskDate: `<bui-input-mask mask="99/99/9999" inputmode="numeric" placeholder="MM/DD/YYYY" />`,
+    inputMaskTime: `<bui-input-mask mask="99:99" inputmode="numeric" placeholder="HH:MM" />`,
+    inputMaskCard: `<bui-input-mask mask="9999 9999 9999 9999" inputmode="numeric" />`,
     sheet: `import { BuiSheet } from 'ng-blatui';
 
 <button (click)="open.set(true)">Open</button>

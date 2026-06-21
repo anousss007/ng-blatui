@@ -4276,6 +4276,21 @@ This content is read-only and cannot be edited.</textarea
           placeholder="Search frameworks…"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Preselected</h2>
+      <app-example [code]="code.comboboxPreselected">
+        <bui-combobox class="max-w-xs" [value]="'ng'" [options]="frameworks" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.comboboxDisabled">
+        <bui-combobox
+          class="max-w-xs"
+          [options]="frameworks"
+          [disabled]="true"
+          placeholder="Disabled"
+        />
+      </app-example>
     }
     @case ('back-to-top') {
       <app-example [code]="code.backToTop">
@@ -5300,6 +5315,16 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.promptInput">
         <bui-prompt-input class="w-full max-w-md" [attachable]="true" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Plain</h2>
+      <app-example [code]="code.promptInputPlain">
+        <bui-prompt-input class="w-full max-w-md" placeholder="Ask anything…" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.promptInputDisabled">
+        <bui-prompt-input class="w-full max-w-md" [disabled]="true" placeholder="Sending…" />
+      </app-example>
     }
     @case ('heatmap') {
       <app-example [code]="code.heatmap">
@@ -5361,6 +5386,24 @@ This content is read-only and cannot be edited.</textarea
           </div>
           <bui-resizable-handle [withHandle]="true" />
           <div buiResizablePanel class="grid place-items-center text-sm">Content</div>
+        </bui-resizable-panel-group>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Vertical</h2>
+      <app-example [code]="code.resizableVertical">
+        <bui-resizable-panel-group
+          class="h-56 w-full max-w-md rounded-lg border"
+          direction="vertical"
+        >
+          <div
+            buiResizablePanel
+            [primary]="true"
+            class="grid place-items-center bg-muted/40 text-sm"
+          >
+            Header
+          </div>
+          <bui-resizable-handle [withHandle]="true" />
+          <div buiResizablePanel class="grid place-items-center text-sm">Body</div>
         </bui-resizable-panel-group>
       </app-example>
     }
@@ -5671,6 +5714,16 @@ This content is read-only and cannot be edited.</textarea
           placeholder="Pick a framework"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.autocompleteDisabled">
+        <bui-autocomplete
+          class="w-64"
+          [options]="acOptions"
+          [disabled]="true"
+          placeholder="Disabled"
+        />
+      </app-example>
     }
     @case ('comparison-slider') {
       <app-example [code]="code.comparisonSlider">
@@ -5741,6 +5794,31 @@ This content is read-only and cannot be edited.</textarea
           inputmode="numeric"
           placeholder="(555) 123-4567"
           [(value)]="maskValue"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Date</h2>
+      <app-example [code]="code.inputMaskDate">
+        <bui-input-mask
+          class="w-40"
+          mask="99/99/9999"
+          inputmode="numeric"
+          placeholder="MM/DD/YYYY"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Time</h2>
+      <app-example [code]="code.inputMaskTime">
+        <bui-input-mask class="w-28" mask="99:99" inputmode="numeric" placeholder="HH:MM" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Card number</h2>
+      <app-example [code]="code.inputMaskCard">
+        <bui-input-mask
+          class="w-64"
+          mask="9999 9999 9999 9999"
+          inputmode="numeric"
+          placeholder="1234 5678 9012 3456"
         />
       </app-example>
     }
