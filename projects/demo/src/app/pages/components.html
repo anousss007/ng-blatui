@@ -1689,13 +1689,11 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('accordion') {
       <app-example [code]="code.accordion">
-        <div ngAccordionGroup buiAccordion class="w-full" [multiExpandable]="false">
+        <div ngAccordionGroup buiAccordion class="w-full max-w-lg" [multiExpandable]="false">
           <div buiAccordionItem>
             <h3 class="flex">
               <button ngAccordionTrigger buiAccordionTrigger [panel]="ap1">
-                Is it accessible?
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
+                Is it accessible?<svg
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -1709,9 +1707,298 @@ This content is read-only and cannot be edited.</textarea
               </button>
             </h3>
             <div ngAccordionPanel #ap1="ngAccordionPanel" buiAccordionContent>
-              <ng-template ngAccordionContent>
-                <div class="pb-4">Yes — behaviour and ARIA come from Angular Aria.</div>
-              </ng-template>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">
+                  Yes — behaviour and ARIA come from Angular Aria.
+                </div></ng-template
+              >
+            </div>
+          </div>
+          <div buiAccordionItem>
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="ap2">
+                Is it styled?<svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #ap2="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">Yes — it ships with BlatUI's design tokens.</div></ng-template
+              >
+            </div>
+          </div>
+          <div buiAccordionItem>
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="ap3">
+                Is it animated?<svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #ap3="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">
+                  Yes — the panel expands and collapses smoothly.
+                </div></ng-template
+              >
+            </div>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Multiple</h2>
+      <app-example [code]="code.accordionMultiple">
+        <div ngAccordionGroup buiAccordion class="w-full max-w-lg" [multiExpandable]="true">
+          <div buiAccordionItem>
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="am1">
+                First section<svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #am1="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">Several panels can stay open at once.</div></ng-template
+              >
+            </div>
+          </div>
+          <div buiAccordionItem>
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="am2">
+                Second section<svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #am2="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">Set [multiExpandable]="true" on the group.</div></ng-template
+              >
+            </div>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Separated</h2>
+      <app-example [code]="code.accordionSeparated">
+        <div
+          ngAccordionGroup
+          buiAccordion
+          class="flex w-full max-w-lg flex-col gap-2"
+          [multiExpandable]="false"
+        >
+          <div buiAccordionItem class="rounded-lg border px-4">
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="as1">
+                Shipping<svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #as1="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">Free shipping on orders over $50.</div></ng-template
+              >
+            </div>
+          </div>
+          <div buiAccordionItem class="rounded-lg border px-4">
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="as2">
+                Returns<svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #as2="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">30-day no-questions-asked returns.</div></ng-template
+              >
+            </div>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Bordered</h2>
+      <app-example [code]="code.accordionBordered">
+        <div
+          ngAccordionGroup
+          buiAccordion
+          class="w-full max-w-lg divide-y rounded-lg border [&>*]:px-4"
+          [multiExpandable]="false"
+        >
+          <div buiAccordionItem>
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="ab1">
+                Account<svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #ab1="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">Manage your account details.</div></ng-template
+              >
+            </div>
+          </div>
+          <div buiAccordionItem>
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="ab2">
+                Security<svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #ab2="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">Update your password and 2FA.</div></ng-template
+              >
+            </div>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Leading icon</h2>
+      <app-example [code]="code.accordionLeadingIcon">
+        <div ngAccordionGroup buiAccordion class="w-full max-w-lg" [multiExpandable]="false">
+          <div buiAccordionItem>
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="al1">
+                <span class="flex items-center gap-2"
+                  ><span class="inline-flex text-muted-foreground"
+                    ><svg
+                      class="size-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <rect width="20" height="14" x="2" y="5" rx="2" />
+                      <path d="M2 10h20" /></svg
+                  ></span>
+                  Billing</span
+                ><svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #al1="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">View invoices and update your card.</div></ng-template
+              >
+            </div>
+          </div>
+          <div buiAccordionItem>
+            <h3 class="flex">
+              <button ngAccordionTrigger buiAccordionTrigger [panel]="al2">
+                <span class="flex items-center gap-2"
+                  ><span class="inline-flex text-muted-foreground"
+                    ><svg
+                      class="size-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" /></svg
+                  ></span>
+                  Privacy</span
+                ><svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m6 9 6 6 6-6" />
+                </svg>
+              </button>
+            </h3>
+            <div ngAccordionPanel #al2="ngAccordionPanel" buiAccordionContent>
+              <ng-template ngAccordionContent
+                ><div class="pb-4">Control who can see your data.</div></ng-template
+              >
             </div>
           </div>
         </div>

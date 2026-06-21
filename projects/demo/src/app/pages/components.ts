@@ -1351,6 +1351,19 @@ export class ComponentPage {
     </div>
   </div>
 </div>`,
+    accordionMultiple: `<!-- allow several panels open at once -->
+<div ngAccordionGroup buiAccordion [multiExpandable]="true">…items…</div>`,
+    accordionSeparated: `<!-- gap + a border per item -->
+<div ngAccordionGroup buiAccordion class="flex flex-col gap-2">
+  <div buiAccordionItem class="rounded-lg border px-4">…</div>
+</div>`,
+    accordionBordered: `<div ngAccordionGroup buiAccordion class="divide-y rounded-lg border [&>*]:px-4">
+  …items…
+</div>`,
+    accordionLeadingIcon: `<button ngAccordionTrigger buiAccordionTrigger [panel]="p1">
+  <span class="flex items-center gap-2"><span class="inline-flex"><svg><!-- icon --></svg></span> Billing</span>
+  <svg><!-- chevron (the trigger rotates the first >svg) --></svg>
+</button>`,
     tabs: `import {
   Tabs, TabList, Tab, TabPanel, TabContent,
   BuiTabs, BuiTabList, BuiTabTrigger, BuiTabPanel,
