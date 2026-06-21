@@ -1059,14 +1059,81 @@ export class ComponentPage {
     badgeAsLink: `<a buiBadge href="/docs">Docs</a>
 <a buiBadge href="#" variant="secondary">v1.1.0</a>`,
     badgeGradient: `<span buiBadge class="border-transparent bg-gradient-to-r from-indigo-500 to-pink-500 text-white">Pro</span>`,
-    card: `import { BuiCard, BuiCardHeader, BuiCardTitle, BuiCardContent } from 'ng-blatui';
+    card: `import {
+  BuiCard, BuiCardHeader, BuiCardTitle, BuiCardDescription, BuiCardContent, BuiCardFooter,
+} from 'ng-blatui';
 
 <div buiCard variant="sectioned">
   <div buiCardHeader>
-    <h3 buiCardTitle>Sign in</h3>
-    <p buiCardDescription>Enter your credentials.</p>
+    <h3 buiCardTitle>Create project</h3>
+    <p buiCardDescription>Deploy your new project in one click.</p>
   </div>
-  <div buiCardContent>…</div>
+  <div buiCardContent>…form…</div>
+  <div buiCardFooter class="flex-col gap-2">
+    <button buiButton class="w-full">Deploy</button>
+  </div>
+</div>`,
+    cardSimple: `<!-- the base card is just p-6 + a rounded border -->
+<div buiCard class="max-w-sm"><p class="text-sm">Compose freely inside it.</p></div>`,
+    cardStats: `<div buiCard variant="sectioned">
+  <div buiCardHeader>
+    <div class="flex items-start justify-between">
+      <p buiCardDescription>Total Revenue</p>
+      <span buiBadge variant="secondary">↑ +20.1%</span>
+    </div>
+    <h3 buiCardTitle class="text-2xl tabular-nums">$15,231.89</h3>
+  </div>
+  <div buiCardFooter class="text-muted-foreground text-sm">Trending up this month</div>
+</div>`,
+    cardLogin: `<div buiCard variant="sectioned">
+  <div buiCardHeader>…title + "Sign up" link…</div>
+  <div buiCardContent><form>…email + password fields…</form></div>
+  <div buiCardFooter class="flex-col gap-2">
+    <button buiButton class="w-full">Login</button>
+    <button buiButton variant="outline" class="w-full">Login with Google</button>
+  </div>
+</div>`,
+    cardPricing: `<div buiCard variant="sectioned">
+  <div buiCardHeader>… "Premium" + <span buiBadge>Popular</span> …</div>
+  <div buiCardContent>
+    <p><span class="text-4xl font-bold">$29</span> /month</p>
+    <ul>… feature list …</ul>
+  </div>
+  <div buiCardFooter><button buiButton class="w-full">Get started</button></div>
+</div>`,
+    cardProduct: `<div buiCard variant="sectioned" class="overflow-hidden pt-0">
+  <img src="/table.jpg" class="aspect-[4/3] w-full object-cover" alt="" />
+  <div buiCardHeader>… title + "In stock" badge + description …</div>
+  <div buiCardFooter class="justify-between">
+    <span class="text-2xl font-semibold">$249</span>
+    <button buiButton>Add to cart</button>
+  </div>
+</div>`,
+    cardNotifications: `<div buiCard variant="sectioned">
+  <div buiCardHeader>… title + description …</div>
+  <div buiCardContent>
+    <div class="flex items-center justify-between rounded-lg border p-3">
+      <div>Push notifications…</div>
+      <button buiSwitch [checked]="true"></button>
+    </div>
+    <ul>… activity items …</ul>
+  </div>
+</div>`,
+    cardTestimonial: `<div buiCard variant="sectioned">
+  <div buiCardContent class="flex flex-col gap-4 pt-6">
+    <span class="text-amber-500">★★★★★</span>
+    <p class="text-sm">"…quote…"</p>
+    <div class="flex items-center gap-3"><bui-avatar>AB</bui-avatar> Amelia Bell</div>
+  </div>
+</div>`,
+    cardWithAction: `<div buiCard variant="sectioned">
+  <div buiCardHeader>
+    <div class="flex items-start justify-between gap-2">
+      <div>… title + description …</div>
+      <button buiButton variant="ghost" size="icon" aria-label="Options">⋯</button>
+    </div>
+  </div>
+  <div buiCardContent>… member row …</div>
 </div>`,
     alert: `import { BuiAlert, BuiAlertTitle, BuiAlertDescription } from 'ng-blatui';
 

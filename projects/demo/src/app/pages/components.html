@@ -465,14 +465,263 @@
       <app-example [code]="code.card">
         <div buiCard variant="sectioned" class="w-full max-w-sm">
           <div buiCardHeader>
-            <h3 buiCardTitle>Sign in</h3>
-            <p buiCardDescription>Enter your credentials to continue.</p>
+            <h3 buiCardTitle>Create project</h3>
+            <p buiCardDescription>Deploy your new project in one click.</p>
           </div>
-          <div buiCardContent class="space-y-2">
-            <label buiLabel for="card-email">Email</label>
-            <input id="card-email" buiInput type="email" placeholder="m&#64;example.com" />
+          <div buiCardContent>
+            <div class="flex flex-col gap-6">
+              <div class="grid gap-2">
+                <label buiLabel for="cd-name">Name</label>
+                <input id="cd-name" buiInput placeholder="Name of your project" />
+              </div>
+              <div class="grid gap-2">
+                <label buiLabel for="cd-fw">Framework</label>
+                <input id="cd-fw" buiInput placeholder="Angular" />
+              </div>
+            </div>
           </div>
-          <div buiCardFooter><button buiButton class="w-full">Sign in</button></div>
+          <div buiCardFooter class="flex-col gap-2">
+            <button buiButton class="w-full">Deploy</button>
+            <button buiButton variant="outline" class="w-full">Cancel</button>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Simple</h2>
+      <app-example [code]="code.cardSimple">
+        <div buiCard class="w-full max-w-sm">
+          <p class="text-sm">
+            <span class="font-medium">Simple box.</span> The base card is just
+            <code class="text-xs">p-6</code>
+            with a rounded border — compose freely inside it.
+          </p>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Stats</h2>
+      <app-example [code]="code.cardStats">
+        <div class="grid w-full max-w-2xl gap-4 sm:grid-cols-2">
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <div class="flex items-start justify-between">
+                <p buiCardDescription>Total Revenue</p>
+                <span buiBadge variant="secondary">↑ +20.1%</span>
+              </div>
+              <h3 buiCardTitle class="text-2xl tabular-nums">$15,231.89</h3>
+            </div>
+            <div buiCardFooter class="text-sm text-muted-foreground">Trending up this month</div>
+          </div>
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <div class="flex items-start justify-between">
+                <p buiCardDescription>New Customers</p>
+                <span buiBadge variant="secondary">↓ -3.2%</span>
+              </div>
+              <h3 buiCardTitle class="text-2xl tabular-nums">1,234</h3>
+            </div>
+            <div buiCardFooter class="text-sm text-muted-foreground">Down from last month</div>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Login</h2>
+      <app-example [code]="code.cardLogin">
+        <div buiCard variant="sectioned" class="w-full max-w-sm">
+          <div buiCardHeader>
+            <div class="flex items-start justify-between gap-2">
+              <div class="space-y-1.5">
+                <h3 buiCardTitle>Login to your account</h3>
+                <p buiCardDescription>Enter your email below to login.</p>
+              </div>
+              <a buiButton variant="link">Sign up</a>
+            </div>
+          </div>
+          <div buiCardContent>
+            <form class="flex flex-col gap-6">
+              <div buiField>
+                <label buiFieldLabel for="cl-email">Email</label>
+                <input id="cl-email" buiInput type="email" placeholder="m&#64;example.com" />
+              </div>
+              <div buiField>
+                <div class="flex items-center">
+                  <label buiFieldLabel for="cl-pw">Password</label>
+                  <a href="#" class="ml-auto text-sm underline-offset-4 hover:underline">Forgot?</a>
+                </div>
+                <input id="cl-pw" buiInput type="password" />
+              </div>
+            </form>
+          </div>
+          <div buiCardFooter class="flex-col gap-2">
+            <button buiButton type="submit" class="w-full">Login</button>
+            <button buiButton variant="outline" class="w-full">Login with Google</button>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Pricing</h2>
+      <app-example [code]="code.cardPricing">
+        <div buiCard variant="sectioned" class="w-full max-w-sm">
+          <div buiCardHeader>
+            <div class="flex items-start justify-between gap-2">
+              <div class="space-y-1.5">
+                <h3 buiCardTitle>Premium</h3>
+                <p buiCardDescription>For growing teams that need more power.</p>
+              </div>
+              <span buiBadge>Popular</span>
+            </div>
+          </div>
+          <div buiCardContent class="flex flex-col gap-5">
+            <div class="flex items-baseline gap-1">
+              <span class="text-4xl font-bold tracking-tight">$29</span>
+              <span class="text-muted-foreground">/month</span>
+            </div>
+            <ul class="flex flex-col gap-2.5 text-sm">
+              @for (
+                feat of [
+                  'Unlimited projects',
+                  'Advanced analytics',
+                  'Priority support',
+                  '50 GB storage',
+                ];
+                track feat
+              ) {
+                <li class="flex items-center gap-2">
+                  <svg
+                    class="size-4 shrink-0 text-primary"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="m9 12 2 2 4-4" />
+                  </svg>
+                  {{ feat }}
+                </li>
+              }
+            </ul>
+          </div>
+          <div buiCardFooter><button buiButton class="w-full">Get started</button></div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Product</h2>
+      <app-example [code]="code.cardProduct">
+        <div buiCard variant="sectioned" class="w-full max-w-sm overflow-hidden pt-0">
+          <div class="grid aspect-[4/3] w-full place-items-center bg-muted text-sm">
+            Product image
+          </div>
+          <div buiCardHeader>
+            <div class="flex items-start justify-between gap-2">
+              <h3 buiCardTitle>Classic Wooden Table</h3>
+              <span buiBadge variant="secondary">In stock</span>
+            </div>
+            <p buiCardDescription>Solid oak dining table that seats six.</p>
+          </div>
+          <div buiCardContent>
+            <div class="flex items-center gap-1.5 text-sm">
+              <span class="text-amber-500">★★★★½</span>
+              <span class="text-muted-foreground">4.6 (128 reviews)</span>
+            </div>
+          </div>
+          <div buiCardFooter class="justify-between">
+            <span class="text-2xl font-semibold tabular-nums">$249</span>
+            <button buiButton>Add to cart</button>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Notifications</h2>
+      <app-example [code]="code.cardNotifications">
+        <div buiCard variant="sectioned" class="w-full max-w-sm">
+          <div buiCardHeader>
+            <h3 buiCardTitle>Notifications</h3>
+            <p buiCardDescription>You have 3 unread messages.</p>
+          </div>
+          <div buiCardContent class="flex flex-col gap-4">
+            <div class="flex items-center justify-between rounded-lg border p-3">
+              <div>
+                <p class="text-sm font-medium">Push notifications</p>
+                <p class="text-sm text-muted-foreground">Send notifications to this device.</p>
+              </div>
+              <button buiSwitch [checked]="true" aria-label="Push notifications"></button>
+            </div>
+            <ul class="flex flex-col gap-4">
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 size-2 shrink-0 rounded-full bg-primary"></span>
+                <div class="text-sm">
+                  <p class="font-medium">Your call has been confirmed.</p>
+                  <p class="text-muted-foreground">5 minutes ago</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 size-2 shrink-0 rounded-full bg-primary"></span>
+                <div class="text-sm">
+                  <p class="font-medium">You have a new message.</p>
+                  <p class="text-muted-foreground">1 hour ago</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Testimonial</h2>
+      <app-example [code]="code.cardTestimonial">
+        <div buiCard variant="sectioned" class="w-full max-w-sm">
+          <div buiCardContent class="flex flex-col gap-4 pt-6">
+            <span class="text-amber-500">★★★★★</span>
+            <p class="text-sm leading-relaxed">
+              "BlatUI let us ship a polished, accessible UI in days instead of weeks."
+            </p>
+            <div class="flex items-center gap-3">
+              <bui-avatar class="size-9 text-xs">AB</bui-avatar>
+              <div class="text-sm">
+                <div class="font-medium">Amelia Bell</div>
+                <div class="text-xs text-muted-foreground">CTO, Acme Inc</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With action</h2>
+      <app-example [code]="code.cardWithAction">
+        <div buiCard variant="sectioned" class="w-full max-w-sm">
+          <div buiCardHeader>
+            <div class="flex items-start justify-between gap-2">
+              <div class="space-y-1.5">
+                <h3 buiCardTitle>Team members</h3>
+                <p buiCardDescription>Invite your team to collaborate.</p>
+              </div>
+              <button buiButton variant="ghost" size="icon" aria-label="Card options">
+                <svg
+                  class="size-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="1" />
+                  <circle cx="19" cy="12" r="1" />
+                  <circle cx="5" cy="12" r="1" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div buiCardContent class="flex items-center gap-3">
+            <bui-avatar class="text-xs">SC</bui-avatar>
+            <div class="min-w-0 flex-1 text-sm">
+              <p class="font-medium">Sofia Carter</p>
+              <p class="truncate text-muted-foreground">sofia&#64;example.com</p>
+            </div>
+            <button buiButton variant="outline" size="sm">Owner</button>
+          </div>
         </div>
       </app-example>
     }
