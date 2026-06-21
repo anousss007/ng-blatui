@@ -167,6 +167,7 @@ const COMPONENTS = [
   'rich-text-editor',
   'sidebar',
   'onboarding-tour',
+  'qr-code',
 ];
 
 @Component({

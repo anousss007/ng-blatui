@@ -176,6 +176,7 @@ import {
   BuiProductCard,
   BuiProgress,
   BuiPromptInput,
+  BuiQrCode,
   BuiQuantitySelector,
   BuiQuote,
   BuiRadioGroup,
@@ -466,6 +467,7 @@ const META: Record<string, { title: string; description: string }> = {
   },
   sidebar: { title: 'Sidebar', description: 'A collapsible navigation sidebar.' },
   'onboarding-tour': { title: 'Onboarding tour', description: 'A guided spotlight product tour.' },
+  'qr-code': { title: 'QR code', description: 'A scannable QR code rendered as SVG.' },
 };
 
 @Component({
@@ -714,6 +716,7 @@ const META: Record<string, { title: string; description: string }> = {
     BuiSidebar,
     BuiSidebarMenuButton,
     BuiOnboardingTour,
+    BuiQrCode,
   ],
   templateUrl: './components.html',
 })
@@ -1694,5 +1697,8 @@ this.toaster.show({ title: 'Saved', tone: 'success' });`,
 
 <button (click)="open.set(true)">Start tour</button>
 <bui-onboarding-tour [(open)]="open" [steps]="steps" />`,
+    qrCode: `import { BuiQrCode } from 'ng-blatui';
+
+<bui-qr-code value="https://ngblatui.remix-it.com" [size]="180" />`,
   };
 }

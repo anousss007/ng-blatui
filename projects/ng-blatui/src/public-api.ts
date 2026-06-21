@@ -172,3 +172,5 @@ export * from './lib/kanban/kanban';
 export * from './lib/rich-text-editor/rich-text-editor';
 export * from './lib/sidebar/sidebar';
 export * from './lib/onboarding-tour/onboarding-tour';
+export * from './lib/qr-code/qr-code';
+export * from './lib/qr-code/qr-encode';

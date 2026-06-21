@@ -1350,6 +1350,16 @@
         <bui-onboarding-tour [(open)]="tourOpen" [steps]="tourSteps" />
       </app-example>
     }
+    @case ('qr-code') {
+      <app-example [code]="code.qrCode">
+        <bui-qr-code
+          class="text-foreground"
+          value="https://ngblatui.remix-it.com"
+          [size]="180"
+          label="ng-blatui docs"
+        />
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }
