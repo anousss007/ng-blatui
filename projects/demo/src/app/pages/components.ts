@@ -2929,6 +2929,16 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
   <div>Slide 1</div>
   <div>Slide 2</div>
 </bui-carousel>`,
+    carouselMultiple: `<!-- [perView] shows N slides at once -->
+<bui-carousel [perView]="2">
+  <div class="p-1">Slide 1</div>
+  <div class="p-1">Slide 2</div>
+</bui-carousel>`,
+    carouselVertical: `<!-- orientation="vertical" needs a fixed height on the carousel -->
+<bui-carousel class="h-40" orientation="vertical">
+  <div class="h-full">Slide 1</div>
+  <div class="h-full">Slide 2</div>
+</bui-carousel>`,
     command: `import { BuiCommand } from 'ng-blatui';
 
 <bui-command [groups]="groups" (selected)="run($event)" />`,

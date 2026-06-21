@@ -11,6 +11,8 @@ import {
 
 import { type ClassValue, cn } from '../utils/cn';
 
+export type CarouselOrientation = 'horizontal' | 'vertical';
+
 /** A slide carousel. Project slides as direct children; arrows + dots navigate. SSR-safe. */
 @Component({
   selector: 'bui-carousel',
@@ -21,18 +23,19 @@ import { type ClassValue, cn } from '../utils/cn';
     '[class]': 'computedClass()',
   },
   template: `
-    <div class="overflow-hidden rounded-lg">
+    <div [class]="viewportClass()">
       <div
         #track
-        class="flex transition-transform duration-300 [&>*]:w-full [&>*]:shrink-0 [&>*]:grow-0"
-        [style.transform]="'translateX(-' + index() * 100 + '%)'"
+        [class]="trackClass()"
+        [style.--bui-per]="perView()"
+        [style.transform]="trackTransform()"
       >
         <ng-content />
       </div>
     </div>
     <button
       type="button"
-      class="absolute start-2 top-1/2 inline-flex size-8 -translate-y-1/2 items-center justify-center rounded-full border bg-background shadow-sm disabled:opacity-40"
+      [class]="prevClass()"
       [disabled]="index() === 0"
       aria-label="Previous slide"
       (click)="prev()"
@@ -47,13 +50,13 @@ import { type ClassValue, cn } from '../utils/cn';
         stroke-linejoin="round"
         aria-hidden="true"
       >
-        <path d="m15 18-6-6 6-6" />
+        <path [attr.d]="vertical() ? 'm18 15-6-6-6 6' : 'm15 18-6-6 6-6'" />
       </svg>
     </button>
     <button
       type="button"
-      class="absolute end-2 top-1/2 inline-flex size-8 -translate-y-1/2 items-center justify-center rounded-full border bg-background shadow-sm disabled:opacity-40"
-      [disabled]="index() >= count() - 1"
+      [class]="nextClass()"
+      [disabled]="index() >= maxIndex()"
       aria-label="Next slide"
       (click)="next()"
     >
@@ -67,10 +70,10 @@ import { type ClassValue, cn } from '../utils/cn';
         stroke-linejoin="round"
         aria-hidden="true"
       >
-        <path d="m9 18 6-6-6-6" />
+        <path [attr.d]="vertical() ? 'm6 9 6 6 6-6' : 'm9 18 6-6-6-6'" />
       </svg>
     </button>
-    @if (count() > 1) {
+    @if (maxIndex() > 0) {
       <div class="mt-3 flex justify-center gap-1.5">
         @for (dot of dots(); track dot) {
           <button
@@ -88,14 +91,46 @@ import { type ClassValue, cn } from '../utils/cn';
 })
 export class BuiCarousel {
   readonly index = model(0);
+  readonly orientation = input<CarouselOrientation>('horizontal');
+  /** Slides visible at once (e.g. 2 or 3 for a multi-item carousel). */
+  readonly perView = input(1);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
   private readonly track = viewChild<ElementRef<HTMLElement>>('track');
   protected readonly count = signal(0);
+  protected readonly vertical = computed(() => this.orientation() === 'vertical');
+  protected readonly maxIndex = computed(() => Math.max(0, this.count() - this.perView()));
   protected readonly dots = computed(() =>
-    Array.from({ length: this.count() }, (_, index) => index),
+    Array.from({ length: this.maxIndex() + 1 }, (_, index) => index),
   );
   protected readonly computedClass = computed(() => cn('relative block', this.userClass()));
+  protected readonly viewportClass = computed(() =>
+    cn('overflow-hidden rounded-lg', this.vertical() && 'h-full'),
+  );
+  protected readonly trackClass = computed(() =>
+    cn(
+      'flex transition-transform duration-300 [&>*]:shrink-0 [&>*]:grow-0',
+      this.vertical()
+        ? 'h-full flex-col [&>*]:h-[calc(100%/var(--bui-per,1))] [&>*]:w-full'
+        : '[&>*]:w-[calc(100%/var(--bui-per,1))]',
+    ),
+  );
+  protected readonly trackTransform = computed(() => {
+    const offset = this.index() * (100 / this.perView());
+    return this.vertical() ? `translateY(-${offset}%)` : `translateX(-${offset}%)`;
+  });
+  protected readonly prevClass = computed(() =>
+    cn(
+      'absolute inline-flex size-8 items-center justify-center rounded-full border bg-background shadow-sm disabled:opacity-40',
+      this.vertical() ? 'top-2 left-1/2 -translate-x-1/2' : 'start-2 top-1/2 -translate-y-1/2',
+    ),
+  );
+  protected readonly nextClass = computed(() =>
+    cn(
+      'absolute inline-flex size-8 items-center justify-center rounded-full border bg-background shadow-sm disabled:opacity-40',
+      this.vertical() ? 'bottom-2 left-1/2 -translate-x-1/2' : 'end-2 top-1/2 -translate-y-1/2',
+    ),
+  );
 
   constructor() {
     afterNextRender(() => {
@@ -108,6 +143,6 @@ export class BuiCarousel {
   }
 
   protected next(): void {
-    this.index.set(Math.min(this.count() - 1, this.index() + 1));
+    this.index.set(Math.min(this.maxIndex(), this.index() + 1));
   }
 }

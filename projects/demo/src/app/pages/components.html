@@ -7668,6 +7668,28 @@ This content is read-only and cannot be edited.</textarea
           <div class="grid h-40 place-items-center bg-muted text-lg font-medium">Slide 3</div>
         </bui-carousel>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Multiple per view</h2>
+      <app-example [code]="code.carouselMultiple">
+        <bui-carousel class="w-full max-w-md" [perView]="2">
+          @for (n of [1, 2, 3, 4, 5]; track n) {
+            <div class="p-1">
+              <div class="grid h-32 place-items-center rounded-md bg-muted font-medium">
+                Slide {{ n }}
+              </div>
+            </div>
+          }
+        </bui-carousel>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Vertical</h2>
+      <app-example [code]="code.carouselVertical">
+        <bui-carousel class="h-40 w-full max-w-md" orientation="vertical">
+          <div class="grid h-full place-items-center bg-muted text-lg font-medium">Slide 1</div>
+          <div class="grid h-full place-items-center bg-muted text-lg font-medium">Slide 2</div>
+          <div class="grid h-full place-items-center bg-muted text-lg font-medium">Slide 3</div>
+        </bui-carousel>
+      </app-example>
     }
     @case ('command') {
       <app-example [code]="code.command">
