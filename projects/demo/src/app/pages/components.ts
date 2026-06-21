@@ -476,6 +476,9 @@ const META: Record<string, { title: string; description: string }> = {
   'qr-code': { title: 'QR code', description: 'A scannable QR code rendered as SVG.' },
 };
 
+/** Value type for single/multi toggle groups (matches the bui-toggle-group model). */
+type ToggleValue = string | string[] | null;
+
 @Component({
   selector: 'app-components',
   imports: [
@@ -1028,14 +1031,38 @@ export class ComponentPage {
   protected readonly otpValue = signal('');
   protected readonly phoneNumber = signal('');
   protected readonly phoneCountry = signal('US');
-  protected readonly toggleAlign = signal<string | string[] | null>('center');
-  protected readonly toggleStyles = signal<string | string[] | null>(['bold']);
+  protected readonly toggleAlign = signal<ToggleValue>('center');
+  protected readonly toggleStyles = signal<ToggleValue>(['bold']);
   protected readonly tagList = signal(['angular', 'signals']);
   protected readonly editName = signal('Ada Lovelace');
   protected readonly knobValue = signal(40);
   protected readonly timeValue = signal('09:30');
   protected readonly speedActions = [{ label: 'Share' }, { label: 'Edit' }, { label: 'Delete' }];
   protected readonly sizeChoice = signal('M');
+  protected readonly toggleView = signal<ToggleValue>('grid');
+  protected readonly toggleSizeVal = signal<ToggleValue>('center');
+  protected readonly colorChoice = signal('black');
+  protected readonly variantColors = [
+    { value: 'black', label: 'Black', color: '#18181b' },
+    { value: 'blue', label: 'Blue', color: '#2563eb' },
+    { value: 'green', label: 'Green', color: '#16a34a' },
+    { value: 'red', label: 'Red', color: '#dc2626' },
+  ];
+  protected readonly treeExpanded = [
+    {
+      label: 'src',
+      expanded: true,
+      children: [
+        {
+          label: 'app',
+          expanded: true,
+          children: [{ label: 'app.ts' }, { label: 'app.html' }],
+        },
+        { label: 'main.ts' },
+      ],
+    },
+    { label: 'package.json' },
+  ];
   protected readonly galleryImages = [
     'https://picsum.photos/seed/a/300',
     'https://picsum.photos/seed/b/300',
@@ -2406,6 +2433,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 
 <bui-variant-selector [(value)]="size" [options]="['S','M','L']" />`,
     variantSelectorDisabled: `<bui-variant-selector [value]="'M'" [options]="['XS','S','M','L']" [disabled]="true" />`,
+    variantSelectorColors: `<!-- type="color" renders swatches from option.color -->
+<bui-variant-selector [(value)]="colour" type="color" label="Colour"
+  [options]="[{ value: 'black', label: 'Black', color: '#18181b' }, { value: 'blue', label: 'Blue', color: '#2563eb' }]" />`,
     sparkline: `import { BuiSparkline } from 'ng-blatui';
 
 <bui-sparkline [data]="[4, 8, 5, 12, 7, 14, 9]" />`,
@@ -2497,6 +2527,14 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     toggleGroupVertical: `<bui-toggle-group orientation="vertical" [(value)]="align">…</bui-toggle-group>`,
     toggleGroupDisabled: `<bui-toggle-group [value]="'center'">
   <button buiToggleGroupItem value="left" [disabled]="true">Left</button>
+</bui-toggle-group>`,
+    toggleGroupSizes: `<!-- size each item via classes (h-8/text-xs … h-11/px-4) -->
+<bui-toggle-group [(value)]="v">
+  <button buiToggleGroupItem value="a" class="h-8 min-w-8 px-2 text-xs">S</button>
+</bui-toggle-group>`,
+    toggleGroupSegmented: `<!-- pill/segmented look: muted container + rounded items -->
+<bui-toggle-group [(value)]="v" class="rounded-lg bg-muted p-1">
+  <button buiToggleGroupItem value="list" class="rounded-md border-0 data-[state=on]:bg-background data-[state=on]:shadow-sm">List</button>
 </bui-toggle-group>`,
     tagsInput: `import { BuiTagsInput } from 'ng-blatui';
 
@@ -2646,6 +2684,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 // files = [{ label: 'src', expanded: true, children: [...] }]`,
     treeFiles: `<bui-tree [items]="files" ariaLabel="Project files" />
 // leaf items can set icon: 'file-code' etc; parents auto-render folders`,
+    treeExpandedEx: `<!-- set expanded: true on nodes to open them initially -->
+<bui-tree [items]="items" />
+// items = [{ label: 'src', expanded: true, children: [{ label: 'app', expanded: true, children: [...] }] }]`,
     repeater: `import { BuiRepeater } from 'ng-blatui';
 
 <bui-repeater [fields]="fields" [(rows)]="rows" />

@@ -6210,6 +6210,16 @@ This content is read-only and cannot be edited.</textarea
           [disabled]="true"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Colors</h2>
+      <app-example [code]="code.variantSelectorColors">
+        <bui-variant-selector
+          [(value)]="colorChoice"
+          [options]="variantColors"
+          type="color"
+          label="Colour"
+        />
+      </app-example>
     }
     @case ('sparkline') {
       <app-example [code]="code.sparkline">
@@ -6535,6 +6545,49 @@ This content is read-only and cannot be edited.</textarea
           <button buiToggleGroupItem value="left" [disabled]="true">Left</button>
           <button buiToggleGroupItem value="center" [disabled]="true">Center</button>
           <button buiToggleGroupItem value="right" [disabled]="true">Right</button>
+        </bui-toggle-group>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.toggleGroupSizes">
+        <div class="flex flex-col items-start gap-3">
+          <bui-toggle-group [(value)]="toggleSizeVal">
+            <button buiToggleGroupItem value="left" class="h-8 min-w-8 px-2 text-xs">S</button>
+            <button buiToggleGroupItem value="center" class="h-8 min-w-8 px-2 text-xs">M</button>
+            <button buiToggleGroupItem value="right" class="h-8 min-w-8 px-2 text-xs">L</button>
+          </bui-toggle-group>
+          <bui-toggle-group [(value)]="toggleSizeVal">
+            <button buiToggleGroupItem value="left" class="h-11 min-w-11 px-4">S</button>
+            <button buiToggleGroupItem value="center" class="h-11 min-w-11 px-4">M</button>
+            <button buiToggleGroupItem value="right" class="h-11 min-w-11 px-4">L</button>
+          </bui-toggle-group>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Segmented</h2>
+      <app-example [code]="code.toggleGroupSegmented">
+        <bui-toggle-group [(value)]="toggleView" class="rounded-lg bg-muted p-1">
+          <button
+            buiToggleGroupItem
+            value="list"
+            class="rounded-md border-0 data-[state=on]:bg-background data-[state=on]:shadow-sm"
+          >
+            List
+          </button>
+          <button
+            buiToggleGroupItem
+            value="grid"
+            class="rounded-md border-0 data-[state=on]:bg-background data-[state=on]:shadow-sm"
+          >
+            Grid
+          </button>
+          <button
+            buiToggleGroupItem
+            value="board"
+            class="rounded-md border-0 data-[state=on]:bg-background data-[state=on]:shadow-sm"
+          >
+            Board
+          </button>
         </bui-toggle-group>
       </app-example>
     }
@@ -7048,6 +7101,11 @@ This content is read-only and cannot be edited.</textarea
       <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">File tree (icons)</h2>
       <app-example [code]="code.treeFiles">
         <bui-tree class="w-full max-w-xs" [items]="treeFiles" ariaLabel="Project files" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Expanded</h2>
+      <app-example [code]="code.treeExpandedEx">
+        <bui-tree class="w-full max-w-xs" [items]="treeExpanded" ariaLabel="Expanded tree" />
       </app-example>
     }
     @case ('repeater') {
