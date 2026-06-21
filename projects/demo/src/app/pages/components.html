@@ -6072,6 +6072,17 @@ This content is read-only and cannot be edited.</textarea
           [endHour]="16"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Day view</h2>
+      <app-example [code]="code.schedulerDay">
+        <bui-scheduler
+          class="w-full max-w-md"
+          [events]="schedulerEvents"
+          view="day"
+          [startHour]="8"
+          [endHour]="16"
+        />
+      </app-example>
     }
     @case ('kanban') {
       <app-example [code]="code.kanban">
@@ -6096,6 +6107,47 @@ This content is read-only and cannot be edited.</textarea
               Toggle sidebar
             </button>
           </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Icon collapsible</h2>
+      <app-example [code]="code.sidebarIcon">
+        <div class="flex h-64 w-full max-w-lg overflow-hidden rounded-lg border">
+          <bui-sidebar [(open)]="sidebarIconOpen" collapsible="icon">
+            <a buiSidebarMenuButton [isActive]="true" href="#">Dashboard</a>
+            <a buiSidebarMenuButton href="#">Projects</a>
+            <a buiSidebarMenuButton href="#">Settings</a>
+          </bui-sidebar>
+          <div class="flex-1 p-4">
+            <button
+              buiButton
+              variant="outline"
+              size="sm"
+              (click)="sidebarIconOpen.set(!sidebarIconOpen())"
+            >
+              Collapse to icons
+            </button>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Right side</h2>
+      <app-example [code]="code.sidebarRight">
+        <div class="flex h-64 w-full max-w-lg overflow-hidden rounded-lg border">
+          <div class="flex-1 p-4">
+            <button
+              buiButton
+              variant="outline"
+              size="sm"
+              (click)="sidebarRightOpen.set(!sidebarRightOpen())"
+            >
+              Toggle sidebar
+            </button>
+          </div>
+          <bui-sidebar [(open)]="sidebarRightOpen" side="right">
+            <a buiSidebarMenuButton [isActive]="true" href="#">Inbox</a>
+            <a buiSidebarMenuButton href="#">Drafts</a>
+          </bui-sidebar>
         </div>
       </app-example>
     }

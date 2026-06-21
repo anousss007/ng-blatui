@@ -762,6 +762,8 @@ export class ComponentPage {
   protected readonly taLen = signal(0);
   protected readonly rteValue = signal('<p>Edit <strong>me</strong> — try the toolbar.</p>');
   protected readonly sidebarOpen = signal(true);
+  protected readonly sidebarIconOpen = signal(true);
+  protected readonly sidebarRightOpen = signal(true);
   protected readonly tourOpen = signal(false);
   protected readonly tourSteps = [
     { target: '#tour-1', title: 'Search', body: 'Find anything fast from here.' },
@@ -2585,6 +2587,7 @@ this.toaster.show({ title: 'Storage almost full', tone: 'warning' });`,
     scheduler: `import { BuiScheduler } from 'ng-blatui';
 
 <bui-scheduler [events]="events" [startHour]="8" [endHour]="18" />`,
+    schedulerDay: `<bui-scheduler [events]="events" view="day" [startHour]="8" [endHour]="16" />`,
     kanban: `import { BuiKanban } from 'ng-blatui';
 
 <bui-kanban [columns]="columns" (changed)="save($event)" />`,
@@ -2596,6 +2599,8 @@ this.toaster.show({ title: 'Storage almost full', tone: 'warning' });`,
 <bui-sidebar [(open)]="open">
   <a buiSidebarMenuButton [isActive]="true" href="#">Dashboard</a>
 </bui-sidebar>`,
+    sidebarIcon: `<bui-sidebar [(open)]="open" collapsible="icon">…menu…</bui-sidebar>`,
+    sidebarRight: `<bui-sidebar [(open)]="open" side="right">…menu…</bui-sidebar>`,
     onboardingTour: `import { BuiOnboardingTour } from 'ng-blatui';
 
 <button (click)="open.set(true)">Start tour</button>
