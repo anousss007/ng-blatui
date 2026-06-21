@@ -17,17 +17,31 @@ import { type ClassValue, cn } from '../utils/cn';
   host: { 'data-slot': 'editable', '[class]': 'computedClass()' },
   template: `
     @if (editing()) {
-      <input
-        #field
-        [value]="draft()"
-        [placeholder]="placeholder()"
-        [attr.aria-label]="'Edit ' + label()"
-        class="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
-        (input)="onInput($event)"
-        (blur)="commit()"
-        (keydown.enter)="commit()"
-        (keydown.escape)="cancel()"
-      />
+      @if (multiline()) {
+        <textarea
+          #field
+          [value]="draft()"
+          [placeholder]="placeholder()"
+          [attr.aria-label]="'Edit ' + label()"
+          rows="3"
+          class="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+          (input)="onInput($event)"
+          (blur)="commit()"
+          (keydown.escape)="cancel()"
+        ></textarea>
+      } @else {
+        <input
+          #field
+          [value]="draft()"
+          [placeholder]="placeholder()"
+          [attr.aria-label]="'Edit ' + label()"
+          class="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+          (input)="onInput($event)"
+          (blur)="commit()"
+          (keydown.enter)="commit()"
+          (keydown.escape)="cancel()"
+        />
+      }
     } @else {
       <button
         type="button"
@@ -44,11 +58,13 @@ export class BuiEditable {
   readonly value = model('');
   readonly placeholder = input('Empty');
   readonly label = input('value');
+  /** Edit in a multi-line textarea instead of a single-line input. */
+  readonly multiline = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
   protected readonly editing = signal(false);
   protected readonly draft = signal('');
-  private readonly field = viewChild<ElementRef<HTMLInputElement>>('field');
+  private readonly field = viewChild<ElementRef<HTMLInputElement | HTMLTextAreaElement>>('field');
   protected readonly computedClass = computed(() => cn('inline-block', this.userClass()));
 
   constructor() {

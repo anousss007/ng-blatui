@@ -5634,6 +5634,23 @@ This content is read-only and cannot be edited.</textarea
           </div>
         </ng-template>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Instant</h2>
+      <app-example [code]="code.hoverCardInstant">
+        <span
+          class="underline decoration-dotted underline-offset-4"
+          [buiHoverCard]="hoverInstantTpl"
+          [openDelay]="0"
+        >
+          hover me (no delay)
+        </span>
+        <ng-template #hoverInstantTpl>
+          <div buiHoverCardContent>
+            <p class="text-sm font-medium">Instant</p>
+            <p class="text-sm text-muted-foreground">Opens with no delay.</p>
+          </div>
+        </ng-template>
+      </app-example>
     }
     @case ('code-block') {
       <app-example [code]="code.codeBlock">
@@ -7233,6 +7250,16 @@ This content is read-only and cannot be edited.</textarea
           placeholder="Add a nickname…"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Textarea</h2>
+      <app-example [code]="code.editableTextarea">
+        <bui-editable
+          class="w-full max-w-xs"
+          [(value)]="editableMultiline"
+          [multiline]="true"
+          label="note"
+        />
+      </app-example>
     }
     @case ('speed-dial') {
       <app-example [code]="code.speedDial">
@@ -8425,6 +8452,11 @@ This content is read-only and cannot be edited.</textarea
       <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Simple (no dropdowns)</h2>
       <app-example [code]="code.navigationMenuSimple">
         <bui-navigation-menu [items]="navItemsSimple" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Featured</h2>
+      <app-example [code]="code.navigationMenuFeatured">
+        <bui-navigation-menu [items]="navItemsFeatured" />
       </app-example>
     }
     @case ('mention-input') {

@@ -858,6 +858,22 @@ export class ComponentPage {
     { label: 'Pricing', href: '/pricing' },
     { label: 'Docs', href: '/docs' },
   ];
+  protected readonly navItemsFeatured = [
+    {
+      label: 'Products',
+      featured: {
+        label: 'ng-blatui',
+        description: 'Signal-first Angular UI components',
+        href: '/',
+      },
+      links: [
+        { label: 'Analytics', description: 'Understand your traffic' },
+        { label: 'Automation', description: 'Build powerful workflows' },
+      ],
+    },
+    { label: 'Docs', href: '/docs' },
+  ];
+  protected readonly editableMultiline = signal('Click to edit this\nmulti-line note.');
   protected readonly cmdGroupsSimple = [
     {
       label: 'Actions',
@@ -2330,6 +2346,8 @@ this.dialog.open(tpl, { ariaModal: true });`,
     <div class="flex gap-3"><bui-avatar>SC</bui-avatar> Sofia Carter — Product designer.</div>
   </div>
 </ng-template>`,
+    hoverCardInstant: `<!-- [openDelay]="0" opens immediately -->
+<span [buiHoverCard]="tpl" [openDelay]="0">hover me</span>`,
     codeBlock: `import { BuiCodeBlock } from 'ng-blatui';
 
 <bui-code-block [code]="'npm install ng-blatui'" />`,
@@ -2791,6 +2809,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 
 <bui-editable [(value)]="name" label="title" />`,
     editablePlaceholder: `<bui-editable [value]="''" label="nickname" placeholder="Add a nickname…" />`,
+    editableTextarea: `<!-- [multiline]="true" edits in a textarea (Escape cancels, blur commits) -->
+<bui-editable [(value)]="note" [multiline]="true" label="note" />`,
     speedDial: `import { BuiSpeedDial } from 'ng-blatui';
 
 <bui-speed-dial [actions]="[{ label: 'Share' }, { label: 'Edit' }]" />`,
@@ -3140,6 +3160,9 @@ setTimeout(() => { this.toaster.dismiss(id); this.toaster.show({ title: 'Saved',
 <bui-navigation-menu [items]="items" />`,
     navigationMenuSimple: `<bui-navigation-menu [items]="items" />
 // flat items (no links) render as plain links, no dropdown`,
+    navigationMenuFeatured: `<!-- an item.featured promo block sits atop its dropdown -->
+<bui-navigation-menu [items]="items" />
+// items[0] = { label: 'Products', featured: { label, description, href }, links: [...] }`,
     mentionInput: `import { BuiMentionInput } from 'ng-blatui';
 
 <bui-mention-input [(value)]="text" [mentions]="people" />`,

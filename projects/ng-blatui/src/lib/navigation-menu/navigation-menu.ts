@@ -11,6 +11,8 @@ export interface NavMenuItem {
   label: string;
   href?: string;
   links?: NavMenuLink[];
+  /** A highlighted promo link shown at the top of the dropdown panel. */
+  featured?: NavMenuLink;
 }
 
 /** A horizontal navigation menu with hover/click dropdown panels. */
@@ -51,6 +53,19 @@ export interface NavMenuItem {
               <div
                 class="absolute start-0 top-full z-50 mt-1.5 w-64 rounded-lg border bg-popover p-2 shadow-md"
               >
+                @if (item.featured; as featured) {
+                  <a
+                    [href]="href(featured.href)"
+                    class="mb-1 block rounded-md bg-accent/50 p-3 hover:bg-accent"
+                  >
+                    <span class="text-sm font-semibold">{{ featured.label }}</span>
+                    @if (featured.description) {
+                      <span class="mt-0.5 block text-xs text-muted-foreground">{{
+                        featured.description
+                      }}</span>
+                    }
+                  </a>
+                }
                 <ul class="space-y-1">
                   @for (link of item.links; track link.label) {
                     <li>
