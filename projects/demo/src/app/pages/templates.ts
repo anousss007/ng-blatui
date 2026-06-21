@@ -139,6 +139,36 @@ export class TemplatesPage {
     { title: 'Shipping a component library', tag: 'Product', author: 'Edsger', initials: 'ED' },
   ];
   protected readonly dashBars = [40, 55, 35, 60, 50, 72, 58, 80, 65, 90, 75, 95];
+  protected readonly eventSpeakers = [
+    { name: 'Ada Lovelace', role: 'Keynote · Acme', init: 'AL' },
+    { name: 'Grace Hopper', role: 'Engineering · Naval', init: 'GH' },
+    { name: 'Alan Turing', role: 'Research · Enigma', init: 'AT' },
+    { name: 'Sofia Carter', role: 'Design · Studio', init: 'SC' },
+  ];
+  protected readonly eventAgenda = [
+    { time: '09:00', title: 'Registration & coffee', speaker: 'Foyer' },
+    { time: '10:00', title: 'Opening keynote: The next decade of UI', speaker: 'Ada Lovelace' },
+    {
+      time: '11:30',
+      title: 'Workshop: Accessible components from scratch',
+      speaker: 'Grace Hopper',
+    },
+    { time: '14:00', title: 'Designing for dark mode at scale', speaker: 'Sofia Carter' },
+    { time: '16:00', title: 'Panel: Shipping design systems', speaker: 'All speakers' },
+  ];
+  protected readonly helpCats = [
+    {
+      icon: '🚀',
+      title: 'Getting started',
+      body: 'Set up your account and first project.',
+      count: 12,
+    },
+    { icon: '💳', title: 'Billing', body: 'Plans, invoices and payment methods.', count: 9 },
+    { icon: '🔧', title: 'Troubleshooting', body: 'Fix common issues quickly.', count: 18 },
+    { icon: '🔌', title: 'Integrations', body: 'Connect your favourite tools.', count: 7 },
+    { icon: '🔐', title: 'Security', body: 'Keep your account safe.', count: 5 },
+    { icon: '📚', title: 'API & docs', body: 'Build with our developer platform.', count: 24 },
+  ];
   protected readonly pricingPlans = [
     {
       name: 'Free',

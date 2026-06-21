@@ -585,107 +585,245 @@
       </footer>
     }
     @case ('docs-site') {
-      <div class="flex min-h-[520px] w-full overflow-hidden rounded-lg border">
-        <bui-sidebar>
-          <div class="px-2 pb-2 text-sm font-semibold">Docs</div>
+      <div class="flex min-h-[calc(100vh-7rem)] w-full">
+        <aside class="hidden w-60 shrink-0 overflow-y-auto border-r bg-muted/20 p-4 lg:block">
+          <p class="mb-2 px-2 text-xs font-semibold text-muted-foreground uppercase">
+            Getting started
+          </p>
           <a buiSidebarMenuButton [isActive]="true" href="#">Introduction</a>
           <a buiSidebarMenuButton href="#">Installation</a>
           <a buiSidebarMenuButton href="#">Theming</a>
-          <a buiSidebarMenuButton href="#">Components</a>
-        </bui-sidebar>
-        <div class="flex-1 overflow-auto p-8">
-          <span buiBadge variant="outline">Guide</span>
-          <h2 class="mt-2 text-2xl font-bold">Getting started</h2>
-          <p class="mt-3 max-w-2xl text-muted-foreground">
-            Install the package, import the components you need, and compose your UI.
+          <p class="mt-5 mb-2 px-2 text-xs font-semibold text-muted-foreground uppercase">
+            Components
           </p>
-          <div buiSeparator class="my-6"></div>
-          <h3 class="font-semibold">Installation</h3>
-          <p class="mt-2 text-sm text-muted-foreground">Add ng-blatui to your Angular workspace.</p>
-        </div>
+          <a buiSidebarMenuButton href="#">Button</a>
+          <a buiSidebarMenuButton href="#">Card</a>
+          <a buiSidebarMenuButton href="#">Dialog</a>
+        </aside>
+        <main class="min-w-0 flex-1">
+          <div class="mx-auto max-w-3xl px-6 py-12">
+            <p class="text-sm text-muted-foreground">Getting started</p>
+            <h1 class="mt-1 text-4xl font-bold tracking-tight">Introduction</h1>
+            <p class="mt-4 text-lg text-muted-foreground">
+              A set of accessible, copy-paste components for Angular — signals-first and SSR-safe.
+            </p>
+            <div buiSeparator class="my-8"></div>
+            <h2 class="text-2xl font-semibold tracking-tight">Installation</h2>
+            <p class="mt-3 text-muted-foreground">Add the package to your Angular workspace:</p>
+            <pre
+              class="mt-4 overflow-x-auto rounded-lg bg-zinc-950 p-4 text-[13px]"
+            ><code class="font-mono text-zinc-100">npm i ng-blatui</code></pre>
+            <h2 class="mt-10 text-2xl font-semibold tracking-tight">Usage</h2>
+            <p class="mt-3 text-muted-foreground">
+              Import the standalone directive and use it in any template:
+            </p>
+            <pre
+              class="mt-4 overflow-x-auto rounded-lg bg-zinc-950 p-4 text-[13px]"
+            ><code class="font-mono text-zinc-100">import {{ '{' }} BuiButton {{ '}' }} from 'ng-blatui';
+
+&lt;button buiButton&gt;Click me&lt;/button&gt;</code></pre>
+            <div class="mt-10 flex items-center justify-between border-t pt-6 text-sm">
+              <a href="#" class="text-muted-foreground hover:text-foreground">← Overview</a>
+              <a href="#" class="text-muted-foreground hover:text-foreground">Installation →</a>
+            </div>
+          </div>
+        </main>
+        <aside class="hidden w-48 shrink-0 border-l p-4 text-sm text-muted-foreground xl:block">
+          <p class="mb-2 font-medium text-foreground">On this page</p>
+          <ul class="space-y-1.5">
+            <li><a href="#" class="hover:text-foreground">Installation</a></li>
+            <li><a href="#" class="hover:text-foreground">Usage</a></li>
+          </ul>
+        </aside>
       </div>
     }
     @case ('help-center') {
-      <div class="w-full space-y-8 rounded-lg border p-8">
-        <div class="space-y-3 text-center">
-          <h2 class="text-3xl font-bold tracking-tight">How can we help?</h2>
-          <input
-            buiInput
-            class="mx-auto max-w-md"
-            type="search"
-            placeholder="Search the help center"
-          />
-        </div>
-        <div class="grid gap-6 sm:grid-cols-3">
-          <div buiCard variant="sectioned">
-            <div buiCardHeader>
-              <h3 buiCardTitle>Getting started</h3>
-              <p buiCardDescription>Set up your account and first project.</p>
-            </div>
-          </div>
-          <div buiCard variant="sectioned">
-            <div buiCardHeader>
-              <h3 buiCardTitle>Billing</h3>
-              <p buiCardDescription>Plans, invoices and payment methods.</p>
-            </div>
-          </div>
-          <div buiCard variant="sectioned">
-            <div buiCardHeader>
-              <h3 buiCardTitle>Troubleshooting</h3>
-              <p buiCardDescription>Fix common issues quickly.</p>
-            </div>
+      <section class="bg-gradient-to-b from-primary/5 to-transparent">
+        <div class="mx-auto max-w-3xl px-6 py-20 text-center">
+          <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">How can we help?</h1>
+          <p class="mt-3 text-muted-foreground">
+            Search our guides or browse the categories below.
+          </p>
+          <div class="relative mx-auto mt-7 max-w-xl">
+            <svg
+              class="pointer-events-none absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted-foreground"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+            <input
+              buiInput
+              class="h-12 pl-12 text-base"
+              type="search"
+              placeholder="Search the help center…"
+            />
           </div>
         </div>
-      </div>
+      </section>
+
+      <section class="mx-auto max-w-6xl px-6 py-16">
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          @for (cat of helpCats; track cat.title) {
+            <a href="#" buiCard variant="sectioned" class="group transition-shadow hover:shadow-md">
+              <div buiCardHeader>
+                <div
+                  class="mb-2 grid size-10 place-items-center rounded-lg bg-primary/10 text-lg text-primary"
+                >
+                  {{ cat.icon }}
+                </div>
+                <h3 buiCardTitle class="group-hover:underline">{{ cat.title }}</h3>
+                <p buiCardDescription>{{ cat.body }}</p>
+              </div>
+              <div buiCardContent>
+                <span class="text-sm text-muted-foreground">{{ cat.count }} articles →</span>
+              </div>
+            </a>
+          }
+        </div>
+      </section>
+
+      <section class="border-t bg-muted/30">
+        <div class="mx-auto max-w-3xl px-6 py-16">
+          <h2 class="text-center text-2xl font-bold tracking-tight">Popular questions</h2>
+          <dl class="mt-8 space-y-5">
+            @for (faq of pricingFaqs; track faq.q) {
+              <div class="border-b pb-5">
+                <dt class="font-medium">{{ faq.q }}</dt>
+                <dd class="mt-2 text-sm text-muted-foreground">{{ faq.a }}</dd>
+              </div>
+            }
+          </dl>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-3xl px-6 py-16 text-center">
+        <h2 class="text-2xl font-bold tracking-tight">Still need help?</h2>
+        <p class="mx-auto mt-2 max-w-md text-muted-foreground">
+          Our support team replies within a few hours.
+        </p>
+        <a buiButton size="lg" class="mt-6" href="#">Contact support</a>
+      </section>
     }
     @case ('product') {
-      <div class="grid w-full gap-8 rounded-lg border p-8 md:grid-cols-2">
-        <div class="grid h-72 place-items-center rounded-lg bg-muted text-sm">Product image</div>
-        <div class="space-y-4">
-          <span buiBadge variant="secondary">In stock</span>
-          <h2 class="text-2xl font-bold">Wireless headphones</h2>
-          <p class="text-3xl font-semibold">$199</p>
-          <p class="text-muted-foreground">
-            Premium noise-cancelling headphones with 30-hour battery life and a comfortable fit.
-          </p>
-          <div buiSeparator></div>
-          <div class="flex gap-3">
-            <button buiButton class="flex-1">Add to cart</button>
-            <button buiButton variant="outline">Save</button>
+      <div class="mx-auto max-w-6xl px-6 py-10">
+        <nav class="mb-6 flex items-center gap-1.5 text-sm text-muted-foreground">
+          <a href="#" class="hover:text-foreground">Shop</a><span>/</span
+          ><a href="#" class="hover:text-foreground">Audio</a><span>/</span
+          ><span class="text-foreground">Headphones</span>
+        </nav>
+        <div class="grid gap-10 md:grid-cols-2">
+          <div class="space-y-3">
+            <div class="grid aspect-square place-items-center rounded-xl bg-muted text-sm">
+              Product image
+            </div>
+            <div class="grid grid-cols-4 gap-3">
+              @for (i of [1, 2, 3, 4]; track i) {
+                <div class="grid aspect-square place-items-center rounded-lg bg-muted text-xs">
+                  {{ i }}
+                </div>
+              }
+            </div>
           </div>
-          <ul class="space-y-1 text-sm text-muted-foreground">
-            <li>Free shipping over $50</li>
-            <li>30-day returns</li>
-            <li>2-year warranty</li>
-          </ul>
+          <div class="space-y-5">
+            <div class="flex items-center gap-2">
+              <span buiBadge tone="success" variant="soft">In stock</span>
+              <span class="text-sm text-amber-500"
+                >★★★★½ <span class="text-muted-foreground">(128)</span></span
+              >
+            </div>
+            <h1 class="text-3xl font-bold tracking-tight">Wireless Noise-Cancelling Headphones</h1>
+            <p class="text-3xl font-semibold tabular-nums">
+              $199 <span class="text-lg font-normal text-muted-foreground line-through">$249</span>
+            </p>
+            <p class="text-muted-foreground">
+              Premium noise-cancelling headphones with 30-hour battery life, plush memory-foam ear
+              cups and adaptive EQ.
+            </p>
+            <div class="space-y-2">
+              <p class="text-sm font-medium">Colour</p>
+              <div class="flex gap-2">
+                <button
+                  class="size-8 rounded-full border-2 border-foreground bg-zinc-900"
+                  aria-label="Black"
+                ></button>
+                <button class="size-8 rounded-full border bg-zinc-200" aria-label="Silver"></button>
+                <button class="size-8 rounded-full border bg-blue-600" aria-label="Blue"></button>
+              </div>
+            </div>
+            <div buiSeparator></div>
+            <div class="flex gap-3">
+              <button buiButton size="lg" class="flex-1">Add to cart</button>
+              <button buiButton size="lg" variant="outline">♡ Save</button>
+            </div>
+            <ul class="grid gap-1.5 text-sm text-muted-foreground">
+              <li>✓ Free shipping over $50</li>
+              <li>✓ 30-day returns</li>
+              <li>✓ 2-year warranty</li>
+            </ul>
+          </div>
         </div>
+
+        <section class="mt-16">
+          <h2 class="text-2xl font-bold tracking-tight">You might also like</h2>
+          <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            @for (product of products; track product.name) {
+              <div buiCard variant="sectioned" class="overflow-hidden pt-0">
+                <div class="grid aspect-square place-items-center bg-muted text-sm">Image</div>
+                <div buiCardContent class="space-y-1 pt-3">
+                  <p class="font-medium">{{ product.name }}</p>
+                  <p class="text-sm text-muted-foreground">{{ product.price }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </section>
       </div>
     }
     @case ('crm') {
-      <div class="flex min-h-[520px] w-full overflow-hidden rounded-lg border">
-        <bui-sidebar>
-          <div class="px-2 pb-2 text-sm font-semibold">CRM</div>
+      <div class="flex min-h-[calc(100vh-7rem)] w-full">
+        <aside class="hidden w-56 shrink-0 flex-col border-r bg-muted/20 p-3 md:flex">
+          <div class="px-2 pb-4 font-semibold">Pipedrive</div>
           <a buiSidebarMenuButton [isActive]="true" href="#">Deals</a>
           <a buiSidebarMenuButton href="#">Contacts</a>
           <a buiSidebarMenuButton href="#">Companies</a>
+          <a buiSidebarMenuButton href="#">Activities</a>
           <a buiSidebarMenuButton href="#">Reports</a>
-        </bui-sidebar>
-        <div class="flex-1 overflow-auto p-6">
-          <div class="mb-4 flex items-center gap-3">
-            <h2 class="text-lg font-semibold">Pipeline</h2>
-            <a buiButton size="sm" class="ml-auto" href="#">New deal</a>
+        </aside>
+        <div class="min-w-0 flex-1">
+          <header class="flex h-14 items-center gap-3 border-b px-6">
+            <h2 class="font-semibold">Pipeline</h2>
+            <input
+              buiInput
+              class="ml-auto hidden max-w-xs sm:block"
+              type="search"
+              placeholder="Search deals…"
+            />
+            <button buiButton size="sm">New deal</button>
+          </header>
+          <div class="space-y-6 p-6">
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <bui-stat label="Open deals" value="38" change="+5" trend="up" />
+              <bui-stat label="Won this month" value="$84k" change="+11%" trend="up" />
+              <bui-stat label="Win rate" value="42%" change="+2%" trend="up" />
+              <bui-stat label="Avg. deal size" value="$6.2k" change="-3%" trend="down" />
+            </div>
+            <div buiCard variant="sectioned">
+              <div buiCardHeader>
+                <h3 buiCardTitle>All deals</h3>
+                <p buiCardDescription>Your team's active opportunities.</p>
+              </div>
+              <div buiCardContent>
+                <bui-data-table [columns]="crmColumns" [rows]="crmRows" [pageSize]="5" />
+              </div>
+            </div>
           </div>
-          <div class="mb-4 grid gap-4 sm:grid-cols-3">
-            <bui-stat label="Open deals" value="38" change="+5" trend="up" />
-            <bui-stat label="Won (mo)" value="$84k" change="+11%" trend="up" />
-            <bui-stat label="Win rate" value="42%" change="+2%" trend="up" />
-          </div>
-          <bui-data-table
-            [columns]="crmColumns"
-            [rows]="crmRows"
-            [pageSize]="5"
-            [selectable]="false"
-          />
         </div>
       </div>
     }
@@ -960,37 +1098,105 @@
       </footer>
     }
     @case ('event') {
-      <div class="w-full space-y-8 rounded-lg border p-8 text-center">
-        <span buiBadge variant="secondary">Oct 12–14 · San Francisco</span>
-        <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">BlatConf 2026</h1>
-        <p class="mx-auto max-w-xl text-lg text-muted-foreground">
-          Three days of talks, workshops and hallway tracks.
-        </p>
-        <div class="flex items-center justify-center gap-3">
-          <a buiButton size="lg" href="#">Get tickets</a>
-          <a buiButton size="lg" variant="outline" href="#">View schedule</a>
-        </div>
-        <div class="grid gap-6 pt-4 text-left sm:grid-cols-3">
-          <div buiCard variant="sectioned">
-            <div buiCardHeader>
-              <h3 buiCardTitle>Keynotes</h3>
-              <p buiCardDescription>Industry leaders on stage.</p>
-            </div>
-          </div>
-          <div buiCard variant="sectioned">
-            <div buiCardHeader>
-              <h3 buiCardTitle>Workshops</h3>
-              <p buiCardDescription>Hands-on, small groups.</p>
-            </div>
-          </div>
-          <div buiCard variant="sectioned">
-            <div buiCardHeader>
-              <h3 buiCardTitle>Networking</h3>
-              <p buiCardDescription>Meet the community.</p>
-            </div>
+      <section class="bg-gradient-to-b from-primary/10 to-transparent">
+        <div class="mx-auto max-w-4xl px-6 py-24 text-center">
+          <span buiBadge variant="secondary" class="rounded-full"
+            >Oct 12–14, 2026 · San Francisco</span
+          >
+          <h1 class="mt-5 text-5xl font-bold tracking-tight text-balance sm:text-6xl">
+            BlatConf 2026
+          </h1>
+          <p class="mx-auto mt-6 max-w-xl text-lg text-pretty text-muted-foreground">
+            Three days of talks, workshops and hallway tracks for people who build accessible
+            interfaces.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
+            <a buiButton size="lg" href="#">Get tickets</a>
+            <a buiButton size="lg" variant="outline" href="#">View schedule</a>
           </div>
         </div>
-      </div>
+      </section>
+
+      <section class="mx-auto max-w-6xl px-6 py-16">
+        <h2 class="text-3xl font-bold tracking-tight">Speakers</h2>
+        <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          @for (s of eventSpeakers; track s.name) {
+            <div buiCard variant="sectioned" class="text-center">
+              <div buiCardContent class="flex flex-col items-center gap-3 pt-6">
+                <bui-avatar class="size-16 text-lg">{{ s.init }}</bui-avatar>
+                <div>
+                  <p class="font-medium">{{ s.name }}</p>
+                  <p class="text-sm text-muted-foreground">{{ s.role }}</p>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+
+      <section class="border-y bg-muted/30">
+        <div class="mx-auto max-w-3xl px-6 py-16">
+          <h2 class="text-3xl font-bold tracking-tight">Agenda · Day 1</h2>
+          <div class="mt-8 space-y-4">
+            @for (item of eventAgenda; track item.time) {
+              <div class="flex gap-4 border-b pb-4">
+                <span class="w-20 shrink-0 text-sm text-muted-foreground tabular-nums">{{
+                  item.time
+                }}</span>
+                <div>
+                  <p class="font-medium">{{ item.title }}</p>
+                  <p class="text-sm text-muted-foreground">{{ item.speaker }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-5xl px-6 py-16">
+        <h2 class="text-center text-3xl font-bold tracking-tight">Tickets</h2>
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <h3 buiCardTitle>Early bird</h3>
+              <p buiCardDescription>Limited availability.</p>
+            </div>
+            <div buiCardContent>
+              <p class="text-3xl font-bold">$199</p>
+              <a buiButton variant="outline" class="mt-4 w-full" href="#">Buy</a>
+            </div>
+          </div>
+          <div buiCard variant="sectioned" class="border-primary ring-2 ring-primary/30">
+            <div buiCardHeader>
+              <div class="flex items-center justify-between">
+                <h3 buiCardTitle>Standard</h3>
+                <span buiBadge>Popular</span>
+              </div>
+              <p buiCardDescription>Full 3-day access.</p>
+            </div>
+            <div buiCardContent>
+              <p class="text-3xl font-bold">$349</p>
+              <a buiButton class="mt-4 w-full" href="#">Buy</a>
+            </div>
+          </div>
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <h3 buiCardTitle>Workshop</h3>
+              <p buiCardDescription>Conference + workshops.</p>
+            </div>
+            <div buiCardContent>
+              <p class="text-3xl font-bold">$549</p>
+              <a buiButton variant="outline" class="mt-4 w-full" href="#">Buy</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="border-t">
+        <div class="mx-auto max-w-6xl px-6 py-8 text-sm text-muted-foreground">
+          BlatConf 2026 · Moscone Center, San Francisco
+        </div>
+      </footer>
     }
     @case ('aurora') {
       <div class="w-full overflow-hidden rounded-lg border">
