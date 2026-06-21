@@ -1168,6 +1168,73 @@
           <button buiButton variant="outline" size="sm">View</button>
         </div>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Outline</h2>
+      <app-example [code]="code.alertOutline">
+        <div buiAlert class="max-w-md border-2 bg-transparent">
+          <svg
+            class="size-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 16v-4M12 8h.01" />
+          </svg>
+          <p buiAlertTitle>Outline alert</p>
+          <p buiAlertDescription>A lighter, border-only treatment.</p>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Gradient</h2>
+      <app-example [code]="code.alertGradient">
+        <div buiAlert class="max-w-md border-0 bg-gradient-to-r from-primary/10 to-transparent">
+          <svg
+            class="size-4 text-primary"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m12 2 2.4 7.4H22l-6 4.6 2.3 7.4-6.3-4.6L5.7 21 8 14 2 9.4h7.6z" />
+          </svg>
+          <p buiAlertTitle>You unlocked a reward</p>
+          <p buiAlertDescription>A soft gradient draws the eye.</p>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Icon box</h2>
+      <app-example [code]="code.alertIconBox">
+        <div buiAlert class="flex max-w-md items-center gap-3">
+          <span
+            class="grid size-9 shrink-0 place-items-center rounded-md bg-primary/10 text-primary"
+          >
+            <svg
+              class="size-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+          </span>
+          <span>
+            <p buiAlertTitle>New message</p>
+            <p buiAlertDescription>The icon sits in a filled box.</p>
+          </span>
+        </div>
+      </app-example>
     }
     @case ('input') {
       <app-example [code]="code.input">
@@ -4281,6 +4348,113 @@ This content is read-only and cannot be edited.</textarea
                       <circle cx="5" cy="12" r="1" />
                     </svg>
                   </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Plain</h2>
+      <app-example [code]="code.tablePlain">
+        <div buiTableContainer class="w-full">
+          <table buiTable>
+            <thead buiTableHeader>
+              <tr buiTableRow>
+                <th buiTableHead>Name</th>
+                <th buiTableHead>Role</th>
+                <th buiTableHead class="text-right">Status</th>
+              </tr>
+            </thead>
+            <tbody buiTableBody>
+              <tr buiTableRow>
+                <td buiTableCell class="font-medium">Ada Lovelace</td>
+                <td buiTableCell>Admin</td>
+                <td buiTableCell class="text-right">Active</td>
+              </tr>
+              <tr buiTableRow>
+                <td buiTableCell class="font-medium">Grace Hopper</td>
+                <td buiTableCell>Editor</td>
+                <td buiTableCell class="text-right">Active</td>
+              </tr>
+              <tr buiTableRow>
+                <td buiTableCell class="font-medium">Alan Turing</td>
+                <td buiTableCell>Viewer</td>
+                <td buiTableCell class="text-right">Invited</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Comparison</h2>
+      <app-example [code]="code.tableComparison">
+        <div buiTableContainer variant="card" class="w-full">
+          <table buiTable>
+            <thead buiTableHeader>
+              <tr buiTableRow>
+                <th buiTableHead>Feature</th>
+                <th buiTableHead class="text-center">Free</th>
+                <th buiTableHead class="text-center">Pro</th>
+                <th buiTableHead class="text-center">Enterprise</th>
+              </tr>
+            </thead>
+            <tbody buiTableBody>
+              <tr buiTableRow>
+                <td buiTableCell class="font-medium">Projects</td>
+                <td buiTableCell class="text-center">3</td>
+                <td buiTableCell class="text-center">Unlimited</td>
+                <td buiTableCell class="text-center">Unlimited</td>
+              </tr>
+              <tr buiTableRow>
+                <td buiTableCell class="font-medium">Audit logs</td>
+                <td buiTableCell class="text-center text-muted-foreground">—</td>
+                <td buiTableCell class="text-center">
+                  <svg
+                    class="mx-auto size-4 text-primary"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                </td>
+                <td buiTableCell class="text-center">
+                  <svg
+                    class="mx-auto size-4 text-primary"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                </td>
+              </tr>
+              <tr buiTableRow>
+                <td buiTableCell class="font-medium">SAML &amp; SCIM</td>
+                <td buiTableCell class="text-center text-muted-foreground">—</td>
+                <td buiTableCell class="text-center text-muted-foreground">—</td>
+                <td buiTableCell class="text-center">
+                  <svg
+                    class="mx-auto size-4 text-primary"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
                 </td>
               </tr>
             </tbody>

@@ -1361,6 +1361,14 @@ export class ComponentPage {
   </div>
   <button buiButton variant="outline" size="sm">View</button>
 </div>`,
+    alertOutline: `<div buiAlert class="border-2 bg-transparent"><svg><!-- icon --></svg>
+  <p buiAlertTitle>Outline alert</p><p buiAlertDescription>Border-only.</p></div>`,
+    alertGradient: `<div buiAlert class="border-0 bg-gradient-to-r from-primary/10 to-transparent">…</div>`,
+    alertIconBox: `<!-- force flex to override the default grid, icon in a filled box -->
+<div buiAlert class="flex items-center gap-3">
+  <span class="grid size-9 place-items-center rounded-md bg-primary/10 text-primary"><svg><!-- icon --></svg></span>
+  <span><p buiAlertTitle>New message</p><p buiAlertDescription>…</p></span>
+</div>`,
     input: `import { BuiInput } from 'ng-blatui';
 
 <input buiInput type="email" placeholder="Email" />`,
@@ -1905,6 +1913,17 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     tableActions: `<td buiTableCell>
   <button buiButton variant="ghost" size="icon" aria-label="Row actions"><svg><!-- ⋯ --></svg></button>
 </td>`,
+    tablePlain: `<!-- omit variant="card" for a borderless table -->
+<div buiTableContainer class="w-full">
+  <table buiTable>… name / role / status …</table>
+</div>`,
+    tableComparison: `<!-- tiers × features with checks and dashes -->
+<table buiTable>
+  <tr buiTableRow><td buiTableCell>Audit logs</td>
+    <td buiTableCell class="text-center text-muted-foreground">—</td>
+    <td buiTableCell class="text-center"><svg><path d="M20 6 9 17l-5-5" /></svg></td>
+  </tr>
+</table>`,
     avatarGroup: `import { BuiAvatarGroup } from 'ng-blatui';
 
 <bui-avatar-group [avatars]="team" [max]="3" />
