@@ -747,6 +747,7 @@ export class ComponentPage {
     this.badgeTags.set(this.badgeTags().filter((t) => t !== tag));
   }
   protected readonly alertShow = signal(true);
+  protected readonly taLen = signal(0);
   protected readonly rteValue = signal('<p>Edit <strong>me</strong> — try the toolbar.</p>');
   protected readonly sidebarOpen = signal(true);
   protected readonly tourOpen = signal(false);
@@ -1217,9 +1218,25 @@ export class ComponentPage {
 <input buiInput style="--ring: #16a34a" placeholder="Emerald focus" />`,
     textarea: `import { BuiTextarea } from 'ng-blatui';
 
-<textarea buiTextarea placeholder="Your message"></textarea>
-<textarea buiTextarea size="sm" placeholder="Small"></textarea>
-<textarea buiTextarea aria-invalid="true" placeholder="Invalid"></textarea>`,
+<textarea buiTextarea placeholder="Type your message here."></textarea>`,
+    textareaWithLabel: `<label buiLabel for="msg">Your message</label>
+<textarea id="msg" buiTextarea placeholder="Type your message here."></textarea>`,
+    textareaWithText: `<label buiLabel for="msg">Your message</label>
+<textarea id="msg" buiTextarea placeholder="…"></textarea>
+<p class="text-muted-foreground text-sm">Your message will be shared with support.</p>`,
+    textareaWithButton: `<label buiLabel for="msg">Your message</label>
+<textarea id="msg" buiTextarea placeholder="…"></textarea>
+<button buiButton class="w-fit">Send message</button>`,
+    textareaCount: `<textarea
+  buiTextarea maxlength="200"
+  (input)="len.set($any($event.target).value.length)"
+></textarea>
+<p class="text-right text-xs tabular-nums">{{ len() }}/200</p>`,
+    textareaInvalid: `<textarea buiTextarea aria-invalid="true" placeholder="…"></textarea>
+<p class="text-destructive text-sm" role="alert">Bio must be at least 10 characters.</p>`,
+    textareaNoResize: `<textarea buiTextarea class="resize-none" placeholder="Can't be resized."></textarea>`,
+    textareaReadonly: `<textarea buiTextarea readonly class="bg-muted" aria-label="Read-only">…</textarea>`,
+    textareaDisabled: `<textarea buiTextarea placeholder="…" disabled></textarea>`,
     label: `import { BuiLabel } from 'ng-blatui';
 
 <label buiLabel for="email">Email</label>
@@ -1418,9 +1435,18 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 <div buiContainer size="md"><!-- page content --></div>`,
     toggle: `import { BuiToggle } from 'ng-blatui';
 
-<button buiToggle [pressed]="true" aria-label="Bold">B</button>
-<button buiToggle variant="outline" aria-label="Italic">I</button>
-<button buiToggle size="sm" aria-label="Small">S</button>`,
+<button buiToggle aria-label="Toggle bold"><svg><!-- bold --></svg></button>`,
+    toggleOutline: `<button buiToggle variant="outline" aria-label="Toggle italic"><svg><!-- italic --></svg></button>`,
+    toggleSizes: `<button buiToggle size="sm" aria-label="Small">S</button>
+<button buiToggle aria-label="Default">M</button>
+<button buiToggle size="lg" aria-label="Large">L</button>`,
+    toggleRounded: `<button buiToggle class="rounded-full" aria-label="Like"><svg><!-- heart --></svg></button>`,
+    toggleWithText: `<button buiToggle aria-label="Toggle italic"><svg><!-- italic --></svg> Italic</button>`,
+    toggleWithCount: `<button buiToggle variant="outline" aria-label="Upvote">
+  <svg><!-- arrow-up --></svg> Upvote <span class="tabular-nums">27</span>
+</button>`,
+    toggleDisabled: `<button buiToggle [disabled]="true" aria-label="Bold">B</button>
+<button buiToggle variant="outline" [disabled]="true" aria-label="Italic">I</button>`,
     spinner: `import { BuiSpinner } from 'ng-blatui';
 
 <bui-spinner class="size-4" />

@@ -1142,12 +1142,99 @@
     }
     @case ('textarea') {
       <app-example [code]="code.textarea">
-        <div class="w-full max-w-xs space-y-3">
-          <textarea buiTextarea placeholder="Your message"></textarea>
-          <textarea buiTextarea size="sm" placeholder="Small"></textarea>
-          <textarea buiTextarea placeholder="Disabled" disabled></textarea>
-          <textarea buiTextarea placeholder="Invalid" aria-invalid="true"></textarea>
+        <textarea
+          buiTextarea
+          class="w-full max-w-sm"
+          placeholder="Type your message here."
+        ></textarea>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With label</h2>
+      <app-example [code]="code.textareaWithLabel">
+        <div class="grid w-full max-w-sm gap-2">
+          <label buiLabel for="ta-wl">Your message</label>
+          <textarea id="ta-wl" buiTextarea placeholder="Type your message here."></textarea>
         </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With text</h2>
+      <app-example [code]="code.textareaWithText">
+        <div class="grid w-full max-w-sm gap-2">
+          <label buiLabel for="ta-wt">Your message</label>
+          <textarea id="ta-wt" buiTextarea placeholder="Type your message here."></textarea>
+          <p class="text-sm text-muted-foreground">
+            Your message will be shared with the support team.
+          </p>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With button</h2>
+      <app-example [code]="code.textareaWithButton">
+        <div class="grid w-full max-w-sm gap-2">
+          <label buiLabel for="ta-wb">Your message</label>
+          <textarea id="ta-wb" buiTextarea placeholder="Type your message here."></textarea>
+          <button buiButton class="w-fit">Send message</button>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Character count</h2>
+      <app-example [code]="code.textareaCount">
+        <div class="grid w-full max-w-sm gap-2">
+          <label buiLabel for="ta-cc">Your feedback</label>
+          <textarea
+            id="ta-cc"
+            buiTextarea
+            maxlength="200"
+            placeholder="Tell us what you think…"
+            (input)="taLen.set($any($event.target).value.length)"
+          ></textarea>
+          <p class="text-right text-xs text-muted-foreground tabular-nums">{{ taLen() }}/200</p>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Invalid</h2>
+      <app-example [code]="code.textareaInvalid">
+        <div class="grid w-full max-w-sm gap-2">
+          <label buiLabel for="ta-iv">Bio</label>
+          <textarea
+            id="ta-iv"
+            buiTextarea
+            aria-invalid="true"
+            placeholder="Tell us a little about yourself"
+          ></textarea>
+          <p class="text-sm text-destructive" role="alert">Bio must be at least 10 characters.</p>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">No resize</h2>
+      <app-example [code]="code.textareaNoResize">
+        <textarea
+          buiTextarea
+          class="w-full max-w-sm resize-none"
+          placeholder="This textarea can't be resized."
+        ></textarea>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Read only</h2>
+      <app-example [code]="code.textareaReadonly">
+        <textarea
+          buiTextarea
+          readonly
+          aria-label="Read-only content"
+          class="w-full max-w-sm bg-muted"
+        >
+This content is read-only and cannot be edited.</textarea
+        >
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.textareaDisabled">
+        <textarea
+          buiTextarea
+          class="w-full max-w-sm"
+          placeholder="Type your message here."
+          disabled
+        ></textarea>
       </app-example>
     }
     @case ('label') {
@@ -1707,11 +1794,147 @@
     }
     @case ('toggle') {
       <app-example [code]="code.toggle">
-        <button buiToggle aria-label="Bold">B</button>
-        <button buiToggle [pressed]="true" aria-label="Italic">I</button>
-        <button buiToggle variant="outline" aria-label="Underline">U</button>
-        <button buiToggle size="sm" aria-label="Small">S</button>
-        <button buiToggle size="lg" aria-label="Large">L</button>
+        <button buiToggle aria-label="Toggle bold">
+          <svg
+            class="size-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M6 12h9a4 4 0 0 1 0 8H6Z" />
+            <path d="M6 4h7a4 4 0 0 1 0 8H6Z" />
+          </svg>
+        </button>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Outline</h2>
+      <app-example [code]="code.toggleOutline">
+        <button buiToggle variant="outline" aria-label="Toggle italic">
+          <svg
+            class="size-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <line x1="19" x2="10" y1="4" y2="4" />
+            <line x1="14" x2="5" y1="20" y2="20" />
+            <line x1="15" x2="9" y1="4" y2="20" />
+          </svg>
+        </button>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.toggleSizes">
+        <button buiToggle size="sm" aria-label="Small"><span class="font-bold">S</span></button>
+        <button buiToggle aria-label="Default"><span class="font-bold">M</span></button>
+        <button buiToggle size="lg" aria-label="Large"><span class="font-bold">L</span></button>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Rounded</h2>
+      <app-example [code]="code.toggleRounded">
+        <button buiToggle class="rounded-full" aria-label="Like">
+          <svg
+            class="size-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path
+              d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"
+            />
+          </svg>
+        </button>
+        <button buiToggle variant="outline" class="rounded-full" aria-label="Favourite">
+          <svg
+            class="size-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M11.5 2.7 14 8l5.7.8-4.1 4 1 5.7-5.1-2.7L7.3 18.5l1-5.7-4.1-4L9.9 8Z" />
+          </svg>
+        </button>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With text</h2>
+      <app-example [code]="code.toggleWithText">
+        <button buiToggle aria-label="Toggle italic">
+          <svg
+            class="size-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <line x1="19" x2="10" y1="4" y2="4" />
+            <line x1="14" x2="5" y1="20" y2="20" />
+            <line x1="15" x2="9" y1="4" y2="20" />
+          </svg>
+          Italic
+        </button>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With count</h2>
+      <app-example [code]="code.toggleWithCount">
+        <button buiToggle variant="outline" aria-label="Upvote">
+          <svg
+            class="size-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M9 18v-6H5l7-7 7 7h-4v6Z" />
+          </svg>
+          Upvote <span class="text-muted-foreground tabular-nums">27</span>
+        </button>
+        <button buiToggle variant="outline" [pressed]="true" aria-label="Star">
+          <svg
+            class="size-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M11.5 2.7 14 8l5.7.8-4.1 4 1 5.7-5.1-2.7L7.3 18.5l1-5.7-4.1-4L9.9 8Z" />
+          </svg>
+          Star <span class="text-muted-foreground tabular-nums">1.2k</span>
+        </button>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.toggleDisabled">
+        <button buiToggle [disabled]="true" aria-label="Bold disabled">
+          <span class="font-bold">B</span>
+        </button>
+        <button buiToggle variant="outline" [disabled]="true" aria-label="Italic disabled">
+          <span class="italic">I</span>
+        </button>
       </app-example>
     }
     @case ('spinner') {
