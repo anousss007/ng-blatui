@@ -1261,13 +1261,44 @@ export class ComponentPage {
     checkbox: `import { BuiCheckbox } from 'ng-blatui';
 
 <button buiCheckbox [(checked)]="accepted" aria-labelledby="t"></button>
-<button buiCheckbox [indeterminate]="true" aria-label="Select all"></button>
-<button buiCheckbox [checked]="true" [disabled]="true" aria-label="Done"></button>`,
+<span id="t">Accept terms and conditions</span>`,
+    checkboxWithText: `<button buiCheckbox [checked]="true" aria-labelledby="t"></button>
+<div>
+  <span id="t" class="font-medium">Accept terms and conditions</span>
+  <p class="text-muted-foreground text-sm">You agree to our Terms of Service.</p>
+</div>`,
+    checkboxList: `<button buiCheckbox [checked]="true" aria-label="Recents"></button>
+<button buiCheckbox [checked]="true" aria-label="Home"></button>
+<button buiCheckbox aria-label="Applications"></button>`,
+    checkboxColors: `<!-- override the checked colour via data-state -->
+<button buiCheckbox [checked]="true" class="data-[state=checked]:bg-success data-[state=checked]:border-success"></button>`,
+    checkboxCircular: `<button buiCheckbox class="rounded-full"></button>
+<button buiCheckbox [checked]="true" class="rounded-full"></button>`,
+    checkboxIndeterminate: `<button buiCheckbox [indeterminate]="true" aria-label="Select all"></button>`,
+    checkboxDisabled: `<button buiCheckbox [disabled]="true" aria-label="Off"></button>
+<button buiCheckbox [checked]="true" [disabled]="true" aria-label="On"></button>`,
     switch: `import { BuiSwitch } from 'ng-blatui';
 
-<button buiSwitch [(checked)]="enabled" aria-label="Notifications"></button>
-<button buiSwitch size="sm" [checked]="true" aria-label="Small"></button>
-<button buiSwitch [disabled]="true" aria-label="Disabled"></button>`,
+<button buiSwitch [(checked)]="enabled" aria-labelledby="l"></button>
+<span id="l">Airplane mode</span>`,
+    switchSizes: `<button buiSwitch size="sm" [checked]="true" aria-label="Small"></button>
+<button buiSwitch [checked]="true" aria-label="Default"></button>
+<button buiSwitch size="lg" [checked]="true" aria-label="Large"></button>`,
+    switchColors: `<!-- override the checked colour via data-state -->
+<button buiSwitch [checked]="true" class="data-[state=checked]:bg-green-600"></button>`,
+    switchWithText: `<div class="flex items-center justify-between rounded-lg border p-4">
+  <div>
+    <p id="m" class="font-medium">Marketing emails</p>
+    <p class="text-muted-foreground text-sm">Receive product news.</p>
+  </div>
+  <button buiSwitch [checked]="true" aria-labelledby="m"></button>
+</div>`,
+    switchSettings: `<div class="flex items-center justify-between gap-4">
+  <span id="s">Two-factor authentication</span>
+  <button buiSwitch [checked]="true" aria-labelledby="s"></button>
+</div>`,
+    switchDisabled: `<button buiSwitch [disabled]="true" aria-label="Off"></button>
+<button buiSwitch [checked]="true" [disabled]="true" aria-label="On"></button>`,
     accordion: `import {
   AccordionGroup, AccordionTrigger, AccordionPanel, AccordionContent,
   BuiAccordion, BuiAccordionItem, BuiAccordionTrigger, BuiAccordionContent,
@@ -1481,9 +1512,15 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 <bui-code-block filename="app.ts" code="const x = 1;" />`,
     slider: `import { BuiSlider } from 'ng-blatui';
 
-<bui-slider [(value)]="volume" [min]="0" [max]="100" ariaLabel="Volume" />
-<bui-slider [value]="40" [step]="10" ariaLabel="Steps" />
-<bui-slider [value]="60" [disabled]="true" ariaLabel="Disabled" />`,
+<bui-slider [(value)]="volume" [min]="0" [max]="100" ariaLabel="Volume" />`,
+    sliderWithLabel: `<div class="flex items-center justify-between">
+  <span class="font-medium">Volume</span>
+  <span class="text-muted-foreground tabular-nums">{{ volume() }}%</span>
+</div>
+<bui-slider [(value)]="volume" [max]="100" ariaLabel="Volume" />`,
+    sliderSteps: `<bui-slider [value]="40" [min]="0" [max]="100" [step]="10" ariaLabel="Stepped" />`,
+    sliderDisabled: `<bui-slider [value]="60" [disabled]="true" ariaLabel="Disabled" />`,
+    sliderVertical: `<bui-slider class="h-40" orientation="vertical" [value]="40" ariaLabel="Volume" />`,
     rating: `import { BuiRating } from 'ng-blatui';
 
 <bui-rating [(value)]="score" [max]="5" ariaLabel="Rate" />

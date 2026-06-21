@@ -1275,49 +1275,191 @@
     }
     @case ('checkbox') {
       <app-example [code]="code.checkbox">
-        <div class="space-y-3">
+        <div class="flex items-center gap-2">
+          <button buiCheckbox aria-label="Accept terms and conditions" [(checked)]="terms"></button>
+          <span class="text-sm">Accept terms and conditions</span>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With text</h2>
+      <app-example [code]="code.checkboxWithText">
+        <div class="flex items-start gap-2">
+          <button
+            buiCheckbox
+            aria-label="Accept terms and conditions"
+            [checked]="true"
+            class="mt-0.5"
+          ></button>
+          <div class="grid gap-1.5">
+            <span class="text-sm font-medium">Accept terms and conditions</span>
+            <p class="text-sm text-muted-foreground">
+              You agree to our Terms of Service and Privacy Policy.
+            </p>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">List</h2>
+      <app-example [code]="code.checkboxList">
+        <div class="flex flex-col gap-3">
           <div class="flex items-center gap-2">
-            <button buiCheckbox aria-labelledby="cb1" [(checked)]="terms">
-              <span class="sr-only">Accept terms</span>
-            </button>
-            <span id="cb1" class="text-sm">Accept terms and conditions</span>
+            <button buiCheckbox aria-label="Recents" [checked]="true"></button
+            ><span class="text-sm">Recents</span>
           </div>
           <div class="flex items-center gap-2">
-            <button buiCheckbox aria-labelledby="cb2" [indeterminate]="true">
-              <span class="sr-only">Select all</span>
-            </button>
-            <span id="cb2" class="text-sm">Indeterminate</span>
+            <button buiCheckbox aria-label="Home" [checked]="true"></button
+            ><span class="text-sm">Home</span>
           </div>
           <div class="flex items-center gap-2">
-            <button buiCheckbox aria-labelledby="cb3" [checked]="true" [disabled]="true">
-              <span class="sr-only">Disabled</span>
-            </button>
-            <span id="cb3" class="text-sm text-muted-foreground">Checked &amp; disabled</span>
+            <button buiCheckbox aria-label="Applications"></button
+            ><span class="text-sm">Applications</span>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Colors</h2>
+      <app-example [code]="code.checkboxColors">
+        <div class="flex flex-wrap items-center gap-5">
+          <button
+            buiCheckbox
+            [checked]="true"
+            aria-label="Success"
+            class="data-[state=checked]:border-success data-[state=checked]:bg-success"
+          ></button>
+          <button
+            buiCheckbox
+            [checked]="true"
+            aria-label="Info"
+            class="data-[state=checked]:border-info data-[state=checked]:bg-info"
+          ></button>
+          <button
+            buiCheckbox
+            [checked]="true"
+            aria-label="Warning"
+            class="data-[state=checked]:border-warning data-[state=checked]:bg-warning"
+          ></button>
+          <button
+            buiCheckbox
+            [checked]="true"
+            aria-label="Danger"
+            class="data-[state=checked]:border-destructive data-[state=checked]:bg-destructive"
+          ></button>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Circular</h2>
+      <app-example [code]="code.checkboxCircular">
+        <div class="flex items-center gap-5">
+          <button buiCheckbox aria-label="Unchecked" class="rounded-full"></button>
+          <button buiCheckbox [checked]="true" aria-label="Checked" class="rounded-full"></button>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Indeterminate</h2>
+      <app-example [code]="code.checkboxIndeterminate">
+        <div class="flex items-center gap-2">
+          <button buiCheckbox aria-label="Select all" [indeterminate]="true"></button>
+          <span class="text-sm">Select all</span>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.checkboxDisabled">
+        <div class="flex items-center gap-5">
+          <div class="flex items-center gap-2">
+            <button buiCheckbox [disabled]="true" aria-label="Off"></button
+            ><span class="text-sm text-muted-foreground">Off</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button buiCheckbox [checked]="true" [disabled]="true" aria-label="On"></button
+            ><span class="text-sm text-muted-foreground">On</span>
           </div>
         </div>
       </app-example>
     }
     @case ('switch') {
       <app-example [code]="code.switch">
-        <div class="space-y-3">
-          <div class="flex items-center gap-2">
-            <button buiSwitch aria-labelledby="sw1" [(checked)]="notifications">
-              <span class="sr-only">Enable notifications</span>
-            </button>
-            <span id="sw1" class="text-sm">Enable notifications</span>
+        <div class="flex items-center gap-2">
+          <button buiSwitch aria-label="Airplane mode" [(checked)]="notifications"></button>
+          <span class="text-sm">Airplane mode</span>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.switchSizes">
+        <div class="flex items-center gap-6">
+          <button buiSwitch size="sm" [checked]="true" aria-label="Small"></button>
+          <button buiSwitch [checked]="true" aria-label="Default"></button>
+          <button buiSwitch size="lg" [checked]="true" aria-label="Large"></button>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Colors</h2>
+      <app-example [code]="code.switchColors">
+        <div class="flex items-center gap-6">
+          <button
+            buiSwitch
+            [checked]="true"
+            aria-label="Green"
+            class="data-[state=checked]:bg-green-600"
+          ></button>
+          <button
+            buiSwitch
+            [checked]="true"
+            aria-label="Sky"
+            class="data-[state=checked]:bg-sky-600"
+          ></button>
+          <button
+            buiSwitch
+            [checked]="true"
+            aria-label="Amber"
+            class="data-[state=checked]:bg-amber-500"
+          ></button>
+          <button
+            buiSwitch
+            [checked]="true"
+            aria-label="Red"
+            class="data-[state=checked]:bg-destructive"
+          ></button>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With text</h2>
+      <app-example [code]="code.switchWithText">
+        <div class="flex w-full max-w-sm items-center justify-between gap-4 rounded-lg border p-4">
+          <div>
+            <p class="text-sm font-medium">Marketing emails</p>
+            <p class="text-sm text-muted-foreground">
+              Receive emails about new products and features.
+            </p>
           </div>
-          <div class="flex items-center gap-2">
-            <button buiSwitch size="sm" aria-labelledby="sw2" [checked]="true">
-              <span class="sr-only">Small switch</span>
-            </button>
-            <span id="sw2" class="text-sm">Small, on</span>
+          <button buiSwitch [checked]="true" aria-label="Marketing emails"></button>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Settings</h2>
+      <app-example [code]="code.switchSettings">
+        <div class="flex w-full max-w-sm flex-col gap-4">
+          <div class="flex items-center justify-between gap-4">
+            <span class="text-sm">Two-factor authentication</span
+            ><button buiSwitch [checked]="true" aria-label="Two-factor authentication"></button>
           </div>
-          <div class="flex items-center gap-2">
-            <button buiSwitch aria-labelledby="sw3" [checked]="true" [disabled]="true">
-              <span class="sr-only">Disabled switch</span>
-            </button>
-            <span id="sw3" class="text-sm text-muted-foreground">Disabled</span>
+          <div class="flex items-center justify-between gap-4">
+            <span class="text-sm">Activity digest</span
+            ><button buiSwitch aria-label="Activity digest"></button>
           </div>
+          <div class="flex items-center justify-between gap-4">
+            <span class="text-sm">Product updates</span
+            ><button buiSwitch [checked]="true" aria-label="Product updates"></button>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.switchDisabled">
+        <div class="flex items-center gap-6">
+          <button buiSwitch [disabled]="true" aria-label="Off disabled"></button>
+          <button buiSwitch [checked]="true" [disabled]="true" aria-label="On disabled"></button>
         </div>
       </app-example>
     }
@@ -1647,11 +1789,46 @@
     }
     @case ('slider') {
       <app-example [code]="code.slider">
-        <div class="w-full max-w-xs space-y-5">
-          <bui-slider [(value)]="volume" [min]="0" [max]="100" ariaLabel="Volume" />
-          <bui-slider [value]="40" [min]="0" [max]="100" [step]="10" ariaLabel="Steps of 10" />
-          <bui-slider [value]="60" [disabled]="true" ariaLabel="Disabled" />
+        <bui-slider
+          class="w-full max-w-xs"
+          [(value)]="volume"
+          [min]="0"
+          [max]="100"
+          ariaLabel="Volume"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With label</h2>
+      <app-example [code]="code.sliderWithLabel">
+        <div class="grid w-full max-w-sm gap-3">
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-medium">Volume</span>
+            <span class="text-sm text-muted-foreground tabular-nums">{{ volume() }}%</span>
+          </div>
+          <bui-slider [(value)]="volume" [max]="100" ariaLabel="Volume" />
         </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Steps</h2>
+      <app-example [code]="code.sliderSteps">
+        <bui-slider
+          class="w-full max-w-sm"
+          [value]="40"
+          [min]="0"
+          [max]="100"
+          [step]="10"
+          ariaLabel="Stepped"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
+      <app-example [code]="code.sliderDisabled">
+        <bui-slider class="w-full max-w-sm" [value]="60" [disabled]="true" ariaLabel="Disabled" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Vertical</h2>
+      <app-example [code]="code.sliderVertical">
+        <bui-slider class="h-40" orientation="vertical" [value]="40" ariaLabel="Volume" />
       </app-example>
     }
     @case ('rating') {
