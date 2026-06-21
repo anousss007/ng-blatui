@@ -1692,6 +1692,17 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
     <li buiPaginationItem><bui-pagination-ellipsis /></li>
   </ul>
 </nav>`,
+    paginationSimple: `<nav buiPagination>
+  <ul buiPaginationContent>
+    <li buiPaginationItem><a buiPaginationLink href="#">Previous</a></li>
+    <li buiPaginationItem><a buiPaginationLink href="#">Next</a></li>
+  </ul>
+</nav>`,
+    paginationRounded: `<a buiPaginationLink href="#" class="rounded-full">1</a>`,
+    paginationPageInfo: `<div class="flex items-center justify-between">
+  <p class="text-sm">Page 1 of 10</p>
+  <nav buiPagination class="mx-0 w-auto">…</nav>
+</div>`,
     popover: `import { BuiPopover, BuiPopoverContent } from 'ng-blatui';
 
 <button buiButton variant="outline" [buiPopover]="tpl">Open</button>
@@ -1742,11 +1753,24 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 } from 'ng-blatui';
 
 <div buiInputGroup>
-  <div buiInputGroupAddon>$</div>
-  <input buiInputGroupInput placeholder="0.00" />
-  <div buiInputGroupAddon align="inline-end">
-    <button buiInputGroupButton>Send</button>
-  </div>
+  <input buiInputGroupInput placeholder="Search…" />
+  <div buiInputGroupAddon><svg><!-- search --></svg></div>
+</div>`,
+    inputGroupIconEnd: `<div buiInputGroup>
+  <input buiInputGroupInput placeholder="you@example.com" />
+  <div buiInputGroupAddon align="inline-end"><svg><!-- mail --></svg></div>
+</div>`,
+    inputGroupText: `<div buiInputGroup>
+  <div buiInputGroupAddon><span buiInputGroupText>https://</span></div>
+  <input buiInputGroupInput placeholder="example.com" />
+</div>`,
+    inputGroupButton: `<div buiInputGroup>
+  <input buiInputGroupInput placeholder="Enter your email" />
+  <div buiInputGroupAddon align="inline-end"><button buiInputGroupButton size="xs">Subscribe</button></div>
+</div>`,
+    inputGroupTextarea: `<div buiInputGroup>
+  <textarea buiInputGroupInput class="min-h-20 resize-none border-0 shadow-none"></textarea>
+  <div buiInputGroupAddon align="block-end"><button buiInputGroupButton size="xs">Send</button></div>
 </div>`,
     meter: `import { BuiMeter } from 'ng-blatui';
 

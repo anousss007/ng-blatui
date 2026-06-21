@@ -3119,12 +3119,81 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.pagination">
         <nav buiPagination>
           <ul buiPaginationContent>
+            <li buiPaginationItem>
+              <a buiPaginationLink href="#" class="gap-1 px-2.5" aria-label="Previous"
+                ><svg
+                  class="size-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m15 18-6-6 6-6" />
+                </svg>
+                Prev</a
+              >
+            </li>
             <li buiPaginationItem><a buiPaginationLink href="#">1</a></li>
             <li buiPaginationItem><a buiPaginationLink [active]="true" href="#">2</a></li>
             <li buiPaginationItem><a buiPaginationLink href="#">3</a></li>
             <li buiPaginationItem><bui-pagination-ellipsis /></li>
+            <li buiPaginationItem>
+              <a buiPaginationLink href="#" class="gap-1 px-2.5" aria-label="Next"
+                >Next
+                <svg
+                  class="size-4"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m9 18 6-6-6-6" /></svg
+              ></a>
+            </li>
           </ul>
         </nav>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Simple</h2>
+      <app-example [code]="code.paginationSimple">
+        <nav buiPagination>
+          <ul buiPaginationContent>
+            <li buiPaginationItem><a buiPaginationLink href="#">Previous</a></li>
+            <li buiPaginationItem><a buiPaginationLink href="#">Next</a></li>
+          </ul>
+        </nav>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Rounded</h2>
+      <app-example [code]="code.paginationRounded">
+        <nav buiPagination>
+          <ul buiPaginationContent>
+            <li buiPaginationItem><a buiPaginationLink href="#" class="rounded-full">1</a></li>
+            <li buiPaginationItem>
+              <a buiPaginationLink [active]="true" href="#" class="rounded-full">2</a>
+            </li>
+            <li buiPaginationItem><a buiPaginationLink href="#" class="rounded-full">3</a></li>
+          </ul>
+        </nav>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With page info</h2>
+      <app-example [code]="code.paginationPageInfo">
+        <div class="flex w-full max-w-md items-center justify-between gap-4">
+          <p class="text-sm text-muted-foreground">Page 1 of 10</p>
+          <nav buiPagination class="mx-0 w-auto justify-end">
+            <ul buiPaginationContent>
+              <li buiPaginationItem><a buiPaginationLink href="#">Previous</a></li>
+              <li buiPaginationItem><a buiPaginationLink href="#">Next</a></li>
+            </ul>
+          </nav>
+        </div>
       </app-example>
     }
     @case ('popover') {
@@ -3295,11 +3364,76 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('input-group') {
       <app-example [code]="code.inputGroup">
-        <div buiInputGroup class="max-w-xs">
-          <div buiInputGroupAddon><span buiInputGroupText>&#64;</span></div>
-          <input buiInputGroupInput placeholder="username" />
+        <div buiInputGroup class="max-w-sm">
+          <input buiInputGroupInput placeholder="Search…" />
+          <div buiInputGroupAddon>
+            <svg
+              class="size-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Icon at end</h2>
+      <app-example [code]="code.inputGroupIconEnd">
+        <div buiInputGroup class="max-w-sm">
+          <input buiInputGroupInput placeholder="you@example.com" />
           <div buiInputGroupAddon align="inline-end">
-            <button buiInputGroupButton size="xs">Go</button>
+            <svg
+              class="size-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect width="20" height="16" x="2" y="4" rx="2" />
+              <path d="m22 7-10 5L2 7" />
+            </svg>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With text</h2>
+      <app-example [code]="code.inputGroupText">
+        <div buiInputGroup class="max-w-sm">
+          <div buiInputGroupAddon><span buiInputGroupText>https://</span></div>
+          <input buiInputGroupInput placeholder="example.com" />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With button</h2>
+      <app-example [code]="code.inputGroupButton">
+        <div buiInputGroup class="max-w-sm">
+          <input buiInputGroupInput placeholder="Enter your email" />
+          <div buiInputGroupAddon align="inline-end">
+            <button buiInputGroupButton size="xs">Subscribe</button>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Textarea</h2>
+      <app-example [code]="code.inputGroupTextarea">
+        <div buiInputGroup class="max-w-sm">
+          <textarea
+            buiInputGroupInput
+            class="min-h-20 resize-none border-0 shadow-none focus-visible:ring-0"
+            placeholder="Send a message…"
+          ></textarea>
+          <div buiInputGroupAddon align="block-end">
+            <button buiInputGroupButton size="xs">Send</button>
           </div>
         </div>
       </app-example>
