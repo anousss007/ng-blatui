@@ -184,12 +184,17 @@ export class App {
   private readonly url = signal('/');
   /** Home is full-bleed (showcase); every other route gets the docs sidebar layout. */
   protected readonly isHome = computed(() => this.url() === '/' || this.url() === '');
+  /** Mobile slide-over navigation (hamburger menu). */
+  protected readonly mobileNavOpen = signal(false);
 
   constructor() {
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.url.set(event.urlAfterRedirects.split('?', 1)[0]);
+      if (!(event instanceof NavigationEnd)) {
+        return;
       }
+
+      this.url.set(event.urlAfterRedirects.split('?', 1)[0]);
+      this.mobileNavOpen.set(false);
     });
   }
 

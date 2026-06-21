@@ -3,6 +3,26 @@
     class="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/65"
   >
     <div class="mx-auto flex h-14 max-w-screen-2xl items-center gap-3 px-4 lg:px-6">
+      <button
+        type="button"
+        class="-ml-1 inline-flex size-9 shrink-0 items-center justify-center rounded-md hover:bg-accent lg:hidden"
+        aria-label="Open navigation menu"
+        [attr.aria-expanded]="mobileNavOpen()"
+        (click)="mobileNavOpen.set(true)"
+      >
+        <svg
+          class="size-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
       <a routerLink="/" class="flex shrink-0 items-center gap-2.5 font-semibold tracking-tight">
         <span
           class="grid size-7 place-items-center rounded-md bg-primary text-primary-foreground shadow-sm"
@@ -63,6 +83,66 @@
       </div>
     </div>
   </header>
+
+  @if (mobileNavOpen()) {
+    <div class="fixed inset-0 z-50 lg:hidden">
+      <button
+        type="button"
+        class="absolute inset-0 bg-black/40 backdrop-blur-sm"
+        aria-label="Close navigation menu"
+        (click)="mobileNavOpen.set(false)"
+      ></button>
+      <div
+        class="absolute inset-y-0 left-0 flex w-80 max-w-[85vw] flex-col border-r bg-background shadow-xl"
+      >
+        <div class="flex h-14 shrink-0 items-center justify-between border-b px-4">
+          <span class="font-mono text-[15px] font-semibold">ng-blatui</span>
+          <button
+            type="button"
+            class="inline-flex size-9 items-center justify-center rounded-md hover:bg-accent"
+            aria-label="Close navigation menu"
+            (click)="mobileNavOpen.set(false)"
+          >
+            <svg
+              class="size-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <nav class="flex-1 overflow-y-auto px-4 py-4">
+          @for (group of nav; track group.title) {
+            <div class="mb-6">
+              <p class="mb-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                {{ group.title }}
+              </p>
+              <ul class="space-y-0.5">
+                @for (link of group.links; track link.label) {
+                  <li>
+                    <a
+                      class="block rounded-md px-2 py-1.5 text-sm text-muted-foreground hover:bg-accent hover:text-foreground"
+                      [routerLink]="link.path"
+                      routerLinkActive="text-foreground font-medium"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      (click)="mobileNavOpen.set(false)"
+                      >{{ link.label }}</a
+                    >
+                  </li>
+                }
+              </ul>
+            </div>
+          }
+        </nav>
+      </div>
+    </div>
+  }
 
   @if (isHome()) {
     <main class="min-w-0">
