@@ -2149,6 +2149,16 @@ this.dialog.open(tpl, { ariaModal: true });`,
     </div>
   </div>
 </ng-template>`,
+    popoverPositions: `<!-- side = top | right | bottom | left (defaults to bottom) -->
+<button buiButton [buiPopover]="tpl" side="right">Right</button>`,
+    popoverFeedback: `<button buiButton [buiPopover]="tpl">Send feedback</button>
+<ng-template #tpl>
+  <div buiPopoverContent class="w-80">
+    <h4 class="font-medium">Send feedback</h4>
+    <textarea class="min-h-20 w-full rounded-md border p-2 text-sm"></textarea>
+    <button buiButton size="sm" class="w-full">Submit</button>
+  </div>
+</ng-template>`,
     item: `import {
   BuiItem, BuiItemMedia, BuiItemContent, BuiItemTitle, BuiItemDescription, BuiItemActions, BuiItemGroup,
 } from 'ng-blatui';

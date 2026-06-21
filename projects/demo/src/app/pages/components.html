@@ -5091,6 +5091,41 @@ This content is read-only and cannot be edited.</textarea
           </div>
         </ng-template>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Positions</h2>
+      <app-example [code]="code.popoverPositions">
+        <div class="flex flex-wrap gap-2">
+          <button buiButton variant="outline" [buiPopover]="popoverPosTpl" side="top">Top</button>
+          <button buiButton variant="outline" [buiPopover]="popoverPosTpl" side="right">
+            Right
+          </button>
+          <button buiButton variant="outline" [buiPopover]="popoverPosTpl" side="bottom">
+            Bottom
+          </button>
+          <button buiButton variant="outline" [buiPopover]="popoverPosTpl" side="left">Left</button>
+        </div>
+        <ng-template #popoverPosTpl>
+          <div buiPopoverContent class="w-auto"><p class="text-sm">Positioned popover.</p></div>
+        </ng-template>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Feedback</h2>
+      <app-example [code]="code.popoverFeedback">
+        <button buiButton variant="outline" [buiPopover]="popoverFeedbackTpl">Send feedback</button>
+        <ng-template #popoverFeedbackTpl>
+          <div buiPopoverContent class="w-80">
+            <div class="space-y-2">
+              <h4 class="leading-none font-medium">Send feedback</h4>
+              <p class="text-sm text-muted-foreground">How can we improve?</p>
+              <textarea
+                class="min-h-20 w-full rounded-md border border-input p-2 text-sm"
+                placeholder="Your feedback…"
+              ></textarea>
+              <button buiButton size="sm" class="w-full">Submit</button>
+            </div>
+          </div>
+        </ng-template>
+      </app-example>
     }
     @case ('item') {
       <app-example [code]="code.item">

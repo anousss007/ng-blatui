@@ -1,4 +1,4 @@
-import { Overlay, type OverlayRef } from '@angular/cdk/overlay';
+import { type ConnectedPosition, Overlay, type OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import {
   computed,
@@ -13,6 +13,21 @@ import {
 } from '@angular/core';
 
 import { type ClassValue, cn } from '../utils/cn';
+
+export type PopoverSide = 'top' | 'right' | 'bottom' | 'left';
+
+const POPOVER_POSITIONS: Record<PopoverSide, ConnectedPosition> = {
+  bottom: { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top', offsetY: 4 },
+  top: { originX: 'center', originY: 'top', overlayX: 'center', overlayY: 'bottom', offsetY: -4 },
+  right: { originX: 'end', originY: 'center', overlayX: 'start', overlayY: 'center', offsetX: 4 },
+  left: { originX: 'start', originY: 'center', overlayX: 'end', overlayY: 'center', offsetX: -4 },
+};
+const POPOVER_FALLBACK: Record<PopoverSide, PopoverSide> = {
+  bottom: 'top',
+  top: 'bottom',
+  right: 'left',
+  left: 'right',
+};
 
 /**
  * Click-triggered popover on the Angular CDK overlay. Bind the content template:
@@ -29,6 +44,7 @@ import { type ClassValue, cn } from '../utils/cn';
 })
 export class BuiPopover implements OnDestroy {
   readonly content = input.required<TemplateRef<unknown>>({ alias: 'buiPopover' });
+  readonly side = input<PopoverSide>('bottom');
 
   private readonly overlay = inject(Overlay);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -45,13 +61,11 @@ export class BuiPopover implements OnDestroy {
   }
 
   private open(): void {
+    const side = this.side();
     const positionStrategy = this.overlay
       .position()
       .flexibleConnectedTo(this.host)
-      .withPositions([
-        { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top', offsetY: 4 },
-        { originX: 'center', originY: 'top', overlayX: 'center', overlayY: 'bottom', offsetY: -4 },
-      ]);
+      .withPositions([POPOVER_POSITIONS[side], POPOVER_POSITIONS[POPOVER_FALLBACK[side]]]);
     const overlayReference = this.overlay.create({
       positionStrategy,
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
