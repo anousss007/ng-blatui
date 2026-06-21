@@ -1292,6 +1292,31 @@
         />
       </app-example>
     }
+    @case ('map') {
+      <app-example [code]="code.map">
+        <bui-map class="w-full max-w-lg" [lat]="48.8584" [lon]="2.2945" label="Eiffel Tower" />
+      </app-example>
+    }
+    @case ('gantt') {
+      <app-example [code]="code.gantt">
+        <bui-gantt class="w-full max-w-lg" [tasks]="ganttTasks" />
+      </app-example>
+    }
+    @case ('scheduler') {
+      <app-example [code]="code.scheduler">
+        <bui-scheduler
+          class="w-full max-w-2xl"
+          [events]="schedulerEvents"
+          [startHour]="8"
+          [endHour]="16"
+        />
+      </app-example>
+    }
+    @case ('kanban') {
+      <app-example [code]="code.kanban">
+        <bui-kanban class="w-full" [columns]="kanbanColumns" />
+      </app-example>
+    }
     @default {
       <p class="text-muted-foreground">Component not found.</p>
     }

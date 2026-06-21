@@ -114,6 +114,7 @@ import {
   BuiFileUpload,
   BuiFlipCard,
   BuiGallery,
+  BuiGantt,
   BuiGradientText,
   BuiGridPattern,
   BuiHeatmap,
@@ -136,12 +137,14 @@ import {
   BuiItemMedia,
   BuiItemTitle,
   BuiJsonViewer,
+  BuiKanban,
   BuiKbd,
   BuiKbdGroup,
   BuiKnob,
   BuiLabel,
   BuiLink,
   BuiLoadingOverlay,
+  BuiMap,
   BuiMarkdownEditor,
   BuiMarquee,
   BuiMasonry,
@@ -182,6 +185,7 @@ import {
   BuiResizableHandle,
   BuiResizablePanel,
   BuiResizablePanelGroup,
+  BuiScheduler,
   BuiScrollArea,
   BuiScrollspy,
   BuiSegmentedControl,
@@ -448,6 +452,10 @@ const META: Record<string, { title: string; description: string }> = {
     title: 'Mention input',
     description: 'A textarea with @-mention suggestions.',
   },
+  map: { title: 'Map', description: 'A keyless OpenStreetMap embed.' },
+  gantt: { title: 'Gantt', description: 'A timeline of task bars over a date range.' },
+  scheduler: { title: 'Scheduler', description: 'A week/day calendar of events.' },
+  kanban: { title: 'Kanban', description: 'A drag-and-drop board of cards.' },
 };
 
 @Component({
@@ -688,6 +696,10 @@ const META: Record<string, { title: string; description: string }> = {
     BuiSonner,
     BuiNavigationMenu,
     BuiMentionInput,
+    BuiMap,
+    BuiGantt,
+    BuiScheduler,
+    BuiKanban,
   ],
   templateUrl: './components.html',
 })
@@ -713,6 +725,46 @@ export class ComponentPage {
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
   protected readonly view = signal('list');
+  protected readonly ganttTasks = [
+    { name: 'Research', start: '2026-01-01', end: '2026-01-06', progress: 100 },
+    {
+      name: 'Design',
+      start: '2026-01-05',
+      end: '2026-01-12',
+      progress: 60,
+      color: 'bg-violet-500',
+    },
+    { name: 'Build', start: '2026-01-10', end: '2026-01-24', progress: 25, color: 'bg-sky-500' },
+    {
+      name: 'Launch',
+      start: '2026-01-24',
+      end: '2026-01-28',
+      progress: 0,
+      color: 'bg-emerald-500',
+    },
+  ];
+  protected readonly schedulerEvents = [
+    { title: 'Standup', day: 0, start: '09:00', end: '09:30' },
+    { title: 'Design review', day: 1, start: '11:00', end: '12:30', color: 'bg-violet-500' },
+    { title: 'Lunch', day: 2, start: '12:00', end: '13:00', color: 'bg-emerald-600' },
+    { title: '1:1', day: 4, start: '15:00', end: '16:00', color: 'bg-sky-600' },
+  ];
+  protected readonly kanbanColumns = [
+    {
+      id: 'todo',
+      title: 'To do',
+      cards: [
+        { id: 'k1', title: 'Set up CI', tags: ['infra'] },
+        { id: 'k2', title: 'Write docs', tags: ['docs'], meta: 'Due Fri' },
+      ],
+    },
+    {
+      id: 'doing',
+      title: 'In progress',
+      cards: [{ id: 'k3', title: 'Port components', tags: ['feature'] }],
+    },
+    { id: 'done', title: 'Done', cards: [{ id: 'k4', title: 'Theme tokens' }] },
+  ];
   private readonly toaster = inject(BuiToaster);
   protected readonly maskValue = signal('');
   protected readonly sheetOpen = signal(false);
@@ -1597,5 +1649,17 @@ this.toaster.show({ title: 'Saved', tone: 'success' });`,
     mentionInput: `import { BuiMentionInput } from 'ng-blatui';
 
 <bui-mention-input [(value)]="text" [mentions]="people" />`,
+    map: `import { BuiMap } from 'ng-blatui';
+
+<bui-map [lat]="48.8584" [lon]="2.2945" label="Eiffel Tower" />`,
+    gantt: `import { BuiGantt } from 'ng-blatui';
+
+<bui-gantt [tasks]="tasks" />`,
+    scheduler: `import { BuiScheduler } from 'ng-blatui';
+
+<bui-scheduler [events]="events" [startHour]="8" [endHour]="18" />`,
+    kanban: `import { BuiKanban } from 'ng-blatui';
+
+<bui-kanban [columns]="columns" (changed)="save($event)" />`,
   };
 }

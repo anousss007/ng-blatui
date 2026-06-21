@@ -165,3 +165,7 @@ export * from './lib/sheet/sheet';
 export * from './lib/sonner/sonner';
 export * from './lib/navigation-menu/navigation-menu';
 export * from './lib/mention-input/mention-input';
+export * from './lib/map/map';
+export * from './lib/gantt/gantt';
+export * from './lib/scheduler/scheduler';
+export * from './lib/kanban/kanban';

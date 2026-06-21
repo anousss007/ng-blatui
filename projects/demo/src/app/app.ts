@@ -160,6 +160,10 @@ const COMPONENTS = [
   'sonner',
   'navigation-menu',
   'mention-input',
+  'map',
+  'gantt',
+  'scheduler',
+  'kanban',
 ];
 
 @Component({
