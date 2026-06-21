@@ -147,32 +147,110 @@
       </section>
     }
     @case ('dashboard') {
-      <div class="flex min-h-[560px] w-full overflow-hidden rounded-lg border">
-        <bui-sidebar>
-          <div class="px-2 pb-2 text-sm font-semibold">BlatUI</div>
+      <div class="flex min-h-[calc(100vh-7rem)] w-full">
+        <aside class="hidden w-56 shrink-0 flex-col border-r bg-muted/20 p-3 md:flex">
+          <div class="flex items-center gap-2 px-2 pb-4">
+            <span
+              class="grid size-7 place-items-center rounded-md bg-primary text-xs font-bold text-primary-foreground"
+              >B</span
+            >
+            <span class="font-semibold">BlatUI Cloud</span>
+          </div>
           <a buiSidebarMenuButton [isActive]="true" href="#">Overview</a>
           <a buiSidebarMenuButton href="#">Analytics</a>
+          <a buiSidebarMenuButton href="#">Customers</a>
           <a buiSidebarMenuButton href="#">Reports</a>
           <a buiSidebarMenuButton href="#">Team</a>
           <a buiSidebarMenuButton href="#">Settings</a>
-        </bui-sidebar>
-        <div class="flex-1 overflow-auto">
-          <header class="flex h-14 items-center gap-3 border-b px-4">
+        </aside>
+        <div class="min-w-0 flex-1">
+          <header class="flex h-14 items-center gap-3 border-b px-6">
             <h2 class="font-semibold">Overview</h2>
-            <bui-avatar class="ml-auto size-8 text-xs">JD</bui-avatar>
+            <input
+              buiInput
+              class="ml-auto hidden max-w-xs sm:block"
+              type="search"
+              placeholder="Search…"
+            />
+            <button buiButton size="sm">+ New</button>
+            <bui-avatar class="size-8 text-xs">JD</bui-avatar>
           </header>
           <div class="space-y-6 p-6">
-            <div class="grid gap-4 sm:grid-cols-3">
-              <bui-stat label="MRR" value="$24.5k" change="+9%" trend="up" />
-              <bui-stat label="Active users" value="8,210" change="+3%" trend="up" />
-              <bui-stat label="Tickets" value="42" change="-12%" trend="down" />
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <bui-stat
+                label="Revenue"
+                value="$45,231"
+                change="+20.1%"
+                trend="up"
+                caption="vs last month"
+              />
+              <bui-stat
+                label="Subscriptions"
+                value="2,350"
+                change="+18%"
+                trend="up"
+                caption="vs last month"
+              />
+              <bui-stat
+                label="Active users"
+                value="8,210"
+                change="+3.2%"
+                trend="up"
+                caption="this week"
+              />
+              <bui-stat
+                label="Churn"
+                value="2.4%"
+                change="-0.5%"
+                trend="down"
+                caption="vs last month"
+              />
+            </div>
+            <div class="grid gap-6 lg:grid-cols-3">
+              <div buiCard variant="sectioned" class="lg:col-span-2">
+                <div buiCardHeader>
+                  <h3 buiCardTitle>Revenue over time</h3>
+                  <p buiCardDescription>Last 30 days</p>
+                </div>
+                <div buiCardContent>
+                  <div class="flex h-48 items-end gap-1.5 rounded-md bg-muted/40 p-3">
+                    @for (h of dashBars; track $index) {
+                      <div class="flex-1 rounded-t bg-primary/70" [style.height.%]="h"></div>
+                    }
+                  </div>
+                </div>
+              </div>
+              <div buiCard variant="sectioned">
+                <div buiCardHeader><h3 buiCardTitle>Recent activity</h3></div>
+                <div buiCardContent class="space-y-4 text-sm">
+                  <div class="flex items-center gap-3">
+                    <bui-avatar class="size-7 text-xs">AL</bui-avatar>
+                    <div>
+                      <p class="font-medium">Ada created a project.</p>
+                      <p class="text-muted-foreground">2m ago</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <bui-avatar class="size-7 text-xs">GH</bui-avatar>
+                    <div>
+                      <p class="font-medium">Grace invited 3 teammates.</p>
+                      <p class="text-muted-foreground">1h ago</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <bui-avatar class="size-7 text-xs">AT</bui-avatar>
+                    <div>
+                      <p class="font-medium">Alan upgraded to Pro.</p>
+                      <p class="text-muted-foreground">3h ago</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div buiCard variant="sectioned">
-              <div buiCardHeader><h3 buiCardTitle>Recent activity</h3></div>
-              <div buiCardContent class="space-y-2 text-sm text-muted-foreground">
-                <p>Ada created a new project.</p>
-                <p>Grace invited 3 teammates.</p>
-                <p>Alan upgraded to the Team plan.</p>
+              <div buiCardHeader><h3 buiCardTitle>Recent deals</h3></div>
+              <div buiCardContent>
+                <bui-data-table [columns]="crmColumns" [rows]="crmRows" [pageSize]="4" />
               </div>
             </div>
           </div>
@@ -612,97 +690,274 @@
       </div>
     }
     @case ('account') {
-      <div class="grid w-full gap-6 rounded-lg border p-6 md:grid-cols-[12rem_1fr]">
-        <nav class="flex flex-col gap-1">
-          <a buiSidebarMenuButton [isActive]="true" href="#">Profile</a>
-          <a buiSidebarMenuButton href="#">Account</a>
-          <a buiSidebarMenuButton href="#">Notifications</a>
-          <a buiSidebarMenuButton href="#">Billing</a>
-        </nav>
-        <div buiCard variant="sectioned">
-          <div buiCardHeader>
-            <h3 buiCardTitle>Profile</h3>
-            <p buiCardDescription>Update your personal information.</p>
-          </div>
-          <div buiCardContent>
-            <form class="flex flex-col gap-6">
-              <div buiField>
-                <label buiFieldLabel for="ac-name">Name</label>
-                <input id="ac-name" buiInput value="Jane Doe" />
+      <div class="mx-auto max-w-5xl px-6 py-10">
+        <header class="mb-8">
+          <h1 class="text-3xl font-bold tracking-tight">Settings</h1>
+          <p class="mt-1 text-muted-foreground">Manage your account settings and preferences.</p>
+        </header>
+        <div class="grid gap-8 md:grid-cols-[12rem_1fr]">
+          <nav class="flex flex-row gap-1 overflow-x-auto md:flex-col">
+            <a buiSidebarMenuButton [isActive]="true" href="#">Profile</a>
+            <a buiSidebarMenuButton href="#">Account</a>
+            <a buiSidebarMenuButton href="#">Notifications</a>
+            <a buiSidebarMenuButton href="#">Billing</a>
+          </nav>
+          <div class="space-y-6">
+            <div buiCard variant="sectioned">
+              <div buiCardHeader>
+                <h3 buiCardTitle>Profile</h3>
+                <p buiCardDescription>This is how others will see you.</p>
               </div>
-              <div buiField>
-                <label buiFieldLabel for="ac-email">Email</label>
-                <input id="ac-email" buiInput type="email" value="jane&#64;example.com" />
+              <div buiCardContent>
+                <form class="flex flex-col gap-5">
+                  <div class="flex items-center gap-4">
+                    <bui-avatar class="size-16 text-lg">JD</bui-avatar>
+                    <button buiButton variant="outline" size="sm" type="button">
+                      Change avatar
+                    </button>
+                  </div>
+                  <div buiField>
+                    <label buiFieldLabel for="ac-name">Name</label
+                    ><input id="ac-name" buiInput value="Jane Doe" />
+                  </div>
+                  <div buiField>
+                    <label buiFieldLabel for="ac-email">Email</label
+                    ><input id="ac-email" buiInput type="email" value="jane&#64;example.com" />
+                  </div>
+                  <div buiField>
+                    <label buiFieldLabel for="ac-bio">Bio</label
+                    ><input id="ac-bio" buiInput value="Product designer & cat person." />
+                  </div>
+                  <div><button buiButton type="submit">Save changes</button></div>
+                </form>
               </div>
-              <div class="flex gap-3">
-                <button buiButton type="submit">Save changes</button>
-                <button buiButton variant="outline" type="button">Cancel</button>
+            </div>
+
+            <div buiCard variant="sectioned">
+              <div buiCardHeader>
+                <h3 buiCardTitle>Password</h3>
+                <p buiCardDescription>Update your password.</p>
               </div>
-            </form>
+              <div buiCardContent>
+                <form class="flex flex-col gap-5">
+                  <div buiField>
+                    <label buiFieldLabel for="ac-cur">Current password</label
+                    ><input id="ac-cur" buiInput type="password" />
+                  </div>
+                  <div buiField>
+                    <label buiFieldLabel for="ac-new">New password</label
+                    ><input id="ac-new" buiInput type="password" />
+                  </div>
+                  <div><button buiButton type="submit">Update password</button></div>
+                </form>
+              </div>
+            </div>
+
+            <div buiCard variant="sectioned" class="border-destructive/40">
+              <div buiCardHeader>
+                <h3 buiCardTitle class="text-destructive">Danger zone</h3>
+                <p buiCardDescription>Permanently delete your account and all data.</p>
+              </div>
+              <div buiCardContent>
+                <button buiButton variant="destructive">Delete account</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     }
     @case ('agency') {
-      <div class="w-full overflow-hidden rounded-lg border">
-        <header class="flex h-16 items-center gap-6 border-b px-6">
-          <span class="font-semibold">Studio</span>
-          <nav class="ml-auto hidden items-center gap-1 text-sm md:flex">
+      <header class="border-b">
+        <div class="mx-auto flex h-16 max-w-6xl items-center gap-6 px-6">
+          <span class="text-lg font-bold tracking-tight"
+            >Studio<span class="text-primary">.</span></span
+          >
+          <nav class="ml-4 hidden items-center gap-1 text-sm md:flex">
             <a buiButton variant="ghost" size="sm" href="#">Work</a>
+            <a buiButton variant="ghost" size="sm" href="#">Services</a>
             <a buiButton variant="ghost" size="sm" href="#">About</a>
-            <a buiButton size="sm" href="#">Contact</a>
           </nav>
-        </header>
-        <div class="mx-auto max-w-3xl px-6 py-16 text-center">
-          <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">We design brands that move</h1>
-          <p class="mx-auto mt-5 max-w-xl text-lg text-muted-foreground">
-            A creative studio crafting identity, web and product experiences.
-          </p>
-          <a buiButton size="lg" class="mt-7" href="#">Start a project</a>
+          <a buiButton size="sm" class="ml-auto" href="#">Start a project</a>
         </div>
-        <div class="grid gap-6 border-t p-8 sm:grid-cols-3">
+      </header>
+
+      <section class="mx-auto max-w-4xl px-6 py-24 text-center">
+        <span buiBadge variant="secondary" class="rounded-full">Creative studio</span>
+        <h1 class="mt-5 text-5xl font-bold tracking-tight text-balance sm:text-6xl">
+          We design brands that move
+        </h1>
+        <p class="mx-auto mt-6 max-w-xl text-lg text-pretty text-muted-foreground">
+          A small studio crafting identity, web and product experiences for ambitious teams.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <a buiButton size="lg" href="#">Start a project</a>
+          <a buiButton size="lg" variant="outline" href="#">View our work</a>
+        </div>
+      </section>
+
+      <section class="border-y bg-muted/30">
+        <div class="mx-auto grid max-w-5xl gap-8 px-6 py-14 text-center sm:grid-cols-3">
+          <div>
+            <div class="text-4xl font-bold">120+</div>
+            <p class="mt-1 text-sm text-muted-foreground">Projects shipped</p>
+          </div>
+          <div>
+            <div class="text-4xl font-bold">14</div>
+            <p class="mt-1 text-sm text-muted-foreground">Awards won</p>
+          </div>
+          <div>
+            <div class="text-4xl font-bold">9 yrs</div>
+            <p class="mt-1 text-sm text-muted-foreground">In business</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-6xl px-6 py-20">
+        <h2 class="text-3xl font-bold tracking-tight">What we do</h2>
+        <div class="mt-10 grid gap-6 sm:grid-cols-3">
           <div buiCard variant="sectioned">
             <div buiCardHeader>
               <h3 buiCardTitle>Branding</h3>
-              <p buiCardDescription>Identity & strategy.</p>
+              <p buiCardDescription>Identity, strategy and guidelines that scale.</p>
             </div>
           </div>
           <div buiCard variant="sectioned">
             <div buiCardHeader>
               <h3 buiCardTitle>Web</h3>
-              <p buiCardDescription>Sites & platforms.</p>
+              <p buiCardDescription>Marketing sites and platforms that convert.</p>
             </div>
           </div>
           <div buiCard variant="sectioned">
             <div buiCardHeader>
               <h3 buiCardTitle>Product</h3>
-              <p buiCardDescription>Apps & design systems.</p>
+              <p buiCardDescription>Apps and design systems built to last.</p>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      <section class="mx-auto max-w-6xl px-6 pb-20">
+        <h2 class="text-3xl font-bold tracking-tight">Selected work</h2>
+        <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+            <div class="group overflow-hidden rounded-xl border">
+              <div
+                class="grid aspect-[4/3] place-items-center bg-muted text-sm transition-transform group-hover:scale-105"
+              >
+                <span class="text-muted-foreground">Case study {{ i }}</span>
+              </div>
+              <div class="flex items-center justify-between p-4 text-sm">
+                <span class="font-medium">Project {{ i }}</span
+                ><span class="text-muted-foreground">Branding</span>
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+
+      <section class="border-t bg-gradient-to-b from-primary/10 to-transparent">
+        <div class="mx-auto max-w-3xl px-6 py-20 text-center">
+          <h2 class="text-3xl font-bold tracking-tight">Have a project in mind?</h2>
+          <p class="mx-auto mt-3 max-w-lg text-muted-foreground">
+            Let's make something memorable together.
+          </p>
+          <a buiButton size="lg" class="mt-7" href="#">Get in touch</a>
+        </div>
+      </section>
+
+      <footer class="border-t">
+        <div class="mx-auto max-w-6xl px-6 py-8 text-sm text-muted-foreground">
+          © 2026 Studio. All rights reserved.
+        </div>
+      </footer>
     }
     @case ('startup') {
-      <div class="w-full overflow-hidden rounded-lg border">
-        <div class="mx-auto max-w-3xl px-6 py-16 text-center">
-          <span buiBadge variant="secondary" class="rounded-full">Now in beta</span>
-          <h1 class="mt-4 text-4xl font-bold tracking-tight sm:text-5xl">
+      <header class="border-b">
+        <div class="mx-auto flex h-16 max-w-5xl items-center gap-4 px-6">
+          <span class="text-lg font-bold">Launchpad</span>
+          <a buiButton size="sm" class="ml-auto" href="#">Get early access</a>
+        </div>
+      </header>
+
+      <section class="bg-gradient-to-b from-primary/5 to-transparent">
+        <div class="mx-auto max-w-3xl px-6 py-24 text-center">
+          <span buiBadge variant="secondary" class="rounded-full">✦ Now in beta</span>
+          <h1 class="mt-5 text-5xl font-bold tracking-tight text-balance sm:text-6xl">
             Launch your idea this week
           </h1>
-          <p class="mx-auto mt-5 max-w-xl text-lg text-muted-foreground">
-            Everything you need to go from zero to launch.
+          <p class="mx-auto mt-6 max-w-xl text-lg text-pretty text-muted-foreground">
+            Everything you need to go from zero to launch — auth, payments, and a polished UI out of
+            the box.
           </p>
-          <div class="mt-7 flex items-center justify-center gap-3">
+          <div class="mt-8 flex flex-wrap justify-center gap-3">
             <a buiButton size="lg" href="#">Get early access</a>
             <a buiButton size="lg" variant="outline" href="#">See how it works</a>
           </div>
         </div>
-        <div class="grid gap-4 border-t p-8 sm:grid-cols-3">
-          <bui-stat label="Teams" value="2,400+" />
-          <bui-stat label="Uptime" value="99.99%" />
-          <bui-stat label="Countries" value="60" />
+      </section>
+
+      <section class="border-y bg-muted/30">
+        <div class="mx-auto grid max-w-5xl gap-8 px-6 py-14 text-center sm:grid-cols-3">
+          <div>
+            <div class="text-4xl font-bold">2,400+</div>
+            <p class="mt-1 text-sm text-muted-foreground">Teams</p>
+          </div>
+          <div>
+            <div class="text-4xl font-bold">99.99%</div>
+            <p class="mt-1 text-sm text-muted-foreground">Uptime</p>
+          </div>
+          <div>
+            <div class="text-4xl font-bold">60</div>
+            <p class="mt-1 text-sm text-muted-foreground">Countries</p>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <section class="mx-auto max-w-6xl px-6 py-20">
+        <div class="mx-auto max-w-2xl text-center">
+          <h2 class="text-3xl font-bold tracking-tight">Built to help you move fast</h2>
+          <p class="mt-3 text-muted-foreground">
+            Skip the boilerplate and focus on what makes your product unique.
+          </p>
+        </div>
+        <div class="mt-12 grid gap-6 sm:grid-cols-3">
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <div class="mb-2 text-2xl">🔐</div>
+              <h3 buiCardTitle>Auth ready</h3>
+              <p buiCardDescription>Email, social and SSO in minutes.</p>
+            </div>
+          </div>
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <div class="mb-2 text-2xl">💳</div>
+              <h3 buiCardTitle>Payments</h3>
+              <p buiCardDescription>Subscriptions and one-off billing.</p>
+            </div>
+          </div>
+          <div buiCard variant="sectioned">
+            <div buiCardHeader>
+              <div class="mb-2 text-2xl">🎨</div>
+              <h3 buiCardTitle>Polished UI</h3>
+              <p buiCardDescription>Accessible components, theme-ready.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mx-auto max-w-3xl px-6 pb-24 text-center">
+        <h2 class="text-3xl font-bold tracking-tight">Be first in line</h2>
+        <div class="mx-auto mt-6 flex w-full max-w-sm items-center gap-2">
+          <input buiInput type="email" placeholder="you@example.com" />
+          <button buiButton>Join waitlist</button>
+        </div>
+      </section>
+
+      <footer class="border-t">
+        <div class="mx-auto max-w-6xl px-6 py-8 text-sm text-muted-foreground">
+          © 2026 Launchpad.
+        </div>
+      </footer>
     }
     @case ('event') {
       <div class="w-full space-y-8 rounded-lg border p-8 text-center">

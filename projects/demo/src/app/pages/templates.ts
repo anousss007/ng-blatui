@@ -138,6 +138,7 @@ export class TemplatesPage {
     { title: 'Theming with design tokens', tag: 'Design', author: 'Alan', initials: 'AT' },
     { title: 'Shipping a component library', tag: 'Product', author: 'Edsger', initials: 'ED' },
   ];
+  protected readonly dashBars = [40, 55, 35, 60, 50, 72, 58, 80, 65, 90, 75, 95];
   protected readonly pricingPlans = [
     {
       name: 'Free',
