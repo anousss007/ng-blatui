@@ -37,10 +37,20 @@ import { type ClassValue, cn } from '../utils/cn';
     </button>
     @if (open()) {
       <div class="absolute z-50 mt-1 rounded-lg border bg-popover shadow-md">
-        <bui-calendar [value]="datePart()" (valueChange)="onDate($event)" />
+        <bui-calendar
+          [value]="datePart()"
+          [minDate]="minDate()"
+          [maxDate]="maxDate()"
+          [captionLayout]="captionLayout()"
+          (valueChange)="onDate($event)"
+        />
         <div class="flex items-center gap-2 border-t p-2">
           <span class="text-xs text-muted-foreground">Time</span>
-          <bui-time-field [value]="timePart()" (valueChange)="onTime($event)" />
+          <bui-time-field
+            [value]="timePart()"
+            [seconds]="seconds()"
+            (valueChange)="onTime($event)"
+          />
         </div>
       </div>
     }
@@ -49,6 +59,10 @@ import { type ClassValue, cn } from '../utils/cn';
 export class BuiDatetimePicker {
   readonly value = model('');
   readonly placeholder = input('Pick date & time');
+  readonly minDate = input('');
+  readonly maxDate = input('');
+  readonly captionLayout = input<'label' | 'dropdown'>('label');
+  readonly seconds = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);

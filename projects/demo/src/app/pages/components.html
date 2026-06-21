@@ -8210,6 +8210,26 @@ This content is read-only and cannot be edited.</textarea
           placeholder="Pick date &amp; time…"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Min / max</h2>
+      <app-example [code]="code.datetimePickerMinMax">
+        <bui-datetime-picker
+          class="w-64"
+          [(value)]="dtmValue"
+          minDate="2026-06-01"
+          maxDate="2026-06-30"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With seconds</h2>
+      <app-example [code]="code.datetimePickerSeconds">
+        <bui-datetime-picker class="w-64" [(value)]="dtmValue" [seconds]="true" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Dropdown caption</h2>
+      <app-example [code]="code.datetimePickerSelect">
+        <bui-datetime-picker class="w-64" [(value)]="dtmValue" captionLayout="dropdown" />
+      </app-example>
     }
     @case ('autocomplete') {
       <app-example [code]="code.autocomplete">

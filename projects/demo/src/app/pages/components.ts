@@ -3113,6 +3113,11 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 
 <bui-datetime-picker [(value)]="when" />`,
     datetimePickerPlaceholder: `<bui-datetime-picker [(value)]="when" placeholder="Pick date & time…" />`,
+    datetimePickerMinMax: `<!-- min/max forward to the inner calendar -->
+<bui-datetime-picker [(value)]="when" minDate="2026-06-01" maxDate="2026-06-30" />`,
+    datetimePickerSeconds: `<!-- [seconds]="true" forwards to the time field -->
+<bui-datetime-picker [(value)]="when" [seconds]="true" />`,
+    datetimePickerSelect: `<bui-datetime-picker [(value)]="when" captionLayout="dropdown" />`,
     autocomplete: `import { BuiAutocomplete } from 'ng-blatui';
 
 <bui-autocomplete [(value)]="value" [options]="frameworks" />`,
