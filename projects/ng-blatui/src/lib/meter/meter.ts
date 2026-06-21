@@ -49,6 +49,8 @@ export class BuiMeter {
   readonly max = input(100);
   readonly label = input<string | null>(null);
   readonly tone = input<keyof typeof TONES>('default');
+  /** Auto-pick the fill tone by value: the highest threshold whose `at` ≤ value wins. */
+  readonly thresholds = input<readonly { at: number; tone: keyof typeof TONES }[]>([]);
   readonly showValue = input(true);
   readonly unit = input('%');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
@@ -61,6 +63,18 @@ export class BuiMeter {
     return ((this.clamped() - this.min()) / range) * 100;
   });
   protected readonly valueText = computed(() => `${this.value()}${this.unit()}`);
-  protected readonly fillClass = computed(() => TONES[this.tone()]);
+  protected readonly fillClass = computed(() => {
+    const value = this.clamped();
+    let tone = this.tone();
+    let best = -Infinity;
+    for (const threshold of this.thresholds()) {
+      if (value < threshold.at || threshold.at < best) {
+        continue;
+      }
+      best = threshold.at;
+      tone = threshold.tone;
+    }
+    return TONES[tone];
+  });
   protected readonly computedClass = computed(() => cn('grid w-full gap-1.5', this.userClass()));
 }

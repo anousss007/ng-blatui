@@ -1797,6 +1797,15 @@ This content is read-only and cannot be edited.</textarea
           <bui-progress [value]="60" ariaLabel="Upload progress" />
         </div>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Circular</h2>
+      <app-example [code]="code.progressCircular">
+        <div class="flex items-center gap-6">
+          <bui-progress [value]="25" [circular]="true" />
+          <bui-progress [value]="66" [circular]="true" [size]="56" [thickness]="6" />
+          <bui-progress [value]="100" [circular]="true" [size]="72" [thickness]="8" />
+        </div>
+      </app-example>
     }
     @case ('checkbox') {
       <app-example [code]="code.checkbox">
@@ -5529,6 +5538,15 @@ This content is read-only and cannot be edited.</textarea
           <bui-meter [value]="32" label="Disk usage" tone="good" />
           <bui-meter [value]="78" label="Memory" tone="warning" />
           <bui-meter [value]="94" label="Quota" tone="danger" />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Thresholds</h2>
+      <app-example [code]="code.meterThresholdsEx">
+        <div class="flex w-full max-w-sm flex-col gap-4">
+          <bui-meter [value]="42" label="CPU" [thresholds]="meterThresholds" />
+          <bui-meter [value]="73" label="Memory" [thresholds]="meterThresholds" />
+          <bui-meter [value]="91" label="Disk" [thresholds]="meterThresholds" />
         </div>
       </app-example>
     }

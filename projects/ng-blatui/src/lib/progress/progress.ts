@@ -19,7 +19,36 @@ import { type ClassValue, cn } from '../utils/cn';
     '[class]': 'computedClass()',
   },
   template: `
-    @if (indeterminate()) {
+    @if (circular()) {
+      <svg
+        [attr.width]="size()"
+        [attr.height]="size()"
+        [attr.viewBox]="'0 0 ' + size() + ' ' + size()"
+        class="-rotate-90"
+        aria-hidden="true"
+      >
+        <circle
+          [attr.cx]="size() / 2"
+          [attr.cy]="size() / 2"
+          [attr.r]="radius()"
+          [attr.stroke-width]="thickness()"
+          fill="none"
+          class="stroke-primary/20"
+        />
+        <circle
+          data-slot="progress-indicator"
+          [attr.cx]="size() / 2"
+          [attr.cy]="size() / 2"
+          [attr.r]="radius()"
+          [attr.stroke-width]="thickness()"
+          [attr.stroke-dasharray]="circumference()"
+          [attr.stroke-dashoffset]="dashOffset()"
+          fill="none"
+          stroke-linecap="round"
+          class="stroke-primary transition-all"
+        />
+      </svg>
+    } @else if (indeterminate()) {
       <span
         data-slot="progress-indicator"
         class="absolute inset-y-0 w-2/5 animate-progress-indeterminate rounded-full bg-primary"
@@ -36,6 +65,12 @@ import { type ClassValue, cn } from '../utils/cn';
 export class BuiProgress {
   readonly value = input(0);
   readonly indeterminate = input(false);
+  /** Render a circular ring instead of a linear bar. */
+  readonly circular = input(false);
+  /** Diameter of the circular ring, in pixels. */
+  readonly size = input(40);
+  /** Stroke width of the circular ring, in pixels. */
+  readonly thickness = input(4);
   readonly ariaLabel = input('Progress');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
@@ -43,7 +78,15 @@ export class BuiProgress {
   protected readonly rounded = computed(() => Math.round(this.pct()));
   protected readonly valueText = computed(() => `${this.rounded()}%`);
   protected readonly indicatorTransform = computed(() => `translateX(-${100 - this.pct()}%)`);
+  protected readonly radius = computed(() => (this.size() - this.thickness()) / 2);
+  protected readonly circumference = computed(() => 2 * Math.PI * this.radius());
+  protected readonly dashOffset = computed(() => this.circumference() * (1 - this.pct() / 100));
   protected readonly computedClass = computed(() =>
-    cn('relative block h-2 w-full overflow-hidden rounded-full bg-primary/20', this.userClass()),
+    cn(
+      this.circular()
+        ? 'inline-block'
+        : 'relative block h-2 w-full overflow-hidden rounded-full bg-primary/20',
+      this.userClass(),
+    ),
   );
 }

@@ -1097,6 +1097,11 @@ export class ComponentPage {
   protected readonly toggleView = signal<ToggleValue>('grid');
   protected readonly toggleSizeVal = signal<ToggleValue>('center');
   protected readonly colorChoice = signal('black');
+  protected readonly meterThresholds = [
+    { at: 0, tone: 'good' as const },
+    { at: 60, tone: 'warning' as const },
+    { at: 85, tone: 'danger' as const },
+  ];
   protected readonly variantColors = [
     { value: 'black', label: 'Black', color: '#18181b' },
     { value: 'blue', label: 'Blue', color: '#2563eb' },
@@ -1663,6 +1668,8 @@ export class ComponentPage {
     progressColors: `<!-- recolor track + indicator via classes -->
 <bui-progress class="bg-success/20 *:data-[slot=progress-indicator]:bg-success" [value]="72" ariaLabel="Success" />`,
     progressIndeterminate: `<bui-progress [indeterminate]="true" ariaLabel="Loading" />`,
+    progressCircular: `<!-- circular ring; tune size + thickness -->
+<bui-progress [value]="66" [circular]="true" [size]="56" [thickness]="6" />`,
     progressWithLabel: `<div class="flex justify-between text-sm">
   <span class="font-medium">Uploading…</span><span class="tabular-nums">60%</span>
 </div>
@@ -2292,6 +2299,9 @@ this.dialog.open(tpl, { ariaModal: true });`,
 <bui-meter [value]="32" label="Disk usage" tone="good" />
 <bui-meter [value]="78" label="Memory" tone="warning" />
 <bui-meter [value]="94" label="Quota" tone="danger" />`,
+    meterThresholdsEx: `<!-- auto-colour by value: highest threshold whose 'at' <= value wins -->
+<bui-meter [value]="91" label="Disk" [thresholds]="thresholds" />
+// thresholds = [{ at: 0, tone: 'good' }, { at: 60, tone: 'warning' }, { at: 85, tone: 'danger' }]`,
     stat: `import { BuiStat } from 'ng-blatui';
 
 <bui-stat label="Total Revenue" value="$45,231.89" />`,
