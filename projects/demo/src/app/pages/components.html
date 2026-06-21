@@ -261,6 +261,38 @@
           </svg>
         </button>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Icon before &amp; after</h2>
+      <app-example [code]="code.buttonBeforeAfter">
+        <button buiButton variant="outline">
+          <svg
+            class="size-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect width="18" height="18" x="3" y="3" rx="2" />
+            <path d="M9 3v18M3 9h6" />
+          </svg>
+          Dashboard
+          <svg
+            class="size-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </button>
+      </app-example>
     }
     @case ('badge') {
       <app-example [code]="code.badge">
@@ -1666,6 +1698,17 @@ This content is read-only and cannot be edited.</textarea
             class="absolute -end-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-xs font-medium text-primary-foreground tabular-nums"
             >3</span
           >
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Hover group</h2>
+      <app-example [code]="code.avatarHoverGroup">
+        <div class="flex -space-x-3 transition-all hover:space-x-1">
+          @for (a of ['JD', 'AL', 'GH', 'SC']; track a) {
+            <bui-avatar class="size-9 text-xs ring-2 ring-background transition-all">{{
+              a
+            }}</bui-avatar>
+          }
         </div>
       </app-example>
     }
@@ -3921,6 +3964,15 @@ This content is read-only and cannot be edited.</textarea
           </div>
         </div>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.kbdSizes">
+        <div class="flex items-center gap-3">
+          <kbd buiKbd class="text-[10px]">Esc</kbd>
+          <kbd buiKbd>Esc</kbd>
+          <kbd buiKbd class="px-2 py-1 text-sm">Esc</kbd>
+        </div>
+      </app-example>
     }
     @case ('aspect-ratio') {
       <app-example [code]="code.aspectRatio">
@@ -4559,6 +4611,24 @@ This content is read-only and cannot be edited.</textarea
           <bui-spinner class="size-4" />
           Please wait
         </button>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Custom icon</h2>
+      <app-example [code]="code.spinnerCustomIcon">
+        <svg
+          class="size-6 animate-spin text-primary"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path
+            d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"
+          />
+        </svg>
       </app-example>
     }
     @case ('copy-button') {

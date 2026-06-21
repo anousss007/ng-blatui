@@ -1250,6 +1250,18 @@ export class ComponentPage {
 <button buiButton size="lg">Large</button>`,
     buttonIcon: `<button buiButton variant="outline"><svg><!-- mail --></svg> Login with Email</button>
 <button buiButton><svg><!-- download --></svg> Download</button>`,
+    buttonBeforeAfter: `<button buiButton variant="outline">
+  <svg><!-- leading --></svg> Dashboard <svg><!-- trailing --></svg>
+</button>`,
+    avatarHoverGroup: `<!-- overlap, then spread on hover -->
+<div class="flex -space-x-3 transition-all hover:space-x-1">
+  <bui-avatar class="ring-2 ring-background transition-all">JD</bui-avatar>
+</div>`,
+    kbdSizes: `<kbd buiKbd class="text-[10px]">Esc</kbd>
+<kbd buiKbd>Esc</kbd>
+<kbd buiKbd class="px-2 py-1 text-sm">Esc</kbd>`,
+    spinnerCustomIcon: `<!-- any svg + animate-spin -->
+<svg class="size-6 animate-spin text-primary"><!-- custom icon --></svg>`,
     buttonLoading: `<button buiButton disabled>
   <svg class="animate-spin"><!-- spinner --></svg> Please wait
 </button>`,
