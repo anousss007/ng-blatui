@@ -1012,6 +1012,12 @@ export class ComponentPage {
     { name: 'Grace Hopper' },
     { name: 'Linus Torvalds' },
   ];
+  protected readonly teamImg = [
+    { name: 'Ada Lovelace', src: 'https://i.pravatar.cc/64?img=1' },
+    { name: 'Alan Turing', src: 'https://i.pravatar.cc/64?img=2' },
+    { name: 'Grace Hopper', src: 'https://i.pravatar.cc/64?img=3' },
+    { name: 'Linus Torvalds', src: 'https://i.pravatar.cc/64?img=4' },
+  ];
 
   protected openDialog(): void {
     this.dialog.open(this.dialogTpl(), { ariaModal: true });
@@ -1658,10 +1664,15 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 </button>`,
     copyButton: `import { BuiCopyButton } from 'ng-blatui';
 
-<button buiCopyButton value="npm i ng-blatui" label="Copy command">Copy</button>`,
+<code class="bg-muted rounded px-2 py-1 font-mono text-sm">npm i ng-blatui</code>
+<button buiCopyButton value="npm i ng-blatui" label="Copy command"></button>`,
+    copyButtonLabel: `<button buiCopyButton value="https://…" class="border" label="Copy link">Copy link</button>`,
     banner: `import { BuiBanner } from 'ng-blatui';
 
-<bui-banner tone="info">New version available — refresh to update.</bui-banner>`,
+<bui-banner tone="primary" class="rounded-lg">🎉 ng-blatui — accessible Angular components.</bui-banner>`,
+    bannerTones: `<!-- tone="primary | info | success | warning | danger | default" -->
+<bui-banner tone="success">Your plan was upgraded to Pro.</bui-banner>
+<bui-banner tone="warning">Your trial ends in 3 days.</bui-banner>`,
     table: `import {
   BuiTableContainer, BuiTable, BuiTableHeader, BuiTableBody, BuiTableRow, BuiTableHead, BuiTableCell,
 } from 'ng-blatui';
@@ -1690,6 +1701,10 @@ open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
 
 <bui-avatar-group [avatars]="team" [max]="3" />
 // team = [{ name: 'Ada Lovelace' }, { name: 'Alan Turing' }, ...]`,
+    avatarGroupImages: `<bui-avatar-group [avatars]="team" [max]="3" />
+// team = [{ name: 'Ada', src: '/a.png' }, ...]`,
+    avatarGroupSizes: `<bui-avatar-group [avatars]="team" [max]="4" size="sm" />
+<bui-avatar-group [avatars]="team" [max]="4" size="lg" />`,
     pagination: `import {
   BuiPagination, BuiPaginationContent, BuiPaginationItem, BuiPaginationLink, BuiPaginationEllipsis,
 } from 'ng-blatui';
@@ -1910,6 +1925,16 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 
 <h1 buiTypography variant="h1">The quick brown fox</h1>
 <p buiTypography variant="lead">A modern Angular UI library.</p>`,
+    typographyHeadings: `<h1 buiTypography variant="h1">Heading 1</h1>
+<h2 buiTypography variant="h2">Heading 2</h2>
+<h3 buiTypography variant="h3">Heading 3</h3>`,
+    typographyText: `<p buiTypography variant="lead">Lead paragraph.</p>
+<p buiTypography variant="large">Large</p>
+<p buiTypography variant="small">Small</p>
+<p buiTypography variant="muted">Muted</p>`,
+    typographyBlockquote: `<blockquote buiTypography variant="blockquote">"…quote…"</blockquote>`,
+    typographyList: `<ul buiTypography variant="list"><li>Item one</li><li>Item two</li></ul>`,
+    typographyGradient: `<h1 buiTypography variant="gradient">Dawn light in a single line</h1>`,
     menubar: `import {
   MenuBar, Menu, MenuItem, MenuTrigger,
   BuiMenubar, BuiMenubarTrigger, BuiDropdownMenu, BuiDropdownMenuItem,
@@ -1980,9 +2005,17 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 
 <a buiLink href="/docs">Documentation</a>
 <a buiLink variant="muted" [external]="true" href="https://angular.dev">Angular</a>`,
+    linkVariants: `<a buiLink href="#">Default</a>
+<a buiLink href="#" variant="muted">Muted</a>
+<a buiLink href="#" variant="subtle">Subtle</a>
+<a buiLink href="#" [external]="true">External</a>`,
     gradientText: `import { BuiGradientText } from 'ng-blatui';
 
-<bui-gradient-text preset="brand" class="text-3xl">Gradient text</bui-gradient-text>`,
+<bui-gradient-text>Build delightful interfaces</bui-gradient-text>`,
+    gradientTextPresets: `<bui-gradient-text preset="sunset">Sunset</bui-gradient-text>
+<bui-gradient-text preset="ocean">Ocean</bui-gradient-text>`,
+    gradientTextAnimated: `<bui-gradient-text [animate]="true" from="#06b6d4" via="#8b5cf6" to="#ec4899">Shimmering text</bui-gradient-text>`,
+    gradientTextInline: `Ship with <bui-gradient-text preset="aurora">ng-blatui</bui-gradient-text> today.`,
     pageHeader: `import { BuiPageHeader } from 'ng-blatui';
 
 <bui-page-header heading="Settings" description="Manage your account.">
@@ -1993,9 +2026,15 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-quote author="Ada Lovelace" role="Mathematician">
   That brain of mine is something more than merely mortal.
 </bui-quote>`,
+    quotePlain: `<bui-quote class="text-center">
+  Design is how it works.
+</bui-quote>`,
     price: `import { BuiPrice } from 'ng-blatui';
 
-<bui-price [amount]="19.99" [compareAt]="29.99" size="lg" />`,
+<bui-price [amount]="29" />`,
+    priceSale: `<bui-price [amount]="29" [compareAt]="39" />`,
+    priceSizes: `<bui-price [amount]="29" [compareAt]="39" size="sm" />
+<bui-price [amount]="29" [compareAt]="39" size="lg" />`,
     stack: `import { BuiStack } from 'ng-blatui';
 
 <div buiStack direction="row" gap="3">…</div>`,
@@ -2009,7 +2048,14 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <kbd buiKbdGroup><kbd buiKbd>⌘</kbd><kbd buiKbd>K</kbd></kbd>`,
     presence: `import { BuiPresence } from 'ng-blatui';
 
-<bui-presence status="online" [pulse]="true" [showLabel]="true" />`,
+<bui-presence status="online" [showLabel]="true" />
+<bui-presence status="away" [showLabel]="true" />
+<bui-presence status="busy" [showLabel]="true" />`,
+    presencePulse: `<bui-presence status="online" [pulse]="true" [showLabel]="true" />`,
+    presenceAvatar: `<div class="relative inline-flex">
+  <bui-avatar class="size-12" src="/u.png" alt="">CN</bui-avatar>
+  <span class="absolute end-0 bottom-0"><bui-presence status="online" [pulse]="true" /></span>
+</div>`,
     timeline: `import { BuiTimeline, BuiTimelineItem } from 'ng-blatui';
 
 <ol buiTimeline>
@@ -2021,6 +2067,12 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <dl buiDescriptionList [bordered]="true">
   <bui-description-item term="Plan">Pro</bui-description-item>
   <bui-description-item term="Seats">5</bui-description-item>
+</dl>`,
+    descriptionListBordered: `<dl buiDescriptionList [bordered]="true">
+  <bui-description-item term="Invoice">#INV-2048</bui-description-item>
+</dl>`,
+    descriptionListVertical: `<dl buiDescriptionList layout="vertical">
+  <bui-description-item term="Shipping address">128 Maple Street…</bui-description-item>
 </dl>`,
     masonry: `import { BuiMasonry } from 'ng-blatui';
 

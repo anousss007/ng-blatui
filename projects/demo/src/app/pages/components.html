@@ -3076,14 +3076,53 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('copy-button') {
       <app-example [code]="code.copyButton">
-        <button buiCopyButton value="npm i ng-blatui" label="Copy command">Copy</button>
+        <div class="flex items-center gap-2">
+          <code class="rounded bg-muted px-2 py-1 font-mono text-sm">npm i ng-blatui</code>
+          <button
+            buiCopyButton
+            value="npm i ng-blatui"
+            label="Copy command"
+            aria-label="Copy command"
+          ></button>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With label</h2>
+      <app-example [code]="code.copyButtonLabel">
+        <button
+          buiCopyButton
+          value="https://ngblatui.remix-it.com"
+          class="border"
+          label="Copy link"
+        >
+          Copy link
+        </button>
       </app-example>
     }
     @case ('banner') {
       <app-example [code]="code.banner">
-        <bui-banner tone="info" class="rounded-md border">
-          New version available — refresh to update.
+        <bui-banner tone="primary" class="rounded-lg">
+          <span>🎉 ng-blatui — accessible Angular components, copy &amp; paste.</span>
+          <a href="#" class="font-medium underline underline-offset-2">Read more</a>
         </bui-banner>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Tones</h2>
+      <app-example [code]="code.bannerTones">
+        <div class="flex w-full flex-col gap-2">
+          <bui-banner tone="info" class="rounded-md border"
+            >Heads up — scheduled maintenance tonight at 2am UTC.</bui-banner
+          >
+          <bui-banner tone="success" class="rounded-md border"
+            >Your plan was upgraded to Pro.</bui-banner
+          >
+          <bui-banner tone="warning" class="rounded-md border"
+            >Your trial ends in 3 days.</bui-banner
+          >
+          <bui-banner tone="danger" class="rounded-md border"
+            >Your payment method failed.</bui-banner
+          >
+        </div>
       </app-example>
     }
     @case ('table') {
@@ -3225,6 +3264,20 @@ This content is read-only and cannot be edited.</textarea
     @case ('avatar-group') {
       <app-example [code]="code.avatarGroup">
         <bui-avatar-group [avatars]="team" [max]="3" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Images</h2>
+      <app-example [code]="code.avatarGroupImages">
+        <bui-avatar-group [avatars]="teamImg" [max]="3" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.avatarGroupSizes">
+        <div class="flex flex-col gap-4">
+          <bui-avatar-group [avatars]="teamImg" [max]="4" size="sm" />
+          <bui-avatar-group [avatars]="teamImg" [max]="4" />
+          <bui-avatar-group [avatars]="teamImg" [max]="4" size="lg" />
+        </div>
       </app-example>
     }
     @case ('pagination') {
@@ -3921,11 +3974,61 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('typography') {
       <app-example [code]="code.typography">
-        <div class="space-y-2">
-          <h1 buiTypography variant="h1">The quick brown fox</h1>
-          <p buiTypography variant="lead">A modern, accessible Angular UI library.</p>
-          <p buiTypography variant="muted">Built on signals, Angular Aria &amp; the CDK.</p>
+        <div class="w-full max-w-2xl">
+          <h1 buiTypography variant="h1">The Joke Tax Chronicles</h1>
+          <p buiTypography variant="lead" class="mt-4">
+            Once upon a time, in a far-off land, a king levied a tax on the jokes told in his
+            kingdom.
+          </p>
+          <h2 buiTypography variant="h2" class="mt-10">The King's Plan</h2>
+          <p buiTypography variant="p">
+            He took a profound new approach to the kingdom's finances.
+          </p>
         </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Headings</h2>
+      <app-example [code]="code.typographyHeadings">
+        <div class="flex w-full max-w-2xl flex-col gap-4">
+          <h1 buiTypography variant="h1">Heading 1</h1>
+          <h2 buiTypography variant="h2" class="border-0 pb-0">Heading 2</h2>
+          <h3 buiTypography variant="h3">Heading 3</h3>
+          <h4 buiTypography variant="h4">Heading 4</h4>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Text styles</h2>
+      <app-example [code]="code.typographyText">
+        <div class="flex w-full max-w-2xl flex-col gap-4">
+          <p buiTypography variant="lead">
+            A modal dialog that interrupts the user with important content.
+          </p>
+          <p buiTypography variant="large">Are you absolutely sure?</p>
+          <p buiTypography variant="small">Email address</p>
+          <p buiTypography variant="muted">Enter your email address.</p>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Blockquote</h2>
+      <app-example [code]="code.typographyBlockquote">
+        <blockquote buiTypography variant="blockquote" class="mt-0 w-full max-w-2xl">
+          "In the quiet after repeal, the streets filled with unexpected laughter — small rebellions
+          of joy," she recalled.
+        </blockquote>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">List</h2>
+      <app-example [code]="code.typographyList">
+        <ul buiTypography variant="list" class="my-0 w-full max-w-2xl">
+          <li>A single troubadour's chuckle</li>
+          <li>Morning whispers in the bazaar</li>
+          <li>Nightly lantern laughter</li>
+        </ul>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Gradient</h2>
+      <app-example [code]="code.typographyGradient">
+        <h1 buiTypography variant="gradient">Dawn light in a single line</h1>
       </app-example>
     }
     @case ('segmented-control') {
@@ -4072,18 +4175,59 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('link') {
       <app-example [code]="code.link">
-        <div class="flex flex-col gap-2">
-          <a buiLink href="/docs">Documentation</a>
-          <a buiLink variant="muted" [external]="true" href="https://angular.dev"
-            >Angular (new tab)</a
+        <p class="max-w-md text-sm text-muted-foreground">
+          By creating an account you agree to our <a buiLink href="#">Terms of Service</a> and
+          <a buiLink href="#">Privacy Policy</a>.
+        </p>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Variants</h2>
+      <app-example [code]="code.linkVariants">
+        <div class="flex flex-col gap-2 text-sm">
+          <span>Default: <a buiLink href="#">View the agency</a></span>
+          <span>Muted: <a buiLink href="#" variant="muted">Forgot password?</a></span>
+          <span>Subtle: <a buiLink href="#" variant="subtle">Read the changelog</a></span>
+          <span
+            >External: <a buiLink href="https://angular.dev" [external]="true">angular.dev</a></span
           >
-          <a buiLink variant="subtle" href="/">Subtle link</a>
         </div>
       </app-example>
     }
     @case ('gradient-text') {
       <app-example [code]="code.gradientText">
-        <bui-gradient-text preset="brand" class="text-3xl">Gradient text</bui-gradient-text>
+        <h1 class="text-4xl font-bold tracking-tight">
+          <bui-gradient-text>Build delightful interfaces</bui-gradient-text>
+        </h1>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Presets</h2>
+      <app-example [code]="code.gradientTextPresets">
+        <div class="space-y-2">
+          @for (p of ['sunset', 'ocean', 'candy']; track p) {
+            <h2 class="text-3xl font-bold tracking-tight">
+              <bui-gradient-text [preset]="$any(p)" class="capitalize">{{ p }}</bui-gradient-text>
+            </h2>
+          }
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Animated</h2>
+      <app-example [code]="code.gradientTextAnimated">
+        <h1 class="text-4xl font-bold tracking-tight">
+          <bui-gradient-text [animate]="true" from="#06b6d4" via="#8b5cf6" to="#ec4899"
+            >Shimmering text</bui-gradient-text
+          >
+        </h1>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Inline</h2>
+      <app-example [code]="code.gradientTextInline">
+        <p class="max-w-md text-lg leading-7">
+          Ship faster with
+          <bui-gradient-text preset="aurora" class="font-semibold">ng-blatui</bui-gradient-text> —
+          accessible, copy-paste components for your next
+          <bui-gradient-text preset="sunset" class="font-semibold">Angular</bui-gradient-text> app.
+        </p>
       </app-example>
     }
     @case ('page-header') {
@@ -4099,10 +4243,31 @@ This content is read-only and cannot be edited.</textarea
           That brain of mine is something more than merely mortal.
         </bui-quote>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Plain</h2>
+      <app-example [code]="code.quotePlain">
+        <bui-quote class="text-center">
+          Design is not just what it looks like and feels like. Design is how it works.
+        </bui-quote>
+      </app-example>
     }
     @case ('price') {
       <app-example [code]="code.price">
-        <bui-price [amount]="19.99" [compareAt]="29.99" size="lg" />
+        <bui-price [amount]="29" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sale</h2>
+      <app-example [code]="code.priceSale">
+        <bui-price [amount]="29" [compareAt]="39" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
+      <app-example [code]="code.priceSizes">
+        <div class="flex flex-col items-start gap-3">
+          <bui-price [amount]="29" [compareAt]="39" size="sm" />
+          <bui-price [amount]="29" [compareAt]="39" />
+          <bui-price [amount]="29" [compareAt]="39" size="lg" />
+        </div>
       </app-example>
     }
     @case ('stack') {
@@ -4129,11 +4294,28 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('presence') {
       <app-example [code]="code.presence">
-        <div class="flex items-center gap-4">
-          <bui-presence status="online" [pulse]="true" [showLabel]="true" />
+        <div class="flex flex-wrap items-center gap-6">
+          <bui-presence status="online" [showLabel]="true" />
           <bui-presence status="away" [showLabel]="true" />
           <bui-presence status="busy" [showLabel]="true" />
           <bui-presence status="offline" [showLabel]="true" />
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Pulse</h2>
+      <app-example [code]="code.presencePulse">
+        <bui-presence status="online" [pulse]="true" [showLabel]="true" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">On avatar</h2>
+      <app-example [code]="code.presenceAvatar">
+        <div class="relative inline-flex">
+          <bui-avatar class="size-12 text-xs" src="https://i.pravatar.cc/64?img=8" alt=""
+            >CN</bui-avatar
+          >
+          <span class="absolute end-0 bottom-0"
+            ><bui-presence status="online" [pulse]="true"
+          /></span>
         </div>
       </app-example>
     }
@@ -4150,10 +4332,29 @@ This content is read-only and cannot be edited.</textarea
     }
     @case ('description-list') {
       <app-example [code]="code.descriptionList">
+        <dl buiDescriptionList class="w-full max-w-md">
+          <bui-description-item term="Full name">Sofia Carter</bui-description-item>
+          <bui-description-item term="Email">sofia&#64;example.com</bui-description-item>
+          <bui-description-item term="Plan">Pro (annual)</bui-description-item>
+        </dl>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Bordered</h2>
+      <app-example [code]="code.descriptionListBordered">
         <dl buiDescriptionList [bordered]="true" class="w-full max-w-md">
-          <bui-description-item term="Plan">Pro</bui-description-item>
-          <bui-description-item term="Seats">5 of 10</bui-description-item>
-          <bui-description-item term="Renews">Jan 1, 2027</bui-description-item>
+          <bui-description-item term="Invoice">#INV-2048</bui-description-item>
+          <bui-description-item term="Status">Paid</bui-description-item>
+          <bui-description-item term="Amount">$1,200.00</bui-description-item>
+        </dl>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Vertical</h2>
+      <app-example [code]="code.descriptionListVertical">
+        <dl buiDescriptionList layout="vertical" class="w-full max-w-md">
+          <bui-description-item term="Shipping address"
+            >128 Maple Street, Brooklyn, NY 11201</bui-description-item
+          >
+          <bui-description-item term="Billing address">Same as shipping</bui-description-item>
         </dl>
       </app-example>
     }
