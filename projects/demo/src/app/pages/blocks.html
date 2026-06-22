@@ -1,10 +1,11 @@
 <article class="space-y-6">
   <a
+    data-preview-hide
     routerLink="/blocks"
     class="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
     >← All blocks</a
   >
-  <header class="space-y-2">
+  <header data-preview-hide class="space-y-2">
     <h1 class="text-3xl font-bold tracking-tight">{{ title() }}</h1>
     @if (description()) {
       <p class="text-muted-foreground">{{ description() }}</p>

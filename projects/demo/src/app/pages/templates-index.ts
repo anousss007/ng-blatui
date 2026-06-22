@@ -26,8 +26,16 @@ function titleCase(slug: string): string {
             [routerLink]="['/templates', item.slug]"
             class="group block overflow-hidden rounded-lg border transition-shadow hover:shadow-md"
           >
-            <div class="grid h-32 place-items-center bg-muted text-sm font-medium">
-              {{ item.label }}
+            <div class="aspect-[16/10] overflow-hidden bg-muted">
+              <img
+                [src]="'previews/templates/' + item.slug + '.jpg'"
+                [alt]="item.label + ' template preview'"
+                width="1280"
+                height="800"
+                loading="lazy"
+                decoding="async"
+                class="size-full object-cover object-top transition-transform duration-300 group-hover:scale-[1.03]"
+              />
             </div>
             <div class="flex items-center justify-between border-t px-4 py-3">
               <span class="font-medium">{{ item.label }}</span>
