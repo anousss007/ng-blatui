@@ -1,0 +1,473 @@
+<div id="tpl-atelier">
+  <!-- NAV -->
+  <header class="at-rule sticky top-0 z-40 border-b" style="background: var(--at-paper)">
+    <div class="relative mx-auto flex h-16 max-w-7xl items-center px-6 lg:px-10">
+      <nav class="hidden items-center gap-8 md:flex" aria-label="Primary navigation">
+        <a href="#lookbook" class="at-nav-link">Lookbook</a>
+        <a href="#edit" class="at-nav-link">The Edit</a>
+      </nav>
+      <a
+        href="#"
+        class="at-serif absolute left-1/2 -translate-x-1/2 text-xl font-semibold tracking-widest uppercase"
+        style="letter-spacing: 0.3em; font-size: 1.05rem"
+        aria-label="Maison Atelier home"
+        >Maison Atelier</a
+      >
+      <div class="ml-auto flex items-center gap-6">
+        <a href="#runway" class="at-nav-link hidden md:block">Runway</a>
+        <a href="#newsletter" class="at-nav-link hidden md:block">Journal</a>
+        <button type="button" class="at-nav-link flex items-center gap-1" aria-label="Open bag">
+          <app-lucide name="shopping-bag" class="size-4" />
+          <span class="hidden sm:inline">Bag</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="at-rule relative overflow-hidden border-b" aria-label="Hero — Fall / Winter 26">
+    <div class="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-0">
+      <div class="grid items-stretch gap-0 lg:min-h-[92vh] lg:grid-cols-[1fr_420px]">
+        <div class="flex flex-col justify-center py-16 pr-8 lg:py-24">
+          <p class="at-index at-fade-up mb-6">01 — Fall / Winter 2026</p>
+          <span class="at-reveal-line mb-8 w-16"></span>
+
+          <h1
+            class="at-hero-headline at-fade-up at-fade-up-d1 text-[clamp(4.5rem,11vw,10rem)] leading-none"
+          >
+            The<br />
+            <em class="not-italic" style="color: var(--at-accent)">Dark</em><br />
+            Season
+          </h1>
+
+          <p
+            class="at-fade-up at-fade-up-d2 mt-8 max-w-sm text-sm leading-relaxed"
+            style="color: var(--at-ink-60)"
+          >
+            A collection born of shadow and structure. Volumes that question the body. Fabrics that
+            remember the wearer.
+          </p>
+
+          <div class="at-fade-up at-fade-up-d3 mt-10 flex flex-wrap items-center gap-4">
+            <a href="#lookbook" class="at-btn at-btn-ink">View Lookbook</a>
+            <a href="#edit" class="at-btn at-btn-outline">Shop the Edit</a>
+          </div>
+
+          <div class="mt-14 flex items-center gap-5">
+            @for (member of teamAvatars; track member.seed) {
+              <bui-avatar
+                class="size-9 cursor-pointer ring-2"
+                style="--tw-ring-color: var(--at-ink-20)"
+                [src]="'https://picsum.photos/seed/' + member.seed + '/80/80?grayscale'"
+                [alt]="member.name"
+                >{{ initials(member.name) }}</bui-avatar
+              >
+            }
+            <span class="at-label ml-1">Atelier Team</span>
+          </div>
+        </div>
+
+        <div class="at-color-reveal at-rule relative hidden overflow-hidden border-l lg:block">
+          <img
+            src="https://picsum.photos/seed/atel-hero/840/1200?grayscale"
+            alt="Maison Atelier Fall/Winter 26 hero look — dark structured coat"
+            class="h-full w-full object-cover"
+          />
+          <div class="absolute right-6 bottom-8 left-6"><span class="at-badge">F/W 26</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE (fabrics) -->
+  <div class="at-rule overflow-hidden border-b py-5" aria-label="Collection material names">
+    <div class="at-marquee-row">
+      @for (fabric of fabrics; track fabric) {
+        <span class="at-marquee-item"
+          >{{ fabric }}<span class="at-marquee-dot" aria-hidden="true"> ✦ </span></span
+        >
+      }
+    </div>
+  </div>
+
+  <!-- LOOKBOOK -->
+  <section id="lookbook" class="py-20 lg:py-28" aria-label="Lookbook">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="at-rule mb-12 flex items-end justify-between border-b pb-6">
+        <div>
+          <p class="at-index mb-2">02 —</p>
+          <h2 class="at-serif text-4xl leading-tight font-semibold lg:text-5xl">The Lookbook</h2>
+        </div>
+        <p class="at-label hidden sm:block">Hover to reveal colour</p>
+      </div>
+
+      <div class="at-mag-grid">
+        <div class="at-color-reveal relative col-span-8 overflow-hidden" style="aspect-ratio: 4/3">
+          <img
+            src="https://picsum.photos/seed/atel-lb1/1200/900?grayscale"
+            alt="Editorial look — oversized wool coat"
+            class="h-full w-full object-cover"
+          />
+          <div
+            class="at-label absolute bottom-4 left-4 z-10"
+            style="color: #fff; background: rgba(10, 10, 10, 0.5); padding: 0.25rem 0.5rem"
+          >
+            Look 01
+          </div>
+        </div>
+        <div class="at-color-reveal relative col-span-4 overflow-hidden" style="aspect-ratio: 3/4">
+          <img
+            src="https://picsum.photos/seed/atel-lb2/600/800?grayscale"
+            alt="Editorial look — structured blazer"
+            class="h-full w-full object-cover"
+          />
+        </div>
+        <div class="at-color-reveal relative col-span-4 overflow-hidden" style="aspect-ratio: 3/4">
+          <img
+            src="https://picsum.photos/seed/atel-lb3/600/800?grayscale"
+            alt="Editorial look — draped trousers"
+            class="h-full w-full object-cover"
+          />
+        </div>
+        <div
+          class="at-color-reveal relative col-span-4 flex items-center justify-center overflow-hidden"
+          style="background: var(--at-ink)"
+        >
+          <div class="p-8 text-center">
+            <p class="at-serif text-3xl leading-snug font-light" style="color: var(--at-paper)">
+              "Clothes for<br />the unconvinced"
+            </p>
+            <span class="at-label mt-4 block" style="color: rgba(250, 249, 247, 0.45)"
+              >Maison Atelier, F/W 26</span
+            >
+          </div>
+        </div>
+        <div class="at-color-reveal relative col-span-4 overflow-hidden" style="aspect-ratio: 3/4">
+          <img
+            src="https://picsum.photos/seed/atel-lb4/600/800?grayscale"
+            alt="Editorial look — silk blouse"
+            class="h-full w-full object-cover"
+          />
+        </div>
+        <div class="at-color-reveal relative col-span-5 overflow-hidden" style="aspect-ratio: 5/4">
+          <img
+            src="https://picsum.photos/seed/atel-lb5/900/720?grayscale"
+            alt="Editorial look — minimal dress"
+            class="h-full w-full object-cover"
+          />
+        </div>
+        <div class="at-color-reveal relative col-span-7 overflow-hidden" style="aspect-ratio: 7/4">
+          <img
+            src="https://picsum.photos/seed/atel-lb6/1260/720?grayscale"
+            alt="Editorial look — tailored coat"
+            class="h-full w-full object-cover"
+          />
+          <div
+            class="at-label absolute right-4 bottom-4 z-10"
+            style="color: #fff; background: rgba(10, 10, 10, 0.5); padding: 0.25rem 0.5rem"
+          >
+            Look 06
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 flex items-center justify-between">
+        <p class="at-label">6 looks — F/W 2026</p>
+        <div class="flex gap-1">
+          @for (seed of lookbookThumbs; track seed) {
+            <div class="at-color-reveal size-10 overflow-hidden">
+              <img
+                [src]="'https://picsum.photos/seed/' + seed + '/80/80?grayscale'"
+                alt=""
+                class="h-full w-full object-cover"
+              />
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE EDIT -->
+  <section id="edit" class="at-rule border-t py-20 lg:py-28" aria-label="The Edit — shop products">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="at-rule mb-12 flex items-end justify-between border-b pb-6">
+        <div>
+          <p class="at-index mb-2">03 —</p>
+          <h2 class="at-serif text-4xl leading-tight font-semibold lg:text-5xl">The Edit</h2>
+        </div>
+        <a href="#" class="at-btn at-btn-ghost"
+          >View all <app-lucide name="arrow-right" class="size-3.5"
+        /></a>
+      </div>
+
+      <div class="grid gap-px sm:grid-cols-2 lg:grid-cols-4" style="background: var(--at-ink-20)">
+        @for (product of editProducts; track product.name) {
+          <article
+            class="at-product-card group relative overflow-hidden"
+            style="background: var(--at-paper)"
+            [attr.aria-label]="product.name"
+          >
+            <div class="relative overflow-hidden" style="aspect-ratio: 3/4">
+              <img
+                [src]="'https://picsum.photos/seed/' + product.seed + '/480/640?grayscale'"
+                [alt]="product.name + ' — ' + product.category"
+                class="at-product-img h-full w-full object-cover"
+                loading="lazy"
+              />
+              @if (product.badge) {
+                <div class="absolute top-3 left-3">
+                  <span class="at-badge">{{ product.badge }}</span>
+                </div>
+              }
+              <button
+                type="button"
+                class="absolute right-3 bottom-3 left-3 translate-y-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+                style="
+                  background: var(--at-ink);
+                  color: var(--at-paper);
+                  padding: 0.6rem 1rem;
+                  font-size: 0.6875rem;
+                  letter-spacing: 0.12em;
+                  text-transform: uppercase;
+                "
+                [attr.aria-label]="'Add ' + product.name + ' to bag'"
+              >
+                Add to bag
+              </button>
+            </div>
+            <div class="at-rule border-t p-4">
+              <p class="at-label mb-1">{{ product.category }}</p>
+              <div class="flex items-baseline justify-between">
+                <h3 class="at-serif text-base font-medium">{{ product.name }}</h3>
+                <span class="text-sm font-medium tabular-nums">{{ product.price }}</span>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CAMPAIGN PULL-QUOTE -->
+  <section class="at-pullquote-wrap" aria-label="Campaign image with pull-quote">
+    <img
+      src="https://picsum.photos/seed/atel-campaign/1600/800?grayscale"
+      alt="Maison Atelier F/W 26 campaign"
+      class="h-[520px] w-full object-cover lg:h-[680px]"
+    />
+    <div class="at-pullquote-content absolute inset-0 flex items-center">
+      <div class="mx-auto w-full max-w-7xl px-6 lg:px-10">
+        <p class="at-index mb-4" style="color: rgba(250, 249, 247, 0.6)">04 —</p>
+        <blockquote
+          class="at-serif max-w-2xl text-[clamp(2rem,5vw,4.5rem)] leading-[1.05] font-semibold"
+          style="color: var(--at-paper)"
+        >
+          "Structure<br />is the new<br /><em style="color: var(--at-accent)">freedom.</em>"
+        </blockquote>
+        <cite class="at-label mt-6 block not-italic" style="color: rgba(250, 249, 247, 0.5)"
+          >Maison Atelier — F/W 2026 Campaign</cite
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- RUNWAY (carousel) -->
+  <section id="runway" class="at-rule border-t py-20 lg:py-28" aria-label="Runway looks carousel">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div class="at-rule mb-12 flex items-end justify-between border-b pb-6">
+        <div>
+          <p class="at-index mb-2">05 —</p>
+          <h2 class="at-serif text-4xl leading-tight font-semibold lg:text-5xl">The Runway</h2>
+        </div>
+        <p class="at-label hidden sm:block">Fall / Winter 2026</p>
+      </div>
+
+      <div class="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2">
+        @for (slide of runwaySlides; track slide.seed) {
+          <div
+            class="at-color-reveal group relative shrink-0 snap-start overflow-hidden"
+            style="aspect-ratio: 3/4; width: min(80vw, 320px)"
+          >
+            <img
+              [src]="'https://picsum.photos/seed/' + slide.seed + '/600/800?grayscale'"
+              [alt]="slide.caption"
+              loading="lazy"
+              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+            />
+            <div
+              class="absolute inset-x-0 bottom-0 p-4"
+              style="background: linear-gradient(to top, rgba(10, 10, 10, 0.55), transparent)"
+            >
+              <p class="at-label" style="color: rgba(250, 249, 247, 0.8)">{{ slide.caption }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORY TABS (outerwear active) -->
+  <section
+    class="at-rule border-t py-20 lg:py-28"
+    style="background: #f0ede8"
+    aria-label="Shop by category"
+  >
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <div
+        class="at-rule mb-12 flex items-end justify-between border-b pb-6"
+        style="border-color: var(--at-ink-20)"
+      >
+        <div>
+          <p class="at-index mb-2">06 —</p>
+          <h2 class="at-serif text-4xl leading-tight font-semibold lg:text-5xl">By Category</h2>
+        </div>
+      </div>
+
+      <div class="at-rule mb-10 flex gap-6 border-b">
+        @for (cat of categories; track cat.key; let first = $first) {
+          <span class="at-tab" [class.at-tab-active]="first">{{ cat.label }}</span>
+        }
+      </div>
+
+      @for (cat of categories; track cat.key; let first = $first) {
+        @if (first) {
+          <div class="grid gap-px sm:grid-cols-3" style="background: var(--at-ink-20)">
+            @for (item of cat.items; track item.name) {
+              <div
+                class="at-color-reveal group relative overflow-hidden"
+                style="background: var(--at-paper); aspect-ratio: 3/4"
+              >
+                <img
+                  [src]="'https://picsum.photos/seed/' + item.seed + '/480/640?grayscale'"
+                  [alt]="item.name"
+                  loading="lazy"
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                />
+                <div
+                  class="at-rule absolute inset-x-0 bottom-0 border-t p-4"
+                  style="background: var(--at-paper)"
+                >
+                  <div class="flex items-baseline justify-between">
+                    <span class="at-serif text-sm font-medium">{{ item.name }}</span>
+                    <span class="text-xs tabular-nums" style="color: var(--at-ink-60)">{{
+                      item.price
+                    }}</span>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      }
+    </div>
+  </section>
+
+  <!-- MARQUEE (collections) -->
+  <div class="at-rule overflow-hidden border-y py-5" aria-label="Collection names">
+    <div class="at-marquee-row">
+      @for (col of collections; track col) {
+        <span class="at-marquee-item"
+          >{{ col }}<span class="at-marquee-dot" aria-hidden="true"> — </span></span
+        >
+      }
+    </div>
+  </div>
+
+  <!-- PRESS -->
+  <section class="py-16" aria-label="Press coverage">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10">
+      <p class="at-label mb-10 text-center">As seen in</p>
+      <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
+        @for (pub of press; track pub) {
+          <span
+            class="at-serif cursor-default text-lg font-medium select-none"
+            style="color: var(--at-ink-60); letter-spacing: 0.04em"
+            >{{ pub }}</span
+          >
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section id="newsletter" class="at-rule border-t py-20 lg:py-28" aria-label="Newsletter signup">
+    <div class="mx-auto max-w-2xl px-6 text-center">
+      <p class="at-index mb-4">08 —</p>
+      <h2 class="at-serif mb-4 text-4xl font-semibold lg:text-5xl">The Journal</h2>
+      <p class="mb-10 text-sm leading-relaxed" style="color: var(--at-ink-60)">
+        Receive invitations to private previews, archive stories, and notes from the atelier.
+      </p>
+      <form class="flex flex-col items-center gap-4 sm:flex-row sm:gap-0">
+        <div class="at-input-group w-full sm:flex-1">
+          <span class="at-input-icon"><app-lucide name="mail" class="size-4" /></span>
+          <input
+            type="email"
+            placeholder="Your email address"
+            autocomplete="email"
+            aria-label="Email address"
+          />
+          <button type="button" class="at-input-btn">Subscribe</button>
+        </div>
+      </form>
+      <p class="at-label mt-5">No frequency. Only substance.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="at-rule border-t" aria-label="Site footer">
+    <div class="mx-auto max-w-7xl px-6 py-16 lg:px-10">
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-6">
+        <div class="lg:col-span-2">
+          <a
+            href="#"
+            class="at-serif text-base font-semibold tracking-widest uppercase"
+            style="letter-spacing: 0.3em"
+            >Maison Atelier</a
+          >
+          <p class="mt-3 max-w-xs text-xs leading-relaxed" style="color: var(--at-ink-60)">
+            A fashion house founded on the belief that clothing is the architecture of the self.
+          </p>
+          <div class="mt-6 flex gap-3">
+            @for (social of socials; track social) {
+              <a
+                href="#"
+                [attr.aria-label]="social"
+                class="at-social at-rule inline-flex size-8 items-center justify-center border"
+                style="color: var(--at-ink-60)"
+                ><app-lucide [name]="social" class="size-3.5"
+              /></a>
+            }
+          </div>
+        </div>
+
+        @for (col of footerLinks; track col.heading) {
+          <div>
+            <h3 class="at-label mb-4">{{ col.heading }}</h3>
+            <ul class="space-y-2.5 text-xs" style="color: var(--at-ink-60)">
+              @for (link of col.links; track link) {
+                <li>
+                  <a href="#" class="at-foot-link transition-colors">{{ link }}</a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <hr class="my-10" style="border: none; height: 1px; background: var(--at-ink-20)" />
+
+      <div
+        class="flex flex-col items-center justify-between gap-3 text-xs sm:flex-row"
+        style="color: var(--at-ink-60)"
+      >
+        <span>© 2026 Maison Atelier. All rights reserved.</span>
+        <div class="flex items-center gap-5">
+          <a href="#" class="at-foot-link transition-colors">Privacy</a>
+          <a href="#" class="at-foot-link transition-colors">Terms</a>
+          <a href="#" class="at-foot-link transition-colors">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>

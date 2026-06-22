@@ -1,0 +1,328 @@
+@import url('https://fonts.bunny.net/css?family=fraunces:400,500,600,700,900&display=swap');
+
+#tpl-atelier {
+  --at-paper: #faf9f7;
+  --at-ink: #0a0a0a;
+  --at-ink-60: rgba(10, 10, 10, 0.6);
+  --at-ink-20: rgba(10, 10, 10, 0.12);
+  --at-accent: #ff2f00;
+  --at-accent-soft: rgba(255, 47, 0, 0.08);
+  --at-serif: 'Fraunces', Georgia, serif;
+  --at-sans: 'Inter', system-ui, sans-serif;
+  --at-radius: 0px;
+
+  background: var(--at-paper);
+  color: var(--at-ink);
+  font-family: var(--at-sans);
+  overflow-x: hidden;
+}
+
+#tpl-atelier a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Display type */
+#tpl-atelier .at-serif {
+  font-family: var(--at-serif);
+}
+#tpl-atelier .at-label {
+  font-family: var(--at-sans);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--at-ink-60);
+}
+#tpl-atelier .at-index {
+  font-family: var(--at-sans);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--at-ink-60);
+}
+
+/* Hairline rule */
+#tpl-atelier .at-rule {
+  border-color: var(--at-ink-20);
+}
+
+/* Nav */
+#tpl-atelier .at-nav-link {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--at-ink-60);
+  transition: color 0.2s;
+}
+#tpl-atelier .at-nav-link:hover {
+  color: var(--at-ink);
+}
+
+/* Hero */
+#tpl-atelier .at-hero-headline {
+  font-family: var(--at-serif);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: var(--at-ink);
+}
+
+/* Color-reveal on hover */
+#tpl-atelier .at-color-reveal img {
+  filter: grayscale(1);
+  transition: filter 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+#tpl-atelier .at-color-reveal:hover img {
+  filter: grayscale(0);
+}
+
+/* Magazine grid */
+#tpl-atelier .at-mag-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1px;
+  background: var(--at-ink-20);
+}
+#tpl-atelier .at-mag-grid > * {
+  background: var(--at-paper);
+}
+
+/* Pull-quote campaign */
+#tpl-atelier .at-pullquote-wrap {
+  position: relative;
+  overflow: hidden;
+}
+#tpl-atelier .at-pullquote-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(10, 10, 10, 0.72) 0%,
+    rgba(10, 10, 10, 0.32) 55%,
+    transparent 100%
+  );
+}
+#tpl-atelier .at-pullquote-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Product card */
+#tpl-atelier .at-product-card .at-product-img {
+  filter: grayscale(1);
+  transition:
+    filter 0.5s ease,
+    transform 0.5s ease;
+}
+#tpl-atelier .at-product-card:hover .at-product-img {
+  filter: grayscale(0);
+  transform: scale(1.03);
+}
+
+/* Marquee accent */
+#tpl-atelier .at-marquee-item {
+  font-family: var(--at-serif);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--at-ink-60);
+  padding: 0 2rem;
+  white-space: nowrap;
+}
+#tpl-atelier .at-marquee-dot {
+  color: var(--at-accent);
+  font-style: normal;
+}
+#tpl-atelier .at-marquee-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+/* Section numbers */
+#tpl-atelier .at-section-num {
+  font-family: var(--at-sans);
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  color: var(--at-ink-60);
+}
+
+/* Buttons */
+#tpl-atelier .at-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: 0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  padding: 0.85rem 1.6rem;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+#tpl-atelier .at-btn-ink {
+  background: var(--at-ink);
+  color: var(--at-paper);
+  border: 1px solid var(--at-ink);
+}
+#tpl-atelier .at-btn-ink:hover {
+  background: var(--at-accent);
+  border-color: var(--at-accent);
+}
+#tpl-atelier .at-btn-outline {
+  background: transparent;
+  color: var(--at-ink);
+  border: 1px solid var(--at-ink);
+}
+#tpl-atelier .at-btn-outline:hover {
+  background: var(--at-ink);
+  color: var(--at-paper);
+}
+#tpl-atelier .at-btn-ghost {
+  background: transparent;
+  color: var(--at-ink);
+  border: none;
+  padding: 0.4rem 0.5rem;
+}
+#tpl-atelier .at-btn-ghost:hover {
+  color: var(--at-accent);
+}
+
+/* Badge */
+#tpl-atelier .at-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  background: var(--at-accent);
+  color: #fff;
+}
+
+/* Tabs underline */
+#tpl-atelier .at-tab {
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: var(--at-ink-60);
+  padding: 0.5rem 0;
+  border-bottom: 2px solid transparent;
+}
+#tpl-atelier .at-tab-active {
+  color: var(--at-ink);
+  border-bottom-color: var(--at-ink);
+}
+
+/* Input group */
+#tpl-atelier .at-input-group {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--at-ink);
+  border-radius: 0;
+  background: var(--at-paper);
+}
+#tpl-atelier .at-input-group input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 0.7rem 0.9rem;
+  font-family: var(--at-sans);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: var(--at-ink);
+}
+#tpl-atelier .at-input-group input::placeholder {
+  color: var(--at-ink-60);
+}
+#tpl-atelier .at-input-icon {
+  display: inline-flex;
+  align-items: center;
+  padding-left: 0.9rem;
+  color: var(--at-ink-60);
+}
+#tpl-atelier .at-input-btn {
+  border-radius: 0;
+  background: var(--at-ink);
+  color: var(--at-paper);
+  padding: 0 1.25rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+}
+#tpl-atelier .at-input-btn:hover {
+  background: var(--at-accent);
+}
+
+/* Social */
+#tpl-atelier .at-social {
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+#tpl-atelier .at-social:hover {
+  background: var(--at-ink) !important;
+  color: var(--at-paper) !important;
+}
+#tpl-atelier .at-foot-link:hover {
+  color: var(--at-ink);
+}
+
+/* Animations */
+@keyframes at-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+#tpl-atelier .at-fade-up {
+  animation: at-fade-up 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+#tpl-atelier .at-fade-up-d1 {
+  animation-delay: 0.1s;
+}
+#tpl-atelier .at-fade-up-d2 {
+  animation-delay: 0.22s;
+}
+#tpl-atelier .at-fade-up-d3 {
+  animation-delay: 0.36s;
+}
+@keyframes at-reveal-line {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+#tpl-atelier .at-reveal-line {
+  display: block;
+  height: 1px;
+  background: var(--at-accent);
+  transform-origin: left;
+  animation: at-reveal-line 1s cubic-bezier(0.77, 0, 0.175, 1) 0.4s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #tpl-atelier .at-fade-up,
+  #tpl-atelier .at-reveal-line,
+  #tpl-atelier .at-color-reveal img,
+  #tpl-atelier .at-product-card .at-product-img {
+    animation: none !important;
+    transition: none !important;
+    filter: none !important;
+    transform: none !important;
+  }
+}

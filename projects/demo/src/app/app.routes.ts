@@ -132,6 +132,11 @@ export const routes: Routes = [
     title: 'Arcade · ng-blatui',
   },
   {
+    path: 'templates/atelier',
+    loadComponent: async () => (await import('./pages/templates/atelier')).AtelierTemplate,
+    title: 'Atelier · ng-blatui',
+  },
+  {
     path: 'templates/:slug',
     loadComponent: async () => (await import('./pages/templates')).TemplatesPage,
     title: 'Templates · ng-blatui',
