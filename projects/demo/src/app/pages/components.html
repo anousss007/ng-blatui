@@ -8284,6 +8284,16 @@ This content is read-only and cannot be edited.</textarea
           placeholder="Pick a range"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Reactive form</h2>
+      <app-example [code]="code.datePickerReactiveForm">
+        <div class="flex flex-col gap-2">
+          <bui-date-picker class="w-56" [formControl]="dateForm" />
+          <p class="text-sm text-muted-foreground">
+            Control value: <code class="text-foreground">{{ dateForm.value }}</code>
+          </p>
+        </div>
+      </app-example>
     }
     @case ('carousel') {
       <app-example [code]="code.carousel">

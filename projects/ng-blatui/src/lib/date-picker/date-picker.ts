@@ -1,7 +1,20 @@
-import { Component, computed, ElementRef, inject, input, model, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  ElementRef,
+  forwardRef,
+  inject,
+  input,
+  model,
+  signal,
+} from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { BuiCalendar, type CalendarMode, type CalendarRange } from '../calendar/calendar';
 import { type ClassValue, cn } from '../utils/cn';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = (): void => {};
 
 /** A date input that opens a calendar popover. */
 @Component({
@@ -12,11 +25,15 @@ import { type ClassValue, cn } from '../utils/cn';
     '[class]': 'computedClass()',
     '(document:click)': 'onDocumentClick($event)',
   },
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiDatePicker), multi: true },
+  ],
   template: `
     <button
       type="button"
-      class="flex h-9 w-full items-center gap-2 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+      class="flex h-9 w-full items-center gap-2 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50"
       [attr.aria-expanded]="open()"
+      [disabled]="disabled()"
       (click)="open.set(!open())"
     >
       <svg
@@ -56,7 +73,7 @@ import { type ClassValue, cn } from '../utils/cn';
     }
   `,
 })
-export class BuiDatePicker {
+export class BuiDatePicker implements ControlValueAccessor {
   readonly value = model('');
   /** `single` (default) or `range`. */
   readonly mode = input<CalendarMode>('single');
@@ -73,8 +90,11 @@ export class BuiDatePicker {
   readonly showWeekNumbers = input(false);
   readonly captionLayout = input<'label' | 'dropdown'>('label');
   readonly hideOutsideDays = input(false);
+  readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
+  private onChange: (value: string) => void = noop;
+  protected onTouched: () => void = noop;
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly open = signal(false);
   protected readonly hasValue = computed(
@@ -95,7 +115,9 @@ export class BuiDatePicker {
 
   protected onPick(iso: string): void {
     this.value.set(iso);
+    this.onChange(iso);
     this.open.set(false);
+    this.onTouched();
   }
 
   protected onRange(range: CalendarRange): void {
@@ -114,8 +136,27 @@ export class BuiDatePicker {
   }
 
   protected onDocumentClick(event: MouseEvent): void {
-    if (this.open() && !this.host.nativeElement.contains(event.target as Node)) {
-      this.open.set(false);
+    if (!(this.open() && !this.host.nativeElement.contains(event.target as Node))) {
+      return;
     }
+
+    this.open.set(false);
+    this.onTouched();
+  }
+
+  writeValue(value: string | null | undefined): void {
+    this.value.set(typeof value === 'string' ? value : '');
+  }
+
+  registerOnChange(callback: (value: string) => void): void {
+    this.onChange = callback;
+  }
+
+  registerOnTouched(callback: () => void): void {
+    this.onTouched = callback;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
   }
 }

@@ -1197,6 +1197,7 @@ export class ComponentPage {
   protected readonly fruitForm = new FormControl('banana');
   protected readonly termsForm = new FormControl(false);
   protected readonly notifyForm = new FormControl(true);
+  protected readonly dateForm = new FormControl('2026-06-15');
   protected readonly fruitsMulti = signal<string[]>(['apple', 'cherry']);
   protected readonly fruits = [
     { value: 'apple', label: 'Apple' },
@@ -3175,6 +3176,9 @@ fruitForm = new FormControl('banana');
     datePickerDropdown: `<!-- forwards captionLayout to the calendar -->
 <bui-date-picker [(value)]="date" captionLayout="dropdown" />`,
     datePickerNoOutside: `<bui-date-picker [(value)]="date" [hideOutsideDays]="true" />`,
+    datePickerReactiveForm: `<!-- ControlValueAccessor: works with formControl / ngModel / signal forms -->
+<bui-date-picker [formControl]="dateForm" />
+// dateForm = new FormControl('2026-06-15')`,
     datePickerRange: `<!-- mode="range" + [months]="2" for a two-month range picker -->
 <bui-date-picker mode="range" [months]="2" [(range)]="range" placeholder="Pick a range" />
 // range = signal({ start: '', end: '' })`,

@@ -1,8 +1,21 @@
-import { Component, computed, ElementRef, inject, input, model, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  ElementRef,
+  forwardRef,
+  inject,
+  input,
+  model,
+  signal,
+} from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { BuiCalendar, type CalendarMode, type CalendarRange } from '../calendar/calendar';
 import { BuiTimeField } from '../time-field/time-field';
 import { type ClassValue, cn } from '../utils/cn';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = (): void => {};
 
 /** A combined date + time picker in a popover. Value is `YYYY-MM-DDTHH:mm`. */
 @Component({
@@ -13,11 +26,15 @@ import { type ClassValue, cn } from '../utils/cn';
     '[class]': 'computedClass()',
     '(document:click)': 'onDocumentClick($event)',
   },
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiDatetimePicker), multi: true },
+  ],
   template: `
     <button
       type="button"
-      class="flex h-9 w-full items-center gap-2 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+      class="flex h-9 w-full items-center gap-2 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50"
       [attr.aria-expanded]="open()"
+      [disabled]="disabled()"
       (click)="open.set(!open())"
     >
       <svg
@@ -68,7 +85,7 @@ import { type ClassValue, cn } from '../utils/cn';
     }
   `,
 })
-export class BuiDatetimePicker {
+export class BuiDatetimePicker implements ControlValueAccessor {
   readonly value = model('');
   /** `single` (default) or `range`. */
   readonly mode = input<CalendarMode>('single');
@@ -81,8 +98,11 @@ export class BuiDatetimePicker {
   readonly maxDate = input('');
   readonly captionLayout = input<'label' | 'dropdown'>('label');
   readonly seconds = input(false);
+  readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
+  private onChange: (value: string) => void = noop;
+  protected onTouched: () => void = noop;
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly open = signal(false);
   protected readonly datePart = computed(() => this.value().split('T', 1).at(0) ?? '');
@@ -112,6 +132,7 @@ export class BuiDatetimePicker {
 
   protected onDate(iso: string): void {
     this.value.set(`${iso}T${this.timePart()}`);
+    this.onChange(this.value());
   }
 
   protected onRange(range: CalendarRange): void {
@@ -133,6 +154,7 @@ export class BuiDatetimePicker {
     }
     const date = this.datePart();
     this.value.set(`${date === '' ? this.todayIso() : date}T${time}`);
+    this.onChange(this.value());
   }
 
   private fmt(value: string): string {
@@ -145,9 +167,28 @@ export class BuiDatetimePicker {
   }
 
   protected onDocumentClick(event: MouseEvent): void {
-    if (this.open() && !this.host.nativeElement.contains(event.target as Node)) {
-      this.open.set(false);
+    if (!(this.open() && !this.host.nativeElement.contains(event.target as Node))) {
+      return;
     }
+
+    this.open.set(false);
+    this.onTouched();
+  }
+
+  writeValue(value: string | null | undefined): void {
+    this.value.set(typeof value === 'string' ? value : '');
+  }
+
+  registerOnChange(callback: (value: string) => void): void {
+    this.onChange = callback;
+  }
+
+  registerOnTouched(callback: () => void): void {
+    this.onTouched = callback;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
   }
 
   private todayIso(): string {
