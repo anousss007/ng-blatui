@@ -112,6 +112,11 @@ export const routes: Routes = [
     title: 'Sprout · ng-blatui',
   },
   {
+    path: 'templates/terroir',
+    loadComponent: async () => (await import('./pages/templates/terroir')).TerroirTemplate,
+    title: 'Terroir · ng-blatui',
+  },
+  {
     path: 'templates/:slug',
     loadComponent: async () => (await import('./pages/templates')).TemplatesPage,
     title: 'Templates · ng-blatui',

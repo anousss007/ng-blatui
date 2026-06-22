@@ -1,0 +1,307 @@
+@import url('https://fonts.bunny.net/css?family=fraunces:400,500,600,700|lora:400,400i,500,600|inter:400,500,600');
+
+/* Warm palette */
+#tpl-terroir {
+  --tr-cream: #f7f1e6;
+  --tr-cream-lt: #faf6ee;
+  --tr-ink: #211b16;
+  --tr-ink-lt: #3d332a;
+  --tr-bordeaux: #7b2233;
+  --tr-gold: #b8893b;
+  --tr-olive: #5c6b3f;
+  --tr-muted: #8a7b6e;
+  --tr-divider: rgba(184, 137, 59, 0.25);
+
+  background-color: var(--tr-cream);
+  color: var(--tr-ink);
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* Typography */
+#tpl-terroir .tr-display {
+  font-family: 'Fraunces', 'Times New Roman', serif;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+#tpl-terroir .tr-display-md {
+  font-family: 'Fraunces', 'Times New Roman', serif;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+#tpl-terroir .tr-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tr-gold);
+}
+#tpl-terroir .tr-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+#tpl-terroir .tr-price {
+  font-family: 'Inter', sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--tr-ink-lt);
+}
+
+/* Drop cap */
+#tpl-terroir .tr-dropcap::first-letter {
+  font-family: 'Fraunces', serif;
+  font-size: 4.2em;
+  font-weight: 700;
+  line-height: 0.82;
+  float: left;
+  margin-right: 0.1em;
+  margin-top: 0.06em;
+  color: var(--tr-bordeaux);
+}
+
+/* Pull quote */
+#tpl-terroir .tr-pullquote {
+  text-align: center;
+  padding: 2.5rem 2rem;
+  position: relative;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1.35rem;
+  line-height: 1.5;
+  color: var(--tr-ink-lt);
+}
+#tpl-terroir .tr-pullquote::before,
+#tpl-terroir .tr-pullquote::after {
+  content: '';
+  display: block;
+  height: 1px;
+  background: var(--tr-gold);
+  width: 60px;
+  margin: 0 auto 1.5rem;
+}
+#tpl-terroir .tr-pullquote::after {
+  margin: 1.5rem auto 0;
+}
+
+/* Hairline */
+#tpl-terroir .tr-hairline {
+  border: none;
+  border-top: 1px solid var(--tr-divider);
+}
+
+/* Image zoom */
+#tpl-terroir .tr-zoom-wrap {
+  overflow: hidden;
+}
+#tpl-terroir .tr-zoom-wrap img {
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+@media (prefers-reduced-motion: reduce) {
+  #tpl-terroir .tr-zoom-wrap img {
+    transition: none;
+  }
+}
+#tpl-terroir .tr-zoom-wrap:hover img,
+#tpl-terroir .tr-zoom-wrap:focus-within img {
+  transform: scale(1.04);
+}
+
+/* Nav */
+#tpl-terroir .tr-nav {
+  background-color: rgba(247, 241, 230, 0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--tr-divider);
+}
+#tpl-terroir .tr-nav-link {
+  color: var(--tr-ink-lt);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.35rem 0.9rem;
+  border-radius: 4px;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
+}
+#tpl-terroir .tr-nav-link:hover {
+  color: var(--tr-bordeaux);
+  background-color: rgba(123, 34, 51, 0.07);
+}
+
+/* Buttons */
+#tpl-terroir .tr-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--tr-bordeaux);
+  color: #faf6ee;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color 0.25s,
+    box-shadow 0.25s;
+}
+#tpl-terroir .tr-btn-primary:hover {
+  background-color: #5f1a28;
+  box-shadow: 0 4px 20px rgba(123, 34, 51, 0.3);
+}
+#tpl-terroir .tr-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: var(--tr-bordeaux);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.72rem 1.9rem;
+  border: 1.5px solid var(--tr-bordeaux);
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color 0.25s,
+    color 0.25s;
+}
+#tpl-terroir .tr-btn-outline:hover {
+  background-color: var(--tr-bordeaux);
+  color: #faf6ee;
+}
+
+/* Menu row */
+#tpl-terroir .tr-menu-row {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--tr-divider);
+}
+#tpl-terroir .tr-menu-row:last-child {
+  border-bottom: none;
+}
+#tpl-terroir .tr-menu-dots {
+  flex: 1;
+  border-bottom: 1px dotted var(--tr-divider);
+  min-width: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Award badge */
+#tpl-terroir .tr-badge-award {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background-color: rgba(184, 137, 59, 0.12);
+  color: var(--tr-gold);
+  border: 1px solid rgba(184, 137, 59, 0.3);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.7rem;
+  border-radius: 100px;
+}
+
+/* Chef signature */
+#tpl-terroir .tr-signature {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 1.5rem;
+  color: var(--tr-bordeaux);
+  opacity: 0.85;
+}
+
+/* Form fields */
+#tpl-terroir .tr-input {
+  width: 100%;
+  background-color: var(--tr-cream-lt);
+  border: 1px solid var(--tr-divider);
+  border-radius: 6px;
+  padding: 0.625rem 0.75rem;
+  font-family: 'Lora', serif;
+  font-size: 0.9rem;
+  color: var(--tr-ink);
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  line-height: 1.6;
+}
+#tpl-terroir .tr-input:focus {
+  border-color: var(--tr-bordeaux);
+  box-shadow: 0 0 0 3px rgba(123, 34, 51, 0.12);
+}
+#tpl-terroir .tr-field-label {
+  color: var(--tr-ink-lt);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Gallery */
+#tpl-terroir .tr-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+@media (max-width: 768px) {
+  #tpl-terroir .tr-gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Footer */
+#tpl-terroir .tr-footer {
+  background-color: var(--tr-ink);
+  color: rgba(247, 241, 230, 0.65);
+}
+#tpl-terroir .tr-footer-link {
+  color: rgba(247, 241, 230, 0.55);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+#tpl-terroir .tr-footer-link:hover {
+  color: var(--tr-cream);
+}
+
+/* Social */
+#tpl-terroir .tr-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--tr-divider);
+  color: var(--tr-muted);
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+#tpl-terroir .tr-social:hover {
+  color: var(--tr-bordeaux);
+  border-color: var(--tr-bordeaux);
+}

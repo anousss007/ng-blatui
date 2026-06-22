@@ -925,6 +925,20 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
           <path d="m3 8 4-4 4 4" />
           <path d="M7 4v16" />
         }
+        @case ('phone') {
+          <path
+            d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"
+          />
+        }
+        @case ('train') {
+          <rect x="4" y="3" width="16" height="16" rx="2" />
+          <path d="M4 11h16" />
+          <path d="M12 3v8" />
+          <path d="m8 19-2 3" />
+          <path d="m18 22-2-3" />
+          <path d="M8 15h0" />
+          <path d="M16 15h0" />
+        }
       }
     </svg>
   `,
