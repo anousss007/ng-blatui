@@ -1,0 +1,1109 @@
+<div id="tpl-estate">
+  <!-- NAV -->
+  <header class="es-nav sticky top-0 z-40">
+    <div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-6">
+      <button
+        type="button"
+        aria-label="Open menu"
+        class="md:hidden"
+        style="background: transparent; border: none; cursor: pointer; color: var(--es-charcoal2)"
+      >
+        <app-lucide name="menu" class="size-5" />
+      </button>
+
+      <div class="flex flex-1 justify-center md:justify-start">
+        <a
+          href="#"
+          class="es-display"
+          style="
+            font-size: 1.45rem;
+            color: var(--es-charcoal);
+            text-decoration: none;
+            letter-spacing: -0.01em;
+          "
+          >Maison <em style="font-style: italic; color: var(--es-gold)">Estates</em></a
+        >
+      </div>
+
+      <nav class="hidden items-center gap-0.5 md:flex">
+        @for (link of nav; track link.href) {
+          <a [href]="link.href" class="es-nav-link">{{ link.label }}</a>
+        }
+      </nav>
+
+      <div class="hidden items-center gap-4 md:flex">
+        <span
+          style="width: 1px; height: 1.25rem; background-color: var(--es-divider)"
+          aria-hidden="true"
+        ></span>
+        <a
+          href="tel:+33140000000"
+          aria-label="Call us"
+          style="color: var(--es-muted); display: inline-flex; align-items: center"
+          ><app-lucide name="phone" class="size-4"
+        /></a>
+        <a href="#viewing" class="es-btn-primary" style="padding: 0.5rem 1.5rem"
+          >Schedule a Viewing</a
+        >
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section
+    class="relative overflow-hidden"
+    style="min-height: 94vh; display: flex; align-items: flex-end"
+  >
+    <div class="es-zoom absolute inset-0">
+      <img
+        src="https://picsum.photos/seed/estate-hero/1800/1100"
+        alt="Maison Estates — a grand villa overlooking the Mediterranean"
+        class="size-full object-cover"
+        style="filter: brightness(0.52) saturate(0.9)"
+      />
+    </div>
+    <div
+      class="absolute inset-0"
+      style="
+        background: linear-gradient(
+          to top,
+          rgba(28, 27, 25, 0.95) 0%,
+          rgba(28, 27, 25, 0.5) 40%,
+          transparent 100%
+        );
+      "
+    ></div>
+    <div
+      class="absolute top-1/2 left-8 hidden -translate-y-1/2 lg:block"
+      style="width: 1px; height: 120px; background: var(--es-gold); opacity: 0.5"
+    ></div>
+    <div
+      class="absolute top-1/2 right-8 hidden -translate-y-1/2 lg:block"
+      style="width: 1px; height: 120px; background: var(--es-gold); opacity: 0.5"
+    ></div>
+
+    <div class="relative z-10 mx-auto w-full max-w-6xl px-6 pt-32 pb-24 lg:pb-32">
+      <div class="es-reveal" style="max-width: 54rem">
+        <div class="es-eyebrow mb-5" style="color: var(--es-gold); letter-spacing: 0.28em">
+          Exclusively Presented &ensp;·&ensp; Côte d'Azur, France
+        </div>
+
+        <h1
+          class="es-display"
+          style="font-size: clamp(3rem, 7vw, 5.8rem); color: #faf8f4; margin-bottom: 1.25rem"
+        >
+          Villa Aurore<br />
+          <em style="font-style: italic; color: rgba(243, 239, 233, 0.7); font-size: 0.78em"
+            >Cap d'Antibes</em
+          >
+        </h1>
+
+        <div class="mb-8 flex flex-wrap items-center gap-4">
+          <span
+            class="es-price"
+            style="font-size: clamp(1.5rem, 3vw, 2.25rem); color: var(--es-gold)"
+            >€ 4 250 000</span
+          >
+          <div class="flex flex-wrap gap-2.5">
+            <span
+              class="inline-flex items-center gap-1.5"
+              style="
+                background: rgba(169, 132, 69, 0.2);
+                color: #e0c07a;
+                border: 1px solid rgba(169, 132, 69, 0.4);
+                font-family: 'Inter', sans-serif;
+                font-size: 0.58rem;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                padding: 0.25rem 0.6rem;
+                border-radius: 2px;
+              "
+              ><app-lucide name="star" class="size-3 fill-current" /> Exclusive Mandate</span
+            >
+            <span
+              class="inline-flex items-center gap-1.5"
+              style="
+                background: rgba(47, 64, 52, 0.3);
+                color: #a8d4b1;
+                border: 1px solid rgba(47, 64, 52, 0.5);
+                font-family: 'Inter', sans-serif;
+                font-size: 0.58rem;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                padding: 0.25rem 0.6rem;
+                border-radius: 2px;
+              "
+              ><app-lucide name="leaf" class="size-3" /> 5 Beds</span
+            >
+            <span
+              class="inline-flex items-center"
+              style="
+                background: rgba(243, 239, 233, 0.1);
+                color: rgba(243, 239, 233, 0.7);
+                border: 1px solid rgba(243, 239, 233, 0.2);
+                font-family: 'Inter', sans-serif;
+                font-size: 0.58rem;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                padding: 0.25rem 0.6rem;
+                border-radius: 2px;
+              "
+              >6 800 sq ft</span
+            >
+          </div>
+        </div>
+
+        <p
+          class="es-reveal es-reveal-2"
+          style="
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.1rem;
+            color: rgba(243, 239, 233, 0.68);
+            max-width: 34rem;
+            line-height: 1.75;
+            margin-bottom: 2.5rem;
+          "
+        >
+          A masterwork of Provençal modernism — four season gardens, an infinity pool and
+          uninterrupted views across the Iles de Lérins.
+        </p>
+
+        <div class="es-reveal es-reveal-3 flex flex-wrap gap-4">
+          <a href="#viewing" class="es-btn-gold"
+            ><app-lucide name="calendar" class="size-4" /> Schedule a Viewing</a
+          >
+          <a
+            href="#listings"
+            class="es-btn-outline"
+            style="border-color: rgba(243, 239, 233, 0.45); color: rgba(243, 239, 233, 0.85)"
+            ><app-lucide name="building-2" class="size-4" /> All Properties</a
+          >
+        </div>
+      </div>
+
+      <div class="es-reveal es-reveal-4 mt-14 flex flex-wrap gap-x-10 gap-y-4">
+        @for (spec of heroSpecs; track spec.label) {
+          <div class="flex items-center gap-2.5">
+            <app-lucide [name]="spec.icon" class="size-4" style="color: var(--es-gold)" />
+            <span
+              style="
+                font-family: 'Inter', sans-serif;
+                font-size: 0.78rem;
+                color: rgba(243, 239, 233, 0.65);
+                letter-spacing: 0.08em;
+              "
+              >{{ spec.label }}</span
+            >
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED LISTINGS -->
+  <section id="listings" class="scroll-mt-20" style="background: var(--es-stone)">
+    <div class="mx-auto max-w-7xl px-6 py-20 lg:py-28">
+      <div
+        class="mb-12 flex flex-col items-start gap-4 sm:flex-row sm:items-end sm:justify-between"
+      >
+        <div>
+          <span class="es-gold-bar"></span>
+          <div class="es-eyebrow mb-3">Our Portfolio</div>
+          <h2
+            class="es-display-md"
+            style="font-size: clamp(2rem, 4vw, 3rem); color: var(--es-charcoal)"
+          >
+            Featured Properties
+          </h2>
+        </div>
+        <a href="#" class="es-btn-outline shrink-0"
+          >View All Listings <app-lucide name="arrow-right" class="size-4"
+        /></a>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        @for (prop of listings; track prop.seed; let i = $index) {
+          <article class="es-card group" style="border-radius: 2px; overflow: hidden">
+            <div class="es-zoom relative" style="aspect-ratio: 4/3">
+              <img
+                [src]="'https://picsum.photos/seed/' + prop.seed + '/800/600'"
+                [alt]="prop.title + ' — ' + prop.location"
+                loading="lazy"
+                class="size-full object-cover"
+              />
+              <div class="absolute top-4 left-4">
+                <span
+                  buiBadge
+                  [tone]="prop.badgeTone"
+                  variant="solid"
+                  style="
+                    font-family: 'Inter', sans-serif;
+                    font-size: 0.58rem;
+                    letter-spacing: 0.14em;
+                    text-transform: uppercase;
+                  "
+                  >{{ prop.badge }}</span
+                >
+              </div>
+              <div
+                class="es-index-num absolute right-4 bottom-4"
+                style="
+                  background: rgba(28, 27, 25, 0.7);
+                  padding: 0.25rem 0.6rem;
+                  border-radius: 1px;
+                  backdrop-filter: blur(4px);
+                "
+              >
+                <span style="color: var(--es-gold)">{{ pad(i) }}</span>
+              </div>
+            </div>
+            <div style="padding: 1.5rem 1.75rem">
+              <div class="es-label mb-1.5" style="color: var(--es-gold)">{{ prop.location }}</div>
+              <h3
+                class="es-serif"
+                style="
+                  font-size: 1.3rem;
+                  font-weight: 600;
+                  color: var(--es-charcoal);
+                  margin-bottom: 0.5rem;
+                  letter-spacing: -0.01em;
+                "
+              >
+                {{ prop.title }}
+              </h3>
+              <div class="es-price" style="font-size: 1.2rem; margin-bottom: 1rem">
+                € {{ prop.price }}
+              </div>
+
+              <hr class="es-hairline mb-4" />
+
+              <div class="flex flex-wrap items-center gap-5">
+                <div class="flex items-center gap-1.5">
+                  <app-lucide
+                    name="bed-double"
+                    class="size-3.5"
+                    style="color: var(--es-muted)"
+                  /><span
+                    style="
+                      font-family: 'Inter', sans-serif;
+                      font-size: 0.75rem;
+                      color: var(--es-muted);
+                    "
+                    >{{ prop.beds }} beds</span
+                  >
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <app-lucide name="bath" class="size-3.5" style="color: var(--es-muted)" /><span
+                    style="
+                      font-family: 'Inter', sans-serif;
+                      font-size: 0.75rem;
+                      color: var(--es-muted);
+                    "
+                    >{{ prop.baths }} baths</span
+                  >
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <app-lucide name="ruler" class="size-3.5" style="color: var(--es-muted)" /><span
+                    style="
+                      font-family: 'Inter', sans-serif;
+                      font-size: 0.75rem;
+                      color: var(--es-muted);
+                    "
+                    >{{ prop.sqft }} sq ft</span
+                  >
+                </div>
+              </div>
+
+              <div class="mt-5">
+                <a
+                  href="#viewing"
+                  class="es-btn-outline"
+                  style="
+                    width: 100%;
+                    justify-content: center;
+                    padding: 0.6rem;
+                    font-size: 0.68rem;
+                    letter-spacing: 0.12em;
+                    border-color: var(--es-divider);
+                    color: var(--es-charcoal2);
+                  "
+                  >Request Details</a
+                >
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <hr class="es-hairline" />
+
+  <!-- PROPERTY SPOTLIGHT -->
+  <section id="spotlight" class="scroll-mt-20" style="background: var(--es-stone-lt)">
+    <div class="mx-auto max-w-7xl px-6 py-20 lg:py-28">
+      <div class="mb-14 text-center">
+        <span class="es-gold-bar mx-auto"></span>
+        <div class="es-eyebrow mb-3">Property Spotlight</div>
+        <h2
+          class="es-display-md"
+          style="font-size: clamp(2rem, 4vw, 3rem); color: var(--es-charcoal)"
+        >
+          Villa Aurore — In Detail
+        </h2>
+        <p
+          style="
+            color: var(--es-muted);
+            margin-top: 0.75rem;
+            max-width: 38rem;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 0.95rem;
+          "
+        >
+          A complete introduction to this singular property — every room considered, every aspect
+          curated.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2 md:grid-cols-3">
+        @for (img of gallery; track img.src) {
+          <div class="es-zoom" style="aspect-ratio: 3/2">
+            <img [src]="img.src" [alt]="img.alt" loading="lazy" class="size-full object-cover" />
+          </div>
+        }
+      </div>
+
+      <div class="mt-14 grid gap-12 lg:grid-cols-2">
+        <div>
+          <div class="es-eyebrow mb-6">Property Specifications</div>
+          <table class="es-table">
+            <thead>
+              <tr>
+                <th>Specification</th>
+                <th>Detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of specsTable; track row.label) {
+                <tr>
+                  <td class="es-label" style="color: var(--es-muted)">{{ row.label }}</td>
+                  <td style="color: var(--es-charcoal); font-weight: 500">{{ row.value }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <div class="es-eyebrow mb-6">Signature Amenities</div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            @for (amenity of amenities; track amenity.label; let i = $index) {
+              <div class="flex items-start gap-3.5">
+                <span
+                  class="es-index-num shrink-0"
+                  style="font-size: 0.7rem; padding-top: 0.15rem"
+                  >{{ pad(i) }}</span
+                >
+                <div class="flex items-center gap-2.5">
+                  <div
+                    style="
+                      width: 32px;
+                      height: 32px;
+                      background: var(--es-gold-lt);
+                      border: 1px solid var(--es-gold-line);
+                      border-radius: 2px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      flex-shrink: 0;
+                    "
+                  >
+                    <app-lucide
+                      [name]="amenity.icon"
+                      class="size-3.5"
+                      style="color: var(--es-gold)"
+                    />
+                  </div>
+                  <span
+                    style="
+                      font-family: 'Inter', sans-serif;
+                      font-size: 0.85rem;
+                      color: var(--es-charcoal2);
+                      line-height: 1.4;
+                    "
+                    >{{ amenity.label }}</span
+                  >
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="mt-10">
+            <a href="#viewing" class="es-btn-primary"
+              ><app-lucide name="calendar" class="size-4" /> Schedule a Private Viewing</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="es-hairline" />
+
+  <!-- NEIGHBOURHOODS (tabs, riviera active) -->
+  <section id="neighbourhoods" class="scroll-mt-20" style="background: var(--es-stone)">
+    <div class="mx-auto max-w-7xl px-6 py-20 lg:py-28">
+      <div class="mb-12 text-center">
+        <span class="es-gold-bar mx-auto"></span>
+        <div class="es-eyebrow mb-3">Location Intelligence</div>
+        <h2
+          class="es-display-md"
+          style="font-size: clamp(2rem, 4vw, 3rem); color: var(--es-charcoal)"
+        >
+          Our Markets
+        </h2>
+        <p style="color: var(--es-muted); margin-top: 0.75rem; font-size: 0.95rem">
+          Each address we represent is chosen for its irreplaceable position.
+        </p>
+      </div>
+
+      <div class="mb-10 flex justify-center">
+        <div class="es-tablist grid w-full max-w-2xl grid-cols-4">
+          @for (nb of neighbourhoods; track nb.key; let first = $first) {
+            <span class="es-tab" [class.es-tab-active]="first">{{ nb.label }}</span>
+          }
+        </div>
+      </div>
+
+      @for (nb of neighbourhoods; track nb.key; let first = $first) {
+        @if (first) {
+          <div class="grid items-center gap-10 lg:grid-cols-2">
+            <div>
+              <h3
+                class="es-display-md mb-4"
+                style="font-size: clamp(1.7rem, 3vw, 2.4rem); color: var(--es-charcoal)"
+              >
+                {{ nb.label }}
+              </h3>
+              <p style="color: var(--es-muted); line-height: 1.8; margin-bottom: 1.75rem">
+                {{ nb.desc }}
+              </p>
+              <ul class="space-y-3">
+                @for (hl of nb.highlights; track hl) {
+                  <li class="flex items-start gap-3">
+                    <span
+                      style="
+                        width: 24px;
+                        height: 24px;
+                        background: var(--es-gold-lt);
+                        border: 1px solid var(--es-gold-line);
+                        border-radius: 50%;
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-shrink: 0;
+                        margin-top: 0.1rem;
+                      "
+                      ><app-lucide name="check" class="size-3" style="color: var(--es-gold)"
+                    /></span>
+                    <span
+                      style="
+                        font-family: 'Inter', sans-serif;
+                        font-size: 0.88rem;
+                        color: var(--es-charcoal2);
+                      "
+                      >{{ hl }}</span
+                    >
+                  </li>
+                }
+              </ul>
+            </div>
+            <div class="es-spotlight-img es-zoom" style="border-radius: 2px">
+              <img
+                [src]="'https://picsum.photos/seed/' + nb.imgSeed + '/900/675'"
+                [alt]="nb.label + ' — Maison Estates'"
+                loading="lazy"
+                class="size-full object-cover"
+              />
+            </div>
+          </div>
+        }
+      }
+    </div>
+  </section>
+
+  <hr class="es-hairline" />
+
+  <!-- CONCIERGE -->
+  <section id="concierge" class="scroll-mt-20" style="background: var(--es-charcoal)">
+    <div class="mx-auto max-w-6xl px-6 py-20 lg:py-28">
+      <div class="grid items-center gap-14 lg:grid-cols-2">
+        <div class="flex flex-col items-center text-center lg:items-start lg:text-left">
+          <div
+            class="es-zoom mb-6"
+            style="
+              width: 160px;
+              height: 160px;
+              border-radius: 50%;
+              overflow: hidden;
+              border: 3px solid var(--es-gold-line);
+            "
+          >
+            <img
+              src="https://picsum.photos/seed/agent-pierre/320/320"
+              alt="Pierre Beaumont, Senior Estate Director"
+              class="size-full object-cover"
+            />
+          </div>
+
+          <div class="es-eyebrow mb-2" style="color: var(--es-gold)">Your Concierge</div>
+          <h3 class="es-display-md mb-1" style="font-size: 1.8rem; color: #faf8f4">
+            Pierre Beaumont
+          </h3>
+          <div class="es-label mb-4" style="color: rgba(243, 239, 233, 0.4)">
+            Senior Estate Director — Europe
+          </div>
+
+          <div class="mb-6 flex flex-wrap justify-center gap-3 lg:justify-start">
+            <span
+              class="inline-flex items-center gap-1.5"
+              style="
+                background: rgba(169, 132, 69, 0.15);
+                color: var(--es-gold);
+                border: 1px solid var(--es-gold-line);
+                font-family: 'Inter', sans-serif;
+                font-size: 0.58rem;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                padding: 0.25rem 0.6rem;
+                border-radius: 2px;
+              "
+              ><app-lucide name="award" class="size-3" /> 18 Years Experience</span
+            >
+            <span
+              class="inline-flex items-center gap-1.5"
+              style="
+                background: rgba(47, 64, 52, 0.2);
+                color: #a8d4b1;
+                border: 1px solid rgba(47, 64, 52, 0.4);
+                font-family: 'Inter', sans-serif;
+                font-size: 0.58rem;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                padding: 0.25rem 0.6rem;
+                border-radius: 2px;
+              "
+              ><app-lucide name="globe" class="size-3" /> FR · MC · CH</span
+            >
+          </div>
+
+          <div class="flex gap-3">
+            <a
+              href="tel:+33140000001"
+              aria-label="Call Pierre"
+              class="es-social"
+              style="
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 38px;
+                height: 38px;
+                border: 1px solid rgba(243, 239, 233, 0.15);
+                border-radius: 50%;
+                color: rgba(243, 239, 233, 0.55);
+              "
+              ><app-lucide name="phone" class="size-4"
+            /></a>
+            <a
+              href="mailto:pierre@maisonestates.com"
+              aria-label="Email Pierre"
+              class="es-social"
+              style="
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 38px;
+                height: 38px;
+                border: 1px solid rgba(243, 239, 233, 0.15);
+                border-radius: 50%;
+                color: rgba(243, 239, 233, 0.55);
+              "
+              ><app-lucide name="mail" class="size-4"
+            /></a>
+          </div>
+        </div>
+
+        <div>
+          <figure>
+            <blockquote
+              style="
+                font-family: 'Cormorant Garamond', Georgia, serif;
+                font-weight: 500;
+                font-size: 1.5rem;
+                color: rgba(243, 239, 233, 0.9);
+                line-height: 1.6;
+              "
+            >
+              "Every property search is, at its heart, a search for belonging. We listen before we
+              advise — and we never present a property we would not be proud to call our own."
+            </blockquote>
+            <figcaption class="mt-5 flex items-center gap-3">
+              <bui-avatar
+                class="size-10"
+                src="https://picsum.photos/seed/agent-pierre/160/160"
+                alt="Pierre Beaumont"
+                >PB</bui-avatar
+              >
+              <div>
+                <div
+                  style="
+                    font-family: 'Inter', sans-serif;
+                    font-size: 0.85rem;
+                    color: #faf8f4;
+                    font-weight: 600;
+                  "
+                >
+                  Pierre Beaumont
+                </div>
+                <div
+                  style="
+                    font-family: 'Inter', sans-serif;
+                    font-size: 0.75rem;
+                    color: rgba(243, 239, 233, 0.5);
+                  "
+                >
+                  Senior Estate Director, Maison Estates
+                </div>
+              </div>
+            </figcaption>
+          </figure>
+
+          <div
+            class="mt-10 space-y-4"
+            style="border-left: 2px solid var(--es-gold-line); padding-left: 1.5rem"
+          >
+            @for (point of agentPoints; track point) {
+              <div class="flex items-start gap-3">
+                <app-lucide
+                  name="check"
+                  class="mt-0.5 size-4 shrink-0"
+                  style="color: var(--es-gold)"
+                /><span
+                  style="
+                    font-family: 'Inter', sans-serif;
+                    font-size: 0.88rem;
+                    color: rgba(243, 239, 233, 0.65);
+                  "
+                  >{{ point }}</span
+                >
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section style="background: var(--es-stone-lt)">
+    <div class="mx-auto max-w-6xl px-6 py-16 lg:py-20">
+      <div class="grid grid-cols-2 gap-8 lg:grid-cols-4">
+        @for (stat of stats; track stat.label; let last = $last) {
+          <div
+            class="text-center"
+            style="padding: 0 1rem"
+            [style.border-right]="last ? 'none' : '1px solid var(--es-divider)'"
+          >
+            <div class="es-stat-value">{{ stat.value }}</div>
+            <div class="es-label mt-2" style="color: var(--es-muted)">{{ stat.label }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <hr class="es-hairline" />
+
+  <!-- TESTIMONIALS (carousel) -->
+  <section style="background: var(--es-stone)">
+    <div class="mx-auto max-w-6xl px-6 py-20 lg:py-28">
+      <div class="mb-12 text-center">
+        <span class="es-gold-bar mx-auto"></span>
+        <div class="es-eyebrow mb-3">Client Voices</div>
+        <h2
+          class="es-display-md"
+          style="font-size: clamp(2rem, 4vw, 3rem); color: var(--es-charcoal)"
+        >
+          Trusted by Discerning Buyers
+        </h2>
+      </div>
+
+      <div class="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2">
+        @for (t of testimonials; track t.author) {
+          <div class="shrink-0 basis-full snap-center px-2 sm:basis-3/4 lg:basis-2/3">
+            <div
+              class="mx-auto max-w-3xl"
+              style="
+                border: 1px solid var(--es-divider);
+                border-radius: 2px;
+                padding: 3rem 3.5rem;
+                background: var(--es-stone-lt);
+              "
+            >
+              <figure>
+                <blockquote
+                  style="
+                    font-family: 'Cormorant Garamond', Georgia, serif;
+                    font-weight: 500;
+                    font-size: 1.2rem;
+                    color: var(--es-charcoal);
+                    line-height: 1.6;
+                  "
+                >
+                  "{{ t.q }}"
+                </blockquote>
+                <figcaption class="mt-6 flex items-center gap-3">
+                  <bui-avatar class="size-11" [src]="t.img" [alt]="t.author">{{
+                    t.author.charAt(0)
+                  }}</bui-avatar>
+                  <div>
+                    <div
+                      style="
+                        font-family: 'Inter', sans-serif;
+                        font-size: 0.88rem;
+                        color: var(--es-charcoal);
+                        font-weight: 600;
+                      "
+                    >
+                      {{ t.author }}
+                    </div>
+                    <div
+                      style="
+                        font-family: 'Inter', sans-serif;
+                        font-size: 0.78rem;
+                        color: var(--es-muted);
+                      "
+                    >
+                      {{ t.role }}
+                    </div>
+                  </div>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="mt-8 flex justify-center gap-2.5">
+        @for (t of testimonials; track t.author; let first = $first) {
+          <span
+            style="height: 0.625rem; border-radius: 100px"
+            [style.width]="first ? '2rem' : '0.625rem'"
+            [style.background]="first ? 'var(--es-gold)' : 'var(--es-divider)'"
+          ></span>
+        }
+      </div>
+    </div>
+  </section>
+
+  <hr class="es-hairline" />
+
+  <!-- VIEWING FORM -->
+  <section id="viewing" class="scroll-mt-20" style="background: var(--es-stone-lt)">
+    <div class="mx-auto max-w-3xl px-6 py-20 lg:py-28">
+      <div class="mb-12 text-center">
+        <span class="es-gold-bar mx-auto"></span>
+        <div class="es-eyebrow mb-3">Private Viewings</div>
+        <h2
+          class="es-display-md"
+          style="font-size: clamp(2rem, 4vw, 3rem); color: var(--es-charcoal)"
+        >
+          Schedule a Viewing
+        </h2>
+        <p
+          style="
+            color: var(--es-muted);
+            margin-top: 0.75rem;
+            font-size: 0.95rem;
+            max-width: 28rem;
+            margin-left: auto;
+            margin-right: auto;
+          "
+        >
+          All viewings are arranged at your convenience. Our concierge will confirm within two
+          business hours.
+        </p>
+      </div>
+
+      <form
+        style="
+          background: var(--es-stone);
+          border: 1px solid var(--es-divider);
+          border-radius: 2px;
+          padding: 2.75rem;
+          box-shadow: 0 6px 32px rgba(28, 27, 25, 0.07);
+        "
+        aria-label="Schedule a viewing form"
+      >
+        <div class="mb-6 grid gap-6 sm:grid-cols-2">
+          <div>
+            <span class="es-field-label">Property Type</span>
+            <select class="es-select" aria-label="Property Type">
+              <option value="" disabled selected>Select type…</option>
+              @for (t of propertyTypes; track t) {
+                <option>{{ t }}</option>
+              }
+            </select>
+          </div>
+          <div>
+            <span class="es-field-label">Budget Range</span>
+            <select class="es-select" aria-label="Budget Range">
+              <option value="" disabled selected>Select range…</option>
+              @for (b of budgetRanges; track b) {
+                <option>{{ b }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-6 grid gap-6 sm:grid-cols-2">
+          <div>
+            <span class="es-field-label">Preferred Date</span>
+            <input type="date" class="es-input" aria-label="Preferred Date" />
+          </div>
+          <div>
+            <span class="es-field-label">Preferred Time</span>
+            <input type="time" class="es-input" aria-label="Preferred Time" />
+          </div>
+        </div>
+
+        <div class="mb-6 grid gap-6 sm:grid-cols-2">
+          <div>
+            <span class="es-field-label">Full Name</span>
+            <input
+              type="text"
+              class="es-input"
+              placeholder="Your full name"
+              autocomplete="name"
+              aria-label="Full Name"
+            />
+          </div>
+          <div>
+            <span class="es-field-label">Email Address</span>
+            <input
+              type="email"
+              class="es-input"
+              placeholder="you@example.com"
+              autocomplete="email"
+              aria-label="Email Address"
+            />
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <span class="es-field-label">Phone Number</span>
+          <input
+            type="tel"
+            class="es-input"
+            placeholder="Mobile or direct line"
+            autocomplete="tel"
+            aria-label="Phone Number"
+          />
+        </div>
+
+        <div class="mb-8">
+          <span class="es-field-label">Additional Notes</span>
+          <textarea
+            rows="3"
+            class="es-textarea"
+            placeholder="Specific properties of interest, travel arrangements, special requirements…"
+            style="resize: vertical; line-height: 1.65"
+          ></textarea>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <p
+            style="
+              font-family: 'Inter', sans-serif;
+              font-size: 0.72rem;
+              color: var(--es-muted);
+              line-height: 1.55;
+              max-width: 26rem;
+            "
+          >
+            Your details are held in strict confidence and never shared with third parties. We
+            operate under GDPR.
+          </p>
+          <button type="button" class="es-btn-gold">
+            <app-lucide name="calendar-check" class="size-4" /> Request Viewing
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <hr class="es-hairline" />
+
+  <!-- FAQ -->
+  <section id="faq" class="scroll-mt-20" style="background: var(--es-stone)">
+    <div class="mx-auto max-w-3xl px-6 py-20 lg:py-28">
+      <div class="mb-12 text-center">
+        <span class="es-gold-bar mx-auto"></span>
+        <div class="es-eyebrow mb-3">Frequently Asked</div>
+        <h2
+          class="es-display-md"
+          style="font-size: clamp(2rem, 4vw, 3rem); color: var(--es-charcoal)"
+        >
+          Your Questions, Answered
+        </h2>
+      </div>
+
+      <div class="w-full">
+        @for (item of faqs; track item.q; let first = $first) {
+          <details class="group" style="border-bottom: 1px solid var(--es-divider)" [open]="first">
+            <summary
+              class="flex cursor-pointer items-center justify-between gap-4 py-5"
+              style="
+                font-family: 'Cormorant Garamond', Georgia, serif;
+                font-weight: 600;
+                font-size: 1.05rem;
+                color: var(--es-charcoal);
+              "
+            >
+              {{ item.q }}
+              <app-lucide
+                name="chevron-down"
+                class="size-4 shrink-0 transition-transform group-open:rotate-180"
+                style="color: var(--es-gold)"
+              />
+            </summary>
+            <p class="pb-5" style="color: var(--es-muted); font-size: 0.92rem; line-height: 1.8">
+              {{ item.a }}
+            </p>
+          </details>
+        }
+      </div>
+
+      <div class="mt-10 text-center">
+        <p style="color: var(--es-muted); font-size: 0.9rem; margin-bottom: 1.5rem">
+          Have a question not listed here?
+        </p>
+        <a href="mailto:enquiries@maisonestates.com" class="es-btn-outline"
+          ><app-lucide name="mail" class="size-4" /> Contact Our Team</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <hr class="es-hairline" />
+
+  <!-- FOOTER -->
+  <footer class="es-footer" style="background: var(--es-charcoal)">
+    <div class="mx-auto max-w-7xl px-6 py-16 lg:py-20">
+      <div class="mb-14 grid gap-12 sm:grid-cols-2 lg:grid-cols-5">
+        <div class="lg:col-span-2">
+          <a
+            href="#"
+            class="es-display"
+            style="
+              font-size: 1.4rem;
+              color: #faf8f4;
+              text-decoration: none;
+              display: inline-block;
+              margin-bottom: 0.85rem;
+            "
+            >Maison <em style="font-style: italic; color: var(--es-gold)">Estates</em></a
+          >
+          <p
+            style="
+              font-size: 0.84rem;
+              line-height: 1.75;
+              max-width: 22rem;
+              color: rgba(243, 239, 233, 0.45);
+              margin-bottom: 1.5rem;
+            "
+          >
+            Ultra-prime European property — curated mandates, confidential introductions and a
+            concierge service without equal.
+          </p>
+          <div style="display: flex; gap: 0.625rem">
+            @for (soc of socials; track soc) {
+              <a
+                href="#"
+                [attr.aria-label]="soc"
+                class="es-social"
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 34px;
+                  height: 34px;
+                  border: 1px solid rgba(243, 239, 233, 0.12);
+                  border-radius: 50%;
+                  color: rgba(243, 239, 233, 0.4);
+                "
+                ><app-lucide [name]="soc" class="size-3.5"
+              /></a>
+            }
+          </div>
+        </div>
+
+        @for (col of footerCols; track col.heading) {
+          <div>
+            <div class="es-label mb-4" style="color: rgba(243, 239, 233, 0.3)">
+              {{ col.heading }}
+            </div>
+            <ul style="display: flex; flex-direction: column; gap: 0.55rem">
+              @for (link of col.links; track link) {
+                <li>
+                  <a href="#" style="font-family: 'Inter', sans-serif; font-size: 0.84rem">{{
+                    link
+                  }}</a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <hr
+        style="
+          border: none;
+          height: 1px;
+          background-color: rgba(243, 239, 233, 0.08);
+          margin-bottom: 1.75rem;
+        "
+      />
+
+      <div
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1rem;
+        "
+      >
+        <span
+          style="
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            color: rgba(243, 239, 233, 0.28);
+            letter-spacing: 0.06em;
+          "
+          >© 2026 Maison Estates SAS. All rights reserved.</span
+        >
+        <div style="display: flex; gap: 1.75rem; flex-wrap: wrap">
+          @for (lnk of footerLegal; track lnk) {
+            <a
+              href="#"
+              style="font-family: 'Inter', sans-serif; font-size: 0.7rem; letter-spacing: 0.06em"
+              >{{ lnk }}</a
+            >
+          }
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>

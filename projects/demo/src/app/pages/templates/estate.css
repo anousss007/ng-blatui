@@ -1,0 +1,366 @@
+@import url('https://fonts.bunny.net/css?family=cormorant-garamond:400,500,600,700|inter:400,500,600,700');
+
+#tpl-estate {
+  --es-stone: #f3efe9;
+  --es-stone-lt: #faf8f4;
+  --es-charcoal: #1c1b19;
+  --es-charcoal2: #2f2e2b;
+  --es-gold: #a98445;
+  --es-gold-lt: rgba(169, 132, 69, 0.18);
+  --es-gold-line: rgba(169, 132, 69, 0.3);
+  --es-forest: #2f4034;
+  --es-muted: #7a7267;
+  --es-divider: rgba(169, 132, 69, 0.2);
+
+  background-color: var(--es-stone);
+  color: var(--es-charcoal);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* Typography */
+#tpl-estate .es-display {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+#tpl-estate .es-display-md {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+#tpl-estate .es-serif {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+#tpl-estate .es-eyebrow {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--es-gold);
+}
+#tpl-estate .es-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--es-muted);
+}
+#tpl-estate .es-price {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--es-charcoal);
+}
+
+/* Gold hairline */
+#tpl-estate .es-hairline {
+  border: none;
+  border-top: 1px solid var(--es-divider);
+}
+#tpl-estate .es-gold-bar {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--es-gold);
+  margin-bottom: 1.25rem;
+}
+
+/* Image hover zoom */
+#tpl-estate .es-zoom {
+  overflow: hidden;
+}
+#tpl-estate .es-zoom img {
+  transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  #tpl-estate .es-zoom img {
+    transition: none;
+  }
+}
+#tpl-estate .es-zoom:hover img,
+#tpl-estate .es-zoom:focus-within img {
+  transform: scale(1.045);
+}
+
+/* Fade-reveal */
+@keyframes es-fadeup {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  #tpl-estate .es-reveal {
+    animation: es-fadeup 0.7s ease both;
+  }
+  #tpl-estate .es-reveal-2 {
+    animation-delay: 0.12s;
+  }
+  #tpl-estate .es-reveal-3 {
+    animation-delay: 0.24s;
+  }
+  #tpl-estate .es-reveal-4 {
+    animation-delay: 0.36s;
+  }
+}
+
+/* Numbered index */
+#tpl-estate .es-index-num {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--es-gold);
+  min-width: 1.8rem;
+  padding-top: 0.05rem;
+}
+
+/* Nav */
+#tpl-estate .es-nav {
+  background-color: rgba(243, 239, 233, 0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--es-divider);
+}
+#tpl-estate .es-nav-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--es-charcoal2);
+  text-decoration: none;
+  padding: 0.35rem 0.9rem;
+  border-radius: 4px;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
+}
+#tpl-estate .es-nav-link:hover {
+  color: var(--es-gold);
+  background-color: var(--es-gold-lt);
+}
+
+/* Buttons */
+#tpl-estate .es-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--es-charcoal);
+  color: var(--es-stone-lt);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.8rem 2.2rem;
+  border: 1.5px solid var(--es-charcoal);
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color 0.25s,
+    color 0.25s,
+    box-shadow 0.25s;
+}
+#tpl-estate .es-btn-primary:hover {
+  background-color: var(--es-gold);
+  border-color: var(--es-gold);
+  box-shadow: 0 6px 24px rgba(169, 132, 69, 0.28);
+}
+#tpl-estate .es-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: var(--es-charcoal);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.78rem 2.1rem;
+  border: 1.5px solid var(--es-charcoal);
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color 0.25s,
+    color 0.25s;
+}
+#tpl-estate .es-btn-outline:hover {
+  background-color: var(--es-charcoal);
+  color: var(--es-stone-lt);
+}
+#tpl-estate .es-btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--es-gold);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.8rem 2.2rem;
+  border: 1.5px solid var(--es-gold);
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color 0.25s,
+    box-shadow 0.25s;
+}
+#tpl-estate .es-btn-gold:hover {
+  background-color: #8a6a34;
+  border-color: #8a6a34;
+  box-shadow: 0 6px 24px rgba(169, 132, 69, 0.3);
+}
+
+/* Listing card */
+#tpl-estate .es-card {
+  background: var(--es-stone-lt);
+  border: 1px solid var(--es-divider);
+  transition: box-shadow 0.3s;
+}
+#tpl-estate .es-card:hover {
+  box-shadow: 0 12px 40px rgba(28, 27, 25, 0.1);
+}
+
+/* Stat block */
+#tpl-estate .es-stat-value {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  color: var(--es-charcoal);
+  line-height: 1;
+}
+
+/* Form */
+#tpl-estate .es-input,
+#tpl-estate .es-select,
+#tpl-estate .es-textarea {
+  width: 100%;
+  background: #faf8f4;
+  border: 1px solid var(--es-divider);
+  border-radius: 2px;
+  padding: 0.6rem 0.875rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: var(--es-charcoal);
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+#tpl-estate .es-input:focus,
+#tpl-estate .es-select:focus,
+#tpl-estate .es-textarea:focus {
+  border-color: var(--es-gold);
+  box-shadow: 0 0 0 3px rgba(169, 132, 69, 0.12);
+}
+#tpl-estate .es-field-label {
+  display: block;
+  color: var(--es-charcoal2);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+/* Table */
+#tpl-estate .es-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--es-stone-lt);
+  border: 1px solid var(--es-divider);
+  border-radius: 2px;
+  overflow: hidden;
+}
+#tpl-estate .es-table th {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--es-muted);
+  background: var(--es-stone-lt);
+  border-bottom: 1px solid var(--es-divider);
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  text-align: left;
+}
+#tpl-estate .es-table td {
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--es-divider);
+  color: var(--es-charcoal2);
+  font-size: 0.9rem;
+}
+#tpl-estate .es-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Tabs */
+#tpl-estate .es-tablist {
+  background-color: rgba(169, 132, 69, 0.1);
+  border: 1px solid var(--es-divider);
+  border-radius: 2px;
+  padding: 0.25rem;
+}
+#tpl-estate .es-tab {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--es-muted);
+  border-radius: 2px;
+  padding: 0.55rem 0.5rem;
+  text-align: center;
+  cursor: pointer;
+}
+#tpl-estate .es-tab-active {
+  background-color: var(--es-charcoal);
+  color: var(--es-stone-lt);
+}
+
+/* Footer */
+#tpl-estate .es-footer {
+  background-color: var(--es-charcoal);
+  color: rgba(243, 239, 233, 0.55);
+}
+#tpl-estate .es-footer a {
+  color: rgba(243, 239, 233, 0.45);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+#tpl-estate .es-footer a:hover {
+  color: rgba(243, 239, 233, 0.85);
+}
+#tpl-estate .es-social {
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+#tpl-estate .es-social:hover {
+  color: var(--es-gold) !important;
+  border-color: var(--es-gold-line) !important;
+}
+
+/* Spotlight */
+#tpl-estate .es-spotlight-img {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
