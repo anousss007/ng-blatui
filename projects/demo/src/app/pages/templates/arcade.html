@@ -1,0 +1,760 @@
+<div id="tpl-arcade">
+  <div class="arc-scanlines" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <header
+    style="
+      background: rgba(13, 2, 33, 0.9);
+      border-bottom: 1px solid rgba(168, 85, 247, 0.25);
+      backdrop-filter: blur(16px);
+    "
+    class="sticky top-0 z-40"
+  >
+    <div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-6">
+      <a href="#" class="flex shrink-0 items-center gap-2.5">
+        <span
+          style="
+            background: linear-gradient(135deg, #ff2bd6, #a855f7);
+            box-shadow: 0 0 16px #ff2bd650;
+          "
+          class="flex size-9 items-center justify-center rounded-lg"
+          ><app-lucide name="gamepad-2" class="size-5 text-white"
+        /></span>
+        <span class="arc-title arc-chrome text-lg font-bold">NEON ARCADE</span>
+      </a>
+      <nav class="ml-6 hidden items-center gap-1 text-sm md:flex">
+        @for (link of nav; track link.href) {
+          <a [href]="link.href" class="arc-nav-link rounded-md px-3 py-1.5 font-medium">{{
+            link.label
+          }}</a>
+        }
+      </nav>
+      <div class="ml-auto flex items-center gap-3">
+        <span buiBadge tone="danger" variant="solid" class="arc-accent hidden sm:inline-flex"
+          >LIVE</span
+        >
+        <button class="arc-btn-cyan h-9 rounded-lg px-5 text-xs font-semibold">PLAY NOW</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- TICKER -->
+  <div class="arc-ticker overflow-hidden" aria-label="News ticker">
+    <div class="arc-ticker-row">
+      @for (t of topTicker; track $index) {
+        <span class="arc-accent font-bold whitespace-nowrap" style="color: #0d0221">✦ {{ t }}</span>
+      }
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section
+    class="relative overflow-hidden"
+    style="
+      background: linear-gradient(180deg, #0d0221 0%, #1a0b2e 60%, #0d0221 100%);
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+    "
+  >
+    <div class="arc-grid-floor" aria-hidden="true"></div>
+    <div
+      class="arc-glow-blob-m"
+      style="width: 600px; height: 600px; top: -200px; left: -100px"
+      aria-hidden="true"
+    ></div>
+    <div
+      class="arc-glow-blob-c"
+      style="width: 500px; height: 500px; top: -100px; right: -80px"
+      aria-hidden="true"
+    ></div>
+
+    <div class="relative z-10 mx-auto max-w-7xl px-6 py-24 text-center">
+      <div class="mb-8 flex flex-wrap justify-center gap-2">
+        @for (b of heroBadges; track b.label) {
+          <span buiBadge [tone]="b.tone" [variant]="b.variant" class="arc-accent">{{
+            b.label
+          }}</span>
+        }
+      </div>
+
+      <h1 class="arc-title mb-4 leading-none font-black" style="font-size: clamp(3rem, 10vw, 8rem)">
+        <span class="arc-neon-m glow-m block" style="filter: drop-shadow(0 0 24px #ff2bd660)"
+          >NEON</span
+        >
+        <span
+          class="arc-chrome block"
+          style="filter: drop-shadow(0 0 16px rgba(200, 200, 255, 0.3))"
+          >ARCADE</span
+        >
+      </h1>
+
+      <p
+        class="arc-accent mb-3 text-center"
+        style="color: #a855f7; letter-spacing: 0.2em; font-size: 0.6rem"
+      >
+        — INDIE GAME STUDIO &amp; PLATFORM —
+      </p>
+      <p class="mx-auto mb-10 max-w-2xl text-lg" style="color: #b090d0; line-height: 1.7">
+        300+ games. Global tournaments. Legendary rewards. The arcade never closes.
+      </p>
+
+      <div class="mb-12 flex flex-wrap justify-center gap-4">
+        <button class="arc-btn-magenta h-12 rounded-xl px-8 text-sm">
+          <app-lucide name="gamepad-2" class="size-5" /> PRESS START
+        </button>
+        <button class="arc-btn-outline h-12 rounded-xl px-8 text-sm">
+          <app-lucide name="play" class="size-5" /> WATCH TRAILER
+        </button>
+      </div>
+
+      <div
+        class="inline-grid grid-cols-3 gap-8 text-center sm:gap-16"
+        style="
+          border: 1px solid rgba(168, 85, 247, 0.2);
+          border-radius: 16px;
+          padding: 1.5rem 2.5rem;
+          background: rgba(26, 11, 46, 0.6);
+          backdrop-filter: blur(10px);
+        "
+      >
+        @for (s of heroStats; track s.l) {
+          <div>
+            <div class="arc-title arc-neon-c text-2xl font-bold">{{ s.v }}</div>
+            <div
+              class="arc-accent mt-1"
+              style="color: #8060a0; font-size: 0.5rem; letter-spacing: 0.15em"
+            >
+              {{ s.l }}
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED GAMES -->
+  <section id="games" class="scroll-mt-20 py-20" style="background: var(--arc-bg2)">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-12 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <span buiBadge tone="info" variant="soft" class="arc-accent mb-3">FEATURED GAMES</span>
+          <h2 class="arc-title arc-chrome text-3xl font-bold sm:text-4xl">HOT RELEASES</h2>
+        </div>
+        <button class="arc-btn-outline h-9 rounded-lg px-5 text-xs">VIEW ALL GAMES</button>
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        @for (g of games; track g.title) {
+          <div class="arc-game-card group overflow-hidden">
+            <div class="relative overflow-hidden" style="aspect-ratio: 16/9">
+              <img
+                [src]="'https://picsum.photos/seed/' + g.seed + '/640/360'"
+                [alt]="g.title + ' cover art'"
+                loading="lazy"
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div
+                class="absolute inset-0"
+                style="
+                  background: linear-gradient(to top, rgba(13, 2, 33, 0.9) 0%, transparent 50%);
+                "
+              ></div>
+              <div class="absolute top-3 left-3">
+                <span buiBadge [tone]="g.tagColor" variant="solid" class="arc-accent">{{
+                  g.tag
+                }}</span>
+              </div>
+              <div class="absolute top-3 right-3">
+                <span
+                  class="arc-accent rounded px-2 py-1 text-white"
+                  style="
+                    background: rgba(13, 2, 33, 0.8);
+                    border: 1px solid rgba(255, 255, 255, 0.15);
+                    font-size: 0.55rem;
+                  "
+                  >{{ g.price }}</span
+                >
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="mb-2 flex items-start justify-between gap-2">
+                <h3 class="arc-title arc-neon-m text-sm leading-tight font-bold">{{ g.title }}</h3>
+                <span
+                  buiBadge
+                  variant="outline"
+                  class="shrink-0 text-xs"
+                  style="border-color: rgba(168, 85, 247, 0.4); color: #a855f7"
+                  >{{ g.genre }}</span
+                >
+              </div>
+              <div class="flex items-center justify-between">
+                <bui-rating
+                  [value]="g.rating"
+                  [max]="5"
+                  [readonly]="true"
+                  size="sm"
+                  color="text-yellow-400"
+                />
+                <span class="text-xs" style="color: #7060a0"
+                  ><app-lucide name="users" class="mr-1 inline size-3" /> {{ g.players }}</span
+                >
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- TRENDING -->
+  <section id="trending" class="scroll-mt-20 py-20" style="background: var(--arc-bg)">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-10">
+        <span buiBadge tone="warning" variant="soft" class="arc-accent mb-3">NOW TRENDING</span>
+        <h2 class="arc-title arc-neon-c text-3xl font-bold sm:text-4xl">TOP CHARTS</h2>
+      </div>
+
+      <div class="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2">
+        @for (t of trending; track t.title) {
+          <div
+            class="arc-game-card shrink-0 cursor-pointer snap-start overflow-hidden"
+            style="height: 260px; width: min(80vw, 380px); position: relative"
+          >
+            <img
+              [src]="'https://picsum.photos/seed/' + t.seed + '/480/260'"
+              [alt]="t.title"
+              loading="lazy"
+              class="h-full w-full object-cover"
+            />
+            <div
+              class="absolute inset-0"
+              style="
+                background: linear-gradient(
+                  to top,
+                  rgba(13, 2, 33, 0.95) 0%,
+                  rgba(13, 2, 33, 0.3) 60%,
+                  transparent 100%
+                );
+              "
+            ></div>
+            <div class="absolute right-0 bottom-0 left-0 p-4">
+              <h3 class="arc-title arc-chrome mb-1 text-sm font-bold">{{ t.title }}</h3>
+              <div class="flex items-center justify-between">
+                <span
+                  buiBadge
+                  variant="outline"
+                  class="text-xs"
+                  style="border-color: rgba(0, 240, 255, 0.4); color: #00f0ff"
+                  >{{ t.genre }}</span
+                >
+                <span class="text-xs" style="color: #7060a0"
+                  ><app-lucide name="users" class="mr-1 inline size-3" /> {{ t.players }}</span
+                >
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- LEADERBOARD -->
+  <section id="leaderboard" class="scroll-mt-20 py-20" style="background: var(--arc-bg2)">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="mb-12 text-center">
+        <span buiBadge tone="success" variant="soft" class="arc-accent mb-3">GLOBAL RANKINGS</span>
+        <h2 class="arc-title arc-neon-lime text-3xl font-bold sm:text-4xl">LEADERBOARD</h2>
+      </div>
+
+      <div class="arc-panel overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="arc-table">
+            <thead>
+              <tr>
+                <th style="width: 60px">RANK</th>
+                <th>PLAYER</th>
+                <th class="hidden sm:table-cell">SCORE</th>
+                <th class="hidden md:table-cell">WINS</th>
+                <th>TIER</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of leaderboard; track row.rank) {
+                <tr>
+                  <td>
+                    @if (row.rank === 1) {
+                      <span class="arc-rank-1">1</span>
+                      <app-lucide name="crown" class="ml-1 inline size-4" style="color: #aaff00" />
+                    } @else if (row.rank === 2) {
+                      <span class="arc-rank-2">2</span>
+                    } @else if (row.rank === 3) {
+                      <span class="arc-rank-3">3</span>
+                    } @else {
+                      <span class="arc-rank-n">{{ row.rank }}</span>
+                    }
+                  </td>
+                  <td>
+                    <div class="flex items-center gap-3">
+                      <bui-avatar
+                        class="size-8 shrink-0"
+                        [src]="'https://picsum.photos/seed/av' + row.avatar + '/64/64'"
+                        [alt]="row.player"
+                        >{{ row.player.charAt(0) }}</bui-avatar
+                      >
+                      <span class="text-sm font-semibold" style="color: #e0d0f8">{{
+                        row.player
+                      }}</span>
+                    </div>
+                  </td>
+                  <td class="hidden sm:table-cell">
+                    <span class="font-mono text-sm font-semibold" style="color: #00f0ff">{{
+                      row.score
+                    }}</span>
+                  </td>
+                  <td class="hidden md:table-cell">
+                    <span class="font-mono text-sm" style="color: #a090c0">{{ row.wins }}</span>
+                  </td>
+                  <td>
+                    <span buiBadge [tone]="row.tone" [variant]="row.variant" class="arc-accent">{{
+                      row.badge
+                    }}</span>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GAME MODES (tabs, solo active) -->
+  <section class="py-20" style="background: var(--arc-bg)">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-12 text-center">
+        <span buiBadge tone="info" variant="soft" class="arc-accent mb-3">PLAY YOUR WAY</span>
+        <h2 class="arc-title arc-neon-m text-3xl font-bold sm:text-4xl">GAME MODES</h2>
+      </div>
+
+      <div class="mb-8 flex flex-wrap justify-center gap-2">
+        @for (m of gameModes; track m.key; let first = $first) {
+          <span class="arc-tab" [class.arc-tab-active]="first">{{ m.label }}</span>
+        }
+      </div>
+
+      @for (m of gameModes; track m.key; let first = $first) {
+        @if (first) {
+          <div class="arc-panel grid items-center gap-8 p-8 md:grid-cols-2">
+            <div>
+              <app-lucide [name]="m.icon" class="mb-4 size-10" style="color: #ff2bd6" />
+              <h3 class="arc-title {{ m.neon }} mb-3 text-xl font-bold">{{ m.title }}</h3>
+              <p style="color: #b090d0" class="mb-6 leading-relaxed">{{ m.desc }}</p>
+              <ul class="space-y-2 text-sm" style="color: #9080c0">
+                @for (pt of m.points; track pt) {
+                  <li class="flex items-center gap-2">
+                    <app-lucide name="check" class="size-4 shrink-0" [style.color]="m.check" />
+                    {{ pt }}
+                  </li>
+                }
+              </ul>
+            </div>
+            <div class="overflow-hidden rounded-xl" style="aspect-ratio: 16/9">
+              <img
+                [src]="'https://picsum.photos/seed/' + m.img + '/640/360'"
+                [alt]="m.title + ' gameplay'"
+                class="h-full w-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        }
+      }
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section class="py-20" style="background: var(--arc-bg2)">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div>
+          <span buiBadge tone="warning" variant="soft" class="arc-accent mb-4">YOUR PROGRESS</span>
+          <h2 class="arc-title arc-chrome mb-8 text-3xl font-bold">ACHIEVEMENTS</h2>
+
+          <div class="space-y-6">
+            @for (ach of achievements; track ach.label) {
+              <div class="arc-panel p-4">
+                <div class="mb-3 flex items-center gap-4">
+                  <div
+                    class="flex size-10 shrink-0 items-center justify-center rounded-lg"
+                    style="
+                      background: rgba(168, 85, 247, 0.15);
+                      border: 1px solid rgba(168, 85, 247, 0.3);
+                    "
+                  >
+                    <app-lucide [name]="ach.icon" class="size-5" style="color: #a855f7" />
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <div class="flex items-center justify-between gap-2">
+                      <span class="arc-title arc-neon-m text-sm font-bold">{{ ach.label }}</span>
+                      <span class="arc-accent shrink-0" style="color: #a855f7; font-size: 0.5rem">{{
+                        ach.xp
+                      }}</span>
+                    </div>
+                    <p class="mt-0.5 text-xs" style="color: #7060a0">{{ ach.desc }}</p>
+                  </div>
+                  <span class="arc-title shrink-0 text-sm font-bold" style="color: #00f0ff"
+                    >{{ ach.pct }}%</span
+                  >
+                </div>
+                <div class="arc-progress-track {{ ach.prog }}">
+                  <div class="arc-progress-fill" [style.width.%]="ach.pct"></div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="arc-panel p-8">
+          <h3 class="arc-title arc-neon-c mb-6 text-xl font-bold">PLAYER STATS</h3>
+          <div class="grid grid-cols-2 gap-4">
+            @for (s of playerStats; track s.l) {
+              <div
+                class="rounded-xl p-4 text-center"
+                style="
+                  background: rgba(168, 85, 247, 0.08);
+                  border: 1px solid rgba(168, 85, 247, 0.15);
+                "
+              >
+                <app-lucide [name]="s.i" class="mx-auto mb-2 size-6" style="color: #a855f7" />
+                <div class="arc-title arc-neon-m text-xl font-bold">{{ s.v }}</div>
+                <div
+                  class="arc-accent mt-1"
+                  style="color: #6050a0; font-size: 0.45rem; letter-spacing: 0.12em"
+                >
+                  {{ s.l }}
+                </div>
+              </div>
+            }
+          </div>
+
+          <hr class="my-6" style="border: none; height: 1px; background: rgba(168, 85, 247, 0.2)" />
+
+          <div class="flex items-center justify-between">
+            <span class="text-sm" style="color: #9080c0">Daily Login Streak</span>
+            <span buiBadge tone="success" variant="solid" class="arc-accent">30 DAYS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMUNITY -->
+  <section class="py-20" style="background: var(--arc-bg)">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-12 text-center">
+        <span buiBadge tone="info" variant="soft" class="arc-accent mb-3">THE COMMUNITY</span>
+        <h2 class="arc-title arc-neon-m text-3xl font-bold sm:text-4xl">12 MILLION STRONG</h2>
+        <p class="mt-3 text-base" style="color: #9080c0">What our players are saying right now</p>
+      </div>
+
+      <div class="mb-10 flex justify-center">
+        <div class="flex -space-x-3">
+          @for (seed of communityAvatars; track seed) {
+            <bui-avatar
+              class="size-11 ring-2"
+              style="--tw-ring-color: #1a0b2e"
+              [src]="'https://picsum.photos/seed/' + seed + '/64/64'"
+              alt="Community member"
+              >?</bui-avatar
+            >
+          }
+          <div
+            class="flex size-11 items-center justify-center rounded-full text-xs font-bold"
+            style="
+              background: rgba(168, 85, 247, 0.2);
+              border: 2px solid #1a0b2e;
+              color: #a855f7;
+              font-family: 'Orbitron', sans-serif;
+            "
+          >
+            +12M
+          </div>
+        </div>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-3">
+        @for (c of community; track c.name) {
+          <div class="arc-panel p-5" style="border-radius: 12px">
+            <div class="mb-4 flex items-center gap-3">
+              <bui-avatar
+                class="size-10 shrink-0"
+                [src]="'https://picsum.photos/seed/' + c.seed + '/64/64'"
+                [alt]="c.name"
+                >{{ c.name.charAt(0) }}</bui-avatar
+              >
+              <div>
+                <div class="arc-title text-sm font-semibold" style="color: #e0d0f8">
+                  {{ c.name }}
+                </div>
+                <div class="text-xs" style="color: #6050a0">{{ c.time }}</div>
+              </div>
+            </div>
+            <p class="text-sm leading-relaxed" style="color: #b090d0">"{{ c.msg }}"</p>
+            <div class="mt-3 flex items-center gap-1">
+              <app-lucide name="heart" class="size-4" style="color: #ff2bd6" />
+              <span class="text-xs" style="color: #7060a0">{{ c.likes }} likes</span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMBERSHIP -->
+  <section id="membership" class="scroll-mt-20 py-20" style="background: var(--arc-bg2)">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-10 text-center">
+        <span buiBadge tone="success" variant="soft" class="arc-accent mb-3">MEMBERSHIP TIERS</span>
+        <h2 class="arc-title arc-chrome mb-4 text-3xl font-bold sm:text-4xl">CHOOSE YOUR RANK</h2>
+
+        <div
+          class="inline-flex items-center gap-3 rounded-full p-1 px-4 text-sm"
+          style="background: rgba(26, 11, 46, 0.8); border: 1px solid rgba(168, 85, 247, 0.3)"
+        >
+          <span class="text-sm" style="color: #9080c0">Monthly</span>
+          <button
+            buiSwitch
+            [checked]="yearly()"
+            (checkedChange)="yearly.set($event)"
+            aria-label="Toggle annual billing"
+          ></button>
+          <span class="text-sm" style="color: #9080c0">Annual</span>
+          <span buiBadge tone="success" variant="soft" class="arc-accent ml-1">SAVE 25%</span>
+        </div>
+      </div>
+
+      <div class="grid items-stretch gap-6 md:grid-cols-3">
+        @for (plan of plans; track plan.name) {
+          <div
+            class="arc-plan-card flex flex-col p-7"
+            [class.featured]="plan.hot"
+            [style.background]="
+              plan.hot ? 'linear-gradient(160deg, #2a0a3e 0%, #1a0b2e 100%)' : null
+            "
+          >
+            @if (plan.hot) {
+              <div class="mb-4 text-center">
+                <span buiBadge tone="danger" variant="solid" class="arc-accent">MOST POPULAR</span>
+              </div>
+            }
+            <div class="mb-1">
+              <span
+                class="arc-accent text-xs"
+                [style.color]="plan.color"
+                style="letter-spacing: 0.15em"
+                >TIER</span
+              >
+            </div>
+            <h3
+              class="arc-title mb-1 text-2xl font-black"
+              [style.color]="plan.color"
+              [style.text-shadow]="'0 0 16px ' + plan.color + '50'"
+            >
+              {{ plan.name }}
+            </h3>
+            <p class="mb-5 text-sm" style="color: #7060a0">{{ plan.tag }}</p>
+
+            <div class="mb-6">
+              <span class="arc-title text-4xl font-bold" style="color: #e0d0f8"
+                >${{ yearly() ? plan.priceY : plan.priceM }}</span
+              >
+              <span class="text-sm" style="color: #6050a0">/mo</span>
+              @if (yearly() && plan.priceY > 0) {
+                <div class="mt-1 text-xs" style="color: #a855f7">billed annually</div>
+              }
+            </div>
+
+            <button
+              class="mb-6 h-10 w-full rounded-xl text-sm"
+              [class.arc-btn-magenta]="plan.hot"
+              [class.arc-btn-outline]="!plan.hot"
+            >
+              {{ plan.cta }}
+            </button>
+
+            <hr
+              class="mb-6"
+              style="border: none; height: 1px; background: rgba(168, 85, 247, 0.15)"
+            />
+
+            <ul class="flex-1 space-y-3 text-sm" style="color: #b090d0">
+              @for (perk of plan.perks; track perk) {
+                <li class="flex items-start gap-2.5">
+                  <app-lucide
+                    name="check"
+                    class="mt-0.5 size-4 shrink-0"
+                    [style.color]="plan.color"
+                  />
+                  {{ perk }}
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="scroll-mt-20 py-20" style="background: var(--arc-bg)">
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="mb-12 text-center">
+        <span
+          buiBadge
+          variant="outline"
+          class="arc-accent mb-4"
+          style="border-color: rgba(168, 85, 247, 0.4); color: #a855f7"
+          >FAQ</span
+        >
+        <h2 class="arc-title arc-neon-c text-3xl font-bold sm:text-4xl">QUESTIONS?</h2>
+      </div>
+
+      <div class="w-full">
+        @for (faq of faqs; track faq.q; let first = $first) {
+          <details class="group" style="border-bottom: 1px solid #2a1050" [open]="first">
+            <summary
+              class="flex cursor-pointer items-center justify-between py-4 text-left text-sm"
+              style="color: #d0c0e8"
+            >
+              {{ faq.q }}
+              <app-lucide
+                name="chevron-down"
+                class="size-4 shrink-0 transition-transform group-open:rotate-180"
+                style="color: #00f0ff"
+              />
+            </summary>
+            <p class="pb-4 text-sm leading-relaxed" style="color: #9080c0">{{ faq.a }}</p>
+          </details>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="py-20" style="background: var(--arc-bg2)">
+    <div class="mx-auto max-w-2xl px-6 text-center">
+      <span buiBadge tone="info" variant="soft" class="arc-accent mb-4">STAY IN THE LOOP</span>
+      <h2 class="arc-title arc-neon-m mb-3 text-3xl font-bold sm:text-4xl">JOIN THE GRID</h2>
+      <p class="mb-8 text-base" style="color: #9080c0">
+        New game drops, tournament alerts, and exclusive codes — straight to your inbox.
+      </p>
+
+      <form class="mx-auto flex max-w-lg flex-col gap-3 sm:flex-row">
+        <input
+          type="email"
+          placeholder="your@email.com"
+          class="arc-input text-sm"
+          aria-label="Email address"
+        />
+        <button type="button" class="arc-btn-magenta h-9 shrink-0 rounded-xl px-6 text-sm">
+          <app-lucide name="send" class="size-4" /> SUBSCRIBE
+        </button>
+      </form>
+      <p class="mt-4 text-xs" style="color: #403060">No spam. Unsubscribe any time.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background: #080112; border-top: 1px solid rgba(168, 85, 247, 0.2)">
+    <div
+      class="overflow-hidden"
+      style="
+        border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+        height: 32px;
+        display: flex;
+        align-items: center;
+      "
+    >
+      <div class="arc-ticker-row" style="gap: 1.5rem">
+        @for (w of footTicker; track $index) {
+          <span
+            class="arc-accent"
+            style="color: rgba(168, 85, 247, 0.4); letter-spacing: 0.2em; font-size: 0.5rem"
+            >{{ w }} ✦</span
+          >
+        }
+      </div>
+    </div>
+
+    <div class="mx-auto max-w-7xl px-6 py-12">
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
+        <div class="lg:col-span-2">
+          <div class="mb-4 flex items-center gap-2.5">
+            <span
+              style="
+                background: linear-gradient(135deg, #ff2bd6, #a855f7);
+                box-shadow: 0 0 12px #ff2bd640;
+              "
+              class="flex size-9 items-center justify-center rounded-lg"
+              ><app-lucide name="gamepad-2" class="size-5 text-white"
+            /></span>
+            <span class="arc-title arc-chrome text-base font-bold">NEON ARCADE</span>
+          </div>
+          <p class="mb-5 text-sm" style="color: #6050a0; max-width: 260px">
+            The ultimate indie gaming platform. 300+ titles, global tournaments, legendary rewards.
+          </p>
+          <div class="flex gap-2">
+            @for (s of socials; track s) {
+              <a
+                href="#"
+                [attr.aria-label]="s"
+                class="arc-social flex size-9 items-center justify-center rounded-lg"
+                style="
+                  background: rgba(168, 85, 247, 0.1);
+                  border: 1px solid rgba(168, 85, 247, 0.2);
+                  color: #a855f7;
+                "
+                ><app-lucide [name]="s" class="size-4"
+              /></a>
+            }
+          </div>
+        </div>
+
+        @for (col of footerCols; track col.heading) {
+          <div>
+            <h3
+              class="arc-accent mb-4 font-semibold"
+              style="color: #a855f7; letter-spacing: 0.15em; font-size: 0.55rem"
+            >
+              {{ col.heading }}
+            </h3>
+            <ul class="space-y-2.5 text-sm">
+              @for (link of col.links; track link) {
+                <li>
+                  <a href="#" class="arc-foot-link">{{ link }}</a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <hr class="my-8" style="border: none; height: 1px; background: rgba(168, 85, 247, 0.1)" />
+
+      <div
+        class="flex flex-col items-center justify-between gap-3 text-xs sm:flex-row"
+        style="color: #403060"
+      >
+        <span style="color: #504070">© 2026 Neon Arcade, Inc. All rights reserved.</span>
+        <div class="flex items-center gap-2" style="color: #504070">
+          <app-lucide name="shield-check" class="size-4" style="color: #a855f7" />
+          <span>Secure &amp; Encrypted</span>
+          <span class="arc-accent ml-2" style="color: #302050; font-size: 0.45rem"
+            >NEON ARCADE v7.0</span
+          >
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
