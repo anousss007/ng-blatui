@@ -1,0 +1,429 @@
+@import url('https://fonts.bunny.net/css?family=space-grotesk:400,500,600,700&display=swap');
+
+/* Force the template's own dark color scheme regardless of site theme */
+#tpl-cosmos,
+#tpl-cosmos *:not(.cosmos-passthrough) {
+  --cosmos-bg: #05060f;
+  --cosmos-bg2: #0a0e24;
+  --cosmos-indigo: #4338ca;
+  --cosmos-violet: #7c3aed;
+  --cosmos-magenta: #db2777;
+  --cosmos-cyan: #06b6d4;
+  --cosmos-white: #f8fafc;
+  --cosmos-muted: #94a3b8;
+  --cosmos-amber: #fbbf24;
+  --cosmos-card: rgba(255, 255, 255, 0.04);
+  --cosmos-border: rgba(255, 255, 255, 0.1);
+  color-scheme: dark;
+}
+
+#tpl-cosmos {
+  background: var(--cosmos-bg);
+  color: var(--cosmos-white);
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow-x: hidden;
+  min-height: 100dvh;
+}
+
+#tpl-cosmos h1,
+#tpl-cosmos h2,
+#tpl-cosmos h3,
+#tpl-cosmos .font-space {
+  font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+}
+
+/* ── Starfield ─────────────────────────────────────────────── */
+#tpl-cosmos .cosmos-stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(1px 1px at 10% 15%, rgba(248, 250, 252, 0.85) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 42%, rgba(248, 250, 252, 0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 38% 8%, rgba(248, 250, 252, 0.9) 0%, transparent 100%),
+    radial-gradient(1px 1px at 52% 67%, rgba(248, 250, 252, 0.65) 0%, transparent 100%),
+    radial-gradient(1px 1px at 63% 22%, rgba(248, 250, 252, 0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 74% 88%, rgba(248, 250, 252, 0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 87% 35%, rgba(248, 250, 252, 0.85) 0%, transparent 100%),
+    radial-gradient(1px 1px at 92% 55%, rgba(248, 250, 252, 0.6) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 18% 78%, rgba(248, 250, 252, 0.75) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 44% 95%, rgba(248, 250, 252, 0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 56% 48%, rgba(248, 250, 252, 0.65) 0%, transparent 100%),
+    radial-gradient(1px 1px at 79% 12%, rgba(248, 250, 252, 0.9) 0%, transparent 100%),
+    radial-gradient(1px 1px at 5% 60%, rgba(248, 250, 252, 0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 31% 30%, rgba(248, 250, 252, 0.55) 0%, transparent 100%),
+    radial-gradient(1px 1px at 68% 72%, rgba(248, 250, 252, 0.75) 0%, transparent 100%),
+    radial-gradient(1px 1px at 84% 5%, rgba(248, 250, 252, 0.85) 0%, transparent 100%),
+    radial-gradient(2px 2px at 48% 38%, rgba(6, 182, 212, 0.6) 0%, transparent 100%),
+    radial-gradient(2px 2px at 72% 62%, rgba(124, 58, 237, 0.5) 0%, transparent 100%),
+    radial-gradient(2px 2px at 15% 90%, rgba(6, 182, 212, 0.45) 0%, transparent 100%);
+  background-size: 100% 100%;
+  animation: cosmos-twinkle 8s ease-in-out infinite alternate;
+}
+
+@keyframes cosmos-twinkle {
+  0% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+/* ── Nebula haze blobs ─────────────────────────────────────── */
+#tpl-cosmos .cosmos-nebula {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+#tpl-cosmos .cosmos-nebula::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(ellipse at center, rgba(67, 56, 202, 0.22) 0%, transparent 70%);
+  filter: blur(60px);
+  animation: cosmos-drift 18s ease-in-out infinite alternate;
+}
+#tpl-cosmos .cosmos-nebula::after {
+  content: '';
+  position: absolute;
+  bottom: -10%;
+  right: -5%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(ellipse at center, rgba(219, 39, 119, 0.18) 0%, transparent 70%);
+  filter: blur(80px);
+  animation: cosmos-drift 22s ease-in-out infinite alternate-reverse;
+}
+#tpl-cosmos .cosmos-nebula-cyan {
+  position: absolute;
+  top: 20%;
+  right: 10%;
+  width: 40%;
+  height: 40%;
+  background: radial-gradient(ellipse at center, rgba(6, 182, 212, 0.14) 0%, transparent 70%);
+  filter: blur(60px);
+  animation: cosmos-drift 26s ease-in-out infinite alternate;
+}
+
+@keyframes cosmos-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(40px, 30px) scale(1.08);
+  }
+}
+
+/* ── Planet / orb ─────────────────────────────────────────── */
+#tpl-cosmos .cosmos-planet {
+  position: absolute;
+  right: -80px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(99, 102, 241, 0.9) 0%,
+    rgba(67, 56, 202, 0.8) 25%,
+    rgba(10, 14, 36, 0.95) 65%,
+    rgba(5, 6, 15, 1) 100%
+  );
+  box-shadow:
+    0 0 60px 20px rgba(67, 56, 202, 0.35),
+    0 0 120px 40px rgba(124, 58, 237, 0.2),
+    inset -30px -20px 60px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+#tpl-cosmos .cosmos-planet::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-20deg);
+  width: 140%;
+  height: 30%;
+  border-radius: 50%;
+  border: 18px solid rgba(124, 58, 237, 0.22);
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.15);
+}
+#tpl-cosmos .cosmos-planet-sm {
+  position: absolute;
+  left: -40px;
+  bottom: 10%;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 40% 30%,
+    rgba(6, 182, 212, 0.7) 0%,
+    rgba(10, 14, 36, 0.9) 60%,
+    rgba(5, 6, 15, 1) 100%
+  );
+  box-shadow: 0 0 40px 10px rgba(6, 182, 212, 0.25);
+  pointer-events: none;
+}
+
+/* ── Gradient text ─────────────────────────────────────────── */
+#tpl-cosmos .cosmos-gradient-text {
+  background: linear-gradient(
+    135deg,
+    var(--cosmos-indigo) 0%,
+    var(--cosmos-violet) 35%,
+    var(--cosmos-magenta) 65%,
+    var(--cosmos-cyan) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Cards ─────────────────────────────────────────────────── */
+#tpl-cosmos .cosmos-card {
+  background: var(--cosmos-card);
+  border: 1px solid var(--cosmos-border);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s,
+    transform 0.3s;
+}
+#tpl-cosmos .cosmos-card:hover {
+  border-color: rgba(124, 58, 237, 0.4);
+  box-shadow: 0 8px 40px rgba(124, 58, 237, 0.15);
+  transform: translateY(-2px);
+}
+
+/* ── Glow buttons ──────────────────────────────────────────── */
+#tpl-cosmos .cosmos-btn-primary {
+  background: linear-gradient(135deg, var(--cosmos-indigo), var(--cosmos-violet));
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.65rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition:
+    box-shadow 0.25s,
+    transform 0.2s;
+  text-decoration: none;
+  white-space: nowrap;
+}
+#tpl-cosmos .cosmos-btn-primary:hover {
+  box-shadow: 0 0 24px rgba(124, 58, 237, 0.55);
+  transform: translateY(-1px);
+}
+#tpl-cosmos .cosmos-btn-outline {
+  background: transparent;
+  color: var(--cosmos-white);
+  border: 1px solid var(--cosmos-border);
+  border-radius: 8px;
+  padding: 0.65rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition:
+    border-color 0.25s,
+    background 0.25s,
+    transform 0.2s;
+  text-decoration: none;
+  white-space: nowrap;
+}
+#tpl-cosmos .cosmos-btn-outline:hover {
+  border-color: rgba(124, 58, 237, 0.6);
+  background: rgba(124, 58, 237, 0.1);
+  transform: translateY(-1px);
+}
+
+/* ── Countdown ─────────────────────────────────────────────── */
+#tpl-cosmos .cosmos-countdown-unit {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--cosmos-border);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  text-align: center;
+  min-width: 72px;
+}
+#tpl-cosmos .cosmos-countdown-num {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(180deg, var(--cosmos-white) 60%, rgba(124, 58, 237, 0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+#tpl-cosmos .cosmos-countdown-label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cosmos-muted);
+  margin-top: 0.25rem;
+}
+
+/* ── Separator ─────────────────────────────────────────────── */
+#tpl-cosmos .cosmos-hr {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.4), transparent);
+  border: none;
+  margin: 0;
+}
+
+/* ── Stat card ─────────────────────────────────────────────── */
+#tpl-cosmos .cosmos-stat {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+#tpl-cosmos .cosmos-stat-val {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.75rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--cosmos-cyan), var(--cosmos-violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Section label ─────────────────────────────────────────── */
+#tpl-cosmos .cosmos-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border: 1px solid rgba(124, 58, 237, 0.35);
+  background: rgba(124, 58, 237, 0.12);
+  color: rgba(167, 139, 250, 1);
+  margin-bottom: 1rem;
+}
+
+/* ── Marquee partner text ──────────────────────────────────── */
+#tpl-cosmos .cosmos-marquee-item {
+  padding: 0 2rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.55);
+  white-space: nowrap;
+}
+
+/* ── Reduced motion ────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  #tpl-cosmos .cosmos-stars,
+  #tpl-cosmos .cosmos-nebula::before,
+  #tpl-cosmos .cosmos-nebula::after,
+  #tpl-cosmos .cosmos-nebula-cyan,
+  #tpl-cosmos .cosmos-planet {
+    animation: none !important;
+    transition: none !important;
+  }
+  #tpl-cosmos .cosmos-card {
+    transition: none !important;
+  }
+  #tpl-cosmos .cosmos-btn-primary,
+  #tpl-cosmos .cosmos-btn-outline {
+    transition: none !important;
+  }
+}
+
+/* Responsive helpers */
+@media (max-width: 768px) {
+  #tpl-cosmos .cosmos-planet {
+    display: none;
+  }
+  #tpl-cosmos .cosmos-planet-sm {
+    display: none;
+  }
+  #tpl-cosmos .cosmos-countdown-num {
+    font-size: 1.625rem;
+  }
+  #tpl-cosmos .cosmos-countdown-unit {
+    min-width: 52px;
+    padding: 0.6rem 0.8rem;
+  }
+}
+
+/* ── Glow line ─────────────────────────────────────────────── */
+#tpl-cosmos .cosmos-glow-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--cosmos-violet) 30%,
+    var(--cosmos-cyan) 70%,
+    transparent 100%
+  );
+  opacity: 0.6;
+}
+
+/* Nav */
+#tpl-cosmos .cosmos-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(5, 6, 15, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--cosmos-border);
+}
+#tpl-cosmos .cosmos-nav-link {
+  color: var(--cosmos-muted);
+  transition:
+    color 0.2s,
+    background 0.2s;
+}
+#tpl-cosmos .cosmos-nav-link:hover {
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.06);
+}
+#tpl-cosmos .cosmos-foot-link {
+  color: var(--cosmos-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+#tpl-cosmos .cosmos-foot-link:hover {
+  color: #f8fafc;
+}
+#tpl-cosmos .cosmos-social:hover {
+  border-color: rgba(124, 58, 237, 0.5) !important;
+  color: #f8fafc !important;
+}
+
+/* ── Mission timeline ──────────────────────────────────────── */
+#tpl-cosmos .cosmos-timeline-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--cosmos-violet);
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.7);
+  flex-shrink: 0;
+  margin-top: 4px;
+}

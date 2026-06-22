@@ -47,6 +47,11 @@ export const routes: Routes = [
     title: 'Aurora · ng-blatui',
   },
   {
+    path: 'templates/cosmos',
+    loadComponent: async () => (await import('./pages/templates/cosmos')).CosmosTemplate,
+    title: 'Cosmos · ng-blatui',
+  },
+  {
     path: 'templates/:slug',
     loadComponent: async () => (await import('./pages/templates')).TemplatesPage,
     title: 'Templates · ng-blatui',

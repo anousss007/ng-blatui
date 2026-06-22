@@ -1,0 +1,1021 @@
+<div id="tpl-cosmos">
+  <div class="cosmos-stars" aria-hidden="true"></div>
+
+  <!-- ANNOUNCEMENT BANNER -->
+  <bui-banner tone="primary" persistKey="cosmos-launch-banner">
+    <span class="inline-flex items-center gap-2">
+      <app-lucide name="rocket" class="size-4" />
+      Ares-1 Mars Flyby seats now open — only 2 berths available
+    </span>
+    <a href="#packages" class="font-semibold underline underline-offset-2">Reserve yours</a>
+  </bui-banner>
+
+  <!-- NAV -->
+  <header class="cosmos-nav">
+    <div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-6">
+      <a
+        href="#"
+        class="font-space flex items-center gap-2 text-lg font-bold tracking-tight"
+        style="color: var(--cosmos-white)"
+      >
+        <span
+          style="
+            background: linear-gradient(135deg, var(--cosmos-indigo), var(--cosmos-violet));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+          "
+        >
+          <app-lucide name="orbit" class="size-5" style="color: #fff" />
+        </span>
+        ORBITAL
+      </a>
+      <nav class="ml-6 hidden items-center gap-1 text-sm md:flex">
+        @for (link of navLinks; track link.href) {
+          <a [href]="link.href" class="cosmos-nav-link rounded-md px-3 py-1.5 font-medium">{{
+            link.label
+          }}</a>
+        }
+      </nav>
+      <div class="ml-auto flex items-center gap-2">
+        <a
+          href="#packages"
+          class="cosmos-btn-primary hidden sm:inline-flex"
+          style="padding: 0.45rem 1.1rem; font-size: 0.875rem"
+        >
+          Book a mission <app-lucide name="arrow-right" class="size-4" />
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section
+    style="
+      position: relative;
+      min-height: 92dvh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 5rem 0 4rem;
+    "
+  >
+    <div class="cosmos-nebula" aria-hidden="true">
+      <div class="cosmos-nebula-cyan"></div>
+    </div>
+    <div class="cosmos-planet" aria-hidden="true"></div>
+    <div class="cosmos-planet-sm" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-7xl px-6" style="z-index: 1">
+      <div class="max-w-3xl">
+        <div class="cosmos-label">
+          <app-lucide name="sparkles" class="size-3" />
+          Commercial Spaceflight
+        </div>
+        <h1
+          class="font-space font-bold tracking-tight"
+          style="font-size: clamp(3rem, 8vw, 6rem); line-height: 1.03; color: var(--cosmos-white)"
+        >
+          BEYOND<br />
+          <span class="cosmos-gradient-text">THE BLUE</span>
+        </h1>
+        <p class="mt-5 max-w-xl text-lg leading-relaxed" style="color: var(--cosmos-muted)">
+          The first generation of private space explorers didn't wait. Join them. Orbital makes
+          human spaceflight real for civilians — from low Earth orbit to the edge of Mars.
+        </p>
+
+        <div class="mt-5 flex flex-wrap gap-2">
+          <span class="cosmos-label" style="margin-bottom: 0">
+            <app-lucide name="shield-check" class="size-3" />
+            100% crew return rate
+          </span>
+          <span
+            class="cosmos-label"
+            style="
+              margin-bottom: 0;
+              border-color: rgba(6, 182, 212, 0.35);
+              background: rgba(6, 182, 212, 0.1);
+              color: rgba(103, 232, 249, 1);
+            "
+          >
+            <app-lucide name="star" class="size-3" />
+            38 crewed missions
+          </span>
+          <span
+            class="cosmos-label"
+            style="
+              margin-bottom: 0;
+              border-color: rgba(251, 191, 36, 0.35);
+              background: rgba(251, 191, 36, 0.1);
+              color: rgba(251, 191, 36, 1);
+            "
+          >
+            <app-lucide name="award" class="size-3" />
+            FAA licensed
+          </span>
+        </div>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#packages" class="cosmos-btn-primary">
+            Explore missions
+            <app-lucide name="rocket" class="size-4" />
+          </a>
+          <a href="#experience" class="cosmos-btn-outline">
+            <app-lucide name="play" class="size-4" />
+            How it works
+          </a>
+        </div>
+
+        <div class="mt-10">
+          <p
+            class="mb-3 text-xs font-semibold tracking-widest uppercase"
+            style="color: var(--cosmos-muted)"
+          >
+            Next launch — Ares-1 · Nov 14 2026
+          </p>
+          <div class="flex flex-wrap items-start gap-3">
+            @for (u of countdown; track u.label) {
+              <div class="cosmos-countdown-unit">
+                <div class="cosmos-countdown-num">{{ u.num }}</div>
+                <div class="cosmos-countdown-label">{{ u.label }}</div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cosmos-glow-line"></div>
+
+  <!-- PARTNER MARQUEE -->
+  <section
+    style="
+      padding: 2rem 0;
+      background: rgba(10, 14, 36, 0.7);
+      border-bottom: 1px solid var(--cosmos-border);
+    "
+  >
+    <p
+      class="mb-4 text-center text-xs font-semibold tracking-widest uppercase"
+      style="color: var(--cosmos-muted)"
+    >
+      Trusted by explorers from
+    </p>
+    <bui-marquee [items]="partners" duration="36s" class="mx-auto max-w-5xl" />
+  </section>
+
+  <!-- STATS -->
+  <section style="padding: 3rem 0; position: relative; z-index: 1">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        @for (s of stats; track s.l) {
+          <div class="cosmos-card cosmos-stat">
+            <div class="cosmos-stat-val">{{ s.v }}</div>
+            <div class="mt-1 text-sm" style="color: var(--cosmos-muted)">{{ s.l }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="cosmos-hr"></div>
+
+  <!-- DESTINATIONS (first tab shown) -->
+  <section
+    id="destinations"
+    class="scroll-mt-20"
+    style="padding: 5rem 0; position: relative; z-index: 1"
+  >
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-12 text-center">
+        <div class="cosmos-label" style="display: inline-flex">
+          <app-lucide name="map-pin" class="size-3" />
+          Destinations
+        </div>
+        <h2 class="font-space text-4xl font-bold md:text-5xl" style="color: var(--cosmos-white)">
+          Where do you want to go?
+        </h2>
+        <p class="mx-auto mt-3 max-w-xl text-lg" style="color: var(--cosmos-muted)">
+          Three itineraries. Three entirely different scales of wonder.
+        </p>
+      </div>
+
+      <div
+        class="mx-auto mb-8 flex w-fit gap-1 rounded-lg p-1"
+        style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--cosmos-border)"
+      >
+        @for (dest of destinations; track dest.key; let first = $first) {
+          <span
+            class="inline-flex items-center gap-2 rounded-md px-4 py-1.5 text-sm font-medium"
+            [style.background]="first ? 'rgba(124,58,237,0.25)' : 'transparent'"
+            [style.color]="first ? '#fff' : 'var(--cosmos-muted)'"
+          >
+            <app-lucide [name]="dest.icon" class="size-4" />
+            {{ dest.label }}
+          </span>
+        }
+      </div>
+
+      @for (dest of destinations; track dest.key; let first = $first) {
+        @if (first) {
+          <div class="cosmos-card overflow-hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2">
+              <div style="aspect-ratio: 16/9; overflow: hidden" class="md:aspect-auto">
+                <img
+                  [src]="dest.img"
+                  [alt]="dest.title"
+                  loading="lazy"
+                  style="width: 100%; height: 100%; object-fit: cover; display: block"
+                />
+              </div>
+              <div style="padding: 2.5rem">
+                <div class="cosmos-label" style="display: inline-flex; margin-bottom: 1rem">
+                  <app-lucide [name]="dest.icon" class="size-3" />
+                  {{ dest.label }}
+                </div>
+                <h3
+                  class="font-space text-2xl font-bold md:text-3xl"
+                  style="color: var(--cosmos-white)"
+                >
+                  {{ dest.title }}
+                </h3>
+                <p class="mt-3 leading-relaxed" style="color: var(--cosmos-muted)">
+                  {{ dest.desc }}
+                </p>
+
+                <div class="mt-6 grid grid-cols-2 gap-3">
+                  <div
+                    style="
+                      background: rgba(255, 255, 255, 0.04);
+                      border: 1px solid var(--cosmos-border);
+                      border-radius: 10px;
+                      padding: 0.75rem 1rem;
+                    "
+                  >
+                    <div
+                      class="mb-1 flex items-center gap-1.5 text-xs"
+                      style="color: var(--cosmos-muted)"
+                    >
+                      <app-lucide name="clock" class="size-3" /> Duration
+                    </div>
+                    <div class="text-sm font-semibold" style="color: var(--cosmos-white)">
+                      {{ dest.duration }}
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      background: rgba(255, 255, 255, 0.04);
+                      border: 1px solid var(--cosmos-border);
+                      border-radius: 10px;
+                      padding: 0.75rem 1rem;
+                    "
+                  >
+                    <div
+                      class="mb-1 flex items-center gap-1.5 text-xs"
+                      style="color: var(--cosmos-muted)"
+                    >
+                      <app-lucide name="arrow-up" class="size-3" /> Altitude
+                    </div>
+                    <div class="text-sm font-semibold" style="color: var(--cosmos-white)">
+                      {{ dest.altitude }}
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      background: rgba(255, 255, 255, 0.04);
+                      border: 1px solid var(--cosmos-border);
+                      border-radius: 10px;
+                      padding: 0.75rem 1rem;
+                    "
+                  >
+                    <div
+                      class="mb-1 flex items-center gap-1.5 text-xs"
+                      style="color: var(--cosmos-muted)"
+                    >
+                      <app-lucide name="users" class="size-3" /> Capacity
+                    </div>
+                    <div class="text-sm font-semibold" style="color: var(--cosmos-white)">
+                      {{ dest.crew }}
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      background: rgba(255, 255, 255, 0.04);
+                      border: 1px solid var(--cosmos-border);
+                      border-radius: 10px;
+                      padding: 0.75rem 1rem;
+                    "
+                  >
+                    <div
+                      class="mb-1 flex items-center gap-1.5 text-xs"
+                      style="color: var(--cosmos-muted)"
+                    >
+                      <app-lucide name="dollar-sign" class="size-3" /> From
+                    </div>
+                    <div class="text-sm font-semibold" style="color: var(--cosmos-white)">
+                      {{ dest.price }}
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-6">
+                  <a
+                    href="#packages"
+                    class="cosmos-btn-primary"
+                    style="font-size: 0.875rem; padding: 0.5rem 1.2rem"
+                  >
+                    Book this mission
+                    <app-lucide name="arrow-right" class="size-4" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      }
+    </div>
+  </section>
+
+  <div class="cosmos-hr"></div>
+
+  <!-- THE EXPERIENCE (BENTO) -->
+  <section
+    id="experience"
+    class="scroll-mt-20"
+    style="padding: 5rem 0; position: relative; z-index: 1"
+  >
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-12 text-center">
+        <div class="cosmos-label" style="display: inline-flex">
+          <app-lucide name="zap" class="size-3" />
+          The Experience
+        </div>
+        <h2 class="font-space text-4xl font-bold md:text-5xl" style="color: var(--cosmos-white)">
+          Nothing prepares you.<br />
+          <span class="cosmos-gradient-text">We come close.</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+        @for (exp of experiences; track exp.title) {
+          <div class="cosmos-card overflow-hidden" style="display: flex; flex-direction: column">
+            <div style="aspect-ratio: 16/9; overflow: hidden; flex-shrink: 0">
+              <img
+                [src]="exp.img"
+                [alt]="exp.title"
+                loading="lazy"
+                style="width: 100%; height: 100%; object-fit: cover; display: block"
+              />
+            </div>
+            <div
+              style="padding: 1.75rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem"
+            >
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  margin-bottom: 0.25rem;
+                "
+              >
+                <span
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 10px;
+                    background: rgba(124, 58, 237, 0.18);
+                    color: rgba(167, 139, 250, 1);
+                  "
+                >
+                  <app-lucide [name]="exp.icon" class="size-5" />
+                </span>
+                <span class="cosmos-label" style="margin-bottom: 0; font-size: 0.6875rem">{{
+                  exp.tag
+                }}</span>
+              </div>
+              <h3 class="font-space text-xl font-semibold" style="color: var(--cosmos-white)">
+                {{ exp.title }}
+              </h3>
+              <p class="text-sm leading-relaxed" style="color: var(--cosmos-muted)">
+                {{ exp.desc }}
+              </p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="cosmos-hr"></div>
+
+  <!-- MISSION GALLERY -->
+  <section style="padding: 5rem 0; position: relative; z-index: 1; overflow: hidden">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-10 text-center">
+        <div class="cosmos-label" style="display: inline-flex">
+          <app-lucide name="images" class="size-3" />
+          Mission Gallery
+        </div>
+        <h2 class="font-space text-4xl font-bold" style="color: var(--cosmos-white)">
+          Through the porthole
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        @for (img of gallery; track img.img) {
+          <div class="cosmos-card overflow-hidden" style="border-radius: 14px">
+            <img
+              [src]="img.img"
+              [alt]="img.alt"
+              loading="lazy"
+              style="width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block"
+            />
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="cosmos-hr"></div>
+
+  <!-- TRIP PACKAGES -->
+  <section
+    id="packages"
+    class="scroll-mt-20"
+    style="padding: 5rem 0; position: relative; z-index: 1"
+  >
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-12 text-center">
+        <div class="cosmos-label" style="display: inline-flex">
+          <app-lucide name="package" class="size-3" />
+          Mission Packages
+        </div>
+        <h2 class="font-space text-4xl font-bold md:text-5xl" style="color: var(--cosmos-white)">
+          Choose your trajectory
+        </h2>
+        <p class="mx-auto mt-3 max-w-lg" style="color: var(--cosmos-muted)">
+          All-inclusive pricing. No hidden fees. Financing available.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+        @for (pkg of packages; track pkg.name) {
+          <div
+            class="cosmos-card relative"
+            style="padding: 2rem; display: flex; flex-direction: column"
+            [style.border-color]="pkg.highlight ? 'rgba(124,58,237,0.55)' : null"
+            [style.box-shadow]="pkg.highlight ? '0 0 40px rgba(124,58,237,0.20)' : null"
+          >
+            @if (pkg.badge) {
+              <span
+                style="
+                  position: absolute;
+                  top: -12px;
+                  left: 50%;
+                  transform: translateX(-50%);
+                  background: linear-gradient(135deg, var(--cosmos-indigo), var(--cosmos-violet));
+                  color: #fff;
+                  border-radius: 999px;
+                  padding: 0.2rem 0.9rem;
+                  font-size: 0.7rem;
+                  font-weight: 700;
+                  letter-spacing: 0.05em;
+                  white-space: nowrap;
+                "
+              >
+                {{ pkg.badge }}
+              </span>
+            }
+            <div style="border-radius: 10px; overflow: hidden; margin-bottom: 1.25rem">
+              <img
+                [src]="pkg.img"
+                [alt]="pkg.name + ' mission'"
+                loading="lazy"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block"
+              />
+            </div>
+            <h3 class="font-space text-xl font-bold" style="color: var(--cosmos-white)">
+              {{ pkg.name }}
+            </h3>
+            <p class="mt-0.5 mb-3 text-xs" style="color: var(--cosmos-muted)">{{ pkg.tag }}</p>
+            <bui-rating
+              [value]="pkg.rating"
+              [max]="5"
+              [readonly]="true"
+              color="text-amber-400"
+              size="sm"
+            />
+            <div class="mt-4 mb-5">
+              <span class="font-space text-3xl font-bold" style="color: var(--cosmos-white)">{{
+                pkg.price
+              }}</span>
+              <span class="ml-1 text-sm" style="color: var(--cosmos-muted)">/person</span>
+            </div>
+            <ul class="mb-6 flex-1 space-y-2.5 text-sm">
+              @for (feat of pkg.features; track feat) {
+                <li class="flex items-center gap-2.5">
+                  <app-lucide
+                    name="check"
+                    class="size-4 shrink-0"
+                    style="color: var(--cosmos-cyan)"
+                  />
+                  <span style="color: var(--cosmos-muted)">{{ feat }}</span>
+                </li>
+              }
+            </ul>
+            <a
+              href="#booking"
+              [class]="pkg.highlight ? 'cosmos-btn-primary' : 'cosmos-btn-outline'"
+              style="width: 100%; justify-content: center"
+              >Reserve a berth</a
+            >
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="cosmos-hr"></div>
+
+  <!-- BOOKING STEPPER (step 2 active) -->
+  <section
+    id="booking"
+    class="scroll-mt-20"
+    style="padding: 5rem 0; position: relative; z-index: 1"
+  >
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="mb-12 text-center">
+        <div class="cosmos-label" style="display: inline-flex">
+          <app-lucide name="clipboard-list" class="size-3" />
+          Booking Flow
+        </div>
+        <h2 class="font-space text-4xl font-bold" style="color: var(--cosmos-white)">
+          How to reserve your seat
+        </h2>
+        <p class="mt-3" style="color: var(--cosmos-muted)">
+          A five-step process from enquiry to launch day.
+        </p>
+      </div>
+
+      <div class="mb-2 flex items-center justify-between">
+        @for (label of stepLabels; track label; let i = $index) {
+          <div class="flex flex-1 items-center" [class.flex-none]="i === stepLabels.length - 1">
+            <span
+              class="flex size-9 shrink-0 items-center justify-center rounded-full border text-sm font-semibold"
+              [style.background]="i <= 1 ? 'var(--cosmos-violet)' : 'transparent'"
+              [style.border-color]="i <= 1 ? 'var(--cosmos-violet)' : 'var(--cosmos-border)'"
+              [style.color]="i <= 1 ? '#fff' : 'var(--cosmos-muted)'"
+              >{{ i + 1 }}</span
+            >
+            @if (i < stepLabels.length - 1) {
+              <span
+                class="mx-1 h-px flex-1"
+                [style.background]="i < 1 ? 'var(--cosmos-cyan)' : 'var(--cosmos-border)'"
+              ></span>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="cosmos-card" style="padding: 2rem; margin-top: 0.5rem">
+        <div class="flex items-start gap-4">
+          <span
+            style="
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              width: 44px;
+              height: 44px;
+              border-radius: 12px;
+              background: rgba(124, 58, 237, 0.18);
+              color: rgba(167, 139, 250, 1);
+              flex-shrink: 0;
+            "
+          >
+            <app-lucide [name]="steps[1].icon" class="size-5" />
+          </span>
+          <div>
+            <h3 class="font-space text-lg font-semibold" style="color: var(--cosmos-white)">
+              {{ steps[1].title }}
+            </h3>
+            <p class="mt-1.5 text-sm leading-relaxed" style="color: var(--cosmos-muted)">
+              {{ steps[1].desc }}
+            </p>
+          </div>
+        </div>
+        <div class="mt-6 flex gap-3">
+          <button
+            type="button"
+            class="cosmos-btn-outline"
+            style="padding: 0.45rem 1.1rem; font-size: 0.875rem"
+          >
+            <app-lucide name="chevron-left" class="size-4" />
+            Back
+          </button>
+          <button
+            type="button"
+            class="cosmos-btn-primary"
+            style="padding: 0.45rem 1.1rem; font-size: 0.875rem"
+          >
+            Continue
+            <app-lucide name="chevron-right" class="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cosmos-hr"></div>
+
+  <!-- READINESS PROGRESS -->
+  <section style="padding: 4rem 0; position: relative; z-index: 1">
+    <div class="mx-auto max-w-4xl px-6">
+      <div class="mb-8 text-center">
+        <div class="cosmos-label" style="display: inline-flex">
+          <app-lucide name="bar-chart-2" class="size-3" />
+          Mission Readiness Score
+        </div>
+        <h2 class="font-space text-3xl font-bold" style="color: var(--cosmos-white)">
+          Where do you stand?
+        </h2>
+        <p class="mt-2 text-sm" style="color: var(--cosmos-muted)">
+          Average passenger profile across our 38 missions.
+        </p>
+      </div>
+      <div class="cosmos-card" style="padding: 2rem 2.5rem">
+        <div class="space-y-5">
+          @for (r of readiness; track r.label) {
+            <div>
+              <div class="mb-1.5 flex items-center justify-between">
+                <span class="text-sm font-medium" style="color: var(--cosmos-white)">{{
+                  r.label
+                }}</span>
+                <span class="text-xs font-semibold" style="color: var(--cosmos-muted)"
+                  >{{ r.val }}%</span
+                >
+              </div>
+              <div
+                style="
+                  height: 8px;
+                  background: rgba(255, 255, 255, 0.08);
+                  border-radius: 999px;
+                  overflow: hidden;
+                "
+              >
+                <div
+                  [style.width.%]="r.val"
+                  style="
+                    height: 100%;
+                    background: linear-gradient(90deg, var(--cosmos-violet), var(--cosmos-cyan));
+                    border-radius: 999px;
+                  "
+                ></div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cosmos-hr"></div>
+
+  <!-- CREW -->
+  <section id="crew" class="scroll-mt-20" style="padding: 5rem 0; position: relative; z-index: 1">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-12 text-center">
+        <div class="cosmos-label" style="display: inline-flex">
+          <app-lucide name="users" class="size-3" />
+          The Crew
+        </div>
+        <h2 class="font-space text-4xl font-bold md:text-5xl" style="color: var(--cosmos-white)">
+          The people keeping you alive
+        </h2>
+        <p class="mt-3" style="color: var(--cosmos-muted)">
+          Combined 17 spaceflights and counting.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+        @for (member of crew; track member.name) {
+          <div class="cosmos-card" style="padding: 1.5rem 1rem; text-align: center">
+            <bui-avatar
+              class="mx-auto mb-3 size-16"
+              [src]="'https://picsum.photos/seed/crew-' + member.seed + '/80/80'"
+              [alt]="member.name"
+              >{{ member.name.charAt(0) }}</bui-avatar
+            >
+            <div class="text-xs leading-tight font-semibold" style="color: var(--cosmos-white)">
+              {{ member.name }}
+            </div>
+            <div class="mt-0.5 text-xs" style="color: var(--cosmos-muted)">{{ member.role }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="cosmos-hr"></div>
+
+  <!-- MISSION TIMELINE -->
+  <section style="padding: 5rem 0; position: relative; z-index: 1">
+    <div class="mx-auto max-w-4xl px-6">
+      <div class="mb-12 text-center">
+        <div class="cosmos-label" style="display: inline-flex">
+          <app-lucide name="history" class="size-3" />
+          Mission History
+        </div>
+        <h2 class="font-space text-4xl font-bold" style="color: var(--cosmos-white)">
+          A decade of firsts
+        </h2>
+      </div>
+      <div class="relative" style="padding-left: 2rem">
+        <div
+          style="
+            position: absolute;
+            left: 5px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: linear-gradient(180deg, var(--cosmos-violet), var(--cosmos-cyan));
+            border-radius: 2px;
+          "
+        ></div>
+        <div class="space-y-8">
+          @for (m of milestones; track m.year) {
+            <div class="relative flex gap-5">
+              <div
+                class="cosmos-timeline-dot"
+                style="position: absolute; left: -1.75rem; margin-top: 4px"
+              ></div>
+              <div>
+                <span
+                  class="text-xs font-bold tracking-widest uppercase"
+                  style="color: var(--cosmos-amber)"
+                  >{{ m.year }}</span
+                >
+                <h3 class="font-space mt-0.5 font-semibold" style="color: var(--cosmos-white)">
+                  {{ m.title }}
+                </h3>
+                <p class="mt-1 text-sm leading-relaxed" style="color: var(--cosmos-muted)">
+                  {{ m.desc }}
+                </p>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cosmos-hr"></div>
+
+  <!-- FAQ -->
+  <section id="faq" class="scroll-mt-20" style="padding: 5rem 0; position: relative; z-index: 1">
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="mb-12 text-center">
+        <div class="cosmos-label" style="display: inline-flex">
+          <app-lucide name="help-circle" class="size-3" />
+          FAQ
+        </div>
+        <h2 class="font-space text-4xl font-bold" style="color: var(--cosmos-white)">
+          Questions we love
+        </h2>
+      </div>
+
+      <div class="w-full">
+        @for (faq of faqs; track faq.q; let first = $first) {
+          <details
+            class="group"
+            style="border-bottom: 1px solid var(--cosmos-border)"
+            [open]="first"
+          >
+            <summary
+              class="flex cursor-pointer items-center justify-between py-4 text-left font-medium"
+              style="color: var(--cosmos-white)"
+            >
+              {{ faq.q }}
+              <app-lucide
+                name="chevron-down"
+                class="size-4 shrink-0 transition-transform group-open:rotate-180"
+                style="color: var(--cosmos-muted)"
+              />
+            </summary>
+            <p class="pb-4 text-sm leading-relaxed" style="color: var(--cosmos-muted)">
+              {{ faq.a }}
+            </p>
+          </details>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="cosmos-hr"></div>
+
+  <!-- FINAL CTA -->
+  <section style="padding: 6rem 0; position: relative; z-index: 1; overflow: hidden">
+    <div class="mx-auto max-w-5xl px-6">
+      <div
+        style="
+          position: relative;
+          border-radius: 24px;
+          overflow: hidden;
+          padding: 4rem 2rem;
+          text-align: center;
+          background: linear-gradient(
+            135deg,
+            rgba(67, 56, 202, 0.35) 0%,
+            rgba(124, 58, 237, 0.3) 40%,
+            rgba(219, 39, 119, 0.2) 70%,
+            rgba(6, 182, 212, 0.15) 100%
+          );
+          border: 1px solid rgba(124, 58, 237, 0.35);
+        "
+      >
+        <div
+          style="
+            position: absolute;
+            top: -40px;
+            left: -40px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.3) 0%, transparent 70%);
+            filter: blur(40px);
+            pointer-events: none;
+          "
+          aria-hidden="true"
+        ></div>
+        <div
+          style="
+            position: absolute;
+            bottom: -40px;
+            right: -40px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.25) 0%, transparent 70%);
+            filter: blur(40px);
+            pointer-events: none;
+          "
+          aria-hidden="true"
+        ></div>
+
+        <div style="position: relative; z-index: 1">
+          <span
+            class="cosmos-label"
+            style="
+              display: inline-flex;
+              border-color: rgba(251, 191, 36, 0.4);
+              background: rgba(251, 191, 36, 0.1);
+              color: var(--cosmos-amber);
+            "
+          >
+            <app-lucide name="rocket" class="size-3" />
+            Limited berths available
+          </span>
+          <h2
+            class="font-space mt-4 font-bold"
+            style="
+              font-size: clamp(2rem, 5vw, 3.5rem);
+              color: var(--cosmos-white);
+              line-height: 1.1;
+            "
+          >
+            Your name belongs<br />in the stars.
+          </h2>
+          <p class="mx-auto mt-4 max-w-xl text-lg" style="color: rgba(148, 163, 184, 0.9)">
+            Humanity's next chapter is being written by civilians. Reserve your berth today — and
+            become part of the story.
+          </p>
+          <div class="mt-8 flex flex-wrap justify-center gap-4">
+            <a
+              href="#packages"
+              class="cosmos-btn-primary"
+              style="font-size: 1rem; padding: 0.8rem 2rem"
+            >
+              Reserve a berth
+              <app-lucide name="rocket" class="size-5" />
+            </a>
+            <a
+              href="#destinations"
+              class="cosmos-btn-outline"
+              style="font-size: 1rem; padding: 0.8rem 2rem"
+            >
+              Explore destinations
+            </a>
+          </div>
+          <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <div class="flex -space-x-2">
+              @for (seed of ctaAvatars; track seed) {
+                <bui-avatar
+                  class="size-9"
+                  [src]="'https://picsum.photos/seed/' + seed + '/80/80'"
+                  alt=""
+                  >O</bui-avatar
+                >
+              }
+            </div>
+            <span class="text-sm" style="color: var(--cosmos-muted)">
+              Joined by <strong style="color: var(--cosmos-white)">147 civilians</strong> who
+              already flew
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer
+    style="
+      border-top: 1px solid var(--cosmos-border);
+      padding: 3.5rem 0 2rem;
+      position: relative;
+      z-index: 1;
+    "
+  >
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-10 grid grid-cols-2 gap-8 md:grid-cols-6">
+        <div class="col-span-2">
+          <a
+            href="#"
+            class="font-space inline-flex items-center gap-2 text-lg font-bold"
+            style="color: var(--cosmos-white)"
+          >
+            <span
+              style="
+                background: linear-gradient(135deg, var(--cosmos-indigo), var(--cosmos-violet));
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 32px;
+                height: 32px;
+                border-radius: 8px;
+              "
+            >
+              <app-lucide name="orbit" class="size-5" style="color: #fff" />
+            </span>
+            ORBITAL
+          </a>
+          <p class="mt-3 max-w-xs text-sm leading-relaxed" style="color: var(--cosmos-muted)">
+            Making human spaceflight accessible — safely, responsibly, and with wonder.
+          </p>
+          <div class="mt-5 flex gap-2">
+            @for (s of social; track s) {
+              <a
+                href="#"
+                [attr.aria-label]="s"
+                class="cosmos-social"
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 36px;
+                  height: 36px;
+                  border-radius: 8px;
+                  border: 1px solid var(--cosmos-border);
+                  color: var(--cosmos-muted);
+                "
+              >
+                <app-lucide [name]="s" class="size-4" />
+              </a>
+            }
+          </div>
+        </div>
+        @for (col of footer; track col.heading) {
+          <div>
+            <h3
+              class="mb-3 text-xs font-semibold tracking-widest uppercase"
+              style="color: var(--cosmos-white)"
+            >
+              {{ col.heading }}
+            </h3>
+            <ul class="space-y-2 text-sm">
+              @for (link of col.links; track link) {
+                <li>
+                  <a href="#" class="cosmos-foot-link">{{ link }}</a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+      <div class="cosmos-hr"></div>
+      <div
+        class="mt-6 flex flex-col items-center justify-between gap-3 text-xs sm:flex-row"
+        style="color: var(--cosmos-muted)"
+      >
+        <span>© 2026 Orbital Space Technologies, Inc. All rights reserved.</span>
+        <span class="flex items-center gap-1.5">
+          <app-lucide name="shield-check" class="size-4" />
+          FAA Licensed · ITAR Compliant · SOC 2 Type II
+        </span>
+      </div>
+    </div>
+  </footer>
+</div>
