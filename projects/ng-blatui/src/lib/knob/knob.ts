@@ -35,7 +35,7 @@ const ARC = CIRC * 0.75;
       (wheel)="onWheel($event)"
       (keydown)="onKeydown($event)"
     >
-      <svg viewBox="0 0 100 100" class="size-full">
+      <svg viewBox="0 0 100 100" class="size-full" aria-hidden="true">
         <circle
           cx="50"
           cy="50"

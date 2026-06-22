@@ -20,7 +20,7 @@ const SIDE: Record<string, string> = {
         (click)="open.set(false)"
         aria-hidden="true"
       ></div>
-      <div role="dialog" aria-modal="true" [class]="panelClass()">
+      <div role="dialog" aria-modal="true" [attr.aria-label]="ariaLabel()" [class]="panelClass()">
         <ng-content />
       </div>
     }
@@ -29,6 +29,7 @@ const SIDE: Record<string, string> = {
 export class BuiSheet {
   readonly open = model(false);
   readonly side = input<'left' | 'right' | 'top' | 'bottom'>('right');
+  readonly ariaLabel = input('Sheet');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
   protected readonly panelClass = computed(() =>

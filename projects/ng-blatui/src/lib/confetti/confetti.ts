@@ -29,7 +29,7 @@ const PALETTE = ['#6366f1', '#ec4899', '#f59e0b', '#10b981', '#3b82f6', '#ef4444
     `,
   ],
   template: `
-    <span (click)="fire()">
+    <span (click)="fire()" (keydown.enter)="fire()" (keydown.space)="fire()">
       <ng-content>
         <button
           type="button"

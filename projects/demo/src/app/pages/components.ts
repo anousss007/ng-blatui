@@ -1017,7 +1017,10 @@ export class ComponentPage {
   ];
   protected readonly calDate = signal('');
   protected readonly calDisabledDates = ['2026-06-10', '2026-06-16', '2026-06-24'];
+  protected readonly calRange = signal({ start: '2026-06-09', end: '2026-06-16' });
+  protected readonly calMultiple = signal(['2026-06-04', '2026-06-11', '2026-06-18']);
   protected readonly dpDate = signal('');
+  protected readonly dpRange = signal({ start: '', end: '' });
   protected readonly diffBefore = 'const x = 1;\nconst y = 2;\nconsole.log(x);';
   protected readonly diffAfter = 'const x = 1;\nconst y = 3;\nconsole.log(x + y);';
   protected readonly ttColumns = [
@@ -3095,6 +3098,14 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     calendarDropdown: `<!-- captionLayout="dropdown" swaps the label for month + year selects -->
 <bui-calendar [(value)]="date" captionLayout="dropdown" />`,
     calendarHideOutside: `<bui-calendar [(value)]="date" [hideOutsideDays]="true" />`,
+    calendarRange: `<!-- mode="range" binds a { start, end } range -->
+<bui-calendar mode="range" [(range)]="range" />
+// range = signal({ start: '', end: '' })`,
+    calendarMultiple: `<!-- mode="multiple" binds an array of ISO dates -->
+<bui-calendar mode="multiple" [(values)]="days" />
+// days = signal<string[]>([])`,
+    calendarMultipleMonths: `<!-- [months]="2" renders side-by-side grids (great for ranges) -->
+<bui-calendar mode="range" [months]="2" [(range)]="range" />`,
     datePicker: `import { BuiDatePicker } from 'ng-blatui';
 
 <bui-date-picker [(value)]="date" />`,
@@ -3111,6 +3122,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     datePickerDropdown: `<!-- forwards captionLayout to the calendar -->
 <bui-date-picker [(value)]="date" captionLayout="dropdown" />`,
     datePickerNoOutside: `<bui-date-picker [(value)]="date" [hideOutsideDays]="true" />`,
+    datePickerRange: `<!-- mode="range" + [months]="2" for a two-month range picker -->
+<bui-date-picker mode="range" [months]="2" [(range)]="range" placeholder="Pick a range" />
+// range = signal({ start: '', end: '' })`,
     carousel: `import { BuiCarousel } from 'ng-blatui';
 
 <bui-carousel>

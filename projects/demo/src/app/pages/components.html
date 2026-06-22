@@ -5424,7 +5424,7 @@ This content is read-only and cannot be edited.</textarea
 
       <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Horizontal</h2>
       <app-example [code]="code.scrollAreaHorizontal">
-        <bui-scroll-area class="w-80 rounded-md border whitespace-nowrap">
+        <bui-scroll-area class="w-80 max-w-[calc(100vw-2rem)] rounded-md border whitespace-nowrap">
           <div class="flex gap-3 p-4">
             @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
               <div class="grid size-28 shrink-0 place-items-center rounded-md bg-muted text-sm">
@@ -8087,6 +8087,21 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.calendarHideOutside">
         <bui-calendar class="border" [(value)]="calDate" [hideOutsideDays]="true" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Range</h2>
+      <app-example [code]="code.calendarRange">
+        <bui-calendar class="border" mode="range" [(range)]="calRange" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Multiple</h2>
+      <app-example [code]="code.calendarMultiple">
+        <bui-calendar class="border" mode="multiple" [(values)]="calMultiple" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Multiple months</h2>
+      <app-example [code]="code.calendarMultipleMonths">
+        <bui-calendar class="border" mode="range" [months]="2" [(range)]="calRange" />
+      </app-example>
     }
     @case ('date-picker') {
       <app-example [code]="code.datePicker">
@@ -8144,6 +8159,17 @@ This content is read-only and cannot be edited.</textarea
       <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">No outside days</h2>
       <app-example [code]="code.datePickerNoOutside">
         <bui-date-picker class="w-56" [(value)]="dpDate" [hideOutsideDays]="true" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Range</h2>
+      <app-example [code]="code.datePickerRange">
+        <bui-date-picker
+          class="w-72"
+          mode="range"
+          [months]="2"
+          [(range)]="dpRange"
+          placeholder="Pick a range"
+        />
       </app-example>
     }
     @case ('carousel') {

@@ -1,6 +1,6 @@
 import { Component, computed, ElementRef, inject, input, model, signal } from '@angular/core';
 
-import { BuiCalendar } from '../calendar/calendar';
+import { BuiCalendar, type CalendarMode, type CalendarRange } from '../calendar/calendar';
 import { type ClassValue, cn } from '../utils/cn';
 
 /** A date input that opens a calendar popover. */
@@ -32,12 +32,15 @@ import { type ClassValue, cn } from '../utils/cn';
         <path d="M8 2v4M16 2v4M3 10h18" />
         <rect width="18" height="18" x="3" y="4" rx="2" />
       </svg>
-      <span [class]="value() ? '' : 'text-muted-foreground'">{{ display() }}</span>
+      <span [class]="hasValue() ? '' : 'text-muted-foreground'">{{ display() }}</span>
     </button>
     @if (open()) {
       <div class="absolute z-50 mt-1 rounded-lg border bg-popover shadow-md">
         <bui-calendar
+          [mode]="mode()"
+          [months]="months()"
           [value]="value()"
+          [range]="range()"
           [minDate]="minDate()"
           [maxDate]="maxDate()"
           [weekStart]="weekStart()"
@@ -47,6 +50,7 @@ import { type ClassValue, cn } from '../utils/cn';
           [captionLayout]="captionLayout()"
           [hideOutsideDays]="hideOutsideDays()"
           (valueChange)="onPick($event)"
+          (rangeChange)="onRange($event)"
         />
       </div>
     }
@@ -54,6 +58,12 @@ import { type ClassValue, cn } from '../utils/cn';
 })
 export class BuiDatePicker {
   readonly value = model('');
+  /** `single` (default) or `range`. */
+  readonly mode = input<CalendarMode>('single');
+  /** Selected range when mode="range". */
+  readonly range = model<CalendarRange>({ start: '', end: '' });
+  /** Month grids shown in the popover (handy for range). */
+  readonly months = input(1);
   readonly placeholder = input('Pick a date');
   readonly minDate = input('');
   readonly maxDate = input('');
@@ -67,22 +77,40 @@ export class BuiDatePicker {
 
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly open = signal(false);
+  protected readonly hasValue = computed(
+    () => (this.mode() === 'range' ? this.range().start : this.value()) !== '',
+  );
   protected readonly display = computed(() => {
-    const value = this.value();
-    if (value === '') {
-      return this.placeholder();
+    if (this.mode() === 'range') {
+      const { start, end } = this.range();
+      if (start === '') {
+        return this.placeholder();
+      }
+      return end === '' ? `${this.fmt(start)} – …` : `${this.fmt(start)} – ${this.fmt(end)}`;
     }
-    return new Date(`${value}T00:00:00`).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
+    const value = this.value();
+    return value === '' ? this.placeholder() : this.fmt(value);
   });
   protected readonly computedClass = computed(() => cn('relative inline-block', this.userClass()));
 
   protected onPick(iso: string): void {
     this.value.set(iso);
     this.open.set(false);
+  }
+
+  protected onRange(range: CalendarRange): void {
+    this.range.set(range);
+    if (range.start !== '' && range.end !== '') {
+      this.open.set(false);
+    }
+  }
+
+  private fmt(iso: string): string {
+    return new Date(`${iso}T00:00:00`).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
   }
 
   protected onDocumentClick(event: MouseEvent): void {

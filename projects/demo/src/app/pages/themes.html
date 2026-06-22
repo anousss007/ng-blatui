@@ -23,7 +23,7 @@
     <!-- Mode -->
     <div class="space-y-1.5">
       <span class="text-xs font-medium">Mode</span>
-      <div class="grid grid-cols-3 gap-2">
+      <div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
         @for (m of modes; track m.value) {
           <button
             type="button"
@@ -40,7 +40,7 @@
     <!-- Base color -->
     <div class="space-y-1.5">
       <span class="text-xs font-medium">Base color</span>
-      <div class="grid grid-cols-9 gap-2">
+      <div class="grid grid-cols-5 gap-2 sm:grid-cols-9">
         @for (b of bases; track b.value) {
           <button
             type="button"
@@ -57,7 +57,7 @@
     <!-- Accent -->
     <div class="space-y-1.5">
       <span class="text-xs font-medium">Accent</span>
-      <div class="grid grid-cols-8 gap-2">
+      <div class="grid grid-cols-4 gap-2 sm:grid-cols-8">
         @for (a of accents; track a.value) {
           <button
             type="button"
@@ -74,7 +74,7 @@
     <!-- Radius -->
     <div class="space-y-1.5">
       <span class="text-xs font-medium">Radius</span>
-      <div class="grid grid-cols-6 gap-2">
+      <div class="grid grid-cols-3 gap-2 sm:grid-cols-6">
         @for (r of radii; track r) {
           <button
             type="button"
@@ -91,7 +91,7 @@
     <!-- Input style -->
     <div class="space-y-1.5">
       <span class="text-xs font-medium">Input style</span>
-      <div class="grid grid-cols-3 gap-2">
+      <div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
         @for (i of inputStyles; track i.value) {
           <button
             type="button"
@@ -108,7 +108,7 @@
     <!-- Body font -->
     <div class="space-y-1.5">
       <span class="text-xs font-medium">Body font</span>
-      <div class="grid grid-cols-3 gap-2">
+      <div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
         @for (f of fonts; track f.value) {
           <button
             type="button"
@@ -125,7 +125,7 @@
     <!-- Heading font -->
     <div class="space-y-1.5">
       <span class="text-xs font-medium">Heading font</span>
-      <div class="grid grid-cols-3 gap-2">
+      <div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
         @for (f of fonts; track f.value) {
           <button
             type="button"
@@ -142,7 +142,7 @@
     <!-- Shadow -->
     <div class="space-y-1.5">
       <span class="text-xs font-medium">Shadow</span>
-      <div class="grid grid-cols-5 gap-2">
+      <div class="grid grid-cols-3 gap-2 sm:grid-cols-5">
         @for (s of shadows; track s.value) {
           <button
             type="button"
@@ -159,7 +159,7 @@
     <!-- Spacing -->
     <div class="space-y-1.5">
       <span class="text-xs font-medium">Spacing</span>
-      <div class="grid grid-cols-3 gap-2">
+      <div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
         @for (s of spacings; track s.value) {
           <button
             type="button"
@@ -176,7 +176,7 @@
     <!-- Tracking -->
     <div class="space-y-1.5">
       <span class="text-xs font-medium">Tracking</span>
-      <div class="grid grid-cols-3 gap-2">
+      <div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
         @for (t of trackings; track t.value) {
           <button
             type="button"

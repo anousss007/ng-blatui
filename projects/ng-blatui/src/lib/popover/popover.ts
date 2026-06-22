@@ -110,7 +110,7 @@ export class BuiPopoverContent {
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>
     cn(
-      'z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none',
+      'z-50 w-72 max-w-[calc(100vw-2rem)] rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none',
       this.userClass(),
     ),
   );

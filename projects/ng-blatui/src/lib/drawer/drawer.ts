@@ -20,7 +20,7 @@ const POSITION: Record<string, string> = {
         (click)="open.set(false)"
         aria-hidden="true"
       ></div>
-      <div role="dialog" aria-modal="true" [class]="panelClass()">
+      <div role="dialog" aria-modal="true" [attr.aria-label]="ariaLabel()" [class]="panelClass()">
         <ng-content />
       </div>
     }
@@ -29,6 +29,7 @@ const POSITION: Record<string, string> = {
 export class BuiDrawer {
   readonly open = model(false);
   readonly direction = input<'top' | 'bottom' | 'left' | 'right'>('bottom');
+  readonly ariaLabel = input('Drawer');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
   protected readonly panelClass = computed(() =>
