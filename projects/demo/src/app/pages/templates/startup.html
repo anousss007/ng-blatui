@@ -1,0 +1,102 @@
+<div id="tpl-startup">
+  <div class="relative flex min-h-screen flex-col overflow-hidden">
+    <div class="pointer-events-none absolute inset-x-0 -top-40 -z-10 flex justify-center">
+      <div
+        class="h-[30rem] w-[60rem] rounded-full bg-gradient-to-b from-primary/25 to-transparent blur-3xl"
+      ></div>
+    </div>
+
+    <!-- Nav -->
+    <header class="mx-auto flex w-full max-w-5xl items-center px-6 py-6">
+      <a href="#" class="flex items-center gap-2 font-semibold tracking-tight"
+        ><span
+          class="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground"
+          ><app-lucide name="orbit" class="size-5"
+        /></span>
+        Orbit</a
+      >
+      <div class="ml-auto flex items-center gap-1.5">
+        <button type="button" class="su-icon-btn" aria-label="Toggle theme">
+          <app-lucide name="sun" class="size-4 dark:hidden" /><app-lucide
+            name="moon"
+            class="hidden size-4 dark:block"
+          />
+        </button>
+        @for (s of socials; track s) {
+          <a href="#" [attr.aria-label]="s" class="su-icon-btn"
+            ><app-lucide [name]="s" class="size-4"
+          /></a>
+        }
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <main
+      class="mx-auto flex w-full max-w-2xl flex-1 flex-col items-center justify-center px-6 py-16 text-center"
+    >
+      <span class="su-badge mb-6"
+        ><span class="size-1.5 animate-pulse rounded-full bg-primary"></span> Launching September
+        2026</span
+      >
+      <h1 class="text-5xl font-bold tracking-tight text-balance sm:text-6xl">
+        The calmer way to run your day.
+      </h1>
+      <p class="mt-5 max-w-lg text-lg text-balance text-muted-foreground">
+        Orbit brings your tasks, notes and calendar into one quiet place. Be the first to try it.
+      </p>
+
+      <!-- Countdown -->
+      <div class="mt-9 flex gap-3">
+        @for (c of countdown; track c.label) {
+          <div class="su-count">
+            <div class="text-3xl font-bold tabular-nums">{{ c.value }}</div>
+            <div class="text-xs text-muted-foreground">{{ c.label }}</div>
+          </div>
+        }
+      </div>
+
+      <!-- Waitlist -->
+      <form class="mt-9 flex w-full max-w-md flex-col gap-2 sm:flex-row">
+        <div class="su-field">
+          <span class="su-field-icon"><app-lucide name="mail" class="size-4" /></span>
+          <input type="email" placeholder="you@example.com" class="su-input" aria-label="Email" />
+        </div>
+        <button type="button" class="su-btn su-btn-primary">
+          Join the waitlist <app-lucide name="arrow-right" class="size-4" />
+        </button>
+      </form>
+
+      <div class="mt-6 flex items-center gap-3">
+        <div class="flex -space-x-2">
+          @for (i of waitAvatars; track i) {
+            <bui-avatar class="size-8 text-[10px] ring-2 ring-background">{{ i }}</bui-avatar>
+          }
+        </div>
+        <span class="text-sm text-muted-foreground"
+          ><span class="font-medium text-foreground">2,400+</span> people waiting</span
+        >
+      </div>
+    </main>
+
+    <!-- Feature teaser -->
+    <section class="border-t py-14">
+      <div class="mx-auto grid max-w-4xl gap-8 px-6 sm:grid-cols-3">
+        @for (f of features; track f.title) {
+          <div class="text-center sm:text-left">
+            <div
+              class="mx-auto mb-3 inline-flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary sm:mx-0"
+            >
+              <app-lucide [name]="f.icon" class="size-5" />
+            </div>
+            <h3 class="font-semibold">{{ f.title }}</h3>
+            <p class="mt-1 text-sm text-balance text-muted-foreground">{{ f.desc }}</p>
+          </div>
+        }
+      </div>
+    </section>
+
+    <footer class="border-t py-6 text-center text-sm text-muted-foreground">
+      © 2026 Orbit. Built with BlatUI.
+    </footer>
+  </div>
+</div>
