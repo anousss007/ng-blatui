@@ -1,0 +1,119 @@
+<div id="tpl-crm">
+  <div class="flex min-h-screen flex-col">
+    <!-- App bar -->
+    <header
+      class="sticky top-0 z-30 flex h-16 items-center gap-3 border-b bg-background/80 px-4 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 lg:px-6"
+    >
+      <a href="#" class="flex items-center gap-2 font-semibold"
+        ><span
+          class="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground"
+          ><app-lucide name="target" class="size-5"
+        /></span>
+        Forge</a
+      >
+      <nav class="ml-3 hidden items-center gap-1 text-sm md:flex">
+        @for (i of navItems; track i; let first = $first) {
+          <a href="#" class="crm-nav-link" [class.crm-nav-active]="first">{{ i }}</a>
+        }
+      </nav>
+      <div class="ml-auto flex items-center gap-1.5">
+        <div class="relative hidden sm:block">
+          <span
+            class="pointer-events-none absolute top-1/2 left-2.5 -translate-y-1/2 text-muted-foreground"
+            ><app-lucide name="search" class="size-4"
+          /></span>
+          <input
+            type="search"
+            placeholder="Search deals…"
+            class="crm-search"
+            aria-label="Search deals"
+          />
+        </div>
+        <button type="button" class="crm-icon-btn" aria-label="Toggle theme">
+          <app-lucide name="sun" class="size-4 dark:hidden" /><app-lucide
+            name="moon"
+            class="hidden size-4 dark:block"
+          />
+        </button>
+        <bui-avatar class="size-8">AD</bui-avatar>
+      </div>
+    </header>
+
+    <!-- Toolbar -->
+    <div class="border-b px-4 py-4 lg:px-6">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h1 class="text-2xl font-bold tracking-tight">Deals</h1>
+          <div class="mt-2 flex flex-wrap gap-x-6 gap-y-1 text-sm">
+            @for (s of stats; track s[0]) {
+              <div>
+                <span class="text-muted-foreground">{{ s[0] }}:</span>
+                <span class="font-semibold">{{ s[1] }}</span>
+              </div>
+            }
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="flex -space-x-2">
+            @for (i of teamAvatars; track i) {
+              <bui-avatar class="size-7 text-[10px] ring-2 ring-background">{{ i }}</bui-avatar>
+            }
+          </div>
+          <button type="button" class="crm-btn crm-btn-outline">
+            <app-lucide name="list-filter" class="size-4" /> Filter
+          </button>
+          <button type="button" class="crm-btn crm-btn-outline">
+            <app-lucide name="arrow-up-down" class="size-4" /> Sort
+          </button>
+          <button type="button" class="crm-btn crm-btn-primary">
+            <app-lucide name="plus" class="size-4" /> New deal
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Board -->
+    <div class="flex-1 overflow-x-auto p-4 lg:p-6">
+      <div class="flex min-w-max gap-4">
+        @for (stage of stages; track stage.name) {
+          <div class="w-72 shrink-0">
+            <div class="mb-3 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="crm-badge crm-badge-{{ stage.tone }}">{{ stage.name }}</span>
+                <span class="text-sm text-muted-foreground">{{ stage.deals.length }}</span>
+              </div>
+              <span class="text-xs font-medium text-muted-foreground">${{ stage.total }}k</span>
+            </div>
+            <div class="space-y-3">
+              @for (d of stage.deals; track d.co) {
+                <div class="crm-card group">
+                  <div class="flex items-start justify-between gap-2">
+                    <div class="text-sm font-semibold">{{ d.co }}</div>
+                    <button
+                      class="text-muted-foreground opacity-0 transition group-hover:opacity-100 hover:text-foreground"
+                      aria-label="Deal actions"
+                    >
+                      <app-lucide name="ellipsis" class="size-4" />
+                    </button>
+                  </div>
+                  <p class="mt-0.5 text-sm text-muted-foreground">{{ d.title }}</p>
+                  <div class="mt-3 flex items-center justify-between">
+                    <span class="font-semibold">{{ d.value }}</span>
+                    <span class="crm-badge crm-badge-{{ d.tone }} text-xs">{{ d.tag }}</span>
+                  </div>
+                  <div class="mt-3 flex items-center justify-between border-t pt-3">
+                    <bui-avatar class="size-6 text-[10px]">{{ d.who }}</bui-avatar>
+                    <span class="inline-flex items-center gap-1 text-xs text-muted-foreground"
+                      ><app-lucide name="calendar" class="size-3" /> Jun 14</span
+                    >
+                  </div>
+                </div>
+              }
+              <button class="crm-add"><app-lucide name="plus" class="size-4" /> Add deal</button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
