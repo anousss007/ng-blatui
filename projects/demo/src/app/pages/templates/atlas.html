@@ -1,0 +1,886 @@
+<div id="tpl-atlas">
+  <!-- NAV -->
+  <header
+    style="background-color: var(--atlas-teal); border-bottom: 1px solid rgba(233, 216, 166, 0.15)"
+    class="sticky top-0 z-40"
+  >
+    <div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-6">
+      <a
+        href="#"
+        class="atlas-heading flex items-center gap-2.5"
+        style="color: var(--atlas-offwhite)"
+      >
+        <span
+          style="background-color: var(--atlas-orange); color: var(--atlas-offwhite)"
+          class="flex size-9 items-center justify-center rounded-lg"
+        >
+          <app-lucide name="compass" class="size-5" />
+        </span>
+        <span class="text-xl font-bold tracking-tight">Atlas</span>
+      </a>
+
+      <nav class="ml-6 hidden items-center gap-1 text-sm md:flex">
+        @for (link of nav; track link.href) {
+          <a [href]="link.href" class="atlas-nav-link rounded-md px-3 py-1.5 font-medium">{{
+            link.label
+          }}</a>
+        }
+      </nav>
+
+      <div class="ml-auto flex items-center gap-2">
+        <a
+          href="#booking"
+          class="hidden items-center gap-1.5 rounded-md px-4 py-2 text-sm font-semibold sm:inline-flex"
+          style="background-color: var(--atlas-orange); color: var(--atlas-offwhite)"
+        >
+          Book a Trip <app-lucide name="arrow-right" class="size-4" />
+        </a>
+        <button
+          type="button"
+          class="flex size-9 items-center justify-center rounded-md md:hidden"
+          style="color: var(--atlas-offwhite)"
+          aria-label="Open menu"
+        >
+          <app-lucide name="menu" class="size-5" />
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="atlas-hero">
+    <div class="atlas-hero-bg" aria-hidden="true"></div>
+    <div class="atlas-hero-overlay" aria-hidden="true"></div>
+
+    <div class="relative z-10 mx-auto w-full max-w-7xl px-6 pt-24 pb-16">
+      <div class="max-w-3xl">
+        <div class="mb-5 flex flex-wrap items-center gap-2">
+          <span
+            buiBadge
+            style="
+              background-color: var(--atlas-orange);
+              color: var(--atlas-offwhite);
+              border: none;
+            "
+            class="gap-1.5 px-3 py-1 text-xs font-semibold"
+          >
+            <app-lucide name="map-pin" class="size-3" /> 89 Countries
+          </span>
+          <span
+            buiBadge
+            variant="outline"
+            style="
+              border-color: rgba(233, 216, 166, 0.5);
+              color: var(--atlas-sand);
+              background: transparent;
+            "
+            class="px-3 py-1 text-xs"
+          >
+            <app-lucide name="star" class="size-3 fill-current" /> 4.9 · 42 000+ travellers
+          </span>
+        </div>
+
+        <h1
+          class="atlas-heading text-5xl leading-none font-extrabold tracking-tight text-balance sm:text-6xl lg:text-7xl xl:text-8xl"
+          style="color: var(--atlas-offwhite)"
+        >
+          FIND YOUR<br />
+          <span style="color: var(--atlas-sand)">HORIZON</span>
+        </h1>
+
+        <p
+          class="mt-5 max-w-xl text-lg leading-relaxed font-light"
+          style="color: rgba(253, 252, 247, 0.8)"
+        >
+          Curated small-group adventures to the world's most extraordinary places. Expert guides,
+          seamless logistics, unforgettable experiences.
+        </p>
+      </div>
+
+      <div class="atlas-searchbar mt-10 max-w-4xl">
+        <div class="mb-3 flex items-center gap-2">
+          <app-lucide name="search" class="size-4" style="color: var(--atlas-teal)" />
+          <span
+            class="text-sm font-semibold tracking-widest uppercase"
+            style="color: var(--atlas-teal)"
+            >Find your adventure</span
+          >
+        </div>
+        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div>
+            <span
+              class="mb-1 block text-xs font-semibold tracking-wide uppercase"
+              style="color: var(--atlas-teal)"
+              >Destination</span
+            >
+            <select
+              class="h-9 w-full rounded-md border bg-white px-3 text-sm"
+              style="border-color: rgba(13, 59, 62, 0.2); color: var(--atlas-teal)"
+            >
+              @for (opt of destinationOptions; track opt) {
+                <option>{{ opt }}</option>
+              }
+            </select>
+          </div>
+          <div>
+            <span
+              class="mb-1 block text-xs font-semibold tracking-wide uppercase"
+              style="color: var(--atlas-teal)"
+              >Departure</span
+            >
+            <input
+              type="date"
+              class="h-9 w-full rounded-md border bg-white px-3 text-sm"
+              style="border-color: rgba(13, 59, 62, 0.2); color: var(--atlas-teal)"
+            />
+          </div>
+          <div>
+            <span
+              class="mb-1 block text-xs font-semibold tracking-wide uppercase"
+              style="color: var(--atlas-teal)"
+              >Return</span
+            >
+            <input
+              type="date"
+              class="h-9 w-full rounded-md border bg-white px-3 text-sm"
+              style="border-color: rgba(13, 59, 62, 0.2); color: var(--atlas-teal)"
+            />
+          </div>
+          <div>
+            <span
+              class="mb-1 block text-xs font-semibold tracking-wide uppercase"
+              style="color: var(--atlas-teal)"
+              >Travellers</span
+            >
+            <select
+              class="h-9 w-full rounded-md border bg-white px-3 text-sm"
+              style="border-color: rgba(13, 59, 62, 0.2); color: var(--atlas-teal)"
+            >
+              @for (opt of guestOptions; track opt) {
+                <option>{{ opt }}</option>
+              }
+            </select>
+          </div>
+        </div>
+        <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex flex-wrap gap-2">
+            @for (tag of searchTags; track tag) {
+              <span
+                buiBadge
+                variant="outline"
+                style="border-color: rgba(13, 59, 62, 0.35); color: var(--atlas-teal)"
+                class="cursor-pointer px-2.5 py-1 text-xs"
+                >{{ tag }}</span
+              >
+            }
+          </div>
+          <button
+            type="button"
+            class="inline-flex items-center gap-2 rounded-md px-5 py-2.5 text-sm font-bold text-white"
+            style="background-color: var(--atlas-orange)"
+          >
+            <app-lucide name="search" class="size-4" /> Search Trips
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESTINATION MARQUEE -->
+  <div class="atlas-marquee-text overflow-hidden">
+    <bui-marquee [items]="marqueePlaces" duration="28s" />
+  </div>
+
+  <!-- FEATURED DESTINATIONS (first tab: mountains) -->
+  <section id="destinations" class="atlas-section-light scroll-mt-16 py-20 lg:py-28">
+    <div class="mx-auto max-w-7xl px-6">
+      <div
+        class="mb-10 flex flex-col items-start gap-4 sm:flex-row sm:items-end sm:justify-between"
+      >
+        <div>
+          <span
+            buiBadge
+            class="mb-3"
+            style="
+              background-color: rgba(13, 59, 62, 0.08);
+              color: var(--atlas-teal);
+              border: 1px solid rgba(13, 59, 62, 0.18);
+            "
+          >
+            <app-lucide name="map" class="size-3" /> Destinations
+          </span>
+          <h2
+            class="atlas-heading text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+            style="color: var(--atlas-teal)"
+          >
+            Where will you go next?
+          </h2>
+          <p class="mt-2 text-base" style="color: rgba(13, 59, 62, 0.65)">
+            Hand-picked corners of the world, ready to explore.
+          </p>
+        </div>
+        <a
+          href="#"
+          class="inline-flex shrink-0 items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium"
+          style="border-color: var(--atlas-teal); color: var(--atlas-teal)"
+          >View all destinations <app-lucide name="arrow-right" class="size-4"
+        /></a>
+      </div>
+
+      <div class="mb-8 flex flex-wrap gap-2">
+        @for (tab of destTabs; track tab.val; let first = $first) {
+          <span
+            class="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium"
+            [style.background]="first ? 'var(--atlas-teal)' : 'rgba(13,59,62,0.06)'"
+            [style.color]="first ? 'var(--atlas-offwhite)' : 'var(--atlas-teal)'"
+          >
+            <app-lucide [name]="tab.icon" class="size-4" />
+            {{ tab.label }}
+          </span>
+        }
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        @for (d of mountainDestinations(); track d.name) {
+          <div
+            class="atlas-dest-card"
+            style="
+              background: var(--atlas-offwhite);
+              border: 1px solid rgba(13, 59, 62, 0.1);
+              box-shadow: 0 2px 12px rgba(13, 59, 62, 0.07);
+            "
+          >
+            <div class="relative overflow-hidden">
+              <img
+                [src]="'https://picsum.photos/seed/' + d.seed + '/600/400'"
+                [alt]="d.name + ', ' + d.country"
+                loading="lazy"
+              />
+              @if (d.badge) {
+                <div class="absolute top-3 left-3">
+                  <span
+                    buiBadge
+                    [tone]="d.tone"
+                    variant="solid"
+                    class="text-[10px] font-bold tracking-wide uppercase"
+                    >{{ d.badge }}</span
+                  >
+                </div>
+              }
+            </div>
+            <div class="p-4">
+              <div class="mb-1 flex items-start justify-between gap-2">
+                <div>
+                  <h3
+                    class="atlas-heading leading-tight font-semibold"
+                    style="color: var(--atlas-teal)"
+                  >
+                    {{ d.name }}
+                  </h3>
+                  <p class="text-xs" style="color: rgba(13, 59, 62, 0.55)">{{ d.country }}</p>
+                </div>
+                <span
+                  class="mt-0.5 text-sm font-bold whitespace-nowrap"
+                  style="color: var(--atlas-orange)"
+                  >from \${{ d.price }}</span
+                >
+              </div>
+              <div class="mt-2 flex items-center gap-2">
+                <bui-rating
+                  [value]="d.rating"
+                  [max]="5"
+                  [readonly]="true"
+                  size="sm"
+                  color="text-[#ee6c4d]"
+                />
+                <span class="text-xs" style="color: rgba(13, 59, 62, 0.5)">({{ d.reviews }})</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CURATED TRIPS -->
+  <section id="trips" class="atlas-section-dark scroll-mt-16 py-20 lg:py-28">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <span
+            buiBadge
+            class="mb-3"
+            style="
+              background-color: rgba(233, 216, 166, 0.15);
+              color: var(--atlas-sand);
+              border: 1px solid rgba(233, 216, 166, 0.25);
+            "
+          >
+            <app-lucide name="route" class="size-3" /> Curated Trips
+          </span>
+          <h2
+            class="atlas-heading text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+            style="color: var(--atlas-offwhite)"
+          >
+            Epic journeys, perfectly crafted
+          </h2>
+          <p class="mt-2 text-base" style="color: rgba(233, 216, 166, 0.65)">
+            Multi-country itineraries built around the moments that stay with you forever.
+          </p>
+        </div>
+        <a
+          href="#"
+          class="inline-flex shrink-0 items-center gap-1.5 rounded-md border px-4 py-2 text-sm font-medium"
+          style="
+            border-color: rgba(233, 216, 166, 0.4);
+            color: var(--atlas-sand);
+            background: transparent;
+          "
+          >All trips <app-lucide name="arrow-right" class="size-4"
+        /></a>
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        @for (trip of trips; track trip.title) {
+          <div class="atlas-trip-card h-full">
+            <img
+              [src]="'https://picsum.photos/seed/' + trip.seed + '/800/500'"
+              [alt]="trip.title"
+              loading="lazy"
+            />
+            <div class="atlas-trip-overlay" aria-hidden="true"></div>
+            <div class="absolute right-0 bottom-0 left-0 p-5">
+              <span
+                buiBadge
+                class="mb-2 text-[10px] font-semibold tracking-wider uppercase"
+                style="background-color: var(--atlas-orange); color: white; border: none"
+                >{{ trip.highlight }}</span
+              >
+              <h3
+                class="atlas-heading text-lg leading-tight font-bold"
+                style="color: var(--atlas-offwhite)"
+              >
+                {{ trip.title }}
+              </h3>
+              <p class="mt-1 text-xs" style="color: rgba(233, 216, 166, 0.75)">
+                {{ trip.countries }}
+              </p>
+              <div class="mt-3 flex items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <app-lucide name="clock" class="size-3.5" style="color: var(--atlas-sand)" />
+                  <span class="text-xs font-medium" style="color: var(--atlas-sand)">{{
+                    trip.duration
+                  }}</span>
+                </div>
+                <span class="text-sm font-bold" style="color: var(--atlas-orange)"
+                  >from \${{ trip.price }}</span
+                >
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCES BENTO -->
+  <section id="experiences" class="atlas-section-sand scroll-mt-16 py-20 lg:py-28">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-10 text-center">
+        <span
+          buiBadge
+          class="mb-3"
+          style="
+            background-color: rgba(13, 59, 62, 0.1);
+            color: var(--atlas-teal);
+            border: 1px solid rgba(13, 59, 62, 0.2);
+          "
+        >
+          <app-lucide name="sparkles" class="size-3" /> Experiences
+        </span>
+        <h2
+          class="atlas-heading text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+          style="color: var(--atlas-teal)"
+        >
+          Beyond the beaten path
+        </h2>
+        <p class="mx-auto mt-2 max-w-xl text-base" style="color: rgba(13, 59, 62, 0.65)">
+          Immersive encounters that no highlight reel can replace.
+        </p>
+      </div>
+
+      <div class="atlas-bento mx-auto max-w-4xl">
+        @for (exp of experiences; track exp.title) {
+          <div
+            class="relative overflow-hidden rounded-2xl {{ exp.span }}"
+            style="background: var(--atlas-teal-dark); min-height: 200px"
+          >
+            <img
+              [src]="'https://picsum.photos/seed/' + exp.seed + '/600/400'"
+              [alt]="exp.title"
+              loading="lazy"
+              class="absolute inset-0 h-full w-full object-cover opacity-60"
+            />
+            <div
+              class="absolute inset-0"
+              style="
+                background: linear-gradient(
+                  135deg,
+                  rgba(8, 30, 32, 0.7) 0%,
+                  rgba(8, 30, 32, 0.3) 100%
+                );
+              "
+            ></div>
+            <div class="absolute inset-0 flex flex-col justify-end p-5">
+              <div
+                class="mb-2 inline-flex size-9 items-center justify-center rounded-lg"
+                style="background-color: var(--atlas-orange)"
+              >
+                <app-lucide [name]="exp.icon" class="size-4" style="color: white" />
+              </div>
+              <h3 class="atlas-heading text-base font-bold" style="color: var(--atlas-offwhite)">
+                {{ exp.title }}
+              </h3>
+              <p class="mt-1 text-xs leading-relaxed" style="color: rgba(233, 216, 166, 0.75)">
+                {{ exp.desc }}
+              </p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING (step 1) -->
+  <section id="booking" class="atlas-section-light scroll-mt-16 py-20 lg:py-28">
+    <div class="mx-auto max-w-4xl px-6">
+      <div class="mb-10 text-center">
+        <span
+          buiBadge
+          class="mb-3"
+          style="
+            background-color: rgba(13, 59, 62, 0.08);
+            color: var(--atlas-teal);
+            border: 1px solid rgba(13, 59, 62, 0.18);
+          "
+        >
+          <app-lucide name="calendar" class="size-3" /> Book Your Trip
+        </span>
+        <h2
+          class="atlas-heading text-3xl font-bold tracking-tight sm:text-4xl"
+          style="color: var(--atlas-teal)"
+        >
+          Three steps to adventure
+        </h2>
+        <p class="mt-2 text-base" style="color: rgba(13, 59, 62, 0.6)">
+          Simple, transparent booking. No hidden fees, ever.
+        </p>
+      </div>
+
+      <div class="mb-10 flex items-center justify-center gap-2">
+        @for (label of bookingSteps; track label; let i = $index) {
+          <div class="flex items-center gap-2">
+            <span
+              class="flex size-8 items-center justify-center rounded-full border text-sm font-semibold"
+              [style.background]="i === 0 ? 'var(--atlas-teal)' : 'transparent'"
+              [style.border-color]="'var(--atlas-teal)'"
+              [style.color]="i === 0 ? '#fff' : 'var(--atlas-teal)'"
+              >{{ i + 1 }}</span
+            >
+            <span class="text-sm font-medium" style="color: var(--atlas-teal)">{{ label }}</span>
+            @if (i < bookingSteps.length - 1) {
+              <span class="mx-1 h-px w-8" style="background: rgba(13, 59, 62, 0.25)"></span>
+            }
+          </div>
+        }
+      </div>
+
+      <div
+        class="rounded-2xl border p-8"
+        style="border-color: rgba(13, 59, 62, 0.12); background: rgba(13, 59, 62, 0.02)"
+      >
+        <h3 class="atlas-heading mb-6 text-xl font-semibold" style="color: var(--atlas-teal)">
+          Select your destination &amp; dates
+        </h3>
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div>
+            <span class="mb-1.5 block text-sm font-medium" style="color: var(--atlas-teal)"
+              >Destination</span
+            >
+            <select
+              class="h-9 w-full rounded-md border bg-white px-3 text-sm"
+              style="border-color: rgba(13, 59, 62, 0.2); color: var(--atlas-teal)"
+            >
+              @for (opt of destinationOptions; track opt) {
+                <option>{{ opt }}</option>
+              }
+            </select>
+          </div>
+          <div>
+            <span class="mb-1.5 block text-sm font-medium" style="color: var(--atlas-teal)"
+              >Trip type</span
+            >
+            <select
+              class="h-9 w-full rounded-md border bg-white px-3 text-sm"
+              style="border-color: rgba(13, 59, 62, 0.2); color: var(--atlas-teal)"
+            >
+              @for (opt of tripStyles; track opt) {
+                <option>{{ opt }}</option>
+              }
+            </select>
+          </div>
+          <div>
+            <span class="mb-1.5 block text-sm font-medium" style="color: var(--atlas-teal)"
+              >Departure date</span
+            >
+            <input
+              type="date"
+              class="h-9 w-full rounded-md border bg-white px-3 text-sm"
+              style="border-color: rgba(13, 59, 62, 0.2); color: var(--atlas-teal)"
+            />
+          </div>
+          <div>
+            <span class="mb-1.5 block text-sm font-medium" style="color: var(--atlas-teal)"
+              >Duration</span
+            >
+            <select
+              class="h-9 w-full rounded-md border bg-white px-3 text-sm"
+              style="border-color: rgba(13, 59, 62, 0.2); color: var(--atlas-teal)"
+            >
+              @for (opt of durations; track opt) {
+                <option>{{ opt }}</option>
+              }
+            </select>
+          </div>
+        </div>
+        <div class="mt-6 flex justify-end">
+          <button
+            type="button"
+            class="inline-flex items-center gap-2 rounded-md px-5 py-2.5 text-sm font-semibold text-white"
+            style="background-color: var(--atlas-teal)"
+          >
+            Continue <app-lucide name="arrow-right" class="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="atlas-section-dark py-20 lg:py-28">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-12 text-center">
+        <span
+          buiBadge
+          class="mb-3"
+          style="
+            background-color: rgba(233, 216, 166, 0.15);
+            color: var(--atlas-sand);
+            border: 1px solid rgba(233, 216, 166, 0.25);
+          "
+        >
+          <app-lucide name="quote" class="size-3" /> Traveller stories
+        </span>
+        <h2
+          class="atlas-heading text-3xl font-bold tracking-tight sm:text-4xl"
+          style="color: var(--atlas-offwhite)"
+        >
+          The world through their eyes
+        </h2>
+      </div>
+
+      <div class="grid gap-6 lg:grid-cols-3">
+        @for (t of testimonials; track t.a) {
+          <div
+            class="flex flex-col rounded-2xl p-7"
+            style="
+              background: rgba(255, 255, 255, 0.05);
+              border: 1px solid rgba(233, 216, 166, 0.12);
+            "
+          >
+            <div class="mb-4 flex text-[#ee6c4d]">
+              @for (s of [0, 1, 2, 3, 4]; track s) {
+                <app-lucide name="star" class="size-4 fill-current" />
+              }
+            </div>
+            <blockquote
+              class="flex-1 text-base leading-relaxed italic"
+              style="color: rgba(253, 252, 247, 0.85)"
+            >
+              "{{ t.q }}"
+            </blockquote>
+            <div class="mt-6 flex items-center gap-3">
+              <bui-avatar
+                class="size-11 ring-2"
+                style="--tw-ring-color: var(--atlas-orange)"
+                [src]="'https://picsum.photos/seed/' + t.seed + '/80/80'"
+                [alt]="t.a"
+                >{{ t.a.charAt(0) }}</bui-avatar
+              >
+              <div>
+                <p class="text-sm font-semibold" style="color: var(--atlas-sand)">{{ t.a }}</p>
+                <p class="text-xs" style="color: rgba(233, 216, 166, 0.55)">{{ t.r }}</p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section
+    style="
+      background-image: url('https://picsum.photos/seed/statsatlas/1600/600');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    "
+  >
+    <div style="position: absolute; inset: 0; background: rgba(8, 30, 32, 0.82)"></div>
+    <div class="relative z-10 mx-auto max-w-5xl px-6 py-20">
+      <div class="grid grid-cols-2 gap-6 lg:grid-cols-4">
+        @for (s of stats; track s.l) {
+          <div class="atlas-stat-card">
+            <app-lucide
+              [name]="s.icon"
+              class="mx-auto mb-3 size-7"
+              style="color: var(--atlas-orange)"
+            />
+            <div class="atlas-heading text-4xl font-extrabold" style="color: var(--atlas-sand)">
+              {{ s.v }}
+            </div>
+            <div class="mt-1 text-sm" style="color: rgba(233, 216, 166, 0.65)">{{ s.l }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="atlas-section-light py-20 lg:py-28">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-10 text-center">
+        <span
+          buiBadge
+          class="mb-3"
+          style="
+            background-color: rgba(13, 59, 62, 0.08);
+            color: var(--atlas-teal);
+            border: 1px solid rgba(13, 59, 62, 0.18);
+          "
+        >
+          <app-lucide name="camera" class="size-3" /> Gallery
+        </span>
+        <h2
+          class="atlas-heading text-3xl font-bold tracking-tight sm:text-4xl"
+          style="color: var(--atlas-teal)"
+        >
+          Adventures in frame
+        </h2>
+      </div>
+      <div class="atlas-gallery">
+        @for (img of gallery; track img.seed) {
+          <div class="atlas-gallery-item">
+            <img
+              [src]="'https://picsum.photos/seed/' + img.seed + '/' + img.w + '/' + img.h"
+              [alt]="img.alt"
+              loading="lazy"
+            />
+          </div>
+        }
+      </div>
+      <div class="mt-8 text-center">
+        <a
+          href="#"
+          class="inline-flex items-center gap-2 rounded-md border px-5 py-2.5 text-sm font-medium"
+          style="border-color: var(--atlas-teal); color: var(--atlas-teal)"
+          ><app-lucide name="instagram" class="size-4" /> Follow our journey</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="atlas-section-sand scroll-mt-16 py-20 lg:py-28">
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="mb-10 text-center">
+        <span
+          buiBadge
+          class="mb-3"
+          style="
+            background-color: rgba(13, 59, 62, 0.1);
+            color: var(--atlas-teal);
+            border: 1px solid rgba(13, 59, 62, 0.18);
+          "
+        >
+          <app-lucide name="help-circle" class="size-3" /> FAQ
+        </span>
+        <h2
+          class="atlas-heading text-3xl font-bold tracking-tight sm:text-4xl"
+          style="color: var(--atlas-teal)"
+        >
+          Good questions, honest answers
+        </h2>
+      </div>
+      <div class="w-full">
+        @for (faq of faqs; track faq.q; let first = $first) {
+          <details
+            class="group"
+            style="border-bottom: 1px solid rgba(13, 59, 62, 0.15)"
+            [open]="first"
+          >
+            <summary
+              class="flex cursor-pointer items-center justify-between py-4 text-left font-medium"
+              style="color: var(--atlas-teal)"
+            >
+              {{ faq.q }}
+              <app-lucide
+                name="chevron-down"
+                class="size-4 shrink-0 transition-transform group-open:rotate-180"
+                style="color: var(--atlas-teal)"
+              />
+            </summary>
+            <p class="pb-4 text-sm leading-relaxed" style="color: rgba(13, 59, 62, 0.7)">
+              {{ faq.a }}
+            </p>
+          </details>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section
+    style="
+      background-image: url('https://picsum.photos/seed/newslatlas/1600/600');
+      background-size: cover;
+      background-position: center 60%;
+      position: relative;
+    "
+    class="py-24"
+  >
+    <div style="position: absolute; inset: 0; background: rgba(8, 30, 32, 0.88)"></div>
+    <div class="relative z-10 mx-auto max-w-xl px-6 text-center">
+      <app-lucide name="send" class="mx-auto mb-4 size-8" style="color: var(--atlas-orange)" />
+      <h2
+        class="atlas-heading text-3xl font-bold tracking-tight sm:text-4xl"
+        style="color: var(--atlas-offwhite)"
+      >
+        Get routes before they sell out
+      </h2>
+      <p class="mt-3 text-base" style="color: rgba(253, 252, 247, 0.7)">
+        New itineraries, early-bird spots and insider guides — to your inbox, once a month.
+      </p>
+      <form class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <input
+          type="email"
+          placeholder="your@email.com"
+          class="h-11 flex-1 rounded-md px-3 text-sm outline-none"
+          style="background: rgba(253, 252, 247, 0.95); border: none; color: var(--atlas-teal)"
+        />
+        <button
+          type="button"
+          class="inline-flex items-center justify-center gap-2 rounded-md px-6 py-2.5 text-sm font-bold whitespace-nowrap text-white"
+          style="background-color: var(--atlas-orange)"
+        >
+          Subscribe <app-lucide name="arrow-right" class="size-4" />
+        </button>
+      </form>
+      <p class="mt-3 text-xs" style="color: rgba(253, 252, 247, 0.4)">
+        No spam. Unsubscribe anytime. We respect your privacy.
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer
+    style="background-color: var(--atlas-teal-dark); border-top: 1px solid rgba(233, 216, 166, 0.1)"
+  >
+    <div class="mx-auto max-w-7xl px-6 py-16">
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-6">
+        <div class="lg:col-span-2">
+          <a
+            href="#"
+            class="atlas-heading flex items-center gap-2.5"
+            style="color: var(--atlas-offwhite)"
+          >
+            <span
+              style="background-color: var(--atlas-orange)"
+              class="flex size-9 items-center justify-center rounded-lg"
+            >
+              <app-lucide name="compass" class="size-5" style="color: white" />
+            </span>
+            <span class="text-xl font-bold tracking-tight">Atlas</span>
+          </a>
+          <p class="mt-3 max-w-xs text-sm" style="color: rgba(233, 216, 166, 0.55)">
+            Small-group adventures to the world's most extraordinary places. Expert guides, seamless
+            logistics.
+          </p>
+          <div class="mt-5 flex gap-2">
+            @for (soc of social; track soc) {
+              <a
+                href="#"
+                [attr.aria-label]="soc"
+                class="atlas-foot-link inline-flex size-9 items-center justify-center rounded-lg border"
+                style="border-color: rgba(233, 216, 166, 0.2)"
+              >
+                <app-lucide [name]="soc" class="size-4" />
+              </a>
+            }
+          </div>
+        </div>
+
+        @for (col of footer; track col.heading) {
+          <div>
+            <h3 class="text-sm font-semibold" style="color: var(--atlas-sand)">
+              {{ col.heading }}
+            </h3>
+            <ul class="mt-3 space-y-2 text-sm">
+              @for (link of col.links; track link) {
+                <li>
+                  <a href="#" class="atlas-foot-link">{{ link }}</a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <div buiSeparator class="my-8" style="background-color: rgba(233, 216, 166, 0.12)"></div>
+
+      <div
+        class="flex flex-col items-center justify-between gap-3 text-sm sm:flex-row"
+        style="color: rgba(233, 216, 166, 0.4)"
+      >
+        <span>© 2026 Atlas Expeditions. All rights reserved.</span>
+        <div class="flex items-center gap-3">
+          <span
+            buiBadge
+            variant="outline"
+            style="
+              border-color: rgba(233, 216, 166, 0.2);
+              color: rgba(233, 216, 166, 0.5);
+              background: transparent;
+            "
+            class="text-[10px]"
+          >
+            <app-lucide name="leaf" class="size-3" /> Carbon-offset trips
+          </span>
+          <span
+            buiBadge
+            variant="outline"
+            style="
+              border-color: rgba(233, 216, 166, 0.2);
+              color: rgba(233, 216, 166, 0.5);
+              background: transparent;
+            "
+            class="text-[10px]"
+          >
+            <app-lucide name="shield-check" class="size-3" /> ATOL Protected
+          </span>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
