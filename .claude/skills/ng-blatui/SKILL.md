@@ -5,7 +5,7 @@ description: Use the ng-blatui Angular UI library in an app — install, import 
 
 # Using ng-blatui
 
-`ng-blatui` is an accessible Angular UI library (Angular 22 — standalone, signals, zoneless, SSR-ready) ported from BlatUI. **155 components, 16 blocks, 70 charts, 34 page templates.**
+`ng-blatui` is an accessible Angular UI library (Angular 21 & 22 — standalone, signals, zoneless, SSR-ready) ported from BlatUI. **155 components, 16 blocks, 70 charts, 34 page templates.**
 
 ## Install
 

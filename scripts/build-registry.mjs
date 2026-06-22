@@ -107,7 +107,7 @@ const registry = {
   homepage: HOMEPAGE,
   npm: PKG,
   description:
-    'Accessible Angular UI library (Angular 22, standalone, signals, zoneless, SSR-ready) ported from BlatUI. Components, blocks, charts and ready-made page templates, themed with Tailwind CSS v4 + oklch design tokens.',
+    'Accessible Angular UI library (Angular 21 & 22, standalone, signals, zoneless, SSR-ready) ported from BlatUI. Components, blocks, charts and ready-made page templates, themed with Tailwind CSS v4 + oklch design tokens.',
   install: `npm i ${PKG}`,
   llms: `${HOMEPAGE}/llms.txt`,
   generatedAt: new Date().toISOString().slice(0, 10),

@@ -211,7 +211,7 @@ command = "npx"
 args = ["-y", "ng-blatui-mcp"]`;
 
   protected readonly editorRules = `# ng-blatui usage
-- UI library: ng-blatui (Angular 22, standalone, signals, zoneless, SSR-safe). Install: npm i ng-blatui.
+- UI library: ng-blatui (Angular 21 & 22, standalone, signals, zoneless, SSR-safe). Install: npm i ng-blatui.
 - Import component classes from the "ng-blatui" barrel into a standalone component's imports[] (no NgModule).
 - Selectors are prefixed "bui": <bui-avatar>, <button buiButton>, <input buiInput>, <span buiBadge tone="success">.
 - Inputs/outputs are signals; form controls implement ControlValueAccessor (Reactive/Template/Signal forms).

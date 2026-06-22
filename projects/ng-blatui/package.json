@@ -24,11 +24,11 @@
     "url": "https://github.com/anousss007/ng-blatui/issues"
   },
   "peerDependencies": {
-    "@angular/common": "^22.0.0",
-    "@angular/core": "^22.0.0",
-    "@angular/forms": "^22.0.0",
-    "@angular/cdk": "^22.0.0",
-    "@angular/aria": "^22.0.0"
+    "@angular/common": ">=21.0.0 <23.0.0",
+    "@angular/core": ">=21.0.0 <23.0.0",
+    "@angular/forms": ">=21.0.0 <23.0.0",
+    "@angular/cdk": ">=21.0.0 <23.0.0",
+    "@angular/aria": ">=21.0.0 <23.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0",

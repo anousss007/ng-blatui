@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/ng-blatui.svg)](https://www.npmjs.com/package/ng-blatui)
 [![license](https://img.shields.io/npm/l/ng-blatui.svg)](./LICENSE)
-[![Angular](https://img.shields.io/badge/Angular-22-dd0031.svg)](https://angular.dev)
+[![Angular](https://img.shields.io/badge/Angular-21%20%26%2022-dd0031.svg)](https://angular.dev)
 
 Accessible **Angular UI library** — a faithful port of [BlatUI](https://ngblatui.remix-it.com)'s visual system to Angular. Built on the official Angular headless stack (Angular Aria + CDK), styled with Tailwind CSS v4 + oklch design tokens.
 
@@ -14,7 +14,7 @@ Accessible **Angular UI library** — a faithful port of [BlatUI](https://ngblat
 
 ## Highlights
 
-- **Angular 22** — standalone components, **signals** (`input()`/`model()`/`output()`), **zoneless** change detection, `OnPush` by default.
+- **Angular 21 & 22** — standalone components, **signals** (`input()`/`model()`/`output()`), **zoneless** change detection, `OnPush` by default.
 - **SSR-ready** — every component renders correctly under server-side rendering (the docs site prerenders 280+ static routes).
 - **Accessible** — behavior built on `@angular/aria` + `@angular/cdk`; passes AXE / WCAG AA.
 - **Forms-native** — every form control implements `ControlValueAccessor`, so the same component works with Reactive, Template-driven and Signal forms.
@@ -27,7 +27,7 @@ Accessible **Angular UI library** — a faithful port of [BlatUI](https://ngblat
 npm i ng-blatui
 ```
 
-Peer dependencies (Angular 22): `@angular/core`, `@angular/common`, `@angular/forms`, `@angular/cdk`, `@angular/aria`. Styling is **Tailwind CSS v4** — import the ng-blatui tokens/preset into your global stylesheet and Tailwind config. Full setup: **https://ngblatui.remix-it.com/docs/installation**.
+Peer dependencies (Angular **21 or 22**): `@angular/core`, `@angular/common`, `@angular/forms`, `@angular/cdk`, `@angular/aria`. Styling is **Tailwind CSS v4** — import the ng-blatui tokens/preset into your global stylesheet and Tailwind config. Full setup: **https://ngblatui.remix-it.com/docs/installation**.
 
 ## Usage
 

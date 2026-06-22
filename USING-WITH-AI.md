@@ -93,7 +93,7 @@ For tools that read project rules files, drop this in so the assistant uses ng-b
 ```md
 # ng-blatui usage
 
-- UI library: ng-blatui (Angular 22, standalone, signals, zoneless, SSR-safe). Install: `npm i ng-blatui`.
+- UI library: ng-blatui (Angular 21 & 22, standalone, signals, zoneless, SSR-safe). Install: `npm i ng-blatui`.
 - Import component classes from the `ng-blatui` barrel and add them to a standalone component's `imports[]` (no NgModule).
 - Selectors are prefixed `bui`: `<bui-avatar>`, `<button buiButton>`, `<input buiInput>`, `<span buiBadge tone="success">`.
 - Inputs/outputs are signals: bind `[checked]`/`(checkedChange)` etc. Form controls implement ControlValueAccessor (Reactive/Template/Signal forms).

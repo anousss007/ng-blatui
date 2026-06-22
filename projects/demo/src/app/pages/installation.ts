@@ -10,7 +10,8 @@ import { CodeBlock } from '../ui/code-block';
       <header class="space-y-2">
         <h1 class="text-3xl font-bold tracking-tight">Installation</h1>
         <p class="text-muted-foreground">
-          ng-blatui targets Angular 22 with Tailwind CSS v4. Three short steps and you're ready.
+          ng-blatui targets Angular 21 &amp; 22 with Tailwind CSS v4. Three short steps and you're
+          ready.
         </p>
       </header>
 
