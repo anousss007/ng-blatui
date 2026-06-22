@@ -1,0 +1,212 @@
+<div id="tpl-product">
+  <header
+    class="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60"
+  >
+    <div class="mx-auto flex h-16 max-w-7xl items-center px-4 lg:px-6">
+      <a href="/templates/store" class="text-xl font-semibold tracking-tight">Atelier</a>
+      <div class="ml-auto flex items-center gap-1.5">
+        <button type="button" class="pd-icon-btn" aria-label="Toggle theme">
+          <app-lucide name="sun" class="size-4 dark:hidden" /><app-lucide
+            name="moon"
+            class="hidden size-4 dark:block"
+          />
+        </button>
+        <button class="pd-icon-btn" aria-label="Cart">
+          <app-lucide name="shopping-bag" class="size-4" />
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mx-auto max-w-7xl px-4 py-6 lg:px-6">
+    <nav
+      class="mb-6 flex items-center gap-1.5 text-sm text-muted-foreground"
+      aria-label="Breadcrumb"
+    >
+      <a href="/templates/store" class="pd-crumb transition-colors">Home</a>
+      <app-lucide name="chevron-right" class="size-3.5" />
+      <a href="#" class="pd-crumb transition-colors">Lighting</a>
+      <app-lucide name="chevron-right" class="size-3.5" />
+      <span class="text-foreground">Halo Floor Lamp</span>
+    </nav>
+
+    <!-- Product -->
+    <div class="grid gap-10 lg:grid-cols-2">
+      <!-- Gallery -->
+      <div>
+        <div class="aspect-square overflow-hidden rounded-2xl border bg-muted">
+          <img [src]="mainImage()" alt="Halo Floor Lamp" class="size-full object-cover" />
+        </div>
+        <div class="mt-3 grid grid-cols-4 gap-3">
+          @for (src of images; track src; let i = $index) {
+            <button
+              type="button"
+              class="pd-thumb aspect-square"
+              [class.pd-thumb-active]="active() === i"
+              (click)="active.set(i)"
+              [attr.aria-label]="'View image ' + (i + 1)"
+            >
+              <img [src]="src" alt="" class="size-full object-cover" />
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Details -->
+      <div>
+        <div class="flex items-center gap-3">
+          <span class="pd-badge pd-badge-primary">New</span>
+          <span class="text-sm text-muted-foreground">Lighting · Studio collection</span>
+        </div>
+        <h1 class="mt-3 text-3xl font-bold tracking-tight">Halo Floor Lamp</h1>
+        <div class="mt-2 flex items-center gap-2">
+          <bui-rating [value]="5" [max]="5" [readonly]="true" size="sm" color="text-yellow-400" />
+          <a href="#reviews" class="text-sm text-muted-foreground hover:underline">128 reviews</a>
+        </div>
+        <div class="mt-4 flex items-baseline gap-3">
+          <span class="text-3xl font-bold">$189</span>
+          <span class="text-lg text-muted-foreground line-through">$229</span>
+          <span class="pd-badge pd-badge-danger">Save 17%</span>
+        </div>
+        <p class="mt-4 text-muted-foreground">
+          A warm, dimmable floor lamp with a hand-finished oak base. Soft enough to read by, bright
+          enough to fill a corner.
+        </p>
+
+        <!-- Color -->
+        <div class="mt-6">
+          <div class="mb-2 text-sm font-medium">
+            Color: <span class="font-normal text-muted-foreground">{{ color() }}</span>
+          </div>
+          <div class="flex gap-2">
+            @for (c of colors; track c.name) {
+              <button
+                type="button"
+                class="pd-swatch"
+                [class.pd-swatch-active]="color() === c.name"
+                [style.background]="c.bg"
+                (click)="color.set(c.name)"
+                [attr.aria-label]="c.name"
+              ></button>
+            }
+          </div>
+        </div>
+
+        <!-- Size -->
+        <div class="mt-5">
+          <div class="mb-2 text-sm font-medium">Size</div>
+          <div class="pd-size-group">
+            @for (sz of sizes; track sz) {
+              <button
+                type="button"
+                class="pd-size"
+                [class.pd-size-active]="size() === sz"
+                (click)="size.set(sz)"
+              >
+                {{ sz }}
+              </button>
+            }
+          </div>
+        </div>
+
+        <!-- Quantity + add -->
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <div class="pd-qty">
+            <button
+              type="button"
+              (click)="qty.set(qty() > 1 ? qty() - 1 : 1)"
+              aria-label="Decrease"
+            >
+              <app-lucide name="minus" class="size-4" />
+            </button>
+            <span class="w-10 text-center text-sm font-medium">{{ qty() }}</span>
+            <button type="button" (click)="qty.set(qty() + 1)" aria-label="Increase">
+              <app-lucide name="plus" class="size-4" />
+            </button>
+          </div>
+          <button type="button" class="pd-btn pd-btn-primary flex-1">
+            <app-lucide name="shopping-bag" class="size-4" /> Add to cart
+          </button>
+          <button
+            type="button"
+            class="pd-btn pd-btn-outline"
+            style="width: 2.75rem; padding: 0"
+            aria-label="Wishlist"
+          >
+            <app-lucide name="heart" class="size-4" />
+          </button>
+        </div>
+
+        <!-- Trust -->
+        <div class="mt-6 grid grid-cols-3 gap-3 text-center text-xs text-muted-foreground">
+          @for (t of trust; track t.label) {
+            <div class="pd-trust flex flex-col items-center gap-1.5 p-3">
+              <app-lucide [name]="t.icon" class="size-5 text-foreground" /> {{ t.label }}
+            </div>
+          }
+        </div>
+
+        <!-- Details accordion -->
+        <div class="mt-6 w-full">
+          @for (acc of accordion; track acc.key) {
+            <details class="pd-acc group">
+              <summary>
+                {{ acc.q }}
+                <app-lucide
+                  name="chevron-down"
+                  class="size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180"
+                />
+              </summary>
+              <p class="pb-4 text-sm leading-relaxed text-muted-foreground">{{ acc.a }}</p>
+            </details>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs: description / specs / reviews (specs active) -->
+    <div class="mt-16" id="reviews">
+      <div class="pd-tablist">
+        @for (tab of tabs; track tab.key) {
+          <span class="pd-tab" [class.pd-tab-active]="tab.key === 'specs'">{{ tab.label }}</span>
+        }
+      </div>
+
+      <div class="mt-6 max-w-2xl">
+        <dl class="divide-y">
+          @for (spec of specs; track spec.k) {
+            <div class="grid grid-cols-3 gap-4 py-3 text-sm">
+              <dt class="text-muted-foreground">{{ spec.k }}</dt>
+              <dd class="col-span-2 font-medium">{{ spec.v }}</dd>
+            </div>
+          }
+        </dl>
+      </div>
+    </div>
+
+    <!-- Related -->
+    <div class="mt-16">
+      <h2 class="mb-6 text-2xl font-bold tracking-tight">You might also like</h2>
+      <div class="grid grid-cols-2 gap-x-5 gap-y-8 lg:grid-cols-4">
+        @for (r of related; track r.name) {
+          <a href="#" class="group">
+            <div class="aspect-square overflow-hidden rounded-xl border bg-muted">
+              <img
+                [src]="img(r.id)"
+                [alt]="r.name"
+                loading="lazy"
+                class="size-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            </div>
+            <h3 class="mt-3 text-sm font-medium">{{ r.name }}</h3>
+            <div class="mt-1 font-semibold">${{ r.price }}</div>
+          </a>
+        }
+      </div>
+    </div>
+  </div>
+
+  <footer class="mt-10 border-t py-8 text-center text-sm text-muted-foreground">
+    © 2026 Atelier. All rights reserved.
+  </footer>
+</div>
