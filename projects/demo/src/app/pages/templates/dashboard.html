@@ -1,0 +1,248 @@
+<div id="tpl-dashboard">
+  <div class="flex min-h-screen">
+    <!-- Sidebar (desktop) -->
+    <aside class="hidden w-64 shrink-0 flex-col border-r bg-card lg:flex">
+      <div class="flex h-16 items-center gap-2 border-b px-5 font-semibold">
+        <span
+          class="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground"
+          ><app-lucide name="command" class="size-5"
+        /></span>
+        Acme Inc
+      </div>
+      <nav class="flex-1 space-y-6 overflow-y-auto p-4">
+        @for (sec of nav; track sec.section) {
+          <div>
+            <p class="mb-1.5 px-2 text-xs font-medium text-muted-foreground">{{ sec.section }}</p>
+            <div class="space-y-0.5">
+              @for (item of sec.items; track item.label) {
+                <a href="#" class="db-nav-link" [class.db-nav-active]="item.active"
+                  ><app-lucide [name]="item.icon" class="size-4" /> {{ item.label }}</a
+                >
+              }
+            </div>
+          </div>
+        }
+      </nav>
+      <div class="border-t p-3">
+        <div class="flex items-center gap-2.5 rounded-md p-2 hover:bg-accent">
+          <bui-avatar class="size-8">AD</bui-avatar>
+          <div class="min-w-0 flex-1 text-sm">
+            <div class="truncate font-medium">Ada Lovelace</div>
+            <div class="truncate text-xs text-muted-foreground">ada&#64;acme.com</div>
+          </div>
+          <app-lucide name="chevrons-up-down" class="size-4 text-muted-foreground" />
+        </div>
+      </div>
+    </aside>
+
+    <div class="flex min-w-0 flex-1 flex-col">
+      <!-- Topbar -->
+      <header
+        class="sticky top-0 z-30 flex h-16 items-center gap-3 border-b bg-background/80 px-4 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 lg:px-6"
+      >
+        <button type="button" class="db-btn db-btn-outline db-btn-icon lg:hidden" aria-label="Menu">
+          <app-lucide name="menu" class="size-4" />
+        </button>
+
+        <div class="relative hidden sm:block">
+          <span
+            class="pointer-events-none absolute top-1/2 left-2.5 -translate-y-1/2 text-muted-foreground"
+            ><app-lucide name="search" class="size-4"
+          /></span>
+          <input type="search" placeholder="Search…" class="db-search" aria-label="Search" />
+          <kbd class="db-kbd absolute top-1/2 right-1.5 -translate-y-1/2">⌘K</kbd>
+        </div>
+
+        <div class="ml-auto flex items-center gap-1.5">
+          <button type="button" class="db-icon-btn" aria-label="Toggle theme">
+            <app-lucide name="sun" class="size-4 dark:hidden" /><app-lucide
+              name="moon"
+              class="hidden size-4 dark:block"
+            />
+          </button>
+          <button type="button" class="db-icon-btn relative" aria-label="Notifications">
+            <app-lucide name="bell" class="size-4" /><span
+              class="absolute top-2 right-2 size-2 rounded-full bg-destructive"
+            ></span>
+          </button>
+          <button type="button" aria-label="Account">
+            <bui-avatar class="size-8">AD</bui-avatar>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main -->
+      <main class="flex-1 space-y-6 p-4 lg:p-6">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h1 class="text-2xl font-bold tracking-tight">Dashboard</h1>
+            <p class="text-sm text-muted-foreground">
+              Welcome back — here's what's happening today.
+            </p>
+          </div>
+          <div class="flex gap-2">
+            <button type="button" class="db-btn db-btn-outline db-btn-sm">
+              <app-lucide name="calendar" class="size-4" /> Last 30 days
+            </button>
+            <button type="button" class="db-btn db-btn-primary db-btn-sm">
+              <app-lucide name="download" class="size-4" /> Export
+            </button>
+          </div>
+        </div>
+
+        <!-- KPIs -->
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          @for (k of kpis; track k.label) {
+            <div class="db-card">
+              <div class="flex items-start justify-between">
+                <span class="text-sm text-muted-foreground">{{ k.label }}</span>
+                <span
+                  class="db-badge"
+                  [class.db-badge-success]="k.up"
+                  [class.db-badge-danger]="!k.up"
+                  >{{ k.delta }}</span
+                >
+              </div>
+              <div class="mt-2 text-2xl font-bold tracking-tight">{{ k.value }}</div>
+              <svg
+                viewBox="0 0 112 32"
+                class="mt-3 h-8 w-full"
+                [class.text-primary]="k.up"
+                [class.text-destructive]="!k.up"
+                fill="none"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <polyline
+                  [attr.points]="k.spark"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+          }
+        </div>
+
+        <!-- Charts row -->
+        <div class="grid gap-4 lg:grid-cols-3">
+          <div class="db-card-sectioned lg:col-span-2">
+            <div class="db-card-header">
+              <h3 class="font-semibold">Revenue</h3>
+              <p class="text-sm text-muted-foreground">Daily revenue for the last 30 days</p>
+            </div>
+            <div class="db-card-content">
+              <svg
+                viewBox="0 0 600 200"
+                class="h-56 w-full text-primary"
+                preserveAspectRatio="none"
+                role="img"
+                aria-label="Revenue chart"
+              >
+                <defs>
+                  <linearGradient id="db-rev" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%" stop-color="currentColor" stop-opacity="0.25" />
+                    <stop offset="100%" stop-color="currentColor" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <path
+                  d="M0,160 C40,150 70,120 110,125 C150,130 180,90 220,95 C260,100 290,60 330,70 C370,80 400,45 440,40 C480,35 520,55 560,30 L600,25 L600,200 L0,200 Z"
+                  fill="url(#db-rev)"
+                />
+                <path
+                  d="M0,160 C40,150 70,120 110,125 C150,130 180,90 220,95 C260,100 290,60 330,70 C370,80 400,45 440,40 C480,35 520,55 560,30 L600,25"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div class="db-card-sectioned">
+            <div class="db-card-header">
+              <h3 class="font-semibold">Traffic sources</h3>
+              <p class="text-sm text-muted-foreground">Where visitors come from</p>
+            </div>
+            <div class="db-card-content space-y-4">
+              @for (t of traffic; track t.label) {
+                <div>
+                  <div class="mb-1.5 flex items-center justify-between text-sm">
+                    <span class="font-medium">{{ t.label }}</span>
+                    <span class="text-muted-foreground">{{ t.pct }}%</span>
+                  </div>
+                  <div class="db-progress">
+                    <div class="db-progress-fill" [style.width.%]="t.pct"></div>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent orders -->
+        <div class="db-card-sectioned">
+          <div class="db-card-header flex flex-row items-center justify-between">
+            <div>
+              <h3 class="font-semibold">Recent orders</h3>
+              <p class="text-sm text-muted-foreground">Your latest 5 orders</p>
+            </div>
+            <button type="button" class="db-btn db-btn-outline db-btn-sm">View all</button>
+          </div>
+          <div class="db-card-content">
+            <div class="overflow-x-auto">
+              <table class="db-table">
+                <thead>
+                  <tr>
+                    <th>Order</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                    <th class="hidden sm:table-cell">Date</th>
+                    <th class="text-right">Amount</th>
+                    <th class="w-10"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (o of orders; track o.id) {
+                    <tr>
+                      <td class="font-medium">{{ o.id }}</td>
+                      <td>
+                        <div class="flex items-center gap-2">
+                          <bui-avatar class="size-7 text-xs">{{ o.init }}</bui-avatar>
+                          <span class="whitespace-nowrap">{{ o.name }}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <span
+                          class="db-badge"
+                          [class.db-badge-success]="o.tone === 'success'"
+                          [class.db-badge-info]="o.tone === 'info'"
+                          [class.db-badge-warning]="o.tone === 'warning'"
+                          [class.db-badge-danger]="o.tone === 'danger'"
+                          >{{ o.status }}</span
+                        >
+                      </td>
+                      <td class="hidden text-muted-foreground sm:table-cell">{{ o.date }}</td>
+                      <td class="text-right font-medium">{{ o.amount }}</td>
+                      <td>
+                        <button
+                          type="button"
+                          class="db-icon-btn"
+                          style="width: 2rem; height: 2rem"
+                          aria-label="Actions"
+                        >
+                          <app-lucide name="ellipsis" class="size-4" />
+                        </button>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,203 @@
+#tpl-dashboard {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Card */
+#tpl-dashboard .db-card {
+  background: var(--card, var(--background));
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 0.75rem);
+  padding: 1.25rem;
+}
+#tpl-dashboard .db-card-sectioned {
+  background: var(--card, var(--background));
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 0.75rem);
+  overflow: hidden;
+}
+#tpl-dashboard .db-card-sectioned .db-card-header {
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+#tpl-dashboard .db-card-sectioned .db-card-content {
+  padding: 1.25rem;
+}
+
+/* Buttons */
+#tpl-dashboard .db-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: var(--radius, 0.5rem);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+#tpl-dashboard .db-btn-sm {
+  height: 2.25rem;
+  padding: 0 0.75rem;
+  font-size: 0.8125rem;
+}
+#tpl-dashboard .db-btn-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+}
+#tpl-dashboard .db-btn-primary {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+#tpl-dashboard .db-btn-primary:hover {
+  background: color-mix(in oklab, var(--primary) 90%, black);
+}
+#tpl-dashboard .db-btn-outline {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+#tpl-dashboard .db-btn-outline:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+/* Badges (soft tones) */
+#tpl-dashboard .db-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+#tpl-dashboard .db-badge-success {
+  background: color-mix(in oklab, #16a34a 16%, transparent);
+  color: #15803d;
+}
+#tpl-dashboard .db-badge-danger {
+  background: color-mix(in oklab, #dc2626 16%, transparent);
+  color: #b91c1c;
+}
+#tpl-dashboard .db-badge-info {
+  background: color-mix(in oklab, #2563eb 16%, transparent);
+  color: #1d4ed8;
+}
+#tpl-dashboard .db-badge-warning {
+  background: color-mix(in oklab, #d97706 18%, transparent);
+  color: #b45309;
+}
+
+/* Search input */
+#tpl-dashboard .db-search {
+  height: 2.25rem;
+  width: 14rem;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 0.5rem);
+  padding: 0 3rem 0 2.25rem;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  outline: none;
+}
+#tpl-dashboard .db-search::placeholder {
+  color: var(--muted-foreground);
+}
+#tpl-dashboard .db-kbd {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  padding: 0.05rem 0.35rem;
+  font-size: 0.7rem;
+  font-family: inherit;
+  color: var(--muted-foreground);
+  background: var(--muted);
+}
+
+/* Progress */
+#tpl-dashboard .db-progress {
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: var(--muted);
+  overflow: hidden;
+}
+#tpl-dashboard .db-progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--primary);
+}
+
+/* Table */
+#tpl-dashboard .db-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+#tpl-dashboard .db-table th {
+  padding: 0.625rem 0.75rem;
+  text-align: left;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  border-bottom: 1px solid var(--border);
+}
+#tpl-dashboard .db-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+#tpl-dashboard .db-table tbody tr:last-child td {
+  border-bottom: none;
+}
+#tpl-dashboard .db-table tbody tr:hover {
+  background: color-mix(in oklab, var(--muted) 40%, transparent);
+}
+
+/* Sidebar nav link */
+#tpl-dashboard .db-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: var(--radius, 0.5rem);
+  padding: 0.5rem 0.625rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--muted-foreground);
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+#tpl-dashboard .db-nav-link:hover {
+  color: var(--foreground);
+  background: color-mix(in oklab, var(--accent) 60%, transparent);
+}
+#tpl-dashboard .db-nav-active {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+/* Icon button */
+#tpl-dashboard .db-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius, 0.5rem);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--foreground);
+  transition: background 0.15s;
+}
+#tpl-dashboard .db-icon-btn:hover {
+  background: var(--accent);
+}
