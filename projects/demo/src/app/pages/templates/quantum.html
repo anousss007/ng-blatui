@@ -1,0 +1,581 @@
+<div id="tpl-quantum">
+  <div class="flex min-h-screen">
+    <!-- SIDEBAR -->
+    <aside class="q-sidebar hidden w-56 shrink-0 flex-col lg:flex">
+      <div
+        class="q-heading flex h-14 items-center gap-2.5 border-b px-4"
+        style="border-color: var(--q-border)"
+      >
+        <div
+          style="
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #22d3ee, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="size-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+          </svg>
+        </div>
+        <span
+          class="text-base font-bold tracking-tight"
+          style="font-family: var(--q-font-head); color: var(--q-text)"
+          >Quantum</span
+        >
+        <span class="q-live-dot ml-auto" title="Live data"></span>
+      </div>
+
+      <nav class="flex-1 space-y-0.5 overflow-y-auto p-3">
+        <p
+          class="px-2 pb-1.5 text-[10px] font-semibold tracking-widest uppercase"
+          style="color: var(--q-muted)"
+        >
+          Main
+        </p>
+        @for (item of navItems; track item.label) {
+          <a
+            href="#"
+            class="q-nav-item flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm font-medium"
+            [class.q-nav-active]="item.active"
+          >
+            <app-lucide [name]="item.icon" class="size-4 shrink-0" />
+            {{ item.label }}
+          </a>
+        }
+
+        <div class="q-sep my-3"></div>
+        <p
+          class="px-2 pb-1.5 text-[10px] font-semibold tracking-widest uppercase"
+          style="color: var(--q-muted)"
+        >
+          Assets
+        </p>
+        @for (a of allocation; track a.sym) {
+          <a href="#" class="q-nav-item flex items-center gap-2.5 rounded-lg px-2.5 py-1.5 text-sm">
+            <span
+              class="q-token text-[10px]"
+              [style.background]="'linear-gradient(135deg,' + a.color + '22,' + a.color + '44)'"
+              [style.color]="a.color"
+              >{{ a.init }}</span
+            >
+            <span style="color: var(--q-text); font-family: var(--q-font-head)">{{ a.sym }}</span>
+            <span
+              class="ml-auto text-xs"
+              style="color: var(--q-muted); font-family: var(--q-font-mono)"
+              >{{ a.pct }}%</span
+            >
+          </a>
+        }
+      </nav>
+
+      <div class="border-t p-3" style="border-color: var(--q-border)">
+        <div class="q-nav-item flex cursor-pointer items-center gap-2.5 rounded-lg p-2">
+          <bui-avatar class="size-7" src="https://picsum.photos/seed/quser/64/64" alt="0xCafe"
+            >QW</bui-avatar
+          >
+          <div class="min-w-0 flex-1">
+            <div
+              class="truncate text-xs font-semibold"
+              style="color: var(--q-text); font-family: var(--q-font-head)"
+            >
+              0xCafe…d3aD
+            </div>
+            <div class="truncate text-[10px]" style="color: var(--q-muted)">Ethereum Mainnet</div>
+          </div>
+          <app-lucide
+            name="chevrons-up-down"
+            class="size-3.5 shrink-0"
+            style="color: var(--q-muted)"
+          />
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="flex min-w-0 flex-1 flex-col">
+      <!-- TOPBAR -->
+      <header class="q-topbar sticky top-0 z-30 flex h-14 items-center gap-3 px-4 lg:px-6">
+        <button
+          type="button"
+          class="inline-flex size-8 items-center justify-center rounded-md lg:hidden"
+          style="color: var(--q-muted)"
+          aria-label="Open menu"
+        >
+          <app-lucide name="menu" class="size-4" />
+        </button>
+        <span class="q-heading text-sm font-bold lg:hidden" style="color: var(--q-cyan)"
+          >Quantum</span
+        >
+
+        <button class="q-cmd-trigger hidden sm:flex" aria-label="Open command palette">
+          <app-lucide name="search" class="size-3.5" />
+          <span>Search assets, actions…</span>
+          <kbd buiKbd>⌘K</kbd>
+        </button>
+
+        <div class="ml-auto flex items-center gap-2">
+          <button
+            type="button"
+            aria-label="Trigger price alert"
+            class="q-btn-neon flex items-center gap-1.5"
+          >
+            <app-lucide name="bell" class="size-3.5" />
+            <span class="hidden sm:inline">Alerts</span>
+          </button>
+
+          <span class="q-wallet" tabindex="0">
+            <span
+              class="inline-block size-1.5 rounded-full"
+              style="background: var(--q-neon); box-shadow: 0 0 6px var(--q-neon)"
+            ></span>
+            0xCafe…d3aD
+          </span>
+
+          <bui-avatar class="size-8" src="https://picsum.photos/seed/quser/64/64" alt="Wallet owner"
+            >QW</bui-avatar
+          >
+        </div>
+      </header>
+
+      <!-- BODY -->
+      <main class="flex-1 space-y-5 p-4 lg:p-6">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h1 class="q-heading text-xl font-bold" style="color: var(--q-text)">
+              Portfolio Overview
+            </h1>
+            <p class="mt-0.5 flex items-center gap-1.5 text-sm" style="color: var(--q-muted)">
+              <span class="q-live-dot"></span> Live · Updated just now
+            </p>
+          </div>
+          <div class="flex gap-2">
+            <button type="button" class="q-btn-neon flex items-center gap-1.5">
+              <app-lucide name="arrow-left-right" class="size-3.5" /> Swap
+            </button>
+            <button
+              type="button"
+              class="inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-sm"
+              style="border-color: var(--q-border); color: var(--q-muted); background: transparent"
+            >
+              <app-lucide name="download" class="size-3.5" /> Export
+            </button>
+          </div>
+        </div>
+
+        <!-- KPI cards -->
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          @for (k of kpis; track k.label) {
+            <div class="q-panel p-5">
+              <div class="mb-3 flex items-center justify-between">
+                <span
+                  class="q-heading text-xs font-medium tracking-wide uppercase"
+                  style="color: var(--q-muted)"
+                  >{{ k.label }}</span
+                >
+                <span buiBadge [tone]="k.up ? 'success' : 'danger'" variant="soft">{{
+                  k.delta
+                }}</span>
+              </div>
+              <div
+                class="q-mono mb-3 text-2xl leading-none font-bold"
+                [style.color]="k.color"
+                [style.text-shadow]="'0 0 14px ' + k.color + '88'"
+              >
+                {{ k.value }}
+              </div>
+              <svg
+                viewBox="0 0 112 30"
+                class="q-spark mb-3 h-7 w-full"
+                fill="none"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <polyline
+                  [attr.points]="k.spark"
+                  [attr.stroke]="k.color"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  fill="none"
+                />
+              </svg>
+              <div class="q-progress-track">
+                <div
+                  class="q-progress-fill"
+                  [style.width.%]="k.prog"
+                  [style.background]="k.color"
+                  [style.box-shadow]="'0 0 8px ' + k.color + '55'"
+                ></div>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Portfolio chart + allocation -->
+        <div class="grid gap-4 lg:grid-cols-3">
+          <div class="q-panel p-5 lg:col-span-2">
+            <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h2 class="q-heading text-sm font-semibold" style="color: var(--q-text)">
+                  Portfolio Value
+                </h2>
+                <p class="mt-0.5 text-xs" style="color: var(--q-muted)">Total holdings over time</p>
+              </div>
+              <div
+                class="flex h-7 gap-0.5 rounded-md p-0.5"
+                style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--q-border)"
+              >
+                @for (r of chartRanges; track r) {
+                  <span
+                    class="flex h-6 items-center rounded px-2.5 text-xs"
+                    style="font-family: var(--q-font-mono)"
+                    [style.background]="r === '1W' ? 'rgba(34,211,238,0.15)' : 'transparent'"
+                    [style.color]="r === '1W' ? 'var(--q-cyan)' : 'var(--q-muted)'"
+                    >{{ r }}</span
+                  >
+                }
+              </div>
+            </div>
+            <bui-chart
+              type="area"
+              [series]="portfolioSeries"
+              [labels]="portfolioLabels"
+              [height]="220"
+              label="Portfolio value chart"
+            />
+          </div>
+
+          <div class="q-panel p-5">
+            <h2 class="q-heading mb-4 text-sm font-semibold" style="color: var(--q-text)">
+              Allocation
+            </h2>
+            <div class="space-y-3">
+              @for (a of allocation; track a.sym) {
+                <div>
+                  <div class="mb-1.5 flex items-center gap-2">
+                    <span
+                      class="q-token text-[10px]"
+                      [style.background]="
+                        'linear-gradient(135deg,' + a.color + '22,' + a.color + '44)'
+                      "
+                      [style.color]="a.color"
+                      >{{ a.init }}</span
+                    >
+                    <span
+                      class="q-heading flex-1 text-sm font-medium"
+                      style="color: var(--q-text)"
+                      >{{ a.sym }}</span
+                    >
+                    <span class="q-mono text-xs" [style.color]="a.color">{{ a.pct }}%</span>
+                  </div>
+                  <div class="q-progress-track">
+                    <div
+                      class="q-progress-fill"
+                      [style.width.%]="a.pct"
+                      [style.background]="a.color"
+                      [style.box-shadow]="'0 0 8px ' + a.color + '55'"
+                    ></div>
+                  </div>
+                </div>
+              }
+            </div>
+
+            <div class="q-sep mt-4 mb-3"></div>
+
+            <div class="q-donut" [style.background]="donutGradient"></div>
+          </div>
+        </div>
+
+        <!-- Markets table -->
+        <div class="q-panel overflow-hidden">
+          <div class="flex flex-wrap items-center justify-between gap-3 px-5 py-4">
+            <div>
+              <h2 class="q-heading text-sm font-semibold" style="color: var(--q-text)">Markets</h2>
+              <p class="mt-0.5 text-xs" style="color: var(--q-muted)">Live prices · 24h change</p>
+            </div>
+            <span buiBadge tone="info" variant="soft" class="gap-1"
+              ><span class="q-live-dot" style="width: 5px; height: 5px"></span> Live</span
+            >
+          </div>
+          <div class="q-sep"></div>
+          <div class="overflow-x-auto">
+            <table class="q-table w-full">
+              <thead>
+                <tr>
+                  <th>Asset</th>
+                  <th>Price</th>
+                  <th>24h</th>
+                  <th class="hidden sm:table-cell">Sparkline</th>
+                  <th style="text-align: right">Trade</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (m of markets; track m.sym) {
+                  <tr class="q-tr">
+                    <td>
+                      <div class="flex items-center gap-2.5">
+                        <span
+                          class="q-token text-[10px]"
+                          [style.background]="
+                            'linear-gradient(135deg,' + m.color + '22,' + m.color + '44)'
+                          "
+                          [style.color]="m.color"
+                          >{{ m.init }}</span
+                        >
+                        <div>
+                          <div class="q-heading text-sm font-semibold" style="color: var(--q-text)">
+                            {{ m.sym }}
+                          </div>
+                          <div class="text-[11px]" style="color: var(--q-muted)">{{ m.name }}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="q-mono text-sm font-semibold" style="color: var(--q-text)">{{
+                        m.price
+                      }}</span>
+                    </td>
+                    <td>
+                      <span buiBadge [tone]="m.tone" variant="soft">{{ m.change }}%</span>
+                    </td>
+                    <td class="hidden sm:table-cell">
+                      <svg
+                        viewBox="0 0 98 30"
+                        class="q-spark h-7 w-24"
+                        fill="none"
+                        preserveAspectRatio="none"
+                        aria-hidden="true"
+                      >
+                        <polyline
+                          [attr.points]="m.spark"
+                          [attr.stroke]="m.color"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </td>
+                    <td style="text-align: right">
+                      <button type="button" class="q-btn-neon px-3 py-1 text-xs">Buy</button>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Staking + Activity -->
+        <div class="grid gap-4 lg:grid-cols-2">
+          <div class="q-panel space-y-4 p-5">
+            <div class="flex items-center justify-between">
+              <h2 class="q-heading text-sm font-semibold" style="color: var(--q-text)">
+                Staking Positions
+              </h2>
+              <span buiBadge tone="success" variant="soft">Earning</span>
+            </div>
+            @for (s of staking; track s.pool) {
+              <div class="q-panel p-3.5">
+                <div class="mb-3 flex items-center gap-2.5">
+                  <span
+                    class="q-token text-[10px]"
+                    [style.background]="
+                      'linear-gradient(135deg,' + s.color + '22,' + s.color + '44)'
+                    "
+                    [style.color]="s.color"
+                    >{{ s.sym.charAt(0) }}</span
+                  >
+                  <div class="min-w-0 flex-1">
+                    <div class="q-heading text-sm font-semibold" style="color: var(--q-text)">
+                      {{ s.pool }}
+                    </div>
+                    <div
+                      class="mt-0.5 flex items-center gap-1 text-[11px]"
+                      style="color: var(--q-muted)"
+                    >
+                      <span
+                        >Staked:
+                        <span style="color: var(--q-text); font-family: var(--q-font-mono)">{{
+                          s.staked
+                        }}</span></span
+                      >
+                      <span style="opacity: 0.4">·</span>
+                      <span
+                        >Unlock: <span style="color: var(--q-text)">{{ s.unlock }}</span></span
+                      >
+                    </div>
+                  </div>
+                  <span buiBadge tone="success" variant="solid" class="text-[11px]"
+                    >{{ s.apy }} APY</span
+                  >
+                </div>
+                <div class="q-progress-track">
+                  <div
+                    class="q-progress-fill"
+                    [style.width.%]="s.filled"
+                    [style.background]="s.color"
+                    [style.box-shadow]="'0 0 8px ' + s.color + '55'"
+                  ></div>
+                </div>
+                <div class="mt-1.5 flex justify-between text-[11px]" style="color: var(--q-muted)">
+                  <span>Lock progress</span>
+                  <span [style.color]="s.color" style="font-family: var(--q-font-mono)"
+                    >{{ s.filled }}%</span
+                  >
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="q-panel p-5">
+            <div class="mb-4 flex items-center justify-between">
+              <h2 class="q-heading text-sm font-semibold" style="color: var(--q-text)">
+                Recent Activity
+              </h2>
+              <button type="button" class="text-xs hover:underline" style="color: var(--q-cyan)">
+                View all
+              </button>
+            </div>
+            <div class="space-y-0.5">
+              @for (act of activity; track act.label; let last = $last) {
+                <div class="flex items-center gap-3 py-2">
+                  <span
+                    class="flex size-9 shrink-0 items-center justify-center rounded-lg"
+                    style="background: rgba(255, 255, 255, 0.05); border: 1px solid var(--q-border)"
+                    ><app-lucide [name]="act.icon" class="size-4" style="color: var(--q-cyan)"
+                  /></span>
+                  <div class="min-w-0 flex-1">
+                    <div class="text-[0.8125rem]" style="color: var(--q-text)">{{ act.label }}</div>
+                    <span class="text-[11px]" style="color: var(--q-muted)">{{ act.time }}</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="q-mono text-sm font-semibold" style="color: var(--q-green)">{{
+                      act.amount
+                    }}</span>
+                    <span buiBadge [tone]="act.tone" variant="soft">{{ act.type }}</span>
+                  </div>
+                </div>
+                @if (!last) {
+                  <div class="q-sep my-0.5"></div>
+                }
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Onboarding stepper -->
+        <div class="q-hero-card" role="region" aria-label="Account setup">
+          <div class="q-hero-card-inner">
+            <div class="flex flex-wrap items-start justify-between gap-4">
+              <div class="min-w-0">
+                <div class="mb-1 flex items-center gap-2">
+                  <app-lucide
+                    name="shield-check"
+                    class="size-4 shrink-0"
+                    style="color: var(--q-cyan)"
+                  />
+                  <h2 class="q-heading text-sm font-bold" style="color: var(--q-text)">
+                    Complete Your Quantum Setup
+                  </h2>
+                </div>
+                <p class="mb-4 text-xs" style="color: var(--q-muted)">
+                  Unlock the full dashboard — 2 of 4 steps complete.
+                </p>
+                <div class="flex items-center">
+                  @for (st of steps; track st.n; let last = $last) {
+                    <div class="flex items-center gap-2.5">
+                      <span
+                        class="q-step-ind"
+                        [class.q-step-active]="st.state === 'active'"
+                        [class.q-step-done]="st.state === 'done'"
+                      >
+                        @if (st.state === 'done') {
+                          <app-lucide name="check" class="size-4" />
+                        } @else {
+                          {{ st.n }}
+                        }
+                      </span>
+                      <span class="hidden flex-col gap-0.5 sm:flex">
+                        <span
+                          class="q-heading text-sm font-semibold"
+                          style="color: var(--q-text)"
+                          >{{ st.title }}</span
+                        >
+                        <span class="text-xs" style="color: var(--q-muted)">{{ st.desc }}</span>
+                      </span>
+                    </div>
+                    @if (!last) {
+                      <div class="q-step-line mx-3"></div>
+                    }
+                  }
+                </div>
+              </div>
+              <div class="flex shrink-0 items-center gap-2">
+                <button type="button" class="q-btn-neon flex items-center gap-1.5">
+                  <app-lucide name="arrow-right" class="size-3.5" /> Continue
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Volume bar chart + Account stats -->
+        <div class="grid gap-4 lg:grid-cols-3">
+          <div class="q-panel p-5 lg:col-span-2">
+            <div class="mb-4 flex items-center justify-between">
+              <div>
+                <h2 class="q-heading text-sm font-semibold" style="color: var(--q-text)">
+                  Trading Volume
+                </h2>
+                <p class="mt-0.5 text-xs" style="color: var(--q-muted)">Last 7 days · USD</p>
+              </div>
+              <span buiBadge tone="neutral" variant="outline">Weekly</span>
+            </div>
+            <bui-chart
+              type="bar"
+              [series]="volumeSeries"
+              [labels]="volumeLabels"
+              [height]="200"
+              label="Weekly trading volume bar chart"
+            />
+          </div>
+
+          <div class="q-panel flex flex-col gap-4 p-5">
+            <h2 class="q-heading text-sm font-semibold" style="color: var(--q-text)">
+              Account Stats
+            </h2>
+            @for (st of accountStats; track st.l; let last = $last) {
+              <div>
+                <div class="mb-0.5 text-[11px]" style="color: var(--q-muted)">{{ st.l }}</div>
+                <div
+                  class="q-mono text-lg font-bold"
+                  [style.color]="st.c"
+                  [style.text-shadow]="'0 0 10px ' + st.c + '66'"
+                >
+                  {{ st.v }}
+                </div>
+              </div>
+              @if (!last) {
+                <div class="q-sep"></div>
+              }
+            }
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>

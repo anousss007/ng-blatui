@@ -878,6 +878,53 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
           <path d="M16 17h6v-6" />
           <path d="m22 17-8.5-8.5-5 5L2 7" />
         }
+        @case ('pie-chart') {
+          <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
+          <path d="M22 12A10 10 0 0 0 12 2v10z" />
+        }
+        @case ('arrow-left-right') {
+          <path d="M8 3 4 7l4 4" />
+          <path d="M4 7h16" />
+          <path d="m16 21 4-4-4-4" />
+          <path d="M20 17H4" />
+        }
+        @case ('gift') {
+          <path d="M12 7v14" />
+          <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" />
+          <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" />
+          <rect x="3" y="7" width="18" height="4" rx="1" />
+        }
+        @case ('chevrons-up-down') {
+          <path d="m7 15 5 5 5-5" />
+          <path d="m7 9 5-5 5 5" />
+        }
+        @case ('bell') {
+          <path d="M10.268 21a2 2 0 0 0 3.464 0" />
+          <path
+            d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"
+          />
+        }
+        @case ('download') {
+          <path d="M12 15V3" />
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <path d="m7 10 5 5 5-5" />
+        }
+        @case ('arrow-up-right') {
+          <path d="M7 7h10v10" />
+          <path d="M7 17 17 7" />
+        }
+        @case ('coins') {
+          <path d="M13.744 17.736a6 6 0 1 1-7.48-7.48" />
+          <path d="M15 6h1v4" />
+          <path d="m6.134 14.768.866-.5 2 3.464" />
+          <circle cx="16" cy="8" r="6" />
+        }
+        @case ('arrow-up-down') {
+          <path d="m21 16-4 4-4-4" />
+          <path d="M17 20V4" />
+          <path d="m3 8 4-4 4 4" />
+          <path d="M7 4v16" />
+        }
       }
     </svg>
   `,

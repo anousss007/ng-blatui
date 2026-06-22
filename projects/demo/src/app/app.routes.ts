@@ -102,6 +102,11 @@ export const routes: Routes = [
     title: 'Pulse · ng-blatui',
   },
   {
+    path: 'templates/quantum',
+    loadComponent: async () => (await import('./pages/templates/quantum')).QuantumTemplate,
+    title: 'Quantum · ng-blatui',
+  },
+  {
     path: 'templates/:slug',
     loadComponent: async () => (await import('./pages/templates')).TemplatesPage,
     title: 'Templates · ng-blatui',

@@ -1,0 +1,339 @@
+@import url('https://fonts.bunny.net/css?family=space-grotesk:400,500,600,700|space-mono:400,700&display=swap');
+
+#tpl-quantum {
+  --q-base: #07090f;
+  --q-panel: #0d1018;
+  --q-border: rgba(34, 211, 238, 0.18);
+  --q-cyan: #22d3ee;
+  --q-green: #34d399;
+  --q-neon: #00ff9c;
+  --q-magenta: #ff2bd6;
+  --q-violet: #7c3aed;
+  --q-text: #e2e8f0;
+  --q-muted: #64748b;
+  --q-card-bg: #0d1018;
+  --q-font-head: 'Space Grotesk', sans-serif;
+  --q-font-mono: 'Space Mono', monospace;
+
+  font-family: 'Inter', sans-serif;
+  background: var(--q-base);
+  color: var(--q-text);
+  min-height: 100vh;
+  position: relative;
+  isolation: isolate;
+}
+
+/* Glowing grid background */
+#tpl-quantum::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(34, 211, 238, 0.04) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(34, 211, 238, 0.04) 40px);
+  pointer-events: none;
+}
+
+/* Scanline overlay */
+#tpl-quantum::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.06) 2px,
+    rgba(0, 0, 0, 0.06) 4px
+  );
+  pointer-events: none;
+}
+
+#tpl-quantum * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Typography */
+#tpl-quantum .q-heading {
+  font-family: var(--q-font-head);
+}
+#tpl-quantum .q-mono {
+  font-family: var(--q-font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Panels */
+#tpl-quantum .q-panel {
+  background: var(--q-panel);
+  border: 1px solid var(--q-border);
+  border-radius: 12px;
+}
+
+/* Animated gradient border on hero card */
+@keyframes q-border-spin {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+#tpl-quantum .q-hero-card {
+  position: relative;
+  border-radius: 14px;
+  padding: 1px;
+  background: linear-gradient(135deg, #22d3ee, #7c3aed, #ff2bd6, #34d399, #22d3ee);
+  background-size: 300% 300%;
+  animation: q-border-spin 5s ease infinite;
+  box-shadow:
+    0 0 32px rgba(34, 211, 238, 0.2),
+    0 0 64px rgba(124, 58, 237, 0.12);
+}
+#tpl-quantum .q-hero-card-inner {
+  background: var(--q-panel);
+  border-radius: 13px;
+  padding: 1.25rem 1.5rem;
+  height: 100%;
+}
+
+/* Active sidebar item */
+#tpl-quantum .q-nav-active {
+  background: rgba(34, 211, 238, 0.1);
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  color: var(--q-cyan);
+}
+#tpl-quantum .q-nav-item {
+  border: 1px solid transparent;
+  color: var(--q-muted);
+  transition:
+    color 0.15s,
+    background 0.15s,
+    border-color 0.15s;
+  text-decoration: none;
+}
+#tpl-quantum .q-nav-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(34, 211, 238, 0.12);
+  color: var(--q-text);
+}
+
+/* Neon button */
+#tpl-quantum .q-btn-neon {
+  background: rgba(34, 211, 238, 0.12);
+  border: 1px solid rgba(34, 211, 238, 0.4);
+  color: var(--q-cyan);
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-family: var(--q-font-head);
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    box-shadow 0.15s;
+}
+#tpl-quantum .q-btn-neon:hover {
+  background: rgba(34, 211, 238, 0.2);
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.35);
+}
+
+/* Token logo circle */
+#tpl-quantum .q-token {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-family: var(--q-font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Table rows */
+#tpl-quantum .q-tr:hover {
+  background: rgba(34, 211, 238, 0.04);
+}
+#tpl-quantum .q-table th {
+  text-align: left;
+  color: var(--q-muted);
+  font-family: var(--q-font-head);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.75rem 1.25rem;
+}
+#tpl-quantum .q-table td {
+  padding: 0.75rem 1.25rem;
+  border-top: 1px solid var(--q-border);
+}
+
+/* Progress track neon */
+#tpl-quantum .q-progress-track {
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 999px;
+  height: 6px;
+  overflow: hidden;
+}
+#tpl-quantum .q-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.6s ease;
+}
+
+/* Sparkline */
+#tpl-quantum .q-spark {
+  overflow: visible;
+}
+
+/* Command palette trigger */
+#tpl-quantum .q-cmd-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--q-border);
+  border-radius: 8px;
+  padding: 0.3rem 0.75rem;
+  color: var(--q-muted);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+}
+#tpl-quantum .q-cmd-trigger:hover {
+  border-color: rgba(34, 211, 238, 0.35);
+  background: rgba(34, 211, 238, 0.06);
+  color: var(--q-cyan);
+}
+
+/* Topbar */
+#tpl-quantum .q-topbar {
+  background: rgba(7, 9, 15, 0.92);
+  border-bottom: 1px solid var(--q-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Sidebar */
+#tpl-quantum .q-sidebar {
+  background: rgba(7, 9, 15, 0.95);
+  border-right: 1px solid var(--q-border);
+}
+
+/* Wallet badge */
+#tpl-quantum .q-wallet {
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  border-radius: 20px;
+  padding: 0.2rem 0.65rem 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  font-family: var(--q-font-mono);
+  color: var(--q-cyan);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Separator neon */
+#tpl-quantum .q-sep {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--q-border), transparent);
+}
+
+/* Pulse dot */
+@keyframes q-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+#tpl-quantum .q-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--q-neon);
+  box-shadow: 0 0 6px var(--q-neon);
+  animation: q-pulse 1.8s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* Stepper neon */
+#tpl-quantum .q-step-ind {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  color: var(--q-muted);
+  font-family: var(--q-font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+#tpl-quantum .q-step-active {
+  border-color: var(--q-cyan);
+  background: rgba(34, 211, 238, 0.15);
+  color: var(--q-cyan);
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.4);
+}
+#tpl-quantum .q-step-done {
+  border-color: var(--q-green);
+  background: rgba(52, 211, 153, 0.15);
+  color: var(--q-green);
+}
+#tpl-quantum .q-step-line {
+  flex: 1;
+  height: 2px;
+  background: var(--q-border);
+  min-width: 1.5rem;
+}
+
+/* Donut (static conic-gradient fallback) */
+#tpl-quantum .q-donut {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  margin: 0 auto;
+  position: relative;
+}
+#tpl-quantum .q-donut::after {
+  content: '';
+  position: absolute;
+  inset: 17.5%;
+  border-radius: 50%;
+  background: var(--q-panel);
+}
+
+/* Chart neon palette */
+#tpl-quantum [data-slot='chart'] {
+  --chart-1: #22d3ee;
+  --chart-2: #7c3aed;
+  --chart-3: #34d399;
+  --chart-4: #ff2bd6;
+  --chart-5: #f59e0b;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  #tpl-quantum .q-hero-card {
+    animation: none;
+  }
+  #tpl-quantum .q-live-dot {
+    animation: none;
+  }
+}
