@@ -1,0 +1,222 @@
+@import url('https://fonts.bunny.net/css?family=fraunces:400,500,600,700&display=swap');
+
+/* ── Tokens ─────────────────────────────────────── */
+#tpl-brew {
+  --brew-kraft: #d9c2a3;
+  --brew-cream: #f4ece1;
+  --brew-espresso: #3b2417;
+  --brew-caramel: #a9744f;
+  --brew-roast: #7c2d12;
+  --brew-deep: #1f1611;
+  --brew-light: #fdf8f2;
+  --brew-border: #c9ab88;
+
+  background: var(--brew-cream);
+  color: var(--brew-espresso);
+  font-family: Inter, sans-serif;
+}
+
+#tpl-brew .brew-serif {
+  font-family: 'Fraunces', Georgia, serif;
+}
+
+/* ── Paper texture overlay ──────────────────────── */
+#tpl-brew .brew-paper {
+  position: relative;
+}
+#tpl-brew .brew-paper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.6;
+  z-index: 0;
+  border-radius: inherit;
+}
+#tpl-brew .brew-paper > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Stamp / seal badge ─────────────────────────── */
+#tpl-brew .brew-stamp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 2.5px dashed var(--brew-caramel);
+  background: var(--brew-light);
+  color: var(--brew-roast);
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.6rem;
+  padding: 0.6rem 0.85rem;
+  box-shadow:
+    inset 0 0 0 2px var(--brew-cream),
+    0 1px 4px rgba(59, 36, 23, 0.15);
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* ── Hand-drawn underline ───────────────────────── */
+#tpl-brew .brew-underline {
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-underline-offset: 5px;
+  text-decoration-color: var(--brew-caramel);
+  text-decoration-thickness: 2px;
+}
+
+/* ── Steam animation ────────────────────────────── */
+@keyframes brew-steam {
+  0% {
+    transform: translateY(0) scaleX(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(-22px) scaleX(1.2);
+    opacity: 0.25;
+  }
+  100% {
+    transform: translateY(-44px) scaleX(0.8);
+    opacity: 0;
+  }
+}
+#tpl-brew .brew-steam-wisp {
+  animation: brew-steam 2.4s ease-in-out infinite;
+  filter: blur(5px);
+  border-radius: 50%;
+  background: rgba(249, 243, 236, 0.9);
+  position: absolute;
+  width: 14px;
+  height: 36px;
+}
+
+/* ── Roast-level bar ────────────────────────────── */
+#tpl-brew .brew-roast-track {
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(217, 194, 163, 0.6);
+  overflow: hidden;
+}
+#tpl-brew .brew-roast-fill {
+  background: linear-gradient(to right, #d4a96a 0%, #a9744f 40%, #7c2d12 70%, #3b2417 100%);
+  height: 100%;
+  border-radius: 9999px;
+}
+
+/* ── Product card hover ─────────────────────────── */
+#tpl-brew .brew-card {
+  background: var(--brew-light);
+  border: 1.5px solid var(--brew-border);
+  border-radius: 1.25rem;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
+}
+#tpl-brew .brew-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(59, 36, 23, 0.14);
+}
+
+/* ── Section backgrounds ────────────────────────── */
+#tpl-brew .brew-bg-kraft {
+  background: var(--brew-kraft);
+}
+#tpl-brew .brew-bg-espresso {
+  background: var(--brew-espresso);
+  color: var(--brew-cream);
+}
+#tpl-brew .brew-bg-cream {
+  background: var(--brew-cream);
+}
+#tpl-brew .brew-bg-light {
+  background: var(--brew-light);
+}
+
+/* ── Buttons ────────────────────────────────────── */
+#tpl-brew .brew-btn-primary {
+  background: var(--brew-espresso);
+  color: var(--brew-cream);
+  border: none;
+  border-radius: 0.6rem;
+  padding: 0.6rem 1.4rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition:
+    background 0.18s ease,
+    transform 0.18s ease;
+  text-decoration: none;
+}
+#tpl-brew .brew-btn-primary:hover {
+  background: var(--brew-roast);
+  transform: translateY(-1px);
+}
+#tpl-brew .brew-btn-outline {
+  background: transparent;
+  color: var(--brew-espresso);
+  border: 2px solid var(--brew-caramel);
+  border-radius: 0.6rem;
+  padding: 0.55rem 1.35rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+  text-decoration: none;
+}
+#tpl-brew .brew-btn-outline:hover {
+  background: var(--brew-caramel);
+  color: var(--brew-light);
+}
+
+/* ── Roast badge pills ──────────────────────────── */
+#tpl-brew .brew-badge-light {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+#tpl-brew .brew-badge-medium {
+  background: #fed7aa;
+  color: #9a3412;
+  border: 1px solid #fdba74;
+}
+#tpl-brew .brew-badge-medium-dark {
+  background: #fca5a5;
+  color: #7f1d1d;
+  border: 1px solid #f87171;
+}
+#tpl-brew .brew-badge-dark {
+  background: #3b2417;
+  color: #f4ece1;
+  border: 1px solid #7c2d12;
+}
+
+/* ── Separator ──────────────────────────────────── */
+#tpl-brew .brew-separator {
+  border: none;
+  height: 1px;
+  background: var(--brew-border);
+  opacity: 0.5;
+}
+
+/* ── Nav + footer link hover ────────────────────── */
+#tpl-brew .brew-foot-link {
+  transition: opacity 0.2s;
+}
+#tpl-brew .brew-foot-link:hover {
+  opacity: 1 !important;
+}

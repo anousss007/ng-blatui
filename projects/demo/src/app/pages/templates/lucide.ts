@@ -662,6 +662,57 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
           <circle cx="12" cy="12" r="6" />
           <circle cx="12" cy="12" r="2" />
         }
+        @case ('truck') {
+          <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" />
+          <path d="M15 18H9" />
+          <path
+            d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"
+          />
+          <circle cx="17" cy="18" r="2" />
+          <circle cx="7" cy="18" r="2" />
+        }
+        @case ('refresh-cw') {
+          <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+          <path d="M21 3v5h-5" />
+          <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+          <path d="M8 16H3v5" />
+        }
+        @case ('coffee') {
+          <path d="M10 2v2" />
+          <path d="M14 2v2" />
+          <path
+            d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"
+          />
+          <path d="M6 2v2" />
+        }
+        @case ('thermometer') {
+          <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" />
+        }
+        @case ('book-open') {
+          <path d="M12 7v14" />
+          <path
+            d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"
+          />
+        }
+        @case ('snowflake') {
+          <path d="m10 20-1.25-2.5L6 18" />
+          <path d="M10 4 8.75 6.5 6 6" />
+          <path d="m14 20 1.25-2.5L18 18" />
+          <path d="m14 4 1.25 2.5L18 6" />
+          <path d="m17 21-3-6h-4" />
+          <path d="m17 3-3 6 1.5 3" />
+          <path d="M2 12h6.5L10 9" />
+          <path d="m20 10-1.5 2 1.5 2" />
+          <path d="M22 12h-6.5L14 15" />
+          <path d="m4 10 1.5 2L4 14" />
+          <path d="m7 21 3-6-1.5-3" />
+          <path d="m7 3 3 6h4" />
+        }
+        @case ('info') {
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 16v-4" />
+          <path d="M12 8h.01" />
+        }
       }
     </svg>
   `,

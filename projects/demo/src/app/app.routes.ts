@@ -72,6 +72,11 @@ export const routes: Routes = [
     title: 'Bloom · ng-blatui',
   },
   {
+    path: 'templates/brew',
+    loadComponent: async () => (await import('./pages/templates/brew')).BrewTemplate,
+    title: 'Brew · ng-blatui',
+  },
+  {
     path: 'templates/:slug',
     loadComponent: async () => (await import('./pages/templates')).TemplatesPage,
     title: 'Templates · ng-blatui',

@@ -1,0 +1,902 @@
+<div id="tpl-brew">
+  <!-- ANNOUNCEMENT BAR -->
+  <bui-banner tone="warning" persistKey="brew-shipping">
+    <app-lucide name="truck" class="size-4" />
+    <span>Free shipping on orders over €40 · Roasted every Monday &amp; Thursday</span>
+    <a href="#shop" class="font-semibold underline underline-offset-2">Shop now</a>
+  </bui-banner>
+
+  <!-- NAVIGATION -->
+  <header
+    style="
+      background: rgba(244, 236, 225, 0.88);
+      border-bottom: 1px solid var(--brew-border);
+      backdrop-filter: blur(14px);
+    "
+    class="sticky top-0 z-40"
+  >
+    <div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 lg:px-6">
+      <a
+        href="#"
+        class="brew-serif flex items-center gap-2"
+        style="
+          color: var(--brew-espresso);
+          font-size: 1.5rem;
+          font-weight: 700;
+          letter-spacing: -0.02em;
+        "
+        aria-label="Brew home"
+      >
+        <span class="brew-stamp" style="width: 2rem; height: 2rem; padding: 0; font-size: 0.5rem"
+          >☕</span
+        >
+        Brew
+      </a>
+      <nav class="ml-6 hidden items-center gap-1 md:flex" aria-label="Main navigation">
+        @for (link of navLinks; track link.href) {
+          <a
+            [href]="link.href"
+            style="color: var(--brew-espresso); font-size: 0.875rem; font-weight: 500"
+            class="rounded-md px-3 py-1.5 transition-colors hover:bg-amber-100/60"
+            >{{ link.label }}</a
+          >
+        }
+      </nav>
+      <div class="ml-auto flex items-center gap-2">
+        <button
+          class="relative inline-flex size-9 items-center justify-center rounded-md transition-colors hover:bg-amber-100/60"
+          aria-label="Open cart"
+          style="color: var(--brew-espresso)"
+        >
+          <app-lucide name="shopping-bag" class="size-5" />
+          <span
+            class="absolute -top-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full text-[10px] font-bold"
+            style="background: var(--brew-roast); color: var(--brew-cream)"
+            >2</span
+          >
+        </button>
+        <button
+          class="inline-flex size-9 items-center justify-center rounded-md transition-colors hover:bg-amber-100/60 md:hidden"
+          aria-label="Open navigation menu"
+          style="color: var(--brew-espresso)"
+        >
+          <app-lucide name="menu" class="size-5" />
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section
+    class="brew-paper brew-bg-light relative overflow-hidden border-b"
+    style="border-color: var(--brew-border)"
+    aria-label="Hero"
+  >
+    <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+      <div
+        class="absolute -top-20 -left-32 size-[42rem] rounded-full opacity-30"
+        style="background: radial-gradient(circle, #d9c2a3, transparent 70%)"
+      ></div>
+      <div
+        class="absolute right-0 -bottom-24 size-[30rem] rounded-full opacity-20"
+        style="background: radial-gradient(circle, #a9744f, transparent 70%)"
+      ></div>
+    </div>
+
+    <div
+      class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-20 lg:grid-cols-2 lg:px-6 lg:py-28"
+    >
+      <div class="max-w-xl">
+        <div class="mb-5 flex flex-wrap gap-2">
+          <span buiBadge tone="warning" variant="soft"
+            ><app-lucide name="leaf" class="size-3" /> Single origin</span
+          >
+          <span buiBadge tone="neutral" variant="outline">Roasted to order</span>
+        </div>
+
+        <h1
+          class="brew-serif text-5xl leading-none font-bold tracking-tight text-balance sm:text-6xl lg:text-7xl"
+          style="color: var(--brew-espresso)"
+        >
+          Freshly<br />
+          <span class="brew-underline" style="color: var(--brew-roast)">Roasted,</span><br />
+          Shipped Weekly.
+        </h1>
+
+        <p
+          class="mt-5 text-lg text-balance"
+          style="color: color-mix(in srgb, var(--brew-espresso) 70%, transparent)"
+        >
+          We source rare lots direct from farmers, roast in small batches and ship the same day.
+          Specialty coffee the way it should be — fresh, traceable, extraordinary.
+        </p>
+
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a href="#shop" class="brew-btn-primary"
+            ><app-lucide name="shopping-bag" class="size-4" /> Shop Coffees</a
+          >
+          <a href="#subscribe" class="brew-btn-outline"
+            ><app-lucide name="refresh-cw" class="size-4" /> Subscribe &amp; Save</a
+          >
+        </div>
+
+        <div class="mt-8 flex items-center gap-4">
+          <div class="flex -space-x-2">
+            @for (fs of ['face1', 'face2', 'face3', 'face4']; track fs) {
+              <bui-avatar
+                class="size-9 ring-2"
+                style="--tw-ring-color: var(--brew-cream)"
+                [src]="'https://picsum.photos/seed/' + fs + '/80/80'"
+                alt="Customer"
+                >☕</bui-avatar
+              >
+            }
+          </div>
+          <div class="text-sm">
+            <bui-rating [value]="5" [max]="5" [readonly]="true" size="sm" color="text-amber-500" />
+            <span style="color: color-mix(in srgb, var(--brew-espresso) 65%, transparent)"
+              >Loved by <strong style="color: var(--brew-espresso)">4,200+</strong> coffee
+              lovers</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="relative flex items-center justify-center">
+        <div
+          class="relative mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-full border-4 shadow-2xl"
+          style="border-color: var(--brew-caramel)"
+        >
+          <img
+            src="https://picsum.photos/seed/brewhero/640/640"
+            alt="A freshly brewed cup of specialty coffee"
+            class="size-full object-cover"
+          />
+        </div>
+        <div class="absolute top-6 left-1/2 flex -translate-x-1/2 gap-3" aria-hidden="true">
+          <div class="brew-steam-wisp" style="left: 45%; top: -20px; position: absolute"></div>
+          <div
+            class="brew-steam-wisp"
+            style="left: 50%; top: -14px; position: absolute; animation-delay: 0.8s"
+          ></div>
+          <div
+            class="brew-steam-wisp"
+            style="left: 55%; top: -18px; position: absolute; animation-delay: 1.6s"
+          ></div>
+        </div>
+        <div
+          class="brew-stamp absolute -right-2 bottom-12 size-24 flex-col leading-tight"
+          aria-label="Roasted to order"
+        >
+          Roasted<br />to order<br /><span style="font-size: 0.7rem">🫘</span>
+        </div>
+        <div
+          class="brew-stamp absolute top-16 -left-4 flex-col"
+          style="font-size: 0.55rem; padding: 0.7rem; line-height: 1.4"
+          aria-label="Specialty grade 90 plus"
+        >
+          Specialty<br />Grade<br /><span style="font-size: 1rem; font-weight: 900">90+</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES MARQUEE -->
+  <section class="brew-bg-espresso overflow-hidden py-4" aria-label="Our values">
+    <bui-marquee [items]="values" duration="38s" class="text-sm font-medium" />
+  </section>
+
+  <!-- SHOP GRID -->
+  <section
+    id="shop"
+    class="brew-bg-light brew-paper scroll-mt-20 py-20 lg:py-28"
+    aria-labelledby="shop-heading"
+  >
+    <div class="mx-auto max-w-7xl px-4 lg:px-6">
+      <div class="mb-12 text-center">
+        <span buiBadge tone="warning" variant="soft" class="mb-3"
+          ><app-lucide name="coffee" class="size-3" /> Our Coffees</span
+        >
+        <h2
+          id="shop-heading"
+          class="brew-serif text-4xl font-bold tracking-tight sm:text-5xl"
+          style="color: var(--brew-espresso)"
+        >
+          Pick Your <span class="brew-underline" style="color: var(--brew-roast)">Perfect Cup</span>
+        </h2>
+        <p
+          class="mx-auto mt-3 max-w-xl text-base text-balance"
+          style="color: color-mix(in srgb, var(--brew-espresso) 65%, transparent)"
+        >
+          Every lot is cupped, scored and sourced direct. We update the menu with each harvest.
+        </p>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        @for (coffee of coffees; track coffee.name) {
+          <article
+            class="brew-card group overflow-hidden"
+            [attr.aria-label]="coffee.name + ' coffee'"
+          >
+            <div class="relative aspect-[4/3] overflow-hidden rounded-t-[calc(1.25rem-1.5px)]">
+              <img
+                [src]="'https://picsum.photos/seed/' + coffee.seed + '/600/450'"
+                [alt]="coffee.name + ' from ' + coffee.origin"
+                loading="lazy"
+                class="size-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              <span
+                [class]="roastClass(coffee.roast)"
+                class="absolute top-3 left-3 rounded-full px-2.5 py-0.5 text-xs font-semibold"
+                >{{ coffee.roast }}</span
+              >
+              @if (coffee.new) {
+                <span buiBadge tone="success" variant="solid" class="absolute top-3 right-3"
+                  >New</span
+                >
+              } @else if (coffee.badge) {
+                <span buiBadge tone="warning" variant="soft" class="absolute top-3 right-3">{{
+                  coffee.badge
+                }}</span>
+              }
+              <div
+                class="absolute inset-x-3 bottom-3 translate-y-2 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100"
+              >
+                <button type="button" class="brew-btn-primary w-full justify-center">
+                  <app-lucide name="shopping-bag" class="size-4" /> Add to cart
+                </button>
+              </div>
+            </div>
+            <div class="p-5">
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <p
+                    class="text-xs font-medium tracking-wider uppercase"
+                    style="color: var(--brew-caramel)"
+                  >
+                    {{ coffee.origin }} · {{ coffee.process }}
+                  </p>
+                  <h3
+                    class="brew-serif mt-0.5 text-lg leading-snug font-semibold"
+                    style="color: var(--brew-espresso)"
+                  >
+                    {{ coffee.name }}
+                  </h3>
+                </div>
+                <span class="brew-stamp" style="font-size: 0.5rem; padding: 0.4rem 0.6rem">{{
+                  coffee.roast
+                }}</span>
+              </div>
+              <p
+                class="mt-2 text-sm"
+                style="color: color-mix(in srgb, var(--brew-espresso) 65%, transparent)"
+              >
+                {{ coffee.desc }}
+              </p>
+              <div class="mt-3 flex items-center gap-2">
+                <bui-rating
+                  [value]="coffee.rating"
+                  [max]="5"
+                  [readonly]="true"
+                  size="sm"
+                  color="text-amber-500"
+                />
+                <span
+                  class="text-xs"
+                  style="color: color-mix(in srgb, var(--brew-espresso) 50%, transparent)"
+                  >({{ coffee.reviews }})</span
+                >
+              </div>
+              <div class="mt-3 flex items-center justify-between">
+                <span class="brew-serif text-2xl font-bold" style="color: var(--brew-espresso)"
+                  >€{{ coffee.price.toFixed(2) }}</span
+                >
+                <span
+                  class="text-xs"
+                  style="color: color-mix(in srgb, var(--brew-espresso) 50%, transparent)"
+                  >per 250 g</span
+                >
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- SUBSCRIPTION BUILDER (step 1) -->
+  <section
+    id="subscribe"
+    class="brew-bg-kraft brew-paper scroll-mt-20 border-y py-20 lg:py-28"
+    style="border-color: var(--brew-border)"
+    aria-labelledby="sub-heading"
+  >
+    <div class="mx-auto max-w-4xl px-4 lg:px-6">
+      <div class="mb-10 text-center">
+        <span buiBadge tone="warning" variant="solid" class="mb-3"
+          ><app-lucide name="refresh-cw" class="size-3" /> Subscribe &amp; Save 15%</span
+        >
+        <h2
+          id="sub-heading"
+          class="brew-serif text-4xl font-bold tracking-tight sm:text-5xl"
+          style="color: var(--brew-espresso)"
+        >
+          Build Your Subscription
+        </h2>
+        <p
+          class="mt-3 text-base"
+          style="color: color-mix(in srgb, var(--brew-espresso) 65%, transparent)"
+        >
+          Fresh beans on your schedule. Pause or cancel any time, no questions.
+        </p>
+      </div>
+
+      <div
+        class="mx-auto mb-8 grid w-full max-w-sm grid-cols-3 gap-1 rounded-lg p-1"
+        style="background: rgba(217, 194, 163, 0.35)"
+      >
+        @for (step of subSteps; track step; let first = $first) {
+          <span
+            class="rounded-md px-2 py-1.5 text-center text-xs font-medium"
+            [style.background]="first ? 'var(--brew-light)' : 'transparent'"
+            [style.color]="'var(--brew-espresso)'"
+            >{{ step }}</span
+          >
+        }
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        @for (c of coffees; track c.name; let first = $first) {
+          <div
+            class="brew-card cursor-pointer p-4"
+            [style.box-shadow]="first ? '0 0 0 2px var(--brew-caramel)' : null"
+          >
+            <img
+              [src]="'https://picsum.photos/seed/' + c.seed + '/300/200'"
+              [alt]="c.name"
+              class="mb-3 h-28 w-full rounded-lg object-cover"
+            />
+            <p class="brew-serif text-sm font-semibold" style="color: var(--brew-espresso)">
+              {{ c.name }}
+            </p>
+            <p
+              class="mt-0.5 text-xs"
+              style="color: color-mix(in srgb, var(--brew-espresso) 55%, transparent)"
+            >
+              {{ c.origin }}
+            </p>
+          </div>
+        }
+      </div>
+      <div class="mt-6 text-center">
+        <button type="button" class="brew-btn-primary">
+          Next: Grind &amp; Size <app-lucide name="arrow-right" class="size-4" />
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORIGIN / STORY -->
+  <section
+    id="story"
+    class="brew-bg-light scroll-mt-20 overflow-hidden border-b"
+    style="border-color: var(--brew-border)"
+    aria-labelledby="story-heading"
+  >
+    <div class="mx-auto grid max-w-7xl lg:grid-cols-2">
+      <div class="relative min-h-[380px] overflow-hidden lg:min-h-[560px]">
+        <img
+          src="https://picsum.photos/seed/brewfarm/900/700"
+          alt="Coffee farmers sorting cherries on raised drying beds"
+          class="size-full object-cover"
+        />
+        <div
+          class="absolute inset-0"
+          style="background: linear-gradient(to right, transparent 60%, var(--brew-light))"
+          aria-hidden="true"
+        ></div>
+      </div>
+
+      <div class="flex flex-col justify-center px-8 py-16 lg:px-14">
+        <span buiBadge tone="warning" variant="soft" class="mb-4 w-fit"
+          ><app-lucide name="map-pin" class="size-3" /> Our Origins</span
+        >
+        <h2
+          id="story-heading"
+          class="brew-serif text-4xl leading-snug font-bold tracking-tight"
+          style="color: var(--brew-espresso)"
+        >
+          From Hillside<br />to Your Cup
+        </h2>
+
+        <hr class="brew-separator my-6" />
+
+        <figure class="mb-6">
+          <blockquote
+            class="brew-serif text-lg leading-relaxed italic"
+            style="color: var(--brew-espresso)"
+          >
+            "We pick every cherry by hand at peak ripeness. When a roaster pays a fair price and
+            tells the story, we can invest in the next generation."
+          </blockquote>
+          <figcaption class="mt-4 flex items-center gap-3">
+            <bui-avatar
+              class="size-10"
+              src="https://picsum.photos/seed/farmer1/80/80"
+              alt="Abebe Girma"
+              >A</bui-avatar
+            >
+            <div class="text-sm">
+              <div class="font-semibold" style="color: var(--brew-espresso)">Abebe Girma</div>
+              <div style="color: color-mix(in srgb, var(--brew-espresso) 60%, transparent)">
+                Fourth-generation farmer, Yirgacheffe Co-op
+              </div>
+            </div>
+          </figcaption>
+        </figure>
+
+        <p
+          class="text-base leading-relaxed"
+          style="color: color-mix(in srgb, var(--brew-espresso) 72%, transparent)"
+        >
+          Brew travels to origin twice a year, cupping alongside farmers before buying. No brokers,
+          no middlemen — just direct relationships that benefit both the grower and your morning
+          ritual. Every bag is stamped with the farm name, harvest date and cupping score.
+        </p>
+
+        <div class="mt-7 flex flex-wrap gap-3">
+          @for (origin of origins; track origin) {
+            <span buiBadge tone="warning" variant="soft" class="gap-1"
+              ><app-lucide name="map-pin" class="size-2.5" /> {{ origin }}</span
+            >
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROAST GUIDE -->
+  <section
+    id="guide"
+    class="brew-bg-cream brew-paper scroll-mt-20 border-b py-20 lg:py-28"
+    style="border-color: var(--brew-border)"
+    aria-labelledby="roast-heading"
+  >
+    <div class="mx-auto max-w-4xl px-4 lg:px-6">
+      <div class="mb-10 text-center">
+        <span buiBadge tone="warning" variant="soft" class="mb-3"
+          ><app-lucide name="thermometer" class="size-3" /> Roast Guide</span
+        >
+        <h2
+          id="roast-heading"
+          class="brew-serif text-4xl font-bold tracking-tight sm:text-5xl"
+          style="color: var(--brew-espresso)"
+        >
+          Light <span style="color: var(--brew-border)">→</span> Dark
+        </h2>
+        <p
+          class="mt-3 text-base"
+          style="color: color-mix(in srgb, var(--brew-espresso) 65%, transparent)"
+        >
+          Each coffee's roast character at a glance.
+        </p>
+      </div>
+
+      <div class="space-y-6">
+        @for (r of roastGuide; track r.name) {
+          <div class="flex items-center gap-4">
+            <span
+              class="w-44 shrink-0 truncate text-sm font-medium"
+              style="color: var(--brew-espresso)"
+              >{{ r.name }}</span
+            >
+            <div class="brew-roast-track flex-1">
+              <div class="brew-roast-fill" [style.width.%]="r.level"></div>
+            </div>
+            <span
+              class="w-10 text-right text-xs font-semibold tabular-nums"
+              style="color: var(--brew-caramel)"
+              >{{ r.level }}%</span
+            >
+          </div>
+        }
+      </div>
+
+      <div
+        class="mt-8 flex items-center gap-2 text-xs"
+        style="color: color-mix(in srgb, var(--brew-espresso) 55%, transparent)"
+      >
+        <span
+          class="h-3 w-16 rounded-full"
+          style="background: linear-gradient(to right, #fef3c7, #7c2d12, #1f1611)"
+        ></span>
+        <span class="ml-1">Light (floral, fruit, bright acidity)</span>
+        <span class="mx-2">→</span>
+        <span>Dark (chocolate, smoke, full body)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BREWING METHODS (first tab) -->
+  <section
+    class="brew-bg-kraft brew-paper border-b py-20 lg:py-28"
+    style="border-color: var(--brew-border)"
+    aria-labelledby="methods-heading"
+  >
+    <div class="mx-auto max-w-5xl px-4 lg:px-6">
+      <div class="mb-10 text-center">
+        <span buiBadge tone="warning" variant="soft" class="mb-3"
+          ><app-lucide name="book-open" class="size-3" /> Brew Guide</span
+        >
+        <h2
+          id="methods-heading"
+          class="brew-serif text-4xl font-bold tracking-tight sm:text-5xl"
+          style="color: var(--brew-espresso)"
+        >
+          How to Brew
+        </h2>
+      </div>
+
+      <div class="mx-auto mb-8 flex flex-wrap justify-center gap-2">
+        @for (m of brewMethods; track m.key; let first = $first) {
+          <span
+            class="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium"
+            [style.background]="first ? 'var(--brew-light)' : 'rgba(217,194,163,0.5)'"
+            [style.color]="'var(--brew-espresso)'"
+          >
+            <app-lucide [name]="m.icon" class="size-4" />
+            {{ m.label }}
+          </span>
+        }
+      </div>
+
+      @for (m of brewMethods; track m.key; let first = $first) {
+        @if (first) {
+          <div class="grid items-center gap-8 lg:grid-cols-2">
+            <div>
+              <h3 class="brew-serif text-2xl font-bold" style="color: var(--brew-espresso)">
+                {{ m.label }}
+              </h3>
+              <div class="mt-4 flex flex-wrap gap-3">
+                <div
+                  class="rounded-xl border px-3 py-2 text-sm"
+                  style="border-color: var(--brew-border); background: var(--brew-light)"
+                >
+                  <span
+                    class="block text-xs tracking-wide uppercase"
+                    style="color: var(--brew-caramel)"
+                    >Ratio</span
+                  >
+                  <span class="brew-serif font-bold" style="color: var(--brew-espresso)">{{
+                    m.ratio
+                  }}</span>
+                </div>
+                <div
+                  class="rounded-xl border px-3 py-2 text-sm"
+                  style="border-color: var(--brew-border); background: var(--brew-light)"
+                >
+                  <span
+                    class="block text-xs tracking-wide uppercase"
+                    style="color: var(--brew-caramel)"
+                    >Grind</span
+                  >
+                  <span class="brew-serif font-bold" style="color: var(--brew-espresso)">{{
+                    m.grind
+                  }}</span>
+                </div>
+                <div
+                  class="rounded-xl border px-3 py-2 text-sm"
+                  style="border-color: var(--brew-border); background: var(--brew-light)"
+                >
+                  <span
+                    class="block text-xs tracking-wide uppercase"
+                    style="color: var(--brew-caramel)"
+                    >Temp</span
+                  >
+                  <span class="brew-serif font-bold" style="color: var(--brew-espresso)">{{
+                    m.temp
+                  }}</span>
+                </div>
+                <div
+                  class="rounded-xl border px-3 py-2 text-sm"
+                  style="border-color: var(--brew-border); background: var(--brew-light)"
+                >
+                  <span
+                    class="block text-xs tracking-wide uppercase"
+                    style="color: var(--brew-caramel)"
+                    >Time</span
+                  >
+                  <span class="brew-serif font-bold" style="color: var(--brew-espresso)">{{
+                    m.time
+                  }}</span>
+                </div>
+              </div>
+              <ol class="mt-6 space-y-3">
+                @for (step of m.steps; track step; let idx = $index) {
+                  <li
+                    class="flex items-start gap-3 text-sm"
+                    style="color: color-mix(in srgb, var(--brew-espresso) 75%, transparent)"
+                  >
+                    <span
+                      class="brew-stamp mt-0.5 size-6 shrink-0 p-0 text-[0.6rem] font-bold"
+                      style="border-color: var(--brew-caramel); color: var(--brew-roast)"
+                      aria-hidden="true"
+                      >{{ idx + 1 }}</span
+                    >
+                    {{ step }}
+                  </li>
+                }
+              </ol>
+            </div>
+            <div
+              class="overflow-hidden rounded-2xl border shadow-lg"
+              style="border-color: var(--brew-border)"
+            >
+              <img
+                [src]="'https://picsum.photos/seed/' + m.img + '/700/480'"
+                [alt]="m.label + ' brewing method'"
+                loading="lazy"
+                class="aspect-[4/3] w-full object-cover"
+              />
+            </div>
+          </div>
+        }
+      }
+    </div>
+  </section>
+
+  <!-- PHOTO GALLERY -->
+  <section
+    class="brew-bg-light border-b py-16 lg:py-20"
+    style="border-color: var(--brew-border)"
+    aria-labelledby="gallery-heading"
+  >
+    <div class="mx-auto max-w-7xl px-4 lg:px-6">
+      <div class="mb-8 flex items-end justify-between">
+        <div>
+          <h2
+            id="gallery-heading"
+            class="brew-serif text-3xl font-bold"
+            style="color: var(--brew-espresso)"
+          >
+            From Farm to Cup
+          </h2>
+          <p
+            class="mt-1 text-sm"
+            style="color: color-mix(in srgb, var(--brew-espresso) 55%, transparent)"
+          >
+            Snapshots from origin and roast-day.
+          </p>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+        @for (img of gallery; track img.thumb) {
+          <div class="overflow-hidden rounded-2xl border" style="border-color: var(--brew-border)">
+            <img
+              [src]="img.thumb"
+              [alt]="img.alt"
+              loading="lazy"
+              class="aspect-square w-full object-cover transition-transform duration-300 hover:scale-105"
+            />
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="brew-bg-espresso brew-paper py-20 lg:py-28" aria-labelledby="reviews-heading">
+    <div class="mx-auto max-w-5xl px-4 lg:px-6">
+      <div class="mb-10 text-center">
+        <span buiBadge tone="warning" variant="soft" class="mb-3"
+          ><app-lucide name="heart" class="size-3" /> Reviews</span
+        >
+        <h2
+          id="reviews-heading"
+          class="brew-serif text-4xl font-bold tracking-tight sm:text-5xl"
+          style="color: var(--brew-kraft)"
+        >
+          What Coffee Lovers Say
+        </h2>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2">
+        @for (review of reviews; track review.a) {
+          <div
+            class="rounded-2xl border p-8 text-center"
+            style="border-color: rgba(217, 194, 163, 0.2); background: rgba(255, 255, 255, 0.06)"
+          >
+            <bui-rating
+              [value]="review.rating"
+              [max]="5"
+              [readonly]="true"
+              color="text-amber-400"
+              class="mb-5 justify-center"
+            />
+            <blockquote
+              class="brew-serif text-xl leading-relaxed font-medium text-balance"
+              style="color: var(--brew-kraft)"
+            >
+              "{{ review.q }}"
+            </blockquote>
+            <figcaption class="mt-6 flex items-center justify-center gap-3">
+              <bui-avatar
+                class="size-12"
+                [src]="'https://picsum.photos/seed/' + review.seed + '/96/96'"
+                [alt]="review.a"
+                >{{ review.a.charAt(0) }}</bui-avatar
+              >
+              <div class="text-left text-sm">
+                <div class="font-semibold" style="color: var(--brew-kraft)">{{ review.a }}</div>
+                <div style="color: rgba(217, 194, 163, 0.65)">{{ review.r }}</div>
+              </div>
+            </figcaption>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section
+    class="brew-bg-light brew-paper border-b py-20 lg:py-28"
+    style="border-color: var(--brew-border)"
+    aria-labelledby="faq-heading"
+  >
+    <div class="mx-auto max-w-3xl px-4 lg:px-6">
+      <div class="mb-10 text-center">
+        <span buiBadge tone="warning" variant="soft" class="mb-3">FAQ</span>
+        <h2
+          id="faq-heading"
+          class="brew-serif text-4xl font-bold tracking-tight"
+          style="color: var(--brew-espresso)"
+        >
+          Got Questions?
+        </h2>
+      </div>
+
+      <div class="w-full">
+        @for (faq of faqs; track faq.q; let first = $first) {
+          <details class="group" style="border-bottom: 1px solid var(--brew-border)" [open]="first">
+            <summary
+              class="brew-serif flex cursor-pointer items-center justify-between py-4 text-left font-semibold"
+              style="color: var(--brew-espresso)"
+            >
+              {{ faq.q }}
+              <app-lucide
+                name="chevron-down"
+                class="size-4 shrink-0 transition-transform group-open:rotate-180"
+                style="color: var(--brew-caramel)"
+              />
+            </summary>
+            <p
+              class="pb-4 text-sm leading-relaxed"
+              style="color: color-mix(in srgb, var(--brew-espresso) 70%, transparent)"
+            >
+              {{ faq.a }}
+            </p>
+          </details>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="brew-bg-kraft brew-paper py-20 lg:py-24" aria-labelledby="newsletter-heading">
+    <div class="mx-auto max-w-xl px-4 text-center lg:px-6">
+      <div class="brew-stamp mx-auto mb-5 size-16" style="font-size: 1.6rem" aria-hidden="true">
+        ☕
+      </div>
+      <h2
+        id="newsletter-heading"
+        class="brew-serif text-3xl font-bold tracking-tight sm:text-4xl"
+        style="color: var(--brew-espresso)"
+      >
+        10% Off Your First Bag
+      </h2>
+      <p
+        class="mt-2 text-base"
+        style="color: color-mix(in srgb, var(--brew-espresso) 65%, transparent)"
+      >
+        Join 4,200+ subscribers. New arrivals, harvest news and the occasional good deal.
+      </p>
+      <form class="mx-auto mt-6 flex max-w-sm gap-2">
+        <input
+          type="email"
+          placeholder="your@email.com"
+          class="h-10 flex-1 rounded-md border px-3 text-sm outline-none"
+          style="
+            background: var(--brew-light);
+            border-color: var(--brew-border);
+            color: var(--brew-espresso);
+          "
+          aria-label="Email address"
+        />
+        <button type="button" class="brew-btn-primary shrink-0">Subscribe</button>
+      </form>
+      <p
+        class="mt-3 text-xs"
+        style="color: color-mix(in srgb, var(--brew-espresso) 45%, transparent)"
+      >
+        No spam. Unsubscribe any time. We respect your inbox.
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="brew-bg-espresso" style="color: var(--brew-kraft)">
+    <div class="mx-auto max-w-7xl px-4 py-14 lg:px-6">
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
+        <div class="lg:col-span-2">
+          <a
+            href="#"
+            class="brew-serif inline-flex items-center gap-2 text-2xl font-bold"
+            style="color: var(--brew-cream)"
+            aria-label="Brew home"
+          >
+            <span
+              class="brew-stamp"
+              style="
+                font-size: 1rem;
+                width: 2.25rem;
+                height: 2.25rem;
+                padding: 0;
+                color: var(--brew-roast);
+              "
+              >☕</span
+            >
+            Brew
+          </a>
+          <p class="mt-3 max-w-xs text-sm" style="color: rgba(217, 194, 163, 0.65)">
+            Specialty coffee roasters. Sourced direct, roasted fresh, shipped with care.
+          </p>
+          <div class="mt-5 flex gap-2">
+            @for (s of social; track s) {
+              <a
+                href="#"
+                [attr.aria-label]="s"
+                class="brew-foot-link inline-flex size-9 items-center justify-center rounded-md border"
+                style="border-color: rgba(217, 194, 163, 0.25); color: var(--brew-kraft)"
+              >
+                <app-lucide [name]="s" class="size-4" />
+              </a>
+            }
+          </div>
+        </div>
+        @for (col of footerLinks; track col.heading) {
+          <div>
+            <h3 class="text-sm font-semibold" style="color: var(--brew-cream)">
+              {{ col.heading }}
+            </h3>
+            <ul class="mt-3 space-y-2 text-sm">
+              @for (link of col.links; track link) {
+                <li>
+                  <a href="#" class="brew-foot-link" style="color: rgba(217, 194, 163, 0.65)">{{
+                    link
+                  }}</a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <hr class="brew-separator my-8" />
+
+      <div
+        class="flex flex-col items-center justify-between gap-3 text-xs sm:flex-row"
+        style="color: rgba(217, 194, 163, 0.5)"
+      >
+        <span>© 2026 Brew Roastery. All rights reserved.</span>
+        <span class="flex items-center gap-3">
+          <a href="#" class="brew-foot-link" style="color: rgba(217, 194, 163, 0.5)">Privacy</a>
+          <a href="#" class="brew-foot-link" style="color: rgba(217, 194, 163, 0.5)">Terms</a>
+          <span class="flex items-center gap-1"
+            ><app-lucide name="leaf" class="size-3.5" style="color: var(--brew-caramel)" /> Carbon
+            neutral delivery</span
+          >
+        </span>
+      </div>
+    </div>
+  </footer>
+</div>
