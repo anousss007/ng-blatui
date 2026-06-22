@@ -1,0 +1,157 @@
+#tpl-help-center {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Buttons */
+#tpl-help-center .hc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  height: 2.25rem;
+  padding: 0 0.875rem;
+  border-radius: var(--radius, 0.5rem);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+#tpl-help-center .hc-btn-outline {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+#tpl-help-center .hc-btn-outline:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+/* Icon button */
+#tpl-help-center .hc-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius, 0.5rem);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--foreground);
+  transition: background 0.15s;
+}
+#tpl-help-center .hc-icon-btn:hover {
+  background: var(--accent);
+}
+
+/* Search input */
+#tpl-help-center .hc-search {
+  width: 100%;
+  height: 3rem;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 0.5rem);
+  padding: 0 1rem 0 2.75rem;
+  font-size: 1rem;
+  color: var(--foreground);
+  outline: none;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+#tpl-help-center .hc-search::placeholder {
+  color: var(--muted-foreground);
+}
+#tpl-help-center .hc-search:focus {
+  border-color: var(--ring, var(--primary));
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 18%, transparent);
+}
+
+/* Popular pills */
+#tpl-help-center .hc-pill {
+  background: var(--muted);
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s;
+}
+#tpl-help-center .hc-pill:hover {
+  background: var(--accent);
+}
+
+/* Category card */
+#tpl-help-center .hc-card {
+  background: var(--card, var(--background));
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 0.75rem);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    transform 0.2s;
+  text-decoration: none;
+  color: inherit;
+}
+#tpl-help-center .hc-card:hover {
+  border-color: color-mix(in oklab, var(--ring, var(--primary)) 60%, transparent);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Plain card (contact) */
+#tpl-help-center .hc-plain-card {
+  background: var(--card, var(--background));
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 0.75rem);
+  padding: 1.5rem;
+}
+
+/* Popular list */
+#tpl-help-center .hc-list {
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 0.75rem);
+  overflow: hidden;
+}
+#tpl-help-center .hc-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: inherit;
+  border-top: 1px solid var(--border);
+  transition: background 0.15s;
+}
+#tpl-help-center .hc-list-item:first-child {
+  border-top: none;
+}
+#tpl-help-center .hc-list-item:hover {
+  background: color-mix(in oklab, var(--accent) 50%, transparent);
+}
+
+/* FAQ */
+#tpl-help-center .hc-faq {
+  border-bottom: 1px solid var(--border);
+}
+#tpl-help-center .hc-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 1rem 0;
+  font-weight: 500;
+  list-style: none;
+}
+#tpl-help-center .hc-faq summary::-webkit-details-marker {
+  display: none;
+}

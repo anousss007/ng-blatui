@@ -1,0 +1,160 @@
+<div id="tpl-help-center">
+  <header
+    class="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60"
+  >
+    <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+      <a href="#" class="flex items-center gap-2 font-semibold"
+        ><span
+          class="flex size-7 items-center justify-center rounded-lg bg-primary text-primary-foreground"
+          ><app-lucide name="life-buoy" class="size-4"
+        /></span>
+        Helix Help</a
+      >
+      <nav class="ml-4 hidden items-center gap-1 text-sm md:flex">
+        @for (l of nav; track l) {
+          <a
+            href="#"
+            class="rounded-md px-3 py-1.5 font-medium text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
+            >{{ l }}</a
+          >
+        }
+      </nav>
+      <div class="ml-auto flex items-center gap-1.5">
+        <button type="button" class="hc-icon-btn" aria-label="Toggle theme">
+          <app-lucide name="sun" class="size-4 dark:hidden" /><app-lucide
+            name="moon"
+            class="hidden size-4 dark:block"
+          />
+        </button>
+        <button type="button" class="hc-btn hc-btn-outline">Sign in</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero + search -->
+  <section class="relative overflow-hidden border-b">
+    <div class="pointer-events-none absolute inset-x-0 -top-32 -z-10 flex justify-center">
+      <div
+        class="h-80 w-[700px] rounded-full bg-gradient-to-b from-primary/20 to-transparent blur-3xl"
+      ></div>
+    </div>
+    <div class="mx-auto max-w-2xl px-6 py-20 text-center">
+      <h1 class="text-4xl font-bold tracking-tight text-balance sm:text-5xl">How can we help?</h1>
+      <p class="mt-3 text-lg text-muted-foreground">
+        Search our knowledge base or browse the categories below.
+      </p>
+      <div class="relative mx-auto mt-7 max-w-xl">
+        <span
+          class="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground"
+          ><app-lucide name="search" class="size-5"
+        /></span>
+        <input
+          type="search"
+          placeholder="Search for articles, e.g. “reset password”…"
+          class="hc-search"
+          aria-label="Search articles"
+        />
+      </div>
+      <div
+        class="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm text-muted-foreground"
+      >
+        <span>Popular:</span>
+        @for (p of popularTags; track p) {
+          <a href="#" class="hc-pill">{{ p }}</a>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-6xl px-6">
+    <!-- Categories -->
+    <section class="py-16">
+      <h2 class="mb-8 text-2xl font-bold tracking-tight">Browse by topic</h2>
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        @for (c of categories; track c.title) {
+          <a href="#" class="hc-card group p-6">
+            <div
+              class="mb-4 inline-flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary"
+            >
+              <app-lucide [name]="c.icon" class="size-5" />
+            </div>
+            <h3
+              class="flex items-center gap-1.5 font-semibold transition-colors group-hover:text-primary"
+            >
+              {{ c.title }}
+              <app-lucide
+                name="arrow-right"
+                class="size-4 opacity-0 transition-opacity group-hover:opacity-100"
+              />
+            </h3>
+            <p class="mt-1.5 text-sm text-muted-foreground">{{ c.desc }}</p>
+            <p class="mt-3 text-xs text-muted-foreground">{{ c.n }} articles</p>
+          </a>
+        }
+      </div>
+    </section>
+
+    <!-- Popular + FAQ -->
+    <section class="grid gap-10 border-t py-16 lg:grid-cols-2">
+      <div>
+        <h2 class="mb-5 text-xl font-bold tracking-tight">Popular articles</h2>
+        <ul class="hc-list">
+          @for (a of popular; track a) {
+            <li>
+              <a href="#" class="hc-list-item"
+                ><span class="flex items-center gap-2.5"
+                  ><app-lucide name="file-text" class="size-4 text-muted-foreground" />
+                  {{ a }}</span
+                >
+                <app-lucide name="chevron-right" class="size-4 text-muted-foreground"
+              /></a>
+            </li>
+          }
+        </ul>
+      </div>
+      <div>
+        <h2 class="mb-5 text-xl font-bold tracking-tight">Frequently asked</h2>
+        <div class="w-full">
+          @for (faq of faqs; track faq.q; let first = $first) {
+            <details class="hc-faq group" [open]="first">
+              <summary>
+                {{ faq.q }}
+                <app-lucide
+                  name="chevron-down"
+                  class="size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180"
+                />
+              </summary>
+              <p class="pb-4 text-sm leading-relaxed text-muted-foreground">{{ faq.a }}</p>
+            </details>
+          }
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Still need help -->
+  <section class="border-y bg-muted/30 py-16">
+    <div class="mx-auto max-w-5xl px-6 text-center">
+      <h2 class="text-2xl font-bold tracking-tight">Still need help?</h2>
+      <p class="mt-2 text-muted-foreground">Our team is here for you. Pick whatever's easiest.</p>
+      <div class="mt-8 grid gap-5 sm:grid-cols-3">
+        @for (ct of contacts; track ct.title) {
+          <div class="hc-plain-card flex flex-col items-center text-center">
+            <div
+              class="mb-3 inline-flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary"
+            >
+              <app-lucide [name]="ct.icon" class="size-5" />
+            </div>
+            <h3 class="font-semibold">{{ ct.title }}</h3>
+            <p class="mt-1 text-sm text-muted-foreground">{{ ct.desc }}</p>
+            <button type="button" class="hc-btn hc-btn-outline mt-4">{{ ct.cta }}</button>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t py-8 text-center text-sm text-muted-foreground">
+    © 2026 Helix. Built with BlatUI.
+  </footer>
+</div>
