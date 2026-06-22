@@ -43,19 +43,37 @@ export interface ComboboxOption {
       <ul
         [id]="listId"
         role="listbox"
+        [attr.aria-multiselectable]="multiple() ? true : null"
         class="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md"
       >
         @for (option of filtered(); track option.value; let i = $index) {
           <li
             [id]="listId + '-' + i"
             role="option"
-            [attr.aria-selected]="option.value === value()"
-            class="relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-none select-none"
+            [attr.aria-selected]="isSelected(option.value)"
+            class="relative flex cursor-default items-center justify-between gap-2 rounded-sm px-2 py-1.5 text-sm outline-none select-none"
             [class]="i === active() ? 'bg-accent text-accent-foreground' : ''"
             (click)="select(option)"
             (mouseenter)="active.set(i)"
           >
-            @if (option.icon; as icon) {
+            <span class="flex min-w-0 items-center truncate">
+              @if (option.icon; as icon) {
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  class="mr-2 size-4 shrink-0"
+                >
+                  <path [attr.d]="icon" />
+                </svg>
+              }
+              {{ option.label }}
+            </span>
+            @if (isSelected(option.value)) {
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -64,12 +82,11 @@ export interface ComboboxOption {
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 aria-hidden="true"
-                class="mr-2 size-4 shrink-0"
+                class="size-4 shrink-0"
               >
-                <path [attr.d]="icon" />
+                <path d="M20 6 9 17l-5-5" />
               </svg>
             }
-            {{ option.label }}
           </li>
         }
       </ul>
@@ -78,6 +95,9 @@ export interface ComboboxOption {
 })
 export class BuiCombobox {
   readonly value = model('');
+  /** Select several options; binds `values` instead of `value`. */
+  readonly multiple = input(false);
+  readonly values = model<readonly string[]>([]);
   readonly options = input<readonly ComboboxOption[]>([]);
   readonly placeholder = input('Search…');
   readonly disabled = input(false);
@@ -90,9 +110,16 @@ export class BuiCombobox {
   protected readonly open = signal(false);
   protected readonly active = signal(0);
   protected readonly query = signal('');
-  protected readonly selectedLabel = computed(
-    () => this.options().find((option) => option.value === this.value())?.label ?? '',
-  );
+  protected readonly selectedLabel = computed(() => {
+    if (this.multiple()) {
+      const chosen = this.values();
+      return this.options()
+        .filter((option) => chosen.includes(option.value))
+        .map((option) => option.label)
+        .join(', ');
+    }
+    return this.options().find((option) => option.value === this.value())?.label ?? '';
+  });
   protected readonly display = computed(() => (this.open() ? this.query() : this.selectedLabel()));
   protected readonly filtered = computed(() => {
     if (!this.searchable()) {
@@ -120,7 +147,22 @@ export class BuiCombobox {
     this.open.set(true);
   }
 
+  protected isSelected(value: string): boolean {
+    return this.multiple() ? this.values().includes(value) : value === this.value();
+  }
+
   protected select(option: ComboboxOption): void {
+    if (this.multiple()) {
+      const next = new Set(this.values());
+      if (next.has(option.value)) {
+        next.delete(option.value);
+      } else {
+        next.add(option.value);
+      }
+      this.values.set([...next]);
+      this.query.set('');
+      return;
+    }
     this.value.set(option.value);
     this.query.set('');
     this.open.set(false);

@@ -6446,6 +6446,17 @@ This content is read-only and cannot be edited.</textarea
           placeholder="Pick one"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Multiple</h2>
+      <app-example [code]="code.comboboxMultiple">
+        <bui-combobox
+          class="max-w-xs"
+          [multiple]="true"
+          [(values)]="frameworksPicked"
+          [options]="frameworks"
+          placeholder="Search frameworks…"
+        />
+      </app-example>
     }
     @case ('back-to-top') {
       <app-example [code]="code.backToTop">

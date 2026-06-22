@@ -1216,6 +1216,7 @@ export class ComponentPage {
     { value: 'aest', label: 'Sydney (AEST)' },
   ];
   protected readonly framework = signal('');
+  protected readonly frameworksPicked = signal<string[]>(['ng', 'vu']);
   protected readonly frameworks = [
     { value: 'ng', label: 'Angular' },
     { value: 're', label: 'React' },
@@ -2619,6 +2620,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-combobox [(value)]="framework" [options]="frameworks" />
 // frameworks = [{ value: 'ng', label: 'Angular' }, ...]`,
     comboboxPreselected: `<bui-combobox [value]="'ng'" [options]="frameworks" />`,
+    comboboxMultiple: `<!-- [multiple]="true" binds an array via [(values)]; toggles, stays open, checks -->
+<bui-combobox [multiple]="true" [(values)]="picked" [options]="frameworks" />
+// picked = signal<string[]>([])`,
     comboboxDisabled: `<bui-combobox [options]="frameworks" [disabled]="true" placeholder="Disabled" />`,
     comboboxStatuses: `<!-- ComboboxOption now takes an optional icon (SVG path d) -->
 <bui-combobox [options]="statuses" placeholder="Set status…" />
