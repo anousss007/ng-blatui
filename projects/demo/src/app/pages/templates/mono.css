@@ -1,0 +1,342 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap');
+
+#tpl-mono {
+  --mono-bg: #0a0a0a;
+  --mono-text: #ededed;
+  --mono-muted: #7a7a7a;
+  --mono-accent: #c9a227;
+  --mono-border: #222222;
+  --mono-hover: #181818;
+  background: var(--mono-bg);
+  color: var(--mono-text);
+  font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+/* ── typography ─────────────────────────────────── */
+#tpl-mono .mono-display {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+#tpl-mono .mono-label {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mono-muted);
+}
+#tpl-mono .mono-accent-text {
+  color: var(--mono-accent);
+}
+
+/* ── nav ─────────────────────────────────────────── */
+#tpl-mono .mono-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--mono-border);
+}
+#tpl-mono .mono-nav-link {
+  color: var(--mono-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+#tpl-mono .mono-nav-link:hover {
+  color: var(--mono-text);
+}
+
+/* ── hero ────────────────────────────────────────── */
+#tpl-mono .mono-hero {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 520px;
+  overflow: hidden;
+}
+#tpl-mono .mono-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.04);
+  animation: mono-hero-zoom 8s ease-out forwards;
+}
+@keyframes mono-hero-zoom {
+  to {
+    transform: scale(1);
+  }
+}
+#tpl-mono .mono-hero::before,
+#tpl-mono .mono-hero::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 9%;
+  background: var(--mono-bg);
+  z-index: 2;
+  pointer-events: none;
+}
+#tpl-mono .mono-hero::before {
+  top: 0;
+}
+#tpl-mono .mono-hero::after {
+  bottom: 0;
+}
+#tpl-mono .mono-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0.18) 0%,
+    rgba(10, 10, 10, 0.05) 40%,
+    rgba(10, 10, 10, 0.55) 100%
+  );
+  z-index: 1;
+}
+#tpl-mono .mono-hero-content {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 12% 6% 13%;
+}
+#tpl-mono .mono-hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1px solid rgba(237, 237, 237, 0.35);
+  color: var(--mono-text);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.75rem;
+  text-decoration: none;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+#tpl-mono .mono-hero-btn:hover {
+  border-color: var(--mono-text);
+}
+
+/* ── gallery grid (asymmetric masonry feel) ─────── */
+#tpl-mono .mono-masonry {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+}
+#tpl-mono .mono-masonry .mono-thumb {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--mono-border);
+  aspect-ratio: 4 / 3;
+}
+#tpl-mono .mono-masonry .mono-thumb:nth-child(5n + 3) {
+  aspect-ratio: 3 / 4;
+  grid-row: span 2;
+}
+#tpl-mono .mono-masonry .mono-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+#tpl-mono .mono-thumb:hover img {
+  transform: scale(1.04);
+}
+#tpl-mono .mono-thumb-caption {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, transparent 55%);
+  display: flex;
+  align-items: flex-end;
+  padding: 0.9rem 1rem;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+#tpl-mono .mono-thumb:hover .mono-thumb-caption,
+#tpl-mono .mono-thumb:focus-within .mono-thumb-caption {
+  opacity: 1;
+}
+
+/* ── simple gallery grid (tabs) ─────────────────── */
+#tpl-mono .mono-grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+}
+#tpl-mono .mono-grid3 .mono-thumb {
+  aspect-ratio: 4 / 3;
+}
+
+/* ── series slide ─────────────────────────────────── */
+#tpl-mono .mono-series-slide {
+  position: relative;
+  overflow: hidden;
+}
+#tpl-mono .mono-series-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+#tpl-mono .mono-series-track {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.5rem;
+}
+#tpl-mono .mono-series-track > * {
+  scroll-snap-align: start;
+  flex: 0 0 min(80vw, 900px);
+}
+
+/* ── approach list ───────────────────────────────── */
+#tpl-mono .mono-approach-item {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 1.5rem;
+  align-items: start;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--mono-border);
+}
+#tpl-mono .mono-approach-item:first-child {
+  border-top: 1px solid var(--mono-border);
+}
+
+/* ── stats row ───────────────────────────────────── */
+#tpl-mono .mono-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--mono-border);
+  border: 1px solid var(--mono-border);
+}
+@media (min-width: 768px) {
+  #tpl-mono .mono-stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+#tpl-mono .mono-stat-cell {
+  background: var(--mono-bg);
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+/* ── contact form ────────────────────────────────── */
+#tpl-mono .mono-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--mono-border);
+  color: var(--mono-text);
+  font-family: inherit;
+  font-size: 0.9375rem;
+  padding: 0.75rem 0;
+  outline: none;
+  transition: border-color 0.2s;
+  caret-color: var(--mono-accent);
+}
+#tpl-mono .mono-input::placeholder {
+  color: var(--mono-muted);
+}
+#tpl-mono .mono-input:focus {
+  border-color: var(--mono-accent);
+}
+#tpl-mono .mono-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid var(--mono-text);
+  background: transparent;
+  color: var(--mono-text);
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.875rem 2.25rem;
+  cursor: pointer;
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+#tpl-mono .mono-submit:hover {
+  background: var(--mono-text);
+  color: var(--mono-bg);
+}
+
+/* ── badge ───────────────────────────────────────── */
+#tpl-mono .mono-badge {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--mono-accent);
+  color: var(--mono-accent);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0;
+  font-weight: 500;
+}
+
+/* ── tabs (underline) ────────────────────────────── */
+#tpl-mono .mono-tab {
+  color: var(--mono-muted);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+#tpl-mono .mono-tab-active {
+  color: var(--mono-text);
+  border-bottom-color: var(--mono-accent);
+}
+
+/* ── footer ──────────────────────────────────────── */
+#tpl-mono .mono-footer {
+  border-top: 1px solid var(--mono-border);
+}
+#tpl-mono .mono-foot-link {
+  text-decoration: none;
+  color: var(--mono-muted);
+  transition: color 0.2s;
+}
+#tpl-mono .mono-foot-link:hover {
+  color: var(--mono-text);
+}
+
+/* ── reduced motion ──────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  #tpl-mono .mono-hero-img {
+    animation: none;
+    transform: scale(1);
+  }
+  #tpl-mono .mono-thumb img {
+    transition: none;
+  }
+  #tpl-mono .mono-thumb-caption {
+    transition: none;
+    opacity: 1;
+  }
+}

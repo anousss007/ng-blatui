@@ -92,6 +92,11 @@ export const routes: Routes = [
     title: 'Helix · ng-blatui',
   },
   {
+    path: 'templates/mono',
+    loadComponent: async () => (await import('./pages/templates/mono')).MonoTemplate,
+    title: 'Mono · ng-blatui',
+  },
+  {
     path: 'templates/:slug',
     loadComponent: async () => (await import('./pages/templates')).TemplatesPage,
     title: 'Templates · ng-blatui',
