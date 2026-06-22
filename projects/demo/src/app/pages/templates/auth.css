@@ -1,0 +1,115 @@
+#tpl-auth {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Input with leading icon */
+#tpl-auth .au-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+#tpl-auth .au-field-icon {
+  position: absolute;
+  left: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  color: var(--muted-foreground);
+  pointer-events: none;
+}
+#tpl-auth .au-input {
+  width: 100%;
+  height: 2.5rem;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 0.5rem);
+  padding: 0 0.875rem 0 2.5rem;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  outline: none;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+#tpl-auth .au-input::placeholder {
+  color: var(--muted-foreground);
+}
+#tpl-auth .au-input:focus {
+  border-color: var(--ring, var(--primary));
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 22%, transparent);
+}
+
+/* Buttons */
+#tpl-auth .au-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: var(--radius, 0.5rem);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+  text-decoration: none;
+}
+#tpl-auth .au-btn-primary {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+#tpl-auth .au-btn-primary:hover {
+  background: color-mix(in oklab, var(--primary) 90%, black);
+}
+#tpl-auth .au-btn-outline {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+#tpl-auth .au-btn-outline:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+/* Tabs */
+#tpl-auth .au-tablist {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  background: var(--muted);
+  border-radius: var(--radius, 0.5rem);
+}
+#tpl-auth .au-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  border-radius: calc(var(--radius, 0.5rem) - 0.15rem);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  cursor: pointer;
+}
+#tpl-auth .au-tab-active {
+  background: var(--background);
+  color: var(--foreground);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+/* Checkbox */
+#tpl-auth .au-check {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--primary);
+  border-radius: 0.25rem;
+}
+
+/* Theme toggle */
+#tpl-auth .au-toggle:hover {
+  background: var(--accent);
+}

@@ -1052,6 +1052,9 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
           <path d="M9 17h6" />
           <circle cx="17" cy="17" r="2" />
         }
+        @case ('cloud') {
+          <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+        }
       }
     </svg>
   `,

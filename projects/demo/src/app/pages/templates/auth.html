@@ -1,0 +1,154 @@
+<div id="tpl-auth">
+  <div class="grid min-h-screen lg:grid-cols-2">
+    <!-- Brand panel -->
+    <div
+      class="relative hidden flex-col justify-between overflow-hidden bg-primary p-12 text-primary-foreground lg:flex"
+    >
+      <div
+        class="pointer-events-none absolute -top-20 -right-20 size-80 rounded-full bg-white/10 blur-3xl"
+      ></div>
+      <div
+        class="pointer-events-none absolute -bottom-24 -left-16 size-80 rounded-full bg-white/10 blur-3xl"
+      ></div>
+      <a href="/templates/saas" class="relative flex items-center gap-2 font-semibold">
+        <span class="flex size-8 items-center justify-center rounded-lg bg-white/15"
+          ><app-lucide name="cloud" class="size-5"
+        /></span>
+        Nimbus
+      </a>
+      <figure class="relative max-w-md">
+        <app-lucide name="quote" class="mb-4 size-8 opacity-40" />
+        <blockquote class="text-2xl leading-snug font-medium text-balance">
+          Nimbus is the first tool our whole team actually agreed on. Onboarding took an afternoon.
+        </blockquote>
+        <figcaption class="mt-6 flex items-center gap-3">
+          <img
+            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&q=80"
+            alt=""
+            class="size-11 rounded-full object-cover ring-2 ring-white/20"
+          />
+          <div class="text-sm">
+            <div class="font-semibold">Sofia Davis</div>
+            <div class="opacity-70">VP Operations, Acme</div>
+          </div>
+        </figcaption>
+      </figure>
+      <div class="relative flex gap-8 text-sm">
+        @for (s of stats; track s.label) {
+          <div>
+            <div class="text-2xl font-bold">{{ s.value }}</div>
+            <div class="opacity-70">{{ s.label }}</div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="relative flex items-center justify-center p-6 sm:p-10">
+      <button
+        type="button"
+        class="au-toggle absolute top-5 right-5 inline-flex size-9 items-center justify-center rounded-md transition-colors"
+        aria-label="Toggle theme"
+      >
+        <app-lucide name="sun" class="size-4 dark:hidden" /><app-lucide
+          name="moon"
+          class="hidden size-4 dark:block"
+        />
+      </button>
+
+      <div class="w-full max-w-sm">
+        <a href="#" class="mb-8 flex items-center gap-2 font-semibold lg:hidden">
+          <span
+            class="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground"
+            ><app-lucide name="cloud" class="size-5"
+          /></span>
+          Nimbus
+        </a>
+
+        <!-- Tabs (Sign in active) -->
+        <div class="au-tablist mb-6">
+          <span class="au-tab au-tab-active">Sign in</span>
+          <span class="au-tab">Create account</span>
+        </div>
+
+        <div class="mb-6">
+          <h1 class="text-2xl font-bold tracking-tight">Welcome back</h1>
+          <p class="mt-1 text-sm text-muted-foreground">Sign in to your workspace to continue.</p>
+        </div>
+
+        <div class="grid gap-2">
+          <button type="button" class="au-btn au-btn-outline w-full">
+            <svg viewBox="0 0 24 24" class="size-4" aria-hidden="true">
+              <path
+                fill="#4285F4"
+                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.76h3.56c2.08-1.92 3.28-4.74 3.28-8.09Z"
+              />
+              <path
+                fill="#34A853"
+                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.56-2.76c-.98.66-2.23 1.06-3.72 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23Z"
+              />
+              <path
+                fill="#FBBC05"
+                d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84Z"
+              />
+              <path
+                fill="#EA4335"
+                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1A11 11 0 0 0 2.18 7.06l3.66 2.84C6.71 7.3 9.14 5.38 12 5.38Z"
+              />
+            </svg>
+            Continue with Google
+          </button>
+          <button type="button" class="au-btn au-btn-outline w-full">
+            <app-lucide name="github" class="size-4" /> Continue with GitHub
+          </button>
+        </div>
+
+        <div class="my-6 flex items-center gap-3">
+          <hr class="flex-1" style="border: none; border-top: 1px solid var(--border)" />
+          <span class="text-xs text-muted-foreground uppercase">or</span>
+          <hr class="flex-1" style="border: none; border-top: 1px solid var(--border)" />
+        </div>
+
+        <form class="grid gap-4">
+          <div class="grid gap-2">
+            <span class="block text-sm font-medium">Email</span>
+            <div class="au-field">
+              <span class="au-field-icon"><app-lucide name="mail" class="size-4" /></span>
+              <input
+                type="email"
+                class="au-input"
+                placeholder="you@example.com"
+                autocomplete="email"
+                aria-label="Email"
+              />
+            </div>
+          </div>
+          <div class="grid gap-2">
+            <div class="flex items-center justify-between">
+              <span class="block text-sm font-medium">Password</span>
+              <a href="#" class="text-sm text-primary hover:underline">Forgot password?</a>
+            </div>
+            <div class="au-field">
+              <span class="au-field-icon"><app-lucide name="lock" class="size-4" /></span>
+              <input
+                type="password"
+                class="au-input"
+                placeholder="••••••••"
+                autocomplete="current-password"
+                aria-label="Password"
+              />
+            </div>
+          </div>
+          <label class="flex items-center gap-2 text-sm">
+            <input type="checkbox" class="au-check" /> Remember me for 30 days
+          </label>
+          <button type="button" class="au-btn au-btn-primary w-full">Sign in</button>
+        </form>
+
+        <p class="mt-8 text-center text-xs text-muted-foreground">
+          Protected by reCAPTCHA · SOC 2 Type II compliant
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
