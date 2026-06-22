@@ -1,11 +1,18 @@
-import { Component, computed, ElementRef, inject, input, model } from '@angular/core';
+import { Component, computed, ElementRef, forwardRef, inject, input, model } from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = (): void => {};
 
 /** A one-time-password input: a row of single-character boxes with focus management + paste. */
 @Component({
   selector: 'bui-input-otp',
-  host: { 'data-slot': 'input-otp', '[class]': 'computedClass()' },
+  host: { 'data-slot': 'input-otp', '[class]': 'computedClass()', '(focusout)': 'onTouched()' },
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiInputOtp), multi: true },
+  ],
   template: `
     @for (slot of slots(); track slot) {
       <input
@@ -28,16 +35,18 @@ import { type ClassValue, cn } from '../utils/cn';
     }
   `,
 })
-export class BuiInputOtp {
+export class BuiInputOtp implements ControlValueAccessor {
   readonly value = model('');
   readonly maxlength = input(6);
-  readonly disabled = input(false);
+  readonly disabled = model(false);
   readonly alphanumeric = input(false);
   /** Insert a visual separator after every N boxes (0 = none). */
   readonly groupSize = input(0);
   readonly ariaLabel = input('One-time password');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
+  private onChange: (value: string) => void = noop;
+  protected onTouched: () => void = noop;
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly slots = computed(() =>
     Array.from({ length: this.maxlength() }, (_, index) => index),
@@ -63,6 +72,7 @@ export class BuiInputOtp {
       this.maxlength(),
     );
     this.value.set(next);
+    this.onChange(next);
     element.value = char;
     if (char !== '' && index < this.maxlength() - 1) {
       this.focusBox(index + 1);
@@ -88,11 +98,28 @@ export class BuiInputOtp {
       this.maxlength(),
     );
     this.value.set(text);
+    this.onChange(text);
     this.focusBox(Math.min(text.length, this.maxlength() - 1));
   }
 
   protected onFocus(event: Event): void {
     (event.target as HTMLInputElement).select();
+  }
+
+  writeValue(value: string | null | undefined): void {
+    this.value.set(typeof value === 'string' ? value : '');
+  }
+
+  registerOnChange(callback: (value: string) => void): void {
+    this.onChange = callback;
+  }
+
+  registerOnTouched(callback: () => void): void {
+    this.onTouched = callback;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
   }
 
   private sanitize(raw: string): string {

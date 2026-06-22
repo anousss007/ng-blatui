@@ -1,6 +1,10 @@
-import { Component, computed, input, model } from '@angular/core';
+import { Component, computed, forwardRef, input, model } from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = (): void => {};
 
 const PLACEHOLDERS = new Set(['9', 'a', '*']);
 
@@ -49,25 +53,33 @@ function applyMask(value: string, mask: string): string {
 @Component({
   selector: 'bui-input-mask',
   host: { 'data-slot': 'input-mask', '[class]': 'computedClass()' },
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiInputMask), multi: true },
+  ],
   template: `
     <input
       [value]="value()"
       [placeholder]="placeholder()"
       [attr.inputmode]="inputmode() || null"
       [attr.name]="name() || null"
-      class="h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+      [disabled]="disabled()"
+      class="h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50"
       (input)="onInput($event)"
+      (blur)="onTouched()"
     />
   `,
 })
-export class BuiInputMask {
+export class BuiInputMask implements ControlValueAccessor {
   readonly mask = input('');
   readonly value = model('');
   readonly placeholder = input('');
   readonly inputmode = input('');
   readonly name = input('');
+  readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
+  private onChange: (value: string) => void = noop;
+  protected onTouched: () => void = noop;
   protected readonly computedClass = computed(() => cn('block', this.userClass()));
 
   protected onInput(event: Event): void {
@@ -75,5 +87,22 @@ export class BuiInputMask {
     const masked = this.mask() === '' ? target.value : applyMask(target.value, this.mask());
     target.value = masked;
     this.value.set(masked);
+    this.onChange(masked);
+  }
+
+  writeValue(value: string | null | undefined): void {
+    this.value.set(typeof value === 'string' ? value : '');
+  }
+
+  registerOnChange(callback: (value: string) => void): void {
+    this.onChange = callback;
+  }
+
+  registerOnTouched(callback: () => void): void {
+    this.onTouched = callback;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
   }
 }
