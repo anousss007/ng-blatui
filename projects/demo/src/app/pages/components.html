@@ -6053,6 +6053,43 @@ This content is read-only and cannot be edited.</textarea
           </div>
         </div>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Submenu</h2>
+      <app-example [code]="code.dropdownSubmenu">
+        <div class="relative inline-block">
+          <button buiButton variant="outline" ngMenuTrigger [menu]="dds">Open menu</button>
+          <div ngMenu #dds="ngMenu" buiDropdownMenu>
+            <div ngMenuItem value="profile" buiDropdownMenuItem>Profile</div>
+            <div class="group/sub relative">
+              <div ngMenuItem value="invite" buiDropdownMenuItem class="justify-between">
+                Invite users
+                <svg
+                  class="ms-auto size-4 opacity-60"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </div>
+              <div
+                class="absolute top-0 left-full z-50 ml-1 hidden min-w-[9rem] rounded-md border bg-popover p-1 text-popover-foreground shadow-md group-hover/sub:block"
+              >
+                <button type="button" buiDropdownMenuItem class="w-full">Email</button>
+                <button type="button" buiDropdownMenuItem class="w-full">Message</button>
+                <div buiDropdownMenuSeparator></div>
+                <button type="button" buiDropdownMenuItem class="w-full">More…</button>
+              </div>
+            </div>
+            <div buiDropdownMenuSeparator></div>
+            <div ngMenuItem value="settings" buiDropdownMenuItem>Settings</div>
+          </div>
+        </div>
+      </app-example>
     }
     @case ('menubar') {
       <app-example [code]="code.menubar">

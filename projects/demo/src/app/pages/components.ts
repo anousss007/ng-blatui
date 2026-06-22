@@ -2522,6 +2522,14 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
   </span>
   {{ pos }}
 </div>`,
+    dropdownSubmenu: `<!-- a relative wrapper + group-hover flyout, styled with buiDropdownMenuItem -->
+<div class="group/sub relative">
+  <div ngMenuItem buiDropdownMenuItem class="justify-between">Invite users <svg><!-- chevron --></svg></div>
+  <div class="absolute top-0 left-full ml-1 hidden ... group-hover/sub:block">
+    <button buiDropdownMenuItem>Email</button>
+    <button buiDropdownMenuItem>Message</button>
+  </div>
+</div>`,
     typography: `import { BuiTypography } from 'ng-blatui';
 
 <h1 buiTypography variant="h1">The quick brown fox</h1>
