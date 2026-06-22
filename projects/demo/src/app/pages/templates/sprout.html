@@ -1,0 +1,927 @@
+<div id="tpl-sprout">
+  <!-- NAV -->
+  <header class="sp-nav sticky top-0 z-40">
+    <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-5">
+      <a href="#" class="sp-heading flex items-center gap-2 text-xl" style="color: var(--sp-dark)">
+        <span
+          class="flex h-9 w-9 items-center justify-center rounded-full border-2 text-lg"
+          style="background: var(--sp-grass); border-color: var(--sp-dark)"
+          >🌱</span
+        >
+        Sprout
+      </a>
+
+      <nav class="ml-6 hidden items-center gap-1 text-sm md:flex">
+        @for (link of navLinks; track link.href) {
+          <a
+            [href]="link.href"
+            class="sp-btn sp-btn-ghost text-sm"
+            style="font-size: 0.875rem; padding: 0.35rem 0.9rem"
+            >{{ link.label }}</a
+          >
+        }
+      </nav>
+
+      <div class="ml-auto flex items-center gap-2">
+        <a
+          href="#pricing"
+          class="sp-btn sp-btn-outline hidden text-sm sm:inline-flex"
+          style="padding: 0.4rem 1.1rem; font-size: 0.875rem"
+          >Log in</a
+        >
+        <a
+          href="#pricing"
+          class="sp-btn sp-btn-primary hidden text-sm sm:inline-flex"
+          style="padding: 0.4rem 1.1rem; font-size: 0.875rem"
+          >Start free 🚀</a
+        >
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="sp-hero-bg relative overflow-hidden py-16 lg:py-24">
+    <div
+      class="sp-blob"
+      style="
+        width: 28rem;
+        height: 22rem;
+        background: var(--sp-sky);
+        opacity: 0.12;
+        top: -4rem;
+        left: -6rem;
+      "
+    ></div>
+    <div
+      class="sp-blob"
+      style="
+        width: 18rem;
+        height: 14rem;
+        background: var(--sp-sunny);
+        opacity: 0.18;
+        bottom: -2rem;
+        right: -3rem;
+      "
+    ></div>
+    <div
+      class="sp-star"
+      style="background: var(--sp-sunny); top: 3rem; right: 18%; opacity: 0.7"
+    ></div>
+    <div
+      class="sp-star"
+      style="
+        background: var(--sp-coral);
+        bottom: 5rem;
+        left: 10%;
+        opacity: 0.55;
+        width: 1.6rem;
+        height: 1.6rem;
+      "
+    ></div>
+    <div
+      class="sp-dot"
+      style="
+        width: 1.2rem;
+        height: 1.2rem;
+        background: var(--sp-grape);
+        top: 6rem;
+        left: 22%;
+        opacity: 0.5;
+      "
+    ></div>
+    <div
+      class="sp-dot"
+      style="
+        width: 0.8rem;
+        height: 0.8rem;
+        background: var(--sp-grass);
+        bottom: 8rem;
+        right: 30%;
+        opacity: 0.6;
+      "
+    ></div>
+    <div
+      class="sp-rotated-square"
+      style="
+        width: 2.5rem;
+        height: 2.5rem;
+        background: var(--sp-grass);
+        opacity: 0.18;
+        top: 8rem;
+        right: 12%;
+      "
+    ></div>
+    <div class="sp-squiggle" style="color: var(--sp-coral); bottom: 4rem; left: 5%"></div>
+
+    <div class="mx-auto grid max-w-6xl items-center gap-12 px-5 lg:grid-cols-2">
+      <div class="relative z-10">
+        <div class="mb-4 flex items-center gap-2">
+          <span class="sp-sticker" style="background: var(--sp-sunny); color: var(--sp-dark)"
+            >✨ New — Coding for Kids!</span
+          >
+        </div>
+
+        <h1
+          class="sp-heading text-4xl leading-tight sm:text-5xl lg:text-6xl"
+          style="color: var(--sp-dark)"
+        >
+          Learning that
+          <span class="relative inline-block" style="color: var(--sp-coral)">
+            feels like play
+            <svg
+              class="absolute -bottom-1 left-0 w-full"
+              viewBox="0 0 200 8"
+              fill="none"
+              aria-hidden="true"
+              preserveAspectRatio="none"
+              style="height: 6px"
+            >
+              <path
+                d="M2 5 Q50 1 100 5 Q150 9 198 5"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                fill="none"
+              />
+            </svg>
+          </span>
+          <br />for every child. 🌟
+        </h1>
+
+        <p class="mt-5 max-w-lg text-lg" style="color: #4a4260">
+          Sprout turns screen time into superpower time — joyful lessons, real curriculum, badges
+          galore. Trusted by <strong style="color: var(--sp-dark)">50,000+</strong> families
+          worldwide.
+        </p>
+
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a href="#pricing" class="sp-btn sp-btn-primary text-base">Start learning free 🌱</a>
+          <a href="#courses" class="sp-btn sp-btn-outline text-base">Browse courses</a>
+        </div>
+
+        <div class="mt-8 flex items-center gap-4">
+          <div class="flex -space-x-2.5">
+            @for (img of parentAvatars; track img) {
+              <bui-avatar class="size-10 ring-2 ring-white" [src]="img" alt="Happy parent"
+                >P</bui-avatar
+              >
+            }
+          </div>
+          <div>
+            <bui-rating [value]="5" [max]="5" [readonly]="true" color="text-amber-400" size="sm" />
+            <p class="mt-0.5 text-sm" style="color: #4a4260">
+              Loved by <strong style="color: var(--sp-dark)">50,000+ families</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative flex items-center justify-center">
+        <div
+          class="relative flex h-72 w-72 items-center justify-center rounded-full border-4 lg:h-80 lg:w-80"
+          style="
+            background: var(--sp-sky);
+            border-color: var(--sp-dark);
+            box-shadow: 10px 10px 0 var(--sp-sunny);
+          "
+        >
+          <span
+            style="font-size: 7rem; line-height: 1"
+            aria-label="Sprout mascot — a happy seedling"
+            >🌱</span
+          >
+        </div>
+        <div
+          class="sp-card sp-card-sunny absolute -top-4 -right-4 flex h-16 w-16 items-center justify-center rounded-full border-2 text-3xl"
+          style="border-color: var(--sp-dark); box-shadow: 4px 4px 0 var(--sp-sunny)"
+          aria-label="Maths"
+        >
+          🔢
+        </div>
+        <div
+          class="sp-card sp-card-grass absolute bottom-2 -left-6 flex h-14 w-14 items-center justify-center rounded-full border-2 text-2xl"
+          style="border-color: var(--sp-dark); box-shadow: 4px 4px 0 var(--sp-grass)"
+          aria-label="Science"
+        >
+          🔬
+        </div>
+        <div
+          class="sp-card sp-card-coral absolute top-1/4 -left-8 flex h-12 w-12 items-center justify-center rounded-full border-2 text-2xl"
+          style="border-color: var(--sp-dark); box-shadow: 3px 3px 0 var(--sp-coral)"
+          aria-label="Reading"
+        >
+          📖
+        </div>
+        <div
+          class="sp-card sp-card-grape absolute -right-6 bottom-8 flex h-12 w-12 items-center justify-center rounded-full border-2 text-2xl"
+          style="border-color: var(--sp-dark); box-shadow: 3px 3px 0 var(--sp-grape)"
+          aria-label="Art"
+        >
+          🎨
+        </div>
+        <div
+          class="sp-star"
+          style="background: var(--sp-coral); top: -1.5rem; left: 1rem; opacity: 0.7"
+        ></div>
+        <div
+          class="sp-star"
+          style="
+            background: var(--sp-grape);
+            bottom: -1rem;
+            right: 1rem;
+            opacity: 0.6;
+            width: 1.5rem;
+            height: 1.5rem;
+          "
+        ></div>
+      </div>
+    </div>
+
+    <div class="sp-confetti-row mt-12 px-5" aria-hidden="true">
+      @for (rep of [1, 2, 3, 4]; track rep) {
+        @for (c of confetti; track $index) {
+          <span class="sp-confetti-dot" [style.background]="c" style="opacity: 0.55"></span>
+        }
+      }
+    </div>
+  </section>
+
+  <hr class="sp-divider" />
+
+  <!-- SUBJECTS -->
+  <section id="subjects" class="scroll-mt-20 py-20" style="background: var(--sp-cream)">
+    <div class="mx-auto max-w-6xl px-5">
+      <div class="mb-12 text-center">
+        <span
+          class="sp-section-label sp-sticker"
+          style="
+            background: var(--sp-grass);
+            color: #fff;
+            margin-bottom: 0.75rem;
+            display: inline-block;
+          "
+          >Subjects</span
+        >
+        <h2 class="mt-3 text-3xl sm:text-4xl" style="color: var(--sp-dark)">
+          Six subjects, infinite curiosity
+        </h2>
+        <p class="mt-2 text-base" style="color: #4a4260">
+          Every subject is packed with bite-sized lessons, quizzes and mini-games your child will
+          actually want to finish.
+        </p>
+      </div>
+
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        @for (subj of subjects; track subj.label) {
+          <div class="sp-card {{ subj.shadow }} flex flex-col gap-3 p-6">
+            <div class="flex items-start justify-between">
+              <div
+                class="flex h-14 w-14 items-center justify-center rounded-2xl border-2 text-3xl"
+                [style.background]="subj.color + '20'"
+                [style.border-color]="subj.color"
+                aria-hidden="true"
+              >
+                {{ subj.emoji }}
+              </div>
+              <span
+                class="sp-sticker sp-sticker-alt"
+                [style.background]="subj.color"
+                style="color: var(--sp-dark)"
+                >{{ subj.badge }}</span
+              >
+            </div>
+            <h3 class="text-xl" style="color: var(--sp-dark)">{{ subj.label }}</h3>
+            <p class="flex-1 text-sm" style="color: #4a4260">{{ subj.desc }}</p>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-xs font-semibold" style="color: #4a4260"
+                >{{ subj.lessons }} lessons</span
+              >
+              <a
+                href="#courses"
+                class="sp-btn sp-btn-ghost text-sm"
+                style="padding: 0.2rem 0.75rem; font-size: 0.82rem"
+                [style.border-color]="subj.color"
+                >Explore →</a
+              >
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <hr class="sp-divider" />
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="scroll-mt-20 py-20" style="background: #f0faf2">
+    <div class="mx-auto max-w-4xl px-5">
+      <div class="mb-12 text-center">
+        <span
+          class="sp-section-label sp-sticker"
+          style="
+            background: var(--sp-sky);
+            color: #fff;
+            display: inline-block;
+            margin-bottom: 0.75rem;
+          "
+          >How it works</span
+        >
+        <h2 class="mt-3 text-3xl sm:text-4xl" style="color: var(--sp-dark)">
+          From zero to hero in 4 easy steps
+        </h2>
+      </div>
+
+      <div class="mb-2 flex items-center justify-center">
+        @for (s of steps; track s.num; let last = $last) {
+          <div
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 text-sm font-bold"
+            style="
+              font-family: 'Fredoka', sans-serif;
+              border-color: var(--sp-dark);
+              color: var(--sp-dark);
+            "
+            [style.background]="s.color"
+          >
+            {{ s.num }}
+          </div>
+          @if (!last) {
+            <div class="h-0.5 w-10 sm:w-20" style="background: var(--sp-dark); opacity: 0.25"></div>
+          }
+        }
+      </div>
+
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        @for (s of steps; track s.num) {
+          <div
+            class="sp-card flex flex-col items-center gap-3 p-5 text-center"
+            [style.box-shadow]="'6px 6px 0 ' + s.color"
+          >
+            <div
+              class="sp-heading flex h-12 w-12 items-center justify-center rounded-full border-2 text-xl font-bold"
+              style="border-color: var(--sp-dark); color: var(--sp-dark)"
+              [style.background]="s.color"
+            >
+              {{ s.num }}
+            </div>
+            <h3 class="text-base" style="color: var(--sp-dark)">{{ s.title }}</h3>
+            <p class="text-xs" style="color: #4a4260">{{ s.desc }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <hr class="sp-divider" />
+
+  <!-- GAMIFICATION -->
+  <section id="gamification" class="scroll-mt-20 py-20" style="background: var(--sp-cream)">
+    <div class="mx-auto max-w-5xl px-5">
+      <div class="mb-12 text-center">
+        <span
+          class="sp-section-label sp-sticker"
+          style="
+            background: var(--sp-coral);
+            color: #fff;
+            display: inline-block;
+            margin-bottom: 0.75rem;
+          "
+          >Achievements</span
+        >
+        <h2 class="mt-3 text-3xl sm:text-4xl" style="color: var(--sp-dark)">
+          Earn badges, build confidence
+        </h2>
+        <p class="mt-2 text-base" style="color: #4a4260">
+          Every lesson earns stars. Every milestone unlocks a new badge. Kids see real progress —
+          and love it.
+        </p>
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        @for (ach of achievements; track ach.label) {
+          <div
+            class="sp-card p-5"
+            [style.box-shadow]="'6px 6px 0 ' + (ach.earned ? ach.color : '#ccc')"
+          >
+            <div class="mb-3 flex items-center justify-between">
+              <div class="flex items-center gap-2.5">
+                <span class="text-2xl" aria-hidden="true">{{ ach.icon }}</span>
+                <span class="sp-heading text-base font-semibold" style="color: var(--sp-dark)">{{
+                  ach.label
+                }}</span>
+              </div>
+              @if (ach.earned) {
+                <span class="sp-sticker" style="background: var(--sp-grass); color: #fff"
+                  >Earned!</span
+                >
+              } @else {
+                <span class="text-xs font-semibold" style="color: #4a4260"
+                  >{{ ach.progress }}%</span
+                >
+              }
+            </div>
+            <div class="sp-progress-wrap">
+              <div class="sp-progress-bar">
+                <div
+                  class="sp-progress-fill"
+                  [style.width.%]="ach.progress"
+                  [style.background]="ach.color"
+                ></div>
+              </div>
+            </div>
+            <p class="mt-2 text-xs" style="color: #6b5c8a">
+              @if (ach.earned) {
+                Congratulations! Keep exploring to unlock more.
+              } @else {
+                {{ 100 - ach.progress }}% more to unlock this badge.
+              }
+            </p>
+          </div>
+        }
+      </div>
+
+      <div class="mt-10 grid gap-5 text-center sm:grid-cols-3">
+        @for (x of xpRow; track x.val) {
+          <div class="sp-card p-6" [style.box-shadow]="'6px 6px 0 ' + x.col">
+            <div class="mb-1 text-4xl" aria-hidden="true">{{ x.ico }}</div>
+            <div class="sp-heading text-lg" style="color: var(--sp-dark)">{{ x.val }}</div>
+            <div class="mt-1 text-xs" style="color: #4a4260">{{ x.sub }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <hr class="sp-divider" />
+
+  <!-- COURSES (tabs, tiny active) -->
+  <section id="courses" class="scroll-mt-20 py-20" style="background: #fef9ff">
+    <div class="mx-auto max-w-6xl px-5">
+      <div class="mb-10 text-center">
+        <span
+          class="sp-section-label sp-sticker"
+          style="
+            background: var(--sp-grape);
+            color: #fff;
+            display: inline-block;
+            margin-bottom: 0.75rem;
+          "
+          >Courses</span
+        >
+        <h2 class="mt-3 text-3xl sm:text-4xl" style="color: var(--sp-dark)">
+          Every age, a whole new adventure
+        </h2>
+        <p class="mt-2 text-base" style="color: #4a4260">
+          Pick your learner's age band and browse curated course paths — content adapts
+          automatically as they level up.
+        </p>
+      </div>
+
+      <div class="mx-auto mb-8 flex flex-wrap justify-center gap-2">
+        @for (group of courses; track group.key; let first = $first) {
+          <span
+            class="sp-btn text-sm"
+            style="font-family: 'Fredoka', sans-serif"
+            [style.background]="first ? 'var(--sp-dark)' : 'transparent'"
+            [style.color]="first ? '#fff' : 'var(--sp-dark)'"
+          >
+            {{ group.label }}
+            <span
+              class="ml-1 rounded-full px-2 py-0.5 text-xs"
+              style="background: var(--sp-sky); color: #fff; font-family: 'Fredoka', sans-serif"
+              >{{ group.range }}</span
+            >
+          </span>
+        }
+      </div>
+
+      @for (group of courses; track group.key; let first = $first) {
+        @if (first) {
+          <div class="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+            @for (course of group.items; track course.title; let ci = $index) {
+              <div class="sp-card {{ courseShadows[ci] }} flex flex-col overflow-hidden">
+                <img [src]="course.img" [alt]="course.title" class="sp-course-img" loading="lazy" />
+                <div class="flex flex-1 flex-col gap-3 p-5">
+                  <div class="flex items-center justify-between">
+                    <span
+                      class="sp-sticker"
+                      [style.background]="course.color"
+                      style="color: var(--sp-dark)"
+                      >{{ course.subject }}</span
+                    >
+                    <span class="text-xs font-semibold" style="color: #4a4260"
+                      >{{ course.lessons }} lessons</span
+                    >
+                  </div>
+                  <h3 class="text-lg" style="color: var(--sp-dark)">{{ course.title }}</h3>
+                  <div class="mt-auto pt-2">
+                    <a
+                      href="#pricing"
+                      class="sp-btn sp-btn-primary w-full justify-center text-sm"
+                      style="padding: 0.45rem 0.9rem; font-size: 0.875rem"
+                      >Start course →</a
+                    >
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      }
+    </div>
+  </section>
+
+  <hr class="sp-divider" />
+
+  <!-- SCHEDULE -->
+  <section id="schedule" class="scroll-mt-20 py-20" style="background: var(--sp-cream)">
+    <div class="mx-auto max-w-5xl px-5">
+      <div class="mb-10 text-center">
+        <span
+          class="sp-section-label sp-sticker"
+          style="
+            background: var(--sp-sunny);
+            color: var(--sp-dark);
+            display: inline-block;
+            margin-bottom: 0.75rem;
+          "
+          >Schedule</span
+        >
+        <h2 class="mt-3 text-3xl sm:text-4xl" style="color: var(--sp-dark)">
+          A joyful learning week
+        </h2>
+        <p class="mt-2 text-base" style="color: #4a4260">
+          Set a weekly rhythm and Sprout sends gentle reminders so the streak never breaks.
+        </p>
+      </div>
+
+      <div class="sp-schedule-grid">
+        @for (d of schedule; track d.day) {
+          <div class="sp-schedule-cell" [style.box-shadow]="'5px 5px 0 ' + d.color">
+            <div class="sp-heading mb-1 text-sm" style="color: #4a4260">{{ d.day }}</div>
+            <div class="my-1 text-3xl" aria-hidden="true">{{ d.emoji }}</div>
+            <div class="sp-heading text-xs font-bold" style="color: var(--sp-dark)">
+              {{ d.subject }}
+            </div>
+            <div class="mt-1 text-xs" style="color: #4a4260">{{ d.time }}</div>
+          </div>
+        }
+      </div>
+
+      <p class="mt-8 text-center text-sm" style="color: #4a4260">
+        <app-lucide
+          name="calendar"
+          class="mr-1 inline-block size-4 align-text-top"
+          style="color: var(--sp-sky)"
+        />
+        You can personalise every day's subject and time from your parent dashboard.
+      </p>
+    </div>
+  </section>
+
+  <hr class="sp-divider" />
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="scroll-mt-20 py-20" style="background: #f0faf2">
+    <div class="mx-auto max-w-5xl px-5">
+      <div class="mb-10 text-center">
+        <span
+          class="sp-section-label sp-sticker"
+          style="
+            background: var(--sp-coral);
+            color: #fff;
+            display: inline-block;
+            margin-bottom: 0.75rem;
+          "
+          >Parents love it</span
+        >
+        <h2 class="mt-3 text-3xl sm:text-4xl" style="color: var(--sp-dark)">
+          Real words from real families
+        </h2>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2">
+        @for (t of testimonials; track t.name) {
+          <div class="sp-card sp-card-sky flex flex-col gap-5 p-8">
+            <bui-rating [value]="t.stars" [max]="5" [readonly]="true" color="text-amber-400" />
+            <p class="sp-quote text-base leading-relaxed" style="color: #2b2440">"{{ t.q }}"</p>
+            <div class="mt-auto flex items-center gap-3 pt-2">
+              <bui-avatar
+                class="size-12 border-2"
+                style="border-color: var(--sp-dark)"
+                [src]="t.img"
+                [alt]="t.name"
+                >{{ t.name.charAt(0) }}</bui-avatar
+              >
+              <div>
+                <div class="sp-heading text-sm font-bold" style="color: var(--sp-dark)">
+                  {{ t.name }}
+                </div>
+                <div class="text-xs" style="color: #4a4260">{{ t.role }}</div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <hr class="sp-divider" />
+
+  <!-- PRICING -->
+  <section id="pricing" class="scroll-mt-20 py-20" style="background: var(--sp-cream)">
+    <div class="mx-auto max-w-6xl px-5">
+      <div class="mb-10 text-center">
+        <span
+          class="sp-section-label sp-sticker"
+          style="
+            background: var(--sp-grape);
+            color: #fff;
+            display: inline-block;
+            margin-bottom: 0.75rem;
+          "
+          >Pricing</span
+        >
+        <h2 class="mt-3 text-3xl sm:text-4xl" style="color: var(--sp-dark)">
+          Grow together, for less
+        </h2>
+        <p class="mt-2 text-base" style="color: #4a4260">
+          All plans include a free 14-day trial. No credit card needed for Seedling.
+        </p>
+
+        <div class="mt-6 inline-flex items-center gap-3">
+          <span class="text-sm font-semibold" style="color: var(--sp-dark)">Monthly</span>
+          <button
+            buiSwitch
+            [checked]="yearly()"
+            (checkedChange)="yearly.set($event)"
+            aria-label="Toggle annual billing"
+          ></button>
+          <span class="text-sm font-semibold" style="color: var(--sp-dark)"
+            >Annual
+            <span class="sp-sticker ml-1" style="background: var(--sp-grass); color: #fff"
+              >Save 20%</span
+            ></span
+          >
+        </div>
+      </div>
+
+      <div class="grid items-stretch gap-8 lg:grid-cols-3">
+        @for (plan of plans; track plan.name; let pi = $index) {
+          <div
+            class="sp-card {{ planShadows[pi] }} flex flex-col gap-5 p-7"
+            [class.sp-pricing-highlight]="plan.highlight"
+          >
+            @if (plan.badge) {
+              <div class="-mt-10 mb-1 flex justify-center">
+                <span class="sp-sticker" style="background: var(--sp-coral); color: #fff">{{
+                  plan.badge
+                }}</span>
+              </div>
+            }
+            <h3
+              class="sp-heading text-2xl"
+              [style.color]="plan.highlight ? '#fff' : 'var(--sp-dark)'"
+            >
+              {{ plan.name }}
+            </h3>
+            <div class="flex items-baseline gap-1">
+              <span
+                class="sp-heading text-4xl"
+                [style.color]="plan.highlight ? '#fff' : 'var(--sp-dark)'"
+                >${{ yearly() ? plan.annual : plan.monthly }}</span
+              >
+              <span
+                class="text-sm"
+                [style.color]="plan.highlight ? 'rgba(255,255,255,.7)' : '#4a4260'"
+                >/mo</span
+              >
+            </div>
+            <a
+              href="#"
+              class="sp-btn sp-btn-outline w-full justify-center text-sm"
+              style="padding: 0.5rem 0.9rem"
+              >{{ plan.cta }}</a
+            >
+            <hr
+              class="sp-divider"
+              [style.background]="plan.highlight ? 'rgba(255,255,255,.2)' : ''"
+            />
+            <ul class="flex-1 space-y-2.5 text-sm">
+              @for (feat of plan.features; track feat) {
+                <li class="flex items-center gap-2">
+                  <span class="text-base" aria-hidden="true">✅</span>
+                  <span [style.color]="plan.highlight ? 'rgba(255,255,255,.9)' : '#2b2440'">{{
+                    feat
+                  }}</span>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <hr class="sp-divider" />
+
+  <!-- FAQ -->
+  <section id="faq" class="scroll-mt-20 py-20" style="background: #fef9ff">
+    <div class="mx-auto max-w-3xl px-5">
+      <div class="mb-10 text-center">
+        <span
+          class="sp-section-label sp-sticker"
+          style="
+            background: var(--sp-sky);
+            color: #fff;
+            display: inline-block;
+            margin-bottom: 0.75rem;
+          "
+          >FAQ</span
+        >
+        <h2 class="mt-3 text-3xl sm:text-4xl" style="color: var(--sp-dark)">
+          Questions from curious parents 🤔
+        </h2>
+      </div>
+
+      <div class="sp-faq w-full">
+        @for (faq of faqs; track faq.q; let first = $first) {
+          <details
+            class="group"
+            style="border-bottom: 1px solid rgba(43, 36, 64, 0.15)"
+            [open]="first"
+          >
+            <summary
+              class="sp-faq-trigger flex cursor-pointer items-center justify-between py-4 text-left"
+            >
+              {{ faq.q }}
+              <app-lucide
+                name="chevron-down"
+                class="size-4 shrink-0 transition-transform group-open:rotate-180"
+                style="color: var(--sp-sky)"
+              />
+            </summary>
+            <p class="pb-4 text-sm leading-relaxed" style="color: #4a4260">{{ faq.a }}</p>
+          </details>
+        }
+      </div>
+    </div>
+  </section>
+
+  <hr class="sp-divider" />
+
+  <!-- CTA -->
+  <section class="py-20" style="background: var(--sp-cream)">
+    <div class="mx-auto max-w-5xl px-5">
+      <div
+        class="sp-card relative overflow-hidden p-10 text-center lg:p-16"
+        style="
+          background: var(--sp-dark);
+          border-color: var(--sp-dark);
+          box-shadow: 10px 10px 0 var(--sp-sunny);
+        "
+      >
+        <div
+          class="sp-star"
+          style="background: var(--sp-sunny); top: 1.5rem; left: 2rem; opacity: 0.8"
+        ></div>
+        <div
+          class="sp-star"
+          style="
+            background: var(--sp-sky);
+            bottom: 2rem;
+            right: 3rem;
+            opacity: 0.65;
+            width: 1.8rem;
+            height: 1.8rem;
+          "
+        ></div>
+        <div
+          class="sp-dot"
+          style="
+            width: 1rem;
+            height: 1rem;
+            background: var(--sp-coral);
+            top: 3rem;
+            right: 8%;
+            opacity: 0.6;
+          "
+        ></div>
+        <div
+          class="sp-blob"
+          style="
+            width: 14rem;
+            height: 10rem;
+            background: var(--sp-sky);
+            opacity: 0.07;
+            top: -3rem;
+            right: -2rem;
+          "
+        ></div>
+
+        <div class="relative z-10">
+          <div class="mb-4 text-5xl" aria-hidden="true">🌟</div>
+          <h2 class="sp-heading mb-4 text-3xl sm:text-4xl" style="color: #fff">
+            Your child's learning adventure starts today
+          </h2>
+          <p class="mx-auto mb-8 max-w-xl text-base" style="color: rgba(255, 255, 255, 0.75)">
+            Join 50,000+ families who have made screen time something they're proud of. Free to
+            start — no credit card, no stress.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a
+              href="#pricing"
+              class="sp-btn"
+              style="
+                background: var(--sp-sunny);
+                color: var(--sp-dark);
+                border-color: var(--sp-sunny);
+                box-shadow: 5px 5px 0 rgba(255, 255, 255, 0.25);
+                font-size: 1rem;
+                padding: 0.65rem 1.75rem;
+              "
+              >Start for free 🌱</a
+            >
+            <a
+              href="#subjects"
+              class="sp-btn"
+              style="
+                background: transparent;
+                color: #fff;
+                border-color: rgba(255, 255, 255, 0.4);
+                font-size: 1rem;
+                padding: 0.65rem 1.75rem;
+              "
+              >Browse subjects</a
+            >
+          </div>
+          <p class="mt-5 text-xs" style="color: rgba(255, 255, 255, 0.45)">
+            No commitment. Cancel anytime. COPPA &amp; GDPR compliant.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background: var(--sp-dark); color: rgba(255, 255, 255, 0.75)">
+    <div class="mx-auto max-w-6xl px-5 py-14">
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-6">
+        <div class="lg:col-span-2">
+          <a href="#" class="sp-heading flex items-center gap-2 text-xl" style="color: #fff">
+            <span
+              class="flex h-9 w-9 items-center justify-center rounded-full border-2 text-lg"
+              style="background: var(--sp-grass); border-color: rgba(255, 255, 255, 0.3)"
+              >🌱</span
+            >
+            Sprout
+          </a>
+          <p class="mt-3 max-w-xs text-sm" style="color: rgba(255, 255, 255, 0.55)">
+            Joyful learning for every child aged 3–14. Trusted by families in 60+ countries.
+          </p>
+          <div class="mt-4 flex gap-2">
+            @for (net of socials; track net) {
+              <a
+                href="#"
+                [attr.aria-label]="net"
+                class="inline-flex h-9 w-9 items-center justify-center rounded-full border text-sm transition-colors hover:border-white"
+                style="border-color: rgba(255, 255, 255, 0.25); color: rgba(255, 255, 255, 0.65)"
+                ><app-lucide [name]="net" class="size-4"
+              /></a>
+            }
+          </div>
+        </div>
+
+        @for (col of footerLinks; track col.heading) {
+          <div>
+            <h3 class="sp-heading mb-3 text-sm" style="color: #fff">{{ col.heading }}</h3>
+            <ul class="space-y-2 text-sm">
+              @for (link of col.links; track link) {
+                <li>
+                  <a
+                    href="#"
+                    class="transition-colors hover:text-white"
+                    style="color: rgba(255, 255, 255, 0.55)"
+                    >{{ link }}</a
+                  >
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <hr class="sp-divider my-8" style="background: rgba(255, 255, 255, 0.12)" />
+
+      <div
+        class="flex flex-col items-center justify-between gap-3 text-sm sm:flex-row"
+        style="color: rgba(255, 255, 255, 0.4)"
+      >
+        <span>© 2026 Sprout Learning Ltd. All rights reserved.</span>
+        <span class="flex items-center gap-1.5"
+          ><app-lucide name="shield-check" class="size-4" style="color: var(--sp-grass)" /> COPPA
+          compliant · GDPR ready · Ad-free for kids</span
+        >
+      </div>
+    </div>
+  </footer>
+</div>

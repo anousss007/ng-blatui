@@ -107,6 +107,11 @@ export const routes: Routes = [
     title: 'Quantum · ng-blatui',
   },
   {
+    path: 'templates/sprout',
+    loadComponent: async () => (await import('./pages/templates/sprout')).SproutTemplate,
+    title: 'Sprout · ng-blatui',
+  },
+  {
     path: 'templates/:slug',
     loadComponent: async () => (await import('./pages/templates')).TemplatesPage,
     title: 'Templates · ng-blatui',
