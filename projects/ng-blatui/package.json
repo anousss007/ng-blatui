@@ -36,5 +36,11 @@
     "tailwind-merge": "^3.6.0",
     "class-variance-authority": "^0.7.1"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "exports": {
+    "./foundations/blatui.css": {
+      "style": "./foundations/blatui.css",
+      "default": "./foundations/blatui.css"
+    }
+  }
 }
