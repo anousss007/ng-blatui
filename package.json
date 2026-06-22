@@ -13,6 +13,8 @@
     "format:check": "prettier --check .",
     "build:lib": "ng build ng-blatui",
     "capture:previews": "node scripts/capture-previews.mjs",
+    "extract:api": "node scripts/extract-api.mjs",
+    "check:api-docs": "node scripts/extract-api.mjs && node scripts/check-api-docs.mjs",
     "build:registry": "node scripts/build-registry.mjs",
     "test:ci": "ng test ng-blatui --watch=false",
     "release": "semantic-release",
