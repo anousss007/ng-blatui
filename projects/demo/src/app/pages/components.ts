@@ -766,6 +766,7 @@ export class ComponentPage {
 
   protected readonly terms = signal(true);
   protected readonly notifications = signal(true);
+  protected readonly switchTheme = signal(true);
   protected readonly dmStatusBar = signal(true);
   protected readonly dmActivityBar = signal(false);
   protected readonly dmPanel = signal('bottom');
@@ -1769,6 +1770,8 @@ export class ComponentPage {
 <button buiSwitch size="lg" [checked]="true" aria-label="Large"></button>`,
     switchColors: `<!-- override the checked colour via data-state -->
 <button buiSwitch [checked]="true" class="data-[state=checked]:bg-green-600"></button>`,
+    switchIcons: `<!-- iconOn/iconOff (SVG path d) render inside the thumb -->
+<button buiSwitch size="lg" [(checked)]="dark" iconOn="M12 3a6 6 0 0 0 9 9…" iconOff="M12 8a4 4 0 1 0 0 8…"></button>`,
     switchWithText: `<div class="flex items-center justify-between rounded-lg border p-4">
   <div>
     <p id="m" class="font-medium">Marketing emails</p>

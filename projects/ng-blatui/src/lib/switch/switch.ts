@@ -39,20 +39,42 @@ export type SwitchSize = keyof typeof SWITCH_TRACK;
     '(click)': 'toggle()',
   },
   template: `
-    <span data-slot="switch-thumb" [attr.data-state]="state()" [class]="thumbClass()"></span>
+    <span data-slot="switch-thumb" [attr.data-state]="state()" [class]="thumbClass()">
+      @if (activeIcon(); as icon) {
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          class="size-full p-[3px] text-muted-foreground"
+        >
+          <path [attr.d]="icon" />
+        </svg>
+      }
+    </span>
   `,
 })
 export class BuiSwitch {
   readonly checked = model(false);
   readonly disabled = input(false);
   readonly size = input<SwitchSize>('default');
+  /** Optional SVG path `d` shown inside the thumb when checked. */
+  readonly iconOn = input('');
+  /** Optional SVG path `d` shown inside the thumb when unchecked. */
+  readonly iconOff = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
   protected readonly state = computed(() => (this.checked() ? 'checked' : 'unchecked'));
+  protected readonly activeIcon = computed(() => (this.checked() ? this.iconOn() : this.iconOff()));
   protected readonly computedClass = computed(() =>
     cn(SWITCH_BASE, SWITCH_TRACK[this.size()], this.userClass()),
   );
-  protected readonly thumbClass = computed(() => cn(THUMB_BASE, SWITCH_THUMB[this.size()]));
+  protected readonly thumbClass = computed(() =>
+    cn(THUMB_BASE, 'grid place-items-center', SWITCH_THUMB[this.size()]),
+  );
 
   protected toggle(): void {
     if (this.disabled()) {

@@ -2017,6 +2017,18 @@ This content is read-only and cannot be edited.</textarea
           <button buiSwitch [checked]="true" [disabled]="true" aria-label="On disabled"></button>
         </div>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With icons</h2>
+      <app-example [code]="code.switchIcons">
+        <button
+          buiSwitch
+          size="lg"
+          [(checked)]="switchTheme"
+          aria-label="Dark mode"
+          iconOn="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
+          iconOff="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"
+        ></button>
+      </app-example>
     }
     @case ('radio-group') {
       <app-example [code]="code.radioGroup">
