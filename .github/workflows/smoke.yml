@@ -1,0 +1,30 @@
+name: Smoke (fresh install)
+
+# Guards the DOCUMENTED install path (npm i ng-blatui + the foundations CSS
+# @import) against regressions, on every supported Angular major. The demo app
+# inlines its own tokens, so it never exercises the published package's CSS
+# subpath export — this job does.
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        angular: [21, 22]
+    env:
+      HUSKY: 0
+      NG_CLI_ANALYTICS: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: node scripts/smoke-install.mjs ${{ matrix.angular }}
