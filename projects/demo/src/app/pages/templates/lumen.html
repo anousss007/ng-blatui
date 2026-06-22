@@ -1,0 +1,1001 @@
+<div id="tpl-lumen" class="relative min-h-screen pb-24">
+  <!-- STICKY NAV -->
+  <header
+    class="sticky top-0 z-40"
+    style="
+      background: rgba(14, 11, 22, 0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    "
+  >
+    <div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-6">
+      <a
+        href="#"
+        class="font-display flex items-center gap-2.5 text-lg font-bold tracking-tight"
+        style="color: var(--offwhite)"
+      >
+        <span
+          class="flex size-8 items-center justify-center rounded-lg"
+          style="background: var(--coral)"
+        >
+          <app-lucide name="radio" class="size-4" style="color: #fff" />
+        </span>
+        Lumen
+      </a>
+
+      <nav class="ml-6 hidden items-center gap-1 text-sm md:flex">
+        @for (link of nav; track link.href) {
+          <a
+            [href]="link.href"
+            class="lumen-link rounded-md px-3 py-1.5 font-medium"
+            style="color: var(--muted)"
+            >{{ link.label }}</a
+          >
+        }
+      </nav>
+
+      <div class="ml-auto flex items-center gap-2">
+        <a
+          href="#"
+          class="lumen-link hidden rounded-md px-3 py-1.5 text-sm font-medium sm:inline-flex"
+          style="color: var(--muted)"
+          >Sign in</a
+        >
+        <a
+          href="#pricing"
+          class="lumen-play-btn hidden items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-semibold sm:inline-flex"
+          style="background: var(--coral); color: #fff"
+        >
+          Start free <app-lucide name="arrow-right" class="size-4" />
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden py-24 lg:py-32">
+    <div
+      class="lumen-blob absolute top-[-6rem] left-[-8rem] h-[32rem] w-[32rem]"
+      style="background: var(--purple)"
+    ></div>
+    <div
+      class="lumen-blob lumen-blob-2 absolute top-[4rem] right-[-6rem] h-[28rem] w-[28rem]"
+      style="background: var(--coral)"
+    ></div>
+    <div
+      class="lumen-blob lumen-blob-3 absolute bottom-[-4rem] left-[35%] h-[24rem] w-[24rem]"
+      style="background: var(--teal)"
+    ></div>
+
+    <div class="relative mx-auto max-w-7xl px-6">
+      <div class="mx-auto max-w-4xl text-center">
+        <div
+          class="mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold"
+          style="
+            background: rgba(108, 92, 231, 0.18);
+            border: 1px solid rgba(108, 92, 231, 0.4);
+            color: var(--teal);
+          "
+        >
+          <app-lucide name="zap" class="size-3.5" />
+          82 shows · 10,000+ episodes · Hi-fi audio
+        </div>
+
+        <h1
+          class="font-display text-5xl font-extrabold tracking-tight text-balance sm:text-6xl lg:text-7xl"
+          style="color: var(--offwhite)"
+        >
+          Listen
+          <span
+            style="
+              background: linear-gradient(135deg, var(--coral), var(--amber));
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+            "
+            >louder.</span
+          >
+          <br />Feel everything.
+        </h1>
+
+        <p
+          class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-balance"
+          style="color: var(--muted)"
+        >
+          Lumen is where the world's sharpest podcasters meet the most devoted listeners — in
+          stunning hi-fi audio, ad-free.
+        </p>
+
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <button
+            type="button"
+            class="lumen-play-btn inline-flex items-center gap-3 rounded-full px-8 py-4 text-base font-bold"
+            style="background: var(--coral); color: #fff"
+          >
+            <span
+              class="flex size-8 items-center justify-center rounded-full"
+              style="background: rgba(255, 255, 255, 0.2)"
+            >
+              <app-lucide name="play" class="size-4 fill-current" />
+            </span>
+            Play featured show
+          </button>
+          <a
+            href="#pricing"
+            class="inline-flex items-center rounded-md border px-6 py-4 text-base font-semibold"
+            style="
+              border-color: rgba(255, 255, 255, 0.15);
+              color: var(--offwhite);
+              background: rgba(255, 255, 255, 0.04);
+            "
+            >Explore plans</a
+          >
+        </div>
+
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <span class="text-xs font-medium" style="color: var(--muted)">Also on</span>
+          @for (p of listenOn; track p.label) {
+            <span
+              class="lumen-link inline-flex cursor-default items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium"
+              style="
+                background: rgba(255, 255, 255, 0.06);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                color: var(--muted);
+              "
+            >
+              <app-lucide [name]="p.icon" class="size-3" />
+              {{ p.label }}
+            </span>
+          }
+        </div>
+
+        <div class="mt-14 flex h-20 items-end justify-center gap-[3px]" aria-hidden="true">
+          <div class="lumen-waveform flex items-end gap-[3px]">
+            @for (h of waveHeights; track $index) {
+              <span
+                class="bar"
+                [style.height.px]="h"
+                [style.background]="waveColors[$index % 4]"
+              ></span>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="lumen-sep mb-0 py-3"></div>
+  <div class="py-4" style="background: var(--ink2)">
+    <bui-marquee [items]="marqueeShows" duration="35s" class="mx-auto max-w-full" />
+  </div>
+  <div class="lumen-sep"></div>
+
+  <!-- FEATURED EPISODES -->
+  <section id="episodes" class="scroll-mt-20 py-20">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-10 flex items-end justify-between">
+        <div>
+          <div
+            class="mb-2 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold"
+            style="
+              background: rgba(255, 94, 91, 0.15);
+              color: var(--coral);
+              border: 1px solid rgba(255, 94, 91, 0.3);
+            "
+          >
+            <app-lucide name="flame" class="size-3.5" /> Featured
+          </div>
+          <h2 class="font-display text-3xl font-bold sm:text-4xl" style="color: var(--offwhite)">
+            This week's best
+          </h2>
+        </div>
+        <a
+          href="#"
+          class="lumen-link hidden items-center gap-1 text-sm font-medium sm:inline-flex"
+          style="color: var(--teal)"
+          >Browse all <app-lucide name="arrow-right" class="size-4"
+        /></a>
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        @for (ep of episodes; track ep.num; let i = $index) {
+          <div class="lumen-card h-full overflow-hidden rounded-2xl">
+            <div class="lumen-duotone relative h-48" [class]="duotones[i % 6]">
+              <img
+                [src]="ep.img"
+                [alt]="ep.title"
+                loading="lazy"
+                class="h-full w-full object-cover"
+              />
+              <div class="absolute top-3 left-3">
+                <span
+                  class="rounded-full px-2.5 py-0.5 text-[11px] font-bold"
+                  style="background: rgba(14, 11, 22, 0.75); color: var(--offwhite)"
+                  >{{ ep.num }}</span
+                >
+              </div>
+              <div class="absolute top-3 right-3">
+                <span buiBadge tone="neutral" variant="soft" class="text-[11px]">{{ ep.tag }}</span>
+              </div>
+            </div>
+            <div class="p-5">
+              <p
+                class="mb-1 text-xs font-semibold tracking-widest uppercase"
+                style="color: var(--teal)"
+              >
+                {{ ep.show }}
+              </p>
+              <h3
+                class="font-display mb-3 line-clamp-2 text-base leading-snug font-bold"
+                style="color: var(--offwhite)"
+              >
+                {{ ep.title }}
+              </h3>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3 text-xs" style="color: var(--muted)">
+                  <span class="flex items-center gap-1"
+                    ><app-lucide name="clock" class="size-3" /> {{ ep.duration }}</span
+                  >
+                  <span class="flex items-center gap-1"
+                    ><app-lucide name="headphones" class="size-3" /> {{ ep.plays }}</span
+                  >
+                  <span>{{ ep.date }}</span>
+                </div>
+                <button
+                  type="button"
+                  [attr.aria-label]="'Play ' + ep.title"
+                  class="lumen-play-btn flex size-9 shrink-0 items-center justify-center rounded-full"
+                  style="background: var(--coral); color: #fff"
+                >
+                  <app-lucide name="play" class="size-4 fill-current" />
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="lumen-sep mx-6"></div>
+
+  <!-- PLAYER WIDGET -->
+  <section class="py-20">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-10 text-center">
+        <div
+          class="mb-2 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold"
+          style="
+            background: rgba(0, 206, 203, 0.12);
+            color: var(--teal);
+            border: 1px solid rgba(0, 206, 203, 0.3);
+          "
+        >
+          <app-lucide name="play-circle" class="size-3.5" /> Now Playing
+        </div>
+        <h2 class="font-display text-3xl font-bold sm:text-4xl" style="color: var(--offwhite)">
+          The Lumen Player
+        </h2>
+      </div>
+
+      <div
+        class="mx-auto max-w-3xl rounded-2xl p-6 sm:p-8"
+        style="background: var(--ink2); border: 1px solid rgba(108, 92, 231, 0.25)"
+      >
+        <div class="mb-6 flex items-center gap-5">
+          <div
+            class="lumen-duotone lumen-duotone-purple size-20 shrink-0 overflow-hidden rounded-xl"
+          >
+            <img
+              src="https://picsum.photos/seed/player1/200/200"
+              alt="The Art of Deep Focus"
+              class="size-full object-cover"
+            />
+          </div>
+          <div class="min-w-0">
+            <p
+              class="mb-0.5 text-xs font-semibold tracking-widest uppercase"
+              style="color: var(--purple)"
+            >
+              Mind & Flow
+            </p>
+            <h3 class="font-display truncate text-lg font-bold" style="color: var(--offwhite)">
+              The Art of Deep Focus
+            </h3>
+            <div class="mt-1 flex items-center gap-3">
+              <div class="flex -space-x-2">
+                @for (s of ['cr1', 'cr2']; track s) {
+                  <bui-avatar
+                    class="size-6 ring-2"
+                    style="--tw-ring-color: var(--ink2)"
+                    [src]="'https://picsum.photos/seed/' + s + '/60/60'"
+                    alt="Host"
+                    >H</bui-avatar
+                  >
+                }
+              </div>
+              <span class="text-xs" style="color: var(--muted)">Dr. Aria Senn · 58 min</span>
+            </div>
+          </div>
+          <div class="ml-auto flex items-center gap-2">
+            <button
+              type="button"
+              aria-label="Add to queue"
+              class="lumen-link flex size-8 items-center justify-center rounded-full"
+              style="color: var(--muted)"
+            >
+              <app-lucide name="list-plus" class="size-4" />
+            </button>
+            <button
+              type="button"
+              aria-label="Share episode"
+              class="lumen-link flex size-8 items-center justify-center rounded-full"
+              style="color: var(--muted)"
+            >
+              <app-lucide name="share-2" class="size-4" />
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3 flex h-10 cursor-pointer items-end gap-[2px]" aria-hidden="true">
+          @for (h of waveHeights; track $index) {
+            <div
+              class="flex-1 rounded-sm transition-all duration-300"
+              [style.height.px]="h * 0.42 < 4 ? 4 : h * 0.42"
+              [style.background]="
+                ($index / 24) * 100 < 38 ? 'var(--coral)' : 'rgba(255,255,255,0.12)'
+              "
+            ></div>
+          }
+        </div>
+
+        <div class="relative mb-2 h-1.5 rounded-full" style="background: rgba(255, 255, 255, 0.12)">
+          <div
+            class="absolute inset-y-0 left-0 rounded-full"
+            style="width: 38%; background: var(--coral)"
+          ></div>
+          <div
+            class="absolute top-1/2 size-3 -translate-y-1/2 rounded-full"
+            style="left: 38%; background: #fff"
+          ></div>
+        </div>
+        <div class="mb-5 flex justify-between text-xs" style="color: var(--muted)">
+          <span>22:14</span><span>58:02</span>
+        </div>
+
+        <div class="mb-5 flex items-center justify-center gap-3">
+          <button
+            type="button"
+            aria-label="Shuffle"
+            class="lumen-link flex size-9 items-center justify-center rounded-full"
+            style="color: var(--muted)"
+          >
+            <app-lucide name="shuffle" class="size-4" />
+          </button>
+          <button
+            type="button"
+            aria-label="Skip back 15s"
+            class="lumen-link flex size-9 items-center justify-center rounded-full"
+            style="color: var(--muted)"
+          >
+            <app-lucide name="skip-back" class="size-5" />
+          </button>
+          <button
+            type="button"
+            aria-label="Play"
+            class="lumen-play-btn flex size-14 items-center justify-center rounded-full"
+            style="background: var(--coral); color: #fff"
+          >
+            <app-lucide name="play" class="size-6 fill-current" />
+          </button>
+          <button
+            type="button"
+            aria-label="Skip forward 15s"
+            class="lumen-link flex size-9 items-center justify-center rounded-full"
+            style="color: var(--muted)"
+          >
+            <app-lucide name="skip-forward" class="size-5" />
+          </button>
+          <button
+            type="button"
+            aria-label="Playback speed"
+            class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-bold"
+            style="
+              background: rgba(255, 182, 39, 0.15);
+              color: var(--amber);
+              border: 1px solid rgba(255, 182, 39, 0.3);
+            "
+          >
+            1x
+          </button>
+        </div>
+
+        <div class="h-1 overflow-hidden rounded-full" style="background: rgba(255, 94, 91, 0.15)">
+          <div class="h-full rounded-full" style="width: 38%; background: var(--coral)"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="lumen-sep mx-6"></div>
+
+  <!-- TOP SHOWS -->
+  <section id="shows" class="scroll-mt-20 py-20">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-10 text-center">
+        <div
+          class="mb-2 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold"
+          style="
+            background: rgba(108, 92, 231, 0.15);
+            color: var(--purple);
+            border: 1px solid rgba(108, 92, 231, 0.3);
+          "
+        >
+          <app-lucide name="star" class="size-3.5" /> Top Shows
+        </div>
+        <h2 class="font-display text-3xl font-bold sm:text-4xl" style="color: var(--offwhite)">
+          Handpicked for you
+        </h2>
+        <p class="mx-auto mt-2 max-w-xl text-base" style="color: var(--muted)">
+          Every show is vetted, every creator audited for quality. No filler, no fluff.
+        </p>
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        @for (show of shows; track show.title; let i = $index) {
+          <div class="lumen-card cursor-pointer overflow-hidden rounded-2xl">
+            <div class="lumen-duotone relative h-40" [class]="duotones[i % 6]">
+              <img
+                [src]="show.img"
+                [alt]="show.title"
+                loading="lazy"
+                class="h-full w-full object-cover"
+              />
+              <div
+                class="absolute inset-0 flex items-end p-4"
+                style="background: linear-gradient(to top, rgba(14, 11, 22, 0.85), transparent)"
+              >
+                <div>
+                  <h3 class="font-display text-base font-bold" style="color: var(--offwhite)">
+                    {{ show.title }}
+                  </h3>
+                  <p class="text-xs" style="color: var(--muted)">{{ show.host }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between p-4">
+              <div class="flex items-center gap-2">
+                <bui-rating
+                  [value]="show.rating"
+                  [max]="5"
+                  [readonly]="true"
+                  size="sm"
+                  color="text-amber-400"
+                />
+                <span class="text-xs font-semibold" style="color: var(--amber)">{{
+                  show.rating
+                }}</span>
+              </div>
+              <div class="flex items-center gap-2 text-xs" style="color: var(--muted)">
+                <app-lucide name="mic" class="size-3" />
+                <span>{{ show.eps }} episodes</span>
+                <span buiBadge tone="neutral" variant="soft" class="text-[10px]">{{
+                  show.category
+                }}</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="lumen-sep mx-6"></div>
+
+  <!-- CATEGORIES (first tab) -->
+  <section id="categories" class="scroll-mt-20 py-20">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-10 text-center">
+        <div
+          class="mb-2 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold"
+          style="
+            background: rgba(0, 206, 203, 0.12);
+            color: var(--teal);
+            border: 1px solid rgba(0, 206, 203, 0.3);
+          "
+        >
+          <app-lucide name="grid-3x3" class="size-3.5" /> Explore
+        </div>
+        <h2 class="font-display text-3xl font-bold sm:text-4xl" style="color: var(--offwhite)">
+          Browse categories
+        </h2>
+      </div>
+
+      <div class="mb-8 flex flex-wrap justify-center gap-2">
+        @for (cat of categories; track cat.key; let first = $first) {
+          <span
+            class="rounded-full px-4 py-1.5 text-sm font-medium"
+            [style.background]="first ? 'var(--coral)' : 'transparent'"
+            [style.color]="first ? '#000' : 'var(--muted)'"
+            [style.font-weight]="first ? '700' : '500'"
+            >{{ cat.label }}</span
+          >
+        }
+      </div>
+
+      @for (cat of categories; track cat.key; let first = $first) {
+        @if (first) {
+          <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+            @for (title of cat.items; track title; let i = $index) {
+              <div
+                class="lumen-card flex cursor-pointer flex-col items-center gap-2 rounded-xl p-4 text-center"
+              >
+                <span
+                  class="flex size-10 items-center justify-center rounded-full"
+                  [style.background]="ringColors[i % 4] + '22'"
+                >
+                  <app-lucide name="mic" class="size-5" [style.color]="ringColors[i % 4]" />
+                </span>
+                <span class="text-sm leading-tight font-semibold" style="color: var(--offwhite)">{{
+                  title
+                }}</span>
+              </div>
+            }
+          </div>
+        }
+      }
+    </div>
+  </section>
+
+  <div class="lumen-sep mx-6"></div>
+
+  <!-- CREATORS -->
+  <section id="creators" class="scroll-mt-20 py-20">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-10 text-center">
+        <div
+          class="mb-2 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold"
+          style="
+            background: rgba(255, 182, 39, 0.12);
+            color: var(--amber);
+            border: 1px solid rgba(255, 182, 39, 0.3);
+          "
+        >
+          <app-lucide name="users" class="size-3.5" /> Creators
+        </div>
+        <h2 class="font-display text-3xl font-bold sm:text-4xl" style="color: var(--offwhite)">
+          Meet the voices
+        </h2>
+        <p class="mx-auto mt-2 max-w-xl text-base" style="color: var(--muted)">
+          Follow your favourites and never miss an episode.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-5 sm:grid-cols-4 lg:grid-cols-8">
+        @for (cr of creators; track cr.name; let i = $index) {
+          <div class="group flex flex-col items-center gap-2 text-center">
+            <bui-avatar
+              class="size-16 ring-2 ring-offset-2 transition-transform group-hover:scale-105"
+              [style.--tw-ring-color]="ringColors[i % 4]"
+              style="--tw-ring-offset-color: var(--ink)"
+              [src]="cr.img"
+              [alt]="cr.name"
+              >{{ cr.name.charAt(0) }}</bui-avatar
+            >
+            <div>
+              <p class="text-xs leading-tight font-semibold" style="color: var(--offwhite)">
+                {{ cr.name }}
+              </p>
+              <p class="text-[10px]" style="color: var(--muted)">{{ cr.followers }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="lumen-sep mx-6"></div>
+
+  <!-- PRICING -->
+  <section id="pricing" class="scroll-mt-20 py-20">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-10 text-center">
+        <div
+          class="mb-2 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold"
+          style="
+            background: rgba(108, 92, 231, 0.15);
+            color: var(--purple);
+            border: 1px solid rgba(108, 92, 231, 0.3);
+          "
+        >
+          <app-lucide name="sparkles" class="size-3.5" /> Pricing
+        </div>
+        <h2 class="font-display text-3xl font-bold sm:text-4xl" style="color: var(--offwhite)">
+          Listen your way
+        </h2>
+        <p class="mt-2 text-base" style="color: var(--muted)">
+          Start free. Upgrade when your ears demand more.
+        </p>
+
+        <div
+          class="mt-6 inline-flex items-center gap-2 rounded-full p-1 text-sm"
+          style="background: var(--ink2); border: 1px solid rgba(255, 255, 255, 0.1)"
+        >
+          <button
+            type="button"
+            (click)="yearly.set(false)"
+            class="rounded-full px-4 py-1.5 font-medium transition-all"
+            [style.background]="!yearly() ? 'var(--coral)' : 'transparent'"
+            [style.color]="!yearly() ? '#fff' : 'var(--muted)'"
+          >
+            Monthly
+          </button>
+          <button
+            type="button"
+            (click)="yearly.set(true)"
+            class="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 font-medium transition-all"
+            [style.background]="yearly() ? 'var(--coral)' : 'transparent'"
+            [style.color]="yearly() ? '#fff' : 'var(--muted)'"
+          >
+            Annual
+            <span buiBadge tone="success" variant="soft" class="text-[10px]">Save 22%</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid items-stretch gap-6 lg:grid-cols-3">
+        @for (plan of plans; track plan.name) {
+          <div
+            class="lumen-card relative flex flex-col overflow-hidden rounded-2xl p-6"
+            [style.border-color]="plan.highlight ? 'var(--purple)' : null"
+            [style.box-shadow]="plan.highlight ? '0 0 32px rgba(108,92,231,0.2)' : null"
+          >
+            @if (plan.highlight) {
+              <div
+                class="absolute inset-x-0 top-0 h-0.5 rounded-t-2xl"
+                style="background: linear-gradient(90deg, var(--coral), var(--purple), var(--teal))"
+              ></div>
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+                <span
+                  class="rounded-full px-3 py-0.5 text-xs font-bold"
+                  style="background: var(--purple); color: #fff"
+                  >Most popular</span
+                >
+              </div>
+            }
+            <h3 class="font-display mb-0.5 text-xl font-bold" style="color: var(--offwhite)">
+              {{ plan.name }}
+            </h3>
+            <p class="mb-4 text-sm" style="color: var(--muted)">{{ plan.desc }}</p>
+            <div class="mb-6 flex items-baseline gap-1">
+              <span class="font-display text-4xl font-extrabold" style="color: var(--offwhite)"
+                >${{ yearly() ? plan.y : plan.m }}</span
+              >
+              <span class="text-sm" style="color: var(--muted)">/mo</span>
+            </div>
+            <button
+              type="button"
+              class="mb-6 w-full rounded-xl py-2.5 text-sm font-bold transition-all"
+              [style]="
+                plan.highlight
+                  ? 'background: var(--coral); color: #fff;'
+                  : 'background: rgba(255,255,255,0.06); color: var(--offwhite); border: 1px solid rgba(255,255,255,0.12);'
+              "
+            >
+              {{ plan.cta }}
+            </button>
+            <div buiSeparator class="mb-5" style="background: rgba(255, 255, 255, 0.07)"></div>
+            <ul class="mt-auto space-y-3 text-sm">
+              @for (feat of plan.features; track feat) {
+                <li class="flex items-start gap-2.5" style="color: var(--offwhite)">
+                  <app-lucide
+                    name="check"
+                    class="mt-0.5 size-4 shrink-0"
+                    style="color: var(--teal)"
+                  />
+                  {{ feat }}
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="lumen-sep mx-6"></div>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-10 text-center">
+        <h2 class="font-display text-3xl font-bold sm:text-4xl" style="color: var(--offwhite)">
+          Listeners love Lumen
+        </h2>
+      </div>
+      <div class="grid gap-5 lg:grid-cols-3">
+        @for (t of testimonials; track t.a; let i = $index) {
+          <div class="lumen-card flex flex-col gap-4 rounded-2xl p-6">
+            <div class="flex">
+              @for (s of [0, 1, 2, 3, 4]; track s) {
+                <app-lucide name="star" class="size-4 fill-current" style="color: var(--amber)" />
+              }
+            </div>
+            <p class="text-sm leading-relaxed" style="color: var(--offwhite)">"{{ t.q }}"</p>
+            <div
+              class="mt-auto flex items-center gap-3 pt-3"
+              style="border-top: 1px solid rgba(255, 255, 255, 0.07)"
+            >
+              <bui-avatar
+                class="size-10 ring-2"
+                [style.--tw-ring-color]="testimonialRings[i]"
+                [src]="t.img"
+                [alt]="t.a"
+                >{{ t.a.charAt(0) }}</bui-avatar
+              >
+              <div>
+                <p class="text-sm font-semibold" style="color: var(--offwhite)">{{ t.a }}</p>
+                <p class="text-xs" style="color: var(--muted)">{{ t.r }}</p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="lumen-sep mx-6"></div>
+
+  <!-- FAQ -->
+  <section class="py-20">
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="mb-10 text-center">
+        <div
+          class="mb-2 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold"
+          style="
+            background: rgba(255, 94, 91, 0.12);
+            color: var(--coral);
+            border: 1px solid rgba(255, 94, 91, 0.3);
+          "
+        >
+          <app-lucide name="help-circle" class="size-3.5" /> FAQ
+        </div>
+        <h2 class="font-display text-3xl font-bold sm:text-4xl" style="color: var(--offwhite)">
+          Your questions, answered
+        </h2>
+      </div>
+
+      <div class="w-full">
+        @for (faq of faqs; track faq.q; let first = $first) {
+          <details
+            class="group"
+            style="border-bottom: 1px solid rgba(255, 255, 255, 0.07)"
+            [open]="first"
+          >
+            <summary
+              class="flex cursor-pointer items-center justify-between py-4 text-left font-medium"
+              style="color: var(--offwhite)"
+            >
+              {{ faq.q }}
+              <app-lucide
+                name="chevron-down"
+                class="size-4 shrink-0 transition-transform group-open:rotate-180"
+                style="color: var(--muted)"
+              />
+            </summary>
+            <p class="pb-4 text-sm leading-relaxed" style="color: var(--muted)">{{ faq.a }}</p>
+          </details>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="lumen-sep mx-6"></div>
+
+  <!-- NEWSLETTER -->
+  <section class="py-20">
+    <div class="mx-auto max-w-7xl px-6">
+      <div
+        class="relative overflow-hidden rounded-3xl px-8 py-14 text-center"
+        style="
+          background: linear-gradient(
+            135deg,
+            rgba(108, 92, 231, 0.35) 0%,
+            rgba(255, 94, 91, 0.2) 50%,
+            rgba(0, 206, 203, 0.2) 100%
+          );
+          border: 1px solid rgba(108, 92, 231, 0.3);
+        "
+      >
+        <div
+          class="lumen-blob absolute top-[-4rem] right-[-4rem] h-64 w-64"
+          style="background: var(--coral); opacity: 0.3"
+        ></div>
+        <div
+          class="lumen-blob lumen-blob-2 absolute bottom-[-3rem] left-[-3rem] h-56 w-56"
+          style="background: var(--teal); opacity: 0.25"
+        ></div>
+
+        <div class="relative">
+          <h2
+            class="font-display mb-3 text-3xl font-bold sm:text-4xl"
+            style="color: var(--offwhite)"
+          >
+            Never miss a great episode
+          </h2>
+          <p class="mx-auto mb-8 max-w-md text-base" style="color: var(--muted)">
+            Weekly curator picks, new show launches, and exclusive creator interviews — straight to
+            your inbox.
+          </p>
+
+          <form class="mx-auto flex max-w-md flex-col gap-3 sm:flex-row">
+            <input
+              type="email"
+              placeholder="your@email.com"
+              aria-label="Email address"
+              class="h-10 flex-1 rounded-md border px-3 text-sm outline-none"
+              style="
+                background: rgba(14, 11, 22, 0.6);
+                border-color: rgba(255, 255, 255, 0.15);
+                color: var(--offwhite);
+              "
+            />
+            <button
+              type="button"
+              class="lumen-play-btn rounded-xl px-6 py-2.5 text-sm font-bold whitespace-nowrap"
+              style="background: var(--coral); color: #fff"
+            >
+              Subscribe free
+            </button>
+          </form>
+          <p class="mt-3 text-xs" style="color: var(--muted)">No spam. Unsubscribe anytime.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-14" style="border-top: 1px solid rgba(255, 255, 255, 0.07)">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
+        <div class="lg:col-span-2">
+          <a
+            href="#"
+            class="font-display mb-3 flex items-center gap-2.5 text-lg font-bold"
+            style="color: var(--offwhite)"
+          >
+            <span
+              class="flex size-8 items-center justify-center rounded-lg"
+              style="background: var(--coral)"
+            >
+              <app-lucide name="radio" class="size-4" style="color: #fff" />
+            </span>
+            Lumen
+          </a>
+          <p class="mb-5 max-w-xs text-sm leading-relaxed" style="color: var(--muted)">
+            The home for bold voices and devoted listeners. Hi-fi audio, zero ads, endless
+            discovery.
+          </p>
+          <div class="flex gap-2">
+            @for (s of social; track s) {
+              <a
+                href="#"
+                [attr.aria-label]="s"
+                class="lumen-link flex size-9 items-center justify-center rounded-lg"
+                style="
+                  background: rgba(255, 255, 255, 0.06);
+                  border: 1px solid rgba(255, 255, 255, 0.1);
+                  color: var(--muted);
+                "
+              >
+                <app-lucide [name]="s" class="size-4" />
+              </a>
+            }
+          </div>
+        </div>
+        @for (col of footer; track col.heading) {
+          <div>
+            <h3 class="mb-3 text-sm font-semibold" style="color: var(--offwhite)">
+              {{ col.heading }}
+            </h3>
+            <ul class="space-y-2 text-sm">
+              @for (link of col.links; track link) {
+                <li>
+                  <a href="#" class="lumen-link" style="color: var(--muted)">{{ link }}</a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <div buiSeparator style="background: rgba(255, 255, 255, 0.07)"></div>
+      <div
+        class="mt-6 flex flex-col items-center justify-between gap-3 text-xs sm:flex-row"
+        style="color: var(--muted)"
+      >
+        <span>© 2026 Lumen Audio, Inc. All rights reserved.</span>
+        <span class="flex items-center gap-3">
+          <a href="#" class="lumen-link">Privacy</a>
+          <a href="#" class="lumen-link">Terms</a>
+          <a href="#" class="lumen-link">Cookies</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- STICKY MINI-PLAYER -->
+  <div class="lumen-mini-player fixed inset-x-0 bottom-0 z-50 px-4 py-3">
+    <div class="mx-auto flex max-w-7xl items-center gap-4">
+      <div class="lumen-duotone lumen-duotone-purple size-10 shrink-0 overflow-hidden rounded-lg">
+        <img
+          src="https://picsum.photos/seed/player1/80/80"
+          alt="Now playing"
+          class="size-full object-cover"
+        />
+      </div>
+      <div class="hidden min-w-0 flex-1 sm:block">
+        <p class="truncate text-xs font-semibold" style="color: var(--offwhite)">
+          The Art of Deep Focus
+        </p>
+        <p class="truncate text-[10px]" style="color: var(--muted)">Mind & Flow · EP 142</p>
+      </div>
+      <div class="mx-2 hidden h-6 items-end gap-[2px] md:flex" aria-hidden="true">
+        @for (h of miniWave; track $index) {
+          <div
+            class="w-0.5 rounded-sm"
+            [style.height.px]="h * 0.25 < 3 ? 3 : h * 0.25"
+            [style.background]="h > 50 ? 'var(--coral)' : 'rgba(255,255,255,0.2)'"
+          ></div>
+        }
+      </div>
+      <div class="hidden max-w-xs flex-1 lg:block">
+        <div class="relative h-1 rounded-full" style="background: rgba(255, 255, 255, 0.15)">
+          <div
+            class="absolute inset-y-0 left-0 rounded-full"
+            style="width: 38%; background: var(--coral)"
+          ></div>
+        </div>
+        <div class="mt-0.5 flex justify-between text-[10px]" style="color: var(--muted)">
+          <span>22:14</span><span>58:02</span>
+        </div>
+      </div>
+      <div class="flex shrink-0 items-center gap-2">
+        <button
+          type="button"
+          aria-label="Previous"
+          class="lumen-link flex size-7 items-center justify-center rounded-full"
+          style="color: var(--muted)"
+        >
+          <app-lucide name="skip-back" class="size-3.5" />
+        </button>
+        <button
+          type="button"
+          aria-label="Play"
+          class="lumen-play-btn flex size-9 items-center justify-center rounded-full"
+          style="background: var(--coral); color: #fff"
+        >
+          <app-lucide name="play" class="size-4 fill-current" />
+        </button>
+        <button
+          type="button"
+          aria-label="Next"
+          class="lumen-link flex size-7 items-center justify-center rounded-full"
+          style="color: var(--muted)"
+        >
+          <app-lucide name="skip-forward" class="size-3.5" />
+        </button>
+      </div>
+      <div class="hidden shrink-0 items-center gap-2 xl:flex">
+        <app-lucide name="volume-2" class="size-4 shrink-0" style="color: var(--muted)" />
+        <div class="relative h-1 w-20 rounded-full" style="background: rgba(255, 255, 255, 0.15)">
+          <div
+            class="absolute inset-y-0 left-0 rounded-full"
+            style="width: 80%; background: var(--muted)"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
