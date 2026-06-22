@@ -52,6 +52,11 @@ export const routes: Routes = [
     title: 'Cosmos · ng-blatui',
   },
   {
+    path: 'templates/prism',
+    loadComponent: async () => (await import('./pages/templates/prism')).PrismTemplate,
+    title: 'Prism · ng-blatui',
+  },
+  {
     path: 'templates/:slug',
     loadComponent: async () => (await import('./pages/templates')).TemplatesPage,
     title: 'Templates · ng-blatui',

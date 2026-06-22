@@ -1,0 +1,1073 @@
+<div id="tpl-prism" class="min-h-screen" style="background: #0a0a12">
+  <!-- NAV -->
+  <header
+    class="prism-glass sticky top-0 z-50"
+    style="border-bottom: 1px solid rgba(255, 255, 255, 0.08)"
+  >
+    <div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-6">
+      <a href="#" class="flex items-center gap-2.5" aria-label="Prism home">
+        <span
+          class="prism-holo-bg flex size-8 shrink-0 items-center justify-center rounded-lg text-sm font-bold text-white"
+          >P</span
+        >
+        <span
+          class="text-lg font-bold tracking-tight"
+          style="font-family: 'Space Grotesk', sans-serif; color: #f0ecff"
+          >Prism</span
+        >
+      </a>
+
+      <nav class="ml-6 hidden items-center gap-1 md:flex" aria-label="Main navigation">
+        @for (link of navLinks; track link.href) {
+          <a [href]="link.href" class="prism-nav-link">{{ link.label }}</a>
+        }
+      </nav>
+
+      <div class="ml-auto flex items-center gap-2">
+        <button
+          type="button"
+          class="prism-nav-link hidden items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium sm:inline-flex"
+          style="color: rgba(240, 236, 255, 0.6)"
+        >
+          <app-lucide name="search" class="size-4" />
+          <span>Search</span>
+        </button>
+
+        <a
+          href="#"
+          class="hidden items-center gap-1.5 rounded-md border px-3 py-1.5 text-sm font-medium sm:inline-flex"
+          style="
+            border-color: rgba(139, 92, 246, 0.5);
+            color: #c4b5fd;
+            background: rgba(139, 92, 246, 0.08);
+          "
+        >
+          <app-lucide name="wallet" class="size-3.5" />
+          Connect Wallet
+        </a>
+
+        <span buiBadge tone="success" variant="soft" class="hidden gap-1.5 sm:inline-flex">
+          <span class="prism-pulse inline-block size-1.5 rounded-full bg-emerald-400"></span>
+          ETH 3,210
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section
+    class="relative overflow-hidden"
+    style="min-height: 88vh; display: flex; align-items: center"
+  >
+    <div
+      class="prism-orb prism-pulse"
+      style="
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(139, 92, 246, 0.22) 0%, transparent 70%);
+        top: -100px;
+        left: -100px;
+      "
+    ></div>
+    <div
+      class="prism-orb prism-pulse"
+      style="
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(34, 211, 238, 0.18) 0%, transparent 70%);
+        top: 50%;
+        right: -80px;
+        animation-delay: 1s;
+      "
+    ></div>
+    <div
+      class="prism-orb"
+      style="
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(255, 94, 210, 0.15) 0%, transparent 70%);
+        bottom: -50px;
+        left: 40%;
+      "
+    ></div>
+
+    <div
+      class="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:py-28"
+    >
+      <div class="order-2 lg:order-1">
+        <span
+          buiBadge
+          class="mb-5"
+          style="
+            background: rgba(255, 94, 210, 0.15);
+            color: #ff5ed2;
+            border-color: rgba(255, 94, 210, 0.3);
+          "
+        >
+          <span class="prism-pulse inline-block size-1.5 rounded-full bg-rose-400"></span>
+          Featured Drop · Live Auction
+        </span>
+
+        <h1
+          class="mb-2 text-5xl font-bold tracking-tight text-balance sm:text-6xl lg:text-7xl"
+          style="font-family: 'Space Grotesk', sans-serif; line-height: 1.05"
+        >
+          <span class="prism-holo-text">Iridescent</span><br />
+          <span style="color: #f0ecff">Being #001</span>
+        </h1>
+
+        <div class="mt-5 mb-6 flex items-center gap-3">
+          <bui-avatar
+            class="size-10 ring-2"
+            style="--tw-ring-color: rgba(139, 92, 246, 0.5)"
+            src="https://picsum.photos/seed/av11/80/80"
+            alt="Nova Pixel"
+            >NP</bui-avatar
+          >
+          <div>
+            <div class="text-sm font-semibold" style="color: #f0ecff">Nova Pixel</div>
+            <div class="text-xs" style="color: rgba(240, 236, 255, 0.5)">Verified Creator</div>
+          </div>
+          <span buiBadge tone="info" variant="soft" class="ml-2">
+            <app-lucide name="badge-check" class="size-3" />
+            Verified
+          </span>
+        </div>
+
+        <p
+          class="mb-8 text-base leading-relaxed"
+          style="color: rgba(240, 236, 255, 0.65); max-width: 480px"
+        >
+          A transcendent journey through prismatic light and digital matter. Each element is
+          procedurally generated from on-chain entropy — no two are alike.
+        </p>
+
+        <div class="mb-6">
+          <div
+            class="mb-3 text-xs font-medium tracking-widest uppercase"
+            style="color: rgba(240, 236, 255, 0.45)"
+          >
+            Auction ends in
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="flex flex-col items-center">
+              <span class="prism-countdown-digit" style="color: #c4b5fd">02</span>
+              <span class="mt-1 text-[10px]" style="color: rgba(240, 236, 255, 0.4)">HRS</span>
+            </div>
+            <span
+              class="prism-countdown-digit flex items-center justify-center pb-5"
+              style="
+                color: rgba(139, 92, 246, 0.6);
+                background: transparent;
+                border: none;
+                font-size: 1.25rem;
+              "
+              >:</span
+            >
+            <div class="flex flex-col items-center">
+              <span class="prism-countdown-digit" style="color: #c4b5fd">01</span>
+              <span class="mt-1 text-[10px]" style="color: rgba(240, 236, 255, 0.4)">MIN</span>
+            </div>
+            <span
+              class="prism-countdown-digit flex items-center justify-center pb-5"
+              style="
+                color: rgba(139, 92, 246, 0.6);
+                background: transparent;
+                border: none;
+                font-size: 1.25rem;
+              "
+              >:</span
+            >
+            <div class="flex flex-col items-center">
+              <span class="prism-countdown-digit" style="color: #c4b5fd">00</span>
+              <span class="mt-1 text-[10px]" style="color: rgba(240, 236, 255, 0.4)">SEC</span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="prism-glass mb-6 inline-flex flex-col gap-1 rounded-2xl p-4"
+          style="min-width: 220px"
+        >
+          <span class="text-xs tracking-widest uppercase" style="color: rgba(240, 236, 255, 0.45)"
+            >Current Bid</span
+          >
+          <span class="prism-mono prism-holo-text text-3xl font-bold">3.20 ETH</span>
+          <span class="prism-mono text-xs" style="color: rgba(240, 236, 255, 0.4)"
+            >≈ $10,944 USD · 24 bids</span
+          >
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <a
+            href="#"
+            class="prism-holo-bg inline-flex items-center gap-2 rounded-md border-0 px-5 py-3 text-base font-semibold text-white shadow-lg"
+            style="box-shadow: 0 0 30px rgba(139, 92, 246, 0.4)"
+          >
+            <app-lucide name="gavel" class="size-4" />
+            Place Bid
+          </a>
+          <a
+            href="#"
+            class="inline-flex items-center gap-2 rounded-md border px-5 py-3 text-base font-semibold"
+            style="
+              border-color: rgba(255, 255, 255, 0.15);
+              color: #f0ecff;
+              background: rgba(255, 255, 255, 0.05);
+            "
+          >
+            <app-lucide name="eye" class="size-4" />
+            View Details
+          </a>
+        </div>
+      </div>
+
+      <div class="order-1 flex justify-center lg:order-2">
+        <div class="prism-float relative" style="max-width: 480px; width: 100%">
+          <div class="prism-card-border">
+            <div class="overflow-hidden rounded-[15px]">
+              <img
+                src="https://picsum.photos/seed/hero-prism/800/900"
+                alt="Iridescent Being #001 — featured NFT artwork"
+                class="w-full object-cover"
+                style="aspect-ratio: 4/4.5"
+              />
+            </div>
+          </div>
+          <div
+            class="prism-glass absolute -right-4 -bottom-4 rounded-xl px-4 py-2.5"
+            style="border: 1px solid rgba(163, 230, 53, 0.3)"
+          >
+            <div class="text-xs" style="color: rgba(240, 236, 255, 0.5)">Floor price</div>
+            <div class="prism-mono text-sm font-bold" style="color: #a3e635">0.48 ETH</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="prism-divider"></div>
+
+  <!-- TRENDING COLLECTIONS -->
+  <section id="collections" class="scroll-mt-20 py-20">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-12 flex items-end justify-between">
+        <div>
+          <span
+            buiBadge
+            variant="outline"
+            class="mb-3"
+            style="border-color: rgba(139, 92, 246, 0.4); color: #c4b5fd"
+            >Trending</span
+          >
+          <h2
+            class="text-3xl font-bold tracking-tight sm:text-4xl"
+            style="font-family: 'Space Grotesk', sans-serif; color: #f0ecff"
+          >
+            Top Collections
+          </h2>
+        </div>
+        <a
+          href="#"
+          class="inline-flex items-center gap-1 text-sm font-medium"
+          style="color: #c4b5fd"
+          >View all <app-lucide name="arrow-right" class="size-4"
+        /></a>
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        @for (col of collections; track col.title) {
+          <div
+            class="prism-art-card prism-glass cursor-pointer overflow-hidden rounded-2xl"
+            style="border: 1px solid rgba(255, 255, 255, 0.08)"
+          >
+            <div class="relative overflow-hidden" style="aspect-ratio: 1/1">
+              <img
+                [src]="'https://picsum.photos/seed/' + col.seed + '/400/400'"
+                [alt]="col.title + ' collection artwork'"
+                class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                loading="lazy"
+              />
+              <div class="absolute top-3 right-3">
+                <span
+                  buiBadge
+                  style="
+                    background: rgba(10, 10, 18, 0.75);
+                    color: #f0ecff;
+                    border-color: rgba(255, 255, 255, 0.15);
+                    backdrop-filter: blur(8px);
+                  "
+                  >{{ col.items }} items</span
+                >
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="mb-3 flex items-start justify-between">
+                <div>
+                  <h3
+                    class="text-base font-semibold"
+                    style="font-family: 'Space Grotesk', sans-serif; color: #f0ecff"
+                  >
+                    {{ col.title }}
+                  </h3>
+                  <p class="mt-0.5 text-xs" style="color: rgba(240, 236, 255, 0.5)">
+                    by {{ col.artist }}
+                  </p>
+                </div>
+                <span
+                  buiBadge
+                  tone="neutral"
+                  variant="soft"
+                  style="
+                    background: rgba(255, 255, 255, 0.06);
+                    color: rgba(240, 236, 255, 0.6);
+                    border-color: transparent;
+                  "
+                  >{{ col.tag }}</span
+                >
+              </div>
+              <div buiSeparator style="background: rgba(255, 255, 255, 0.07)"></div>
+              <div class="mt-3 flex items-center justify-between">
+                <div>
+                  <div
+                    class="text-[10px] tracking-wider uppercase"
+                    style="color: rgba(240, 236, 255, 0.4)"
+                  >
+                    Floor
+                  </div>
+                  <div class="prism-mono text-sm font-semibold" style="color: #a3e635">
+                    {{ col.floor }}
+                  </div>
+                </div>
+                <div class="flex -space-x-1.5">
+                  @for (aseed of col.avatars; track aseed) {
+                    <bui-avatar
+                      class="size-6 ring-1"
+                      style="--tw-ring-color: rgba(10, 10, 18, 0.8)"
+                      [src]="'https://picsum.photos/seed/' + aseed + '/48/48'"
+                      alt=""
+                      >A</bui-avatar
+                    >
+                  }
+                  <div
+                    class="flex size-6 items-center justify-center rounded-full text-[9px] font-medium ring-1"
+                    style="
+                      --tw-ring-color: rgba(10, 10, 18, 0.8);
+                      background: rgba(139, 92, 246, 0.2);
+                      color: #c4b5fd;
+                    "
+                  >
+                    +
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="prism-divider"></div>
+
+  <!-- TOP ARTISTS -->
+  <section id="artists" class="scroll-mt-20 py-20" style="background: rgba(13, 11, 26, 0.8)">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-12 text-center">
+        <span
+          buiBadge
+          variant="outline"
+          class="mb-3"
+          style="border-color: rgba(34, 211, 238, 0.4); color: #22d3ee"
+          >Creators</span
+        >
+        <h2
+          class="text-3xl font-bold tracking-tight sm:text-4xl"
+          style="font-family: 'Space Grotesk', sans-serif; color: #f0ecff"
+        >
+          Top Artists This Week
+        </h2>
+        <p class="mt-3 text-base" style="color: rgba(240, 236, 255, 0.5)">
+          Ranked by on-chain trading volume over the last 7 days.
+        </p>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        @for (artist of artists; track artist.handle) {
+          <div
+            class="prism-glass flex cursor-pointer items-center gap-4 rounded-2xl p-5 transition-all duration-200 hover:border-violet-500/30"
+            style="border: 1px solid rgba(255, 255, 255, 0.08)"
+          >
+            <span
+              class="prism-mono w-8 shrink-0 text-center text-xl font-bold"
+              style="color: rgba(240, 236, 255, 0.25)"
+              >{{ artist.rank }}</span
+            >
+            <bui-avatar
+              class="size-14 ring-2"
+              style="--tw-ring-color: rgba(139, 92, 246, 0.3)"
+              [src]="'https://picsum.photos/seed/' + artist.seed + '/112/112'"
+              [alt]="artist.name"
+              >{{ artist.name.charAt(0) }}</bui-avatar
+            >
+            <div class="min-w-0 flex-1">
+              <div
+                class="truncate font-semibold"
+                style="font-family: 'Space Grotesk', sans-serif; color: #f0ecff"
+              >
+                {{ artist.name }}
+              </div>
+              <div class="truncate text-xs" style="color: rgba(240, 236, 255, 0.4)">
+                {{ artist.handle }}
+              </div>
+              <div
+                class="mt-1.5 h-1 overflow-hidden rounded-full"
+                style="background: rgba(255, 255, 255, 0.08)"
+              >
+                <div
+                  class="h-full rounded-full"
+                  [style.width.%]="artist.pct"
+                  style="background: linear-gradient(90deg, #8b5cf6, #22d3ee)"
+                ></div>
+              </div>
+            </div>
+            <div class="shrink-0 text-right">
+              <div class="prism-mono text-sm font-bold" style="color: #a3e635">
+                {{ artist.vol }}
+              </div>
+              <div class="mt-0.5 text-[10px]" style="color: rgba(240, 236, 255, 0.4)">
+                {{ artist.works }} works
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="prism-divider"></div>
+
+  <!-- ARTWORK GALLERY -->
+  <section class="py-20">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-12 flex items-end justify-between">
+        <div>
+          <span
+            buiBadge
+            variant="outline"
+            class="mb-3"
+            style="border-color: rgba(255, 94, 210, 0.4); color: #ff5ed2"
+            >Gallery</span
+          >
+          <h2
+            class="text-3xl font-bold tracking-tight sm:text-4xl"
+            style="font-family: 'Space Grotesk', sans-serif; color: #f0ecff"
+          >
+            Artworks for You
+          </h2>
+        </div>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        @for (art of carouselArt; track art.title) {
+          <div
+            class="prism-art-card prism-glass overflow-hidden rounded-2xl"
+            style="border: 1px solid rgba(255, 255, 255, 0.08)"
+          >
+            <div class="relative overflow-hidden" style="aspect-ratio: 4/3">
+              <img
+                [src]="'https://picsum.photos/seed/' + art.seed + '/600/500'"
+                [alt]="art.title + ' artwork'"
+                class="h-full w-full object-cover"
+                loading="lazy"
+              />
+              <div class="absolute top-3 left-3">
+                <span
+                  buiBadge
+                  style="
+                    background: rgba(10, 10, 18, 0.8);
+                    color: #f0ecff;
+                    border-color: rgba(255, 255, 255, 0.1);
+                    backdrop-filter: blur(8px);
+                  "
+                >
+                  <app-lucide name="layers" class="size-3" />
+                  1 of 1
+                </span>
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="flex items-center justify-between">
+                <h3
+                  class="text-sm font-semibold"
+                  style="font-family: 'Space Grotesk', sans-serif; color: #f0ecff"
+                >
+                  {{ art.title }}
+                </h3>
+                <span class="prism-mono text-sm font-bold" style="color: #a3e635">{{
+                  art.price
+                }}</span>
+              </div>
+              <div class="mt-3 flex gap-2">
+                <a
+                  href="#"
+                  class="prism-holo-bg flex-1 justify-center rounded-md border-0 px-3 py-1.5 text-center text-xs font-medium text-white"
+                  >Buy</a
+                >
+                <a
+                  href="#"
+                  class="inline-flex items-center rounded-md border px-3 py-1.5 text-xs"
+                  style="
+                    border-color: rgba(255, 255, 255, 0.15);
+                    color: #f0ecff;
+                    background: transparent;
+                  "
+                >
+                  <app-lucide name="heart" class="size-3" />
+                </a>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="prism-divider"></div>
+
+  <!-- LIVE AUCTIONS -->
+  <section id="auctions" class="scroll-mt-20 py-20" style="background: rgba(13, 11, 26, 0.8)">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-12 text-center">
+        <span
+          buiBadge
+          class="mb-3"
+          style="
+            background: rgba(255, 94, 210, 0.15);
+            color: #ff5ed2;
+            border-color: rgba(255, 94, 210, 0.3);
+          "
+        >
+          <span class="prism-pulse inline-block size-1.5 rounded-full bg-rose-400"></span>
+          Live Now
+        </span>
+        <h2
+          class="text-3xl font-bold tracking-tight sm:text-4xl"
+          style="font-family: 'Space Grotesk', sans-serif; color: #f0ecff"
+        >
+          Live Auctions
+        </h2>
+      </div>
+
+      <div class="mb-14 grid gap-6 lg:grid-cols-3">
+        @for (auc of auctions; track auc.seed) {
+          <div
+            class="prism-art-card prism-glass overflow-hidden rounded-2xl"
+            style="border: 1px solid rgba(255, 255, 255, 0.08)"
+          >
+            <div class="relative overflow-hidden" style="aspect-ratio: 4/3">
+              <img
+                [src]="'https://picsum.photos/seed/' + auc.seed + '/600/450'"
+                [alt]="auc.title + ' auction artwork'"
+                class="h-full w-full object-cover"
+                loading="lazy"
+              />
+              <div
+                class="absolute inset-x-0 bottom-0 flex items-center justify-between p-3"
+                style="
+                  background: linear-gradient(to top, rgba(10, 10, 18, 0.95) 0%, transparent 100%);
+                "
+              >
+                <div class="prism-mono text-xs font-semibold" style="color: #ff5ed2">
+                  {{ auc.h }}:{{ auc.m }}:{{ auc.s }}
+                </div>
+                <span
+                  buiBadge
+                  style="
+                    background: rgba(255, 94, 210, 0.2);
+                    color: #ff5ed2;
+                    border-color: rgba(255, 94, 210, 0.3);
+                    font-size: 0.65rem;
+                  "
+                  >{{ auc.bids }} bids</span
+                >
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="mb-3 flex items-center gap-2">
+                <bui-avatar
+                  class="size-7"
+                  [src]="'https://picsum.photos/seed/' + auc.aseed + '/56/56'"
+                  [alt]="auc.artist"
+                  >{{ auc.artist.charAt(0) }}</bui-avatar
+                >
+                <span class="text-xs" style="color: rgba(240, 236, 255, 0.5)">{{
+                  auc.artist
+                }}</span>
+              </div>
+              <h3
+                class="mb-1 text-base font-semibold"
+                style="font-family: 'Space Grotesk', sans-serif; color: #f0ecff"
+              >
+                {{ auc.title }}
+              </h3>
+              <div class="mt-3 flex items-end justify-between">
+                <div>
+                  <div
+                    class="text-[10px] tracking-wider uppercase"
+                    style="color: rgba(240, 236, 255, 0.4)"
+                  >
+                    Current Bid
+                  </div>
+                  <div class="prism-mono text-lg font-bold" style="color: #a3e635">
+                    {{ auc.bid }}
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div
+                    class="text-[10px] tracking-wider uppercase"
+                    style="color: rgba(240, 236, 255, 0.4)"
+                  >
+                    Top Bidder
+                  </div>
+                  <div class="prism-mono text-xs" style="color: rgba(240, 236, 255, 0.55)">
+                    {{ auc.bidder }}
+                  </div>
+                </div>
+              </div>
+              <a
+                href="#"
+                class="prism-holo-bg mt-4 flex w-full items-center justify-center gap-1.5 rounded-md border-0 px-4 py-2 text-sm font-semibold text-white"
+              >
+                <app-lucide name="gavel" class="size-3.5" />
+                Place Bid
+              </a>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div
+        class="prism-glass overflow-hidden rounded-2xl"
+        style="border: 1px solid rgba(255, 255, 255, 0.08)"
+      >
+        <div
+          class="flex items-center justify-between px-5 py-4"
+          style="border-bottom: 1px solid rgba(255, 255, 255, 0.07)"
+        >
+          <h3
+            class="text-sm font-semibold"
+            style="font-family: 'Space Grotesk', sans-serif; color: #f0ecff"
+          >
+            Recent Bids — Iridescent Being #001
+          </h3>
+          <span buiBadge tone="success" variant="soft" class="gap-1.5">
+            <span class="prism-pulse inline-block size-1.5 rounded-full bg-emerald-400"></span>
+            Live
+          </span>
+        </div>
+        <table class="w-full text-left">
+          <thead>
+            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.07)">
+              <th class="px-5 py-3 text-xs font-medium" style="color: rgba(240, 236, 255, 0.5)">
+                From
+              </th>
+              <th class="px-5 py-3 text-xs font-medium" style="color: rgba(240, 236, 255, 0.5)">
+                Amount
+              </th>
+              <th class="px-5 py-3 text-xs font-medium" style="color: rgba(240, 236, 255, 0.5)">
+                Time
+              </th>
+              <th class="px-5 py-3 text-xs font-medium" style="color: rgba(240, 236, 255, 0.5)">
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (bid of bidsTable; track bid.from) {
+              <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05)">
+                <td class="px-5 py-3">
+                  <span class="prism-mono text-xs" style="color: rgba(240, 236, 255, 0.7)">{{
+                    bid.from
+                  }}</span>
+                </td>
+                <td class="px-5 py-3">
+                  <span class="prism-mono text-sm font-semibold" style="color: #a3e635">{{
+                    bid.amount
+                  }}</span>
+                </td>
+                <td class="px-5 py-3">
+                  <span class="text-xs" style="color: rgba(240, 236, 255, 0.4)">{{
+                    bid.time
+                  }}</span>
+                </td>
+                <td class="px-5 py-3">
+                  @if (bid.flag === 'success') {
+                    <span buiBadge tone="success" variant="soft" class="gap-1">
+                      <app-lucide name="crown" class="size-2.5" />
+                      Highest
+                    </span>
+                  } @else {
+                    <span buiBadge tone="neutral" variant="soft">Outbid</span>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="prism-divider"></div>
+
+  <!-- HOW IT WORKS -->
+  <section class="py-20">
+    <div class="mx-auto max-w-4xl px-6">
+      <div class="mb-14 text-center">
+        <span
+          buiBadge
+          variant="outline"
+          class="mb-3"
+          style="border-color: rgba(163, 230, 53, 0.4); color: #a3e635"
+          >Simple</span
+        >
+        <h2
+          class="text-3xl font-bold tracking-tight sm:text-4xl"
+          style="font-family: 'Space Grotesk', sans-serif; color: #f0ecff"
+        >
+          How It Works
+        </h2>
+        <p class="mt-3 text-base" style="color: rgba(240, 236, 255, 0.5)">
+          Collect, trade, and own digital art in four steps.
+        </p>
+      </div>
+
+      <ol class="flex w-full items-start gap-0">
+        @for (step of howItWorks; track step.title; let i = $index) {
+          <li class="relative flex flex-1 flex-col items-center gap-2 text-center">
+            <span
+              class="flex size-9 items-center justify-center rounded-full border text-sm font-semibold"
+              [style.background]="i <= 1 ? 'rgba(139,92,246,0.9)' : 'rgba(13,11,26,1)'"
+              [style.border-color]="i <= 1 ? 'rgba(139,92,246,0.9)' : 'rgba(139,92,246,0.4)'"
+              [style.color]="i <= 1 ? '#fff' : 'rgba(240,236,255,0.5)'"
+              >{{ i + 1 }}</span
+            >
+            <div class="flex flex-col items-center gap-1">
+              <span
+                class="text-sm font-semibold"
+                style="color: #f0ecff; font-family: 'Space Grotesk', sans-serif"
+                >{{ step.title }}</span
+              >
+              <span
+                class="max-w-[140px] text-center text-xs"
+                style="color: rgba(240, 236, 255, 0.5)"
+                >{{ step.desc }}</span
+              >
+            </div>
+            @if (i < howItWorks.length - 1) {
+              <span
+                class="absolute top-4 left-1/2 h-px w-full"
+                style="background: rgba(255, 255, 255, 0.12)"
+              ></span>
+            }
+          </li>
+        }
+      </ol>
+    </div>
+  </section>
+
+  <div class="prism-divider"></div>
+
+  <!-- EXPLORE BY CATEGORY (first tab) -->
+  <section id="explore" class="scroll-mt-20 py-20" style="background: rgba(13, 11, 26, 0.8)">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-10 text-center">
+        <span
+          buiBadge
+          variant="outline"
+          class="mb-3"
+          style="border-color: rgba(34, 211, 238, 0.4); color: #22d3ee"
+          >Browse</span
+        >
+        <h2
+          class="text-3xl font-bold tracking-tight sm:text-4xl"
+          style="font-family: 'Space Grotesk', sans-serif; color: #f0ecff"
+        >
+          Explore by Category
+        </h2>
+      </div>
+
+      <div class="mx-auto mb-10 flex flex-wrap justify-center gap-2">
+        @for (cat of categories; track cat.key; let first = $first) {
+          <span
+            class="rounded-full px-4 py-1.5 text-sm font-medium"
+            [style.background]="first ? 'rgba(139,92,246,0.25)' : 'rgba(255,255,255,0.06)'"
+            [style.color]="first ? '#c4b5fd' : 'rgba(240,236,255,0.5)'"
+            [style.border]="first ? '1px solid rgba(139,92,246,0.4)' : '1px solid transparent'"
+            >{{ cat.label }}</span
+          >
+        }
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        @for (art of categoryArt; track art.seed) {
+          <div
+            class="prism-art-card prism-glass overflow-hidden rounded-xl"
+            style="border: 1px solid rgba(255, 255, 255, 0.08)"
+          >
+            <div class="overflow-hidden" style="aspect-ratio: 1/1">
+              <img
+                [src]="'https://picsum.photos/seed/' + art.seed + '/400/400'"
+                [alt]="art.name + ' digital artwork'"
+                class="h-full w-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div class="p-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-medium" style="color: #f0ecff">{{ art.name }}</span>
+                <span class="prism-mono text-xs font-semibold" style="color: #a3e635">{{
+                  art.price
+                }}</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="prism-divider"></div>
+
+  <!-- CREATORS CTA -->
+  <section class="py-20">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="prism-card-border">
+        <div
+          class="relative overflow-hidden rounded-[15px] px-8 py-14 text-center"
+          style="
+            background: linear-gradient(
+              135deg,
+              rgba(139, 92, 246, 0.15) 0%,
+              rgba(34, 211, 238, 0.08) 50%,
+              rgba(255, 94, 210, 0.12) 100%
+            );
+          "
+        >
+          <div
+            class="prism-orb"
+            style="
+              width: 300px;
+              height: 300px;
+              background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+              top: -80px;
+              left: -60px;
+            "
+          ></div>
+          <div
+            class="prism-orb"
+            style="
+              width: 250px;
+              height: 250px;
+              background: radial-gradient(circle, rgba(34, 211, 238, 0.15) 0%, transparent 70%);
+              bottom: -60px;
+              right: -40px;
+            "
+          ></div>
+
+          <span
+            buiBadge
+            variant="outline"
+            class="mb-5"
+            style="border-color: rgba(255, 94, 210, 0.4); color: #ff5ed2"
+            >For Creators</span
+          >
+          <h2
+            class="mb-4 text-3xl font-bold tracking-tight text-balance sm:text-5xl"
+            style="font-family: 'Space Grotesk', sans-serif; color: #f0ecff"
+          >
+            Mint your vision.<br />
+            <span class="prism-holo-text">Own your future.</span>
+          </h2>
+          <p class="mx-auto mb-8 max-w-xl text-base" style="color: rgba(240, 236, 255, 0.6)">
+            Join 12,000+ digital artists on Prism. Keep up to 97.5% of every sale and earn royalties
+            forever on secondaries.
+          </p>
+          <div class="flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="#"
+              class="prism-holo-bg inline-flex items-center gap-2 rounded-md border-0 px-6 py-3 text-base font-semibold text-white"
+              style="box-shadow: 0 0 40px rgba(139, 92, 246, 0.35)"
+            >
+              <app-lucide name="sparkles" class="size-4" />
+              Apply to Create
+            </a>
+            <a
+              href="#"
+              class="inline-flex items-center gap-2 rounded-md border px-6 py-3 text-base font-semibold"
+              style="
+                border-color: rgba(255, 255, 255, 0.2);
+                color: #f0ecff;
+                background: rgba(255, 255, 255, 0.05);
+              "
+            >
+              Learn more <app-lucide name="arrow-right" class="size-4" />
+            </a>
+          </div>
+          <div class="mt-8 flex flex-wrap items-center justify-center gap-6">
+            @for (feat of creatorFeatures; track feat) {
+              <div class="flex items-center gap-2 text-sm" style="color: rgba(240, 236, 255, 0.6)">
+                <app-lucide name="check" class="size-4" style="color: #a3e635" />
+                {{ feat }}
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="prism-divider"></div>
+
+  <!-- FAQ -->
+  <section class="py-20" style="background: rgba(13, 11, 26, 0.8)">
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="mb-12 text-center">
+        <span
+          buiBadge
+          variant="outline"
+          class="mb-3"
+          style="border-color: rgba(139, 92, 246, 0.4); color: #c4b5fd"
+          >FAQ</span
+        >
+        <h2
+          class="text-3xl font-bold tracking-tight sm:text-4xl"
+          style="font-family: 'Space Grotesk', sans-serif; color: #f0ecff"
+        >
+          Questions Answered
+        </h2>
+      </div>
+
+      <div class="w-full">
+        @for (faq of faqs; track faq.q; let first = $first) {
+          <details
+            class="group"
+            style="border-bottom: 1px solid rgba(255, 255, 255, 0.09)"
+            [open]="first"
+          >
+            <summary
+              class="flex cursor-pointer items-center justify-between py-4 text-left font-medium"
+              style="color: #f0ecff"
+            >
+              {{ faq.q }}
+              <app-lucide
+                name="chevron-down"
+                class="size-4 shrink-0 transition-transform group-open:rotate-180"
+                style="color: rgba(240, 236, 255, 0.5)"
+              />
+            </summary>
+            <p class="pb-4 text-sm leading-relaxed" style="color: rgba(240, 236, 255, 0.5)">
+              {{ faq.a }}
+            </p>
+          </details>
+        }
+      </div>
+    </div>
+  </section>
+
+  <div class="prism-divider"></div>
+
+  <!-- FOOTER -->
+  <footer class="py-14" style="border-top: 1px solid rgba(255, 255, 255, 0.06)">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-6">
+        <div class="lg:col-span-2">
+          <a href="#" class="mb-4 flex items-center gap-2.5" aria-label="Prism home">
+            <span
+              class="prism-holo-bg flex size-9 items-center justify-center rounded-xl font-bold text-white"
+              >P</span
+            >
+            <span
+              class="text-xl font-bold tracking-tight"
+              style="font-family: 'Space Grotesk', sans-serif; color: #f0ecff"
+              >Prism</span
+            >
+          </a>
+          <p class="mb-5 max-w-xs text-sm" style="color: rgba(240, 236, 255, 0.45)">
+            The holographic NFT marketplace for digital artists and collectors. Own the future of
+            art.
+          </p>
+          <div class="mb-6 flex gap-2">
+            @for (soc of social; track soc) {
+              <a
+                href="#"
+                [attr.aria-label]="soc"
+                class="prism-social inline-flex size-9 items-center justify-center rounded-lg transition-colors"
+                style="
+                  border: 1px solid rgba(255, 255, 255, 0.1);
+                  color: rgba(240, 236, 255, 0.5);
+                  background: rgba(255, 255, 255, 0.04);
+                "
+              >
+                <app-lucide [name]="soc" class="size-4" />
+              </a>
+            }
+          </div>
+          <div class="flex items-center gap-2">
+            <span buiBadge tone="success" variant="soft" class="gap-1.5">
+              <span class="inline-block size-1.5 rounded-full bg-emerald-400"></span>
+              All systems operational
+            </span>
+          </div>
+        </div>
+
+        @for (col of footerLinks; track col.heading) {
+          <div>
+            <h3
+              class="mb-4 text-sm font-semibold"
+              style="font-family: 'Space Grotesk', sans-serif; color: #f0ecff"
+            >
+              {{ col.heading }}
+            </h3>
+            <ul class="space-y-2.5">
+              @for (link of col.links; track link) {
+                <li>
+                  <a href="#" class="prism-foot-link text-sm">{{ link }}</a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <div buiSeparator class="my-8" style="background: rgba(255, 255, 255, 0.07)"></div>
+
+      <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+        <span class="text-sm" style="color: rgba(240, 236, 255, 0.35)"
+          >© 2026 Prism Labs, Inc. All rights reserved.</span
+        >
+        <div class="flex items-center gap-3">
+          <span
+            buiBadge
+            variant="outline"
+            class="gap-1.5 text-[10px]"
+            style="border-color: rgba(255, 255, 255, 0.1); color: rgba(240, 236, 255, 0.4)"
+          >
+            <app-lucide name="zap" class="size-2.5" />
+            Powered by Ethereum
+          </span>
+          <span
+            buiBadge
+            variant="outline"
+            class="gap-1.5 text-[10px]"
+            style="border-color: rgba(255, 255, 255, 0.1); color: rgba(240, 236, 255, 0.4)"
+          >
+            <app-lucide name="shield-check" class="size-2.5" />
+            Audited Contracts
+          </span>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
