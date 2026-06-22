@@ -1,0 +1,218 @@
+<div id="tpl-event">
+  <header
+    class="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60"
+  >
+    <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+      <a href="#" class="flex items-center gap-2 font-semibold tracking-tight"
+        ><span
+          class="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground"
+          ><app-lucide name="rocket" class="size-5"
+        /></span>
+        ShipConf</a
+      >
+      <nav class="ml-4 hidden items-center gap-1 text-sm md:flex">
+        @for (l of nav; track l) {
+          <a
+            [href]="'#' + l.toLowerCase()"
+            class="rounded-md px-3 py-1.5 font-medium text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
+            >{{ l }}</a
+          >
+        }
+      </nav>
+      <div class="ml-auto flex items-center gap-1.5">
+        <button type="button" class="ev-icon-btn" aria-label="Toggle theme">
+          <app-lucide name="sun" class="size-4 dark:hidden" /><app-lucide
+            name="moon"
+            class="hidden size-4 dark:block"
+          />
+        </button>
+        <a href="#tickets" class="ev-btn ev-btn-sm ev-btn-primary">Get tickets</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b">
+    <div class="pointer-events-none absolute inset-x-0 -top-40 -z-10 flex justify-center">
+      <div
+        class="h-[28rem] w-[60rem] rounded-full bg-gradient-to-b from-primary/25 to-transparent blur-3xl"
+      ></div>
+    </div>
+    <div class="mx-auto max-w-3xl px-6 py-24 text-center lg:py-32">
+      <div
+        class="mb-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm font-medium text-muted-foreground"
+      >
+        <span class="inline-flex items-center gap-1.5"
+          ><app-lucide name="calendar" class="size-4" /> Sep 24–25, 2026</span
+        >
+        <span class="inline-flex items-center gap-1.5"
+          ><app-lucide name="map-pin" class="size-4" /> San Francisco</span
+        >
+        <span class="inline-flex items-center gap-1.5"
+          ><app-lucide name="users" class="size-4" /> 1,200 builders</span
+        >
+      </div>
+      <h1 class="text-5xl font-bold tracking-tight text-balance sm:text-6xl lg:text-7xl">
+        ShipConf <span class="text-primary">2026</span>
+      </h1>
+      <p class="mx-auto mt-5 max-w-xl text-lg text-balance text-muted-foreground">
+        Two days of talks, workshops and hallway conversations for people who build for the web.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="#tickets" class="ev-btn ev-btn-lg ev-btn-primary"
+          >Get your ticket <app-lucide name="arrow-right" class="size-4"
+        /></a>
+        <button type="button" class="ev-btn ev-btn-lg ev-btn-outline">
+          <app-lucide name="play" class="size-4" /> Watch 2025 recap
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Speakers -->
+  <section id="speakers" class="scroll-mt-20 py-20">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-10 text-center">
+        <span class="ev-badge-outline mb-3">Speakers</span>
+        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Learn from the best</h2>
+      </div>
+      <div class="grid grid-cols-2 gap-6 sm:grid-cols-4">
+        @for (s of speakers; track s.n) {
+          <div class="text-center">
+            <bui-avatar class="mx-auto size-20 text-lg">{{ s.i }}</bui-avatar>
+            <div class="mt-3 font-semibold">{{ s.n }}</div>
+            <div class="text-sm text-muted-foreground">{{ s.r }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Schedule (tabs, Day 1 active) -->
+  <section id="schedule" class="scroll-mt-20 border-y bg-muted/30 py-20">
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="mb-10 text-center">
+        <span class="ev-badge-outline mb-3">Schedule</span>
+        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Two packed days</h2>
+      </div>
+      <div class="ev-tablist mx-auto max-w-xs">
+        @for (day of schedule; track day.key; let first = $first) {
+          <span class="ev-tab" [class.ev-tab-active]="first">{{ day.label }}</span>
+        }
+      </div>
+      @for (day of schedule; track day.key; let first = $first) {
+        @if (first) {
+          <div class="ev-schedule mt-6">
+            @for (sess of day.sessions; track sess.title) {
+              <div class="ev-schedule-row">
+                <div class="w-16 shrink-0 text-sm font-medium text-muted-foreground tabular-nums">
+                  {{ sess.time }}
+                </div>
+                <div class="min-w-0 flex-1">
+                  <div class="font-medium">{{ sess.title }}</div>
+                  <div class="text-sm text-muted-foreground">{{ sess.who }}</div>
+                </div>
+                <span class="ev-badge ev-badge-{{ sess.tone }} shrink-0">{{ sess.track }}</span>
+              </div>
+            }
+          </div>
+        }
+      }
+    </div>
+  </section>
+
+  <!-- Tickets -->
+  <section id="tickets" class="scroll-mt-20 py-20">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-10 text-center">
+        <span class="ev-badge-outline mb-3">Tickets</span>
+        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Grab your seat</h2>
+      </div>
+      <div class="grid items-stretch gap-6 lg:grid-cols-3">
+        @for (t of tickets; track t.name) {
+          <div
+            class="ev-card relative flex flex-col"
+            [class.ev-card-highlight]="t.tag === 'Popular'"
+          >
+            @if (t.tag) {
+              <span
+                class="absolute -top-3 left-1/2 -translate-x-1/2"
+                [class.ev-badge-solid]="!t.sold"
+                [class.ev-badge-solid-neutral]="t.sold"
+                >{{ t.tag }}</span
+              >
+            }
+            <h3 class="font-semibold">{{ t.name }}</h3>
+            <div class="mt-3 flex items-baseline gap-1">
+              <span class="text-4xl font-bold tracking-tight">${{ t.price }}</span>
+            </div>
+            <button
+              type="button"
+              class="ev-btn mt-5 w-full"
+              [class.ev-btn-primary]="t.tag === 'Popular' && !t.sold"
+              [class.ev-btn-outline]="t.tag !== 'Popular' && !t.sold"
+              [class.ev-btn-disabled]="t.sold"
+              [disabled]="t.sold"
+            >
+              {{ t.sold ? 'Sold out' : 'Buy ticket' }}
+            </button>
+            <hr class="my-5 border-border" />
+            <ul class="space-y-3 text-sm">
+              @for (f of t.feats; track f) {
+                <li class="flex items-start gap-2.5">
+                  <app-lucide name="check" class="mt-0.5 size-4 shrink-0 text-primary" /> {{ f }}
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Sponsors -->
+  <section class="border-y bg-muted/30 py-12">
+    <p class="mb-6 text-center text-sm text-muted-foreground">Proudly sponsored by</p>
+    <div class="ev-marquee mx-auto max-w-4xl">
+      @for (name of sponsors; track name) {
+        <span class="px-3 text-xl font-semibold whitespace-nowrap text-muted-foreground/70">{{
+          name
+        }}</span>
+      }
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20">
+    <div class="mx-auto max-w-3xl px-6">
+      <h2 class="mb-8 text-center text-3xl font-bold tracking-tight sm:text-4xl">Good to know</h2>
+      <div class="w-full">
+        @for (faq of faqs; track faq.q; let first = $first) {
+          <details class="group border-b" [open]="first">
+            <summary
+              class="flex cursor-pointer items-center justify-between py-4 text-left font-medium"
+            >
+              {{ faq.q }}
+              <app-lucide
+                name="chevron-down"
+                class="size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180"
+              />
+            </summary>
+            <p class="pb-4 text-sm text-muted-foreground">{{ faq.a }}</p>
+          </details>
+        }
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t py-8">
+    <div
+      class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 text-sm text-muted-foreground sm:flex-row"
+    >
+      <span>© 2026 ShipConf. See you in September.</span>
+      <span class="inline-flex items-center gap-1.5"
+        ><app-lucide name="map-pin" class="size-4" /> The Pier Pavilion, San Francisco</span
+      >
+    </div>
+  </footer>
+</div>
