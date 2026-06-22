@@ -1,0 +1,178 @@
+#tpl-account {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Settings nav */
+#tpl-account .ac-nav-link {
+  border-radius: var(--radius, 0.5rem);
+  padding: 0.5rem 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--muted-foreground);
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+#tpl-account .ac-nav-link:hover {
+  color: var(--foreground);
+  background: color-mix(in oklab, var(--accent) 60%, transparent);
+}
+#tpl-account .ac-nav-active {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+/* Card (sectioned) */
+#tpl-account .ac-card {
+  background: var(--card, var(--background));
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 0.75rem);
+  overflow: hidden;
+}
+#tpl-account .ac-card-danger {
+  border-color: color-mix(in oklab, #dc2626 40%, transparent);
+}
+#tpl-account .ac-card-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+#tpl-account .ac-card-title {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+#tpl-account .ac-card-desc {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  margin-top: 0.15rem;
+}
+#tpl-account .ac-card-body {
+  padding: 1.5rem;
+}
+#tpl-account .ac-card-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+}
+
+/* Buttons */
+#tpl-account .ac-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  height: 2.25rem;
+  padding: 0 0.875rem;
+  border-radius: var(--radius, 0.5rem);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+#tpl-account .ac-btn-primary {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+#tpl-account .ac-btn-primary:hover {
+  background: color-mix(in oklab, var(--primary) 90%, black);
+}
+#tpl-account .ac-btn-outline {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+#tpl-account .ac-btn-outline:hover {
+  background: var(--accent);
+}
+#tpl-account .ac-btn-ghost {
+  background: transparent;
+  color: var(--foreground);
+}
+#tpl-account .ac-btn-ghost:hover {
+  background: var(--accent);
+}
+#tpl-account .ac-btn-destructive {
+  background: #dc2626;
+  color: #fff;
+}
+#tpl-account .ac-btn-destructive:hover {
+  background: #b91c1c;
+}
+
+/* Icon button */
+#tpl-account .ac-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius, 0.5rem);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--foreground);
+  transition: background 0.15s;
+}
+#tpl-account .ac-icon-btn:hover {
+  background: var(--accent);
+}
+
+/* Form controls */
+#tpl-account .ac-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+#tpl-account .ac-input,
+#tpl-account .ac-select,
+#tpl-account .ac-textarea {
+  width: 100%;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 0.5rem);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  outline: none;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+#tpl-account .ac-input {
+  height: 2.5rem;
+}
+#tpl-account .ac-input:focus,
+#tpl-account .ac-select:focus,
+#tpl-account .ac-textarea:focus {
+  border-color: var(--ring, var(--primary));
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 18%, transparent);
+}
+#tpl-account .ac-input::placeholder,
+#tpl-account .ac-textarea::placeholder {
+  color: var(--muted-foreground);
+}
+
+/* Badge */
+#tpl-account .ac-badge-success {
+  display: inline-flex;
+  align-items: center;
+  background: color-mix(in oklab, #16a34a 16%, transparent);
+  color: #15803d;
+  border-radius: 9999px;
+  padding: 0.05rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Danger inner box */
+#tpl-account .ac-danger-box {
+  border: 1px dashed color-mix(in oklab, #dc2626 30%, transparent);
+  border-radius: var(--radius, 0.5rem);
+}

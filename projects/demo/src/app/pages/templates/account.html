@@ -1,0 +1,200 @@
+<div id="tpl-account">
+  <header
+    class="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60"
+  >
+    <div class="mx-auto flex h-16 max-w-5xl items-center gap-3 px-6">
+      <a
+        href="/templates/dashboard"
+        class="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+        ><app-lucide name="chevron-left" class="size-4" /> Back to app</a
+      >
+      <div class="ml-auto flex items-center gap-1.5">
+        <button type="button" class="ac-icon-btn" aria-label="Toggle theme">
+          <app-lucide name="sun" class="size-4 dark:hidden" /><app-lucide
+            name="moon"
+            class="hidden size-4 dark:block"
+          />
+        </button>
+        <bui-avatar class="size-8">AD</bui-avatar>
+      </div>
+    </div>
+  </header>
+
+  <div class="mx-auto max-w-5xl px-6 py-10">
+    <h1 class="text-3xl font-bold tracking-tight">Settings</h1>
+    <p class="mt-1 text-muted-foreground">Manage your profile, preferences and account.</p>
+
+    <div class="mt-8 grid gap-10 lg:grid-cols-[180px_1fr]">
+      <!-- Settings nav -->
+      <aside class="lg:sticky lg:top-24 lg:self-start">
+        <nav class="flex gap-1 overflow-x-auto text-sm lg:flex-col">
+          @for (item of navItems; track item.anchor; let first = $first) {
+            <a [href]="'#' + item.anchor" class="ac-nav-link" [class.ac-nav-active]="first">{{
+              item.label
+            }}</a>
+          }
+        </nav>
+      </aside>
+
+      <div class="space-y-8">
+        <!-- Profile -->
+        <div class="ac-card scroll-mt-24" id="profile">
+          <div class="ac-card-header">
+            <div class="ac-card-title">Profile</div>
+            <div class="ac-card-desc">This is how others will see you.</div>
+          </div>
+          <div class="ac-card-body space-y-5">
+            <div class="flex items-center gap-4">
+              <bui-avatar class="size-16 text-lg">AD</bui-avatar>
+              <div class="flex gap-2">
+                <button type="button" class="ac-btn ac-btn-outline">
+                  <app-lucide name="upload" class="size-4" /> Change
+                </button>
+                <button type="button" class="ac-btn ac-btn-ghost text-destructive">Remove</button>
+              </div>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="grid gap-2">
+                <span class="ac-label">Full name</span
+                ><input class="ac-input" value="Ada Lovelace" aria-label="Full name" />
+              </div>
+              <div class="grid gap-2">
+                <span class="ac-label">Username</span
+                ><input class="ac-input" value="ada" aria-label="Username" />
+              </div>
+            </div>
+            <div class="grid gap-2">
+              <span class="ac-label">Bio</span>
+              <textarea class="ac-textarea" rows="3" aria-label="Bio">
+Mathematician &amp; first programmer. Building things at Acme.</textarea
+              >
+              <p class="text-xs text-muted-foreground">
+                Brief description for your profile. Max 160 characters.
+              </p>
+            </div>
+          </div>
+          <div class="ac-card-footer justify-end gap-2">
+            <button type="button" class="ac-btn ac-btn-outline">Cancel</button
+            ><button type="button" class="ac-btn ac-btn-primary">Save changes</button>
+          </div>
+        </div>
+
+        <!-- Account -->
+        <div class="ac-card scroll-mt-24" id="account">
+          <div class="ac-card-header">
+            <div class="ac-card-title">Account</div>
+            <div class="ac-card-desc">Update your email and regional settings.</div>
+          </div>
+          <div class="ac-card-body grid gap-4 sm:grid-cols-2">
+            <div class="grid gap-2 sm:col-span-2">
+              <span class="ac-label">Email</span
+              ><input class="ac-input" type="email" value="ada@acme.com" aria-label="Email" />
+            </div>
+            <div class="grid gap-2">
+              <span class="ac-label">Language</span>
+              <select class="ac-select" aria-label="Language">
+                @for (l of languages; track l) {
+                  <option>{{ l }}</option>
+                }
+              </select>
+            </div>
+            <div class="grid gap-2">
+              <span class="ac-label">Timezone</span>
+              <select class="ac-select" aria-label="Timezone">
+                @for (tz of timezones; track tz) {
+                  <option>{{ tz }}</option>
+                }
+              </select>
+            </div>
+          </div>
+          <div class="ac-card-footer justify-end">
+            <button type="button" class="ac-btn ac-btn-primary">Save</button>
+          </div>
+        </div>
+
+        <!-- Notifications -->
+        <div class="ac-card scroll-mt-24" id="notifications">
+          <div class="ac-card-header">
+            <div class="ac-card-title">Notifications</div>
+            <div class="ac-card-desc">Choose what you want to hear about.</div>
+          </div>
+          <div class="ac-card-body divide-y">
+            @for (n of notes; track n.title) {
+              <div class="flex items-center justify-between gap-4 py-3 first:pt-0 last:pb-0">
+                <div>
+                  <div class="text-sm font-medium">{{ n.title }}</div>
+                  <div class="text-sm text-muted-foreground">{{ n.desc }}</div>
+                </div>
+                <button buiSwitch [checked]="n.on" [attr.aria-label]="n.title"></button>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Security -->
+        <div class="ac-card scroll-mt-24" id="security">
+          <div class="ac-card-header">
+            <div class="ac-card-title">Security</div>
+            <div class="ac-card-desc">Keep your account safe.</div>
+          </div>
+          <div class="ac-card-body space-y-5">
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="grid gap-2">
+                <span class="ac-label">Current password</span
+                ><input
+                  class="ac-input"
+                  type="password"
+                  placeholder="••••••••"
+                  aria-label="Current password"
+                />
+              </div>
+              <div class="grid gap-2">
+                <span class="ac-label">New password</span
+                ><input
+                  class="ac-input"
+                  type="password"
+                  placeholder="••••••••"
+                  aria-label="New password"
+                />
+              </div>
+            </div>
+            <hr class="border-border" />
+            <div class="flex items-center justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-2 text-sm font-medium">
+                  Two-factor authentication <span class="ac-badge-success">Recommended</span>
+                </div>
+                <div class="text-sm text-muted-foreground">
+                  Add an extra layer of security to your account.
+                </div>
+              </div>
+              <button buiSwitch [checked]="false" aria-label="Two-factor authentication"></button>
+            </div>
+          </div>
+          <div class="ac-card-footer justify-end">
+            <button type="button" class="ac-btn ac-btn-primary">Update password</button>
+          </div>
+        </div>
+
+        <!-- Danger zone -->
+        <div class="ac-card ac-card-danger scroll-mt-24" id="danger">
+          <div class="ac-card-header">
+            <div class="ac-card-title text-destructive">Danger zone</div>
+            <div class="ac-card-desc">Irreversible and destructive actions.</div>
+          </div>
+          <div class="ac-card-body">
+            <div class="ac-danger-box flex flex-wrap items-center justify-between gap-3 p-4">
+              <div>
+                <div class="text-sm font-medium">Delete this account</div>
+                <div class="text-sm text-muted-foreground">
+                  Permanently remove your account and all of its data.
+                </div>
+              </div>
+              <button type="button" class="ac-btn ac-btn-destructive">Delete account</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
