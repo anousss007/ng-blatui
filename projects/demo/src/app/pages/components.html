@@ -5826,6 +5826,16 @@ This content is read-only and cannot be edited.</textarea
           </p>
         </div>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Reactive form</h2>
+      <app-example [code]="code.sliderReactiveForm">
+        <div class="flex w-full max-w-xs flex-col gap-2">
+          <bui-slider class="w-full" [formControl]="volumeForm" ariaLabel="Volume" />
+          <p class="text-sm text-muted-foreground tabular-nums">
+            Control value: <code class="text-foreground">{{ volumeForm.value }}</code>
+          </p>
+        </div>
+      </app-example>
     }
     @case ('rating') {
       <app-example [code]="code.rating">

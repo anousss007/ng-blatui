@@ -1198,6 +1198,7 @@ export class ComponentPage {
   protected readonly termsForm = new FormControl(false);
   protected readonly notifyForm = new FormControl(true);
   protected readonly dateForm = new FormControl('2026-06-15');
+  protected readonly volumeForm = new FormControl(45);
   protected readonly fruitsMulti = signal<string[]>(['apple', 'cherry']);
   protected readonly fruits = [
     { value: 'apple', label: 'Apple' },
@@ -2453,6 +2454,9 @@ this.dialog.open(tpl, { ariaModal: true });`,
     sliderVertical: `<bui-slider class="h-40" orientation="vertical" [value]="40" ariaLabel="Volume" />`,
     sliderRange: `<!-- [range]="true" adds a second thumb; bind both handles -->
 <bui-slider [range]="true" [(value)]="low" [(endValue)]="high" />`,
+    sliderReactiveForm: `<!-- ControlValueAccessor: works with formControl / ngModel / signal forms -->
+<bui-slider [formControl]="volume" ariaLabel="Volume" />
+// volume = new FormControl(45)`,
     rating: `import { BuiRating } from 'ng-blatui';
 
 <bui-rating [(value)]="score" [max]="5" ariaLabel="Rate" />`,

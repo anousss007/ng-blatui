@@ -1,8 +1,12 @@
-import { Component, computed, input, model } from '@angular/core';
+import { Component, computed, forwardRef, input, model } from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
 
 export type TimeFieldMode = 'input' | 'select';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = (): void => {};
 
 const SELECT_CLASS =
   'h-9 rounded-md border border-input bg-background px-2 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50';
@@ -10,7 +14,14 @@ const SELECT_CLASS =
 /** A styled time field: a native `<input type="time">`, or hour/minute selects in `select` mode. */
 @Component({
   selector: 'bui-time-field',
-  host: { 'data-slot': 'time-field', '[class]': 'computedClass()' },
+  host: {
+    'data-slot': 'time-field',
+    '[class]': 'computedClass()',
+    '(focusout)': 'onTouched()',
+  },
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiTimeField), multi: true },
+  ],
   template: `
     @if (mode() === 'select') {
       <div class="inline-flex items-center gap-1">
@@ -55,14 +66,14 @@ const SELECT_CLASS =
     }
   `,
 })
-export class BuiTimeField {
+export class BuiTimeField implements ControlValueAccessor {
   readonly value = model('');
   readonly name = input('');
   readonly id = input('');
   readonly min = input('');
   readonly max = input('');
   readonly seconds = input(false);
-  readonly disabled = input(false);
+  readonly disabled = model(false);
   /** `select` renders hour + minute dropdowns instead of a native time input. */
   readonly mode = input<TimeFieldMode>('input');
   /** Minute step used in `select` mode. */
@@ -70,6 +81,8 @@ export class BuiTimeField {
   readonly ariaLabel = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
+  private onChange: (value: string) => void = noop;
+  protected onTouched: () => void = noop;
   protected readonly selectClass = SELECT_CLASS;
   protected readonly hourPart = computed(() =>
     (this.value().split(':', 1)[0] || '12').padStart(2, '0'),
@@ -90,13 +103,32 @@ export class BuiTimeField {
 
   protected onInput(event: Event): void {
     this.value.set((event.target as HTMLInputElement).value);
+    this.onChange(this.value());
   }
 
   protected setHour(event: Event): void {
     this.value.set(`${(event.target as HTMLSelectElement).value}:${this.minutePart()}`);
+    this.onChange(this.value());
   }
 
   protected setMinute(event: Event): void {
     this.value.set(`${this.hourPart()}:${(event.target as HTMLSelectElement).value}`);
+    this.onChange(this.value());
+  }
+
+  writeValue(value: string | null | undefined): void {
+    this.value.set(typeof value === 'string' ? value : '');
+  }
+
+  registerOnChange(callback: (value: string) => void): void {
+    this.onChange = callback;
+  }
+
+  registerOnTouched(callback: () => void): void {
+    this.onTouched = callback;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
   }
 }

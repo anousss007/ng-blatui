@@ -2,15 +2,20 @@ import {
   Component,
   computed,
   type ElementRef,
+  forwardRef,
   input,
   model,
   signal,
   viewChild,
 } from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
 
 type Thumb = 'start' | 'end';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = (): void => {};
 
 /**
  * A slider (`role="slider"`) with pointer drag and full keyboard support
@@ -27,7 +32,11 @@ type Thumb = 'start' | 'end';
     '[class]': 'computedClass()',
     '(document:pointermove)': 'onMove($event)',
     '(document:pointerup)': 'onUp()',
+    '(focusout)': 'onTouched()',
   },
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiSlider), multi: true },
+  ],
   template: `
     <span
       #track
@@ -80,7 +89,7 @@ type Thumb = 'start' | 'end';
     }
   `,
 })
-export class BuiSlider {
+export class BuiSlider implements ControlValueAccessor {
   readonly value = model(0);
   /** Enable a second thumb; binds `endValue` as the upper handle. */
   readonly range = input(false);
@@ -88,11 +97,13 @@ export class BuiSlider {
   readonly min = input(0);
   readonly max = input(100);
   readonly step = input(1);
-  readonly disabled = input(false);
+  readonly disabled = model(false);
   readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
   readonly ariaLabel = input('Value');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
+  private onChange: (value: number) => void = noop;
+  protected onTouched: () => void = noop;
   private readonly track = viewChild.required<ElementRef<HTMLElement>>('track');
   private readonly active = signal<Thumb>('start');
   private dragging = false;
@@ -196,6 +207,7 @@ export class BuiSlider {
       this.endValue.set(next);
     } else {
       this.value.set(next);
+      this.onChange(next);
     }
   }
 
@@ -220,5 +232,21 @@ export class BuiSlider {
 
   private clamp(value: number): number {
     return Math.max(this.min(), Math.min(this.max(), value));
+  }
+
+  writeValue(value: number | null | undefined): void {
+    this.value.set(typeof value === 'number' ? value : 0);
+  }
+
+  registerOnChange(callback: (value: number) => void): void {
+    this.onChange = callback;
+  }
+
+  registerOnTouched(callback: () => void): void {
+    this.onTouched = callback;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
   }
 }
