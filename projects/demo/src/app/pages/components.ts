@@ -3191,6 +3191,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     datetimePickerRange: `<!-- mode="range" → start–end dates sharing one time; [months]="2" shows both grids -->
 <bui-datetime-picker mode="range" [months]="2" [(range)]="range" />
 // range = signal({ start: '', end: '' })`,
+    datetimePickerRangeLimits: `<!-- range constrained by min/max (forwarded to the calendar) -->
+<bui-datetime-picker mode="range" [months]="2" [(range)]="range" minDate="2026-06-01" maxDate="2026-06-30" />`,
     autocomplete: `import { BuiAutocomplete } from 'ng-blatui';
 
 <bui-autocomplete [(value)]="value" [options]="frameworks" />`,

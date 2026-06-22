@@ -8360,6 +8360,19 @@ This content is read-only and cannot be edited.</textarea
           placeholder="Pick a date range"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Range with limits</h2>
+      <app-example [code]="code.datetimePickerRangeLimits">
+        <bui-datetime-picker
+          class="w-72"
+          mode="range"
+          [months]="2"
+          [(range)]="dtmRange"
+          minDate="2026-06-01"
+          maxDate="2026-06-30"
+          placeholder="June only"
+        />
+      </app-example>
     }
     @case ('autocomplete') {
       <app-example [code]="code.autocomplete">
