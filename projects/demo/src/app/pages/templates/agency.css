@@ -1,0 +1,133 @@
+#tpl-agency {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Buttons */
+#tpl-agency .ag-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: var(--radius, 0.5rem);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+#tpl-agency .ag-btn-sm {
+  height: 2.25rem;
+  padding: 0 0.75rem;
+  font-size: 0.8125rem;
+}
+#tpl-agency .ag-btn-lg {
+  height: 2.75rem;
+  padding: 0 1.5rem;
+  font-size: 0.95rem;
+}
+#tpl-agency .ag-btn-primary {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+#tpl-agency .ag-btn-primary:hover {
+  background: color-mix(in oklab, var(--primary) 90%, black);
+}
+#tpl-agency .ag-btn-outline {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+#tpl-agency .ag-btn-outline:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+#tpl-agency .ag-btn-secondary {
+  background: var(--secondary, #fff);
+  color: var(--secondary-foreground, var(--primary));
+}
+#tpl-agency .ag-btn-secondary:hover {
+  filter: brightness(0.96);
+}
+
+/* Icon button */
+#tpl-agency .ag-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius, 0.5rem);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--foreground);
+  transition: background 0.15s;
+}
+#tpl-agency .ag-icon-btn:hover {
+  background: var(--accent);
+}
+
+/* Badge */
+#tpl-agency .ag-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  padding: 0.15rem 0.65rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+/* Card */
+#tpl-agency .ag-card {
+  background: var(--card, var(--background));
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 0.75rem);
+  padding: 1.5rem;
+  transition: box-shadow 0.2s;
+}
+#tpl-agency .ag-card:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Marquee */
+#tpl-agency .ag-marquee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+/* Contact form inputs (on primary gradient) */
+#tpl-agency .ag-input,
+#tpl-agency .ag-textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius, 0.5rem);
+  padding: 0.6rem 0.875rem;
+  font-size: 0.875rem;
+  color: var(--primary-foreground);
+  outline: none;
+}
+#tpl-agency .ag-input {
+  height: 2.5rem;
+}
+#tpl-agency .ag-input::placeholder,
+#tpl-agency .ag-textarea::placeholder {
+  color: color-mix(in oklab, var(--primary-foreground) 60%, transparent);
+}
+#tpl-agency .ag-input:focus,
+#tpl-agency .ag-textarea:focus {
+  border-color: rgba(255, 255, 255, 0.5);
+}

@@ -197,6 +197,11 @@ export const routes: Routes = [
     title: 'Account · ng-blatui',
   },
   {
+    path: 'templates/agency',
+    loadComponent: async () => (await import('./pages/templates/agency')).AgencyTemplate,
+    title: 'Agency · ng-blatui',
+  },
+  {
     path: 'templates/:slug',
     loadComponent: async () => (await import('./pages/templates')).TemplatesPage,
     title: 'Templates · ng-blatui',

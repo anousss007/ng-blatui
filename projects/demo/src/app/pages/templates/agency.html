@@ -1,0 +1,202 @@
+<div id="tpl-agency">
+  <header
+    class="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60"
+  >
+    <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+      <a href="#" class="flex items-center gap-2 font-semibold tracking-tight"
+        ><span
+          class="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground"
+          ><app-lucide name="asterisk" class="size-5"
+        /></span>
+        Studio&nbsp;Form</a
+      >
+      <nav class="ml-4 hidden items-center gap-1 text-sm md:flex">
+        @for (label of nav; track label) {
+          <a
+            href="#"
+            class="rounded-md px-3 py-1.5 font-medium text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
+            >{{ label }}</a
+          >
+        }
+      </nav>
+      <div class="ml-auto flex items-center gap-1.5">
+        <button type="button" class="ag-icon-btn" aria-label="Toggle theme">
+          <app-lucide name="sun" class="size-4 dark:hidden" /><app-lucide
+            name="moon"
+            class="hidden size-4 dark:block"
+          />
+        </button>
+        <a href="#contact" class="ag-btn ag-btn-sm ag-btn-primary">Start a project</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b">
+    <div class="pointer-events-none absolute inset-x-0 -top-40 -z-10 flex justify-center">
+      <div
+        class="h-[26rem] w-[56rem] rounded-full bg-gradient-to-b from-primary/20 to-transparent blur-3xl"
+      ></div>
+    </div>
+    <div class="mx-auto max-w-6xl px-6 py-24 lg:py-32">
+      <span class="ag-badge mb-6">Design &amp; motion studio · since 2014</span>
+      <h1 class="max-w-4xl text-5xl font-bold tracking-tight text-balance sm:text-6xl lg:text-7xl">
+        We craft brands that <span class="text-primary">move</span>.
+      </h1>
+      <p class="mt-6 max-w-xl text-lg text-balance text-muted-foreground">
+        A small studio of designers, animators and engineers helping ambitious teams look and feel
+        unmistakable.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#work" class="ag-btn ag-btn-lg ag-btn-primary"
+          >See our work <app-lucide name="arrow-right" class="size-4"
+        /></a>
+        <a href="#contact" class="ag-btn ag-btn-lg ag-btn-outline">Start a project</a>
+      </div>
+    </div>
+    <div class="ag-marquee border-t py-5">
+      @for (w of marqueeWords; track w) {
+        <span class="px-4 text-2xl font-semibold whitespace-nowrap text-muted-foreground/60"
+          >{{ w }} <span class="text-primary">✳</span></span
+        >
+      }
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="scroll-mt-20 py-20 lg:py-28">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-12 max-w-2xl">
+        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">What we do</h2>
+        <p class="mt-3 text-lg text-muted-foreground">
+          Four disciplines, one team — so the strategy, design and build never get lost in
+          translation.
+        </p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        @for (s of services; track s.title) {
+          <div class="ag-card">
+            <div
+              class="mb-4 inline-flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary"
+            >
+              <app-lucide [name]="s.icon" class="size-5" />
+            </div>
+            <h3 class="font-semibold">{{ s.title }}</h3>
+            <p class="mt-1.5 text-sm text-muted-foreground">{{ s.desc }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Work -->
+  <section id="work" class="scroll-mt-20 border-y bg-muted/30 py-20 lg:py-28">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-10 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Selected work</h2>
+          <p class="mt-2 text-muted-foreground">Tap any project to open the case study.</p>
+        </div>
+        <a href="#" class="ag-btn ag-btn-outline"
+          >All projects <app-lucide name="arrow-right" class="size-4"
+        /></a>
+      </div>
+      <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
+        @for (id of work; track id) {
+          <a href="#" class="group aspect-[4/3] overflow-hidden rounded-2xl border"
+            ><img
+              [src]="img(id, 700)"
+              alt="Project"
+              loading="lazy"
+              class="size-full object-cover transition-transform duration-300 group-hover:scale-105"
+          /></a>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="py-16">
+    <div class="mx-auto grid max-w-4xl grid-cols-2 gap-8 px-6 text-center lg:grid-cols-4">
+      @for (s of stats; track s[1]) {
+        <div>
+          <div class="text-4xl font-bold tracking-tight">{{ s[0] }}</div>
+          <div class="mt-1 text-sm text-muted-foreground">{{ s[1] }}</div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="border-y bg-muted/30 py-20 lg:py-28">
+    <div class="mx-auto max-w-6xl px-6">
+      <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">The studio</h2>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        @for (m of team; track m.n) {
+          <div class="text-center">
+            <bui-avatar class="mx-auto size-24 text-xl">{{ m.i }}</bui-avatar>
+            <div class="mt-3 font-semibold">{{ m.n }}</div>
+            <div class="text-sm text-muted-foreground">{{ m.r }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="py-20 lg:py-28">
+    <div class="mx-auto max-w-3xl px-6 text-center">
+      <app-lucide name="quote" class="mx-auto mb-4 size-10 text-muted-foreground/30" />
+      <blockquote class="text-2xl leading-snug font-medium text-balance sm:text-3xl">
+        Studio Form rebranded us in six weeks and our demo requests doubled. They get strategy and
+        craft in equal measure.
+      </blockquote>
+      <div class="mt-6 flex items-center justify-center gap-3">
+        <bui-avatar class="size-11">RC</bui-avatar>
+        <div class="text-left text-sm">
+          <div class="font-semibold">Renata Cruz</div>
+          <div class="text-muted-foreground">CMO, Northwind</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section id="contact" class="scroll-mt-20 pb-24">
+    <div class="mx-auto max-w-5xl px-6">
+      <div
+        class="overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-primary/80 p-10 text-primary-foreground lg:p-16"
+      >
+        <div class="grid items-center gap-8 lg:grid-cols-2">
+          <div>
+            <h2 class="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+              Have a project in mind?
+            </h2>
+            <p class="mt-3 text-balance text-primary-foreground/80">
+              Tell us what you're building. We reply within two business days.
+            </p>
+          </div>
+          <form class="grid gap-3">
+            <div class="grid gap-3 sm:grid-cols-2">
+              <input class="ag-input" placeholder="Your name" aria-label="Name" />
+              <input class="ag-input" type="email" placeholder="Email" aria-label="Email" />
+            </div>
+            <textarea
+              class="ag-textarea"
+              rows="3"
+              placeholder="Tell us about the project…"
+              aria-label="Message"
+            ></textarea>
+            <button type="button" class="ag-btn ag-btn-secondary w-fit">
+              Send brief <app-lucide name="arrow-right" class="size-4" />
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t py-8 text-center text-sm text-muted-foreground">
+    © 2026 Studio Form. Designed in-house, built with BlatUI.
+  </footer>
+</div>
