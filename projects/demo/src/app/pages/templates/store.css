@@ -1,0 +1,219 @@
+#tpl-store {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Banner */
+#tpl-store .st-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--muted);
+  color: var(--foreground);
+  border-bottom: 1px solid var(--border);
+  padding: 0.5rem 1rem;
+}
+
+/* Buttons */
+#tpl-store .st-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: var(--radius, 0.5rem);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+#tpl-store .st-btn-sm {
+  height: 2.25rem;
+  padding: 0 0.75rem;
+  font-size: 0.8125rem;
+}
+#tpl-store .st-btn-lg {
+  height: 2.75rem;
+  padding: 0 1.5rem;
+  font-size: 0.95rem;
+}
+#tpl-store .st-btn-primary {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+#tpl-store .st-btn-primary:hover {
+  background: color-mix(in oklab, var(--primary) 90%, black);
+}
+#tpl-store .st-btn-outline {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+#tpl-store .st-btn-outline:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+/* Icon button */
+#tpl-store .st-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius, 0.5rem);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--foreground);
+  transition: background 0.15s;
+}
+#tpl-store .st-icon-btn:hover {
+  background: var(--accent);
+}
+
+/* Badges (soft tones) */
+#tpl-store .st-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border-radius: 9999px;
+  padding: 0.1rem 0.55rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+#tpl-store .st-badge-primary {
+  background: color-mix(in oklab, var(--primary) 14%, transparent);
+  color: var(--primary);
+}
+#tpl-store .st-badge-danger {
+  background: color-mix(in oklab, #dc2626 16%, transparent);
+  color: #b91c1c;
+}
+#tpl-store .st-badge-warning {
+  background: color-mix(in oklab, #d97706 18%, transparent);
+  color: #b45309;
+}
+#tpl-store .st-badge-solid {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Inputs */
+#tpl-store .st-search {
+  height: 2.25rem;
+  width: 11rem;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 0.5rem);
+  padding: 0 0.75rem 0 2.25rem;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  outline: none;
+}
+#tpl-store .st-input {
+  flex: 1;
+  height: 2.5rem;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 0.5rem);
+  padding: 0 0.875rem;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  outline: none;
+}
+#tpl-store .st-search::placeholder,
+#tpl-store .st-input::placeholder {
+  color: var(--muted-foreground);
+}
+
+/* Category chips */
+#tpl-store .st-chip {
+  flex-shrink: 0;
+  border-radius: 9999px;
+  padding: 0.375rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: var(--muted);
+  color: var(--muted-foreground);
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+#tpl-store .st-chip:hover {
+  color: var(--foreground);
+}
+#tpl-store .st-chip-active {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Static price slider */
+#tpl-store .st-slider {
+  position: relative;
+  height: 0.375rem;
+  border-radius: 9999px;
+  background: var(--muted);
+}
+#tpl-store .st-slider-range {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 9999px;
+  background: var(--primary);
+}
+#tpl-store .st-slider-thumb {
+  position: absolute;
+  top: 50%;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  background: var(--background);
+  transform: translate(-50%, -50%);
+}
+
+/* Checkbox */
+#tpl-store .st-check {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--primary);
+  border-radius: 0.25rem;
+}
+
+/* Cart count */
+#tpl-store .st-cart-count {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+/* Marquee */
+#tpl-store .st-marquee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+}
+
+/* Footer / wishlist hover */
+#tpl-store .st-foot-link:hover {
+  color: var(--foreground);
+}
+#tpl-store .st-social:hover {
+  color: var(--foreground);
+  background: var(--accent);
+}
+#tpl-store .st-wishlist:hover {
+  color: #ef4444;
+}

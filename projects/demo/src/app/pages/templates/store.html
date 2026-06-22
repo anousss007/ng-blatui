@@ -1,0 +1,308 @@
+<div id="tpl-store">
+  <div class="st-banner text-xs">
+    <span class="inline-flex items-center gap-2"
+      ><app-lucide name="truck" class="size-4" /> Free shipping over $75 · 30-day returns ·
+      <a href="#" class="font-semibold underline underline-offset-2">Shop the sale</a></span
+    >
+  </div>
+
+  <!-- Header -->
+  <header
+    class="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60"
+  >
+    <div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 lg:px-6">
+      <a href="#" class="text-xl font-semibold tracking-tight">Atelier</a>
+      <nav class="ml-4 hidden items-center gap-1 text-sm md:flex">
+        @for (label of nav; track label) {
+          <a
+            href="#"
+            class="rounded-md px-3 py-1.5 font-medium text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
+            >{{ label }}</a
+          >
+        }
+      </nav>
+      <div class="ml-auto flex items-center gap-1.5">
+        <div class="relative hidden sm:block">
+          <span
+            class="pointer-events-none absolute top-1/2 left-2.5 -translate-y-1/2 text-muted-foreground"
+            ><app-lucide name="search" class="size-4"
+          /></span>
+          <input
+            type="search"
+            placeholder="Search products…"
+            class="st-search lg:w-56"
+            aria-label="Search products"
+          />
+        </div>
+        <button class="st-icon-btn" aria-label="Wishlist">
+          <app-lucide name="heart" class="size-4" />
+        </button>
+        <button class="st-icon-btn relative" aria-label="Cart">
+          <app-lucide name="shopping-bag" class="size-4" />
+          <span
+            class="st-cart-count absolute -top-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full text-[10px] font-semibold"
+            >3</span
+          >
+        </button>
+        <button class="st-icon-btn md:hidden" aria-label="Menu">
+          <app-lucide name="menu" class="size-4" />
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="border-b">
+    <div class="mx-auto grid max-w-7xl items-stretch gap-0 lg:grid-cols-2">
+      <div class="flex flex-col justify-center px-6 py-16 lg:px-12 lg:py-24">
+        <span class="st-badge st-badge-primary mb-4">New season</span>
+        <h1 class="text-4xl font-bold tracking-tight text-balance sm:text-5xl">
+          Warm minimalism for every room
+        </h1>
+        <p class="mt-4 max-w-md text-lg text-balance text-muted-foreground">
+          Considered pieces in natural materials — built to last, priced to live with. Free shipping
+          over $75.
+        </p>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a href="#" class="st-btn st-btn-lg st-btn-primary"
+            >Shop new arrivals <app-lucide name="arrow-right" class="size-4"
+          /></a>
+          <a href="#" class="st-btn st-btn-lg st-btn-outline">Browse lookbook</a>
+        </div>
+      </div>
+      <div class="relative min-h-[320px] overflow-hidden bg-muted">
+        <img
+          [src]="img('1618220179428-22790b461013', 1100)"
+          alt="Styled living room"
+          loading="lazy"
+          class="size-full object-cover"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Category chips -->
+  <div class="border-b">
+    <div class="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 py-4 lg:px-6">
+      @for (chip of chips; track chip) {
+        <button
+          class="st-chip"
+          [class.st-chip-active]="activeChip() === chip"
+          (click)="activeChip.set(chip)"
+        >
+          {{ chip }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Shop -->
+  <div class="mx-auto grid max-w-7xl gap-8 px-4 py-10 lg:grid-cols-[240px_1fr] lg:px-6">
+    <!-- Filters -->
+    <aside class="hidden lg:block">
+      <div class="sticky top-24 space-y-7">
+        <div>
+          <h3 class="mb-3 text-sm font-semibold">Price</h3>
+          <div class="st-slider">
+            <div class="st-slider-range" style="left: 12.5%; right: 31.25%"></div>
+            <div class="st-slider-thumb" style="left: 12.5%"></div>
+            <div class="st-slider-thumb" style="left: 68.75%"></div>
+          </div>
+          <div class="mt-2 flex justify-between text-xs text-muted-foreground">
+            <span>$0</span><span>$320</span>
+          </div>
+        </div>
+        <hr class="border-border" />
+        <div>
+          <h3 class="mb-3 text-sm font-semibold">Category</h3>
+          <div class="space-y-2.5">
+            @for (c of filterCats; track c.name) {
+              <label class="flex cursor-pointer items-center gap-2.5 text-sm">
+                <input type="checkbox" class="st-check" [attr.aria-label]="c.name" />
+                <span class="flex-1">{{ c.name }}</span>
+                <span class="text-xs text-muted-foreground">{{ c.count }}</span>
+              </label>
+            }
+          </div>
+        </div>
+        <hr class="border-border" />
+        <div>
+          <h3 class="mb-3 text-sm font-semibold">Rating</h3>
+          <label class="flex cursor-pointer items-center gap-2.5 text-sm">
+            <input type="checkbox" class="st-check" aria-label="4 stars and up" />
+            <bui-rating [value]="4" [max]="5" [readonly]="true" size="sm" color="text-yellow-400" />
+            <span class="text-xs text-muted-foreground">&amp; up</span>
+          </label>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Grid -->
+    <div>
+      <div class="mb-6 flex items-center justify-between">
+        <p class="text-sm text-muted-foreground">
+          <span class="font-medium text-foreground">{{ products.length }}</span> products
+        </p>
+        <button type="button" class="st-btn st-btn-outline st-btn-sm">
+          Sort: Featured <app-lucide name="chevron-down" class="size-4" />
+        </button>
+      </div>
+
+      <div class="grid grid-cols-2 gap-x-5 gap-y-8 lg:grid-cols-3">
+        @for (p of products; track p.name) {
+          <div class="group">
+            <div class="relative aspect-square overflow-hidden rounded-xl border bg-muted">
+              <img
+                [src]="img(p.id)"
+                [alt]="p.name"
+                loading="lazy"
+                class="size-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              @if (p.badge) {
+                <span
+                  class="st-badge absolute top-2.5 left-2.5"
+                  [class.st-badge-solid]="p.tone === 'primary'"
+                  [class.st-badge-danger]="p.tone === 'danger'"
+                  [class.st-badge-warning]="p.tone === 'warning'"
+                  >{{ p.badge }}</span
+                >
+              }
+              <button
+                class="st-wishlist absolute top-2.5 right-2.5 inline-flex size-8 items-center justify-center rounded-full bg-background/80 text-foreground opacity-0 backdrop-blur transition-opacity group-hover:opacity-100"
+                aria-label="Add to wishlist"
+              >
+                <app-lucide name="heart" class="size-4" />
+              </button>
+              <div
+                class="absolute inset-x-2.5 bottom-2.5 translate-y-2 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100"
+              >
+                <button type="button" class="st-btn st-btn-sm st-btn-primary w-full">
+                  <app-lucide name="shopping-bag" class="size-4" /> Add to cart
+                </button>
+              </div>
+            </div>
+            <div class="mt-3">
+              <div class="text-xs text-muted-foreground">{{ p.cat }}</div>
+              <h3 class="mt-0.5 text-sm font-medium">{{ p.name }}</h3>
+              <div class="mt-1 flex items-center gap-1.5">
+                <bui-rating
+                  [value]="p.rating"
+                  [max]="5"
+                  [readonly]="true"
+                  size="sm"
+                  color="text-yellow-400"
+                />
+                <span class="text-xs text-muted-foreground">({{ p.reviews }})</span>
+              </div>
+              <div class="mt-1.5 flex items-center gap-2">
+                <span class="font-semibold">${{ p.price }}</span>
+                @if (p.old) {
+                  <span class="text-sm text-muted-foreground line-through">${{ p.old }}</span>
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Lookbook -->
+  <section class="border-y bg-muted/30 py-16">
+    <div class="mx-auto max-w-7xl px-4 lg:px-6">
+      <div class="mb-8 flex items-end justify-between">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight sm:text-3xl">Shop the look</h2>
+          <p class="mt-1 text-muted-foreground">Tap any room to explore the pieces.</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        @for (id of lookbook; track id) {
+          <div class="aspect-[3/4] overflow-hidden rounded-xl border">
+            <img
+              [src]="img(id, 600)"
+              alt="Styled room"
+              loading="lazy"
+              class="size-full object-cover transition-transform duration-300 hover:scale-105"
+            />
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust marquee -->
+  <section class="py-10">
+    <p class="mb-5 text-center text-sm text-muted-foreground">As seen in</p>
+    <div class="st-marquee mx-auto max-w-4xl">
+      @for (name of press; track name) {
+        <span class="px-2 text-lg font-medium whitespace-nowrap text-muted-foreground/60 italic">{{
+          name
+        }}</span>
+      }
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="border-t py-16">
+    <div class="mx-auto max-w-xl px-6 text-center">
+      <h2 class="text-2xl font-bold tracking-tight">Get 10% off your first order</h2>
+      <p class="mt-2 text-muted-foreground">
+        Join the list for new drops, restocks and the occasional sale.
+      </p>
+      <form class="mx-auto mt-6 flex max-w-md gap-2">
+        <input type="email" placeholder="you@example.com" class="st-input" aria-label="Email" />
+        <button type="button" class="st-btn st-btn-primary">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t">
+    <div class="mx-auto max-w-7xl px-6 py-14">
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
+        <div class="lg:col-span-2">
+          <span class="text-xl font-semibold">Atelier</span>
+          <p class="mt-3 max-w-xs text-sm text-muted-foreground">
+            Modern home goods in natural materials. Designed in Copenhagen, shipped worldwide.
+          </p>
+          <div class="mt-5 flex gap-2">
+            @for (s of socials; track s) {
+              <a
+                href="#"
+                [attr.aria-label]="s"
+                class="st-social inline-flex size-9 items-center justify-center rounded-md border text-muted-foreground transition-colors"
+                ><app-lucide [name]="s" class="size-4"
+              /></a>
+            }
+          </div>
+        </div>
+        @for (col of footer; track col.heading) {
+          <div>
+            <h3 class="text-sm font-semibold">{{ col.heading }}</h3>
+            <ul class="mt-3 space-y-2 text-sm">
+              @for (link of col.links; track link) {
+                <li>
+                  <a href="#" class="st-foot-link text-muted-foreground transition-colors">{{
+                    link
+                  }}</a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+      <hr class="my-8 border-border" />
+      <div
+        class="flex flex-col items-center justify-between gap-3 text-sm text-muted-foreground sm:flex-row"
+      >
+        <span>© 2026 Atelier. All rights reserved.</span>
+        <div class="flex items-center gap-2 opacity-70">
+          @for (i of payIcons; track i) {
+            <app-lucide [name]="i" class="size-5" />
+          }
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
