@@ -1,0 +1,211 @@
+<div id="tpl-docs-site">
+  <!-- Header -->
+  <header
+    class="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60"
+  >
+    <div class="mx-auto flex h-16 max-w-screen-2xl items-center gap-3 px-4 lg:px-6">
+      <button class="ds-icon-btn ds-icon-btn-outline lg:hidden" aria-label="Menu">
+        <app-lucide name="menu" class="size-4" />
+      </button>
+
+      <a href="#" class="flex items-center gap-2 font-semibold"
+        ><span
+          class="flex size-7 items-center justify-center rounded-lg bg-primary text-primary-foreground"
+          ><app-lucide name="hexagon" class="size-4"
+        /></span>
+        Helix</a
+      >
+      <span class="ds-badge hidden text-xs sm:inline-flex">v3.2</span>
+
+      <div class="relative ml-auto hidden sm:block">
+        <span
+          class="pointer-events-none absolute top-1/2 left-2.5 -translate-y-1/2 text-muted-foreground"
+          ><app-lucide name="search" class="size-4"
+        /></span>
+        <input
+          type="search"
+          placeholder="Search docs…"
+          class="ds-search"
+          aria-label="Search docs"
+        />
+        <kbd class="ds-kbd absolute top-1/2 right-1.5 -translate-y-1/2">⌘K</kbd>
+      </div>
+      <div class="ml-auto flex items-center gap-1.5 sm:ml-0">
+        <button type="button" class="ds-icon-btn" aria-label="Toggle theme">
+          <app-lucide name="sun" class="size-4 dark:hidden" /><app-lucide
+            name="moon"
+            class="hidden size-4 dark:block"
+          />
+        </button>
+        <a href="#" class="ds-icon-btn" aria-label="GitHub"
+          ><app-lucide name="github" class="size-4"
+        /></a>
+      </div>
+    </div>
+  </header>
+
+  <div class="mx-auto flex max-w-screen-2xl gap-8 px-4 lg:px-6">
+    <!-- Left nav -->
+    <aside
+      class="sticky top-16 hidden h-[calc(100vh-4rem)] w-60 shrink-0 overflow-y-auto py-8 lg:block"
+    >
+      <nav class="space-y-6 text-sm">
+        @for (sec of sections; track sec.heading) {
+          <div>
+            <p class="mb-2 px-2 font-semibold">{{ sec.heading }}</p>
+            <ul class="space-y-0.5">
+              @for (link of sec.links; track link.label) {
+                <li>
+                  <a href="#" class="ds-nav-link" [class.ds-nav-active]="link.active">{{
+                    link.label
+                  }}</a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </nav>
+    </aside>
+
+    <!-- Content -->
+    <main class="min-w-0 flex-1 py-8 lg:max-w-3xl">
+      <nav
+        class="mb-4 flex items-center gap-1.5 text-sm text-muted-foreground"
+        aria-label="Breadcrumb"
+      >
+        <a href="#" class="ds-crumb transition-colors">Docs</a>
+        <app-lucide name="chevron-right" class="size-3.5" />
+        <a href="#" class="ds-crumb transition-colors">Getting Started</a>
+        <app-lucide name="chevron-right" class="size-3.5" />
+        <span class="text-foreground">Installation</span>
+      </nav>
+
+      <h1 class="scroll-mt-20 text-4xl font-bold tracking-tight" id="overview">Installation</h1>
+      <p class="mt-3 text-lg text-balance text-muted-foreground">
+        Get Helix running in your project in under five minutes. This guide covers requirements,
+        installation and the one config file you'll touch.
+      </p>
+
+      <h2 id="requirements" class="mt-10 scroll-mt-20 border-b pb-2 text-xl font-semibold">
+        Requirements
+      </h2>
+      <p class="mt-4 leading-relaxed">
+        Helix runs anywhere Node 18+ does. Before you start, make sure you have:
+      </p>
+      <ul class="mt-3 list-disc space-y-1.5 pl-6 text-sm leading-relaxed">
+        <li>Node.js <code class="ds-inline">18.0</code> or newer</li>
+        <li>A package manager (npm, pnpm or bun)</li>
+        <li>A project with a bundler (Vite recommended)</li>
+      </ul>
+
+      <h2 id="install" class="mt-10 scroll-mt-20 border-b pb-2 text-xl font-semibold">
+        Install the package
+      </h2>
+      <p class="mt-4 leading-relaxed">
+        Add Helix and its peer dependencies with your package manager of choice:
+      </p>
+      <div class="ds-codeblock mt-4">
+        <div class="flex items-start justify-between gap-4">
+          <pre>{{ installCmd }}</pre>
+          <button type="button" class="ds-copy-btn" aria-label="Copy">
+            <app-lucide name="copy" class="size-4" />
+          </button>
+        </div>
+      </div>
+
+      <div class="ds-alert ds-alert-info mt-6">
+        <span class="ds-alert-icon"><app-lucide name="info" class="size-4" /></span>
+        <div class="ds-alert-title">Using a monorepo?</div>
+        <div class="ds-alert-desc">
+          Install Helix in the workspace root and reference it from each package — the CLI resolves
+          config upward automatically.
+        </div>
+      </div>
+
+      <h2 id="config" class="mt-10 scroll-mt-20 border-b pb-2 text-xl font-semibold">
+        Configuration
+      </h2>
+      <p class="mt-4 leading-relaxed">
+        Helix reads a single <code class="ds-inline">helix.config.js</code> at your project root.
+        Every option is optional — these are the defaults:
+      </p>
+
+      <div class="mt-4 overflow-hidden rounded-lg border">
+        <table class="ds-table">
+          <thead>
+            <tr>
+              <th>Option</th>
+              <th>Type</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of configRows; track row.o) {
+              <tr>
+                <td class="font-mono text-xs font-medium">{{ row.o }}</td>
+                <td class="font-mono text-xs text-muted-foreground">{{ row.t }}</td>
+                <td class="font-mono text-xs">{{ row.d }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="ds-alert ds-alert-warning mt-6">
+        <span class="ds-alert-icon"><app-lucide name="triangle-alert" class="size-4" /></span>
+        <div class="ds-alert-title">Strict mode changes resolution</div>
+        <div class="ds-alert-desc">
+          Turning on <code class="ds-inline">strict</code> will fail the build on any unresolved
+          token. Enable it once your theme is stable.
+        </div>
+      </div>
+
+      <h2 id="next" class="mt-10 scroll-mt-20 border-b pb-2 text-xl font-semibold">Next steps</h2>
+      <p class="mt-4 leading-relaxed">
+        You're set up. From here, most people head to theming or pull in their first components.
+      </p>
+
+      <!-- Prev / next -->
+      <div class="mt-10 grid gap-4 sm:grid-cols-2">
+        <a href="#" class="ds-nav-card group rounded-lg border p-4">
+          <div class="flex items-center gap-1 text-xs text-muted-foreground">
+            <app-lucide name="arrow-left" class="size-3.5" /> Previous
+          </div>
+          <div class="mt-1 font-medium transition-colors group-hover:text-primary">
+            Introduction
+          </div>
+        </a>
+        <a href="#" class="ds-nav-card group rounded-lg border p-4 text-right">
+          <div class="flex items-center justify-end gap-1 text-xs text-muted-foreground">
+            Next <app-lucide name="arrow-right" class="size-3.5" />
+          </div>
+          <div class="mt-1 font-medium transition-colors group-hover:text-primary">Quick start</div>
+        </a>
+      </div>
+    </main>
+
+    <!-- On this page -->
+    <aside class="sticky top-16 hidden h-[calc(100vh-4rem)] w-52 shrink-0 py-8 xl:block">
+      <p class="mb-3 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+        On this page
+      </p>
+      <ul class="space-y-2 text-sm">
+        @for (item of toc; track item.anchor) {
+          <li>
+            <a
+              [href]="'#' + item.anchor"
+              class="ds-toc-link block text-muted-foreground transition-colors"
+              >{{ item.label }}</a
+            >
+          </li>
+        }
+      </ul>
+      <hr class="my-4 border-border" />
+      <a
+        href="#"
+        class="ds-edit-link inline-flex items-center gap-1.5 text-sm text-muted-foreground"
+        ><app-lucide name="pencil" class="size-3.5" /> Edit this page</a
+      >
+    </aside>
+  </div>
+</div>

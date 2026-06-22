@@ -1,0 +1,189 @@
+#tpl-docs-site {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Buttons / icon buttons */
+#tpl-docs-site .ds-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius, 0.5rem);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--foreground);
+  text-decoration: none;
+  transition: background 0.15s;
+}
+#tpl-docs-site .ds-icon-btn:hover {
+  background: var(--accent);
+}
+#tpl-docs-site .ds-icon-btn-outline {
+  border: 1px solid var(--border);
+}
+
+/* Badge */
+#tpl-docs-site .ds-badge {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Search */
+#tpl-docs-site .ds-search {
+  height: 2.25rem;
+  width: 15rem;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 0.5rem);
+  padding: 0 3rem 0 2.25rem;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  outline: none;
+}
+#tpl-docs-site .ds-search::placeholder {
+  color: var(--muted-foreground);
+}
+#tpl-docs-site .ds-kbd {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  padding: 0.05rem 0.35rem;
+  font-size: 0.7rem;
+  font-family: inherit;
+  color: var(--muted-foreground);
+  background: var(--muted);
+}
+
+/* Sidebar nav links */
+#tpl-docs-site .ds-nav-link {
+  display: block;
+  border-radius: var(--radius, 0.5rem);
+  padding: 0.375rem 0.5rem;
+  text-decoration: none;
+  color: var(--muted-foreground);
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+#tpl-docs-site .ds-nav-link:hover {
+  color: var(--foreground);
+  background: color-mix(in oklab, var(--accent) 60%, transparent);
+}
+#tpl-docs-site .ds-nav-active {
+  background: var(--accent);
+  color: var(--accent-foreground);
+  font-weight: 500;
+}
+
+/* Code block */
+#tpl-docs-site .ds-codeblock {
+  background: var(--foreground);
+  color: var(--background);
+  border-radius: var(--radius, 0.5rem);
+  padding: 1rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.875rem;
+  overflow-x: auto;
+}
+#tpl-docs-site .ds-codeblock pre {
+  white-space: pre;
+  margin: 0;
+}
+#tpl-docs-site .ds-copy-btn {
+  opacity: 0.7;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: inherit;
+}
+#tpl-docs-site .ds-copy-btn:hover {
+  opacity: 1;
+}
+#tpl-docs-site code.ds-inline {
+  background: var(--muted);
+  border-radius: 0.25rem;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Alert / callout */
+#tpl-docs-site .ds-alert {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 0.5rem);
+  padding: 1rem;
+}
+#tpl-docs-site .ds-alert-icon {
+  grid-row: span 2;
+  margin-top: 0.1rem;
+}
+#tpl-docs-site .ds-alert-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+#tpl-docs-site .ds-alert-desc {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+#tpl-docs-site .ds-alert-info {
+  background: color-mix(in oklab, #2563eb 8%, transparent);
+  border-color: color-mix(in oklab, #2563eb 30%, transparent);
+}
+#tpl-docs-site .ds-alert-info .ds-alert-icon {
+  color: #2563eb;
+}
+#tpl-docs-site .ds-alert-warning {
+  background: color-mix(in oklab, #d97706 10%, transparent);
+  border-color: color-mix(in oklab, #d97706 32%, transparent);
+}
+#tpl-docs-site .ds-alert-warning .ds-alert-icon {
+  color: #b45309;
+}
+
+/* Table */
+#tpl-docs-site .ds-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+#tpl-docs-site .ds-table th {
+  padding: 0.625rem 0.875rem;
+  text-align: left;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in oklab, var(--muted) 40%, transparent);
+}
+#tpl-docs-site .ds-table td {
+  padding: 0.625rem 0.875rem;
+  border-bottom: 1px solid var(--border);
+}
+#tpl-docs-site .ds-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Prev/next + TOC + breadcrumb hovers */
+#tpl-docs-site .ds-nav-card {
+  transition: border-color 0.15s;
+}
+#tpl-docs-site .ds-nav-card:hover {
+  border-color: var(--ring, var(--primary));
+}
+#tpl-docs-site .ds-toc-link:hover,
+#tpl-docs-site .ds-edit-link:hover,
+#tpl-docs-site .ds-crumb:hover {
+  color: var(--foreground);
+}
