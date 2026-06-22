@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+#tpl-pulse {
+  --pulse-white: #f7fafc;
+  --pulse-ink: #0f172a;
+  --pulse-blue: #2563eb;
+  --pulse-sky: #0ea5e9;
+  --pulse-mint: #34d399;
+  --pulse-soft-bg: #f0f7ff;
+  font-family: 'Inter', sans-serif;
+  color: var(--pulse-ink);
+  background: var(--pulse-white);
+}
+
+#tpl-pulse h1,
+#tpl-pulse h2,
+#tpl-pulse h3 {
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+}
+
+/* Hero gradient */
+#tpl-pulse .pulse-hero-bg {
+  background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 45%, #d1fae5 100%);
+}
+
+/* Heartbeat SVG line animation */
+@keyframes pulse-draw {
+  0% {
+    stroke-dashoffset: 320;
+  }
+  60% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes pulse-dot {
+  0%,
+  50% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  80% {
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  #tpl-pulse .pulse-ecg-line {
+    stroke-dasharray: 320;
+    stroke-dashoffset: 320;
+    animation: pulse-draw 2.2s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+  }
+  #tpl-pulse .pulse-ecg-dot {
+    opacity: 0;
+    transform-origin: center;
+    animation: pulse-dot 2.2s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+  }
+}
+
+/* Gentle fade-in reveals */
+@keyframes pulse-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  #tpl-pulse .pulse-reveal {
+    animation: pulse-rise 0.6s ease both;
+  }
+  #tpl-pulse .pulse-reveal-1 {
+    animation-delay: 0.05s;
+  }
+  #tpl-pulse .pulse-reveal-2 {
+    animation-delay: 0.15s;
+  }
+  #tpl-pulse .pulse-reveal-3 {
+    animation-delay: 0.25s;
+  }
+  #tpl-pulse .pulse-reveal-4 {
+    animation-delay: 0.35s;
+  }
+  #tpl-pulse .pulse-reveal-5 {
+    animation-delay: 0.45s;
+  }
+}
+
+/* Doctor card hover */
+#tpl-pulse .pulse-doctor-card {
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+#tpl-pulse .pulse-doctor-card:hover {
+  box-shadow: 0 16px 48px rgba(37, 99, 235, 0.12);
+  transform: translateY(-3px);
+}
+
+/* Specialty card */
+#tpl-pulse .pulse-specialty-card {
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+  background: #ffffff;
+}
+#tpl-pulse .pulse-specialty-card:hover {
+  box-shadow: 0 8px 24px rgba(14, 165, 233, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Nav */
+#tpl-pulse .pulse-nav {
+  background: rgba(247, 250, 252, 0.9);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(37, 99, 235, 0.08);
+}
+#tpl-pulse .pulse-nav-link {
+  color: #475569;
+  transition:
+    color 0.2s,
+    background 0.2s;
+}
+#tpl-pulse .pulse-nav-link:hover {
+  color: var(--pulse-blue);
+  background: #eff6ff;
+}
+
+/* Mint accent line under section labels */
+#tpl-pulse .pulse-section-label::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 3px;
+  background: var(--pulse-mint);
+  border-radius: 99px;
+  margin-top: 8px;
+}
+
+/* Progress bar */
+#tpl-pulse .pulse-progress-track {
+  background: #e2e8f0;
+  border-radius: 99px;
+  height: 8px;
+  overflow: hidden;
+}
+#tpl-pulse .pulse-progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 1s ease;
+}
+
+/* Plan card highlight ring */
+#tpl-pulse .pulse-plan-highlight {
+  box-shadow:
+    0 0 0 2px var(--pulse-blue),
+    0 12px 40px rgba(37, 99, 235, 0.15);
+}
+
+/* Buttons */
+#tpl-pulse .pulse-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  transition:
+    box-shadow 0.2s,
+    opacity 0.2s,
+    background 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+}
+#tpl-pulse .pulse-btn-primary {
+  background: var(--pulse-blue);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.3);
+}
+#tpl-pulse .pulse-btn-primary:hover {
+  opacity: 0.92;
+}
+#tpl-pulse .pulse-btn-outline {
+  background: transparent;
+  border: 1px solid #93c5fd;
+  color: var(--pulse-blue);
+}
+#tpl-pulse .pulse-btn-outline:hover {
+  background: #eff6ff;
+}
+
+/* Form inputs */
+#tpl-pulse .pulse-input {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--pulse-ink);
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s;
+}
+#tpl-pulse .pulse-input:focus {
+  border-color: var(--pulse-blue);
+}
+
+/* Footer link */
+#tpl-pulse .pulse-foot-link {
+  color: #94a3b8;
+  transition: color 0.2s;
+}
+#tpl-pulse .pulse-foot-link:hover {
+  color: #fff;
+}
+#tpl-pulse .pulse-social {
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+#tpl-pulse .pulse-social:hover {
+  color: #fff !important;
+  border-color: var(--pulse-blue) !important;
+}

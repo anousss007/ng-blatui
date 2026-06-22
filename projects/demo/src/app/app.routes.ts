@@ -97,6 +97,11 @@ export const routes: Routes = [
     title: 'Mono · ng-blatui',
   },
   {
+    path: 'templates/pulse',
+    loadComponent: async () => (await import('./pages/templates/pulse')).PulseTemplate,
+    title: 'Pulse · ng-blatui',
+  },
+  {
     path: 'templates/:slug',
     loadComponent: async () => (await import('./pages/templates')).TemplatesPage,
     title: 'Templates · ng-blatui',

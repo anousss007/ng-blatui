@@ -1,0 +1,900 @@
+<div id="tpl-pulse">
+  <!-- NAV -->
+  <header class="pulse-nav sticky top-0 z-40">
+    <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+      <a href="#" class="flex items-center gap-2 font-bold" style="color: var(--pulse-ink)">
+        <span
+          class="flex size-8 items-center justify-center rounded-full"
+          style="background: linear-gradient(135deg, var(--pulse-blue), var(--pulse-sky))"
+        >
+          <app-lucide name="heart-pulse" class="size-4 text-white" />
+        </span>
+        <span
+          style="
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            color: var(--pulse-ink);
+          "
+          >Pulse</span
+        >
+      </a>
+
+      <nav class="ml-6 hidden items-center gap-1 text-sm md:flex">
+        @for (link of navLinks; track link.href) {
+          <a [href]="link.href" class="pulse-nav-link rounded-md px-3 py-1.5 font-medium">{{
+            link.label
+          }}</a>
+        }
+      </nav>
+
+      <div class="ml-auto flex items-center gap-2">
+        <a
+          href="#"
+          class="hidden rounded-md px-3 py-1.5 text-sm font-medium sm:inline-flex"
+          style="color: var(--pulse-ink)"
+          >Sign in</a
+        >
+        <a
+          href="#booking"
+          class="pulse-btn pulse-btn-primary hidden px-4 py-1.5 text-sm sm:inline-flex"
+          style="box-shadow: none"
+          >Book a visit <app-lucide name="arrow-right" class="size-4"
+        /></a>
+        <button
+          type="button"
+          class="inline-flex size-9 items-center justify-center rounded-md border md:hidden"
+          style="border-color: #cbd5e1; color: var(--pulse-ink)"
+          aria-label="Open menu"
+        >
+          <app-lucide name="menu" class="size-4" />
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="pulse-hero-bg relative overflow-hidden border-b">
+    <div
+      class="pointer-events-none absolute -top-32 -right-32 size-96 rounded-full opacity-30 blur-3xl"
+      style="background: radial-gradient(circle, #93c5fd, transparent 70%)"
+    ></div>
+    <div
+      class="pointer-events-none absolute bottom-0 -left-24 size-72 rounded-full opacity-20 blur-2xl"
+      style="background: radial-gradient(circle, #6ee7b7, transparent 70%)"
+    ></div>
+
+    <div class="mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:py-28">
+      <div>
+        <div class="pulse-reveal pulse-reveal-1 mb-5 flex flex-wrap gap-2">
+          <span buiBadge tone="info" variant="soft" class="gap-1.5"
+            ><app-lucide name="shield-check" class="size-3" /> HIPAA Compliant</span
+          >
+          <span buiBadge tone="success" variant="soft" class="gap-1.5"
+            ><app-lucide name="clock" class="size-3" /> 24 / 7 care</span
+          >
+          <span buiBadge tone="neutral" variant="soft" class="gap-1.5"
+            ><app-lucide name="award" class="size-3" /> Board-certified MDs</span
+          >
+        </div>
+
+        <h1
+          class="pulse-reveal pulse-reveal-2 text-4xl font-extrabold tracking-tight text-balance sm:text-5xl lg:text-6xl"
+          style="
+            color: var(--pulse-ink);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.1;
+          "
+        >
+          Care,<br />
+          <span
+            style="
+              background: linear-gradient(90deg, var(--pulse-blue), var(--pulse-sky));
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+            "
+            >on your schedule.</span
+          >
+        </h1>
+
+        <p
+          class="pulse-reveal pulse-reveal-3 mt-5 max-w-lg text-lg text-balance"
+          style="color: #475569"
+        >
+          See a board-certified doctor by video in minutes — from your phone, tablet or laptop. No
+          waiting rooms. No referral letters. Just great care.
+        </p>
+
+        <div class="pulse-reveal pulse-reveal-4 mt-8 flex flex-wrap items-center gap-3">
+          <a href="#booking" class="pulse-btn pulse-btn-primary px-6 py-3 text-base"
+            >Book a visit <app-lucide name="calendar-check" class="size-4"
+          /></a>
+          <a href="#how-it-works" class="pulse-btn pulse-btn-outline px-6 py-3 text-base"
+            ><app-lucide name="play" class="size-4" /> How it works</a
+          >
+        </div>
+
+        <div class="pulse-reveal pulse-reveal-5 mt-8 flex items-center gap-4">
+          <div class="flex -space-x-3">
+            @for (av of heroAvatars; track av.seed) {
+              <bui-avatar
+                class="size-10 ring-2 ring-white"
+                [src]="'https://picsum.photos/seed/' + av.seed + '/80/80'"
+                [alt]="av.alt"
+                >{{ avatarInitial(av.alt) }}</bui-avatar
+              >
+            }
+          </div>
+          <div class="text-sm">
+            <div class="flex items-center gap-0.5 text-amber-500">
+              @for (i of [1, 2, 3, 4, 5]; track i) {
+                <app-lucide name="star" class="size-3.5" style="fill: currentColor" />
+              }
+            </div>
+            <span style="color: #64748b"
+              >Trusted by <strong style="color: var(--pulse-ink)">50,000+</strong> patients</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Vitals card -->
+      <div class="pulse-reveal pulse-reveal-3 relative">
+        <div
+          class="mb-6 overflow-hidden rounded-2xl border bg-white p-5"
+          style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.1)"
+        >
+          <div class="mb-3 flex items-center justify-between">
+            <span class="text-sm font-semibold" style="color: var(--pulse-ink)">Live vitals</span>
+            <span buiBadge tone="danger" variant="soft" class="animate-pulse gap-1"
+              ><span class="inline-block size-1.5 rounded-full bg-red-500"></span> Live</span
+            >
+          </div>
+
+          <div class="relative flex items-center justify-center py-4">
+            <svg viewBox="0 0 320 60" class="w-full" aria-hidden="true">
+              <path
+                d="M0,30 L40,30 L50,30 L55,8 L62,52 L68,8 L75,30 L82,30 L88,30 L93,22 L98,38 L103,30 L108,30 L130,30 L138,30 L143,8 L150,52 L156,8 L163,30 L170,30 L176,30 L181,22 L186,38 L191,30 L196,30 L220,30 L228,30 L233,8 L240,52 L246,8 L253,30 L260,30 L266,30 L271,22 L276,38 L281,30 L320,30"
+                class="pulse-ecg-line"
+                fill="none"
+                stroke="#2563eb"
+                stroke-width="2.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <circle cx="281" cy="30" r="4" class="pulse-ecg-dot" fill="#2563eb" />
+            </svg>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3 pt-2">
+            @for (vit of heroVitals; track vit.l) {
+              <div class="rounded-xl p-3 text-center" style="background: var(--pulse-soft-bg)">
+                <app-lucide [name]="vit.i" class="mx-auto mb-1 size-4" [style.color]="vit.c" />
+                <div class="text-xs font-semibold" style="color: var(--pulse-ink)">{{ vit.v }}</div>
+                <div class="text-[10px]" style="color: #94a3b8">{{ vit.l }}</div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div
+          class="absolute -right-4 -bottom-6 hidden rounded-2xl border bg-white px-4 py-3 shadow-lg lg:block"
+          style="box-shadow: 0 8px 24px rgba(52, 211, 153, 0.18)"
+        >
+          <div class="flex items-center gap-3">
+            <span
+              class="flex size-9 items-center justify-center rounded-full"
+              style="background: #d1fae5"
+              ><app-lucide name="calendar-check" class="size-4" style="color: #059669"
+            /></span>
+            <div class="text-xs">
+              <div class="font-semibold" style="color: var(--pulse-ink)">Next available</div>
+              <div style="color: #059669; font-weight: 600">Today · 3:00 PM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIALTIES -->
+  <section id="specialties" class="scroll-mt-20 py-20 lg:py-28" style="background: #ffffff">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mx-auto mb-14 max-w-2xl text-center">
+        <p
+          class="pulse-section-label inline-block text-sm font-semibold tracking-widest uppercase"
+          style="color: var(--pulse-blue)"
+        >
+          Specialties
+        </p>
+        <h2
+          class="mt-4 text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+          style="color: var(--pulse-ink)"
+        >
+          Expert care across every discipline
+        </h2>
+        <p class="mt-3 text-lg text-balance" style="color: #64748b">
+          Our network of 800+ credentialed specialists covers every stage of life — all reachable
+          within minutes.
+        </p>
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        @for (sp of specialties; track sp.name) {
+          <div
+            class="pulse-specialty-card group rounded-2xl border p-5"
+            style="box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06)"
+          >
+            <div
+              class="mb-4 inline-flex size-12 items-center justify-center rounded-xl"
+              style="background: linear-gradient(135deg, #dbeafe, #e0f2fe)"
+            >
+              <app-lucide [name]="sp.icon" class="size-5" style="color: var(--pulse-blue)" />
+            </div>
+            <h3 class="font-semibold" style="color: var(--pulse-ink)">{{ sp.name }}</h3>
+            <p class="mt-1.5 text-sm" style="color: #64748b">{{ sp.desc }}</p>
+            <div
+              class="mt-4 inline-flex items-center gap-1 text-xs font-medium"
+              style="color: var(--pulse-blue)"
+            >
+              Book now <app-lucide name="arrow-right" class="size-3" />
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section
+    id="how-it-works"
+    class="scroll-mt-20 border-y py-20 lg:py-28"
+    style="background: var(--pulse-soft-bg)"
+  >
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="mx-auto mb-14 max-w-2xl text-center">
+        <p
+          class="pulse-section-label inline-block text-sm font-semibold tracking-widest uppercase"
+          style="color: var(--pulse-blue)"
+        >
+          How it works
+        </p>
+        <h2
+          class="mt-4 text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+          style="color: var(--pulse-ink)"
+        >
+          From booking to better health in 4 steps
+        </h2>
+      </div>
+
+      <div class="mb-2 flex items-center justify-center">
+        @for (step of steps; track step.title; let i = $index; let last = $last) {
+          <div
+            class="flex size-10 shrink-0 items-center justify-center rounded-full text-white"
+            style="background: linear-gradient(135deg, var(--pulse-blue), var(--pulse-sky))"
+          >
+            <app-lucide [name]="step.icon" class="size-4" />
+          </div>
+          @if (!last) {
+            <div class="h-0.5 w-12 sm:w-20" style="background: #bfdbfe"></div>
+          }
+        }
+      </div>
+
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        @for (step of steps; track step.title; let i = $index) {
+          <div
+            class="rounded-2xl border bg-white p-5"
+            style="box-shadow: 0 2px 12px rgba(15, 23, 42, 0.05)"
+          >
+            <div
+              class="mb-3 flex size-9 items-center justify-center rounded-full text-sm font-bold text-white"
+              style="background: linear-gradient(135deg, var(--pulse-blue), var(--pulse-sky))"
+            >
+              {{ i + 1 }}
+            </div>
+            <h3 class="font-semibold" style="color: var(--pulse-ink)">{{ step.title }}</h3>
+            <p class="mt-1.5 text-sm" style="color: #64748b">{{ step.desc }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section id="booking" class="scroll-mt-20 py-20 lg:py-28" style="background: #ffffff">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="mx-auto mb-14 max-w-2xl text-center">
+        <p
+          class="pulse-section-label inline-block text-sm font-semibold tracking-widest uppercase"
+          style="color: var(--pulse-blue)"
+        >
+          Book a visit
+        </p>
+        <h2
+          class="mt-4 text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+          style="color: var(--pulse-ink)"
+        >
+          Schedule your appointment
+        </h2>
+        <p class="mt-3 text-lg text-balance" style="color: #64748b">
+          Fill in the form below — we'll confirm your slot within 5 minutes.
+        </p>
+      </div>
+
+      <div
+        class="rounded-3xl border bg-white p-8 lg:p-12"
+        style="box-shadow: 0 16px 48px rgba(37, 99, 235, 0.08)"
+      >
+        <form>
+          <div class="grid gap-6 sm:grid-cols-2">
+            <div>
+              <span class="mb-1.5 block text-sm font-medium" style="color: var(--pulse-ink)"
+                >Full name</span
+              >
+              <input type="text" placeholder="Jane Smith" class="pulse-input" />
+            </div>
+            <div>
+              <span class="mb-1.5 block text-sm font-medium" style="color: var(--pulse-ink)"
+                >Email address</span
+              >
+              <input type="email" placeholder="jane@example.com" class="pulse-input" />
+            </div>
+            <div>
+              <span class="mb-1.5 block text-sm font-medium" style="color: var(--pulse-ink)"
+                >Specialty</span
+              >
+              <select class="pulse-input">
+                <option value="">Choose a specialty</option>
+                @for (opt of specialtyOptions; track opt) {
+                  <option>{{ opt }}</option>
+                }
+              </select>
+            </div>
+            <div>
+              <span class="mb-1.5 block text-sm font-medium" style="color: var(--pulse-ink)"
+                >Preferred date</span
+              >
+              <input type="date" class="pulse-input" />
+            </div>
+            <div>
+              <span class="mb-1.5 block text-sm font-medium" style="color: var(--pulse-ink)"
+                >Preferred time</span
+              >
+              <input type="time" step="900" class="pulse-input" />
+            </div>
+            <div class="sm:col-span-2">
+              <span class="mb-1.5 block text-sm font-medium" style="color: var(--pulse-ink)"
+                >Reason for visit</span
+              >
+              <textarea
+                rows="3"
+                placeholder="Briefly describe your symptoms or concern…"
+                class="pulse-input"
+                style="resize: none"
+              ></textarea>
+            </div>
+          </div>
+
+          <div
+            class="mt-6 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <div class="flex items-center gap-2 text-xs" style="color: #64748b">
+              <app-lucide
+                name="shield-check"
+                class="size-4 shrink-0"
+                style="color: var(--pulse-mint)"
+              />
+              Your information is encrypted and HIPAA-protected.
+            </div>
+            <button type="button" class="pulse-btn pulse-btn-primary px-6 py-3 text-base">
+              Request appointment <app-lucide name="calendar-check" class="size-4" />
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOCTORS -->
+  <section
+    id="doctors"
+    class="scroll-mt-20 border-t py-20 lg:py-28"
+    style="background: var(--pulse-soft-bg)"
+  >
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mx-auto mb-14 max-w-2xl text-center">
+        <p
+          class="pulse-section-label inline-block text-sm font-semibold tracking-widest uppercase"
+          style="color: var(--pulse-blue)"
+        >
+          Our doctors
+        </p>
+        <h2
+          class="mt-4 text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+          style="color: var(--pulse-ink)"
+        >
+          Meet some of your care team
+        </h2>
+        <p class="mt-3 text-lg text-balance" style="color: #64748b">
+          Every Pulse physician is board-certified, credentialed and rated by verified patients.
+        </p>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        @for (doc of doctors; track doc.seed) {
+          <div
+            class="pulse-doctor-card cursor-pointer rounded-2xl border bg-white p-5"
+            style="box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06)"
+          >
+            <bui-avatar
+              class="mx-auto mb-4 size-20 ring-2"
+              style="--tw-ring-color: #bfdbfe"
+              [src]="'https://picsum.photos/seed/' + doc.seed + '/160/160'"
+              [alt]="doc.name"
+              >{{ docInitial(doc.name) }}</bui-avatar
+            >
+            <h3 class="text-center text-sm font-semibold" style="color: var(--pulse-ink)">
+              {{ doc.name }}
+            </h3>
+            <p class="mt-0.5 text-center text-xs" style="color: #64748b">{{ doc.specialty }}</p>
+
+            <div class="mt-3 flex items-center justify-center gap-1.5">
+              <bui-rating [value]="doc.rating" [max]="5" [readonly]="true" size="sm" />
+              <span class="text-xs font-medium" style="color: var(--pulse-ink)">{{
+                doc.rating
+              }}</span>
+              <span class="text-xs" style="color: #94a3b8">({{ doc.reviews }})</span>
+            </div>
+
+            <div class="mt-3 flex items-center justify-center gap-1">
+              <span
+                buiBadge
+                [tone]="doc.available === 'Today' ? 'success' : 'neutral'"
+                variant="soft"
+                class="text-[10px]"
+                ><app-lucide name="clock" class="size-2.5" /> {{ doc.available }}</span
+              >
+            </div>
+
+            <button
+              type="button"
+              class="pulse-btn pulse-btn-outline mt-4 w-full px-3 py-1.5 text-sm"
+            >
+              View profile
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- HEALTH DASHBOARD -->
+  <section class="border-y py-20 lg:py-28" style="background: #ffffff">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mx-auto mb-14 max-w-2xl text-center">
+        <p
+          class="pulse-section-label inline-block text-sm font-semibold tracking-widest uppercase"
+          style="color: var(--pulse-blue)"
+        >
+          Your health dashboard
+        </p>
+        <h2
+          class="mt-4 text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+          style="color: var(--pulse-ink)"
+        >
+          Track your wellbeing, every day
+        </h2>
+        <p class="mt-3 text-lg text-balance" style="color: #64748b">
+          Your personalised dashboard ties your goals, vitals and visit history into one calm, clear
+          view.
+        </p>
+      </div>
+
+      <div class="grid gap-8 lg:grid-cols-2">
+        <div
+          class="rounded-2xl border bg-white p-6"
+          style="box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06)"
+        >
+          <div class="mb-5 flex items-center justify-between">
+            <h3
+              class="font-semibold"
+              style="color: var(--pulse-ink); font-family: 'Plus Jakarta Sans', sans-serif"
+            >
+              Weekly goals
+            </h3>
+            <span buiBadge tone="success" variant="soft" class="gap-1"
+              ><app-lucide name="trending-up" class="size-3" /> On track</span
+            >
+          </div>
+          <div class="space-y-5">
+            @for (goal of healthGoals; track goal.label) {
+              <div>
+                <div class="mb-1.5 flex items-center justify-between text-sm">
+                  <span class="font-medium" style="color: var(--pulse-ink)">{{ goal.label }}</span>
+                  <span class="font-semibold" [style.color]="goal.color">{{ goal.value }}%</span>
+                </div>
+                <div class="pulse-progress-track">
+                  <div
+                    class="pulse-progress-fill"
+                    [style.width.%]="goal.value"
+                    [style.background]="goal.color"
+                  ></div>
+                </div>
+              </div>
+            }
+          </div>
+
+          <hr class="my-5" style="border: none; border-top: 1px solid #e2e8f0" />
+
+          <div class="grid grid-cols-3 gap-3">
+            @for (st of dashStats; track st.l) {
+              <div class="rounded-xl p-3 text-center" style="background: var(--pulse-soft-bg)">
+                <app-lucide
+                  [name]="st.i"
+                  class="mx-auto mb-1 size-4"
+                  style="color: var(--pulse-blue)"
+                />
+                <div class="text-lg font-bold" style="color: var(--pulse-ink)">{{ st.v }}</div>
+                <div class="text-[10px]" style="color: #94a3b8">{{ st.l }}</div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div
+          class="rounded-2xl border bg-white p-6"
+          style="box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06)"
+        >
+          <div class="mb-5 flex items-center justify-between">
+            <h3
+              class="font-semibold"
+              style="color: var(--pulse-ink); font-family: 'Plus Jakarta Sans', sans-serif"
+            >
+              Resting heart rate
+            </h3>
+            <span buiBadge tone="info" variant="soft" class="gap-1"
+              ><app-lucide name="info" class="size-3" /> Normal range</span
+            >
+          </div>
+          <bui-chart
+            type="area"
+            [series]="chartSeries"
+            [labels]="chartLabels"
+            [height]="220"
+            label="Heart rate over 12 months (bpm)"
+            class="h-[220px] w-full"
+          />
+          <div class="mt-4 flex items-center gap-4 text-xs" style="color: #64748b">
+            <span class="flex items-center gap-1.5"
+              ><span class="inline-block size-2 rounded-full" style="background: #2563eb"></span>
+              Avg: 73 bpm</span
+            >
+            <span class="flex items-center gap-1.5"
+              ><app-lucide name="trending-down" class="size-3" style="color: var(--pulse-mint)" />
+              Improved 3% vs last quarter</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="border-y py-20 lg:py-28" style="background: var(--pulse-soft-bg)">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mx-auto mb-14 max-w-2xl text-center">
+        <p
+          class="pulse-section-label inline-block text-sm font-semibold tracking-widest uppercase"
+          style="color: var(--pulse-blue)"
+        >
+          Patient stories
+        </p>
+        <h2
+          class="mt-4 text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+          style="color: var(--pulse-ink)"
+        >
+          Real patients, real outcomes
+        </h2>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        @for (t of testimonials; track t.a) {
+          <figure
+            class="h-full rounded-2xl border bg-white p-6"
+            style="box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06)"
+          >
+            <blockquote class="text-sm leading-relaxed" style="color: #475569">
+              "{{ t.q }}"
+            </blockquote>
+            <figcaption class="mt-5 flex items-center gap-3">
+              <bui-avatar class="size-10" [src]="t.img" [alt]="t.a">{{
+                avatarInitial(t.a)
+              }}</bui-avatar>
+              <div>
+                <div class="text-sm font-semibold" style="color: var(--pulse-ink)">{{ t.a }}</div>
+                <div class="text-xs" style="color: #94a3b8">{{ t.role }}</div>
+              </div>
+            </figcaption>
+          </figure>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section class="border-y py-12" style="background: #ffffff">
+    <p class="mb-6 text-center text-sm font-medium" style="color: #94a3b8">
+      Accepted by major insurance plans
+    </p>
+    <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-12 gap-y-4 px-6">
+      @for (partner of partners; track partner) {
+        <div class="inline-flex items-center gap-2">
+          <app-lucide name="shield-check" class="size-4" style="color: var(--pulse-blue)" />
+          <span class="text-lg font-bold" style="color: #cbd5e1">{{ partner }}</span>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- PLANS -->
+  <section id="plans" class="scroll-mt-20 py-20 lg:py-28" style="background: var(--pulse-soft-bg)">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mx-auto mb-12 max-w-2xl text-center">
+        <p
+          class="pulse-section-label inline-block text-sm font-semibold tracking-widest uppercase"
+          style="color: var(--pulse-blue)"
+        >
+          Plans
+        </p>
+        <h2
+          class="mt-4 text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+          style="color: var(--pulse-ink)"
+        >
+          Transparent, predictable pricing
+        </h2>
+        <p class="mt-3 text-lg text-balance" style="color: #64748b">
+          Start free — upgrade when you need more. No hidden fees.
+        </p>
+
+        <div class="mt-6 inline-flex items-center gap-2">
+          <span class="text-sm" [class.font-semibold]="!yearly()" style="color: var(--pulse-ink)"
+            >Monthly</span
+          >
+          <button
+            buiSwitch
+            [checked]="yearly()"
+            (checkedChange)="yearly.set($event)"
+            aria-label="Toggle yearly billing"
+          ></button>
+          <span class="text-sm" [class.font-semibold]="yearly()" style="color: var(--pulse-ink)"
+            >Yearly</span
+          >
+          <span buiBadge tone="success" variant="soft" class="text-[10px]">Save 20%</span>
+        </div>
+      </div>
+
+      <div class="grid items-stretch gap-6 lg:grid-cols-3">
+        @for (plan of plans; track plan.name) {
+          <div
+            class="relative flex flex-col rounded-2xl border bg-white p-7"
+            [class.pulse-plan-highlight]="plan.highlight"
+            style="box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06)"
+          >
+            @if (plan.highlight) {
+              <span
+                buiBadge
+                class="absolute -top-3 left-1/2 -translate-x-1/2"
+                style="background: var(--pulse-blue); color: #fff; border: none"
+                >Most popular</span
+              >
+            }
+
+            <h3
+              class="text-lg font-bold"
+              style="color: var(--pulse-ink); font-family: 'Plus Jakarta Sans', sans-serif"
+            >
+              {{ plan.name }}
+            </h3>
+            <p class="mt-0.5 text-sm" style="color: #94a3b8">{{ plan.tag }}</p>
+
+            <div class="mt-5 flex items-baseline gap-1">
+              <span class="text-4xl font-extrabold tracking-tight" style="color: var(--pulse-ink)"
+                >${{ yearly() ? plan.yearly : plan.monthly }}</span
+              >
+              <span class="text-sm" style="color: #94a3b8">/mo</span>
+            </div>
+
+            <a
+              href="#booking"
+              class="pulse-btn mt-5 w-full px-4 py-2 text-sm"
+              [class.pulse-btn-primary]="plan.highlight"
+              [class.pulse-btn-outline]="!plan.highlight"
+              style="box-shadow: none"
+              >{{ plan.cta }}</a
+            >
+
+            <hr class="my-5" style="border: none; border-top: 1px solid #e2e8f0" />
+
+            <ul class="space-y-3 text-sm">
+              @for (feat of plan.features; track feat) {
+                <li class="flex items-center gap-2.5">
+                  <app-lucide
+                    name="check"
+                    class="size-4 shrink-0"
+                    style="color: var(--pulse-mint)"
+                  />
+                  <span style="color: #475569">{{ feat }}</span>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="scroll-mt-20 border-y py-20 lg:py-28" style="background: #ffffff">
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="mb-12 text-center">
+        <p
+          class="pulse-section-label inline-block text-sm font-semibold tracking-widest uppercase"
+          style="color: var(--pulse-blue)"
+        >
+          FAQ
+        </p>
+        <h2
+          class="mt-4 text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+          style="color: var(--pulse-ink)"
+        >
+          Common questions
+        </h2>
+      </div>
+
+      <div class="w-full">
+        @for (faq of faqs; track faq.q; let first = $first) {
+          <details class="group" style="border-bottom: 1px solid #e2e8f0" [open]="first">
+            <summary
+              class="flex cursor-pointer items-center justify-between py-4 text-left font-medium"
+              style="color: var(--pulse-ink)"
+            >
+              {{ faq.q }}
+              <app-lucide
+                name="chevron-down"
+                class="size-4 shrink-0 transition-transform group-open:rotate-180"
+                style="color: var(--pulse-blue)"
+              />
+            </summary>
+            <p class="pb-4 text-sm leading-relaxed" style="color: #475569">{{ faq.a }}</p>
+          </details>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="py-20 lg:py-24" style="background: var(--pulse-soft-bg)">
+    <div class="mx-auto max-w-5xl px-6">
+      <div
+        class="relative overflow-hidden rounded-3xl p-10 text-center lg:p-16"
+        style="
+          background: linear-gradient(135deg, #1d4ed8 0%, #0284c7 60%, #059669 100%);
+          box-shadow: 0 20px 60px rgba(37, 99, 235, 0.3);
+        "
+      >
+        <div
+          class="pointer-events-none absolute -top-16 -right-16 size-64 rounded-full opacity-20"
+          style="background: radial-gradient(circle, #93c5fd, transparent 70%)"
+        ></div>
+        <div
+          class="pointer-events-none absolute -bottom-12 -left-12 size-48 rounded-full opacity-20"
+          style="background: radial-gradient(circle, #6ee7b7, transparent 70%)"
+        ></div>
+
+        <span buiBadge variant="secondary" class="mb-5 inline-flex gap-1.5"
+          ><app-lucide name="heart-pulse" class="size-3.5" /> No credit card required</span
+        >
+
+        <h2
+          class="text-3xl font-extrabold tracking-tight text-balance text-white sm:text-4xl"
+          style="font-family: 'Plus Jakarta Sans', sans-serif"
+        >
+          Your first visit is on us.
+        </h2>
+        <p class="mx-auto mt-3 max-w-xl text-lg text-balance text-white/80">
+          Create your free account today and book a consultation with a board-certified physician in
+          under two minutes.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a
+            href="#booking"
+            class="pulse-btn px-6 py-3 text-base"
+            style="background: #ffffff; color: var(--pulse-blue); font-weight: 700"
+            >Book a free visit <app-lucide name="arrow-right" class="size-4"
+          /></a>
+          <a
+            href="#doctors"
+            class="pulse-btn px-6 py-3 text-base"
+            style="
+              background: transparent;
+              color: #ffffff;
+              border: 1px solid rgba(255, 255, 255, 0.4);
+            "
+            >Meet our doctors</a
+          >
+        </div>
+
+        <div class="mt-8 flex flex-wrap justify-center gap-6 text-sm text-white/70">
+          @for (tb of trustBadges; track tb.label) {
+            <span class="flex items-center gap-1.5"
+              ><app-lucide [name]="tb.icon" class="size-4 text-white/60" /> {{ tb.label }}</span
+            >
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t" style="background: var(--pulse-ink)">
+    <div class="mx-auto max-w-6xl px-6 py-14">
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-6">
+        <div class="lg:col-span-2">
+          <a href="#" class="flex items-center gap-2">
+            <span
+              class="flex size-8 items-center justify-center rounded-full"
+              style="background: linear-gradient(135deg, var(--pulse-blue), var(--pulse-sky))"
+              ><app-lucide name="heart-pulse" class="size-4 text-white"
+            /></span>
+            <span
+              class="text-lg font-bold text-white"
+              style="font-family: 'Plus Jakarta Sans', sans-serif"
+              >Pulse</span
+            >
+          </a>
+          <p class="mt-3 max-w-xs text-sm" style="color: #94a3b8">
+            Expert medical care, delivered to you — whenever, wherever you need it.
+          </p>
+          <div class="mt-5 flex gap-2">
+            @for (soc of socials; track soc) {
+              <a
+                href="#"
+                [attr.aria-label]="soc"
+                class="pulse-social inline-flex size-9 items-center justify-center rounded-md border"
+                style="border-color: #334155; color: #94a3b8"
+                ><app-lucide [name]="soc" class="size-4"
+              /></a>
+            }
+          </div>
+        </div>
+
+        @for (col of footerLinks; track col.heading) {
+          <div>
+            <h3 class="text-sm font-semibold text-white">{{ col.heading }}</h3>
+            <ul class="mt-3 space-y-2 text-sm">
+              @for (link of col.links; track link) {
+                <li>
+                  <a href="#" class="pulse-foot-link">{{ link }}</a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <hr class="my-8" style="border: none; border-top: 1px solid #1e293b" />
+
+      <div
+        class="flex flex-col items-center justify-between gap-3 text-sm sm:flex-row"
+        style="color: #64748b"
+      >
+        <span>© 2026 Pulse Health, Inc. All rights reserved.</span>
+        <span class="flex items-center gap-2"
+          ><app-lucide name="shield-check" class="size-4" style="color: var(--pulse-mint)" /> HIPAA
+          Compliant · SOC 2 Type II · GDPR Ready</span
+        >
+      </div>
+    </div>
+  </footer>
+</div>
