@@ -1,5 +1,15 @@
 import { _IdGenerator } from '@angular/cdk/a11y';
-import { Component, computed, ElementRef, inject, input, model, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  ElementRef,
+  forwardRef,
+  inject,
+  input,
+  model,
+  signal,
+} from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
 
@@ -9,6 +19,11 @@ export interface ComboboxOption {
   /** Optional leading icon, given as an SVG path `d` string. */
   icon?: string;
 }
+
+type ComboboxValue = string | readonly string[];
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = (): void => {};
 
 /**
  * A filterable combobox: a text input (`role="combobox"`, `aria-autocomplete="list"`) over a
@@ -21,6 +36,9 @@ export interface ComboboxOption {
     '[class]': 'computedClass()',
     '(document:click)': 'onDocumentClick($event)',
   },
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiCombobox), multi: true },
+  ],
   template: `
     <input
       type="text"
@@ -93,18 +111,20 @@ export interface ComboboxOption {
     }
   `,
 })
-export class BuiCombobox {
+export class BuiCombobox implements ControlValueAccessor {
   readonly value = model('');
   /** Select several options; binds `values` instead of `value`. */
   readonly multiple = input(false);
   readonly values = model<readonly string[]>([]);
   readonly options = input<readonly ComboboxOption[]>([]);
   readonly placeholder = input('Search…');
-  readonly disabled = input(false);
+  readonly disabled = model(false);
   /** When false, the field can't be typed in — it just opens the full list (select-like). */
   readonly searchable = input(true);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
+  private onChange: (value: ComboboxValue) => void = noop;
+  private onTouched: () => void = noop;
   protected readonly listId = inject(_IdGenerator).getId('bui-combobox-');
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly open = signal(false);
@@ -160,12 +180,15 @@ export class BuiCombobox {
         next.add(option.value);
       }
       this.values.set([...next]);
+      this.onChange([...next]);
       this.query.set('');
       return;
     }
     this.value.set(option.value);
+    this.onChange(option.value);
     this.query.set('');
     this.open.set(false);
+    this.onTouched();
   }
 
   protected onKeydown(event: KeyboardEvent): void {
@@ -213,5 +236,26 @@ export class BuiCombobox {
 
     this.open.set(false);
     this.query.set('');
+    this.onTouched();
+  }
+
+  writeValue(value: ComboboxValue | null): void {
+    if (this.multiple()) {
+      this.values.set(Array.isArray(value) ? [...(value as readonly string[])] : []);
+    } else {
+      this.value.set(typeof value === 'string' ? value : '');
+    }
+  }
+
+  registerOnChange(callback: (value: ComboboxValue) => void): void {
+    this.onChange = callback;
+  }
+
+  registerOnTouched(callback: () => void): void {
+    this.onTouched = callback;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
   }
 }
