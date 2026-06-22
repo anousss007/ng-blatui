@@ -67,6 +67,11 @@ export const routes: Routes = [
     title: 'Atlas · ng-blatui',
   },
   {
+    path: 'templates/bloom',
+    loadComponent: async () => (await import('./pages/templates/bloom')).BloomTemplate,
+    title: 'Bloom · ng-blatui',
+  },
+  {
     path: 'templates/:slug',
     loadComponent: async () => (await import('./pages/templates')).TemplatesPage,
     title: 'Templates · ng-blatui',

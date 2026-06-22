@@ -1,0 +1,1020 @@
+<div id="tpl-bloom">
+  <!-- NAV -->
+  <header class="sticky top-0 z-40 flex justify-center px-4 py-3">
+    <div class="bloom-nav flex w-full max-w-4xl items-center gap-3 px-5 py-2.5">
+      <a href="#" class="flex items-center gap-2 font-semibold" style="color: var(--bloom-ink)">
+        <span class="bloom-icon-tile" style="background: var(--bloom-lilac)">
+          <app-lucide name="flower-2" class="size-5" style="color: var(--bloom-ink)" />
+        </span>
+        <span style="font-family: 'Fredoka', sans-serif; font-size: 1.25rem; font-weight: 700"
+          >Bloom</span
+        >
+      </a>
+      <nav class="ml-4 hidden items-center gap-0.5 text-sm md:flex" aria-label="Main navigation">
+        @for (link of nav; track link.href) {
+          <a
+            [href]="link.href"
+            class="rounded-full px-3.5 py-1.5 font-medium transition-colors hover:bg-black/5"
+            style="color: var(--bloom-muted)"
+            >{{ link.label }}</a
+          >
+        }
+      </nav>
+      <div class="ml-auto flex items-center gap-2">
+        <a
+          href="#pricing"
+          class="bloom-pill-btn bloom-pill-btn-primary"
+          style="padding: 0.55rem 1.4rem; font-size: 0.9rem"
+          >Get Bloom free</a
+        >
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden px-4 pt-10 pb-16">
+    <div
+      class="bloom-blob"
+      style="
+        width: 420px;
+        height: 420px;
+        background: #c9b8ff;
+        opacity: 0.35;
+        top: -80px;
+        left: -120px;
+      "
+    ></div>
+    <div
+      class="bloom-blob"
+      style="
+        width: 360px;
+        height: 360px;
+        background: #ffb4a2;
+        opacity: 0.3;
+        top: 40px;
+        right: -100px;
+      "
+    ></div>
+    <div
+      class="bloom-blob"
+      style="
+        width: 260px;
+        height: 260px;
+        background: #7ee0b0;
+        opacity: 0.3;
+        bottom: -40px;
+        left: 30%;
+      "
+    ></div>
+
+    <div
+      class="relative mx-auto flex max-w-6xl flex-col items-center gap-12 lg:flex-row lg:items-center"
+      style="z-index: 1"
+    >
+      <div class="bloom-appear flex-1 text-center lg:text-left">
+        <span
+          buiBadge
+          class="mb-5 rounded-full"
+          style="
+            background: rgba(201, 184, 255, 0.2);
+            color: var(--bloom-ink);
+            border-color: rgba(201, 184, 255, 0.4);
+          "
+        >
+          <app-lucide name="sparkles" class="size-3" /> New · AI Coach is live
+        </span>
+
+        <h1
+          style="
+            font-size: clamp(2.6rem, 6vw, 4.2rem);
+            font-weight: 700;
+            color: var(--bloom-ink);
+            line-height: 1.1;
+          "
+        >
+          Your happiest,<br />
+          <span
+            style="
+              background: linear-gradient(135deg, #c9b8ff, #a8d8ff);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+            "
+            >healthiest self</span
+          ><br />
+          starts today.
+        </h1>
+
+        <p
+          style="color: var(--bloom-muted); font-size: 1.125rem; margin-top: 1rem; max-width: 34rem"
+        >
+          Bloom is your friendly daily wellness companion — workouts, sleep, nutrition, mindfulness
+          and habits, all in one beautifully simple app.
+        </p>
+
+        <div class="mt-7 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+          <a
+            href="#"
+            class="bloom-pill-btn bloom-pill-btn-primary"
+            aria-label="Download on the App Store"
+          >
+            <app-lucide name="apple" class="size-5" /> App Store
+          </a>
+          <a
+            href="#"
+            class="bloom-pill-btn bloom-pill-btn-outline"
+            aria-label="Get it on Google Play"
+          >
+            <app-lucide name="play" class="size-5" /> Google Play
+          </a>
+        </div>
+
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-5 lg:justify-start">
+          <div class="flex -space-x-2.5">
+            @for (s of heroAvatars; track s) {
+              <bui-avatar
+                class="size-10"
+                style="box-shadow: 0 0 0 3px var(--bloom-bg)"
+                [src]="'https://picsum.photos/seed/' + s + '/64/64'"
+                alt=""
+                >B</bui-avatar
+              >
+            }
+          </div>
+          <div>
+            <bui-rating [value]="5" [max]="5" [readonly]="true" size="sm" color="text-amber-400" />
+            <p style="font-size: 0.875rem; color: var(--bloom-muted); margin-top: 0.15rem">
+              Loved by <strong style="color: var(--bloom-ink)">12k+</strong> members
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bloom-float relative flex-shrink-0" style="width: min(320px, 88vw)">
+        <div class="bloom-clay overflow-hidden" style="padding: 0; border-radius: 36px">
+          <img
+            src="https://picsum.photos/seed/bloom-phone/320/560"
+            alt="Bloom app screenshot"
+            width="320"
+            height="560"
+            class="block w-full"
+            style="border-radius: 36px; display: block"
+          />
+        </div>
+
+        <div
+          class="bloom-clay bloom-appear absolute -bottom-4 -left-8 flex items-center gap-3 p-3.5"
+          style="border-radius: 24px; min-width: 170px"
+        >
+          <div style="position: relative; width: 52px; height: 52px; flex-shrink: 0">
+            <svg width="52" height="52" viewBox="0 0 52 52" aria-hidden="true">
+              <circle class="bloom-ring-track" cx="26" cy="26" r="22" stroke-width="5" />
+              <circle
+                class="bloom-ring-fill"
+                cx="26"
+                cy="26"
+                r="22"
+                stroke-width="5"
+                stroke="#7ee0b0"
+                [attr.stroke-dasharray]="ringCirc(22)"
+                [attr.stroke-dashoffset]="ringOffset(22, 72)"
+                transform="rotate(-90 26 26)"
+              />
+            </svg>
+            <span
+              style="
+                position: absolute;
+                inset: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.7rem;
+                font-weight: 700;
+                color: var(--bloom-ink);
+              "
+              >72%</span
+            >
+          </div>
+          <div>
+            <p
+              style="
+                font-weight: 700;
+                font-size: 0.95rem;
+                color: var(--bloom-ink);
+                line-height: 1.2;
+              "
+            >
+              7,240 steps
+            </p>
+            <p style="font-size: 0.75rem; color: var(--bloom-muted)">Daily goal</p>
+          </div>
+        </div>
+
+        <div
+          class="bloom-clay bloom-float-slow absolute top-12 -right-6 flex items-center gap-2 px-4 py-2.5"
+          style="border-radius: 20px"
+        >
+          <app-lucide name="smile" class="size-5" style="color: #ffd97d" />
+          <span style="font-weight: 600; font-size: 0.85rem; color: var(--bloom-ink)"
+            >Feeling great!</span
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="px-4 py-10">
+    <div class="mx-auto grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-4">
+      @for (s of stats; track s.l) {
+        <div class="bloom-stat">
+          <div
+            style="
+              font-family: 'Fredoka', sans-serif;
+              font-size: 2rem;
+              font-weight: 700;
+              color: var(--bloom-ink);
+            "
+          >
+            {{ s.v }}
+          </div>
+          <div style="font-size: 0.8rem; color: var(--bloom-muted); margin-top: 0.2rem">
+            {{ s.l }}
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="scroll-mt-24 px-4 py-16">
+    <div class="mx-auto max-w-5xl">
+      <div class="mb-12 text-center">
+        <span
+          buiBadge
+          class="mb-3 rounded-full"
+          style="
+            background: rgba(126, 224, 176, 0.2);
+            color: var(--bloom-ink);
+            border-color: rgba(126, 224, 176, 0.4);
+          "
+          >Everything you need</span
+        >
+        <h2 style="font-size: clamp(1.8rem, 4vw, 2.6rem)">All the tools. Zero overwhelm.</h2>
+        <p
+          style="
+            color: var(--bloom-muted);
+            margin-top: 0.5rem;
+            max-width: 36rem;
+            margin-left: auto;
+            margin-right: auto;
+          "
+        >
+          Bloom brings together every pillar of wellness in one friendly, beautiful place.
+        </p>
+      </div>
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        @for (f of features; track f.title) {
+          <div class="bloom-clay flex gap-4 p-6">
+            <div class="bloom-icon-tile" [style.background]="f.bg">
+              <app-lucide [name]="f.icon" class="size-5" [style.color]="f.color" />
+            </div>
+            <div>
+              <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.35rem">
+                {{ f.title }}
+              </h3>
+              <p style="font-size: 0.875rem; color: var(--bloom-muted); line-height: 1.5">
+                {{ f.desc }}
+              </p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- YOUR DAY -->
+  <section class="bloom-section-lavender px-4 py-16">
+    <div class="mx-auto max-w-5xl">
+      <div class="mb-10 text-center">
+        <span
+          buiBadge
+          class="mb-3 rounded-full"
+          style="
+            background: rgba(168, 216, 255, 0.3);
+            color: var(--bloom-ink);
+            border-color: rgba(168, 216, 255, 0.5);
+          "
+          >Today's snapshot</span
+        >
+        <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem)">Your Day at a Glance</h2>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="bloom-clay space-y-6 p-7">
+          <h3 style="font-size: 1.05rem; margin-bottom: 0">Today's Activity</h3>
+          @for (a of todayActivity; track a.label) {
+            <div>
+              <div class="mb-1.5 flex justify-between" style="font-size: 0.875rem">
+                <span style="font-weight: 600; color: var(--bloom-ink)">{{ a.label }}</span>
+                <span style="color: var(--bloom-muted)">{{ a.val }}%</span>
+              </div>
+              <div class="bloom-bar">
+                <div
+                  class="bloom-bar-fill"
+                  [style.width.%]="a.val"
+                  [style.background]="a.color"
+                ></div>
+              </div>
+            </div>
+          }
+          <div class="flex justify-around pt-2">
+            @for (r of ringSummary; track r.lbl) {
+              <div class="flex flex-col items-center gap-1">
+                <div style="position: relative; width: 56px; height: 56px">
+                  <svg width="56" height="56" viewBox="0 0 56 56" aria-hidden="true">
+                    <circle class="bloom-ring-track" cx="28" cy="28" r="23" stroke-width="5" />
+                    <circle
+                      class="bloom-ring-fill"
+                      cx="28"
+                      cy="28"
+                      r="23"
+                      stroke-width="5"
+                      [attr.stroke]="r.col"
+                      [attr.stroke-dasharray]="ringCirc(23)"
+                      [attr.stroke-dashoffset]="ringOffset(23, r.pct)"
+                      transform="rotate(-90 28 28)"
+                    />
+                  </svg>
+                  <span
+                    style="
+                      position: absolute;
+                      inset: 0;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      font-size: 0.7rem;
+                      font-weight: 700;
+                      color: var(--bloom-ink);
+                    "
+                    >{{ r.pct }}%</span
+                  >
+                </div>
+                <span style="font-size: 0.72rem; color: var(--bloom-muted)">{{ r.lbl }}</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="bloom-clay flex flex-col gap-6 p-7">
+          <h3 style="font-size: 1.05rem">Daily Step Goal</h3>
+          <div class="flex items-baseline gap-2">
+            <span
+              style="
+                font-family: 'Fredoka', sans-serif;
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: var(--bloom-ink);
+              "
+              >8,000</span
+            >
+            <span style="color: var(--bloom-muted)">steps / day</span>
+          </div>
+
+          <div class="relative h-2 rounded-full" style="background: rgba(58, 51, 64, 0.1)">
+            <div
+              class="absolute inset-y-0 left-0 rounded-full"
+              style="width: 33%; background: var(--bloom-ink)"
+            ></div>
+            <div
+              class="absolute top-1/2 size-4 -translate-y-1/2 rounded-full"
+              style="
+                left: 33%;
+                background: var(--bloom-ink);
+                box-shadow: 0 2px 6px rgba(58, 51, 64, 0.3);
+              "
+            ></div>
+          </div>
+
+          <div class="flex justify-between" style="font-size: 0.8rem; color: var(--bloom-muted)">
+            <span>2 k</span><span>10 k</span><span>20 k</span>
+          </div>
+
+          <div
+            class="flex items-center gap-3 rounded-2xl p-4"
+            style="background: rgba(126, 224, 176, 0.15)"
+          >
+            <app-lucide name="zap" class="size-5" style="color: #7ee0b0; flex-shrink: 0" />
+            <p style="font-size: 0.85rem; color: var(--bloom-ink)">
+              <strong>Pro tip:</strong> Walking 8k steps burns roughly <strong>320 kcal</strong> —
+              about 90 min of gentle movement!
+            </p>
+          </div>
+
+          <a
+            href="#pricing"
+            class="bloom-pill-btn bloom-pill-btn-primary w-full"
+            style="justify-content: center"
+          >
+            <app-lucide name="target" class="size-4" /> Set my goal
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKOUTS -->
+  <section id="workouts" class="scroll-mt-24 px-4 py-16">
+    <div class="mx-auto max-w-5xl">
+      <div class="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <span
+            buiBadge
+            class="mb-3 rounded-full"
+            style="
+              background: rgba(255, 180, 162, 0.2);
+              color: var(--bloom-ink);
+              border-color: rgba(255, 180, 162, 0.4);
+            "
+            >Move your body</span
+          >
+          <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem)">Find your perfect workout</h2>
+        </div>
+        <div class="inline-flex gap-1 rounded-full p-1" style="background: rgba(58, 51, 64, 0.06)">
+          @for (tab of workoutTabs; track tab; let first = $first) {
+            <span
+              class="rounded-full px-4 py-1.5 text-sm font-medium"
+              [style.background]="first ? 'var(--bloom-card)' : 'transparent'"
+              [style.box-shadow]="first ? '4px 4px 10px rgba(58,51,64,.08)' : null"
+              [style.color]="'var(--bloom-ink)'"
+              >{{ tab }}</span
+            >
+          }
+        </div>
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        @for (w of workouts; track w.label) {
+          <div class="bloom-clay overflow-hidden p-0">
+            <div
+              class="relative overflow-hidden"
+              style="border-radius: 28px 28px 0 0; height: 160px"
+            >
+              <img
+                [src]="w.img"
+                [alt]="w.label + ' workout'"
+                width="320"
+                height="200"
+                loading="lazy"
+                class="size-full object-cover"
+              />
+              <div
+                style="
+                  position: absolute;
+                  inset: 0;
+                  background: linear-gradient(to top, rgba(58, 51, 64, 0.45), transparent);
+                "
+              ></div>
+              <span
+                buiBadge
+                class="absolute top-3 right-3 rounded-full"
+                [style.background]="w.color"
+                style="color: var(--bloom-ink); border: none; font-weight: 600"
+                >{{ w.tone }}</span
+              >
+            </div>
+            <div class="flex items-center justify-between p-4">
+              <div>
+                <h3 style="font-size: 0.95rem; font-weight: 600">{{ w.label }}</h3>
+                <p style="font-size: 0.8rem; color: var(--bloom-muted)">{{ w.mins }} min</p>
+              </div>
+              <button
+                type="button"
+                class="bloom-icon-tile"
+                [style.background]="w.color + '25'"
+                style="width: 2.5rem; height: 2.5rem; border-radius: 14px"
+                [attr.aria-label]="'Start ' + w.label"
+              >
+                <app-lucide name="play" class="size-4" style="color: var(--bloom-ink)" />
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- HABITS -->
+  <section id="habits" class="bloom-section-peach scroll-mt-24 px-4 py-16">
+    <div class="mx-auto max-w-5xl">
+      <div class="mb-10 text-center">
+        <span
+          buiBadge
+          class="mb-3 rounded-full"
+          style="
+            background: rgba(201, 184, 255, 0.2);
+            color: var(--bloom-ink);
+            border-color: rgba(201, 184, 255, 0.4);
+          "
+          >Stay consistent</span
+        >
+        <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem)">Build habits that actually stick</h2>
+        <p style="color: var(--bloom-muted); max-width: 36rem; margin: 0.5rem auto 0">
+          Check in daily, visualise your streak and never break the chain.
+        </p>
+      </div>
+
+      <div class="grid items-start gap-6 md:grid-cols-2">
+        <div class="bloom-clay flex justify-center p-2">
+          <bui-calendar mode="single" value="2026-06-22" captionLayout="label" />
+        </div>
+
+        <div class="bloom-clay flex flex-col gap-5 p-7">
+          <h3 style="font-size: 1.05rem">Today's Habits</h3>
+          @for (h of habits; track h.label) {
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div
+                  class="bloom-icon-tile"
+                  [style.background]="h.color + '25'"
+                  style="width: 2.4rem; height: 2.4rem; border-radius: 14px"
+                >
+                  <app-lucide [name]="h.icon" class="size-4" [style.color]="h.color" />
+                </div>
+                <span style="font-size: 0.9rem; font-weight: 500; color: var(--bloom-ink)">{{
+                  h.label
+                }}</span>
+              </div>
+              <button buiSwitch [checked]="h.checked" [attr.aria-label]="h.label"></button>
+            </div>
+          }
+
+          <div buiSeparator></div>
+
+          <div
+            class="flex items-center justify-between rounded-2xl p-4"
+            style="background: rgba(201, 184, 255, 0.18)"
+          >
+            <div>
+              <p style="font-weight: 700; font-size: 1.05rem; color: var(--bloom-ink)">
+                🔥 14-day streak!
+              </p>
+              <p style="font-size: 0.8rem; color: var(--bloom-muted)">
+                Keep it up — you're on fire!
+              </p>
+            </div>
+            <span
+              buiBadge
+              class="rounded-full"
+              style="
+                background: var(--bloom-lilac);
+                color: var(--bloom-ink);
+                border: none;
+                font-weight: 700;
+                font-size: 0.9rem;
+                padding: 0.35rem 0.9rem;
+              "
+              >+2 badges</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="px-4 py-16">
+    <div class="mx-auto max-w-5xl">
+      <div class="mb-10 text-center">
+        <span
+          buiBadge
+          class="mb-3 rounded-full"
+          style="
+            background: rgba(255, 217, 125, 0.2);
+            color: var(--bloom-ink);
+            border-color: rgba(255, 217, 125, 0.5);
+          "
+          >Real stories</span
+        >
+        <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem)">People are blooming</h2>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-2">
+        @for (t of testimonials; track t.a) {
+          <div class="bloom-clay flex h-full flex-col gap-4 p-7">
+            <bui-rating
+              [value]="t.rating"
+              [max]="5"
+              [readonly]="true"
+              size="sm"
+              color="text-amber-400"
+            />
+            <p style="font-size: 0.95rem; color: var(--bloom-ink); line-height: 1.65; flex: 1">
+              "{{ t.q }}"
+            </p>
+            <div class="flex items-center gap-3">
+              <bui-avatar
+                class="size-10"
+                [src]="'https://picsum.photos/seed/' + t.seed + '/64/64'"
+                [alt]="'Photo of ' + t.a"
+                >{{ t.a.charAt(0) }}</bui-avatar
+              >
+              <div>
+                <p style="font-weight: 600; font-size: 0.875rem; color: var(--bloom-ink)">
+                  {{ t.a }}
+                </p>
+                <p style="font-size: 0.75rem; color: var(--bloom-muted)">{{ t.r }}</p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="bloom-section-lavender px-4 py-16">
+    <div class="mx-auto max-w-4xl">
+      <div class="mb-12 text-center">
+        <span
+          buiBadge
+          class="mb-3 rounded-full"
+          style="
+            background: rgba(168, 216, 255, 0.3);
+            color: var(--bloom-ink);
+            border-color: rgba(168, 216, 255, 0.5);
+          "
+          >Simple as 1-2-3-4</span
+        >
+        <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem)">How Bloom works</h2>
+      </div>
+
+      <ol class="flex w-full items-start gap-2">
+        @for (s of steps; track s.title; let i = $index) {
+          <li class="relative flex flex-1 flex-col items-center gap-3 text-center">
+            <span
+              class="flex size-10 items-center justify-center rounded-full text-sm font-bold"
+              [style.background]="
+                i < 1 ? 'var(--bloom-lilac)' : i === 1 ? 'var(--bloom-ink)' : 'rgba(58,51,64,.1)'
+              "
+              [style.color]="i <= 1 ? '#fff' : 'var(--bloom-muted)'"
+            >
+              <app-lucide [name]="s.icon" class="size-4" />
+            </span>
+            <div>
+              <p
+                style="
+                  font-weight: 600;
+                  font-size: 0.875rem;
+                  color: var(--bloom-ink);
+                  line-height: 1.2;
+                "
+              >
+                {{ s.title }}
+              </p>
+              <p
+                style="
+                  font-size: 0.75rem;
+                  color: var(--bloom-muted);
+                  margin-top: 0.2rem;
+                  max-width: 130px;
+                  margin-left: auto;
+                  margin-right: auto;
+                "
+              >
+                {{ s.desc }}
+              </p>
+            </div>
+            @if (i < steps.length - 1) {
+              <span
+                class="absolute top-5 left-1/2 h-px w-full"
+                style="background: rgba(58, 51, 64, 0.15)"
+              ></span>
+            }
+          </li>
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="scroll-mt-24 px-4 py-16">
+    <div class="mx-auto max-w-5xl">
+      <div class="mb-10 text-center">
+        <span
+          buiBadge
+          class="mb-3 rounded-full"
+          style="
+            background: rgba(126, 224, 176, 0.2);
+            color: var(--bloom-ink);
+            border-color: rgba(126, 224, 176, 0.4);
+          "
+          >Simple pricing</span
+        >
+        <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem)">Invest in yourself</h2>
+        <p style="color: var(--bloom-muted); margin: 0.5rem auto 0; max-width: 30rem">
+          Start free. Upgrade when you're ready. Cancel anytime.
+        </p>
+
+        <div class="mt-6 inline-flex items-center gap-3">
+          <span style="font-size: 0.9rem; color: var(--bloom-muted)">Monthly</span>
+          <button
+            buiSwitch
+            [checked]="yearly()"
+            (checkedChange)="yearly.set($event)"
+            aria-label="Toggle annual billing"
+          ></button>
+          <span style="font-size: 0.9rem; color: var(--bloom-ink); font-weight: 500">
+            Annual
+            <span
+              buiBadge
+              class="ml-1 rounded-full"
+              style="
+                background: rgba(126, 224, 176, 0.25);
+                color: var(--bloom-ink);
+                border-color: rgba(126, 224, 176, 0.4);
+              "
+              >-25%</span
+            >
+          </span>
+        </div>
+      </div>
+
+      <div class="grid items-stretch gap-6 md:grid-cols-3">
+        @for (plan of plans; track plan.name) {
+          <div
+            class="bloom-clay flex flex-col gap-4 p-7"
+            [class.bloom-plan-highlight]="plan.highlight"
+          >
+            @if (plan.highlight) {
+              <span
+                buiBadge
+                class="self-start rounded-full"
+                style="
+                  background: var(--bloom-lilac);
+                  color: var(--bloom-ink);
+                  border: none;
+                  font-weight: 600;
+                "
+                >Most popular</span
+              >
+            }
+            <div>
+              <h3 style="font-size: 1.2rem; font-weight: 700">{{ plan.name }}</h3>
+              <p style="font-size: 0.82rem; color: var(--bloom-muted)">{{ plan.tag }}</p>
+            </div>
+            <div class="flex items-baseline gap-1">
+              <span
+                style="
+                  font-family: 'Fredoka', sans-serif;
+                  font-size: 2.8rem;
+                  font-weight: 700;
+                  color: var(--bloom-ink);
+                "
+              >
+                @if (plan.price === 0) {
+                  Free
+                } @else {
+                  ${{ yearly() ? annual(plan.price) : plan.price }}
+                }
+              </span>
+              @if (plan.price > 0) {
+                <span style="color: var(--bloom-muted); font-size: 0.85rem">/mo</span>
+              }
+            </div>
+            <a
+              href="#"
+              class="bloom-pill-btn w-full"
+              [class.bloom-pill-btn-primary]="plan.highlight"
+              [class.bloom-pill-btn-outline]="!plan.highlight"
+              style="justify-content: center"
+              >{{ plan.cta }}</a
+            >
+            <div buiSeparator></div>
+            <ul class="flex flex-1 flex-col gap-2.5">
+              @for (feat of plan.features; track feat) {
+                <li
+                  class="flex items-start gap-2.5"
+                  style="font-size: 0.875rem; color: var(--bloom-ink)"
+                >
+                  <div
+                    class="bloom-icon-tile mt-0.5"
+                    [style.background]="plan.color + '25'"
+                    style="width: 1.4rem; height: 1.4rem; border-radius: 8px; min-width: 1.4rem"
+                  >
+                    <app-lucide name="check" class="size-3" [style.color]="plan.color" />
+                  </div>
+                  {{ feat }}
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bloom-section-peach px-4 py-16">
+    <div class="mx-auto max-w-3xl">
+      <div class="mb-10 text-center">
+        <span
+          buiBadge
+          class="mb-3 rounded-full"
+          style="
+            background: rgba(255, 180, 162, 0.2);
+            color: var(--bloom-ink);
+            border-color: rgba(255, 180, 162, 0.4);
+          "
+          >FAQ</span
+        >
+        <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem)">Got questions?</h2>
+      </div>
+
+      <div class="bloom-clay p-6">
+        @for (faq of faqs; track faq.q; let first = $first) {
+          <details
+            class="group"
+            style="border-bottom: 1px solid rgba(58, 51, 64, 0.08)"
+            [open]="first"
+          >
+            <summary
+              class="flex cursor-pointer items-center justify-between py-4 text-left"
+              style="font-size: 0.95rem; font-weight: 600; color: var(--bloom-ink)"
+            >
+              {{ faq.q }}
+              <app-lucide
+                name="chevron-down"
+                class="size-4 shrink-0 transition-transform group-open:rotate-180"
+                style="color: var(--bloom-muted)"
+              />
+            </summary>
+            <p class="pb-4" style="color: var(--bloom-muted); font-size: 0.9rem; line-height: 1.6">
+              {{ faq.a }}
+            </p>
+          </details>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative overflow-hidden px-4 py-20">
+    <div
+      class="bloom-blob"
+      style="
+        width: 400px;
+        height: 400px;
+        background: #c9b8ff;
+        opacity: 0.35;
+        top: -80px;
+        right: -80px;
+      "
+    ></div>
+    <div
+      class="bloom-blob"
+      style="
+        width: 320px;
+        height: 320px;
+        background: #7ee0b0;
+        opacity: 0.3;
+        bottom: -60px;
+        left: -60px;
+      "
+    ></div>
+
+    <div class="relative mx-auto max-w-2xl text-center" style="z-index: 1">
+      <div
+        class="bloom-clay mx-auto p-10 md:p-14"
+        style="background: linear-gradient(145deg, #f2eeff, #e8f8f1)"
+      >
+        <span style="font-size: 3rem; line-height: 1" role="img" aria-label="Flower">🌸</span>
+        <h2 style="font-size: clamp(2rem, 5vw, 3rem); margin-top: 0.5rem">Ready to bloom?</h2>
+        <p
+          style="
+            color: var(--bloom-muted);
+            font-size: 1.05rem;
+            margin: 0.75rem auto 0;
+            max-width: 26rem;
+          "
+        >
+          Join 12,000+ people building healthier, happier lives — one habit at a time.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <a
+            href="#"
+            class="bloom-pill-btn bloom-pill-btn-primary"
+            aria-label="Download Bloom on the App Store"
+          >
+            <app-lucide name="apple" class="size-5" /> App Store
+          </a>
+          <a
+            href="#"
+            class="bloom-pill-btn bloom-pill-btn-outline"
+            aria-label="Get Bloom on Google Play"
+          >
+            <app-lucide name="play" class="size-5" /> Google Play
+          </a>
+        </div>
+        <p style="font-size: 0.8rem; color: var(--bloom-muted); margin-top: 1rem">
+          Free forever. Premium from $9/mo. No credit card required.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background: var(--bloom-ink); color: rgba(255, 255, 255, 0.85)" class="px-4 py-14">
+    <div class="mx-auto max-w-5xl">
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="lg:col-span-1">
+          <div class="mb-4 flex items-center gap-2">
+            <div
+              class="bloom-icon-tile"
+              style="
+                background: rgba(201, 184, 255, 0.2);
+                border-radius: 14px;
+                width: 2.25rem;
+                height: 2.25rem;
+              "
+            >
+              <app-lucide name="flower-2" class="size-4" style="color: var(--bloom-lilac)" />
+            </div>
+            <span
+              style="
+                font-family: 'Fredoka', sans-serif;
+                font-size: 1.2rem;
+                font-weight: 700;
+                color: #fff;
+              "
+              >Bloom</span
+            >
+          </div>
+          <p
+            style="
+              font-size: 0.84rem;
+              color: rgba(255, 255, 255, 0.55);
+              line-height: 1.6;
+              max-width: 200px;
+            "
+          >
+            Your friendly daily wellness companion for a happier, healthier you.
+          </p>
+          <div class="mt-5 flex gap-2">
+            @for (s of social; track s) {
+              <a
+                href="#"
+                [attr.aria-label]="s"
+                class="flex size-9 items-center justify-center rounded-full transition-colors hover:bg-white/15"
+                style="background: rgba(255, 255, 255, 0.08)"
+              >
+                <app-lucide [name]="s" class="size-4" style="color: rgba(255, 255, 255, 0.7)" />
+              </a>
+            }
+          </div>
+        </div>
+        @for (col of footer; track col.heading) {
+          <div>
+            <h4
+              style="
+                font-size: 0.8rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: rgba(255, 255, 255, 0.4);
+                margin-bottom: 0.75rem;
+              "
+            >
+              {{ col.heading }}
+            </h4>
+            <ul class="space-y-2">
+              @for (link of col.links; track link) {
+                <li>
+                  <a
+                    href="#"
+                    class="transition-colors hover:text-white"
+                    style="font-size: 0.875rem; color: rgba(255, 255, 255, 0.65)"
+                    >{{ link }}</a
+                  >
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <div style="height: 1px; background: rgba(255, 255, 255, 0.1); margin: 2.5rem 0"></div>
+
+      <div
+        class="flex flex-col items-center justify-between gap-3 sm:flex-row"
+        style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.4)"
+      >
+        <span>© 2026 Bloom Health, Inc. All rights reserved.</span>
+        <div class="flex items-center gap-2">
+          <app-lucide name="shield-check" class="size-4" style="color: var(--bloom-mint)" />
+          <span>HIPAA compliant · GDPR ready · SOC 2</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
