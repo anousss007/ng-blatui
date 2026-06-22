@@ -1,0 +1,148 @@
+<div id="tpl-blog">
+  <!-- Header -->
+  <header
+    class="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60"
+  >
+    <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+      <a href="#" class="text-xl font-bold tracking-tight">The&nbsp;Dispatch</a>
+      <nav class="ml-4 hidden items-center gap-1 text-sm md:flex">
+        @for (label of nav; track label) {
+          <a
+            href="#"
+            class="rounded-md px-3 py-1.5 font-medium text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
+            >{{ label }}</a
+          >
+        }
+      </nav>
+      <div class="ml-auto flex items-center gap-1.5">
+        <button class="bl-icon-btn" aria-label="Search">
+          <app-lucide name="search" class="size-4" />
+        </button>
+        <button type="button" class="bl-icon-btn" aria-label="Toggle theme">
+          <app-lucide name="sun" class="size-4 dark:hidden" /><app-lucide
+            name="moon"
+            class="hidden size-4 dark:block"
+          />
+        </button>
+        <a href="#" class="bl-btn bl-btn-sm">Subscribe</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="mx-auto max-w-6xl px-6">
+    <!-- Featured -->
+    <section class="border-b py-12">
+      <a href="#" class="group grid items-center gap-8 lg:grid-cols-2">
+        <div class="aspect-[16/10] overflow-hidden rounded-2xl border bg-muted">
+          <img
+            [src]="img(featured.id, 1100)"
+            alt=""
+            loading="lazy"
+            class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
+        <div>
+          <div class="flex items-center gap-3">
+            <span class="bl-badge bl-badge-primary">{{ featured.cat }}</span>
+            <span class="text-xs text-muted-foreground">Featured</span>
+          </div>
+          <h1
+            class="mt-3 text-3xl font-bold tracking-tight text-balance transition-colors group-hover:text-primary sm:text-4xl"
+          >
+            {{ featured.title }}
+          </h1>
+          <p class="mt-3 text-lg text-balance text-muted-foreground">{{ featured.excerpt }}</p>
+          <div class="mt-5 flex items-center gap-3">
+            <bui-avatar class="size-9">{{ featured.init }}</bui-avatar>
+            <div class="text-sm">
+              <div class="font-medium">{{ featured.author }}</div>
+              <div class="text-muted-foreground">
+                {{ featured.date }} · {{ featured.read }} read
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </section>
+
+    <!-- Latest grid -->
+    <section class="py-12">
+      <div class="mb-7 flex items-baseline justify-between">
+        <h2 class="text-2xl font-bold tracking-tight">Latest stories</h2>
+        <a
+          href="#"
+          class="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
+          >View all <app-lucide name="arrow-right" class="size-3.5"
+        /></a>
+      </div>
+      <div class="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        @for (post of posts; track post.title) {
+          <a href="#" class="group flex flex-col">
+            <div class="aspect-[16/10] overflow-hidden rounded-xl border bg-muted">
+              <img
+                [src]="img(post.id)"
+                alt=""
+                loading="lazy"
+                class="size-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            </div>
+            <div class="mt-4 flex flex-1 flex-col">
+              <span
+                class="bl-badge text-xs"
+                [class.bl-badge-primary]="post.tone === 'primary'"
+                [class.bl-badge-info]="post.tone === 'info'"
+                [class.bl-badge-warning]="post.tone === 'warning'"
+                >{{ post.cat }}</span
+              >
+              <h3
+                class="mt-2.5 text-lg leading-snug font-semibold text-balance transition-colors group-hover:text-primary"
+              >
+                {{ post.title }}
+              </h3>
+              <div class="mt-auto flex items-center gap-2 pt-4 text-sm text-muted-foreground">
+                <bui-avatar class="size-6 text-[10px]">{{ post.init }}</bui-avatar>
+                <span class="font-medium text-foreground">{{ post.author }}</span>
+                <span>·</span><span>{{ post.date }}</span
+                ><span>·</span><span>{{ post.read }}</span>
+              </div>
+            </div>
+          </a>
+        }
+      </div>
+    </section>
+  </div>
+
+  <!-- Newsletter -->
+  <section class="border-y bg-muted/30 py-16">
+    <div class="mx-auto max-w-xl px-6 text-center">
+      <app-lucide name="mail" class="mx-auto mb-3 size-8 text-primary" />
+      <h2 class="text-2xl font-bold tracking-tight">The Dispatch, in your inbox</h2>
+      <p class="mt-2 text-muted-foreground">
+        One thoughtful email a week on design and engineering. No spam, unsubscribe anytime.
+      </p>
+      <form class="mx-auto mt-6 flex max-w-md gap-2">
+        <input type="email" placeholder="you@example.com" class="bl-input" aria-label="Email" />
+        <button type="button" class="bl-btn">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t py-10">
+    <div
+      class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 text-sm text-muted-foreground sm:flex-row"
+    >
+      <span>© 2026 The Dispatch. Built with BlatUI.</span>
+      <div class="flex gap-2">
+        @for (s of socials; track s) {
+          <a
+            href="#"
+            [attr.aria-label]="s"
+            class="bl-social inline-flex size-9 items-center justify-center rounded-md border transition-colors"
+            ><app-lucide [name]="s" class="size-4"
+          /></a>
+        }
+      </div>
+    </div>
+  </footer>
+</div>

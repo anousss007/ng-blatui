@@ -1,0 +1,99 @@
+#tpl-blog {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Buttons */
+#tpl-blog .bl-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: var(--radius, 0.5rem);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  transition: background 0.15s;
+}
+#tpl-blog .bl-btn:hover {
+  background: color-mix(in oklab, var(--primary) 90%, black);
+}
+#tpl-blog .bl-btn-sm {
+  height: 2.25rem;
+  padding: 0 0.875rem;
+  font-size: 0.8125rem;
+}
+
+/* Icon button */
+#tpl-blog .bl-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius, 0.5rem);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--foreground);
+  transition: background 0.15s;
+}
+#tpl-blog .bl-icon-btn:hover {
+  background: var(--accent);
+}
+
+/* Category badges (soft tones) */
+#tpl-blog .bl-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border-radius: 9999px;
+  padding: 0.1rem 0.55rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+#tpl-blog .bl-badge-primary {
+  background: color-mix(in oklab, var(--primary) 14%, transparent);
+  color: var(--primary);
+}
+#tpl-blog .bl-badge-info {
+  background: color-mix(in oklab, #2563eb 16%, transparent);
+  color: #1d4ed8;
+}
+#tpl-blog .bl-badge-warning {
+  background: color-mix(in oklab, #d97706 18%, transparent);
+  color: #b45309;
+}
+
+/* Newsletter input */
+#tpl-blog .bl-input {
+  flex: 1;
+  height: 2.5rem;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 0.5rem);
+  padding: 0 0.875rem;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  outline: none;
+}
+#tpl-blog .bl-input::placeholder {
+  color: var(--muted-foreground);
+}
+
+/* Footer social */
+#tpl-blog .bl-social {
+  transition:
+    color 0.15s,
+    background 0.15s;
+}
+#tpl-blog .bl-social:hover {
+  color: var(--foreground);
+  background: var(--accent);
+}
