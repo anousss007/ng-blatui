@@ -1,6 +1,10 @@
-import { Component, computed, input, model } from '@angular/core';
+import { Component, computed, forwardRef, input, model } from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = (): void => {};
 
 const SWITCH_BASE =
   'peer data-[state=checked]:bg-primary data-[state=unchecked]:bg-input focus-visible:border-ring focus-visible:ring-ring/50 dark:data-[state=unchecked]:bg-input/80 inline-flex shrink-0 items-center rounded-full border border-transparent shadow-xs transition-all outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50';
@@ -37,7 +41,11 @@ export type SwitchSize = keyof typeof SWITCH_TRACK;
     '[disabled]': 'disabled()',
     '[class]': 'computedClass()',
     '(click)': 'toggle()',
+    '(blur)': 'onTouched()',
   },
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiSwitch), multi: true },
+  ],
   template: `
     <span data-slot="switch-thumb" [attr.data-state]="state()" [class]="thumbClass()">
       @if (activeIcon(); as icon) {
@@ -57,15 +65,18 @@ export type SwitchSize = keyof typeof SWITCH_TRACK;
     </span>
   `,
 })
-export class BuiSwitch {
+export class BuiSwitch implements ControlValueAccessor {
   readonly checked = model(false);
-  readonly disabled = input(false);
+  readonly disabled = model(false);
   readonly size = input<SwitchSize>('default');
   /** Optional SVG path `d` shown inside the thumb when checked. */
   readonly iconOn = input('');
   /** Optional SVG path `d` shown inside the thumb when unchecked. */
   readonly iconOff = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+  private onChange: (isChecked: boolean) => void = noop;
+  protected onTouched: () => void = noop;
 
   protected readonly state = computed(() => (this.checked() ? 'checked' : 'unchecked'));
   protected readonly activeIcon = computed(() => (this.checked() ? this.iconOn() : this.iconOff()));
@@ -81,5 +92,23 @@ export class BuiSwitch {
       return;
     }
     this.checked.update((value) => !value);
+    this.onChange(this.checked());
+    this.onTouched();
+  }
+
+  writeValue(isChecked: boolean | null | undefined): void {
+    this.checked.set(!!isChecked);
+  }
+
+  registerOnChange(callback: (isChecked: boolean) => void): void {
+    this.onChange = callback;
+  }
+
+  registerOnTouched(callback: () => void): void {
+    this.onTouched = callback;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
   }
 }

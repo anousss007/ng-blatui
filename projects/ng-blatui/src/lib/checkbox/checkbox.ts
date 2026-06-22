@@ -1,6 +1,10 @@
-import { Component, computed, input, model } from '@angular/core';
+import { Component, computed, forwardRef, input, model } from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = (): void => {};
 
 const CHECKBOX_BASE =
   'peer border-input dark:bg-input/30 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground dark:data-[state=checked]:bg-primary data-[state=checked]:border-primary data-[state=indeterminate]:bg-primary data-[state=indeterminate]:text-primary-foreground data-[state=indeterminate]:border-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive size-4 shrink-0 rounded-[4px] border shadow-xs transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 flex items-center justify-center';
@@ -20,7 +24,11 @@ const CHECKBOX_BASE =
     '[disabled]': 'disabled()',
     '[class]': 'computedClass()',
     '(click)': 'toggle()',
+    '(blur)': 'onTouched()',
   },
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiCheckbox), multi: true },
+  ],
   template: `
     @if (checked() || indeterminate()) {
       <span data-slot="checkbox-indicator" class="flex items-center justify-center text-current">
@@ -57,11 +65,14 @@ const CHECKBOX_BASE =
     }
   `,
 })
-export class BuiCheckbox {
+export class BuiCheckbox implements ControlValueAccessor {
   readonly checked = model(false);
   readonly indeterminate = model(false);
-  readonly disabled = input(false);
+  readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+  private onChange: (isChecked: boolean) => void = noop;
+  protected onTouched: () => void = noop;
 
   protected readonly state = computed(() => {
     if (this.indeterminate()) {
@@ -84,5 +95,23 @@ export class BuiCheckbox {
     } else {
       this.checked.update((value) => !value);
     }
+    this.onChange(this.checked());
+    this.onTouched();
+  }
+
+  writeValue(isChecked: boolean | null | undefined): void {
+    this.checked.set(!!isChecked);
+  }
+
+  registerOnChange(callback: (isChecked: boolean) => void): void {
+    this.onChange = callback;
+  }
+
+  registerOnTouched(callback: () => void): void {
+    this.onTouched = callback;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
   }
 }

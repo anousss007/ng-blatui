@@ -1195,6 +1195,8 @@ export class ComponentPage {
   ];
   protected readonly fruit = signal('');
   protected readonly fruitForm = new FormControl('banana');
+  protected readonly termsForm = new FormControl(false);
+  protected readonly notifyForm = new FormControl(true);
   protected readonly fruitsMulti = signal<string[]>(['apple', 'cherry']);
   protected readonly fruits = [
     { value: 'apple', label: 'Apple' },
@@ -1766,6 +1768,9 @@ export class ComponentPage {
 </label>`,
     checkboxUtility: `<!-- a native input tinted with the theme primary -->
 <input type="checkbox" class="size-4 rounded border border-input" style="accent-color: var(--primary)" />`,
+    checkboxReactiveForm: `<!-- ControlValueAccessor: works with formControl / ngModel / signal forms -->
+<button buiCheckbox [formControl]="terms" aria-label="Accept terms"></button>
+// terms = new FormControl(false)`,
     switch: `import { BuiSwitch } from 'ng-blatui';
 
 <button buiSwitch [(checked)]="enabled" aria-labelledby="l"></button>
@@ -1775,6 +1780,9 @@ export class ComponentPage {
 <button buiSwitch size="lg" [checked]="true" aria-label="Large"></button>`,
     switchColors: `<!-- override the checked colour via data-state -->
 <button buiSwitch [checked]="true" class="data-[state=checked]:bg-green-600"></button>`,
+    switchReactiveForm: `<!-- ControlValueAccessor: works with formControl / ngModel / signal forms -->
+<button buiSwitch [formControl]="notify" aria-label="Notifications"></button>
+// notify = new FormControl(true)`,
     switchIcons: `<!-- iconOn/iconOff (SVG path d) render inside the thumb -->
 <button buiSwitch size="lg" [(checked)]="dark" iconOn="M12 3a6 6 0 0 0 9 9…" iconOff="M12 8a4 4 0 1 0 0 8…"></button>`,
     switchWithText: `<div class="flex items-center justify-between rounded-lg border p-4">

@@ -1931,6 +1931,14 @@ This content is read-only and cannot be edited.</textarea
           Styled with utility classes
         </label>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Reactive form</h2>
+      <app-example [code]="code.checkboxReactiveForm">
+        <div class="flex items-center gap-2 text-sm">
+          <button buiCheckbox [formControl]="termsForm" aria-label="Accept terms"></button>
+          Accept terms — touched: {{ termsForm.touched }}, value: {{ termsForm.value }}
+        </div>
+      </app-example>
     }
     @case ('switch') {
       <app-example [code]="code.switch">
@@ -2028,6 +2036,14 @@ This content is read-only and cannot be edited.</textarea
           iconOn="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
           iconOff="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"
         ></button>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Reactive form</h2>
+      <app-example [code]="code.switchReactiveForm">
+        <div class="flex items-center gap-2 text-sm">
+          <button buiSwitch [formControl]="notifyForm" aria-label="Notifications"></button>
+          Notifications — value: {{ notifyForm.value }}
+        </div>
       </app-example>
     }
     @case ('radio-group') {
