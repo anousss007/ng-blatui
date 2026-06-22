@@ -104,11 +104,13 @@ async function main() {
   let done = 0;
   for (const { kind, slug } of targets) {
     const url = `http://127.0.0.1:${port}/${kind}/${slug}`;
-    await page.goto(url, { waitUntil: 'networkidle', timeout: 30_000 });
+    // Use domcontentloaded (not networkidle) — the art-directed templates have
+    // perpetual animations/typewriters so the network/CPU never goes idle.
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30_000 });
     // Strip the docs chrome (top nav, back-bar, theme-customizer) so the thumbnail
     // is a clean shot of just the template/block design.
     await page.addStyleTag({ content: '[data-preview-hide]{display:none !important}' });
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(1500);
     const buffer = await page.screenshot({
       type: 'jpeg',
       quality: QUALITY,
