@@ -1,0 +1,657 @@
+<div id="tpl-verdure">
+  <!-- NAV -->
+  <header class="v-nav sticky top-0 z-40">
+    <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+      <a
+        href="#"
+        class="v-serif flex items-center gap-2 text-lg font-semibold"
+        style="color: var(--v-moss)"
+      >
+        <span
+          class="flex size-8 items-center justify-center rounded-full"
+          style="background: var(--v-moss)"
+          ><app-lucide name="leaf" class="size-4" style="color: var(--v-cream)"
+        /></span>
+        Verdure
+      </a>
+      <nav class="ml-5 hidden items-center gap-1 text-sm md:flex">
+        @for (link of nav; track link.href) {
+          <a [href]="link.href" class="v-nav-link rounded-full px-4 py-1.5 font-medium">{{
+            link.label
+          }}</a>
+        }
+      </nav>
+      <div class="ml-auto flex items-center gap-2">
+        <a href="#pledge" class="v-btn-outline hidden text-sm sm:inline-flex">Donate</a>
+        <a href="#pledge" class="v-btn-primary hidden text-sm sm:inline-flex"
+          ><app-lucide name="heart" class="size-4" /> Join the movement</a
+        >
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section
+    class="relative overflow-hidden"
+    style="
+      background: linear-gradient(160deg, #f0e9d2 0%, #e8f0e0 50%, #d8e8c8 100%);
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+    "
+  >
+    <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+      <div
+        class="v-blob-1 absolute"
+        style="
+          width: 52rem;
+          height: 52rem;
+          top: -18rem;
+          right: -18rem;
+          background: radial-gradient(circle, rgba(163, 177, 138, 0.28) 0%, transparent 70%);
+        "
+      ></div>
+      <div
+        class="v-blob-2 absolute"
+        style="
+          width: 38rem;
+          height: 38rem;
+          bottom: -12rem;
+          left: -10rem;
+          background: radial-gradient(circle, rgba(58, 90, 64, 0.15) 0%, transparent 70%);
+        "
+      ></div>
+    </div>
+
+    <div
+      class="relative mx-auto grid w-full max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:py-28"
+    >
+      <div>
+        <div class="v-badge-moss mb-6 w-fit">
+          <app-lucide name="sprout" class="size-3.5" /> Certified B Corp · 2026
+        </div>
+        <h1
+          class="v-serif text-5xl leading-tight font-bold text-balance sm:text-6xl lg:text-7xl"
+          style="color: var(--v-forest)"
+        >
+          Restore the<br />
+          <em style="color: var(--v-moss); font-style: italic">living world.</em>
+        </h1>
+        <p class="mt-5 max-w-lg text-lg leading-relaxed text-balance" style="color: var(--v-stone)">
+          Verdure channels science, community and capital into regenerative ecosystems — forests,
+          peatlands and coasts that heal the climate and feed the future.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#pledge" class="v-btn-primary"
+            ><app-lucide name="heart" class="size-4" /> Start giving</a
+          >
+          <a href="#initiatives" class="v-btn-outline"
+            ><app-lucide name="map-pin" class="size-4" /> See projects</a
+          >
+        </div>
+        <div class="mt-9 flex flex-wrap gap-3">
+          @for (b of heroBadges; track b.l) {
+            <span class="v-badge-moss text-sm"
+              ><strong style="font-family: 'Fraunces', serif; font-size: 1rem">{{ b.n }}</strong>
+              {{ b.l }}</span
+            >
+          }
+        </div>
+        <div class="mt-8 flex items-center gap-3">
+          <div class="flex -space-x-2">
+            @for (seed of heroAvatars; track seed) {
+              <bui-avatar
+                class="size-10 ring-2"
+                style="--tw-ring-color: var(--v-cream)"
+                [src]="'https://picsum.photos/seed/' + seed + '/80/80'"
+                alt="Verdure member"
+                >V</bui-avatar
+              >
+            }
+          </div>
+          <span class="text-sm" style="color: var(--v-stone)"
+            >Join <strong style="color: var(--v-forest)">230,000+</strong> regenerators
+            worldwide</span
+          >
+        </div>
+      </div>
+
+      <div class="relative flex items-center justify-center">
+        <div class="relative mx-auto w-full max-w-md">
+          <div class="v-blob-1 aspect-square overflow-hidden" style="background: var(--v-sage)">
+            <img
+              src="https://picsum.photos/seed/verdure-hero/640/640"
+              alt="Lush restored forest canopy"
+              class="size-full object-cover opacity-90 mix-blend-multiply"
+              loading="eager"
+            />
+          </div>
+          <div
+            class="v-card absolute -bottom-4 -left-6 flex items-center gap-3 px-4 py-3 shadow-xl"
+            style="border-radius: 1rem"
+          >
+            <span
+              class="flex size-10 items-center justify-center rounded-full"
+              style="background: rgba(58, 90, 64, 0.1)"
+              ><app-lucide name="trending-up" class="size-5" style="color: var(--v-moss)"
+            /></span>
+            <div>
+              <div class="v-serif text-lg leading-none font-bold" style="color: var(--v-moss)">
+                +38%
+              </div>
+              <div class="mt-0.5 text-xs" style="color: var(--v-stone)">Forest cover this year</div>
+            </div>
+          </div>
+          <div
+            class="v-card absolute -top-3 -right-4 flex items-center gap-2 px-3 py-2 shadow-lg"
+            style="border-radius: 0.9rem"
+          >
+            <app-lucide name="check-circle" class="size-4" style="color: var(--v-moss)" />
+            <span class="text-xs font-semibold" style="color: var(--v-forest)"
+              >Gold Standard verified</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT -->
+  <section id="impact" class="v-section-alt scroll-mt-20 py-20 lg:py-28">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mx-auto max-w-2xl text-center">
+        <div class="v-badge-moss mx-auto mb-4 w-fit">
+          <app-lucide name="bar-chart-3" class="size-3.5" /> Measurable change
+        </div>
+        <h2
+          class="v-serif text-4xl font-bold text-balance sm:text-5xl"
+          style="color: var(--v-forest)"
+        >
+          Our impact, in numbers
+        </h2>
+        <p class="mt-3 text-lg text-balance" style="color: var(--v-stone)">
+          Every figure is third-party audited and updated quarterly. No greenwashing — just data.
+        </p>
+      </div>
+
+      <div class="mt-14 grid grid-cols-2 gap-6 lg:grid-cols-4">
+        @for (stat of impactStats; track stat.label) {
+          <div class="v-card p-6 text-center">
+            <div
+              class="mx-auto mb-4 flex size-12 items-center justify-center rounded-full"
+              style="background: rgba(58, 90, 64, 0.1)"
+            >
+              <app-lucide [name]="stat.icon" class="size-5" style="color: var(--v-moss)" />
+            </div>
+            <div class="v-stat-num">{{ stat.value }}</div>
+            <div class="mt-2 text-sm font-medium" style="color: var(--v-stone)">
+              {{ stat.label }}
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="mt-16 grid items-start gap-10 lg:grid-cols-[3fr_2fr]">
+        <div class="v-card p-6">
+          <div class="mb-1 flex items-center justify-between">
+            <h3 class="v-serif text-xl font-semibold" style="color: var(--v-forest)">
+              CO₂ removed over time
+            </h3>
+            <span class="v-badge-moss text-xs">Cumulative · tonnes</span>
+          </div>
+          <p class="mb-4 text-sm" style="color: var(--v-stone)">
+            Accelerating removals since programme launch in early 2022.
+          </p>
+          <bui-chart
+            type="area"
+            [series]="co2Series"
+            [labels]="co2Labels"
+            [height]="220"
+            label="CO₂ removed over time in tonnes"
+            class="aspect-auto"
+          />
+        </div>
+
+        <div class="v-card p-6">
+          <h3 class="v-serif mb-1 text-xl font-semibold" style="color: var(--v-forest)">
+            Progress to targets
+          </h3>
+          <p class="mb-6 text-sm" style="color: var(--v-stone)">
+            Measured against 2025 programme milestones.
+          </p>
+          <div class="space-y-5">
+            @for (goal of goals; track goal.label) {
+              <div>
+                <div class="mb-1.5 flex items-center justify-between">
+                  <span class="text-sm font-medium" style="color: var(--v-forest)">{{
+                    goal.label
+                  }}</span>
+                  <span class="v-serif text-sm font-bold" style="color: var(--v-moss)"
+                    >{{ goal.value }}%</span
+                  >
+                </div>
+                <div class="v-progress-track">
+                  <div class="v-progress-fill" [style.width.%]="goal.value"></div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section id="mission" class="scroll-mt-20 py-20 lg:py-28" style="background: var(--v-cream)">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mx-auto mb-14 max-w-2xl text-center">
+        <div class="v-badge-terra mx-auto mb-4 w-fit">
+          <app-lucide name="heart" class="size-3.5" /> Our principles
+        </div>
+        <h2
+          class="v-serif text-4xl font-bold text-balance sm:text-5xl"
+          style="color: var(--v-forest)"
+        >
+          Why Verdure is different
+        </h2>
+      </div>
+
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        @for (val of values; track val.title) {
+          <div class="v-card p-7">
+            <div
+              class="mb-5 flex size-12 items-center justify-center rounded-2xl"
+              style="background: rgba(58, 90, 64, 0.08)"
+            >
+              <app-lucide [name]="val.icon" class="size-6" style="color: var(--v-moss)" />
+            </div>
+            <h3 class="v-serif mb-2 text-lg font-semibold" style="color: var(--v-forest)">
+              {{ val.title }}
+            </h3>
+            <p class="text-sm leading-relaxed" style="color: var(--v-stone)">{{ val.desc }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="v-section-alt py-20 lg:py-28">
+    <div class="mx-auto max-w-4xl px-6">
+      <div class="mx-auto mb-14 max-w-2xl text-center">
+        <div class="v-badge-moss mx-auto mb-4 w-fit">
+          <app-lucide name="footprints" class="size-3.5" /> Simple process
+        </div>
+        <h2
+          class="v-serif text-4xl font-bold text-balance sm:text-5xl"
+          style="color: var(--v-forest)"
+        >
+          How it works
+        </h2>
+        <p class="mt-3 text-lg text-balance" style="color: var(--v-stone)">
+          Four steps from first click to certified real-world impact.
+        </p>
+      </div>
+
+      <div class="mb-2 flex items-center justify-center">
+        @for (step of howItWorks; track step.title; let i = $index; let last = $last) {
+          <div
+            class="flex size-9 shrink-0 items-center justify-center rounded-full border-2 text-sm font-bold"
+            [style.background]="i === 0 ? 'var(--v-moss)' : 'transparent'"
+            [style.border-color]="'var(--v-moss)'"
+            [style.color]="i === 0 ? 'var(--v-cream)' : 'var(--v-moss)'"
+          >
+            {{ i + 1 }}
+          </div>
+          @if (!last) {
+            <div class="h-0.5 w-12 sm:w-20" style="background: rgba(58, 90, 64, 0.25)"></div>
+          }
+        }
+      </div>
+
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        @for (step of howItWorks; track step.title; let i = $index) {
+          <div class="v-card p-5">
+            <div class="v-serif mb-3 text-3xl font-bold" style="color: rgba(58, 90, 64, 0.2)">
+              {{ pad(i) }}
+            </div>
+            <h4 class="v-serif mb-2 text-base font-semibold" style="color: var(--v-forest)">
+              {{ step.title }}
+            </h4>
+            <p class="text-sm leading-relaxed" style="color: var(--v-stone)">{{ step.desc }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- INITIATIVES (tabs, forests active) -->
+  <section id="initiatives" class="scroll-mt-20 py-20 lg:py-28" style="background: var(--v-cream)">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mx-auto mb-12 max-w-2xl text-center">
+        <div class="v-badge-terra mx-auto mb-4 w-fit">
+          <app-lucide name="map" class="size-3.5" /> Active projects
+        </div>
+        <h2
+          class="v-serif text-4xl font-bold text-balance sm:text-5xl"
+          style="color: var(--v-forest)"
+        >
+          Where we're working
+        </h2>
+        <p class="mt-3 text-lg text-balance" style="color: var(--v-stone)">
+          Six flagship initiatives across four continents — each shaped by the communities who call
+          these landscapes home.
+        </p>
+      </div>
+
+      <div
+        class="mx-auto mb-10 flex w-fit gap-1 rounded-full p-1"
+        style="background: rgba(163, 177, 138, 0.2)"
+      >
+        @for (tab of initiativeTabs; track tab; let first = $first) {
+          <span
+            class="rounded-full px-4 py-1.5 text-sm font-medium"
+            [style.background]="first ? 'var(--v-moss)' : 'transparent'"
+            [style.color]="first ? 'var(--v-cream)' : 'var(--v-forest)'"
+            >{{ tab }}</span
+          >
+        }
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        @for (proj of forests; track proj.title) {
+          <div class="v-card overflow-hidden p-6">
+            <div class="v-blob-3 -mx-6 -mt-6 mb-5 aspect-[4/3] overflow-hidden">
+              <img
+                [src]="'https://picsum.photos/seed/' + proj.imgSeed + '/600/450'"
+                [alt]="proj.title"
+                loading="lazy"
+                class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+              />
+            </div>
+            <div class="mb-3 flex items-center justify-between">
+              <span buiBadge [tone]="proj.tone" variant="soft">{{ proj.tag }}</span>
+              <span class="text-xs font-medium" style="color: var(--v-stone)">{{
+                proj.region
+              }}</span>
+            </div>
+            <h3 class="v-serif mb-2 text-lg font-semibold" style="color: var(--v-forest)">
+              {{ proj.title }}
+            </h3>
+            <p class="mb-4 text-sm leading-relaxed" style="color: var(--v-stone)">
+              {{ proj.desc }}
+            </p>
+            <div class="flex items-center justify-between">
+              <span class="v-badge-moss text-xs"
+                ><app-lucide name="tree-pine" class="size-3" /> {{ proj.trees }}</span
+              >
+              <a href="#pledge" class="text-sm font-semibold" style="color: var(--v-moss)"
+                >Support →</a
+              >
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="v-section-alt py-20 lg:py-24">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mx-auto mb-12 max-w-2xl text-center">
+        <div class="v-badge-moss mx-auto mb-4 w-fit">
+          <app-lucide name="camera" class="size-3.5" /> Field gallery
+        </div>
+        <h2
+          class="v-serif text-4xl font-bold text-balance sm:text-5xl"
+          style="color: var(--v-forest)"
+        >
+          Restoration in action
+        </h2>
+        <p class="mt-3 text-lg text-balance" style="color: var(--v-stone)">
+          From seed nursery to closed canopy — eight moments from the field.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        @for (img of galleryImages; track img.thumb) {
+          <div class="v-blob-3 aspect-square overflow-hidden">
+            <img
+              [src]="img.thumb"
+              [alt]="img.alt"
+              loading="lazy"
+              class="size-full object-cover transition-transform duration-500 hover:scale-105"
+            />
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20 lg:py-28" style="background: var(--v-cream)">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mx-auto mb-12 max-w-2xl text-center">
+        <div class="v-badge-terra mx-auto mb-4 w-fit">
+          <app-lucide name="quote" class="size-3.5" /> Voices from the field
+        </div>
+        <h2
+          class="v-serif text-4xl font-bold text-balance sm:text-5xl"
+          style="color: var(--v-forest)"
+        >
+          Stories of regeneration
+        </h2>
+      </div>
+      <div class="grid gap-6 lg:grid-cols-3">
+        @for (t of testimonials; track t.a) {
+          <figure class="v-card p-7">
+            <blockquote class="text-base leading-relaxed" style="color: var(--v-forest)">
+              "{{ t.q }}"
+            </blockquote>
+            <figcaption class="mt-5 flex items-center gap-3">
+              <bui-avatar class="size-11" [src]="t.img" [alt]="t.a">{{ t.a.charAt(0) }}</bui-avatar>
+              <div>
+                <div class="v-serif font-semibold" style="color: var(--v-forest)">{{ t.a }}</div>
+                <div class="text-xs" style="color: var(--v-stone)">{{ t.r }}</div>
+              </div>
+            </figcaption>
+          </figure>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section class="v-section-forest py-14">
+    <p
+      class="mb-6 text-center text-sm font-medium"
+      style="color: rgba(250, 243, 224, 0.5); letter-spacing: 0.08em; text-transform: uppercase"
+    >
+      Our scientific &amp; NGO partners
+    </p>
+    <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-4 gap-y-2 px-6">
+      @for (partner of partners; track partner) {
+        <span class="v-partner">{{ partner }}</span>
+      }
+    </div>
+  </section>
+
+  <!-- PLEDGE / CTA -->
+  <section id="pledge" class="v-section-moss relative scroll-mt-20 overflow-hidden py-24 lg:py-32">
+    <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+      <div
+        class="v-blob-2 absolute"
+        style="
+          width: 40rem;
+          height: 40rem;
+          right: -12rem;
+          top: -10rem;
+          background: rgba(250, 243, 224, 0.06);
+        "
+      ></div>
+    </div>
+
+    <div class="relative mx-auto max-w-2xl px-6 text-center">
+      <div
+        class="mb-5 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium"
+        style="background: rgba(250, 243, 224, 0.12); color: var(--v-cream)"
+      >
+        <app-lucide name="sparkles" class="size-4" style="color: var(--v-sage)" /> Make a pledge
+        today
+      </div>
+      <h2
+        class="v-serif mb-3 text-4xl font-bold text-balance sm:text-5xl"
+        style="color: var(--v-cream)"
+      >
+        Become a regenerator
+      </h2>
+      <p class="mb-9 text-lg" style="color: rgba(250, 243, 224, 0.75)">
+        Your contribution — however small — plants trees, restores soil, and sequesters carbon. Join
+        230,000+ people choosing a living future.
+      </p>
+
+      <div class="v-pledge-input mx-auto mb-5 max-w-md">
+        <app-lucide name="mail" class="size-4" style="color: rgba(250, 243, 224, 0.55)" />
+        <input type="email" placeholder="your@email.com" aria-label="Email address" />
+        <button type="button" class="v-pledge-btn">Join free</button>
+      </div>
+
+      <p class="text-xs" style="color: rgba(250, 243, 224, 0.45)">
+        No spam. Unsubscribe anytime. We plant a tree when you sign up.
+      </p>
+
+      <hr class="my-8" style="border: none; height: 1px; background: rgba(250, 243, 224, 0.15)" />
+
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#" class="v-btn-terra"
+          ><app-lucide name="credit-card" class="size-4" /> Monthly giving</a
+        >
+        <a
+          href="#"
+          class="inline-flex items-center gap-2 rounded-full border-2 px-5 py-2.5 text-sm font-semibold"
+          style="border-color: rgba(250, 243, 224, 0.35); color: var(--v-cream)"
+          ><app-lucide name="building-2" class="size-4" /> Corporate plans</a
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="v-section-alt scroll-mt-20 py-20 lg:py-28">
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="mb-12 text-center">
+        <div class="v-badge-moss mx-auto mb-4 w-fit">
+          <app-lucide name="help-circle" class="size-3.5" /> Questions
+        </div>
+        <h2
+          class="v-serif text-4xl font-bold text-balance sm:text-5xl"
+          style="color: var(--v-forest)"
+        >
+          Everything you want to know
+        </h2>
+        <p class="mt-3 text-lg text-balance" style="color: var(--v-stone)">
+          Still curious? Reach us at
+          <a href="mailto:hello@verdure.earth" style="color: var(--v-moss)"
+            >hello&#64;verdure.earth</a
+          >
+        </p>
+      </div>
+
+      <div class="v-card overflow-hidden p-2">
+        @for (faq of faqs; track faq.q; let first = $first) {
+          <details
+            class="group px-5"
+            style="border-bottom: 1px solid rgba(163, 177, 138, 0.4)"
+            [open]="first"
+          >
+            <summary
+              class="flex cursor-pointer items-center justify-between py-4 text-left font-semibold"
+              style="color: var(--v-forest)"
+            >
+              {{ faq.q }}
+              <app-lucide
+                name="chevron-down"
+                class="size-4 shrink-0 transition-transform group-open:rotate-180"
+                style="color: var(--v-moss)"
+              />
+            </summary>
+            <p class="pb-4 text-sm leading-relaxed" style="color: var(--v-stone)">{{ faq.a }}</p>
+          </details>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="v-footer">
+    <div class="mx-auto max-w-6xl px-6 py-16">
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-6">
+        <div class="lg:col-span-2">
+          <a
+            href="#"
+            class="v-serif mb-1 flex items-center gap-2 text-xl font-semibold"
+            style="color: var(--v-sage)"
+          >
+            <span
+              class="flex size-8 items-center justify-center rounded-full"
+              style="background: var(--v-moss)"
+              ><app-lucide name="leaf" class="size-4" style="color: var(--v-cream)"
+            /></span>
+            Verdure
+          </a>
+          <p class="mt-3 max-w-xs text-sm leading-relaxed" style="color: rgba(250, 243, 224, 0.55)">
+            Regenerating 96 ecosystems across 4 continents. Science-led, community-owned, radically
+            transparent.
+          </p>
+          <div class="mt-5 flex gap-2">
+            @for (soc of socials; track soc) {
+              <a
+                href="#"
+                [attr.aria-label]="soc"
+                class="v-social flex size-9 items-center justify-center rounded-md border"
+                style="border-color: rgba(163, 177, 138, 0.2); color: rgba(250, 243, 224, 0.5)"
+                ><app-lucide [name]="soc" class="size-4"
+              /></a>
+            }
+          </div>
+          <div class="mt-5">
+            <span
+              class="v-badge-moss inline-flex items-center gap-1.5 text-xs"
+              style="background: rgba(163, 177, 138, 0.15); color: var(--v-sage)"
+              ><app-lucide name="award" class="size-3" /> Certified B Corp 2026</span
+            >
+          </div>
+        </div>
+        @for (col of footerLinks; track col.heading) {
+          <div>
+            <h3 class="v-footer-heading mb-4 text-sm">{{ col.heading }}</h3>
+            <ul class="space-y-2 text-sm">
+              @for (link of col.links; track link) {
+                <li>
+                  <a href="#" class="v-footer-link">{{ link }}</a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <hr class="my-8" style="border: none; height: 1px; background: rgba(163, 177, 138, 0.15)" />
+
+      <div
+        class="flex flex-col items-center justify-between gap-3 text-xs sm:flex-row"
+        style="color: rgba(250, 243, 224, 0.35)"
+      >
+        <span>© 2026 Verdure Earth Ltd. All rights reserved.</span>
+        <div class="flex items-center gap-4">
+          @for (lnk of footerLegal; track lnk) {
+            <a href="#" class="v-footer-link" style="color: rgba(250, 243, 224, 0.35)">{{ lnk }}</a>
+          }
+          <span class="flex items-center gap-1.5"
+            ><app-lucide name="shield-check" class="size-3.5" /> Gold Standard verified</span
+          >
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>

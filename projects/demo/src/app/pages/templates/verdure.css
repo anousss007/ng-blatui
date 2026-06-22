@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&display=swap');
+
+#tpl-verdure {
+  --v-moss: #3a5a40;
+  --v-forest: #283618;
+  --v-sage: #a3b18a;
+  --v-cream: #faf3e0;
+  --v-terra: #bc6c25;
+  --v-terra-light: #e8925a;
+  --v-stone: #8c7b6e;
+  --v-paper: #f5ede0;
+  background-color: var(--v-cream);
+  color: var(--v-forest);
+  font-family: 'Inter', sans-serif;
+}
+
+#tpl-verdure .v-serif {
+  font-family: 'Fraunces', Georgia, serif;
+}
+
+/* Grain texture overlay */
+#tpl-verdure::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Blob masks */
+#tpl-verdure .v-blob-1 {
+  border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+}
+#tpl-verdure .v-blob-2 {
+  border-radius: 40% 60% 30% 70% / 60% 30% 70% 40%;
+}
+#tpl-verdure .v-blob-3 {
+  border-radius: 55% 45% 65% 35% / 45% 55% 45% 55%;
+}
+
+/* Organic card */
+#tpl-verdure .v-card {
+  background: #fff;
+  border: 1px solid rgba(163, 177, 138, 0.35);
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 12px rgba(58, 90, 64, 0.07);
+}
+
+/* Nav */
+#tpl-verdure .v-nav {
+  background: rgba(250, 243, 224, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(163, 177, 138, 0.3);
+}
+#tpl-verdure .v-nav-link {
+  color: var(--v-forest);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+#tpl-verdure .v-nav-link:hover {
+  color: var(--v-moss);
+}
+
+/* Section alternates */
+#tpl-verdure .v-section-alt {
+  background: var(--v-paper);
+}
+#tpl-verdure .v-section-forest {
+  background: var(--v-forest);
+  color: var(--v-cream);
+}
+#tpl-verdure .v-section-moss {
+  background: var(--v-moss);
+  color: var(--v-cream);
+}
+
+/* Big stat numbers */
+#tpl-verdure .v-stat-num {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(2.4rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--v-moss);
+  line-height: 1;
+}
+
+/* Buttons */
+#tpl-verdure .v-btn-primary {
+  background: var(--v-moss);
+  color: var(--v-cream);
+  border-radius: 9999px;
+  padding: 0.65rem 1.6rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 2px solid transparent;
+  transition:
+    background 0.2s,
+    transform 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+#tpl-verdure .v-btn-primary:hover {
+  background: var(--v-forest);
+  transform: translateY(-1px);
+}
+#tpl-verdure .v-btn-outline {
+  background: transparent;
+  color: var(--v-moss);
+  border-radius: 9999px;
+  padding: 0.65rem 1.6rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 2px solid var(--v-moss);
+  transition:
+    background 0.2s,
+    color 0.2s,
+    transform 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+#tpl-verdure .v-btn-outline:hover {
+  background: var(--v-moss);
+  color: var(--v-cream);
+  transform: translateY(-1px);
+}
+#tpl-verdure .v-btn-terra {
+  background: var(--v-terra);
+  color: #fff;
+  border-radius: 9999px;
+  padding: 0.65rem 1.6rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 2px solid transparent;
+  transition:
+    background 0.2s,
+    transform 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+#tpl-verdure .v-btn-terra:hover {
+  background: #a05a1e;
+  transform: translateY(-1px);
+}
+
+/* Progress bar */
+#tpl-verdure .v-progress-track {
+  background: rgba(163, 177, 138, 0.25);
+  border-radius: 9999px;
+  height: 8px;
+  overflow: hidden;
+}
+#tpl-verdure .v-progress-fill {
+  background: var(--v-moss);
+  height: 100%;
+  border-radius: 9999px;
+}
+
+/* Badges */
+#tpl-verdure .v-badge-moss {
+  background: rgba(58, 90, 64, 0.12);
+  color: var(--v-moss);
+  border: none;
+  border-radius: 9999px;
+  padding: 0.2rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+#tpl-verdure .v-badge-terra {
+  background: rgba(188, 108, 37, 0.14);
+  color: var(--v-terra);
+  border: none;
+  border-radius: 9999px;
+  padding: 0.2rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* Leaf decoration */
+#tpl-verdure .v-leaf-deco {
+  position: absolute;
+  opacity: 0.07;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Partner marquee */
+#tpl-verdure .v-partner {
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(250, 243, 224, 0.55);
+  padding: 0 2rem;
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+}
+
+/* Pledge input */
+#tpl-verdure .v-pledge-input {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(163, 177, 138, 0.5);
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  padding: 0.35rem 0.35rem 0.35rem 1rem;
+}
+#tpl-verdure .v-pledge-input input {
+  color: var(--v-cream);
+  background: transparent;
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 0.9rem;
+}
+#tpl-verdure .v-pledge-input input::placeholder {
+  color: rgba(250, 243, 224, 0.55);
+}
+#tpl-verdure .v-pledge-btn {
+  background: var(--v-terra);
+  color: #fff;
+  border-radius: 9999px;
+  padding: 0.45rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* Footer */
+#tpl-verdure .v-footer {
+  background: var(--v-forest);
+  color: rgba(250, 243, 224, 0.75);
+}
+#tpl-verdure .v-footer-link {
+  color: rgba(250, 243, 224, 0.6);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+#tpl-verdure .v-footer-link:hover {
+  color: var(--v-sage);
+}
+#tpl-verdure .v-footer-heading {
+  color: var(--v-sage);
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+}
+#tpl-verdure .v-social {
+  transition: color 0.2s;
+}
+#tpl-verdure .v-social:hover {
+  color: var(--v-sage) !important;
+}
+
+/* Chart area color */
+#tpl-verdure [data-slot='chart'] {
+  --chart-1: var(--v-moss);
+}
