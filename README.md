@@ -1,6 +1,19 @@
 # NgBlatui
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.3.
+Accessible Angular UI library (Angular 22 — standalone, signals, zoneless, SSR-ready) ported from BlatUI: **155 components, 16 blocks, 70 charts, 34 page templates**, themed with Tailwind CSS v4 + oklch tokens. Docs & live demo: **https://ngblatui.remix-it.com** · npm: `npm i ng-blatui`.
+
+## Using with AI agents
+
+ng-blatui is built to be consumed by AI coding assistants — an **MCP server**, an **`llms.txt`** index and a machine-readable **`registry.json`** let any agent discover and correctly use the catalog instead of guessing.
+
+```bash
+claude mcp add ng-blatui -- npx -y ng-blatui-mcp   # or add { "ng-blatui": { "command": "npx", "args": ["-y","ng-blatui-mcp"] } } to any MCP client
+```
+
+- MCP server: `npx ng-blatui-mcp` (tools: `list_components`, `search`, `get_docs`, …)
+- llms.txt: https://ngblatui.remix-it.com/llms.txt
+- registry.json: https://ngblatui.remix-it.com/registry.json
+- Full guide (Cursor, Windsurf, Cline, Copilot, editor rules): [USING-WITH-AI.md](./USING-WITH-AI.md)
 
 ## Development server
 

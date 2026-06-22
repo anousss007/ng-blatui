@@ -1,0 +1,36 @@
+{
+  "name": "ng-blatui-mcp",
+  "version": "1.0.0",
+  "description": "Model Context Protocol server for ng-blatui — lets any AI agent (Claude, Cursor, Windsurf, Cline, Zed, VS Code…) discover and use ng-blatui components, blocks, charts and templates.",
+  "type": "module",
+  "bin": {
+    "ng-blatui-mcp": "index.mjs"
+  },
+  "files": [
+    "index.mjs",
+    "registry.json",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "ng-blatui",
+    "angular",
+    "mcp",
+    "model-context-protocol",
+    "ui",
+    "ai",
+    "components"
+  ],
+  "homepage": "https://ngblatui.remix-it.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anousss007/ng-blatui.git",
+    "directory": "mcp"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  }
+}

@@ -15,6 +15,8 @@ export default tseslint.config(
       'coverage/**',
       '.angular/**',
       'node_modules/**',
+      '**/node_modules/**',
+      'mcp/**',
       'e2e/**',
       'playwright.config.ts',
       'playwright-report/**',

@@ -6,6 +6,9 @@ set -euo pipefail
 HOST="${NGBLATUI_HOST:-root@100.127.3.33}"
 REMOTE_DIR="/var/www/ngblatui"
 
+echo "› Generating AI registry (registry.json + llms.txt)…"
+node scripts/build-registry.mjs
+
 echo "› Building library + site…"
 npx ng build ng-blatui
 npx ng build demo
