@@ -42,6 +42,11 @@ export const routes: Routes = [
     title: 'Templates · ng-blatui',
   },
   {
+    path: 'templates/aurora',
+    loadComponent: async () => (await import('./pages/templates/aurora')).AuroraTemplate,
+    title: 'Aurora · ng-blatui',
+  },
+  {
     path: 'templates/:slug',
     loadComponent: async () => (await import('./pages/templates')).TemplatesPage,
     title: 'Templates · ng-blatui',

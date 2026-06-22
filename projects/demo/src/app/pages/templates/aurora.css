@@ -1,0 +1,236 @@
+@import url('https://fonts.bunny.net/css?family=space-grotesk:400,500,600,700&display=swap');
+
+/* ── Base ─────────────────────────────────────────────────── */
+#tpl-aurora {
+  font-family: Inter, 'ui-sans-serif', system-ui, sans-serif;
+  background: #06070f;
+  color: #f1f5f9;
+  position: relative;
+}
+
+#tpl-aurora h1,
+#tpl-aurora h2,
+#tpl-aurora h3 {
+  font-family: 'Space Grotesk', Inter, sans-serif;
+}
+
+/* ── Aurora blob layer ────────────────────────────────────── */
+#aurora-mesh {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+#aurora-mesh::before,
+#aurora-mesh::after,
+#aurora-mesh .blob-a,
+#aurora-mesh .blob-b,
+#aurora-mesh .blob-c {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.45;
+  will-change: transform;
+}
+#aurora-mesh::before {
+  content: '';
+  width: 900px;
+  height: 900px;
+  top: -200px;
+  left: -200px;
+  background: radial-gradient(circle, #3b82f6 0%, #6366f1 50%, transparent 80%);
+  animation: aurora-drift-1 18s ease-in-out infinite alternate;
+}
+#aurora-mesh::after {
+  content: '';
+  width: 700px;
+  height: 700px;
+  bottom: -150px;
+  right: -150px;
+  background: radial-gradient(circle, #ec4899 0%, #8b5cf6 50%, transparent 80%);
+  animation: aurora-drift-2 15s ease-in-out infinite alternate;
+}
+#aurora-mesh .blob-a {
+  width: 600px;
+  height: 600px;
+  top: 30%;
+  left: 40%;
+  background: radial-gradient(circle, #22d3ee 0%, #6366f1 60%, transparent 85%);
+  animation: aurora-drift-3 20s ease-in-out infinite alternate;
+}
+#aurora-mesh .blob-b {
+  width: 500px;
+  height: 500px;
+  top: 60%;
+  left: 10%;
+  background: radial-gradient(circle, #8b5cf6 0%, #3b82f6 60%, transparent 85%);
+  animation: aurora-drift-4 14s ease-in-out infinite alternate;
+}
+#aurora-mesh .blob-c {
+  width: 400px;
+  height: 400px;
+  top: 10%;
+  right: 5%;
+  background: radial-gradient(circle, #ec4899 0%, #22d3ee 60%, transparent 85%);
+  animation: aurora-drift-5 17s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-drift-1 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(120px, 80px) scale(1.15);
+  }
+}
+@keyframes aurora-drift-2 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(-100px, -60px) scale(1.2);
+  }
+}
+@keyframes aurora-drift-3 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(-80px, 100px) scale(1.1);
+  }
+}
+@keyframes aurora-drift-4 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(90px, -70px) scale(1.15);
+  }
+}
+@keyframes aurora-drift-5 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(-60px, 80px) scale(1.08);
+  }
+}
+
+/* ── Grain overlay ────────────────────────────────────────── */
+#aurora-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ── Reduced motion ───────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  #aurora-mesh::before,
+  #aurora-mesh::after,
+  #aurora-mesh .blob-a,
+  #aurora-mesh .blob-b,
+  #aurora-mesh .blob-c {
+    animation: none !important;
+  }
+}
+
+/* ── Stacking context for content above mesh ──────────────── */
+#tpl-aurora > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Glass surface ────────────────────────────────────────── */
+#tpl-aurora .glass {
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* ── Gradient headline text ───────────────────────────────── */
+#tpl-aurora .text-aurora {
+  background: linear-gradient(135deg, #60a5fa 0%, #818cf8 35%, #c084fc 60%, #f472b6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ── Neon glow on CTA ─────────────────────────────────────── */
+#tpl-aurora .btn-glow {
+  box-shadow:
+    0 0 20px 4px rgba(99, 102, 241, 0.55),
+    0 4px 24px rgba(59, 130, 246, 0.4);
+  transition: box-shadow 0.2s ease;
+}
+#tpl-aurora .btn-glow:hover {
+  box-shadow:
+    0 0 32px 8px rgba(99, 102, 241, 0.75),
+    0 6px 32px rgba(59, 130, 246, 0.6);
+}
+
+/* ── Feature card glow ────────────────────────────────────── */
+#tpl-aurora .card-glow {
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+#tpl-aurora .card-glow:hover {
+  transform: translateY(-2px);
+}
+
+/* ── Pricing highlight glow ───────────────────────────────── */
+#tpl-aurora .pricing-glow {
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.6),
+    0 0 40px 6px rgba(99, 102, 241, 0.3),
+    0 8px 32px rgba(59, 130, 246, 0.2);
+}
+
+/* ── Section backgrounds ──────────────────────────────────── */
+#tpl-aurora .section-dark {
+  background: rgba(10, 11, 24, 0.8);
+}
+#tpl-aurora .section-darker {
+  background: rgba(6, 7, 15, 0.92);
+}
+
+/* ── Nav glassmorphism ────────────────────────────────────── */
+#tpl-aurora .nav-glass {
+  background: rgba(6, 7, 15, 0.72);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ── Nav link + footer link hover ─────────────────────────── */
+#tpl-aurora .nav-link {
+  color: rgba(203, 213, 225, 0.85);
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
+}
+#tpl-aurora .nav-link:hover {
+  color: #f1f5f9;
+  background: rgba(255, 255, 255, 0.06);
+}
+#tpl-aurora .foot-link {
+  color: #475569;
+  transition: color 0.15s ease;
+}
+#tpl-aurora .foot-link:hover {
+  color: #cbd5e1;
+}
+
+/* ── Kbd in dark context ──────────────────────────────────── */
+#tpl-aurora kbd[data-slot='kbd'] {
+  background: rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  border-color: rgba(255, 255, 255, 0.18);
+}

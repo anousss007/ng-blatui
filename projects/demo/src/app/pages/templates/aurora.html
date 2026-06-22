@@ -1,0 +1,882 @@
+<div id="tpl-aurora">
+  <!-- Aurora mesh + grain -->
+  <div id="aurora-mesh" aria-hidden="true">
+    <div class="blob-a"></div>
+    <div class="blob-b"></div>
+    <div class="blob-c"></div>
+  </div>
+  <div id="aurora-grain" aria-hidden="true"></div>
+
+  <!-- ANNOUNCEMENT BANNER -->
+  <div class="relative z-50">
+    <bui-banner tone="primary" persistKey="lumina-launch">
+      <span class="inline-flex items-center gap-2">
+        <app-lucide name="sparkles" class="size-4" />
+        <span>Lumina 3.0 is live — AI Copilot + Smart Workflows now in Early Access.</span>
+      </span>
+      <a
+        href="#pricing"
+        class="font-semibold underline underline-offset-2 opacity-90 hover:opacity-100"
+        >See what's new →</a
+      >
+    </bui-banner>
+  </div>
+
+  <!-- STICKY NAV -->
+  <header class="nav-glass sticky top-0 z-40">
+    <div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-6">
+      <a
+        href="#"
+        class="flex items-center gap-2.5 font-semibold tracking-tight"
+        style="color: #f1f5f9"
+      >
+        <span
+          class="flex size-8 items-center justify-center rounded-lg"
+          style="background: linear-gradient(135deg, #3b82f6, #8b5cf6)"
+        >
+          <app-lucide name="zap" class="size-4 text-white" />
+        </span>
+        <span class="text-aurora text-base font-bold">Lumina</span>
+      </a>
+
+      <nav class="ml-6 hidden items-center gap-0.5 text-sm md:flex">
+        @for (item of nav; track item.href) {
+          <a [href]="item.href" class="nav-link rounded-md px-3 py-1.5 font-medium">{{
+            item.label
+          }}</a>
+        }
+      </nav>
+
+      <div class="ml-auto flex items-center gap-2">
+        <button
+          type="button"
+          class="glass hidden items-center gap-1.5 rounded-md px-3 py-1.5 text-xs transition-all hover:bg-white/10 sm:inline-flex"
+          style="color: #94a3b8"
+        >
+          Search
+          <span class="inline-flex gap-0.5">
+            <kbd buiKbd>⌘</kbd>
+            <kbd buiKbd>K</kbd>
+          </span>
+        </button>
+
+        <a
+          href="#"
+          class="nav-link hidden rounded-md px-3 py-1.5 text-sm font-medium transition-colors sm:block"
+        >
+          Sign in
+        </a>
+        <a
+          href="#pricing"
+          class="btn-glow inline-flex items-center gap-1.5 rounded-md px-4 py-2 text-sm font-semibold text-white transition-all"
+          style="background: linear-gradient(135deg, #4f46e5, #7c3aed)"
+        >
+          Get started free
+          <app-lucide name="arrow-right" class="size-3.5" />
+        </a>
+
+        <button
+          type="button"
+          class="glass inline-flex size-9 items-center justify-center rounded-md md:hidden"
+          style="color: #cbd5e1"
+          aria-label="Open menu"
+        >
+          <app-lucide name="menu" class="size-4" />
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden px-6 pt-20 pb-24 lg:pt-32">
+    <div class="mx-auto max-w-5xl text-center">
+      <div class="mb-6 inline-flex">
+        <span
+          class="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium"
+          style="color: #a5b4fc; border-color: rgba(99, 102, 241, 0.35)"
+        >
+          <app-lucide name="sparkles" class="size-3.5" style="color: #818cf8" />
+          Now with AI Copilot — Early Access open
+          <span buiBadge tone="info" variant="soft" size="sm">New</span>
+        </span>
+      </div>
+
+      <h1
+        class="mx-auto mb-6 max-w-4xl text-5xl leading-[1.08] font-bold tracking-tight text-balance lg:text-7xl"
+      >
+        The AI workspace that helps you&nbsp;
+        <span class="text-aurora">
+          <bui-typewriter
+            [words]="['think faster', 'write better', 'ship more', 'stay focused']"
+            [typeSpeed]="75"
+            [deleteSpeed]="35"
+            [pause]="2000"
+          />
+        </span>
+      </h1>
+
+      <p class="mx-auto mb-10 max-w-2xl text-lg text-balance lg:text-xl" style="color: #94a3b8">
+        Lumina is the AI-native workspace where teams write, analyse and automate — all in one
+        place, with an assistant that actually understands your work.
+      </p>
+
+      <div class="mb-10 flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="#pricing"
+          class="btn-glow inline-flex items-center gap-2 rounded-xl px-7 py-3.5 text-base font-semibold text-white"
+          style="background: linear-gradient(135deg, #4f46e5, #7c3aed)"
+        >
+          <app-lucide name="zap" class="size-4" />
+          Start free — no card needed
+        </a>
+        <a
+          href="#features"
+          class="glass inline-flex items-center gap-2 rounded-xl px-7 py-3.5 text-base font-semibold transition-all hover:bg-white/10"
+          style="color: #e2e8f0"
+        >
+          <app-lucide name="play" class="size-4" />
+          See how it works
+        </a>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-5">
+        <div class="flex -space-x-2.5">
+          @for (seed of heroAvatars; track seed) {
+            <bui-avatar
+              class="size-9 ring-2 ring-[#0a0b18]"
+              [src]="'https://picsum.photos/seed/' + seed + '/80/80'"
+              alt="Lumina user"
+              >U</bui-avatar
+            >
+          }
+        </div>
+        <div class="text-left text-sm">
+          <div class="flex gap-0.5" style="color: #f59e0b">
+            @for (s of fiveStars; track s) {
+              <app-lucide name="star" class="size-4 fill-current" />
+            }
+          </div>
+          <span style="color: #64748b"
+            >Trusted by <strong style="color: #f1f5f9">42,000+</strong> teams worldwide</span
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGO MARQUEE -->
+  <div class="section-dark border-y py-10" style="border-color: rgba(255, 255, 255, 0.07)">
+    <p
+      class="mb-5 text-center text-xs font-medium tracking-widest uppercase"
+      style="color: #475569"
+    >
+      Integrated with the tools your team already uses
+    </p>
+    <bui-marquee [items]="logos" duration="30s" class="mx-auto max-w-5xl" />
+  </div>
+
+  <!-- STATS STRIP -->
+  <div class="section-darker border-b py-16" style="border-color: rgba(255, 255, 255, 0.07)">
+    <div class="mx-auto grid max-w-5xl grid-cols-2 gap-10 px-6 text-center lg:grid-cols-4">
+      @for (s of stats; track s.l) {
+        <div>
+          <div class="text-aurora text-4xl font-bold tracking-tight">{{ s.v }}</div>
+          <div class="mt-1 text-sm" style="color: #64748b">{{ s.l }}</div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- BENTO FEATURE GRID -->
+  <section id="features" class="scroll-mt-20 px-6 py-20 lg:py-28">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-14 text-center">
+        <span
+          buiBadge
+          variant="outline"
+          class="mb-4"
+          style="
+            border-color: rgba(99, 102, 241, 0.5);
+            color: #a5b4fc;
+            background: rgba(99, 102, 241, 0.08);
+          "
+          >Features</span
+        >
+        <h2
+          class="text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+          style="color: #f1f5f9"
+        >
+          Everything your team needs to do<br class="hidden sm:block" />
+          its best work
+        </h2>
+        <p class="mx-auto mt-3 max-w-xl text-lg text-balance" style="color: #64748b">
+          One AI-native workspace. No context switching, no tab soup — just your work, smarter.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        @for (f of features; track f.title) {
+          <div
+            class="glass card-glow group rounded-2xl p-7"
+            [style.box-shadow]="'0 0 24px 2px ' + f.glow + '22'"
+          >
+            <div
+              class="mb-5 inline-flex size-12 items-center justify-center rounded-xl"
+              [style.background]="'linear-gradient(135deg,' + f.glow + '22,' + f.glow + '44)'"
+              [style.box-shadow]="'0 0 16px 2px ' + f.glow + '44'"
+            >
+              <app-lucide [name]="f.icon" class="size-5" [style.color]="f.glow" />
+            </div>
+            <h3 class="mb-2 font-semibold" style="color: #f1f5f9">{{ f.title }}</h3>
+            <p class="text-sm leading-relaxed" style="color: #64748b">{{ f.desc }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ANALYTICS SHOWCASE -->
+  <section
+    id="integrations"
+    class="section-dark scroll-mt-20 border-y px-6 py-20 lg:py-28"
+    style="border-color: rgba(255, 255, 255, 0.07)"
+  >
+    <div class="mx-auto max-w-6xl">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div>
+          <span
+            buiBadge
+            variant="outline"
+            class="mb-5"
+            style="
+              border-color: rgba(34, 211, 238, 0.45);
+              color: #67e8f9;
+              background: rgba(34, 211, 238, 0.08);
+            "
+            >Live Analytics</span
+          >
+          <h2
+            class="mb-4 text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+            style="color: #f1f5f9"
+          >
+            Intelligence that updates<br />as your team works
+          </h2>
+          <p class="mb-6 text-base leading-relaxed" style="color: #64748b">
+            Lumina tracks every action, commit and conversation. The result: a living map of how
+            your team's output evolves — surfaced in beautiful, interactive charts the moment the
+            data changes.
+          </p>
+          <ul class="space-y-3">
+            @for (
+              p of [
+                'AI-generated insight summaries',
+                'Drill-down to individual contributors',
+                'Scheduled email digests',
+                'Export to CSV or embed anywhere',
+              ];
+              track p
+            ) {
+              <li class="flex items-center gap-2.5 text-sm" style="color: #cbd5e1">
+                <span
+                  class="inline-flex size-5 shrink-0 items-center justify-center rounded-full"
+                  style="background: rgba(34, 211, 238, 0.15)"
+                >
+                  <app-lucide name="check" class="size-3" style="color: #22d3ee" />
+                </span>
+                {{ p }}
+              </li>
+            }
+          </ul>
+          <div class="mt-7 flex gap-3">
+            <a
+              href="#pricing"
+              class="btn-glow inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold text-white"
+              style="background: linear-gradient(135deg, #4f46e5, #7c3aed)"
+            >
+              Explore analytics
+              <app-lucide name="arrow-right" class="size-4" />
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="glass rounded-2xl p-6"
+          style="box-shadow: 0 0 40px 6px rgba(34, 211, 238, 0.12)"
+        >
+          <div class="mb-4 flex items-center justify-between">
+            <div>
+              <p class="text-xs font-medium tracking-widest uppercase" style="color: #475569">
+                Team output — last 8 weeks
+              </p>
+              <p class="mt-0.5 text-2xl font-bold" style="color: #f1f5f9">+34.2%</p>
+            </div>
+            <span buiBadge tone="success" variant="soft">
+              <app-lucide name="trending-up" class="size-3" />
+              Live
+            </span>
+          </div>
+          <bui-chart
+            type="area"
+            label="Team output chart"
+            [series]="chartSeries"
+            [labels]="chartLabels"
+            [height]="220"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT SPOTLIGHT (first panel) -->
+  <section class="section-darker px-6 py-20 lg:py-28">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-12 text-center">
+        <span
+          buiBadge
+          variant="outline"
+          class="mb-4"
+          style="
+            border-color: rgba(139, 92, 246, 0.5);
+            color: #c084fc;
+            background: rgba(139, 92, 246, 0.08);
+          "
+          >How it works</span
+        >
+        <h2
+          class="text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+          style="color: #f1f5f9"
+        >
+          A closer look inside Lumina
+        </h2>
+      </div>
+
+      <div class="mx-auto w-full max-w-5xl">
+        <div class="mb-8 flex justify-center">
+          <div
+            class="inline-flex gap-1 rounded-lg p-1"
+            style="
+              background: rgba(255, 255, 255, 0.06);
+              border: 1px solid rgba(255, 255, 255, 0.1);
+            "
+          >
+            @for (s of spotlight; track s.label; let first = $first) {
+              <span
+                class="rounded-md px-4 py-1.5 text-sm font-medium"
+                [style.background]="first ? 'rgba(255,255,255,0.1)' : 'transparent'"
+                [style.color]="first ? '#f1f5f9' : '#94a3b8'"
+                >{{ s.label }}</span
+              >
+            }
+          </div>
+        </div>
+
+        @for (s of spotlight; track s.label; let first = $first) {
+          @if (first) {
+            <div class="grid items-center gap-10 lg:grid-cols-2">
+              <div>
+                <div
+                  class="mb-4 inline-flex size-12 items-center justify-center rounded-xl"
+                  style="
+                    background: linear-gradient(
+                      135deg,
+                      rgba(99, 102, 241, 0.2),
+                      rgba(139, 92, 246, 0.3)
+                    );
+                  "
+                >
+                  <app-lucide [name]="s.icon" class="size-5" style="color: #a5b4fc" />
+                </div>
+                <h3 class="mb-3 text-2xl font-semibold tracking-tight" style="color: #f1f5f9">
+                  {{ s.title }}
+                </h3>
+                <p class="mb-5 leading-relaxed" style="color: #64748b">{{ s.desc }}</p>
+                <ul class="space-y-2.5 text-sm">
+                  @for (p of s.points; track p) {
+                    <li class="flex items-center gap-2.5" style="color: #cbd5e1">
+                      <span
+                        class="inline-flex size-5 shrink-0 items-center justify-center rounded-full"
+                        style="background: rgba(99, 102, 241, 0.18)"
+                      >
+                        <app-lucide name="check" class="size-3" style="color: #818cf8" />
+                      </span>
+                      {{ p }}
+                    </li>
+                  }
+                </ul>
+                <a
+                  href="#pricing"
+                  class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium"
+                  style="color: #818cf8"
+                >
+                  Learn more <app-lucide name="arrow-right" class="size-4" />
+                </a>
+              </div>
+              <div
+                class="glass overflow-hidden rounded-2xl"
+                style="box-shadow: 0 0 30px 4px rgba(99, 102, 241, 0.15)"
+              >
+                <img
+                  src="https://picsum.photos/seed/lumina-write/720/480"
+                  [alt]="s.title"
+                  loading="lazy"
+                  class="size-full object-cover opacity-80"
+                  width="720"
+                  height="480"
+                />
+              </div>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section
+    class="section-dark border-y px-6 py-20 lg:py-28"
+    style="border-color: rgba(255, 255, 255, 0.07)"
+  >
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-12 text-center">
+        <span
+          buiBadge
+          variant="outline"
+          class="mb-4"
+          style="
+            border-color: rgba(236, 72, 153, 0.45);
+            color: #f9a8d4;
+            background: rgba(236, 72, 153, 0.08);
+          "
+          >Testimonials</span
+        >
+        <h2
+          class="text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+          style="color: #f1f5f9"
+        >
+          Teams doing their best work with Lumina
+        </h2>
+      </div>
+
+      <div class="mx-auto grid max-w-5xl gap-6 md:grid-cols-2">
+        @for (t of testimonials; track t.seed) {
+          <div
+            class="glass rounded-2xl p-8"
+            style="box-shadow: 0 0 24px 2px rgba(236, 72, 153, 0.08)"
+          >
+            <div class="mb-6 flex gap-0.5" style="color: #f59e0b">
+              @for (s of fiveStars; track s) {
+                <app-lucide name="star" class="size-4 fill-current" />
+              }
+            </div>
+            <blockquote class="mb-8 text-lg leading-relaxed text-balance" style="color: #e2e8f0">
+              "{{ t.q }}"
+            </blockquote>
+            <div class="flex items-center gap-3">
+              <bui-avatar
+                class="size-11"
+                [src]="'https://picsum.photos/seed/' + t.seed + '/88/88'"
+                [alt]="t.a"
+                >{{ t.a.charAt(0) }}</bui-avatar
+              >
+              <div>
+                <div class="text-sm font-semibold" style="color: #f1f5f9">{{ t.a }}</div>
+                <div class="text-xs" style="color: #64748b">{{ t.r }}</div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="section-darker scroll-mt-20 px-6 py-20 lg:py-28">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-12 text-center">
+        <span
+          buiBadge
+          variant="outline"
+          class="mb-4"
+          style="
+            border-color: rgba(59, 130, 246, 0.45);
+            color: #93c5fd;
+            background: rgba(59, 130, 246, 0.08);
+          "
+          >Pricing</span
+        >
+        <h2
+          class="text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+          style="color: #f1f5f9"
+        >
+          Simple pricing, serious value
+        </h2>
+        <p class="mt-3 text-lg" style="color: #64748b">
+          Start free. Add your team whenever you're ready.
+        </p>
+
+        <div
+          class="mt-7 inline-flex items-center gap-3 rounded-xl px-5 py-3 text-sm"
+          style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1)"
+        >
+          <span [class]="!yearly() ? 'font-semibold' : 'opacity-60'" style="color: #f1f5f9"
+            >Monthly</span
+          >
+          <button
+            buiSwitch
+            [checked]="yearly()"
+            (checkedChange)="yearly.set($event)"
+            aria-label="Toggle annual billing"
+          ></button>
+          <span [class]="yearly() ? 'font-semibold' : 'opacity-60'" style="color: #f1f5f9">
+            Annual
+            <span buiBadge tone="success" variant="soft" class="ml-1.5 text-[10px]">Save 20%</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="grid items-stretch gap-6 lg:grid-cols-3">
+        @for (plan of plans; track plan.name) {
+          <div
+            class="glass relative flex flex-col rounded-2xl p-8"
+            [class.pricing-glow]="plan.highlight"
+          >
+            @if (plan.highlight) {
+              <span
+                class="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-semibold whitespace-nowrap text-white"
+                style="background: linear-gradient(135deg, #4f46e5, #7c3aed)"
+                >Most popular</span
+              >
+            }
+
+            <div class="mb-1 text-base font-semibold" style="color: #f1f5f9">{{ plan.name }}</div>
+            <div class="mb-5 text-sm" style="color: #64748b">{{ plan.tag }}</div>
+
+            <div class="mb-6 flex items-baseline gap-1">
+              <span class="text-4xl font-bold tracking-tight" style="color: #f1f5f9"
+                >${{ yearly() ? plan.y : plan.m }}</span
+              >
+              <span class="text-sm" style="color: #64748b">/mo</span>
+              @if (yearly() && plan.y < plan.m) {
+                <span class="ml-1 text-xs line-through" style="color: #475569">${{ plan.m }}</span>
+              }
+            </div>
+
+            <a
+              href="#"
+              class="mb-6 flex w-full items-center justify-center rounded-xl py-2.5 text-sm font-semibold transition-all"
+              [class.btn-glow]="plan.highlight"
+              [class.text-white]="plan.highlight"
+              [style]="
+                plan.highlight
+                  ? 'background:linear-gradient(135deg,#4f46e5,#7c3aed);'
+                  : 'background:rgba(255,255,255,0.06);color:#e2e8f0;border:1px solid rgba(255,255,255,0.12);'
+              "
+              >{{ plan.cta }}</a
+            >
+
+            <div buiSeparator class="mb-6" style="background: rgba(255, 255, 255, 0.08)"></div>
+
+            <ul class="mt-auto space-y-3.5 text-sm">
+              @for (feat of plan.features; track feat) {
+                <li class="flex items-start gap-2.5" style="color: #cbd5e1">
+                  <app-lucide name="check" class="mt-0.5 size-4 shrink-0" style="color: #818cf8" />
+                  {{ feat }}
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <p class="mt-8 text-center text-sm" style="color: #475569">
+        All plans include a 14-day free trial. No credit card required.
+        <a href="#" class="ml-1 underline underline-offset-2" style="color: #818cf8"
+          >Compare plans →</a
+        >
+      </p>
+    </div>
+  </section>
+
+  <!-- COMMAND PALETTE TEASER -->
+  <section
+    class="section-dark border-y px-6 py-16 lg:py-20"
+    style="border-color: rgba(255, 255, 255, 0.07)"
+  >
+    <div class="mx-auto max-w-4xl text-center">
+      <p class="mb-3 text-sm font-medium tracking-widest uppercase" style="color: #475569">
+        Built for keyboard-first teams
+      </p>
+      <h2 class="mb-4 text-2xl font-bold tracking-tight sm:text-3xl" style="color: #f1f5f9">
+        Everything in two keystrokes
+      </h2>
+      <p class="mx-auto mb-10 max-w-xl" style="color: #64748b">
+        Press
+        <span class="mx-1 inline-flex gap-0.5">
+          <kbd buiKbd>⌘</kbd>
+          <kbd buiKbd>K</kbd>
+        </span>
+        anywhere in Lumina to open the command palette. Create docs, trigger workflows, jump to
+        teammates' work — without reaching for the mouse.
+      </p>
+
+      <div
+        class="glass mx-auto max-w-lg overflow-hidden rounded-2xl text-left"
+        style="box-shadow: 0 0 60px 8px rgba(99, 102, 241, 0.2)"
+      >
+        <div
+          class="flex items-center gap-2 border-b px-4 py-3"
+          style="border-color: rgba(255, 255, 255, 0.08)"
+        >
+          <app-lucide name="search" class="size-4" style="color: #64748b" />
+          <span class="text-sm" style="color: #64748b">Ask Lumina anything...</span>
+        </div>
+        <div class="p-2">
+          <p class="px-2 py-1.5 text-xs font-medium" style="color: #475569">AI actions</p>
+          <div
+            class="flex items-center gap-2.5 rounded-md px-2 py-2 text-sm"
+            style="color: #cbd5e1"
+          >
+            <app-lucide name="brain-circuit" class="size-4" style="color: #818cf8" />
+            <span>Summarise this document</span>
+            <kbd buiKbd class="ml-auto">⌘I</kbd>
+          </div>
+          <div
+            class="flex items-center gap-2.5 rounded-md px-2 py-2 text-sm"
+            style="color: #cbd5e1"
+          >
+            <app-lucide name="wand-sparkles" class="size-4" style="color: #f472b6" />
+            <span>Improve writing</span>
+            <kbd buiKbd class="ml-auto">⌘E</kbd>
+          </div>
+          <div
+            class="flex items-center gap-2.5 rounded-md px-2 py-2 text-sm"
+            style="color: #cbd5e1"
+          >
+            <app-lucide name="languages" class="size-4" style="color: #22d3ee" />
+            <span>Translate to French</span>
+          </div>
+          <div class="my-1 h-px" style="background: rgba(255, 255, 255, 0.08)"></div>
+          <p class="px-2 py-1.5 text-xs font-medium" style="color: #475569">Quick navigation</p>
+          <div
+            class="flex items-center gap-2.5 rounded-md px-2 py-2 text-sm"
+            style="color: #cbd5e1"
+          >
+            <app-lucide name="file-text" class="size-4" />
+            <span>New document</span>
+            <kbd buiKbd class="ml-auto">⌘N</kbd>
+          </div>
+          <div
+            class="flex items-center gap-2.5 rounded-md px-2 py-2 text-sm"
+            style="color: #cbd5e1"
+          >
+            <app-lucide name="workflow" class="size-4" />
+            <span>New workflow</span>
+            <kbd buiKbd class="ml-auto">⌘W</kbd>
+          </div>
+          <div
+            class="flex items-center gap-2.5 rounded-md px-2 py-2 text-sm"
+            style="color: #cbd5e1"
+          >
+            <app-lucide name="users" class="size-4" />
+            <span>Invite teammate</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section-darker scroll-mt-20 px-6 py-20 lg:py-28">
+    <div class="mx-auto max-w-3xl">
+      <div class="mb-12 text-center">
+        <span
+          buiBadge
+          variant="outline"
+          class="mb-4"
+          style="
+            border-color: rgba(99, 102, 241, 0.45);
+            color: #a5b4fc;
+            background: rgba(99, 102, 241, 0.08);
+          "
+          >FAQ</span
+        >
+        <h2
+          class="text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+          style="color: #f1f5f9"
+        >
+          Questions we get a lot
+        </h2>
+      </div>
+      <div class="w-full">
+        @for (faq of faqs; track faq.q) {
+          <details class="group border-b" style="border-color: rgba(255, 255, 255, 0.1)">
+            <summary
+              class="flex cursor-pointer items-center justify-between py-4 text-left font-medium"
+              style="color: #e2e8f0"
+            >
+              {{ faq.q }}
+              <app-lucide
+                name="chevron-down"
+                class="size-4 shrink-0 transition-transform group-open:rotate-180"
+                style="color: #64748b"
+              />
+            </summary>
+            <p class="pb-4 text-sm leading-relaxed" style="color: #94a3b8">{{ faq.a }}</p>
+          </details>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- BIG CLOSING CTA -->
+  <section
+    class="section-dark border-y px-6 py-20 lg:py-28"
+    style="border-color: rgba(255, 255, 255, 0.07)"
+  >
+    <div class="mx-auto max-w-4xl">
+      <div
+        class="glass relative overflow-hidden rounded-3xl px-10 py-16 text-center lg:px-20 lg:py-24"
+        style="box-shadow: 0 0 80px 12px rgba(99, 102, 241, 0.2)"
+      >
+        <div
+          class="pointer-events-none absolute -top-16 -left-16 size-64 rounded-full blur-3xl"
+          style="background: rgba(99, 102, 241, 0.25)"
+          aria-hidden="true"
+        ></div>
+        <div
+          class="pointer-events-none absolute -right-16 -bottom-16 size-64 rounded-full blur-3xl"
+          style="background: rgba(236, 72, 153, 0.2)"
+          aria-hidden="true"
+        ></div>
+
+        <div class="relative">
+          <span
+            buiBadge
+            variant="outline"
+            class="mb-6"
+            style="
+              border-color: rgba(99, 102, 241, 0.5);
+              color: #a5b4fc;
+              background: rgba(99, 102, 241, 0.1);
+            "
+          >
+            <app-lucide name="zap" class="size-3" />
+            Free 14-day trial · No credit card
+          </span>
+          <h2
+            class="mb-4 text-3xl font-bold tracking-tight text-balance sm:text-5xl"
+            style="color: #f1f5f9"
+          >
+            Start building your <span class="text-aurora">AI workspace</span> today
+          </h2>
+          <p class="mx-auto mb-10 max-w-xl text-lg text-balance" style="color: #64748b">
+            Join 42,000+ teams already using Lumina to write faster, decide smarter, and ship more.
+          </p>
+
+          <div class="flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="#pricing"
+              class="btn-glow inline-flex items-center gap-2 rounded-xl px-8 py-4 text-base font-semibold text-white"
+              style="background: linear-gradient(135deg, #4f46e5, #7c3aed)"
+            >
+              <app-lucide name="zap" class="size-4" />
+              Start for free
+            </a>
+            <a
+              href="#"
+              class="glass inline-flex items-center gap-2 rounded-xl px-8 py-4 text-base font-semibold transition-all hover:bg-white/10"
+              style="color: #e2e8f0"
+            >
+              <app-lucide name="calendar" class="size-4" />
+              Book a demo
+            </a>
+          </div>
+
+          <div
+            class="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm"
+            style="color: #475569"
+          >
+            @for (
+              badge of ['SOC 2 Type II', 'GDPR ready', 'SAML SSO', '99.99% uptime'];
+              track badge
+            ) {
+              <span class="flex items-center gap-1.5">
+                <app-lucide name="shield-check" class="size-4" style="color: #22d3ee" />
+                {{ badge }}
+              </span>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer
+    class="section-darker border-t px-6 pt-16 pb-10"
+    style="border-color: rgba(255, 255, 255, 0.07)"
+  >
+    <div class="mx-auto max-w-6xl">
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-6">
+        <div class="lg:col-span-2">
+          <a href="#" class="mb-4 flex items-center gap-2.5 font-semibold">
+            <span
+              class="flex size-8 items-center justify-center rounded-lg"
+              style="background: linear-gradient(135deg, #3b82f6, #8b5cf6)"
+            >
+              <app-lucide name="zap" class="size-4 text-white" />
+            </span>
+            <span class="text-aurora font-bold">Lumina</span>
+          </a>
+          <p class="mb-6 max-w-xs text-sm leading-relaxed" style="color: #475569">
+            The AI-native workspace for teams that want to write faster, decide smarter, and ship
+            more.
+          </p>
+          <div class="flex gap-2">
+            @for (s of social; track s.name) {
+              <a
+                href="#"
+                [attr.aria-label]="s.label"
+                class="glass inline-flex size-9 items-center justify-center rounded-lg transition-all hover:bg-white/10"
+                style="color: #64748b"
+              >
+                <app-lucide [name]="s.name" class="size-4" />
+              </a>
+            }
+          </div>
+        </div>
+
+        @for (col of footer; track col.heading) {
+          <div>
+            <h3 class="mb-4 text-xs font-semibold tracking-widest uppercase" style="color: #94a3b8">
+              {{ col.heading }}
+            </h3>
+            <ul class="space-y-2.5 text-sm">
+              @for (link of col.links; track link) {
+                <li>
+                  <a href="#" class="foot-link transition-colors">{{ link }}</a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <div buiSeparator class="my-10" style="background: rgba(255, 255, 255, 0.07)"></div>
+
+      <div
+        class="flex flex-col items-center justify-between gap-3 text-xs sm:flex-row"
+        style="color: #334155"
+      >
+        <span>© 2026 Lumina, Inc. All rights reserved.</span>
+        <span class="flex items-center gap-4">
+          <span class="flex items-center gap-1.5">
+            <app-lucide name="shield-check" class="size-3.5" style="color: #22d3ee" />
+            SOC 2 Type II · GDPR ready
+          </span>
+          <span>Made with ☁ in San Francisco</span>
+        </span>
+      </div>
+    </div>
+  </footer>
+</div>
