@@ -973,6 +973,7 @@ export class ComponentPage {
   protected readonly chartSeries = [{ data: [12, 19, 9, 22, 16, 28, 24] }];
   protected readonly chartLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   protected readonly dtmValue = signal('');
+  protected readonly dtmRange = signal({ start: '', end: '' });
   protected readonly cmdGroups = [
     {
       label: 'Suggestions',
@@ -3187,6 +3188,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     datetimePickerSeconds: `<!-- [seconds]="true" forwards to the time field -->
 <bui-datetime-picker [(value)]="when" [seconds]="true" />`,
     datetimePickerSelect: `<bui-datetime-picker [(value)]="when" captionLayout="dropdown" />`,
+    datetimePickerRange: `<!-- mode="range" → start–end dates sharing one time; [months]="2" shows both grids -->
+<bui-datetime-picker mode="range" [months]="2" [(range)]="range" />
+// range = signal({ start: '', end: '' })`,
     autocomplete: `import { BuiAutocomplete } from 'ng-blatui';
 
 <bui-autocomplete [(value)]="value" [options]="frameworks" />`,

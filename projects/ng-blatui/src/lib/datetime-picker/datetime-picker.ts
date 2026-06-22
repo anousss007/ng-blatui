@@ -1,6 +1,6 @@
 import { Component, computed, ElementRef, inject, input, model, signal } from '@angular/core';
 
-import { BuiCalendar } from '../calendar/calendar';
+import { BuiCalendar, type CalendarMode, type CalendarRange } from '../calendar/calendar';
 import { BuiTimeField } from '../time-field/time-field';
 import { type ClassValue, cn } from '../utils/cn';
 
@@ -33,17 +33,29 @@ import { type ClassValue, cn } from '../utils/cn';
         <path d="M8 2v4M16 2v4M3 10h18" />
         <rect width="18" height="18" x="3" y="4" rx="2" />
       </svg>
-      <span [class]="value() ? '' : 'text-muted-foreground'">{{ display() }}</span>
+      <span [class]="hasValue() ? '' : 'text-muted-foreground'">{{ display() }}</span>
     </button>
     @if (open()) {
       <div class="absolute z-50 mt-1 rounded-lg border bg-popover shadow-md">
-        <bui-calendar
-          [value]="datePart()"
-          [minDate]="minDate()"
-          [maxDate]="maxDate()"
-          [captionLayout]="captionLayout()"
-          (valueChange)="onDate($event)"
-        />
+        @if (mode() === 'range') {
+          <bui-calendar
+            mode="range"
+            [months]="months()"
+            [range]="calRange()"
+            [minDate]="minDate()"
+            [maxDate]="maxDate()"
+            [captionLayout]="captionLayout()"
+            (rangeChange)="onRange($event)"
+          />
+        } @else {
+          <bui-calendar
+            [value]="datePart()"
+            [minDate]="minDate()"
+            [maxDate]="maxDate()"
+            [captionLayout]="captionLayout()"
+            (valueChange)="onDate($event)"
+          />
+        }
         <div class="flex items-center gap-2 border-t p-2">
           <span class="text-xs text-muted-foreground">Time</span>
           <bui-time-field
@@ -58,6 +70,12 @@ import { type ClassValue, cn } from '../utils/cn';
 })
 export class BuiDatetimePicker {
   readonly value = model('');
+  /** `single` (default) or `range`. */
+  readonly mode = input<CalendarMode>('single');
+  /** Selected range when mode="range" — start/end as `YYYY-MM-DDTHH:mm`, sharing one time. */
+  readonly range = model<CalendarRange>({ start: '', end: '' });
+  /** Month grids shown in the popover (handy for range). */
+  readonly months = input(1);
   readonly placeholder = input('Pick date & time');
   readonly minDate = input('');
   readonly maxDate = input('');
@@ -68,19 +86,27 @@ export class BuiDatetimePicker {
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly open = signal(false);
   protected readonly datePart = computed(() => this.value().split('T', 1).at(0) ?? '');
-  protected readonly timePart = computed(() => this.value().split('T', 2).at(1) ?? '12:00');
+  protected readonly timePart = computed(() => {
+    const source = this.mode() === 'range' ? this.range().start : this.value();
+    return source.split('T', 2).at(1) ?? '12:00';
+  });
+  protected readonly calRange = computed<CalendarRange>(() => {
+    const { start, end } = this.range();
+    return { start: start.split('T', 1).at(0) ?? '', end: end.split('T', 1).at(0) ?? '' };
+  });
+  protected readonly hasValue = computed(
+    () => (this.mode() === 'range' ? this.range().start : this.value()) !== '',
+  );
   protected readonly display = computed(() => {
-    const value = this.value();
-    if (value === '') {
-      return this.placeholder();
+    if (this.mode() === 'range') {
+      const { start, end } = this.range();
+      if (start === '') {
+        return this.placeholder();
+      }
+      return end === '' ? `${this.fmt(start)} – …` : `${this.fmt(start)} – ${this.fmt(end)}`;
     }
-    return new Date(value).toLocaleString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-    });
+    const value = this.value();
+    return value === '' ? this.placeholder() : this.fmt(value);
   });
   protected readonly computedClass = computed(() => cn('relative inline-block', this.userClass()));
 
@@ -88,9 +114,34 @@ export class BuiDatetimePicker {
     this.value.set(`${iso}T${this.timePart()}`);
   }
 
+  protected onRange(range: CalendarRange): void {
+    const time = this.timePart();
+    this.range.set({
+      start: range.start === '' ? '' : `${range.start}T${time}`,
+      end: range.end === '' ? '' : `${range.end}T${time}`,
+    });
+  }
+
   protected onTime(time: string): void {
+    if (this.mode() === 'range') {
+      const { start, end } = this.calRange();
+      this.range.set({
+        start: start === '' ? '' : `${start}T${time}`,
+        end: end === '' ? '' : `${end}T${time}`,
+      });
+      return;
+    }
     const date = this.datePart();
     this.value.set(`${date === '' ? this.todayIso() : date}T${time}`);
+  }
+
+  private fmt(value: string): string {
+    return new Date(value).toLocaleString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+    });
   }
 
   protected onDocumentClick(event: MouseEvent): void {

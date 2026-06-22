@@ -8349,6 +8349,17 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.datetimePickerSelect">
         <bui-datetime-picker class="w-64" [(value)]="dtmValue" captionLayout="dropdown" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Range</h2>
+      <app-example [code]="code.datetimePickerRange">
+        <bui-datetime-picker
+          class="w-72"
+          mode="range"
+          [months]="2"
+          [(range)]="dtmRange"
+          placeholder="Pick a date range"
+        />
+      </app-example>
     }
     @case ('autocomplete') {
       <app-example [code]="code.autocomplete">
