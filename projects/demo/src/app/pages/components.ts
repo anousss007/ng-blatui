@@ -1177,6 +1177,7 @@ export class ComponentPage {
     'https://picsum.photos/seed/c/300',
   ];
   protected readonly fruit = signal('');
+  protected readonly fruitsMulti = signal<string[]>(['apple', 'cherry']);
   protected readonly fruits = [
     { value: 'apple', label: 'Apple' },
     { value: 'banana', label: 'Banana' },
@@ -2608,6 +2609,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     selectGrouped: `<!-- consecutive options sharing a group get a header -->
 <bui-select [options]="opts" />
 // opts = [{ value: 'apple', label: 'Apple', group: 'Fruits' }, { value: 'carrot', label: 'Carrot', group: 'Vegetables' }]`,
+    selectMultiple: `<!-- [multiple]="true" binds an array via [(values)]; stays open, toggles, shows checks -->
+<bui-select [multiple]="true" [(values)]="picked" [options]="opts" placeholder="Pick fruits" />
+// picked = signal<string[]>([])`,
     selectUtility: `<!-- a native select styled entirely with utility classes -->
 <select aria-label="Plan" class="h-9 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50">…</select>`,
     combobox: `import { BuiCombobox } from 'ng-blatui';

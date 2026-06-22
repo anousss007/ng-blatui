@@ -73,6 +73,7 @@ export interface SelectOption {
       <ul
         [id]="listId"
         role="listbox"
+        [attr.aria-multiselectable]="multiple() ? true : null"
         class="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md"
       >
         @for (option of options(); track option.value; let i = $index) {
@@ -84,7 +85,7 @@ export interface SelectOption {
           <li
             [id]="listId + '-' + i"
             role="option"
-            [attr.aria-selected]="option.value === value()"
+            [attr.aria-selected]="isSelected(option.value)"
             [attr.aria-disabled]="option.disabled ? true : null"
             class="relative flex cursor-default items-center justify-between gap-2 rounded-sm px-2 py-1.5 text-sm outline-none select-none"
             [class]="i === active() ? 'bg-accent text-accent-foreground' : ''"
@@ -108,7 +109,7 @@ export interface SelectOption {
               }
               {{ option.label }}
             </span>
-            @if (option.value === value()) {
+            @if (isSelected(option.value)) {
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -130,6 +131,9 @@ export interface SelectOption {
 })
 export class BuiSelect {
   readonly value = model('');
+  /** Select several options; binds `values` instead of `value`. */
+  readonly multiple = input(false);
+  readonly values = model<readonly string[]>([]);
   readonly options = input<readonly SelectOption[]>([]);
   readonly placeholder = input('Select…');
   readonly disabled = input(false);
@@ -142,8 +146,21 @@ export class BuiSelect {
   protected readonly selectedOption = computed(() =>
     this.options().find((option) => option.value === this.value()),
   );
-  protected readonly selectedLabel = computed(() => this.selectedOption()?.label ?? '');
+  protected readonly selectedLabel = computed(() => {
+    if (this.multiple()) {
+      const chosen = this.values();
+      return this.options()
+        .filter((option) => chosen.includes(option.value))
+        .map((option) => option.label)
+        .join(', ');
+    }
+    return this.selectedOption()?.label ?? '';
+  });
   protected readonly computedClass = computed(() => cn('relative block', this.userClass()));
+
+  protected isSelected(value: string): boolean {
+    return this.multiple() ? this.values().includes(value) : value === this.value();
+  }
 
   protected toggle(): void {
     if (this.open()) {
@@ -155,6 +172,16 @@ export class BuiSelect {
 
   protected select(option: SelectOption): void {
     if (option.disabled) {
+      return;
+    }
+    if (this.multiple()) {
+      const next = new Set(this.values());
+      if (next.has(option.value)) {
+        next.delete(option.value);
+      } else {
+        next.add(option.value);
+      }
+      this.values.set([...next]);
       return;
     }
     this.value.set(option.value);
