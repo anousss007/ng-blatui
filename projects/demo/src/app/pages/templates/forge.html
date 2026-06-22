@@ -1,0 +1,827 @@
+<div id="tpl-forge">
+  <!-- NAV -->
+  <header
+    style="
+      background: #0b0e14cc;
+      border-bottom: 1px solid #21262d;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    "
+    class="sticky top-0 z-40"
+  >
+    <div class="mx-auto flex h-14 max-w-6xl items-center gap-4 px-6">
+      <a href="#" class="flex shrink-0 items-center gap-2.5" aria-label="Forge home">
+        <span
+          style="background: #3fb950; border-radius: 6px"
+          class="flex size-7 items-center justify-center"
+        >
+          <app-lucide name="zap" class="size-4" style="color: #0b0e14" />
+        </span>
+        <span class="forge-mono text-base font-semibold tracking-tight" style="color: #e6edf3"
+          >forge</span
+        >
+      </a>
+
+      <nav class="ml-6 hidden items-center gap-1 text-sm md:flex">
+        @for (link of nav; track link.href) {
+          <a [href]="link.href" class="forge-link rounded-md px-3 py-1.5 font-medium">{{
+            link.label
+          }}</a>
+        }
+      </nav>
+
+      <div class="ml-auto flex items-center gap-2">
+        <a
+          href="#"
+          class="forge-social hidden items-center gap-1.5 rounded-md border px-2.5 py-1 text-xs font-medium sm:inline-flex"
+          style="border-color: #21262d; background: #161b22; color: #e6edf3"
+        >
+          <app-lucide name="github" class="size-3.5" />
+          <span class="forge-mono">24k</span>
+          <app-lucide name="star" class="size-3" style="color: #d29922" />
+        </a>
+
+        <button
+          type="button"
+          class="forge-social hidden items-center gap-2 rounded-md border px-2.5 py-1.5 text-xs sm:inline-flex"
+          style="border-color: #21262d; background: #161b22; color: #7d8590"
+        >
+          <app-lucide name="search" class="size-3" />
+          <span>Search</span>
+          <kbd buiKbd>⌘K</kbd>
+        </button>
+
+        <a href="#" class="rounded-md px-3 py-1.5 text-sm font-medium" style="color: #7d8590"
+          >Sign in</a
+        >
+        <a
+          href="#pricing"
+          class="forge-glow-btn inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm"
+          style="background: #3fb950; color: #0b0e14; font-weight: 600"
+          >Get started <app-lucide name="arrow-right" class="size-4"
+        /></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden" style="border-bottom: 1px solid #21262d">
+    <div class="forge-grid-bg pointer-events-none absolute inset-0 opacity-50"></div>
+    <div class="pointer-events-none absolute inset-x-0 top-0 -z-0 flex justify-center">
+      <div
+        style="
+          width: 44rem;
+          height: 22rem;
+          border-radius: 9999px;
+          background: radial-gradient(ellipse, #3fb95018 0%, transparent 70%);
+          filter: blur(40px);
+        "
+      ></div>
+    </div>
+
+    <div
+      class="relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:py-28"
+    >
+      <div>
+        <div
+          class="mb-5 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium"
+          style="border-color: #3fb95040; background: #3fb95010; color: #3fb950"
+        >
+          <span class="inline-block size-1.5 animate-pulse rounded-full bg-current"></span>
+          <span class="forge-mono">v2.4.0 · Edge Functions GA</span>
+        </div>
+
+        <h1
+          class="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
+          style="color: #e6edf3; line-height: 1.12"
+        >
+          Ship faster.<br />
+          <span style="color: #3fb950">Sleep</span> better.
+        </h1>
+        <p class="mt-5 max-w-lg text-lg" style="color: #7d8590; line-height: 1.65">
+          Forge is the deploy platform built for engineers who care about speed and reliability.
+          Push code, get a URL in seconds — globally distributed, instantly scalable.
+        </p>
+
+        <div class="mt-7">
+          <p class="forge-section-label mb-2">Get started in seconds</p>
+          <div
+            class="flex items-center gap-2 rounded-lg border p-1 pr-2"
+            style="border-color: #21262d; background: #0d1117; max-width: 340px"
+          >
+            <div class="flex min-w-0 flex-1 items-center gap-2 pl-3">
+              <span class="forge-mono shrink-0 text-sm" style="color: #3fb950">$</span>
+              <span class="forge-mono truncate text-sm" style="color: #e6edf3"
+                >npx forge deploy</span
+              >
+            </div>
+            <button
+              type="button"
+              class="inline-flex size-7 shrink-0 items-center justify-center rounded"
+              style="color: #7d8590"
+              aria-label="Copy"
+            >
+              <app-lucide name="copy" class="size-3.5" />
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <a
+            href="#pricing"
+            class="forge-glow-btn inline-flex items-center gap-2 rounded-md px-5 py-2.5 text-sm"
+            style="background: #3fb950; color: #0b0e14; font-weight: 700"
+            >Deploy for free <app-lucide name="arrow-right" class="size-4"
+          /></a>
+          <a
+            href="#code"
+            class="inline-flex items-center gap-2 rounded-md border px-5 py-2.5 text-sm"
+            style="border-color: #21262d; background: #161b22; color: #e6edf3"
+            ><app-lucide name="book-open" class="size-4" /> Read the docs</a
+          >
+        </div>
+
+        <div class="mt-8 flex flex-wrap gap-5">
+          @for (st of heroStats; track st.l) {
+            <div>
+              <div class="forge-mono text-xl font-bold" style="color: #e6edf3">{{ st.v }}</div>
+              <div class="text-xs" style="color: #7d8590">{{ st.l }}</div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Terminal mockup -->
+      <div class="relative">
+        <div class="forge-terminal">
+          <div class="forge-terminal-titlebar">
+            <span class="forge-traffic forge-traffic-red"></span>
+            <span class="forge-traffic forge-traffic-amber"></span>
+            <span class="forge-traffic forge-traffic-green"></span>
+            <span
+              class="ml-3 text-xs"
+              style="color: #7d8590; font-family: 'JetBrains Mono', monospace"
+              >forge — deploy — 80×24</span
+            >
+          </div>
+          <div class="forge-terminal-body">
+            <div class="forge-line">
+              <span class="forge-prompt">~/myapp $</span>
+              <span class="forge-cmd">npx forge deploy</span>
+            </div>
+            <div class="forge-line"><span class="forge-out-dim"> Detecting framework...</span></div>
+            <div class="forge-line">
+              <span class="forge-out-ok">✓</span>
+              <span class="forge-out-dim">Next.js 14 detected</span>
+            </div>
+            <div class="forge-line">
+              <span class="forge-out-ok">✓</span> <span class="forge-out-dim">Building (23s)</span>
+            </div>
+            <div class="forge-line">
+              <span class="forge-out-ok">✓</span>
+              <span class="forge-out-dim">Uploading 312 assets</span>
+            </div>
+            <div class="forge-line">
+              <span class="forge-out-ok">✓</span>
+              <span class="forge-out-dim">Propagating to edge (300 PoPs)</span>
+            </div>
+            <div class="forge-line">
+              <span class="forge-out-ok">✓</span><span style="color: #e6edf3"> Deployed in </span
+              ><span class="forge-out-amber font-semibold">31s</span>
+            </div>
+            <div class="forge-line">
+              <span class="forge-out-dim"> Live at </span
+              ><span class="forge-out-cyan">https://myapp-a1b2c3.forge.sh</span>
+            </div>
+            <div class="forge-line mt-1">
+              <span class="forge-prompt">~/myapp $</span><span class="forge-cmd"> </span
+              ><span class="forge-caret" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="pointer-events-none absolute -inset-4 -z-10 opacity-30"
+          style="
+            background: radial-gradient(ellipse at 60% 50%, #3fb95020 0%, transparent 70%);
+            border-radius: 1.5rem;
+          "
+        ></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGO WALL -->
+  <section style="border-bottom: 1px solid #21262d" class="py-10">
+    <p class="forge-section-label mb-6 text-center">Trusted by engineering teams at</p>
+    <bui-marquee
+      [items]="logos"
+      duration="38s"
+      class="forge-mono mx-auto max-w-5xl text-sm font-medium"
+    />
+  </section>
+
+  <!-- FEATURES BENTO -->
+  <section
+    id="features"
+    class="scroll-mt-20 py-20 lg:py-28"
+    style="border-bottom: 1px solid #21262d"
+  >
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-12 text-center">
+        <p class="forge-section-label mb-3">What you get</p>
+        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl" style="color: #e6edf3">
+          Engineered for zero-downtime teams
+        </h2>
+        <p class="mx-auto mt-3 max-w-xl text-base" style="color: #7d8590">
+          Every feature is a building block. Use just the ones you need, or let Forge run your
+          entire delivery pipeline.
+        </p>
+      </div>
+
+      <div class="forge-bento-grid">
+        <div class="forge-card forge-bento-wide flex items-start gap-5 p-6">
+          <div
+            class="flex size-12 shrink-0 items-center justify-center rounded-lg"
+            style="background: #3fb95015; border: 1px solid #3fb95030"
+          >
+            <app-lucide name="globe" class="size-6" style="color: #3fb950" />
+          </div>
+          <div>
+            <h3 class="mb-1 text-base font-semibold" style="color: #e6edf3">
+              Edge Network — 300+ PoPs worldwide
+            </h3>
+            <p class="text-sm" style="color: #7d8590">
+              Your code runs at the edge, not in a single data centre. Sub-20ms cold starts,
+              automatic geo-routing, and built-in DDoS mitigation. Forge handles the infrastructure
+              — you focus on the code.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              @for (tag of wideFeatureTags; track tag) {
+                <span
+                  buiBadge
+                  tone="neutral"
+                  variant="outline"
+                  class="forge-mono text-[10px]"
+                  style="border-color: #21262d; color: #7d8590"
+                  >{{ tag }}</span
+                >
+              }
+            </div>
+          </div>
+        </div>
+
+        @for (f of features; track f.title) {
+          <div class="forge-card flex flex-col gap-3 p-5">
+            <div
+              class="flex size-10 items-center justify-center rounded-lg"
+              style="background: #3fb95015; border: 1px solid #3fb95030"
+            >
+              <app-lucide [name]="f.icon" class="size-5" style="color: #3fb950" />
+            </div>
+            <h3 class="text-sm font-semibold" style="color: #e6edf3">{{ f.title }}</h3>
+            <p class="text-xs leading-relaxed" style="color: #7d8590">{{ f.desc }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CODE SHOWCASE -->
+  <section id="code" class="scroll-mt-20 py-20 lg:py-28" style="border-bottom: 1px solid #21262d">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid items-start gap-12 lg:grid-cols-2">
+        <div>
+          <p class="forge-section-label mb-3">API / SDK</p>
+          <h2 class="mb-4 text-3xl font-bold tracking-tight" style="color: #e6edf3">
+            Deploy from any language
+          </h2>
+          <p class="mb-6 text-base" style="color: #7d8590">
+            Official SDKs for JavaScript, Python, and Go. A dead-simple REST API if you need to call
+            Forge from anywhere else. Every endpoint is idempotent — safe to call from CI.
+          </p>
+          <ul class="space-y-3">
+            @for (point of apiPoints; track point) {
+              <li class="flex items-center gap-2.5 text-sm" style="color: #7d8590">
+                <app-lucide name="check" class="size-4 shrink-0" style="color: #3fb950" />
+                {{ point }}
+              </li>
+            }
+          </ul>
+          <div class="mt-6 flex gap-2">
+            <a
+              href="#"
+              class="inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-sm"
+              style="border-color: #21262d; background: #161b22; color: #e6edf3"
+              ><app-lucide name="book-open" class="size-3.5" /> Full API docs</a
+            >
+            <a
+              href="#"
+              class="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm"
+              style="color: #7d8590"
+              ><app-lucide name="github" class="size-3.5" /> View on GitHub</a
+            >
+          </div>
+        </div>
+
+        <div>
+          <div
+            class="flex w-full justify-start gap-1 rounded-t-lg p-2 pb-0"
+            style="background: #0d1117; border: 1px solid #21262d; border-bottom: none"
+          >
+            @for (tab of codeTabs; track tab.key; let first = $first) {
+              <span
+                class="forge-mono h-8 rounded-t-md px-3 py-1.5 text-xs"
+                [style.background]="first ? '#161b22' : 'transparent'"
+                [style.color]="first ? '#e6edf3' : '#7d8590'"
+                >{{ tab.label }}</span
+              >
+            }
+          </div>
+          <div class="forge-code-block">
+            <div class="forge-code-filename">deploy.js</div>
+            <pre><code>{{ codeJs }}</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMAND PALETTE TEASER -->
+  <section class="py-20 lg:py-24" style="border-bottom: 1px solid #21262d; background: #0d1117">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div>
+          <p class="forge-section-label mb-3">⌘K palette</p>
+          <h2 class="mb-4 text-3xl font-bold tracking-tight" style="color: #e6edf3">
+            Your entire platform, one keystroke away
+          </h2>
+          <p class="mb-6 text-base" style="color: #7d8590">
+            Press <kbd buiKbd>⌘</kbd><kbd buiKbd>K</kbd> anywhere in the Forge dashboard to
+            instantly jump to any project, trigger a deploy, inspect logs, or run a CLI command —
+            without ever reaching for the mouse.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            @for (action of cmdActions; track action) {
+              <span
+                class="inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-xs"
+                style="
+                  border-color: #21262d;
+                  background: #161b22;
+                  color: #7d8590;
+                  font-family: 'JetBrains Mono', monospace;
+                "
+                >{{ action }}</span
+              >
+            }
+          </div>
+        </div>
+
+        <div class="forge-card overflow-hidden" style="max-width: 420px">
+          <div class="flex items-center gap-2 border-b px-3 py-2.5" style="border-color: #21262d">
+            <app-lucide name="search" class="size-4" style="color: #7d8590" />
+            <span class="text-sm" style="color: #7d8590">Search commands, projects...</span>
+          </div>
+          <div class="p-1.5">
+            <p
+              class="forge-mono px-2.5 py-1.5 text-[10px] tracking-wider uppercase"
+              style="color: #7d8590"
+            >
+              Quick deploy
+            </p>
+            <div class="forge-cmd-item">
+              <app-lucide name="rocket" class="size-4" style="color: #3fb950" /><span
+                >Deploy · main</span
+              ><span class="forge-mono ml-auto text-xs" style="color: #7d8590">⌘↵</span>
+            </div>
+            <div class="forge-cmd-item">
+              <app-lucide name="rotate-ccw" class="size-4" /><span>Rollback to previous</span
+              ><span class="forge-mono ml-auto text-xs" style="color: #7d8590">⌘Z</span>
+            </div>
+            <div class="forge-cmd-item">
+              <app-lucide name="terminal" class="size-4" /><span>Stream live logs</span
+              ><span class="forge-mono ml-auto text-xs" style="color: #7d8590">⌘L</span>
+            </div>
+            <div class="my-1.5 h-px" style="background: #21262d"></div>
+            <p
+              class="forge-mono px-2.5 py-1.5 text-[10px] tracking-wider uppercase"
+              style="color: #7d8590"
+            >
+              Navigate
+            </p>
+            <div class="forge-cmd-item">
+              <app-lucide name="layers" class="size-4" /><span>All projects</span>
+            </div>
+            <div class="forge-cmd-item">
+              <app-lucide name="key" class="size-4" /><span>Environment variables</span>
+            </div>
+            <div class="forge-cmd-item">
+              <app-lucide name="users" class="size-4" /><span>Team settings</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- METRICS -->
+  <section class="py-20 lg:py-28" style="border-bottom: 1px solid #21262d">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-12 text-center">
+        <p class="forge-section-label mb-3">Reliability</p>
+        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl" style="color: #e6edf3">
+          Built to stay up
+        </h2>
+        <p class="mx-auto mt-3 max-w-xl text-sm" style="color: #7d8590">
+          Real numbers from our last 90 days. We publish our status page publicly so you can always
+          verify.
+        </p>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        @for (m of metrics; track m.label) {
+          <div class="forge-card flex flex-col gap-3 p-5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium" style="color: #7d8590">{{ m.label }}</span>
+              <span buiBadge [tone]="m.tone" variant="soft" class="forge-mono text-[10px]">{{
+                m.display
+              }}</span>
+            </div>
+            <div class="forge-progress-track">
+              <div
+                class="forge-progress-bar"
+                [class.amber]="m.tone === 'warning'"
+                [style.width.%]="m.value"
+              ></div>
+            </div>
+            <span class="forge-mono text-2xl font-bold" style="color: #e6edf3">{{
+              m.display
+            }}</span>
+          </div>
+        }
+      </div>
+
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <span class="inline-flex items-center gap-1.5 text-sm" style="color: #3fb950"
+          ><span class="inline-block size-2 animate-pulse rounded-full bg-current"></span> All
+          systems operational</span
+        >
+        <div class="h-4 w-px" style="background: #21262d"></div>
+        <span class="text-xs" style="color: #7d8590">Last incident: 92 days ago</span>
+        <div class="h-4 w-px" style="background: #21262d"></div>
+        <a href="#" class="text-xs hover:underline" style="color: #39c5cf">View status page →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section
+    id="pricing"
+    class="scroll-mt-20 py-20 lg:py-28"
+    style="border-bottom: 1px solid #21262d; background: #0d1117"
+  >
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mb-10 text-center">
+        <p class="forge-section-label mb-3">Pricing</p>
+        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl" style="color: #e6edf3">
+          Straightforward pricing
+        </h2>
+        <p class="mt-3 text-base" style="color: #7d8590">
+          No per-seat fees. No surprise bills. Just flat-rate workspace pricing.
+        </p>
+
+        <div
+          class="mt-6 inline-flex items-center gap-3 rounded-lg border p-1 text-sm"
+          style="border-color: #21262d; background: #161b22"
+        >
+          <button
+            type="button"
+            (click)="yearly.set(false)"
+            class="forge-mono rounded-md px-3 py-1.5 text-xs font-medium transition-all"
+            [style.background]="!yearly() ? '#21262d' : 'transparent'"
+            [style.color]="!yearly() ? '#e6edf3' : '#7d8590'"
+          >
+            Monthly
+          </button>
+          <button
+            buiSwitch
+            [checked]="yearly()"
+            (checkedChange)="yearly.set($event)"
+            size="sm"
+            aria-label="Toggle yearly billing"
+          ></button>
+          <button
+            type="button"
+            (click)="yearly.set(true)"
+            class="forge-mono inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition-all"
+            [style.background]="yearly() ? '#21262d' : 'transparent'"
+            [style.color]="yearly() ? '#e6edf3' : '#7d8590'"
+          >
+            Yearly <span buiBadge tone="success" variant="soft" class="text-[10px]">−20%</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid items-stretch gap-6 lg:grid-cols-3">
+        @for (plan of plans; track plan.name) {
+          <div class="forge-card flex flex-col p-6" [class.forge-plan-highlight]="plan.highlight">
+            @if (plan.highlight) {
+              <div class="pointer-events-none absolute -top-3 left-1/2 -translate-x-1/2">
+                <span
+                  buiBadge
+                  class="forge-mono text-[10px]"
+                  style="background: #3fb950; color: #0b0e14; border: none; font-weight: 700"
+                  >Most popular</span
+                >
+              </div>
+            }
+
+            <h3 class="forge-mono text-base font-semibold" style="color: #e6edf3">
+              {{ plan.name }}
+            </h3>
+            <p class="mt-0.5 text-xs" style="color: #7d8590">{{ plan.tag }}</p>
+
+            <div class="mt-4 flex items-baseline gap-1">
+              @if (plan.name === 'Pro') {
+                <span class="forge-mono text-3xl font-bold tracking-tight" style="color: #e6edf3"
+                  >${{ yearly() ? plan.y : plan.m }}</span
+                >
+                <span class="text-xs" style="color: #7d8590">/mo</span>
+              } @else {
+                <span class="forge-mono text-3xl font-bold tracking-tight" style="color: #e6edf3">{{
+                  plan.name === 'Hobby' ? 'Free' : 'Custom'
+                }}</span>
+              }
+            </div>
+
+            <div class="mt-5">
+              <a
+                href="#"
+                class="block w-full rounded-md px-4 py-2 text-center text-sm font-medium"
+                [style]="
+                  plan.highlight
+                    ? 'background:#3fb950; color:#0b0e14; font-weight:700;'
+                    : 'background:#161b22; border:1px solid #21262d; color:#e6edf3;'
+                "
+                >{{ plan.cta }}</a
+              >
+            </div>
+
+            <hr class="my-5" style="border: none; height: 1px; background: #21262d" />
+
+            <ul class="flex-1 space-y-2.5 text-sm">
+              @for (feat of plan.features; track feat) {
+                <li class="flex items-start gap-2.5" style="color: #7d8590">
+                  <app-lucide name="check" class="mt-0.5 size-4 shrink-0" style="color: #3fb950" />
+                  {{ feat }}
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section class="py-20 lg:py-24" style="border-bottom: 1px solid #21262d">
+    <div class="mx-auto max-w-4xl px-6">
+      <div class="mb-10 text-center">
+        <p class="forge-section-label mb-3">Compare</p>
+        <h2 class="text-2xl font-bold tracking-tight" style="color: #e6edf3">Plan comparison</h2>
+      </div>
+
+      <div
+        class="forge-compare-table overflow-x-auto rounded-xl border"
+        style="border-color: #21262d"
+      >
+        <table class="w-full text-sm">
+          <thead>
+            <tr style="border-bottom: 1px solid #21262d; background: #161b22">
+              <th class="px-4 py-3 text-left font-medium" style="color: #7d8590; width: 40%">
+                Feature
+              </th>
+              <th
+                class="forge-mono px-4 py-3 text-center text-xs font-semibold"
+                style="color: #e6edf3"
+              >
+                Hobby
+              </th>
+              <th
+                class="forge-mono px-4 py-3 text-center text-xs font-semibold"
+                style="color: #3fb950"
+              >
+                Pro
+              </th>
+              <th
+                class="forge-mono px-4 py-3 text-center text-xs font-semibold"
+                style="color: #e6edf3"
+              >
+                Enterprise
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of compare; track row.feature; let i = $index) {
+              <tr
+                [style.background]="i % 2 === 1 ? '#0d1117' : ''"
+                style="border-bottom: 1px solid #21262d"
+              >
+                <td class="px-4 py-3" style="color: #7d8590">{{ row.feature }}</td>
+                @for (col of [row.hobby, row.pro, row.ent]; track $index) {
+                  <td class="px-4 py-3 text-center" style="color: #e6edf3">
+                    @if (isBool(col)) {
+                      @if (col) {
+                        <app-lucide name="check" class="mx-auto size-4" style="color: #3fb950" />
+                      } @else {
+                        <app-lucide name="minus" class="mx-auto size-4" style="color: #21262d" />
+                      }
+                    } @else {
+                      <span class="forge-mono text-xs">{{ col }}</span>
+                    }
+                  </td>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section
+    id="faq"
+    class="scroll-mt-20 py-20 lg:py-28"
+    style="border-bottom: 1px solid #21262d; background: #0d1117"
+  >
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="mb-10 text-center">
+        <p class="forge-section-label mb-3">FAQ</p>
+        <h2 class="text-3xl font-bold tracking-tight" style="color: #e6edf3">Common questions</h2>
+      </div>
+      <div class="w-full">
+        @for (faq of faqs; track faq.q; let first = $first) {
+          <details class="group" style="border-bottom: 1px solid #21262d" [open]="first">
+            <summary
+              class="flex cursor-pointer items-center justify-between py-4 text-left font-medium"
+              style="color: #e6edf3"
+            >
+              {{ faq.q }}
+              <app-lucide
+                name="chevron-down"
+                class="size-4 shrink-0 transition-transform group-open:rotate-180"
+                style="color: #7d8590"
+              />
+            </summary>
+            <p class="pb-4 text-sm leading-relaxed" style="color: #7d8590">{{ faq.a }}</p>
+          </details>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 lg:py-28" style="border-bottom: 1px solid #21262d">
+    <div class="mx-auto max-w-5xl px-6">
+      <div
+        class="relative overflow-hidden rounded-2xl p-10 text-center lg:p-16"
+        style="background: #161b22; border: 1px solid #21262d"
+      >
+        <div class="forge-grid-bg pointer-events-none absolute inset-0 opacity-40"></div>
+        <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <div
+            style="
+              width: 28rem;
+              height: 14rem;
+              border-radius: 9999px;
+              background: radial-gradient(ellipse, #3fb95018 0%, transparent 70%);
+              filter: blur(30px);
+            "
+          ></div>
+        </div>
+
+        <div class="relative z-10">
+          <div
+            class="mb-5 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs"
+            style="border-color: #3fb95040; background: #3fb95010; color: #3fb950"
+          >
+            <app-lucide name="rocket" class="size-3.5" />
+            <span class="forge-mono">Free to start · No credit card</span>
+          </div>
+
+          <h2 class="text-3xl font-bold tracking-tight sm:text-4xl" style="color: #e6edf3">
+            Start deploying in under 60 seconds
+          </h2>
+          <p class="mx-auto mt-3 max-w-xl text-base" style="color: #7d8590">
+            Import a Git repo, connect a domain, and go live. Forge handles the rest.
+          </p>
+
+          <div
+            class="mx-auto mt-7 flex items-center gap-2 rounded-lg border p-1 pr-2"
+            style="border-color: #21262d; background: #0d1117; max-width: 340px"
+          >
+            <div class="flex min-w-0 flex-1 items-center gap-2 pl-3">
+              <span class="forge-mono shrink-0 text-sm" style="color: #3fb950">$</span>
+              <span class="forge-mono truncate text-sm" style="color: #e6edf3">npx forge init</span>
+            </div>
+            <button
+              type="button"
+              class="inline-flex size-7 shrink-0 items-center justify-center rounded"
+              style="color: #7d8590"
+              aria-label="Copy"
+            >
+              <app-lucide name="copy" class="size-3.5" />
+            </button>
+          </div>
+
+          <div class="mt-6 flex flex-wrap justify-center gap-3">
+            <a
+              href="#"
+              class="forge-glow-btn inline-flex items-center gap-2 rounded-md px-5 py-2.5 text-sm"
+              style="background: #3fb950; color: #0b0e14; font-weight: 700"
+              >Deploy your first project <app-lucide name="arrow-right" class="size-4"
+            /></a>
+            <a
+              href="#"
+              class="inline-flex items-center gap-2 rounded-md border px-5 py-2.5 text-sm"
+              style="border-color: #21262d; background: transparent; color: #e6edf3"
+              ><app-lucide name="github" class="size-4" /> View on GitHub</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="border-top: 1px solid #21262d">
+    <div class="mx-auto max-w-6xl px-6 py-14">
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-6">
+        <div class="lg:col-span-2">
+          <a href="#" class="flex items-center gap-2.5" aria-label="Forge">
+            <span
+              style="background: #3fb950; border-radius: 6px"
+              class="flex size-7 items-center justify-center"
+              ><app-lucide name="zap" class="size-4" style="color: #0b0e14"
+            /></span>
+            <span class="forge-mono text-base font-semibold" style="color: #e6edf3">forge</span>
+          </a>
+          <p class="mt-3 max-w-xs text-sm" style="color: #7d8590">
+            The deploy platform built for engineers who ship every day.
+          </p>
+          <div class="mt-5 flex gap-2">
+            @for (soc of social; track soc) {
+              <a
+                href="#"
+                [attr.aria-label]="soc"
+                class="forge-social inline-flex size-8 items-center justify-center rounded-md border"
+                style="border-color: #21262d; color: #7d8590; background: transparent"
+                ><app-lucide [name]="soc" class="size-3.5"
+              /></a>
+            }
+          </div>
+        </div>
+
+        @for (col of footer; track col.heading) {
+          <div>
+            <h3
+              class="forge-mono mb-3 text-xs font-semibold tracking-widest uppercase"
+              style="color: #e6edf3"
+            >
+              {{ col.heading }}
+            </h3>
+            <ul class="space-y-2 text-sm">
+              @for (link of col.links; track link) {
+                <li>
+                  <a href="#" class="forge-link">{{ link }}</a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <hr class="my-8" style="border: none; height: 1px; background: #21262d" />
+
+      <div
+        class="flex flex-col items-center justify-between gap-3 text-xs sm:flex-row"
+        style="color: #7d8590"
+      >
+        <span>© 2026 Forge, Inc. All rights reserved.</span>
+        <div class="flex items-center gap-3">
+          <span class="inline-flex cursor-default items-center gap-1.5"
+            ><app-lucide name="shield" class="size-3.5" style="color: #3fb950" /> SOC 2 Type
+            II</span
+          >
+          <span style="color: #21262d">·</span>
+          <span class="inline-flex items-center gap-1.5"
+            ><span class="inline-block size-1.5 rounded-full" style="background: #3fb950"></span
+            ><a href="#" class="hover:underline" style="color: #7d8590"
+              >All systems operational</a
+            ></span
+          >
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
