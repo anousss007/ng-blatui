@@ -1011,6 +1011,16 @@ export class ComponentPage {
       icon: 'M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2',
     },
   ];
+  protected readonly ctxItemsSub = [
+    { label: 'Back' },
+    { label: 'Reload', shortcut: '⌘R' },
+    { separator: true },
+    {
+      label: 'Share',
+      children: [{ label: 'Copy link', shortcut: '⌘C' }, { label: 'Email' }, { label: 'Messages' }],
+    },
+    { label: 'Delete', danger: true },
+  ];
   protected readonly tfSelectValue = signal('09:30');
   protected readonly testimonials = [
     { quote: 'ng-blatui shipped our redesign weeks early.', name: 'Ada L.' },
@@ -3171,6 +3181,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     contextMenuIcons: `<!-- each item takes an optional icon (SVG path d) -->
 <bui-context-menu [items]="items" />
 // items = [{ label: 'Profile', icon: 'M19 21v-2…' }, …]`,
+    contextMenuSubmenu: `<!-- nest items with children → a flyout submenu on hover -->
+<bui-context-menu [items]="items" />
+// items = [{ label: 'Share', children: [{ label: 'Copy link' }, { label: 'Email' }] }]`,
     dataTable: `import { BuiDataTable } from 'ng-blatui';
 
 <bui-data-table [columns]="columns" [rows]="rows" [pageSize]="5" />`,

@@ -8277,6 +8277,17 @@ This content is read-only and cannot be edited.</textarea
           </div>
         </bui-context-menu>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Submenu</h2>
+      <app-example [code]="code.contextMenuSubmenu">
+        <bui-context-menu [items]="ctxItemsSub">
+          <div
+            class="grid h-32 w-full max-w-md place-items-center rounded-lg border border-dashed border-input text-sm text-muted-foreground"
+          >
+            Right-click → hover “Share”
+          </div>
+        </bui-context-menu>
+      </app-example>
     }
     @case ('data-table') {
       <app-example [code]="code.dataTable">
