@@ -1,0 +1,316 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+/* ── Tokens ─────────────────────────────────────────────── */
+#tpl-helix {
+  --hx-navy: #0a1628;
+  --hx-navy2: #0b1e3b;
+  --hx-blue: #2dd4ff;
+  --hx-violet: #7c5cff;
+  --hx-mint: #34e7b0;
+  --hx-white: #f0f6ff;
+  --hx-subtle: rgba(45, 212, 255, 0.08);
+  --hx-border: rgba(45, 212, 255, 0.15);
+  --hx-card: rgba(11, 30, 59, 0.85);
+  --hx-glow-b: 0 0 40px rgba(45, 212, 255, 0.22);
+  --hx-glow-v: 0 0 40px rgba(124, 92, 255, 0.22);
+  font-family: 'Inter', 'Space Grotesk', system-ui, sans-serif;
+  background: var(--hx-navy);
+  color: var(--hx-white);
+  overflow-x: hidden;
+}
+
+#tpl-helix h1,
+#tpl-helix h2,
+#tpl-helix h3,
+#tpl-helix h4 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  color: var(--hx-white);
+}
+#tpl-helix .hx-mono {
+  font-family: 'Geist Mono', 'Fira Code', monospace;
+}
+
+/* ── Mesh gradient background ───────────────────────────── */
+#tpl-helix .hx-mesh {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+#tpl-helix .hx-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.18;
+}
+#tpl-helix .hx-blob-1 {
+  width: 700px;
+  height: 700px;
+  background: var(--hx-blue);
+  top: -200px;
+  left: -180px;
+}
+#tpl-helix .hx-blob-2 {
+  width: 600px;
+  height: 600px;
+  background: var(--hx-violet);
+  top: 100px;
+  right: -180px;
+}
+#tpl-helix .hx-blob-3 {
+  width: 500px;
+  height: 500px;
+  background: var(--hx-mint);
+  bottom: -120px;
+  left: 30%;
+}
+
+/* ── DNA Helix animation ─────────────────────────────────── */
+#tpl-helix .helix-wrap {
+  position: relative;
+  width: 120px;
+  height: 340px;
+  margin: 0 auto;
+}
+#tpl-helix .helix-dot {
+  position: absolute;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px currentColor;
+}
+#tpl-helix .helix-rung {
+  position: absolute;
+  height: 2px;
+  left: 10%;
+  width: 80%;
+  opacity: 0.4;
+  border-radius: 1px;
+}
+@keyframes helix-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes helix-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+#tpl-helix .helix-scene {
+  animation: helix-bob 6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  #tpl-helix .helix-scene,
+  #tpl-helix .helix-scene * {
+    animation: none !important;
+  }
+}
+
+/* ── Glow cards ─────────────────────────────────────────── */
+#tpl-helix .hx-card {
+  background: var(--hx-card);
+  border: 1px solid var(--hx-border);
+  border-radius: 1rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition:
+    box-shadow 0.3s,
+    border-color 0.3s;
+}
+#tpl-helix .hx-card:hover {
+  box-shadow: var(--hx-glow-b);
+  border-color: rgba(45, 212, 255, 0.35);
+}
+#tpl-helix .hx-card-violet:hover {
+  box-shadow: var(--hx-glow-v);
+  border-color: rgba(124, 92, 255, 0.4);
+}
+
+/* ── Glow button ─────────────────────────────────────────── */
+#tpl-helix .hx-btn-primary {
+  background: linear-gradient(135deg, var(--hx-blue), var(--hx-violet));
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  box-shadow: 0 0 20px rgba(45, 212, 255, 0.25);
+  transition:
+    box-shadow 0.2s,
+    opacity 0.2s;
+  text-decoration: none;
+}
+#tpl-helix .hx-btn-primary:hover {
+  box-shadow: 0 0 32px rgba(45, 212, 255, 0.45);
+  opacity: 0.92;
+}
+#tpl-helix .hx-btn-ghost {
+  background: var(--hx-subtle);
+  color: var(--hx-blue);
+  border: 1px solid var(--hx-border);
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: background 0.2s;
+  text-decoration: none;
+}
+#tpl-helix .hx-btn-ghost:hover {
+  background: rgba(45, 212, 255, 0.15);
+}
+
+/* ── Badge ───────────────────────────────────────────────── */
+#tpl-helix .hx-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+#tpl-helix .hx-badge-blue {
+  background: rgba(45, 212, 255, 0.12);
+  color: var(--hx-blue);
+  border: 1px solid rgba(45, 212, 255, 0.25);
+}
+#tpl-helix .hx-badge-violet {
+  background: rgba(124, 92, 255, 0.12);
+  color: var(--hx-violet);
+  border: 1px solid rgba(124, 92, 255, 0.25);
+}
+#tpl-helix .hx-badge-mint {
+  background: rgba(52, 231, 176, 0.12);
+  color: var(--hx-mint);
+  border: 1px solid rgba(52, 231, 176, 0.25);
+}
+#tpl-helix .hx-badge-grey {
+  background: rgba(255, 255, 255, 0.06);
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ── Section helpers ──────────────────────────────────────── */
+#tpl-helix .hx-section {
+  position: relative;
+  overflow: hidden;
+}
+#tpl-helix .hx-divider {
+  border-color: var(--hx-border);
+}
+#tpl-helix .hx-text-muted {
+  color: rgba(176, 200, 230, 0.7);
+}
+#tpl-helix .hx-gradient-text {
+  background: linear-gradient(90deg, var(--hx-blue), var(--hx-violet), var(--hx-mint));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Node grid (background pattern) ─────────────────────── */
+#tpl-helix .hx-node-grid {
+  background-image: radial-gradient(circle, rgba(45, 212, 255, 0.12) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+/* ── Progress glow ───────────────────────────────────────── */
+#tpl-helix .hx-progress-track {
+  background: rgba(45, 212, 255, 0.1);
+  border-radius: 9999px;
+  overflow: hidden;
+  height: 6px;
+}
+#tpl-helix .hx-progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--hx-blue), var(--hx-mint));
+  box-shadow: 0 0 8px var(--hx-blue);
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Table ───────────────────────────────────────────────── */
+#tpl-helix .hx-table thead tr {
+  border-color: var(--hx-border);
+}
+#tpl-helix .hx-table tbody tr {
+  border-color: rgba(45, 212, 255, 0.08);
+  color: rgba(200, 220, 245, 0.85);
+}
+#tpl-helix .hx-table tbody tr:hover {
+  background: rgba(45, 212, 255, 0.04);
+}
+#tpl-helix .hx-table th {
+  color: var(--hx-blue);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: 'Space Grotesk', sans-serif;
+  text-align: left;
+}
+
+/* ── Marquee partner logos ───────────────────────────────── */
+#tpl-helix .hx-partner-pill {
+  padding: 0.45rem 1.1rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: rgba(176, 200, 230, 0.7);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+/* ── Nav ─────────────────────────────────────────────────── */
+#tpl-helix header {
+  background: rgba(10, 22, 40, 0.9);
+  border-bottom-color: var(--hx-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+#tpl-helix .hx-nav-link {
+  color: rgba(176, 200, 230, 0.75);
+  transition:
+    color 0.15s,
+    background 0.15s;
+}
+#tpl-helix .hx-nav-link:hover {
+  color: #2dd4ff;
+  background: rgba(45, 212, 255, 0.08);
+}
+
+/* ── Steps connector line ─────────────────────────────────── */
+#tpl-helix .hx-step-line {
+  background: linear-gradient(180deg, var(--hx-blue), var(--hx-violet));
+  width: 2px;
+}
+
+/* ── Footer link hover ───────────────────────────────────── */
+#tpl-helix .hx-foot-link {
+  color: rgba(176, 200, 230, 0.7);
+  transition: color 0.15s;
+}
+#tpl-helix .hx-foot-link:hover {
+  color: #f0f6ff;
+}
+#tpl-helix .hx-social {
+  transition:
+    color 0.15s,
+    border-color 0.15s;
+}
+#tpl-helix .hx-social:hover {
+  color: #2dd4ff !important;
+  border-color: rgba(45, 212, 255, 0.35) !important;
+}

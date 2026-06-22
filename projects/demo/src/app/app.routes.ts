@@ -87,6 +87,11 @@ export const routes: Routes = [
     title: 'Forge · ng-blatui',
   },
   {
+    path: 'templates/helix',
+    loadComponent: async () => (await import('./pages/templates/helix')).HelixTemplate,
+    title: 'Helix · ng-blatui',
+  },
+  {
     path: 'templates/:slug',
     loadComponent: async () => (await import('./pages/templates')).TemplatesPage,
     title: 'Templates · ng-blatui',
