@@ -1,6 +1,7 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 
 import { BuiButton } from '../button/button';
+import { buiLabel } from '../i18n/labels';
 
 import { type ThemeMode, ThemeStore } from './theme';
 
@@ -57,7 +58,7 @@ const FONTS: readonly FontOption[] = [
     @if (open()) {
       <div
         role="dialog"
-        aria-label="Theme customizer"
+        [attr.aria-label]="ariaLabelText()"
         class="fixed right-4 bottom-16 z-50 max-h-[80vh] w-[340px] space-y-5 overflow-y-auto rounded-lg border bg-popover p-4 text-popover-foreground shadow-lg"
       >
         <div class="flex items-center justify-between">
@@ -261,6 +262,10 @@ const FONTS: readonly FontOption[] = [
   `,
 })
 export class BuiThemeCustomizer {
+  readonly ariaLabel = input<string>();
+
+  protected readonly ariaLabelText = buiLabel('themeCustomizer', this.ariaLabel);
+
   protected readonly theme = inject(ThemeStore);
   protected readonly open = signal(false);
   protected readonly copied = signal(false);

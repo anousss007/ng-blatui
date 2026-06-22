@@ -1,5 +1,6 @@
 import { Component, computed, input, model } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 /** A before/after image comparison with a draggable, keyboard-operable divider. */
@@ -36,7 +37,7 @@ import { type ClassValue, cn } from '../utils/cn';
         min="0"
         max="100"
         [value]="value()"
-        aria-label="Comparison position"
+        [attr.aria-label]="positionText()"
         class="absolute inset-0 size-full cursor-ew-resize opacity-0"
         (input)="onInput($event)"
       />
@@ -52,6 +53,9 @@ export class BuiComparisonSlider {
   readonly afterAlt = input('After');
   readonly value = model(50);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly positionLabel = input<string>();
+
+  protected readonly positionText = buiLabel('comparisonSliderPosition', this.positionLabel);
 
   protected readonly clip = computed(() => `inset(0 ${100 - this.value()}% 0 0)`);
   protected readonly computedClass = computed(() => cn('block', this.userClass()));

@@ -1,5 +1,6 @@
 import { Component, computed, input, signal } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 /** A macOS-style dock with a cursor-following fisheye magnify. Use `bui-dock-item` tiles. */
@@ -13,7 +14,7 @@ import { type ClassValue, cn } from '../utils/cn';
   },
   template: `
     <nav
-      aria-label="Dock"
+      [attr.aria-label]="labelText()"
       class="flex items-end gap-2 rounded-2xl border bg-card/80 p-2 shadow-lg backdrop-blur"
     >
       <ng-content />
@@ -24,6 +25,9 @@ export class BuiDock {
   readonly magnify = input(1.6);
   readonly distance = input(120);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly label = input<string>();
+
+  protected readonly labelText = buiLabel('dock', this.label);
 
   readonly mouseX = signal<number | null>(null);
   protected readonly computedClass = computed(() => cn('inline-block', this.userClass()));

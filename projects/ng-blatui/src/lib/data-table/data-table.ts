@@ -1,5 +1,6 @@
 import { Component, computed, input, signal } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface DataTableColumn {
@@ -37,7 +38,7 @@ function cellText(value: unknown): string {
         [value]="query()"
         [placeholder]="searchPlaceholder()"
         class="mb-3 h-9 w-full max-w-xs rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
-        aria-label="Search"
+        [attr.aria-label]="searchText()"
         (input)="onSearch($event)"
       />
     }
@@ -51,7 +52,7 @@ function cellText(value: unknown): string {
                   type="checkbox"
                   [checked]="allSelected()"
                   [indeterminate]="someSelected()"
-                  aria-label="Select all rows"
+                  [attr.aria-label]="selectAllText()"
                   (change)="toggleAll($event)"
                 />
               </th>
@@ -84,7 +85,7 @@ function cellText(value: unknown): string {
                   <input
                     type="checkbox"
                     [checked]="isSelected(row)"
-                    aria-label="Select row"
+                    [attr.aria-label]="selectRowText()"
                     (change)="toggleRow(row)"
                   />
                 </td>
@@ -139,6 +140,13 @@ export class BuiDataTable {
   readonly selectable = input(true);
   readonly pageSize = input(5);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly searchLabel = input<string>();
+  readonly selectAllLabel = input<string>();
+  readonly selectRowLabel = input<string>();
+
+  protected readonly searchText = buiLabel('dataTableSearch', this.searchLabel);
+  protected readonly selectAllText = buiLabel('dataTableSelectAll', this.selectAllLabel);
+  protected readonly selectRowText = buiLabel('dataTableSelectRow', this.selectRowLabel);
 
   protected readonly query = signal('');
   protected readonly sortKey = signal('');

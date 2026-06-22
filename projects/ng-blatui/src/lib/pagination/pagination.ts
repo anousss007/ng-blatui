@@ -1,5 +1,6 @@
 import { Component, computed, Directive, input } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 /** Pagination navigation landmark. */
@@ -7,13 +8,15 @@ import { type ClassValue, cn } from '../utils/cn';
   selector: 'nav[buiPagination]',
   host: {
     role: 'navigation',
-    'aria-label': 'pagination',
+    '[attr.aria-label]': 'ariaLabelText()',
     'data-slot': 'pagination',
     '[class]': 'computedClass()',
   },
 })
 export class BuiPagination {
+  readonly ariaLabel = input<string>();
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  protected readonly ariaLabelText = buiLabel('pagination', this.ariaLabel);
   protected readonly computedClass = computed(() =>
     cn('mx-auto flex w-full justify-center', this.userClass()),
   );
@@ -89,11 +92,13 @@ export class BuiPaginationLink {
       <circle cx="19" cy="12" r="1" />
       <circle cx="5" cy="12" r="1" />
     </svg>
-    <span class="sr-only">More pages</span>
+    <span class="sr-only">{{ moreText() }}</span>
   `,
 })
 export class BuiPaginationEllipsis {
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly moreLabel = input<string>();
+  protected readonly moreText = buiLabel('paginationMore', this.moreLabel);
   protected readonly computedClass = computed(() =>
     cn('flex size-9 items-center justify-center', this.userClass()),
   );

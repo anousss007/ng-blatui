@@ -9,6 +9,7 @@ import {
   signal,
 } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface ScrollspyItem {
@@ -21,7 +22,7 @@ export interface ScrollspyItem {
   selector: 'bui-scrollspy',
   host: { 'data-slot': 'scrollspy', '[class]': 'computedClass()' },
   template: `
-    <nav aria-label="On this page">
+    <nav [attr.aria-label]="labelText()">
       <ul class="space-y-1 text-sm">
         @for (item of items(); track item.href) {
           <li>
@@ -41,6 +42,9 @@ export interface ScrollspyItem {
 export class BuiScrollspy implements OnDestroy {
   readonly items = input<readonly ScrollspyItem[]>([]);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly label = input<string>();
+
+  protected readonly labelText = buiLabel('scrollspy', this.label);
 
   private readonly document =
     inject<ElementRef<HTMLElement>>(ElementRef).nativeElement.ownerDocument;

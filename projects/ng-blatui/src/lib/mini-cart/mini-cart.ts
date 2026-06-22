@@ -1,5 +1,6 @@
 import { Component, computed, input, model } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface CartItem {
@@ -19,7 +20,7 @@ export interface CartItem {
       type="button"
       class="relative inline-flex size-9 items-center justify-center rounded-md border border-input hover:bg-accent"
       [attr.aria-expanded]="open()"
-      aria-label="Cart"
+      [attr.aria-label]="triggerText()"
       (click)="open.set(!open())"
     >
       <svg
@@ -48,7 +49,7 @@ export interface CartItem {
       <div
         class="absolute end-0 z-50 mt-2 w-80 rounded-lg border bg-popover text-popover-foreground shadow-md"
         role="dialog"
-        aria-label="Shopping cart"
+        [attr.aria-label]="labelText()"
       >
         <div class="border-b p-3 text-sm font-medium">Your cart</div>
         @if (items().length === 0) {
@@ -97,6 +98,11 @@ export class BuiMiniCart {
   readonly currency = input('$');
   readonly open = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly triggerLabel = input<string>();
+  readonly label = input<string>();
+
+  protected readonly triggerText = buiLabel('miniCartTrigger', this.triggerLabel);
+  protected readonly labelText = buiLabel('miniCart', this.label);
 
   protected readonly count = computed(() =>
     this.items().reduce((total, item) => total + item.qty, 0),

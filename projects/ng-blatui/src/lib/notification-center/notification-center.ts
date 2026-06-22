@@ -1,5 +1,6 @@
 import { Component, computed, input, model, signal } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface NotificationItem {
@@ -18,7 +19,7 @@ export interface NotificationItem {
       type="button"
       class="relative inline-flex size-9 items-center justify-center rounded-md border border-input hover:bg-accent"
       [attr.aria-expanded]="open()"
-      aria-label="Notifications"
+      [attr.aria-label]="ariaText()"
       (click)="open.set(!open())"
     >
       <svg
@@ -46,12 +47,12 @@ export interface NotificationItem {
       <div
         class="absolute end-0 z-50 mt-2 w-80 rounded-lg border bg-popover text-popover-foreground shadow-md"
         role="region"
-        aria-label="Notifications"
+        [attr.aria-label]="ariaText()"
       >
         <div class="flex items-center justify-between border-b p-3">
-          <span class="text-sm font-medium">Notifications</span>
+          <span class="text-sm font-medium">{{ ariaText() }}</span>
           <button type="button" class="text-xs font-medium text-primary" (click)="markAllRead()">
-            Mark all read
+            {{ markAllReadText() }}
           </button>
         </div>
         <ul class="max-h-80 overflow-auto">
@@ -72,12 +73,12 @@ export interface NotificationItem {
               @if (!isRead(i)) {
                 <span
                   class="mt-1.5 size-2 shrink-0 rounded-full bg-primary"
-                  aria-label="Unread"
+                  [attr.aria-label]="unreadText()"
                 ></span>
               }
             </li>
           } @empty {
-            <li class="p-6 text-center text-sm text-muted-foreground">No notifications</li>
+            <li class="p-6 text-center text-sm text-muted-foreground">{{ emptyText() }}</li>
           }
         </ul>
       </div>
@@ -88,6 +89,18 @@ export class BuiNotificationCenter {
   readonly notifications = input<readonly NotificationItem[]>([]);
   readonly open = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly ariaLabel = input<string>();
+  readonly unreadLabel = input<string>();
+  readonly markAllReadLabel = input<string>();
+  readonly emptyLabel = input<string>();
+
+  protected readonly ariaText = buiLabel('notificationCenter', this.ariaLabel);
+  protected readonly unreadText = buiLabel('notificationCenterUnread', this.unreadLabel);
+  protected readonly markAllReadText = buiLabel(
+    'notificationCenterMarkAllRead',
+    this.markAllReadLabel,
+  );
+  protected readonly emptyText = buiLabel('notificationCenterEmpty', this.emptyLabel);
 
   private readonly markedRead = signal<ReadonlySet<number>>(new Set());
   protected readonly unread = computed(

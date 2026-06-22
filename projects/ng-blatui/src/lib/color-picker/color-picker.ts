@@ -1,5 +1,6 @@
 import { Component, computed, input, model } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 const DEFAULT_SWATCHES = [
@@ -30,7 +31,7 @@ const DEFAULT_SWATCHES = [
           [value]="value()"
           [disabled]="disabled()"
           class="absolute inset-0 size-full cursor-pointer opacity-0"
-          aria-label="Pick a color"
+          [attr.aria-label]="pickText()"
           (input)="onPick($event)"
         />
       </label>
@@ -39,7 +40,7 @@ const DEFAULT_SWATCHES = [
         [value]="value()"
         [disabled]="disabled()"
         class="h-9 w-28 rounded-md border border-input bg-transparent px-2 font-mono text-sm uppercase outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
-        aria-label="Color hex value"
+        [attr.aria-label]="hexText()"
         (input)="onText($event)"
       />
     </div>
@@ -62,6 +63,11 @@ export class BuiColorPicker {
   readonly swatches = input<readonly string[] | null>(null);
   readonly disabled = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly pickLabel = input<string>();
+  readonly hexLabel = input<string>();
+
+  protected readonly pickText = buiLabel('colorPickerPick', this.pickLabel);
+  protected readonly hexText = buiLabel('colorPickerHex', this.hexLabel);
 
   protected readonly palette = computed(() => this.swatches() ?? DEFAULT_SWATCHES);
   protected readonly computedClass = computed(() => cn('inline-block', this.userClass()));

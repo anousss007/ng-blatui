@@ -3,6 +3,7 @@
  */
 
 export * from './lib/utils/cn';
+export * from './lib/i18n/labels';
 export * from './lib/button/button';
 export * from './lib/badge/badge';
 export * from './lib/label/label';

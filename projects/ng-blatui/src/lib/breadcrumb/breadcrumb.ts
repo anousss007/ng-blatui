@@ -1,13 +1,17 @@
 import { Component, computed, Directive, input } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 /** Breadcrumb navigation landmark (`<nav aria-label="breadcrumb">`). */
 @Directive({
   selector: 'nav[buiBreadcrumb]',
-  host: { 'aria-label': 'breadcrumb', 'data-slot': 'breadcrumb' },
+  host: { '[attr.aria-label]': 'labelText()', 'data-slot': 'breadcrumb' },
 })
-export class BuiBreadcrumb {}
+export class BuiBreadcrumb {
+  readonly label = input<string>();
+  protected readonly labelText = buiLabel('breadcrumb', this.label);
+}
 
 @Directive({
   selector: 'ol[buiBreadcrumbList]',
@@ -116,11 +120,13 @@ export class BuiBreadcrumbSeparator {
       <circle cx="19" cy="12" r="1" />
       <circle cx="5" cy="12" r="1" />
     </svg>
-    <span class="sr-only">More</span>
+    <span class="sr-only">{{ moreText() }}</span>
   `,
 })
 export class BuiBreadcrumbEllipsis {
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly moreLabel = input<string>();
+  protected readonly moreText = buiLabel('breadcrumbMore', this.moreLabel);
   protected readonly computedClass = computed(() =>
     cn('flex size-9 items-center justify-center', this.userClass()),
   );

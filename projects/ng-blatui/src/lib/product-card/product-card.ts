@@ -2,6 +2,7 @@ import { Component, computed, input, signal } from '@angular/core';
 
 import { BuiBadge } from '../badge/badge';
 import { BuiButton } from '../button/button';
+import { buiLabel } from '../i18n/labels';
 import { BuiPrice } from '../price/price';
 import { type ClassValue, cn } from '../utils/cn';
 
@@ -28,7 +29,7 @@ import { type ClassValue, cn } from '../utils/cn';
           type="button"
           class="absolute end-2 top-2 inline-flex size-8 items-center justify-center rounded-full border bg-background/80 shadow-sm backdrop-blur transition-colors hover:bg-background"
           [attr.aria-pressed]="wished()"
-          aria-label="Add to wishlist"
+          [attr.aria-label]="wishlistText()"
           (click)="wished.set(!wished())"
         >
           <svg
@@ -100,6 +101,9 @@ export class BuiProductCard {
   readonly reviews = input<number | null>(null);
   readonly wishlist = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly wishlistLabel = input<string>();
+
+  protected readonly wishlistText = buiLabel('productCardWishlist', this.wishlistLabel);
 
   protected readonly wished = signal(false);
   protected readonly alt = computed(() => this.imageAlt() || this.title());

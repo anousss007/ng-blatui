@@ -1,5 +1,6 @@
 import { Component, computed, input, signal } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface TreeTableColumn {
@@ -56,7 +57,7 @@ const ALIGN: Record<string, string> = {
                         type="button"
                         class="text-muted-foreground hover:text-foreground"
                         [attr.aria-expanded]="isOpen(row.path)"
-                        aria-label="Toggle row"
+                        [attr.aria-label]="toggleText()"
                         (click)="toggle(row.path)"
                       >
                         <svg
@@ -91,6 +92,9 @@ export class BuiTreeTable {
   readonly columns = input<readonly TreeTableColumn[]>([]);
   readonly rows = input<readonly TreeTableRow[]>([]);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly toggleLabel = input<string>();
+
+  protected readonly toggleText = buiLabel('treeTableToggle', this.toggleLabel);
 
   private readonly overrides = signal<ReadonlyMap<string, boolean>>(new Map());
   private readonly defaults = computed(() => {

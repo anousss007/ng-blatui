@@ -1,5 +1,6 @@
 import { Component, computed, input, model } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface PhoneCountry {
@@ -30,7 +31,7 @@ const COUNTRIES: PhoneCountry[] = [
     <select
       [value]="country()"
       class="h-9 rounded-md rounded-r-none border border-r-0 border-input bg-background ps-2 pe-1 text-sm outline-none focus-visible:z-10 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
-      aria-label="Country code"
+      [attr.aria-label]="countryText()"
       (change)="onCountry($event)"
     >
       @for (option of countries; track option.code) {
@@ -43,7 +44,7 @@ const COUNTRIES: PhoneCountry[] = [
       [placeholder]="placeholder()"
       [attr.name]="name() || null"
       [attr.id]="id() || null"
-      aria-label="Phone number"
+      [attr.aria-label]="numberText()"
       class="h-9 w-full min-w-0 rounded-md rounded-l-none border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:z-10 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
       (input)="onNumber($event)"
     />
@@ -56,6 +57,11 @@ export class BuiPhoneInput {
   readonly id = input('');
   readonly placeholder = input('Phone number');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly countryLabel = input<string>();
+  readonly numberLabel = input<string>();
+
+  protected readonly countryText = buiLabel('phoneInputCountry', this.countryLabel);
+  protected readonly numberText = buiLabel('phoneInputNumber', this.numberLabel);
 
   protected readonly countries = COUNTRIES;
   protected readonly computedClass = computed(() =>

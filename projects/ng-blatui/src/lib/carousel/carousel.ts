@@ -9,6 +9,7 @@ import {
   viewChild,
 } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 export type CarouselOrientation = 'horizontal' | 'vertical';
@@ -37,7 +38,7 @@ export type CarouselOrientation = 'horizontal' | 'vertical';
       type="button"
       [class]="prevClass()"
       [disabled]="index() === 0"
-      aria-label="Previous slide"
+      [attr.aria-label]="previousText()"
       (click)="prev()"
     >
       <svg
@@ -57,7 +58,7 @@ export type CarouselOrientation = 'horizontal' | 'vertical';
       type="button"
       [class]="nextClass()"
       [disabled]="index() >= maxIndex()"
-      aria-label="Next slide"
+      [attr.aria-label]="nextText()"
       (click)="next()"
     >
       <svg
@@ -80,7 +81,7 @@ export type CarouselOrientation = 'horizontal' | 'vertical';
             type="button"
             class="size-2 rounded-full transition-colors"
             [class]="dot === index() ? 'bg-primary' : 'bg-muted'"
-            [attr.aria-label]="'Go to slide ' + (dot + 1)"
+            [attr.aria-label]="goToSlideText() + ' ' + (dot + 1)"
             [attr.aria-current]="dot === index() ? 'true' : null"
             (click)="index.set(dot)"
           ></button>
@@ -95,7 +96,13 @@ export class BuiCarousel {
   /** Slides visible at once (e.g. 2 or 3 for a multi-item carousel). */
   readonly perView = input(1);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly previousLabel = input<string>();
+  readonly nextLabel = input<string>();
+  readonly goToSlideLabel = input<string>();
 
+  protected readonly previousText = buiLabel('carouselPrevious', this.previousLabel);
+  protected readonly nextText = buiLabel('carouselNext', this.nextLabel);
+  protected readonly goToSlideText = buiLabel('carouselGoToSlide', this.goToSlideLabel);
   private readonly track = viewChild<ElementRef<HTMLElement>>('track');
   protected readonly count = signal(0);
   protected readonly vertical = computed(() => this.orientation() === 'vertical');

@@ -1,5 +1,6 @@
 import { Component, computed, type ElementRef, input, signal, viewChild } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 /** A compact audio player around a native `<audio>`: play/pause, seek, time, mute. */
@@ -22,7 +23,7 @@ import { type ClassValue, cn } from '../utils/cn';
     <button
       type="button"
       class="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground"
-      [attr.aria-label]="playing() ? 'Pause' : 'Play'"
+      [attr.aria-label]="playing() ? pauseText() : playText()"
       (click)="toggle()"
     >
       <svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -49,7 +50,7 @@ import { type ClassValue, cn } from '../utils/cn';
       [max]="duration() || 0"
       [value]="current()"
       class="h-1 flex-1 accent-primary"
-      aria-label="Seek"
+      [attr.aria-label]="seekText()"
       (input)="seek($event)"
     />
     <span class="text-xs text-muted-foreground tabular-nums">{{ format(duration()) }}</span>
@@ -57,7 +58,7 @@ import { type ClassValue, cn } from '../utils/cn';
       <button
         type="button"
         class="shrink-0 text-muted-foreground hover:text-foreground"
-        [attr.aria-label]="muted() ? 'Unmute' : 'Mute'"
+        [attr.aria-label]="muted() ? unmuteText() : muteText()"
         (click)="toggleMute()"
       >
         <svg class="size-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -81,7 +82,17 @@ export class BuiAudioPlayer {
   /** Condensed layout: hides the title block and mute button. */
   readonly compact = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly seekLabel = input<string>();
+  readonly playLabel = input<string>();
+  readonly pauseLabel = input<string>();
+  readonly muteLabel = input<string>();
+  readonly unmuteLabel = input<string>();
 
+  protected readonly seekText = buiLabel('audioPlayerSeek', this.seekLabel);
+  protected readonly playText = buiLabel('audioPlayerPlay', this.playLabel);
+  protected readonly pauseText = buiLabel('audioPlayerPause', this.pauseLabel);
+  protected readonly muteText = buiLabel('audioPlayerMute', this.muteLabel);
+  protected readonly unmuteText = buiLabel('audioPlayerUnmute', this.unmuteLabel);
   private readonly a = viewChild<ElementRef<HTMLAudioElement>>('a');
   protected readonly playing = signal(false);
   protected readonly current = signal(0);

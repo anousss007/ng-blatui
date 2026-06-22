@@ -1,6 +1,7 @@
 import { Component, computed, forwardRef, input, model, signal } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -49,7 +50,7 @@ function isoOf(date: Date): string {
       <button
         type="button"
         class="inline-flex size-7 items-center justify-center rounded-md hover:bg-accent"
-        aria-label="Previous month"
+        [attr.aria-label]="previousMonthText()"
         (click)="changeMonth(-1)"
       >
         <svg
@@ -68,7 +69,7 @@ function isoOf(date: Date): string {
       @if (months() === 1 && captionLayout() === 'dropdown') {
         <div class="flex items-center gap-1">
           <select
-            aria-label="Month"
+            [attr.aria-label]="monthText()"
             class="rounded-md border-0 bg-transparent py-1 text-sm font-medium outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
             [value]="viewMonth()"
             (change)="setMonth($event)"
@@ -78,7 +79,7 @@ function isoOf(date: Date): string {
             }
           </select>
           <select
-            aria-label="Year"
+            [attr.aria-label]="yearText()"
             class="rounded-md border-0 bg-transparent py-1 text-sm font-medium outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
             [value]="viewYear()"
             (change)="setYear($event)"
@@ -96,7 +97,7 @@ function isoOf(date: Date): string {
       <button
         type="button"
         class="inline-flex size-7 items-center justify-center rounded-md hover:bg-accent"
-        aria-label="Next month"
+        [attr.aria-label]="nextMonthText()"
         (click)="changeMonth(1)"
       >
         <svg
@@ -195,6 +196,15 @@ export class BuiCalendar implements ControlValueAccessor {
   readonly hideOutsideDays = input(false);
   readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly previousMonthLabel = input<string>();
+  readonly monthSelectLabel = input<string>();
+  readonly yearLabel = input<string>();
+  readonly nextMonthLabel = input<string>();
+
+  protected readonly previousMonthText = buiLabel('calendarPreviousMonth', this.previousMonthLabel);
+  protected readonly monthText = buiLabel('calendarMonth', this.monthSelectLabel);
+  protected readonly yearText = buiLabel('calendarYear', this.yearLabel);
+  protected readonly nextMonthText = buiLabel('calendarNextMonth', this.nextMonthLabel);
 
   private onChange: (value: string) => void = noop;
   protected onTouched: () => void = noop;

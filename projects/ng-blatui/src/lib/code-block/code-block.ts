@@ -1,5 +1,6 @@
 import { Component, computed, input, signal } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 /** A dark code panel with an optional filename header and a copy button. */
@@ -12,21 +13,21 @@ import { type ClassValue, cn } from '../utils/cn';
         <span class="font-mono text-xs text-zinc-400">{{ filename() }}</span>
         <button
           type="button"
-          aria-label="Copy code"
+          [attr.aria-label]="copyText()"
           class="text-xs text-zinc-400 transition-colors hover:text-zinc-100"
           (click)="copy()"
         >
-          {{ copied() ? 'Copied' : 'Copy' }}
+          {{ copied() ? copiedText() : copyShortText() }}
         </button>
       </div>
     } @else {
       <button
         type="button"
-        aria-label="Copy code"
+        [attr.aria-label]="copyText()"
         class="absolute end-2 top-2 z-10 rounded-md px-1.5 py-1 text-xs text-zinc-400 opacity-0 transition-all group-hover/code-block:opacity-100 hover:bg-white/10 hover:text-zinc-100 focus-visible:opacity-100"
         (click)="copy()"
       >
-        {{ copied() ? 'Copied' : 'Copy' }}
+        {{ copied() ? copiedText() : copyShortText() }}
       </button>
     }
     <pre
@@ -38,6 +39,12 @@ export class BuiCodeBlock {
   readonly code = input('');
   readonly filename = input<string | null>(null);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly copyLabel = input<string>();
+  readonly copyShortLabel = input<string>();
+  readonly copiedLabel = input<string>();
+  protected readonly copyText = buiLabel('codeBlockCopy', this.copyLabel);
+  protected readonly copyShortText = buiLabel('codeBlockCopyShort', this.copyShortLabel);
+  protected readonly copiedText = buiLabel('codeBlockCopied', this.copiedLabel);
   protected readonly copied = signal(false);
   protected readonly computedClass = computed(() =>
     cn(

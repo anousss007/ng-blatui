@@ -9,6 +9,7 @@ import {
   signal,
 } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 const TONES = {
@@ -29,7 +30,7 @@ const TONES = {
   host: {
     'data-slot': 'banner',
     role: 'region',
-    'aria-label': 'Announcement',
+    '[attr.aria-label]': 'announcementText()',
     '[hidden]': '!show()',
     '[class]': 'computedClass()',
   },
@@ -40,7 +41,7 @@ const TONES = {
     @if (dismissible()) {
       <button
         type="button"
-        aria-label="Dismiss"
+        [attr.aria-label]="dismissText()"
         class="shrink-0 rounded-md p-1 opacity-70 transition-opacity outline-none hover:opacity-100 focus-visible:ring-2 focus-visible:ring-current/40"
         (click)="dismiss()"
       >
@@ -66,6 +67,11 @@ export class BuiBanner implements OnInit {
   readonly dismissible = input(true);
   readonly persistKey = input<string | undefined>(undefined);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly announcementLabel = input<string>();
+  readonly dismissLabel = input<string>();
+
+  protected readonly announcementText = buiLabel('bannerAnnouncement', this.announcementLabel);
+  protected readonly dismissText = buiLabel('bannerDismiss', this.dismissLabel);
 
   protected readonly show = signal(true);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));

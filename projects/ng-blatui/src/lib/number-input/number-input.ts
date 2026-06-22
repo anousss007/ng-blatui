@@ -1,6 +1,7 @@
 import { Component, computed, forwardRef, input, model } from '@angular/core';
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -36,7 +37,7 @@ const INPUT_SIZE: Record<NumberInputSize, string> = {
       [class]="btnClass() + ' rounded-l-md'"
       (click)="step(-1)"
       [disabled]="disabled() || atMin()"
-      aria-label="Decrease"
+      [attr.aria-label]="decreaseText()"
     >
       <svg
         viewBox="0 0 24 24"
@@ -69,7 +70,7 @@ const INPUT_SIZE: Record<NumberInputSize, string> = {
       [class]="btnClass() + ' rounded-r-md'"
       (click)="step(1)"
       [disabled]="disabled() || atMax()"
-      aria-label="Increase"
+      [attr.aria-label]="increaseText()"
     >
       <svg
         viewBox="0 0 24 24"
@@ -95,6 +96,11 @@ export class BuiNumberInput implements ControlValueAccessor {
   readonly size = input<NumberInputSize>('default');
   readonly ariaLabel = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly decreaseLabel = input<string>();
+  readonly increaseLabel = input<string>();
+
+  protected readonly decreaseText = buiLabel('numberInputDecrease', this.decreaseLabel);
+  protected readonly increaseText = buiLabel('numberInputIncrease', this.increaseLabel);
 
   private onChange: (value: number) => void = noop;
   protected onTouched: () => void = noop;

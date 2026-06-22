@@ -1,5 +1,6 @@
 import { Component, computed, input, model } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 const FIELD_HEIGHT = { sm: 'h-7 text-xs', default: 'h-8 text-sm', lg: 'h-9 text-base' } as const;
@@ -17,7 +18,7 @@ const FIELD_WIDTH = { sm: 'w-9', default: 'w-10', lg: 'w-12' } as const;
   template: `
     <button
       type="button"
-      aria-label="Decrease quantity"
+      [attr.aria-label]="decreaseText()"
       [disabled]="disabled() || atMin()"
       [class]="btnClass('e')"
       (click)="dec()"
@@ -48,7 +49,7 @@ const FIELD_WIDTH = { sm: 'w-9', default: 'w-10', lg: 'w-12' } as const;
     />
     <button
       type="button"
-      aria-label="Increase quantity"
+      [attr.aria-label]="increaseText()"
       [disabled]="disabled() || atMax()"
       [class]="btnClass('s')"
       (click)="inc()"
@@ -74,7 +75,12 @@ export class BuiQuantitySelector {
   readonly size = input<keyof typeof FIELD_HEIGHT>('default');
   readonly disabled = input(false);
   readonly ariaLabel = input('Quantity');
+  readonly decreaseLabel = input<string>();
+  readonly increaseLabel = input<string>();
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+  protected readonly decreaseText = buiLabel('quantitySelectorDecrease', this.decreaseLabel);
+  protected readonly increaseText = buiLabel('quantitySelectorIncrease', this.increaseLabel);
 
   protected readonly atMin = computed(() => this.value() <= this.min());
   protected readonly atMax = computed(() => {
