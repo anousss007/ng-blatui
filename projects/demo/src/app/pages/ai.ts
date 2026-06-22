@@ -53,11 +53,62 @@ import { CodeBlock } from '../ui/code-block';
         <p class="text-sm text-muted-foreground">Claude Code, in one command:</p>
         <app-code [code]="claudeAdd" />
         <p class="text-sm text-muted-foreground">
-          Or add this block to any MCP client config — Claude Desktop
-          (<code>claude_desktop_config.json</code>), Cursor (<code>.cursor/mcp.json</code>),
-          Windsurf (<code>mcp_config.json</code>), Cline, Zed, VS Code:
+          Otherwise it runs over <strong>stdio</strong> as <code>npx -y ng-blatui-mcp</code>. Most
+          clients use a <code>mcpServers</code> map — paste this into the config file from the table
+          below:
         </p>
         <app-code [code]="mcpConfig" />
+        <p class="text-xs text-muted-foreground">
+          On Windows, some clients need <code>"command": "cmd"</code> with
+          <code>"args": ["/c", "npx", "-y", "ng-blatui-mcp"]</code>.
+        </p>
+
+        <div class="overflow-x-auto rounded-lg border">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-muted/50 text-xs text-muted-foreground uppercase">
+              <tr>
+                <th class="px-3 py-2 font-medium">Tool</th>
+                <th class="px-3 py-2 font-medium">Config file</th>
+                <th class="px-3 py-2 font-medium">Key</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (row of clients; track row.tool) {
+                <tr class="border-t">
+                  <td class="px-3 py-2 font-medium">{{ row.tool }}</td>
+                  <td class="px-3 py-2 text-muted-foreground">
+                    <code>{{ row.file }}</code>
+                  </td>
+                  <td class="px-3 py-2 text-muted-foreground">
+                    <code>{{ row.key }}</code>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold">Clients with a different shape</h2>
+        <p class="text-sm text-muted-foreground">
+          <strong>VS Code</strong> (GitHub Copilot agent mode) — <code>.vscode/mcp.json</code>, the
+          top-level key is <code>servers</code>:
+        </p>
+        <app-code [code]="vscodeConfig" />
+        <p class="text-sm text-muted-foreground">
+          <strong>Zed</strong> — <code>settings.json</code>, key is
+          <code>context_servers</code> with a nested <code>command</code>:
+        </p>
+        <app-code [code]="zedConfig" />
+        <p class="text-sm text-muted-foreground">
+          <strong>OpenAI Codex CLI</strong> — <code>~/.codex/config.toml</code> (TOML):
+        </p>
+        <app-code [code]="codexConfig" />
+        <p class="text-sm text-muted-foreground">
+          Any other MCP-capable client works the same way — run
+          <code>npx -y ng-blatui-mcp</code> over stdio and name it <code>ng-blatui</code>.
+        </p>
       </section>
 
       <section class="space-y-3">
@@ -121,6 +172,43 @@ export class AiGuide {
     }
   }
 }`;
+
+  protected readonly clients: readonly { tool: string; file: string; key: string }[] = [
+    { tool: 'Claude Code', file: '.mcp.json  (or: claude mcp add)', key: 'mcpServers' },
+    { tool: 'Claude Desktop', file: 'claude_desktop_config.json', key: 'mcpServers' },
+    { tool: 'Cursor', file: '.cursor/mcp.json', key: 'mcpServers' },
+    { tool: 'Windsurf', file: '~/.codeium/windsurf/mcp_config.json', key: 'mcpServers' },
+    { tool: 'Cline', file: 'cline_mcp_settings.json', key: 'mcpServers' },
+    { tool: 'Roo Code', file: 'mcp_settings.json', key: 'mcpServers' },
+    { tool: 'JetBrains AI / Junie', file: 'Settings → MCP (mcp.json)', key: 'mcpServers' },
+    { tool: 'Gemini CLI', file: '~/.gemini/settings.json', key: 'mcpServers' },
+    { tool: 'Continue', file: '~/.continue/config.yaml', key: 'mcpServers' },
+    { tool: 'Warp', file: 'Settings → AI → MCP servers', key: 'mcpServers' },
+    { tool: 'LibreChat', file: 'librechat.yaml', key: 'mcpServers' },
+    { tool: 'Goose', file: 'goose configure → STDIO extension', key: '—' },
+  ];
+
+  protected readonly vscodeConfig = `{
+  "servers": {
+    "ng-blatui": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "ng-blatui-mcp"]
+    }
+  }
+}`;
+
+  protected readonly zedConfig = `{
+  "context_servers": {
+    "ng-blatui": {
+      "command": { "path": "npx", "args": ["-y", "ng-blatui-mcp"] }
+    }
+  }
+}`;
+
+  protected readonly codexConfig = `[mcp_servers.ng-blatui]
+command = "npx"
+args = ["-y", "ng-blatui-mcp"]`;
 
   protected readonly editorRules = `# ng-blatui usage
 - UI library: ng-blatui (Angular 22, standalone, signals, zoneless, SSR-safe). Install: npm i ng-blatui.

@@ -16,29 +16,11 @@ Every docs page is **server-prerendered**, so `https://ngblatui.remix-it.com/com
 
 ## MCP server
 
-`ng-blatui-mcp` exposes: `list_components` (optional `category`), `list_blocks`, `list_charts`, `list_templates`, `search({ query })`, and `get_docs({ name })` (returns full usage + code for a slug). It reads the live registry with an offline fallback bundled in the package.
+`ng-blatui-mcp` exposes: `list_components` (optional `category`), `list_blocks`, `list_charts`, `list_templates`, `search({ query })`, and `get_docs({ name })` (returns full usage + code for a slug). It runs over **stdio** as `npx -y ng-blatui-mcp`, reads the live registry, and falls back to a copy bundled in the package when offline.
 
-### Claude Desktop / Claude Code
+### The standard block
 
-Add to `claude_desktop_config.json` (Desktop) or `.mcp.json` (Claude Code):
-
-```json
-{
-  "mcpServers": {
-    "ng-blatui": { "command": "npx", "args": ["-y", "ng-blatui-mcp"] }
-  }
-}
-```
-
-Or, with the Claude Code CLI:
-
-```bash
-claude mcp add ng-blatui -- npx -y ng-blatui-mcp
-```
-
-### Cursor
-
-`.cursor/mcp.json`:
+Most MCP clients use a `mcpServers` map. Paste this into the client's config file (locations in the table below):
 
 ```json
 {
@@ -48,21 +30,59 @@ claude mcp add ng-blatui -- npx -y ng-blatui-mcp
 }
 ```
 
-### Windsurf
+> On Windows, some clients need the command wrapped: `"command": "cmd"`, `"args": ["/c", "npx", "-y", "ng-blatui-mcp"]`.
 
-`~/.codeium/windsurf/mcp_config.json`:
+### Where to put it, per tool
+
+| Tool                               | Config                                                                                                                       | Key          |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| **Claude Code**                    | `claude mcp add ng-blatui -- npx -y ng-blatui-mcp`, or project `.mcp.json`                                                   | `mcpServers` |
+| **Claude Desktop**                 | `claude_desktop_config.json` (macOS `~/Library/Application Support/Claude/`, Windows `%APPDATA%\Claude\`)                    | `mcpServers` |
+| **Cursor**                         | `.cursor/mcp.json` (project) or `~/.cursor/mcp.json` (global)                                                                | `mcpServers` |
+| **Windsurf**                       | `~/.codeium/windsurf/mcp_config.json`                                                                                        | `mcpServers` |
+| **Cline**                          | MCP Servers panel → `cline_mcp_settings.json`                                                                                | `mcpServers` |
+| **Roo Code**                       | MCP settings → `mcp_settings.json`                                                                                           | `mcpServers` |
+| **JetBrains AI Assistant / Junie** | Settings → Tools → AI Assistant → MCP (`mcp.json`)                                                                           | `mcpServers` |
+| **Gemini CLI**                     | `~/.gemini/settings.json`                                                                                                    | `mcpServers` |
+| **Continue**                       | `~/.continue/config.yaml`                                                                                                    | `mcpServers` |
+| **Warp**                           | Settings → AI → MCP servers                                                                                                  | `mcpServers` |
+| **LibreChat**                      | `librechat.yaml`                                                                                                             | `mcpServers` |
+| **Goose**                          | `goose configure` → Add extension → Command-line (STDIO), command `npx -y ng-blatui-mcp`                                     | —            |
+| **Claude / ChatGPT (web)**         | only support **remote** (HTTP/SSE) servers, not stdio — use the MCP server locally via the desktop apps or an editor instead | —            |
+
+### Clients with a different shape
+
+**VS Code** (GitHub Copilot agent mode) — `.vscode/mcp.json`, top-level key is `servers`:
 
 ```json
 {
-  "mcpServers": {
-    "ng-blatui": { "command": "npx", "args": ["-y", "ng-blatui-mcp"] }
+  "servers": {
+    "ng-blatui": { "type": "stdio", "command": "npx", "args": ["-y", "ng-blatui-mcp"] }
   }
 }
 ```
 
-### Cline / Roo Code / Zed / VS Code (Continue, etc.)
+**Zed** — `settings.json`, key is `context_servers` with a nested `command`:
 
-All take the same shape — a server named `ng-blatui` running `npx -y ng-blatui-mcp` over stdio. Drop the block above into that client's MCP config file.
+```json
+{
+  "context_servers": {
+    "ng-blatui": {
+      "command": { "path": "npx", "args": ["-y", "ng-blatui-mcp"] }
+    }
+  }
+}
+```
+
+**OpenAI Codex CLI** — `~/.codex/config.toml` (TOML):
+
+```toml
+[mcp_servers.ng-blatui]
+command = "npx"
+args = ["-y", "ng-blatui-mcp"]
+```
+
+Any other MCP-capable client works the same way: run `npx -y ng-blatui-mcp` over stdio and name it `ng-blatui`.
 
 ---
 
