@@ -47,7 +47,9 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiAurora {
+  /** Blur radius of the aurora layer in pixels. */
   readonly blur = input(60);
+  /** Seconds for one full drift animation cycle. */
   readonly speed = input(12);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

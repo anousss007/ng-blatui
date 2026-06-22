@@ -76,13 +76,21 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiPromptInput {
+  /** Current textarea content. Two-way bindable with `[(value)]`. */
   readonly value = model('');
+  /** Placeholder text shown when the textarea is empty. */
   readonly placeholder = input('Send a message…');
+  /** Whether to show the attachment button. */
   readonly attachable = input(false);
+  /** Disables the textarea and send button. */
   readonly disabled = input(false);
+  /** Accessible label for the message textarea. */
   readonly ariaLabel = input('Message');
+  /** Overrides the localized accessible label for the attachment button. */
   readonly attachLabel = input<string>();
+  /** Overrides the localized accessible label for the send button. */
   readonly sendLabel = input<string>();
+  /** Emitted with the trimmed message text when the user sends. */
   readonly submitted = output<string>();
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

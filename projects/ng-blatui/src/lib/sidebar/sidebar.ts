@@ -14,8 +14,11 @@ import { type ClassValue, cn } from '../utils/cn';
   template: `<ng-content />`,
 })
 export class BuiSidebar {
+  /** Whether the sidebar is expanded. Two-way bindable with `[(open)]`. */
   readonly open = model(true);
+  /** Edge the sidebar is docked to, which sets its border side. */
   readonly side = input<'left' | 'right'>('left');
+  /** Collapse behavior: hide entirely (`offcanvas`) or shrink to an icon rail (`icon`). */
   readonly collapsible = input<'offcanvas' | 'icon'>('offcanvas');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
@@ -42,6 +45,7 @@ export class BuiSidebar {
   },
 })
 export class BuiSidebarMenuButton {
+  /** Whether this item is the current page; sets active styling and `aria-current`. */
   readonly isActive = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

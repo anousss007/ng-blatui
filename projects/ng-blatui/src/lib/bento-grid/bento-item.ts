@@ -20,9 +20,13 @@ const ROW_SPAN: Record<number, string> = { 1: '', 2: 'row-span-2' };
   `,
 })
 export class BuiBentoItem {
+  /** Optional heading rendered above the projected content. */
   readonly title = input('');
+  /** Optional muted description rendered below the title. */
   readonly description = input('');
+  /** How many grid columns the cell spans (1-3). */
   readonly colSpan = input(1);
+  /** How many grid rows the cell spans (1-2). */
   readonly rowSpan = input(1);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

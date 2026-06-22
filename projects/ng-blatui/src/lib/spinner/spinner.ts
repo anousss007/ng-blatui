@@ -29,6 +29,7 @@ import { type ClassValue, cn } from '../utils/cn';
 })
 export class BuiSpinner {
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Overrides the localized accessible status label. */
   readonly label = input<string>();
 
   protected readonly labelText = buiLabel('spinnerLoading', this.label);

@@ -13,6 +13,7 @@ import { type ClassValue, cn } from '../utils/cn';
   template: `<ng-content />`,
 })
 export class BuiAspectRatio {
+  /** Aspect ratio for the content, as a CSS `aspect-ratio` value (e.g. `16 / 9`). */
   readonly ratio = input('1 / 1');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() => cn('relative block', this.userClass()));

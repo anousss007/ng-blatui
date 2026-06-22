@@ -46,9 +46,13 @@ type ToggleVariants = VariantProps<typeof toggleVariants>;
   template: `<ng-content />`,
 })
 export class BuiToggle implements ControlValueAccessor {
+  /** Whether the toggle is pressed (on). Two-way bindable with `[(pressed)]`. */
   readonly pressed = model(false);
+  /** Whether the toggle is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
+  /** Visual style: plain or outlined. */
   readonly variant = input<ToggleVariants['variant']>('default');
+  /** Button size. */
   readonly size = input<ToggleVariants['size']>('default');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

@@ -63,7 +63,9 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiProgress {
+  /** Completion percentage from 0 to 100; values are clamped to that range. */
   readonly value = input(0);
+  /** Show an unknown-duration animation instead of a fixed value. */
   readonly indeterminate = input(false);
   /** Render a circular ring instead of a linear bar. */
   readonly circular = input(false);
@@ -71,6 +73,7 @@ export class BuiProgress {
   readonly size = input(40);
   /** Stroke width of the circular ring, in pixels. */
   readonly thickness = input(4);
+  /** Accessible label announced for the progress bar. */
   readonly ariaLabel = input('Progress');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

@@ -14,6 +14,7 @@ import { BuiDescriptionList } from './description-list';
   `,
 })
 export class BuiDescriptionItem {
+  /** The term label shown in the row's `<dt>`. */
   readonly term = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

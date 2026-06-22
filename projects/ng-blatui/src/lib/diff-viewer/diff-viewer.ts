@@ -85,8 +85,11 @@ const SIGN: Record<DiffType, string> = { same: ' ', add: '+', del: '-' };
   `,
 })
 export class BuiDiffViewer {
+  /** Original text; lines removed relative to `after` are marked deleted. */
   readonly before = input('');
+  /** Updated text; lines added relative to `before` are marked added. */
   readonly after = input('');
+  /** Optional filename shown in the header above the diff. */
   readonly filename = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

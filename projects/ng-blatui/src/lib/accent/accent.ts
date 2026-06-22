@@ -9,7 +9,9 @@ import { computed, Directive, input } from '@angular/core';
   host: { 'data-slot': 'accent', class: 'contents', '[style]': 'styleVars()' },
 })
 export class BuiAccent {
+  /** Accent color applied to the primary tokens; `null` leaves the theme unchanged. */
   readonly color = input<string | null>(null);
+  /** Foreground color paired with the accent for text/icons on accented surfaces. */
   readonly foreground = input('#ffffff');
   protected readonly styleVars = computed(() => {
     const color = this.color();

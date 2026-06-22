@@ -45,15 +45,24 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiVideo {
+  /** Video source URL for the underlying `<video>` element. */
   readonly src = input('');
+  /** Poster image URL shown before playback starts. */
   readonly poster = input('');
+  /** Aspect ratio: `video` (16/9), `square` (1/1), or any CSS ratio. */
   readonly aspect = input('video');
+  /** Whether to show native controls once playback has started. */
   readonly controls = input(true);
+  /** Whether to start playing automatically (hides the play facade). */
   readonly autoplay = input(false);
+  /** Whether the video loops when it reaches the end. */
   readonly loop = input(false);
+  /** Whether the video starts muted. */
   readonly muted = input(false);
+  /** Tailwind border-radius utility applied to the container. */
   readonly rounded = input('rounded-xl');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Accessible label override for the play-button facade. */
   readonly playLabel = input<string>();
 
   protected readonly playText = buiLabel('videoPlay', this.playLabel);

@@ -32,6 +32,7 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiTextReveal {
+  /** Text split into words that brighten one by one as it scrolls into view. */
   readonly text = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

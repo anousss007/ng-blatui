@@ -27,8 +27,11 @@ import { type ClassValue, cn } from '../utils/cn';
   },
 })
 export class BuiHoverCard implements OnDestroy {
+  /** Template rendered inside the card; bound via the `buiHoverCard` attribute. */
   readonly content = input.required<TemplateRef<unknown>>({ alias: 'buiHoverCard' });
+  /** Delay in milliseconds before the card opens on hover/focus. */
   readonly openDelay = input(400);
+  /** Delay in milliseconds before the card closes after the pointer leaves. */
   readonly closeDelay = input(100);
 
   private readonly overlay = inject(Overlay);

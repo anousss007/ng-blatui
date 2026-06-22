@@ -16,8 +16,11 @@ type ToggleValue = string | string[] | null;
   template: `<ng-content />`,
 })
 export class BuiToggleGroup {
+  /** Selection mode: single value or an array of values. */
   readonly type = input<'single' | 'multiple'>('single');
+  /** Selected value(s). Two-way bindable with `[(value)]`. */
   readonly value = model<ToggleValue>(null);
+  /** Layout direction of the group. */
   readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

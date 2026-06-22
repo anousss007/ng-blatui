@@ -48,7 +48,9 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiCopyButton {
+  /** Text written to the clipboard when clicked. */
   readonly value = input('');
+  /** Accessible label shown before copying. */
   readonly label = input('Copy');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly copied = signal(false);

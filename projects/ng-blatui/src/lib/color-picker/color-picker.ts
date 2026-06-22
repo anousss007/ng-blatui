@@ -59,11 +59,16 @@ const DEFAULT_SWATCHES = [
   `,
 })
 export class BuiColorPicker {
+  /** Selected color as a hex string. Two-way bindable with `[(value)]`. */
   readonly value = model('#6366f1');
+  /** Custom swatch palette; falls back to a built-in set when null. */
   readonly swatches = input<readonly string[] | null>(null);
+  /** Whether the picker is disabled. */
   readonly disabled = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Accessible label for the native color well. */
   readonly pickLabel = input<string>();
+  /** Accessible label for the hex text field. */
   readonly hexLabel = input<string>();
 
   protected readonly pickText = buiLabel('colorPickerPick', this.pickLabel);

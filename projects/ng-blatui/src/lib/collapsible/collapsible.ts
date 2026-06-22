@@ -8,6 +8,7 @@ import { Directive, inject, model } from '@angular/core';
   host: { 'data-slot': 'collapsible' },
 })
 export class BuiCollapsible {
+  /** Whether the content is shown. Two-way bindable with `[(open)]`. */
   readonly open = model(false);
   readonly contentId = inject(_IdGenerator).getId('bui-collapsible-');
 

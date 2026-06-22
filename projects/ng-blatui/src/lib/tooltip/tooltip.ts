@@ -15,12 +15,14 @@ const CONTENT_BASE =
   template: `{{ text() }}`,
 })
 export class BuiTooltipContent {
+  /** Text rendered inside the tooltip bubble. */
   readonly text = input('');
   /** Extra classes (e.g. a colour override) merged over the base bubble styles. */
   readonly extraClass = input<ClassValue>('');
   protected readonly computedClass = computed(() => cn(CONTENT_BASE, this.extraClass()));
 }
 
+/** Side of the host the tooltip prefers to appear on. */
 export type TooltipSide = 'top' | 'right' | 'bottom' | 'left';
 
 const POSITIONS: Record<TooltipSide, ConnectedPosition> = {
@@ -53,7 +55,9 @@ const FALLBACK: Record<TooltipSide, TooltipSide> = {
   },
 })
 export class BuiTooltip {
+  /** Tooltip text; bound via the `buiTooltip` attribute. */
   readonly text = input.required<string>({ alias: 'buiTooltip' });
+  /** Preferred placement side relative to the host, with an automatic flip fallback. */
   readonly side = input<TooltipSide>('top');
   /** Delay in milliseconds before the tooltip appears on hover/focus. */
   readonly delay = input(0);

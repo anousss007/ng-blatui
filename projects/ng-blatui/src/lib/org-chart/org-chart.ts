@@ -5,9 +5,13 @@ import { type ClassValue, cn } from '../utils/cn';
 import { BuiOrgChartNode } from './org-chart-node';
 
 export interface OrgNode {
+  /** Person's name shown on the card; its initials are used when no avatar is set. */
   name: string;
+  /** Optional role or job title shown as a subtitle below the name. */
   title?: string;
+  /** Optional avatar image URL; falls back to initials when absent. */
   avatar?: string;
+  /** Direct reports rendered recursively as child nodes beneath this one. */
   children?: OrgNode[];
 }
 
@@ -94,6 +98,7 @@ export interface OrgNode {
   `,
 })
 export class BuiOrgChart {
+  /** Root node of the tree to render; `null` renders nothing. */
   readonly node = input<OrgNode | null>(null);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() => cn('block overflow-x-auto', this.userClass()));

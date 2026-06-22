@@ -13,7 +13,9 @@ import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface ScrollspyItem {
+  /** In-page anchor (e.g. `#section`) linked to and observed for visibility. */
   href: string;
+  /** Text shown for this entry in the navigation list. */
   label: string;
 }
 
@@ -40,8 +42,10 @@ export interface ScrollspyItem {
   `,
 })
 export class BuiScrollspy implements OnDestroy {
+  /** Sections to track; each item links to and observes its `href` anchor. */
   readonly items = input<readonly ScrollspyItem[]>([]);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Accessible label for the nav element; falls back to a localized default. */
   readonly label = input<string>();
 
   protected readonly labelText = buiLabel('scrollspy', this.label);

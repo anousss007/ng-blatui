@@ -27,8 +27,11 @@ const SIDE: Record<string, string> = {
   `,
 })
 export class BuiSheet {
+  /** Whether the sheet is open. Two-way bindable with `[(open)]`. */
   readonly open = model(false);
+  /** Screen edge the sheet slides in from. */
   readonly side = input<'left' | 'right' | 'top' | 'bottom'>('right');
+  /** Accessible label applied to the sheet dialog. */
   readonly ariaLabel = input('Sheet');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

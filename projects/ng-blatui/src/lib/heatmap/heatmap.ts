@@ -19,6 +19,7 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiHeatmap {
+  /** Per-cell counts filled column-first; empty yields a demo dataset. */
   readonly data = input<readonly number[]>([]);
   /** Smaller cells + tighter gaps. */
   readonly compact = input(false);

@@ -56,10 +56,15 @@ const STATUS: Record<string, string> = {
   `,
 })
 export class BuiToolCall {
+  /** Name of the invoked tool, shown as inline code in the header. */
   readonly name = input('tool');
+  /** Execution status; drives the colored status dot and label. */
   readonly status = input<'pending' | 'running' | 'success' | 'error'>('success');
+  /** Tool arguments shown in the collapsible body when present. */
   readonly args = input('');
+  /** Tool result shown in the collapsible body when present. */
   readonly result = input('');
+  /** Whether the arguments/result panel is expanded. Two-way bindable with `[(open)]`. */
   readonly open = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly statusClass = computed(() => STATUS[this.status()]);

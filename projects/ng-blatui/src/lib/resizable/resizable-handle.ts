@@ -30,7 +30,9 @@ import { BuiResizablePanelGroup } from './resizable-panel-group';
   `,
 })
 export class BuiResizableHandle {
+  /** Whether to render a visible grip indicator on the divider. */
   readonly withHandle = input(false);
+  /** Accessible label for the handle; falls back to a localized default. */
   readonly ariaLabel = input<string>();
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

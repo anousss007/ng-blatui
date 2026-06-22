@@ -58,9 +58,13 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiAnimatedBeam {
+  /** CSS selector of the element the beam starts from. */
   readonly from = input('');
+  /** CSS selector of the element the beam ends at. */
   readonly to = input('');
+  /** Upward bow of the connecting curve in pixels. */
   readonly curvature = input(0);
+  /** Seconds for the travelling light to traverse the beam. */
   readonly duration = input(3);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

@@ -3,6 +3,7 @@ import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
 
+/** How the time field renders: native input or hour/minute selects. */
 export type TimeFieldMode = 'input' | 'select';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -67,17 +68,25 @@ const SELECT_CLASS =
   `,
 })
 export class BuiTimeField implements ControlValueAccessor {
+  /** Selected time as `HH:mm`. Two-way bindable with `[(value)]`. */
   readonly value = model('');
+  /** Native `name` attribute for the input. */
   readonly name = input('');
+  /** Native `id` attribute for the input. */
   readonly id = input('');
+  /** Earliest allowed time (`HH:mm`) in `input` mode. */
   readonly min = input('');
+  /** Latest allowed time (`HH:mm`) in `input` mode. */
   readonly max = input('');
+  /** Whether to include seconds in `input` mode. */
   readonly seconds = input(false);
+  /** Whether the field is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
   /** `select` renders hour + minute dropdowns instead of a native time input. */
   readonly mode = input<TimeFieldMode>('input');
   /** Minute step used in `select` mode. */
   readonly minuteStep = input(5);
+  /** Accessible label for the field. */
   readonly ariaLabel = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

@@ -44,12 +44,19 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiMap {
+  /** Latitude of the map centre, in degrees. */
   readonly lat = input(50.8503);
+  /** Longitude of the map centre, in degrees. */
   readonly lon = input(4.3517);
+  /** Zoom level; higher values zoom in closer. */
   readonly zoom = input(14);
+  /** Accessible title for the map iframe. */
   readonly label = input('Location');
+  /** Whether to drop a pin at the centre coordinate. */
   readonly marker = input(true);
+  /** Map height in pixels; ignored when `ratio` is set. */
   readonly height = input(320);
+  /** CSS aspect ratio (e.g. `16/9`); overrides `height` when set. */
   readonly ratio = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

@@ -86,6 +86,7 @@ const noop = (): void => {};
   `,
 })
 export class BuiDatetimePicker implements ControlValueAccessor {
+  /** Selected date-time (mode="single") as `YYYY-MM-DDTHH:mm`. Two-way bindable with `[(value)]`. */
   readonly value = model('');
   /** `single` (default) or `range`. */
   readonly mode = input<CalendarMode>('single');
@@ -93,11 +94,17 @@ export class BuiDatetimePicker implements ControlValueAccessor {
   readonly range = model<CalendarRange>({ start: '', end: '' });
   /** Month grids shown in the popover (handy for range). */
   readonly months = input(1);
+  /** Text shown on the trigger when nothing is selected. */
   readonly placeholder = input('Pick date & time');
+  /** Earliest selectable date (`yyyy-mm-dd`). */
   readonly minDate = input('');
+  /** Latest selectable date (`yyyy-mm-dd`). */
   readonly maxDate = input('');
+  /** `dropdown` swaps the month label for month + year selects. */
   readonly captionLayout = input<'label' | 'dropdown'>('label');
+  /** Whether to include seconds in the time field. */
   readonly seconds = input(false);
+  /** Whether the picker is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

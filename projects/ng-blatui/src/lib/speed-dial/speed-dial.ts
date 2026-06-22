@@ -3,7 +3,9 @@ import { Component, computed, ElementRef, inject, input, signal } from '@angular
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface SpeedDialAction {
+  /** Visible text shown on the action item. */
   label: string;
+  /** Optional link target for the action; defaults to `#` when omitted. */
   href?: string;
 }
 
@@ -59,8 +61,11 @@ export interface SpeedDialAction {
   `,
 })
 export class BuiSpeedDial {
+  /** Actions revealed when the dial expands. */
   readonly actions = input<readonly SpeedDialAction[]>([]);
+  /** Direction the action stack expands relative to the trigger button. */
   readonly direction = input<'up' | 'down'>('up');
+  /** Accessible label for the trigger button. */
   readonly label = input('Open actions');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

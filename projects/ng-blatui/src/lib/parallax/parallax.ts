@@ -23,7 +23,9 @@ import { type ClassValue, cn } from '../utils/cn';
   template: `<ng-content />`,
 })
 export class BuiParallax {
+  /** Parallax intensity; higher moves content more per scroll. */
   readonly speed = input(0.3);
+  /** Axis along which the content shifts. */
   readonly axis = input<'x' | 'y'>('y');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

@@ -32,11 +32,17 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiSparkline {
+  /** Numeric series to plot; needs at least two points to render. */
   readonly data = input<readonly number[]>([]);
+  /** SVG width in pixels. */
   readonly width = input(100);
+  /** SVG height in pixels. */
   readonly height = input(28);
+  /** Whether to draw the translucent area fill under the line. */
   readonly area = input(true);
+  /** Line stroke width in pixels (also used as edge padding). */
   readonly strokeWidth = input(1.5);
+  /** Accessible label for the sparkline's `aria-label`. */
   readonly ariaLabel = input('Trend');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

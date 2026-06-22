@@ -71,10 +71,14 @@ const SIZES = { default: 'h-9 px-4 py-2', sm: 'h-8 gap-1.5 px-3', lg: 'h-10 px-6
   `,
 })
 export class BuiAddToCart implements OnDestroy {
+  /** Button text shown in the idle and adding states. */
   readonly label = input('Add to cart');
+  /** Button text shown briefly in the added (success) state. */
   readonly addedLabel = input('Added');
+  /** Size preset controlling height and padding. */
   readonly size = input<keyof typeof SIZES>('default');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Emitted when the button is clicked to add the item. */
   readonly triggered = output();
 
   protected readonly state = signal<'idle' | 'adding' | 'added'>('idle');

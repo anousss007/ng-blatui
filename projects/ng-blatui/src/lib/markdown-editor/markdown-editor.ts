@@ -45,9 +45,13 @@ function renderMarkdown(markdown: string): string {
   `,
 })
 export class BuiMarkdownEditor {
+  /** Markdown source text. Two-way bindable with `[(value)]`. */
   readonly value = model('');
+  /** Name attribute applied to the textarea for form submission. */
   readonly name = input('');
+  /** Placeholder text shown while the textarea is empty. */
   readonly placeholder = input('Write markdown…');
+  /** Number of visible rows in the write textarea. */
   readonly rows = input(8);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

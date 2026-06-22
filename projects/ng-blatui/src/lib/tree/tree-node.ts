@@ -53,7 +53,9 @@ import type { TreeItem } from './tree';
   `,
 })
 export class BuiTreeNode {
+  /** Node data for this row, including its label and children. */
   readonly item = input.required<TreeItem>();
+  /** Depth of this node, used for indentation and `aria-level` (root is 1). */
   readonly level = input(1);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

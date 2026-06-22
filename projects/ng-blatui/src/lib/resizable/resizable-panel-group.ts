@@ -15,7 +15,9 @@ import { type ClassValue, cn } from '../utils/cn';
   template: `<ng-content />`,
 })
 export class BuiResizablePanelGroup {
+  /** Layout axis the panels are arranged and resized along. */
   readonly direction = input<'horizontal' | 'vertical'>('horizontal');
+  /** Size of the primary panel as a percentage (10-90). Two-way bindable with `[(size)]`. */
   readonly size = model(50);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

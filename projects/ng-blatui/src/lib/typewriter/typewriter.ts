@@ -21,11 +21,17 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiTypewriter implements OnDestroy {
+  /** Words cycled through by the typewriter. */
   readonly words = input<readonly string[]>([]);
+  /** Delay between typed characters, in milliseconds. */
   readonly typeSpeed = input(90);
+  /** Delay between deleted characters, in milliseconds. */
   readonly deleteSpeed = input(40);
+  /** Pause once a word is fully typed before deleting, in milliseconds. */
   readonly pause = input(1600);
+  /** Whether to restart from the first word after the last. */
   readonly loop = input(true);
+  /** Whether to show the blinking cursor after the text. */
   readonly cursor = input(true);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

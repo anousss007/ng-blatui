@@ -3,10 +3,15 @@ import { Component, computed, input, output, signal } from '@angular/core';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface ContextMenuItem {
+  /** Text shown for the menu entry. */
   label?: string;
+  /** Identifying value emitted when the item is selected. */
   value?: string;
+  /** Keyboard shortcut hint shown trailing the label. */
   shortcut?: string;
+  /** Whether to render the item in the destructive (danger) style. */
   danger?: boolean;
+  /** Whether this entry is a divider rather than a selectable item. */
   separator?: boolean;
   /** Optional leading icon, given as an SVG path `d` string. */
   icon?: string;
@@ -128,7 +133,9 @@ export interface ContextMenuItem {
   `,
 })
 export class BuiContextMenu {
+  /** Items shown in the menu, in display order. */
   readonly items = input<readonly ContextMenuItem[]>([]);
+  /** Emits the chosen item when a (non-separator) entry is activated. */
   readonly selected = output<ContextMenuItem>();
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

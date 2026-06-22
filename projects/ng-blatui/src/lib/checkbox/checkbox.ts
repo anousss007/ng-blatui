@@ -66,8 +66,11 @@ const CHECKBOX_BASE =
   `,
 })
 export class BuiCheckbox implements ControlValueAccessor {
+  /** Whether the box is checked. Two-way bindable with `[(checked)]`. */
   readonly checked = model(false);
+  /** Whether the box shows the mixed/indeterminate state. Two-way bindable with `[(indeterminate)]`. */
   readonly indeterminate = model(false);
+  /** Whether the checkbox is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

@@ -50,7 +50,9 @@ interface Point {
   `,
 })
 export class BuiSignaturePad {
+  /** Canvas height in pixels. */
   readonly height = input(200);
+  /** Stroke color; falls back to the current text color when empty. */
   readonly penColor = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

@@ -15,6 +15,7 @@ import { type ClassValue, cn } from '../utils/cn';
   },
 })
 export class BuiChat {
+  /** Accessible label announced for the conversation log region. */
   readonly ariaLabel = input('Conversation');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

@@ -44,14 +44,21 @@ const TONES = {
   `,
 })
 export class BuiMeter {
+  /** Current measurement; clamped between `min` and `max`. */
   readonly value = input(0);
+  /** Minimum value of the meter range. */
   readonly min = input(0);
+  /** Maximum value of the meter range. */
   readonly max = input(100);
+  /** Optional text label shown above the meter bar. */
   readonly label = input<string | null>(null);
+  /** Fill colour tone; overridden by any matching threshold. */
   readonly tone = input<keyof typeof TONES>('default');
   /** Auto-pick the fill tone by value: the highest threshold whose `at` ≤ value wins. */
   readonly thresholds = input<readonly { at: number; tone: keyof typeof TONES }[]>([]);
+  /** Whether to display the formatted value text next to the label. */
   readonly showValue = input(true);
+  /** Unit suffix appended to the displayed value (e.g. "%"). */
   readonly unit = input('%');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

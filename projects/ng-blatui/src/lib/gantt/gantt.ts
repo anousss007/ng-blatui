@@ -3,14 +3,21 @@ import { Component, computed, input } from '@angular/core';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface GanttTask {
+  /** Task label shown in the left-hand row gutter. */
   name: string;
+  /** Task start date as an ISO `YYYY-MM-DD` string; empty strings are ignored. */
   start: string;
+  /** Task end date as an ISO `YYYY-MM-DD` string; empty strings are ignored. */
   end: string;
+  /** Completion percentage (0-100) shown as a darker overlay on the bar. */
   progress?: number;
+  /** Tailwind background class for the bar; defaults to `bg-primary`. */
   color?: string;
 }
 export interface GanttMilestone {
+  /** Milestone label shown in the left-hand row gutter and as the marker title. */
   name: string;
+  /** Milestone date as an ISO `YYYY-MM-DD` string; empty strings are ignored. */
   date: string;
 }
 interface GanttRow {
@@ -81,9 +88,13 @@ function label(iso: string): string {
   `,
 })
 export class BuiGantt {
+  /** Tasks to plot as horizontal bars across the date range. */
   readonly tasks = input<readonly GanttTask[]>([]);
+  /** Milestones to plot as diamond markers below the task bars. */
   readonly milestones = input<readonly GanttMilestone[]>([]);
+  /** ISO start date overriding the computed range minimum; empty derives it from tasks. */
   readonly start = input('');
+  /** ISO end date overriding the computed range maximum; empty derives it from tasks. */
   readonly end = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

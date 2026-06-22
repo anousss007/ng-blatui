@@ -36,11 +36,16 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiCodeBlock {
+  /** Source code shown in the panel and copied to the clipboard. */
   readonly code = input('');
+  /** Optional filename shown in the header; omit for the floating copy button. */
   readonly filename = input<string | null>(null);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Accessible label for the copy button. */
   readonly copyLabel = input<string>();
+  /** Short visible text for the copy button. */
   readonly copyShortLabel = input<string>();
+  /** Text shown briefly after the code is copied. */
   readonly copiedLabel = input<string>();
   protected readonly copyText = buiLabel('codeBlockCopy', this.copyLabel);
   protected readonly copyShortText = buiLabel('codeBlockCopyShort', this.copyShortLabel);

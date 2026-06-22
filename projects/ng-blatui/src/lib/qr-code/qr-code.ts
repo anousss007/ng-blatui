@@ -24,11 +24,17 @@ import { encodeQr } from './qr-encode';
   `,
 })
 export class BuiQrCode {
+  /** Text or URL to encode into the QR code. */
   readonly value = input('');
+  /** Rendered width and height of the SVG in pixels. */
   readonly size = input(160);
+  /** Accessible label for the QR code image. */
   readonly label = input('QR code');
+  /** Fill colour of the QR modules (dark squares). */
   readonly foreground = input('currentColor');
+  /** Background fill colour behind the modules. */
   readonly background = input('transparent');
+  /** Quiet-zone border width, in modules. */
   readonly margin = input(2);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

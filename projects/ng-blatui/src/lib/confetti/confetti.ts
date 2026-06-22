@@ -50,8 +50,11 @@ const PALETTE = ['#6366f1', '#ec4899', '#f59e0b', '#10b981', '#3b82f6', '#ef4444
   `,
 })
 export class BuiConfetti implements OnDestroy {
+  /** Number of particles emitted per burst. */
   readonly count = input(80);
+  /** Horizontal spread factor of the burst. */
   readonly spread = input(70);
+  /** Particle colours; defaults to the built-in palette. */
   readonly colors = input<readonly string[] | null>(null);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

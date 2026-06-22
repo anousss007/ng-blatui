@@ -8,6 +8,7 @@ import { type ClassValue, cn } from '../utils/cn';
   host: { 'data-slot': 'visually-hidden', '[class]': 'computedClass()' },
 })
 export class BuiVisuallyHidden {
+  /** Whether the content becomes visible when focused (e.g. skip links). */
   readonly focusable = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

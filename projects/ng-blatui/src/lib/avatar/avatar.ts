@@ -32,7 +32,9 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiAvatar {
+  /** Image URL to display; when unset or on load error the fallback is shown. */
   readonly src = input<string | null>(null);
+  /** Alternative text for the avatar image. */
   readonly alt = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

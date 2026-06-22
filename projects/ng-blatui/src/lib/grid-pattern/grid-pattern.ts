@@ -16,8 +16,11 @@ import { type ClassValue, cn } from '../utils/cn';
   template: '',
 })
 export class BuiGridPattern {
+  /** Cell size (spacing between grid lines) in pixels. */
   readonly gap = input(24);
+  /** Thickness of the grid lines in pixels. */
   readonly lineWidth = input(1);
+  /** Whether to fade the pattern with a radial mask toward the edges. */
   readonly mask = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

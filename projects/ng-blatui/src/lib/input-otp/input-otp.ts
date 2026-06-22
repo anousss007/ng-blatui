@@ -36,12 +36,17 @@ const noop = (): void => {};
   `,
 })
 export class BuiInputOtp implements ControlValueAccessor {
+  /** Current code. Two-way bindable with `[(value)]`. */
   readonly value = model('');
+  /** Number of character boxes (length of the code). */
   readonly maxlength = input(6);
+  /** Whether the input is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
+  /** Whether to allow letters as well as digits. */
   readonly alphanumeric = input(false);
   /** Insert a visual separator after every N boxes (0 = none). */
   readonly groupSize = input(0);
+  /** Base accessible label; each box appends its position. */
   readonly ariaLabel = input('One-time password');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

@@ -37,8 +37,11 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiTimelineItem {
+  /** Timestamp label shown above the entry's title. */
   readonly time = input('');
+  /** Heading text for the entry. */
   readonly title = input('');
+  /** Whether to highlight this entry as the current/active step. */
   readonly active = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

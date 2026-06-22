@@ -12,6 +12,7 @@ import { type ClassValue, cn } from '../utils/cn';
   },
 })
 export class BuiBottomNavigation {
+  /** Accessible label applied to the navigation element. */
   readonly ariaLabel = input('Bottom navigation');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

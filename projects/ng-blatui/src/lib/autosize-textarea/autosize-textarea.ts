@@ -24,7 +24,9 @@ const SIZES = {
   },
 })
 export class BuiAutosizeTextarea {
+  /** Size preset controlling minimum height, padding and text size. */
   readonly size = input<keyof typeof SIZES>('default');
+  /** Maximum number of rows before the textarea scrolls instead of growing (null = unlimited). */
   readonly maxRows = input<number | null>(null);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

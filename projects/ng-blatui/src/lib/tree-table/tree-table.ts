@@ -4,13 +4,19 @@ import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface TreeTableColumn {
+  /** Row data key whose value fills this column's cells. */
   key: string;
+  /** Column header text. */
   label: string;
+  /** Horizontal text alignment for the column's cells. */
   align?: 'left' | 'center' | 'right';
 }
 export interface TreeTableRow {
+  /** Nested child rows shown when this row is expanded. */
   children?: TreeTableRow[];
+  /** Whether the row starts expanded. */
   expanded?: boolean;
+  /** Arbitrary column values keyed by `TreeTableColumn.key`. */
   [key: string]: unknown;
 }
 
@@ -89,9 +95,12 @@ const ALIGN: Record<string, string> = {
   `,
 })
 export class BuiTreeTable {
+  /** Column definitions in display order. */
   readonly columns = input<readonly TreeTableColumn[]>([]);
+  /** Top-level rows, each able to nest children via `children`. */
   readonly rows = input<readonly TreeTableRow[]>([]);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Accessible label for the expand/collapse toggle button. */
   readonly toggleLabel = input<string>();
 
   protected readonly toggleText = buiLabel('treeTableToggle', this.toggleLabel);

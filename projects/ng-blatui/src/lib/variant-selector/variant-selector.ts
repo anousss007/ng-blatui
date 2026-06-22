@@ -3,9 +3,13 @@ import { Component, computed, ElementRef, inject, input, model } from '@angular/
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface VariantOption {
+  /** Unique value used as the selection identity. */
   value: string;
+  /** Display text; defaults to the value when omitted. */
   label?: string;
+  /** CSS colour for the swatch when type is `color`. */
   color?: string;
+  /** Whether this option cannot be selected. */
   disabled?: boolean;
 }
 
@@ -49,10 +53,15 @@ interface NormalizedVariant {
   `,
 })
 export class BuiVariantSelector {
+  /** Selected variant value. Two-way bindable with `[(value)]`. */
   readonly value = model('');
+  /** Available options, as plain strings or `VariantOption` objects. */
   readonly options = input<readonly (string | VariantOption)[]>([]);
+  /** Render style: text pills or colour swatches. */
   readonly type = input<'pill' | 'color'>('pill');
+  /** Accessible label for the radio group. */
   readonly label = input('Variant');
+  /** Whether the whole group is disabled. */
   readonly disabled = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

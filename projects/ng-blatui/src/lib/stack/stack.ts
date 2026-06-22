@@ -37,10 +37,15 @@ const JUSTIFY: Record<string, string> = {
   host: { 'data-slot': 'stack', '[class]': 'computedClass()' },
 })
 export class BuiStack {
+  /** Flex direction: vertical (`col`) or horizontal (`row`). */
   readonly direction = input<keyof typeof DIRECTIONS>('col');
+  /** Spacing between items, as a Tailwind gap step. */
   readonly gap = input('4');
+  /** Cross-axis alignment (`start`/`center`/`end`/`stretch`/`baseline`). */
   readonly align = input('');
+  /** Main-axis distribution (`start`/`center`/`end`/`between`/`around`/`evenly`). */
   readonly justify = input('');
+  /** Whether items wrap onto multiple lines when they overflow. */
   readonly wrap = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

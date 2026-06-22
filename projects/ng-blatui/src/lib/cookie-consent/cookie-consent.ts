@@ -34,11 +34,16 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiCookieConsent {
+  /** Consent message shown to the user. */
   readonly message = input('We use cookies to enhance your experience.');
+  /** When true, always shows the banner and skips reading/writing localStorage. */
   readonly demo = input(false);
+  /** localStorage key under which the accept/decline choice is persisted. */
   readonly storageKey = input('bui-cookie-consent');
+  /** Emitted with `true` when the user accepts and `false` when they decline. */
   readonly decided = output<boolean>();
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Overrides the localized accessible label for the consent region. */
   readonly ariaLabel = input<string>();
 
   protected readonly ariaLabelText = buiLabel('cookieConsent', this.ariaLabel);

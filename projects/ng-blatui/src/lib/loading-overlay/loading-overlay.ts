@@ -39,8 +39,11 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiLoadingOverlay {
+  /** Whether the loading veil is shown over the projected content. */
   readonly show = input(false);
+  /** Text shown beneath the spinner; defaults to "Loading…" when empty. */
   readonly message = input('');
+  /** Whether the veil blurs the content behind it. */
   readonly blur = input(true);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() => cn('relative block', this.userClass()));

@@ -45,9 +45,12 @@ const VARIANTS = {
   `,
 })
 export class BuiBackToTop {
+  /** Pixel scroll distance before the button appears. */
   readonly threshold = input(300);
+  /** Visual style of the button. */
   readonly variant = input<keyof typeof VARIANTS>('primary');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Accessible label for the button; falls back to the i18n default. */
   readonly label = input<string>();
 
   protected readonly labelText = buiLabel('backToTop', this.label);

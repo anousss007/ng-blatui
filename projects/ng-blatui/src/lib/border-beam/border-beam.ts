@@ -53,8 +53,11 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiBorderBeam {
+  /** Seconds for the beam to complete one full lap. */
   readonly duration = input(6);
+  /** Beam colour; defaults to the primary theme colour. */
   readonly color = input<string | null>(null);
+  /** Border/beam thickness in pixels. */
   readonly size = input(2);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

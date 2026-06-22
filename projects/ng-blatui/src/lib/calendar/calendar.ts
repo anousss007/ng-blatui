@@ -7,9 +7,12 @@ import { type ClassValue, cn } from '../utils/cn';
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = (): void => {};
 
+/** Selection behavior of the calendar. */
 export type CalendarMode = 'single' | 'range' | 'multiple';
 export interface CalendarRange {
+  /** Start date of the range, as `yyyy-mm-dd`. */
   start: string;
+  /** End date of the range, as `yyyy-mm-dd`. */
   end: string;
 }
 
@@ -172,6 +175,7 @@ function isoOf(date: Date): string {
   `,
 })
 export class BuiCalendar implements ControlValueAccessor {
+  /** Selected day (mode="single") as `yyyy-mm-dd`. Two-way bindable with `[(value)]`. */
   readonly value = model('');
   /** Selection mode: `single` | `range` | `multiple`. */
   readonly mode = input<CalendarMode>('single');
@@ -181,8 +185,11 @@ export class BuiCalendar implements ControlValueAccessor {
   readonly values = model<readonly string[]>([]);
   /** Number of month grids to render side by side. */
   readonly months = input(1);
+  /** First day of the week (0 = Sunday). */
   readonly weekStart = input(0);
+  /** Earliest selectable date (`yyyy-mm-dd`). */
   readonly minDate = input('');
+  /** Latest selectable date (`yyyy-mm-dd`). */
   readonly maxDate = input('');
   /** Specific ISO dates (yyyy-mm-dd) to disable. */
   readonly disabledDates = input<readonly string[]>([]);
@@ -194,11 +201,16 @@ export class BuiCalendar implements ControlValueAccessor {
   readonly captionLayout = input<'label' | 'dropdown'>('label');
   /** Hide days that fall outside the current month. */
   readonly hideOutsideDays = input(false);
+  /** Whether the whole calendar is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Accessible label for the previous-month button. */
   readonly previousMonthLabel = input<string>();
+  /** Accessible label for the month dropdown. */
   readonly monthSelectLabel = input<string>();
+  /** Accessible label for the year dropdown. */
   readonly yearLabel = input<string>();
+  /** Accessible label for the next-month button. */
   readonly nextMonthLabel = input<string>();
 
   protected readonly previousMonthText = buiLabel('calendarPreviousMonth', this.previousMonthLabel);

@@ -3,8 +3,11 @@ import { Component, computed, input } from '@angular/core';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface ChartSeries {
+  /** Optional series name (used for legends/identification). */
   name?: string;
+  /** Y-axis values plotted in order along the series. */
   data: number[];
+  /** Optional explicit stroke/fill colour; falls back to the palette. */
   color?: string;
 }
 
@@ -62,10 +65,15 @@ const PAD = 8;
   `,
 })
 export class BuiChart {
+  /** Chart render style: line, bar, or filled area. */
   readonly type = input<'line' | 'bar' | 'area'>('line');
+  /** Series to plot; bar charts use only the first series. */
   readonly series = input<readonly ChartSeries[]>([]);
+  /** X-axis tick labels rendered below the chart. */
   readonly labels = input<readonly string[]>([]);
+  /** Chart height in pixels (SVG viewBox height). */
   readonly height = input(220);
+  /** Accessible label for the chart's `aria-label`. */
   readonly label = input('Chart');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

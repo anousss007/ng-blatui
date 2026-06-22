@@ -57,12 +57,19 @@ const STAR_SIZE = { sm: 'size-4', default: 'size-5', lg: 'size-6' } as const;
   `,
 })
 export class BuiRating implements ControlValueAccessor {
+  /** Current rating. Two-way bindable with `[(value)]`. */
   readonly value = model(0);
+  /** Number of stars shown. */
   readonly max = input(5);
+  /** Whether the rating is display-only and cannot be changed. */
   readonly readonly = input(false);
+  /** Whether the rating is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
+  /** Size of each star. */
   readonly size = input<keyof typeof STAR_SIZE>('default');
+  /** Tailwind text-color class applied to filled stars. */
   readonly color = input('text-amber-500');
+  /** Accessible label for the rating group. */
   readonly ariaLabel = input<string | null>(null);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

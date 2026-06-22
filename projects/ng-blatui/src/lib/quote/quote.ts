@@ -46,9 +46,13 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiQuote {
+  /** Name of the person credited in the attribution. */
   readonly author = input('');
+  /** Role or title shown beneath the author. */
   readonly role = input('');
+  /** URL of the author's avatar image. */
   readonly avatar = input('');
+  /** Source URL for the quote, set as the blockquote's `cite` attribute. */
   readonly cite = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

@@ -4,9 +4,13 @@ import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface DataTableColumn {
+  /** Row property key whose value is rendered and used for sorting/searching. */
   key: string;
+  /** Column header text shown in the table head. */
   label: string;
+  /** Whether the header is a sort toggle; `false` disables sorting for this column. */
   sortable?: boolean;
+  /** Horizontal text alignment for the column's header and cells. */
   align?: 'left' | 'center' | 'right';
 }
 type DataRow = Record<string, unknown>;
@@ -133,15 +137,24 @@ function cellText(value: unknown): string {
   `,
 })
 export class BuiDataTable {
+  /** Column definitions that drive the headers, cell lookup and sort/search keys. */
   readonly columns = input<readonly DataTableColumn[]>([]);
+  /** Source data rows; each is a key/value map indexed by column keys. */
   readonly rows = input<readonly DataRow[]>([]);
+  /** Whether to show the search box that filters rows across all columns. */
   readonly searchable = input(true);
+  /** Placeholder text for the search input. */
   readonly searchPlaceholder = input('Search...');
+  /** Whether to render row checkboxes and the select-all header checkbox. */
   readonly selectable = input(true);
+  /** Number of rows displayed per page. */
   readonly pageSize = input(5);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Accessible label override for the search input. */
   readonly searchLabel = input<string>();
+  /** Accessible label override for the select-all checkbox. */
   readonly selectAllLabel = input<string>();
+  /** Accessible label override for each row's select checkbox. */
   readonly selectRowLabel = input<string>();
 
   protected readonly searchText = buiLabel('dataTableSearch', this.searchLabel);

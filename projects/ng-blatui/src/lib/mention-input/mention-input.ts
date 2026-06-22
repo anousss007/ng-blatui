@@ -3,7 +3,9 @@ import { Component, computed, input, model, signal } from '@angular/core';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface Mention {
+  /** Identifier for the mention. */
   value: string;
+  /** Text shown in the suggestion list and inserted into the textarea. */
   label: string;
 }
 
@@ -43,11 +45,17 @@ export interface Mention {
   `,
 })
 export class BuiMentionInput {
+  /** Textarea contents. Two-way bindable with `[(value)]`. */
   readonly value = model('');
+  /** Mentions offered when the trigger character is typed. */
   readonly mentions = input<readonly Mention[]>([]);
+  /** Character that opens the mention suggestion list. */
   readonly trigger = input('@');
+  /** Placeholder text for the textarea. */
   readonly placeholder = input('Type @ to mention…');
+  /** Number of visible textarea rows. */
   readonly rows = input(3);
+  /** Native `name` attribute for the textarea. */
   readonly name = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

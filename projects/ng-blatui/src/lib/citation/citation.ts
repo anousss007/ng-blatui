@@ -43,9 +43,13 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiCitation implements OnDestroy {
+  /** Citation number shown in the inline `[n]` marker. */
   readonly index = input(1);
+  /** Source title shown at the top of the popover. */
   readonly title = input('');
+  /** Source URL; its hostname is derived and shown in the popover. */
   readonly url = input('');
+  /** Short excerpt from the source shown in the popover. */
   readonly snippet = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

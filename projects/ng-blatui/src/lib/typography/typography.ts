@@ -30,6 +30,7 @@ const TYPOGRAPHY = {
   },
 })
 export class BuiTypography {
+  /** Typographic style to apply (e.g. `h1`, `lead`, `blockquote`, `gradient`). */
   readonly variant = input<keyof typeof TYPOGRAPHY>('p');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

@@ -63,11 +63,16 @@ const TONES = {
   `,
 })
 export class BuiBanner implements OnInit {
+  /** Color tone (`default | primary | info | success | warning | danger`). */
   readonly tone = input<keyof typeof TONES>('default');
+  /** Whether to show the dismiss button. */
   readonly dismissible = input(true);
+  /** When set, the dismissal is remembered in localStorage under this key. */
   readonly persistKey = input<string | undefined>(undefined);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Overrides the localized accessible label for the announcement region. */
   readonly announcementLabel = input<string>();
+  /** Overrides the localized accessible label for the dismiss button. */
   readonly dismissLabel = input<string>();
 
   protected readonly announcementText = buiLabel('bannerAnnouncement', this.announcementLabel);

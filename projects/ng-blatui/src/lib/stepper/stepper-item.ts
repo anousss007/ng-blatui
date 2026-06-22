@@ -49,6 +49,7 @@ const INDICATOR: Record<string, string> = {
   `,
 })
 export class BuiStepperItem {
+  /** This item's 1-based position; compared against the parent's value to derive its state. */
   readonly step = input(1);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

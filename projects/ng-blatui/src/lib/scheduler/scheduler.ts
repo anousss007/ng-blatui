@@ -3,10 +3,15 @@ import { Component, computed, input } from '@angular/core';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface SchedulerEvent {
+  /** Event label rendered inside the positioned block. */
   title: string;
+  /** Zero-based column index selecting which day the event belongs to. */
   day: number;
+  /** Start time as an `HH:mm` string; positions the block's top edge. */
   start: string;
+  /** End time as an `HH:mm` string; together with `start` sets the block height. */
   end: string;
+  /** Tailwind background class for the block; defaults to `bg-primary`. */
   color?: string;
 }
 interface PlacedEvent {
@@ -66,11 +71,17 @@ function toMinutes(value: string): number {
   `,
 })
 export class BuiScheduler {
+  /** Events to position within the calendar grid. */
   readonly events = input<readonly SchedulerEvent[]>([]);
+  /** Custom day-column headers; empty falls back to weekday names or `Today`. */
   readonly days = input<readonly string[]>([]);
+  /** First hour shown on the time axis (24-hour). */
   readonly startHour = input(8);
+  /** Last hour shown on the time axis (24-hour), exclusive of the final row. */
   readonly endHour = input(18);
+  /** Layout mode; `day` shows a single column, `week` shows the full week. */
   readonly view = input<'week' | 'day'>('week');
+  /** Accessible label applied to the grid's `aria-label`. */
   readonly label = input('Schedule');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

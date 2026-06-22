@@ -34,7 +34,9 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiCountdown implements OnDestroy {
+  /** Target moment to count down to, as a Date, timestamp, or date string. */
   readonly to = input.required<string | number | Date>();
+  /** Text shown once the target time has passed. */
   readonly expired = input('Expired');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

@@ -26,10 +26,15 @@ const COMPARE_SIZES = { sm: 'text-xs', default: 'text-sm', lg: 'text-base' } as 
   `,
 })
 export class BuiPrice {
+  /** Current price amount to display. */
   readonly amount = input(0);
+  /** Original price; when higher than amount, shows as struck-through. */
   readonly compareAt = input<number | null>(null);
+  /** Currency symbol prefixed to each value. */
   readonly currency = input('$');
+  /** Text size preset for the price. */
   readonly size = input<keyof typeof SIZES>('default');
+  /** Whether to show the percentage-off discount badge when on sale. */
   readonly showDiscount = input(true);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

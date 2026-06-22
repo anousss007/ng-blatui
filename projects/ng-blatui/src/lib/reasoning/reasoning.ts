@@ -39,8 +39,11 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiReasoning {
+  /** Whether the disclosure is expanded. Two-way bindable with `[(open)]`. */
   readonly open = model(false);
+  /** Trigger label shown when no `duration` is set. */
   readonly label = input('Reasoning');
+  /** When set, the trigger reads "Thought for {duration}" instead of `label`. */
   readonly duration = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

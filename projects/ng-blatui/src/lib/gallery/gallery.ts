@@ -3,7 +3,9 @@ import { Component, computed, input } from '@angular/core';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface GalleryImage {
+  /** Image source URL. */
   src: string;
+  /** Alternative text for the image. */
   alt?: string;
 }
 
@@ -27,8 +29,11 @@ const COLUMNS: Record<number, string> = {
   `,
 })
 export class BuiGallery {
+  /** Images to display, given as URLs or `GalleryImage` objects. */
   readonly images = input<readonly (string | GalleryImage)[]>([]);
+  /** Number of grid columns (1-6). */
   readonly columns = input(3);
+  /** Tailwind class controlling thumbnail corner rounding. */
   readonly rounded = input('rounded-lg');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

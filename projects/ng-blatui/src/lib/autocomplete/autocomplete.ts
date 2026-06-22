@@ -18,6 +18,7 @@ type AutocompleteValue = string | readonly string[];
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = (): void => {};
 
+/** Height and font size of the autocomplete input. */
 export type AutocompleteSize = 'sm' | 'default' | 'lg';
 const AC_SIZE: Record<AutocompleteSize, string> = {
   sm: 'h-8 text-xs',
@@ -141,15 +142,23 @@ const AC_SIZE: Record<AutocompleteSize, string> = {
   `,
 })
 export class BuiAutocomplete implements ControlValueAccessor {
+  /** Current text in the input. Two-way bindable with `[(value)]`. */
   readonly value = model('');
   /** Pick several values, shown as removable chips; binds `values`. */
   readonly multiple = input(false);
+  /** Selected values shown as chips (multiple mode). Two-way bindable with `[(values)]`. */
   readonly values = model<readonly string[]>([]);
+  /** Suggestions to filter against the typed text. */
   readonly options = input<readonly string[]>([]);
+  /** Placeholder text for the input. */
   readonly placeholder = input('Search...');
+  /** Message shown when no suggestion matches. */
   readonly empty = input('No results found.');
+  /** Whether the input is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
+  /** Native `name` attribute for the input. */
   readonly name = input('');
+  /** Height and font size of the input. */
   readonly size = input<AutocompleteSize>('default');
   /** Optional leading icon, given as an SVG path `d` string. */
   readonly icon = input('');
