@@ -1,6 +1,10 @@
-import { Component, computed, input, model } from '@angular/core';
+import { Component, computed, forwardRef, input, model } from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = (): void => {};
 
 export type NumberInputSize = 'sm' | 'default' | 'lg';
 
@@ -23,6 +27,9 @@ const INPUT_SIZE: Record<NumberInputSize, string> = {
 @Component({
   selector: 'bui-number-input',
   host: { 'data-slot': 'number-input', '[class]': 'computedClass()' },
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiNumberInput), multi: true },
+  ],
   template: `
     <button
       type="button"
@@ -55,6 +62,7 @@ const INPUT_SIZE: Record<NumberInputSize, string> = {
       [class]="inputClass()"
       (input)="onInput($event)"
       (change)="onInput($event)"
+      (blur)="onTouched()"
     />
     <button
       type="button"
@@ -78,15 +86,18 @@ const INPUT_SIZE: Record<NumberInputSize, string> = {
     </button>
   `,
 })
-export class BuiNumberInput {
+export class BuiNumberInput implements ControlValueAccessor {
   readonly value = model(0);
   readonly min = input<number | null>(null);
   readonly max = input<number | null>(null);
   readonly stepBy = input(1, { alias: 'step' });
-  readonly disabled = input(false);
+  readonly disabled = model(false);
   readonly size = input<NumberInputSize>('default');
   readonly ariaLabel = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+  private onChange: (value: number) => void = noop;
+  protected onTouched: () => void = noop;
 
   protected readonly btnClass = computed(() => cn(BTN, BTN_SIZE[this.size()]));
   protected readonly inputClass = computed(() => cn(INPUT, INPUT_SIZE[this.size()]));
@@ -122,5 +133,22 @@ export class BuiNumberInput {
       value = max;
     }
     this.value.set(value);
+    this.onChange(value);
+  }
+
+  writeValue(value: number | null | undefined): void {
+    this.value.set(typeof value === 'number' ? value : 0);
+  }
+
+  registerOnChange(callback: (value: number) => void): void {
+    this.onChange = callback;
+  }
+
+  registerOnTouched(callback: () => void): void {
+    this.onTouched = callback;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
   }
 }

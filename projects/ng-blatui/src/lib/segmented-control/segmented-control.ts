@@ -1,4 +1,5 @@
-import { Component, computed, ElementRef, inject, input, model } from '@angular/core';
+import { Component, computed, ElementRef, forwardRef, inject, input, model } from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
 
@@ -6,6 +7,9 @@ export interface SegmentOption {
   value: string;
   label: string;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = (): void => {};
 
 /** A single-select segmented control (`role="radiogroup"`) with arrow-key navigation. */
 @Component({
@@ -15,7 +19,11 @@ export interface SegmentOption {
     role: 'radiogroup',
     '[class]': 'computedClass()',
     '(keydown)': 'onKeydown($event)',
+    '(focusout)': 'onTouched()',
   },
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiSegmentedControl), multi: true },
+  ],
   template: `
     @for (option of normalized(); track option.value) {
       <button
@@ -37,12 +45,14 @@ export interface SegmentOption {
     }
   `,
 })
-export class BuiSegmentedControl {
+export class BuiSegmentedControl implements ControlValueAccessor {
   readonly value = model('');
   readonly options = input<readonly (SegmentOption | string)[]>([]);
-  readonly disabled = input(false);
+  readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
+  private onChange: (value: string) => void = noop;
+  protected onTouched: () => void = noop;
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly normalized = computed<SegmentOption[]>(() =>
     this.options().map((option) =>
@@ -54,9 +64,12 @@ export class BuiSegmentedControl {
   );
 
   protected select(next: string): void {
-    if (!this.disabled()) {
-      this.value.set(next);
+    if (this.disabled()) {
+      return;
     }
+
+    this.value.set(next);
+    this.onChange(next);
   }
 
   protected tabindexFor(optionValue: string): number {
@@ -85,7 +98,24 @@ export class BuiSegmentedControl {
     const isForward = event.key === 'ArrowRight' || event.key === 'ArrowDown';
     const nextIndex = (current + (isForward ? 1 : -1) + items.length) % items.length;
     this.value.set(items[nextIndex].value);
+    this.onChange(items[nextIndex].value);
     const buttons = this.host.nativeElement.querySelectorAll<HTMLButtonElement>('[role="radio"]');
     buttons[nextIndex].focus();
+  }
+
+  writeValue(value: string | null | undefined): void {
+    this.value.set(typeof value === 'string' ? value : '');
+  }
+
+  registerOnChange(callback: (value: string) => void): void {
+    this.onChange = callback;
+  }
+
+  registerOnTouched(callback: () => void): void {
+    this.onTouched = callback;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
   }
 }
