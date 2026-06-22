@@ -33,6 +33,7 @@ const ADDON_ALIGN = {
   },
 })
 export class BuiInputGroupAddon {
+  /** Where the addon sits relative to the input (inline or block, start or end). */
   readonly align = input<keyof typeof ADDON_ALIGN>('inline-start');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>
@@ -91,7 +92,9 @@ const IG_BUTTON_SIZES = {
   host: { type: 'button', 'data-slot': 'input-group-button', '[class]': 'computedClass()' },
 })
 export class BuiInputGroupButton {
+  /** Visual style of the addon button. */
   readonly variant = input<keyof typeof IG_BUTTON_VARIANTS>('ghost');
+  /** Size preset for the addon button (text or icon variants). */
   readonly size = input<keyof typeof IG_BUTTON_SIZES>('xs');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

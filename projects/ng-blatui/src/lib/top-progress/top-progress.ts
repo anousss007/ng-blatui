@@ -35,10 +35,14 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiTopProgress {
+  /** CSS color (or gradient) used to fill the bar. */
   readonly color = input('var(--color-primary, #6366f1)');
+  /** Bar thickness in pixels. */
   readonly height = input(2);
+  /** When true, renders inline within its container instead of fixed at the top of the viewport. */
   readonly demo = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Overrides the localized accessible progressbar label. */
   readonly ariaLabel = input<string>();
 
   protected readonly ariaLabelText = buiLabel('topProgressLoading', this.ariaLabel);

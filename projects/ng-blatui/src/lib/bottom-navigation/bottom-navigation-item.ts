@@ -29,8 +29,11 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiBottomNavigationItem {
+  /** Caption shown beneath the projected icon; hidden when empty. */
   readonly label = input('');
+  /** Whether this tab is the current page; sets `aria-current="page"`. */
   readonly active = input(false);
+  /** Badge content; `true` renders a dot, a string/number renders a count, `null` shows nothing. */
   readonly badge = input<boolean | string | number | null>(null);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

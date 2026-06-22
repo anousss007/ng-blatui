@@ -11,6 +11,7 @@ const INPUT_SIZES = {
   lg: 'h-10 px-4 py-2 text-base file:h-8 file:text-sm',
 } as const;
 
+/** Size preset controlling input height, padding and text size. */
 export type InputSize = keyof typeof INPUT_SIZES;
 
 /** Applies BlatUI input styling to a native `<input>` (keeps native validation & a11y). */
@@ -23,6 +24,7 @@ export type InputSize = keyof typeof INPUT_SIZES;
   },
 })
 export class BuiInput {
+  /** Size preset controlling input height, padding and text size. */
   readonly size = input<InputSize>('default');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

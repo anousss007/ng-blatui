@@ -65,8 +65,11 @@ interface Entry {
   `,
 })
 export class BuiJsonViewerNode {
+  /** Arbitrary JSON value rendered by this node. */
   readonly value = input<unknown>(null);
+  /** Object key or array index labeling this node, or null at the root. */
   readonly keyName = input<string | number | null>(null);
+  /** Whether this node starts expanded. */
   readonly expanded = input(true);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

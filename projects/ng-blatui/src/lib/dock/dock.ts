@@ -22,9 +22,12 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiDock {
+  /** Maximum scale factor applied to the tile directly under the cursor. */
   readonly magnify = input(1.6);
+  /** Pixel radius around the cursor within which tiles are magnified. */
   readonly distance = input(120);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Accessible label for the dock navigation; falls back to the i18n default. */
   readonly label = input<string>();
 
   protected readonly labelText = buiLabel('dock', this.label);

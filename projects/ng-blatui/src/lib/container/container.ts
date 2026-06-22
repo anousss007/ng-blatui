@@ -17,6 +17,7 @@ const SIZES = {
   host: { 'data-slot': 'container', '[class]': 'computedClass()' },
 })
 export class BuiContainer {
+  /** Maximum width preset for the container. */
   readonly size = input<keyof typeof SIZES>('lg');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

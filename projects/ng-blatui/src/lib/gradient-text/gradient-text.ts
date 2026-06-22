@@ -48,10 +48,15 @@ const PRESETS = {
   template: `<ng-content />`,
 })
 export class BuiGradientText {
+  /** Named colour preset used when from/via/to are not set. */
   readonly preset = input<keyof typeof PRESETS>('brand');
+  /** Gradient start colour; overrides the preset's first stop. */
   readonly from = input<string | null>(null);
+  /** Gradient middle colour; overrides the preset's second stop. */
   readonly via = input<string | null>(null);
+  /** Gradient end colour; overrides the preset's third stop. */
   readonly to = input<string | null>(null);
+  /** Whether to animate a horizontal shimmer across the gradient. */
   readonly animate = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

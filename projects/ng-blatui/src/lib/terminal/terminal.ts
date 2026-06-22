@@ -37,7 +37,9 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiTerminal {
+  /** Optional title shown in the terminal title bar. */
   readonly title = input<string | null>(null);
+  /** Whether to show the macOS-style traffic-light buttons in the title bar. */
   readonly buttons = input(true);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

@@ -4,7 +4,9 @@ import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface ComparisonRow {
+  /** Feature name shown in the row's leading header cell. */
   feature: string;
+  /** Per-tier values; `true` shows a check, `false`/`null` a dash, otherwise the text. */
   values: readonly (string | boolean | null)[];
 }
 
@@ -72,12 +74,18 @@ export interface ComparisonRow {
   `,
 })
 export class BuiComparisonTable {
+  /** Column headers, one per pricing/feature tier. */
   readonly tiers = input<readonly string[]>([]);
+  /** Feature rows; each holds one value per tier. */
   readonly rows = input<readonly ComparisonRow[]>([]);
+  /** Tier to emphasize, by index or tier name; `null` highlights none. */
   readonly highlight = input<number | string | null>(null);
+  /** Header text for the leading feature column. */
   readonly featureLabel = input('Feature');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Accessible label for the included (check) icon. */
   readonly includedLabel = input<string>();
+  /** Accessible label for the not-included (dash) marker. */
   readonly notIncludedLabel = input<string>();
 
   protected readonly includedText = buiLabel('comparisonTableIncluded', this.includedLabel);

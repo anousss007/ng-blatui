@@ -3,13 +3,19 @@ import { Component, computed, input, signal } from '@angular/core';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface NavMenuLink {
+  /** Visible text of the link. */
   label: string;
+  /** Destination URL; falls back to `#` when omitted. */
   href?: string;
+  /** Optional secondary text shown beneath the label. */
   description?: string;
 }
 export interface NavMenuItem {
+  /** Visible text of the top-level menu entry. */
   label: string;
+  /** Destination URL for a plain (non-dropdown) entry. */
   href?: string;
+  /** Sub-links rendered in the dropdown panel; presence makes this a dropdown. */
   links?: NavMenuLink[];
   /** A highlighted promo link shown at the top of the dropdown panel. */
   featured?: NavMenuLink;
@@ -95,6 +101,7 @@ export interface NavMenuItem {
   `,
 })
 export class BuiNavigationMenu {
+  /** Top-level menu entries, each optionally opening a dropdown panel. */
   readonly items = input<readonly NavMenuItem[]>([]);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

@@ -24,6 +24,7 @@ const SWITCH_THUMB = {
 const THUMB_BASE =
   'bg-background dark:data-[state=unchecked]:bg-foreground dark:data-[state=checked]:bg-primary-foreground pointer-events-none block rounded-full ring-0 transition-transform data-[state=checked]:translate-x-[calc(100%-2px)] data-[state=unchecked]:translate-x-0';
 
+/** Track and thumb size of the switch. */
 export type SwitchSize = keyof typeof SWITCH_TRACK;
 
 /**
@@ -66,8 +67,11 @@ export type SwitchSize = keyof typeof SWITCH_TRACK;
   `,
 })
 export class BuiSwitch implements ControlValueAccessor {
+  /** Whether the switch is on. Two-way bindable with `[(checked)]`. */
   readonly checked = model(false);
+  /** Whether the switch is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
+  /** Track and thumb size. */
   readonly size = input<SwitchSize>('default');
   /** Optional SVG path `d` shown inside the thumb when checked. */
   readonly iconOn = input('');

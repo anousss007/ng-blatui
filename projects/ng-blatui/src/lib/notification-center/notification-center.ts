@@ -4,9 +4,13 @@ import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface NotificationItem {
+  /** Primary heading text of the notification. */
   title: string;
+  /** Optional secondary detail line shown beneath the title. */
   body?: string;
+  /** Optional timestamp label displayed under the body. */
   time?: string;
+  /** Whether the notification is already read (suppresses the unread dot). */
   read?: boolean;
 }
 
@@ -86,12 +90,18 @@ export interface NotificationItem {
   `,
 })
 export class BuiNotificationCenter {
+  /** Notification items rendered in the dropdown feed. */
   readonly notifications = input<readonly NotificationItem[]>([]);
+  /** Whether the dropdown is open. Two-way bindable with `[(open)]`. */
   readonly open = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Accessible label for the trigger and dropdown region. */
   readonly ariaLabel = input<string>();
+  /** Accessible label announced for the per-item unread dot. */
   readonly unreadLabel = input<string>();
+  /** Label for the "mark all as read" action button. */
   readonly markAllReadLabel = input<string>();
+  /** Text shown when there are no notifications. */
   readonly emptyLabel = input<string>();
 
   protected readonly ariaText = buiLabel('notificationCenter', this.ariaLabel);

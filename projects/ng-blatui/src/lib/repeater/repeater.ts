@@ -4,9 +4,13 @@ import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface RepeaterField {
+  /** Property name used to store this field's value in each row. */
   key: string;
+  /** Column header shown above the field. */
   label: string;
+  /** Placeholder text for the field's input. */
   placeholder?: string;
+  /** Input type attribute (e.g. text, email, number). */
   type?: string;
 }
 
@@ -79,11 +83,17 @@ export interface RepeaterField {
   `,
 })
 export class BuiRepeater {
+  /** Column definitions rendered for every row. */
   readonly fields = input<readonly RepeaterField[]>([]);
+  /** Row data keyed by field key. Two-way bindable with `[(rows)]`. */
   readonly rows = model<Record<string, string>[]>([]);
+  /** Minimum number of rows that must remain (remove is disabled at this count). */
   readonly min = input(1);
+  /** Maximum number of rows allowed, or null for unlimited. */
   readonly max = input<number | null>(null);
+  /** Text shown on the add-row button. */
   readonly addLabel = input('Add row');
+  /** Accessible label override for the remove-row buttons. */
   readonly removeLabel = input<string>();
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

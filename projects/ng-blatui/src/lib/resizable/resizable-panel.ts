@@ -14,6 +14,7 @@ import { BuiResizablePanelGroup } from './resizable-panel-group';
   },
 })
 export class BuiResizablePanel {
+  /** Whether this is the sized panel driven by the group's `size`; the other panel flexes. */
   readonly primary = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

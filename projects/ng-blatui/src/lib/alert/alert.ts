@@ -23,7 +23,9 @@ const ALERT_TONES = {
     'border-border bg-muted text-foreground [&>svg]:text-foreground *:data-[slot=alert-description]:text-muted-foreground',
 } as const;
 
+/** Brand style of the alert (`default` or `destructive`). */
 export type AlertVariant = keyof typeof ALERT_VARIANTS;
+/** Semantic tone of the alert (`success | warning | danger | info | neutral`). */
 export type AlertTone = keyof typeof ALERT_TONES;
 
 /**
@@ -35,7 +37,9 @@ export type AlertTone = keyof typeof ALERT_TONES;
   host: { 'data-slot': 'alert', role: 'alert', '[class]': 'computedClass()' },
 })
 export class BuiAlert {
+  /** Brand style; ignored when `tone` is set. */
   readonly variant = input<AlertVariant>('default');
+  /** Semantic tone; when set, overrides `variant`. */
   readonly tone = input<AlertTone | null>(null);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

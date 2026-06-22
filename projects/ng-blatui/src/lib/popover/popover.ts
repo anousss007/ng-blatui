@@ -14,6 +14,7 @@ import {
 
 import { type ClassValue, cn } from '../utils/cn';
 
+/** Side of the trigger the popover opens on. */
 export type PopoverSide = 'top' | 'right' | 'bottom' | 'left';
 
 const POPOVER_POSITIONS: Record<PopoverSide, ConnectedPosition> = {
@@ -43,7 +44,9 @@ const POPOVER_FALLBACK: Record<PopoverSide, PopoverSide> = {
   },
 })
 export class BuiPopover implements OnDestroy {
+  /** Template rendered as the popover content; bound via `[buiPopover]`. */
   readonly content = input.required<TemplateRef<unknown>>({ alias: 'buiPopover' });
+  /** Side of the trigger the popover opens on, with an automatic opposite-side fallback. */
   readonly side = input<PopoverSide>('bottom');
 
   private readonly overlay = inject(Overlay);

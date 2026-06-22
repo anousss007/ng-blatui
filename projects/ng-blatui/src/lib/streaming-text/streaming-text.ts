@@ -21,10 +21,15 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiStreamingText implements OnDestroy {
+  /** Full passage to reveal; also announced up front via an `aria-live` region. */
   readonly text = input('');
+  /** Delay in milliseconds between each revealed token. */
   readonly speed = input(18);
+  /** Delay in milliseconds before streaming begins. */
   readonly startDelay = input(0);
+  /** Granularity of the reveal — one character or one word at a time. */
   readonly by = input<'char' | 'word'>('char');
+  /** Whether to show a blinking caret while streaming. */
   readonly caret = input(true);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

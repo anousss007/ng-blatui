@@ -55,8 +55,11 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiEditable {
+  /** Current text. Two-way bindable with `[(value)]`. */
   readonly value = model('');
+  /** Text shown when the value is empty. */
   readonly placeholder = input('Empty');
+  /** Noun used in the field's accessible label. */
   readonly label = input('value');
   /** Edit in a multi-line textarea instead of a single-line input. */
   readonly multiline = input(false);

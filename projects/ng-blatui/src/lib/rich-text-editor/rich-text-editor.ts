@@ -62,10 +62,15 @@ const TOOLS: Tool[] = [
   `,
 })
 export class BuiRichTextEditor {
+  /** Editor contents as HTML. Two-way bindable with `[(value)]`. */
   readonly value = model('');
+  /** Placeholder text shown while the editor is empty. */
   readonly placeholder = input('Write something…');
+  /** Accessible label for the editable region. */
   readonly ariaLabel = input('Rich text editor');
+  /** Accessible label override for the formatting toolbar. */
   readonly formattingLabel = input<string>();
+  /** Name attribute associated with the editor for form submission. */
   readonly name = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

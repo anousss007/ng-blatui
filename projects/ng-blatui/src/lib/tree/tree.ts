@@ -5,8 +5,11 @@ import { type ClassValue, cn } from '../utils/cn';
 import { BuiTreeNode } from './tree-node';
 
 export interface TreeItem {
+  /** Text displayed for the node. */
   label: string;
+  /** Nested child nodes, if any. */
   children?: TreeItem[];
+  /** Whether the node starts expanded. */
   expanded?: boolean;
 }
 
@@ -24,7 +27,9 @@ export interface TreeItem {
   `,
 })
 export class BuiTree {
+  /** Root nodes of the tree to render. */
   readonly items = input<readonly TreeItem[]>([]);
+  /** Accessible label for the tree's root element. */
   readonly ariaLabel = input('Tree');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() => cn('block', this.userClass()));

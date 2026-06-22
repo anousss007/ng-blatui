@@ -90,15 +90,23 @@ const noop = (): void => {};
   `,
 })
 export class BuiSlider implements ControlValueAccessor {
+  /** Current value (lower thumb in range mode). Two-way bindable with `[(value)]`. */
   readonly value = model(0);
   /** Enable a second thumb; binds `endValue` as the upper handle. */
   readonly range = input(false);
+  /** Upper thumb value in range mode. Two-way bindable with `[(endValue)]`. */
   readonly endValue = model(100);
+  /** Minimum selectable value. */
   readonly min = input(0);
+  /** Maximum selectable value. */
   readonly max = input(100);
+  /** Increment between selectable values. */
   readonly step = input(1);
+  /** Whether the slider is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
+  /** Layout direction of the slider. */
   readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
+  /** Accessible label for the thumb(s). */
   readonly ariaLabel = input('Value');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

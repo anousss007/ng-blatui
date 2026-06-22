@@ -14,6 +14,7 @@ import { type ClassValue, cn } from '../utils/cn';
   },
 })
 export class BuiPagination {
+  /** Accessible label for the navigation landmark; falls back to a localized default. */
   readonly ariaLabel = input<string>();
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly ariaLabelText = buiLabel('pagination', this.ariaLabel);
@@ -59,7 +60,9 @@ const LINK_SIZES = {
   },
 })
 export class BuiPaginationLink {
+  /** Whether this link represents the current page; sets `aria-current="page"`. */
   readonly active = input(false);
+  /** Size variant controlling link dimensions and padding. */
   readonly size = input<keyof typeof LINK_SIZES>('icon');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>
@@ -97,6 +100,7 @@ export class BuiPaginationLink {
 })
 export class BuiPaginationEllipsis {
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Visually-hidden label announcing skipped pages; falls back to a localized default. */
   readonly moreLabel = input<string>();
   protected readonly moreText = buiLabel('paginationMore', this.moreLabel);
   protected readonly computedClass = computed(() =>

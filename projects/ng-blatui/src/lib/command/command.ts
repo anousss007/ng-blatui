@@ -4,12 +4,17 @@ import { Component, computed, inject, input, output, signal } from '@angular/cor
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface CommandItem {
+  /** Text shown for the command and matched against the search query. */
   label: string;
+  /** Identifying value emitted on selection; falls back to the label. */
   value?: string;
+  /** Keyboard shortcut hint shown trailing the label. */
   shortcut?: string;
 }
 export interface CommandGroup {
+  /** Optional heading rendered above the group's items. */
   label?: string;
+  /** Commands belonging to this group. */
   items: CommandItem[];
 }
 interface Row {
@@ -101,10 +106,13 @@ interface Row {
   `,
 })
 export class BuiCommand {
+  /** Grouped commands shown in the palette and filtered as the user types. */
   readonly groups = input<readonly CommandGroup[]>([]);
+  /** Placeholder text for the search input. */
   readonly placeholder = input('Type a command or search…');
   /** Render a checkmark column; activating an item toggles its checked state. */
   readonly checkable = input(false);
+  /** Emits the chosen command when an item is activated (click or Enter). */
   readonly selected = output<CommandItem>();
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

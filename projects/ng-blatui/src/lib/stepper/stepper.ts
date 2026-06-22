@@ -21,7 +21,9 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiStepper {
+  /** The active step as a 1-based index; items at lower values are marked completed. */
   readonly value = input(1);
+  /** Layout direction of the steps, horizontal or vertical. */
   readonly orientation = input<'horizontal' | 'vertical'>('horizontal');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() => cn('block', this.userClass()));

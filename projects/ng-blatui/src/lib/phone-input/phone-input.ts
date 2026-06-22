@@ -4,9 +4,13 @@ import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface PhoneCountry {
+  /** ISO 3166-1 alpha-2 country code, used as the option value. */
   code: string;
+  /** Human-readable country name. */
   name: string;
+  /** International dialing prefix, including the leading plus. */
   dial: string;
+  /** Flag emoji shown beside the dial code. */
   flag: string;
 }
 
@@ -51,13 +55,20 @@ const COUNTRIES: PhoneCountry[] = [
   `,
 })
 export class BuiPhoneInput {
+  /** Entered phone number. Two-way bindable with `[(value)]`. */
   readonly value = model('');
+  /** Selected country code. Two-way bindable with `[(country)]`. */
   readonly country = model('US');
+  /** Name attribute applied to the number input for form submission. */
   readonly name = input('');
+  /** Id attribute applied to the number input. */
   readonly id = input('');
+  /** Placeholder text for the number input. */
   readonly placeholder = input('Phone number');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Accessible label override for the country selector. */
   readonly countryLabel = input<string>();
+  /** Accessible label override for the number input. */
   readonly numberLabel = input<string>();
 
   protected readonly countryText = buiLabel('phoneInputCountry', this.countryLabel);

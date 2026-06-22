@@ -45,14 +45,22 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiComparisonSlider {
+  /** Source URL of the "before" image (revealed on the left of the divider). */
   readonly before = input('');
+  /** Source URL of the "after" image (shown on the right of the divider). */
   readonly after = input('');
+  /** Caption badge shown over the "before" image; hidden when empty. */
   readonly beforeLabel = input('');
+  /** Caption badge shown over the "after" image; hidden when empty. */
   readonly afterLabel = input('');
+  /** Alt text for the "before" image. */
   readonly beforeAlt = input('Before');
+  /** Alt text for the "after" image. */
   readonly afterAlt = input('After');
+  /** Divider position as a percentage (0-100); two-way bindable. */
   readonly value = model(50);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Accessible label override for the range slider. */
   readonly positionLabel = input<string>();
 
   protected readonly positionText = buiLabel('comparisonSliderPosition', this.positionLabel);

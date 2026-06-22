@@ -12,6 +12,7 @@ import { type ClassValue, cn } from '../utils/cn';
   },
 })
 export class BuiTableContainer {
+  /** Wrapper style; `card` adds a bordered, shadowed card around the table. */
   readonly variant = input<'default' | 'card'>('default');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

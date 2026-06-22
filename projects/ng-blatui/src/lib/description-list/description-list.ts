@@ -8,7 +8,9 @@ import { type ClassValue, cn } from '../utils/cn';
   host: { 'data-slot': 'description-list', '[class]': 'computedClass()' },
 })
 export class BuiDescriptionList {
+  /** Arrangement of each item's term and description, side by side or stacked. */
   readonly layout = input<'horizontal' | 'vertical'>('horizontal');
+  /** Whether to render a bordered card with dividers between items. */
   readonly bordered = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

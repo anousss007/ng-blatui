@@ -11,8 +11,11 @@ import {
 } from '@angular/core';
 
 export interface TourStep {
+  /** CSS selector of the element to spotlight for this step. */
   target: string;
+  /** Heading shown in the step's popover. */
   title: string;
+  /** Body text shown under the title. */
   body: string;
 }
 
@@ -70,7 +73,9 @@ export interface TourStep {
   `,
 })
 export class BuiOnboardingTour {
+  /** Whether the tour is open. Two-way bindable with `[(open)]`. */
   readonly open = model(false);
+  /** Ordered steps; each spotlights its `target` element in turn. */
   readonly steps = input<readonly TourStep[]>([]);
 
   protected readonly step = signal(0);

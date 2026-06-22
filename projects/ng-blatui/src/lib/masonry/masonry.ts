@@ -25,7 +25,9 @@ const GAPS: Record<string, string> = {
   host: { 'data-slot': 'masonry', '[class]': 'computedClass()' },
 })
 export class BuiMasonry {
+  /** Maximum number of columns at the widest breakpoint (1-6, responsive). */
   readonly columns = input(3);
+  /** Spacing between items, as a Tailwind spacing key ('0', '2', '3', '4', '6', '8'). */
   readonly gap = input('4');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

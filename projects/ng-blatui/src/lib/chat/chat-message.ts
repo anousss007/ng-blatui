@@ -47,10 +47,15 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiChatMessage {
+  /** Author role; `'user'` aligns the bubble to the end with primary styling, else assistant-styled. */
   readonly role = input('assistant');
+  /** Display name shown above the bubble; also seeds the fallback initials avatar. */
   readonly name = input('');
+  /** Optional timestamp text shown beside the name. */
   readonly time = input('');
+  /** Avatar image URL; when empty, initials (or an emoji) are shown instead. */
   readonly avatar = input('');
+  /** When true, shows an animated typing indicator instead of the message content. */
   readonly typing = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

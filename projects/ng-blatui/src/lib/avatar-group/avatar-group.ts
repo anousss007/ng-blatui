@@ -4,7 +4,9 @@ import { BuiAvatar } from '../avatar/avatar';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface GroupAvatar {
+  /** Image URL for the avatar; omit to render initials from `name`. */
   src?: string;
+  /** Display name used for initials and the image alt text. */
   name?: string;
 }
 
@@ -52,8 +54,11 @@ function initials(name: string | undefined): string {
   `,
 })
 export class BuiAvatarGroup {
+  /** Avatars to display, in order. */
   readonly avatars = input<readonly GroupAvatar[]>([]);
+  /** Maximum avatars shown before the rest collapse into a "+N" counter. */
   readonly max = input(4);
+  /** Avatar size preset, which also controls overlap and ring width. */
   readonly size = input<keyof typeof SIZES>('default');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

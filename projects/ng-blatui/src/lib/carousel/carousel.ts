@@ -12,6 +12,7 @@ import {
 import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
+/** Scroll axis of the carousel: left/right or up/down. */
 export type CarouselOrientation = 'horizontal' | 'vertical';
 
 /** A slide carousel. Project slides as direct children; arrows + dots navigate. SSR-safe. */
@@ -91,13 +92,18 @@ export type CarouselOrientation = 'horizontal' | 'vertical';
   `,
 })
 export class BuiCarousel {
+  /** Zero-based index of the first visible slide; two-way bindable. */
   readonly index = model(0);
+  /** Scroll axis of the carousel. */
   readonly orientation = input<CarouselOrientation>('horizontal');
   /** Slides visible at once (e.g. 2 or 3 for a multi-item carousel). */
   readonly perView = input(1);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Accessible label override for the previous-slide button. */
   readonly previousLabel = input<string>();
+  /** Accessible label override for the next-slide button. */
   readonly nextLabel = input<string>();
+  /** Accessible label override (prefix) for the dot navigation buttons. */
   readonly goToSlideLabel = input<string>();
 
   protected readonly previousText = buiLabel('carouselPrevious', this.previousLabel);

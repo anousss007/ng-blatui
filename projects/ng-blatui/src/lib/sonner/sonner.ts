@@ -3,16 +3,22 @@ import { Component, computed, inject, Injectable, input, signal } from '@angular
 import { buiLabel } from '../i18n/labels';
 import { cn } from '../utils/cn';
 
+/** Color tone of a toast (`default | success | error | warning | info`). */
 export type ToastTone = 'default' | 'success' | 'error' | 'warning' | 'info';
 export interface ToastOptions {
+  /** Main toast heading text. */
   title: string;
+  /** Optional secondary line shown beneath the title. */
   description?: string;
+  /** Color tone of the toast. */
   tone?: ToastTone;
+  /** Auto-dismiss delay in milliseconds; `0` or less keeps it until dismissed. */
   duration?: number;
   /** Optional inline action button (e.g. Undo). */
   action?: { label: string; onClick?: () => void };
 }
 interface Toast extends ToastOptions {
+  /** Unique auto-assigned id used to track and dismiss the toast. */
   id: number;
 }
 
@@ -112,8 +118,11 @@ const TONE: Record<ToastTone, string> = {
   `,
 })
 export class BuiSonner {
+  /** Viewport corner where toasts stack (e.g. `top-left`, `bottom-right`). */
   readonly position = input('bottom-right');
+  /** Overrides the localized accessible label for the toast region. */
   readonly ariaLabel = input<string>();
+  /** Overrides the localized accessible label for each dismiss button. */
   readonly dismissLabel = input<string>();
 
   protected readonly ariaLabelText = buiLabel('sonner', this.ariaLabel);

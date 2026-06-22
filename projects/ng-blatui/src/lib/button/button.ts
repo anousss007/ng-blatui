@@ -32,7 +32,9 @@ export const buttonVariants = cva(
   },
 );
 
+/** Visual style of the button. */
 export type ButtonVariant = NonNullable<VariantProps<typeof buttonVariants>['variant']>;
+/** Size preset controlling height, padding and icon scale. */
 export type ButtonSize = NonNullable<VariantProps<typeof buttonVariants>['size']>;
 
 /**
@@ -47,7 +49,9 @@ export type ButtonSize = NonNullable<VariantProps<typeof buttonVariants>['size']
   },
 })
 export class BuiButton {
+  /** Visual style of the button. */
   readonly variant = input<ButtonVariant>('default');
+  /** Size preset controlling height, padding and icon scale. */
   readonly size = input<ButtonSize>('default');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

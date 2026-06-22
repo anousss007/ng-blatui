@@ -9,6 +9,7 @@ import { type ClassValue, cn } from '../utils/cn';
   host: { '[attr.aria-label]': 'labelText()', 'data-slot': 'breadcrumb' },
 })
 export class BuiBreadcrumb {
+  /** Accessible label for the breadcrumb navigation landmark. */
   readonly label = input<string>();
   protected readonly labelText = buiLabel('breadcrumb', this.label);
 }
@@ -125,6 +126,7 @@ export class BuiBreadcrumbSeparator {
 })
 export class BuiBreadcrumbEllipsis {
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Screen-reader text for the collapsed ellipsis indicator. */
   readonly moreLabel = input<string>();
   protected readonly moreText = buiLabel('breadcrumbMore', this.moreLabel);
   protected readonly computedClass = computed(() =>

@@ -26,8 +26,11 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiPageHeader {
+  /** Title text rendered in the heading (alternative to projecting content). */
   readonly heading = input('');
+  /** Optional supporting text shown beneath the heading. */
   readonly description = input('');
+  /** Whether to render a bottom border separating the header from the page. */
   readonly separator = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

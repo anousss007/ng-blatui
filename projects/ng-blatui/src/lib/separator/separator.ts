@@ -2,6 +2,7 @@ import { computed, Directive, input } from '@angular/core';
 
 import { type ClassValue, cn } from '../utils/cn';
 
+/** Axis the separator runs along. */
 export type SeparatorOrientation = 'horizontal' | 'vertical';
 
 /**
@@ -19,7 +20,9 @@ export type SeparatorOrientation = 'horizontal' | 'vertical';
   },
 })
 export class BuiSeparator {
+  /** Axis the separator runs along, also driving its sizing. */
   readonly orientation = input<SeparatorOrientation>('horizontal');
+  /** Whether the separator is purely visual; `false` exposes a semantic `role="separator"`. */
   readonly decorative = input(true);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

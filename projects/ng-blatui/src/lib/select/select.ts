@@ -19,8 +19,11 @@ type SelectValue = string | readonly string[];
 const noop = (): void => {};
 
 export interface SelectOption {
+  /** Value stored when this option is selected. */
   value: string;
+  /** Text shown for this option. */
   label: string;
+  /** Whether this option cannot be selected. */
   disabled?: boolean;
   /** Optional leading icon, given as an SVG path `d` string. */
   icon?: string;
@@ -148,12 +151,17 @@ export interface SelectOption {
   `,
 })
 export class BuiSelect implements ControlValueAccessor {
+  /** Selected option value (single mode). Two-way bindable with `[(value)]`. */
   readonly value = model('');
   /** Select several options; binds `values` instead of `value`. */
   readonly multiple = input(false);
+  /** Selected option values (multiple mode). Two-way bindable with `[(values)]`. */
   readonly values = model<readonly string[]>([]);
+  /** Available options to choose from. */
   readonly options = input<readonly SelectOption[]>([]);
+  /** Text shown on the trigger when nothing is selected. */
   readonly placeholder = input('Select…');
+  /** Whether the select is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

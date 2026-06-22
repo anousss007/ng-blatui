@@ -76,12 +76,19 @@ const ARC = CIRC * 0.75;
   `,
 })
 export class BuiKnob implements ControlValueAccessor {
+  /** Current value. Two-way bindable with `[(value)]`. */
   readonly value = model(50);
+  /** Minimum value at the start of the dial's sweep. */
   readonly min = input(0);
+  /** Maximum value at the end of the dial's sweep. */
   readonly max = input(100);
+  /** Increment applied per arrow key, scroll or drag snap. */
   readonly step = input(1);
+  /** Size preset controlling the knob's diameter and text size. */
   readonly size = input<keyof typeof DIMS>('default');
+  /** Accessible label announced for the slider. */
   readonly label = input('Value');
+  /** Whether the knob is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

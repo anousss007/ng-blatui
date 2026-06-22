@@ -19,7 +19,9 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiTiltCard {
+  /** Maximum tilt angle in degrees on each axis. */
   readonly max = input(10);
+  /** Scale factor applied while the card is tilting. */
   readonly scaleTo = input(1.05);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

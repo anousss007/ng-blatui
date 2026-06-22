@@ -22,7 +22,9 @@ const VARIANTS = {
   },
 })
 export class BuiLink {
+  /** Visual style of the link: default, muted, or subtle. */
   readonly variant = input<keyof typeof VARIANTS>('default');
+  /** Whether the link is external, adding `target=_blank` and safe `rel`. */
   readonly external = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

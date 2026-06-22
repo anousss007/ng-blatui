@@ -7,6 +7,7 @@ import { type ClassValue, cn } from '../utils/cn';
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = (): void => {};
 
+/** Size preset controlling stepper button and field dimensions. */
 export type NumberInputSize = 'sm' | 'default' | 'lg';
 
 const BTN =
@@ -88,15 +89,24 @@ const INPUT_SIZE: Record<NumberInputSize, string> = {
   `,
 })
 export class BuiNumberInput implements ControlValueAccessor {
+  /** Current number. Two-way bindable with `[(value)]`. */
   readonly value = model(0);
+  /** Minimum allowed value, or null for no lower bound. */
   readonly min = input<number | null>(null);
+  /** Maximum allowed value, or null for no upper bound. */
   readonly max = input<number | null>(null);
+  /** Amount added or subtracted per step. */
   readonly stepBy = input(1, { alias: 'step' });
+  /** Whether the control is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
+  /** Size preset controlling stepper button and field dimensions. */
   readonly size = input<NumberInputSize>('default');
+  /** Accessible label for the number field. */
   readonly ariaLabel = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Accessible label override for the decrease button. */
   readonly decreaseLabel = input<string>();
+  /** Accessible label override for the increase button. */
   readonly increaseLabel = input<string>();
 
   protected readonly decreaseText = buiLabel('numberInputDecrease', this.decreaseLabel);

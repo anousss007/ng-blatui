@@ -14,7 +14,9 @@ import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface ComboboxOption {
+  /** Value stored when this option is selected. */
   value: string;
+  /** Text shown and matched against the search query. */
   label: string;
   /** Optional leading icon, given as an SVG path `d` string. */
   icon?: string;
@@ -112,12 +114,17 @@ const noop = (): void => {};
   `,
 })
 export class BuiCombobox implements ControlValueAccessor {
+  /** Selected option value (single mode). Two-way bindable with `[(value)]`. */
   readonly value = model('');
   /** Select several options; binds `values` instead of `value`. */
   readonly multiple = input(false);
+  /** Selected option values (multiple mode). Two-way bindable with `[(values)]`. */
   readonly values = model<readonly string[]>([]);
+  /** Available options to filter and choose from. */
   readonly options = input<readonly ComboboxOption[]>([]);
+  /** Placeholder text shown in the search input. */
   readonly placeholder = input('Search…');
+  /** Whether the combobox is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
   /** When false, the field can't be typed in — it just opens the full list (select-like). */
   readonly searchable = input(true);

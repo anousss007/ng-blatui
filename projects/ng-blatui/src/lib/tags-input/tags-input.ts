@@ -41,9 +41,13 @@ const noop = (): void => {};
   `,
 })
 export class BuiTagsInput implements ControlValueAccessor {
+  /** Current tags. Two-way bindable with `[(tags)]`. */
   readonly tags = model<string[]>([]);
+  /** Placeholder text shown in the entry field. */
   readonly placeholder = input('Add tag…');
+  /** Maximum number of tags allowed, or `null` for no limit. */
   readonly max = input<number | null>(null);
+  /** Whether the input is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

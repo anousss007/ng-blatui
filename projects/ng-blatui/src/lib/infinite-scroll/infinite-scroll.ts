@@ -61,9 +61,13 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiInfiniteScroll implements OnDestroy {
+  /** Whether a load is in progress; shows the spinner and suppresses new emits. */
   readonly loading = input(false);
+  /** Whether all items are loaded; shows the end message and suppresses emits. */
   readonly finished = input(false);
+  /** Pixel margin below the viewport at which the sentinel triggers loading. */
   readonly threshold = input(200);
+  /** Emits when the sentinel scrolls into view or the fallback button is pressed. */
   readonly more = output();
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

@@ -20,6 +20,7 @@ const FIELD_ORIENT = {
   },
 })
 export class BuiField {
+  /** How the label and control are arranged within the field. */
   readonly orientation = input<keyof typeof FIELD_ORIENT>('vertical');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>
@@ -51,6 +52,7 @@ export class BuiFieldSet {
   },
 })
 export class BuiFieldLegend {
+  /** Whether the legend is styled as a section legend or a smaller label. */
   readonly variant = input<'legend' | 'label'>('legend');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>
@@ -77,6 +79,7 @@ export class BuiFieldGroup {
   host: { 'data-slot': 'field-label', '[attr.for]': 'forId()', '[class]': 'computedClass()' },
 })
 export class BuiFieldLabel {
+  /** Id of the control this label is associated with (maps to the `for` attribute). */
   readonly forId = input<string | undefined>(undefined, { alias: 'for' });
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

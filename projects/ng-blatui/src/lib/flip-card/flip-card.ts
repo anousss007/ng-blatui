@@ -47,7 +47,9 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiFlipCard {
+  /** What flips the card: hover/focus or click/keypress. */
   readonly trigger = input<'hover' | 'click'>('hover');
+  /** Fixed card height as a CSS length. */
   readonly height = input('16rem');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly flipped = signal(false);

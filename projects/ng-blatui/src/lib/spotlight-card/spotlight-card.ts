@@ -23,7 +23,9 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiSpotlightCard {
+  /** Spotlight glow colour; defaults to a subtle foreground tint. */
   readonly color = input<string | null>(null);
+  /** Spotlight radius in pixels. */
   readonly size = input(350);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

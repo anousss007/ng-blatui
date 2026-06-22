@@ -9,6 +9,7 @@ const CARD_VARIANTS = {
   sectioned: 'bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm',
 } as const;
 
+/** Card layout style: a simple padded box or a sectioned header/content/footer container. */
 export type CardVariant = keyof typeof CARD_VARIANTS;
 
 /** BlatUI card container. Use `variant="sectioned"` with the header/content/footer parts. */
@@ -17,6 +18,7 @@ export type CardVariant = keyof typeof CARD_VARIANTS;
   host: { 'data-slot': 'card', '[class]': 'computedClass()' },
 })
 export class BuiCard {
+  /** Card layout style: simple padded box or sectioned container. */
   readonly variant = input<CardVariant>('default');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

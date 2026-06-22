@@ -27,8 +27,11 @@ const POSITION: Record<string, string> = {
   `,
 })
 export class BuiDrawer {
+  /** Whether the drawer is open. Two-way bindable with `[(open)]`. */
   readonly open = model(false);
+  /** Screen edge the drawer is anchored to and slides in from. */
   readonly direction = input<'top' | 'bottom' | 'left' | 'right'>('bottom');
+  /** Accessible label applied to the drawer dialog. */
   readonly ariaLabel = input('Drawer');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

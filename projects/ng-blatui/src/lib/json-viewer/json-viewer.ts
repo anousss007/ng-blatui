@@ -12,7 +12,9 @@ import { BuiJsonViewerNode } from './json-viewer-node';
   template: `<bui-json-viewer-node [value]="parsed()" [expanded]="expanded()" />`,
 })
 export class BuiJsonViewer {
+  /** Arbitrary JSON value to render; a string is parsed as JSON when possible. */
   readonly data = input<unknown>(null);
+  /** Whether nodes start expanded. */
   readonly expanded = input(true);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

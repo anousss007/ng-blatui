@@ -75,17 +75,26 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiAudioPlayer {
+  /** Audio source URL for the underlying `<audio>` element. */
   readonly src = input('');
+  /** Track title shown next to the controls. */
   readonly title = input('');
+  /** Artist name shown under the title. */
   readonly artist = input('');
+  /** Whether to start playback automatically once loaded. */
   readonly autoplay = input(false);
   /** Condensed layout: hides the title block and mute button. */
   readonly compact = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Accessible label override for the seek slider. */
   readonly seekLabel = input<string>();
+  /** Accessible label override for the play button. */
   readonly playLabel = input<string>();
+  /** Accessible label override for the pause button. */
   readonly pauseLabel = input<string>();
+  /** Accessible label override for the mute button. */
   readonly muteLabel = input<string>();
+  /** Accessible label override for the unmute button. */
   readonly unmuteLabel = input<string>();
 
   protected readonly seekText = buiLabel('audioPlayerSeek', this.seekLabel);

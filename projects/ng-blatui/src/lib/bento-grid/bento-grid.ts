@@ -14,6 +14,7 @@ const COLUMNS: Record<number, string> = {
   host: { 'data-slot': 'bento-grid', '[class]': 'computedClass()' },
 })
 export class BuiBentoGrid {
+  /** Number of columns at the largest breakpoint (2, 3 or 4). */
   readonly columns = input(3);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

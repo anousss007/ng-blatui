@@ -15,12 +15,19 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiNumberTicker {
+  /** Target value to count up to. */
   readonly value = input(0);
+  /** Starting value the animation counts from. */
   readonly from = input(0);
+  /** Animation length in milliseconds; 0 snaps instantly. */
   readonly duration = input(1500);
+  /** Number of decimal places to display. */
   readonly decimals = input(0);
+  /** Text prepended before the number. */
   readonly prefix = input('');
+  /** Text appended after the number. */
   readonly suffix = input('');
+  /** Thousands-group separator character. */
   readonly separator = input(',');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

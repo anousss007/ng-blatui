@@ -74,6 +74,7 @@ const noop = (): void => {};
   `,
 })
 export class BuiDatePicker implements ControlValueAccessor {
+  /** Selected date (mode="single") as `yyyy-mm-dd`. Two-way bindable with `[(value)]`. */
   readonly value = model('');
   /** `single` (default) or `range`. */
   readonly mode = input<CalendarMode>('single');
@@ -81,15 +82,25 @@ export class BuiDatePicker implements ControlValueAccessor {
   readonly range = model<CalendarRange>({ start: '', end: '' });
   /** Month grids shown in the popover (handy for range). */
   readonly months = input(1);
+  /** Text shown on the trigger when no date is selected. */
   readonly placeholder = input('Pick a date');
+  /** Earliest selectable date (`yyyy-mm-dd`). */
   readonly minDate = input('');
+  /** Latest selectable date (`yyyy-mm-dd`). */
   readonly maxDate = input('');
+  /** First day of the week (0 = Sunday). */
   readonly weekStart = input(0);
+  /** Specific ISO dates (yyyy-mm-dd) to disable. */
   readonly disabledDates = input<readonly string[]>([]);
+  /** Disable Saturdays and Sundays. */
   readonly disableWeekends = input(false);
+  /** Show an ISO week-number column in the calendar. */
   readonly showWeekNumbers = input(false);
+  /** `dropdown` swaps the month label for month + year selects. */
   readonly captionLayout = input<'label' | 'dropdown'>('label');
+  /** Hide days that fall outside the current month. */
   readonly hideOutsideDays = input(false);
+  /** Whether the picker is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

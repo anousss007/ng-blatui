@@ -57,10 +57,15 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiMarquee {
+  /** Items rendered in sequence and scrolled seamlessly. */
   readonly items = input<readonly string[]>([]);
+  /** Scroll direction; `up`/`down` switch the marquee to a vertical track. */
   readonly direction = input<'left' | 'right' | 'up' | 'down'>('left');
+  /** Time for one full loop, as a CSS duration (e.g. `40s`). */
   readonly duration = input('40s');
+  /** Spacing between items, as a CSS length. */
   readonly gap = input('1rem');
+  /** Whether hovering pauses the scroll animation. */
   readonly pauseOnHover = input(true);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

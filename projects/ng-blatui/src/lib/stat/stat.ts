@@ -46,10 +46,15 @@ const TREND_CLASS = {
   `,
 })
 export class BuiStat {
+  /** Small caption shown above the value. */
   readonly label = input<string | null>(null);
+  /** Primary statistic displayed as the large value. */
   readonly value = input<string | number>('');
+  /** Change indicator (e.g. "+12%"); coloured by trend. */
   readonly change = input<string | null>(null);
+  /** Explicit trend direction; inferred from `change`'s sign when null. */
   readonly trend = input<'up' | 'down' | 'neutral' | null>(null);
+  /** Muted text shown next to the change value. */
   readonly caption = input<string | null>(null);
   /** Optional inline sparkline drawn from a series of numbers. */
   readonly sparkline = input<readonly number[]>([]);

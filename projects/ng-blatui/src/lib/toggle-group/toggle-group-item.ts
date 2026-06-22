@@ -19,7 +19,9 @@ import { BuiToggleGroup } from './toggle-group';
   template: `<ng-content />`,
 })
 export class BuiToggleGroupItem {
+  /** Value this item contributes to the parent group's selection. */
   readonly value = input('');
+  /** Whether this item is disabled. */
   readonly disabled = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

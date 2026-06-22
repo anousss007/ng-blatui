@@ -88,19 +88,32 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiProductCard {
+  /** Product title shown as the card heading. */
   readonly title = input('');
+  /** Optional link; when set the title becomes an anchor to this URL. */
   readonly href = input('');
+  /** Source URL of the product image. */
   readonly image = input('');
+  /** Alt text for the image; falls back to the title when empty. */
   readonly imageAlt = input('');
+  /** Current price; hides the price block when null. */
   readonly price = input<number | null>(null);
+  /** Original price for showing a strikethrough and discount. */
   readonly compareAt = input<number | null>(null);
+  /** Currency symbol prefixed to the price. */
   readonly currency = input('$');
+  /** Badge text; auto-coloured for sale/new keywords. */
   readonly badge = input('');
+  /** Small category label shown above the title. */
   readonly category = input('');
+  /** Star rating value; hides the rating row when null. */
   readonly rating = input<number | null>(null);
+  /** Review count shown next to the rating, when set. */
   readonly reviews = input<number | null>(null);
+  /** Whether to show the wishlist (heart) toggle button. */
   readonly wishlist = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Accessible label override for the wishlist toggle button. */
   readonly wishlistLabel = input<string>();
 
   protected readonly wishlistText = buiLabel('productCardWishlist', this.wishlistLabel);

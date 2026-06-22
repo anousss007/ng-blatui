@@ -68,14 +68,23 @@ const FIELD_WIDTH = { sm: 'w-9', default: 'w-10', lg: 'w-12' } as const;
   `,
 })
 export class BuiQuantitySelector {
+  /** Current quantity. Two-way bindable with `[(value)]`. */
   readonly value = model(1);
+  /** Minimum allowed quantity. */
   readonly min = input(1);
+  /** Maximum allowed quantity; unbounded when null. */
   readonly max = input<number | null>(null);
+  /** Increment/decrement applied per button press. */
   readonly step = input(1);
+  /** Size preset controlling height and button width. */
   readonly size = input<keyof typeof FIELD_HEIGHT>('default');
+  /** Whether the whole control is disabled. */
   readonly disabled = input(false);
+  /** Accessible label for the numeric input field. */
   readonly ariaLabel = input('Quantity');
+  /** Accessible label override for the decrease button. */
   readonly decreaseLabel = input<string>();
+  /** Accessible label override for the increase button. */
   readonly increaseLabel = input<string>();
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

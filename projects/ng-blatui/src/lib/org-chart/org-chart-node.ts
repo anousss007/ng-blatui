@@ -36,6 +36,7 @@ import type { OrgNode } from './org-chart';
   `,
 })
 export class BuiOrgChartNode {
+  /** Node rendered as a card, with its `children` recursed into nested `<li>`s. */
   readonly node = input.required<OrgNode>();
   protected readonly children = computed(() => this.node().children ?? []);
   protected readonly initials = computed(() =>

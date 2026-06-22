@@ -16,8 +16,11 @@ import { type ClassValue, cn } from '../utils/cn';
   template: '',
 })
 export class BuiDotPattern {
+  /** Dot radius in pixels. */
   readonly size = input(1);
+  /** Spacing between dots in pixels. */
   readonly gap = input(16);
+  /** Whether to fade the pattern with a radial mask toward the edges. */
   readonly mask = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

@@ -92,14 +92,22 @@ function formatSize(bytes: number): string {
   `,
 })
 export class BuiFileUpload {
+  /** Whether multiple files can be selected and accumulated. */
   readonly multiple = input(false);
+  /** Comma-separated list of accepted file types (the `accept` attribute). */
   readonly accept = input('');
+  /** Native `name` attribute for the file input. */
   readonly name = input('');
+  /** Optional helper text shown under the dropzone label. */
   readonly hint = input('');
+  /** Whether the upload zone is disabled. */
   readonly disabled = input(false);
+  /** Emitted with the current file list whenever the selection changes. */
   readonly filesChange = output<readonly File[]>();
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Custom dropzone prompt text. */
   readonly dropzoneLabel = input<string>();
+  /** Custom accessible label for each remove button. */
   readonly removeLabel = input<string>();
 
   protected readonly dropzoneText = buiLabel('fileUploadDropzone', this.dropzoneLabel);

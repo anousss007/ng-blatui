@@ -10,14 +10,21 @@ import { Component, computed, input, linkedSignal, output } from '@angular/core'
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface KanbanCard {
+  /** Unique identifier used to track the card during drag-and-drop. */
   id: string;
+  /** Primary text shown on the card. */
   title: string;
+  /** Optional labels rendered as chips below the title. */
   tags?: string[];
+  /** Optional secondary line of metadata text. */
   meta?: string;
 }
 export interface KanbanColumn {
+  /** Unique identifier for the column and its drop list. */
   id: string;
+  /** Heading shown at the top of the column. */
   title: string;
+  /** Cards currently in this column, in display order. */
   cards: KanbanCard[];
 }
 
@@ -67,7 +74,9 @@ export interface KanbanColumn {
   `,
 })
 export class BuiKanban {
+  /** Columns and their cards used to seed the board. */
   readonly columns = input<readonly KanbanColumn[]>([]);
+  /** Emits the updated board whenever a card is moved. */
   readonly changed = output<KanbanColumn[]>();
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

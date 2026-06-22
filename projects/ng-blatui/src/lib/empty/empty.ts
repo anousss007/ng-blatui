@@ -37,6 +37,7 @@ export class BuiEmptyHeader {
   },
 })
 export class BuiEmptyMedia {
+  /** Media style; `icon` renders a muted rounded badge sized for an icon. */
   readonly variant = input<'default' | 'icon'>('default');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

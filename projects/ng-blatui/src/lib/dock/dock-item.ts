@@ -23,6 +23,7 @@ import { BuiDock } from './dock';
   `,
 })
 export class BuiDockItem {
+  /** Whether to show the active indicator dot beneath the tile. */
   readonly active = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

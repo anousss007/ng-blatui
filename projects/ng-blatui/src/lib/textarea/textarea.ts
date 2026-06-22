@@ -11,6 +11,7 @@ const TEXTAREA_SIZES = {
   lg: 'min-h-20 px-4 py-2.5 text-base',
 } as const;
 
+/** Size preset controlling minimum height, padding and text size. */
 export type TextareaSize = keyof typeof TEXTAREA_SIZES;
 
 /** Applies BlatUI textarea styling to a native `<textarea>` (auto-grows via field-sizing). */
@@ -23,6 +24,7 @@ export type TextareaSize = keyof typeof TEXTAREA_SIZES;
   },
 })
 export class BuiTextarea {
+  /** Size preset controlling minimum height, padding and text size. */
   readonly size = input<TextareaSize>('default');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

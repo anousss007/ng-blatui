@@ -54,11 +54,17 @@ import { type ClassValue, cn } from '../utils/cn';
   `,
 })
 export class BuiImage {
+  /** Source URL of the full image to load. */
   readonly src = input('');
+  /** Alternative text for the image. */
   readonly alt = input('');
+  /** CSS `aspect-ratio` reserved for the image (e.g. `16 / 9`). */
   readonly ratio = input('');
+  /** URL of a low-res image shown blurred while the full image loads. */
   readonly placeholder = input('');
+  /** Tailwind class controlling corner rounding. */
   readonly rounded = input('rounded-lg');
+  /** How the image fills its box: `cover` crops, `contain` letterboxes. */
   readonly fit = input<'cover' | 'contain'>('cover');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

@@ -47,9 +47,13 @@ const TONES = {
   },
 } as const;
 
+/** Badge size preset controlling padding and font size. */
 export type BadgeSize = keyof typeof SIZES;
+/** Badge brand style, or `soft`/`solid` intensity when a `tone` is set. */
 export type BadgeVariant = keyof typeof VARIANTS | 'soft' | 'solid';
+/** Semantic color tone for the badge. */
 export type BadgeTone = keyof typeof TONES;
+/** Fill intensity applied to a toned badge. */
 export type BadgeIntensity = keyof (typeof TONES)['success'];
 
 function brandClass(variant: BadgeVariant): string {
@@ -87,8 +91,11 @@ function intensityFor(variant: BadgeVariant): BadgeIntensity {
   },
 })
 export class BuiBadge {
+  /** Brand variant, or the intensity (`soft`/`solid`/`outline`) when a `tone` is set. */
   readonly variant = input<BadgeVariant>('default');
+  /** Optional semantic tone; when set it overrides the brand variant's color. */
   readonly tone = input<BadgeTone | null>(null);
+  /** Badge size preset. */
   readonly size = input<BadgeSize>('default');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

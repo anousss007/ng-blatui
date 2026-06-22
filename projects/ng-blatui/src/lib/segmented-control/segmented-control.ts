@@ -4,7 +4,9 @@ import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface SegmentOption {
+  /** Value emitted when this segment is selected. */
   value: string;
+  /** Text shown on the segment button. */
   label: string;
 }
 
@@ -46,8 +48,11 @@ const noop = (): void => {};
   `,
 })
 export class BuiSegmentedControl implements ControlValueAccessor {
+  /** Currently selected segment value. Two-way bindable with `[(value)]`. */
   readonly value = model('');
+  /** Available segments; plain strings are used as both value and label. */
   readonly options = input<readonly (SegmentOption | string)[]>([]);
+  /** Whether all segments are disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

@@ -34,7 +34,9 @@ const noop = (): void => {};
   ],
 })
 export class BuiRadioGroup implements ControlValueAccessor {
+  /** Selected radio value. Two-way bindable with `[(value)]`. */
   readonly value = model<string | null>(null);
+  /** Whether the whole group is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
@@ -112,7 +114,9 @@ const ITEM =
   `,
 })
 export class BuiRadioGroupItem {
+  /** Value this item contributes to the group when selected. */
   readonly value = input.required<string>();
+  /** Whether this individual radio item is disabled. */
   readonly disabled = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

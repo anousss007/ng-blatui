@@ -25,7 +25,9 @@ const ITEM_SIZES = {
   },
 })
 export class BuiItem {
+  /** Visual style of the item: transparent, outlined, or muted background. */
   readonly variant = input<keyof typeof ITEM_VARIANTS>('default');
+  /** Item density: standard padding or a more compact `sm` size. */
   readonly size = input<keyof typeof ITEM_SIZES>('default');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>
@@ -48,6 +50,7 @@ const MEDIA_VARIANTS = {
   },
 })
 export class BuiItemMedia {
+  /** Media presentation: plain, an icon tile, or a cropped image thumbnail. */
   readonly variant = input<keyof typeof MEDIA_VARIANTS>('default');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>

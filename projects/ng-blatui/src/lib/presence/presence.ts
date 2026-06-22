@@ -43,10 +43,15 @@ const SIZES = { sm: 'size-2', default: 'size-2.5', lg: 'size-3' } as const;
   `,
 })
 export class BuiPresence {
+  /** Presence state, which sets the dot color and default label. */
   readonly status = input<keyof typeof COLORS>('online');
+  /** Size preset for the status dot. */
   readonly size = input<keyof typeof SIZES>('default');
+  /** Whether to show a pulsing ping animation (only when `online`). */
   readonly pulse = input(false);
+  /** Custom label text; defaults to the status name. */
   readonly label = input('');
+  /** Whether to render the label visibly; otherwise it stays screen-reader only. */
   readonly showLabel = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

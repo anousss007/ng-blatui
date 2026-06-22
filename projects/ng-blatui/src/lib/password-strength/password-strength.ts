@@ -91,12 +91,19 @@ const TEXT_COLORS = [
   `,
 })
 export class BuiPasswordStrength {
+  /** Current password value. Two-way bindable with `[(password)]`. */
   readonly password = model('');
+  /** Native `name` attribute for the input. */
   readonly name = input('password');
+  /** Input `id`; defaults to `name` when empty. */
   readonly id = input('');
+  /** Placeholder text for the input. */
   readonly placeholder = input('••••••••');
+  /** Whether the requirement checklist is shown. */
   readonly showChecklist = input(true);
+  /** Minimum length required to satisfy the length rule. */
   readonly minLength = input(8);
+  /** Accessible label for the input. */
   readonly label = input('Password');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

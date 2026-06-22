@@ -70,11 +70,17 @@ function applyMask(value: string, mask: string): string {
   `,
 })
 export class BuiInputMask implements ControlValueAccessor {
+  /** Mask pattern where `9` accepts a digit, `a` a letter, `*` an alphanumeric, and other chars are literals. */
   readonly mask = input('');
+  /** Current masked value. Two-way bindable with `[(value)]`. */
   readonly value = model('');
+  /** Placeholder text shown when the input is empty. */
   readonly placeholder = input('');
+  /** Value for the native `inputmode` attribute hinting the virtual keyboard. */
   readonly inputmode = input('');
+  /** Name attribute applied to the underlying input for form submission. */
   readonly name = input('');
+  /** Whether the input is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

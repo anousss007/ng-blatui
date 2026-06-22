@@ -79,7 +79,9 @@ function pseudo(seed: number): number {
   `,
 })
 export class BuiMeteors {
+  /** Number of meteor streaks to render. */
   readonly count = input(20);
+  /** Meteor colour; defaults to a translucent foreground tint. */
   readonly color = input<string | null>(null);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 

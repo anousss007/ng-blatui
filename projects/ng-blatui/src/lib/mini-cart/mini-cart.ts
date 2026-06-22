@@ -4,10 +4,15 @@ import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface CartItem {
+  /** Product name shown as the line-item label. */
   name: string;
+  /** Optional variant description shown under the name. */
   variant?: string;
+  /** Unit price of the item. */
   price: number;
+  /** Quantity in the cart. */
   qty: number;
+  /** Optional thumbnail image URL. */
   image?: string;
 }
 
@@ -94,11 +99,16 @@ export interface CartItem {
   `,
 })
 export class BuiMiniCart {
+  /** Line items in the cart, used for count and subtotal. */
   readonly items = input<readonly CartItem[]>([]);
+  /** Currency symbol prefixed to prices and subtotal. */
   readonly currency = input('$');
+  /** Whether the dropdown is open. Two-way bindable with `[(open)]`. */
   readonly open = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Accessible label override for the cart trigger button. */
   readonly triggerLabel = input<string>();
+  /** Accessible label override for the cart dropdown dialog. */
   readonly label = input<string>();
 
   protected readonly triggerText = buiLabel('miniCartTrigger', this.triggerLabel);
