@@ -148,6 +148,39 @@
     <main class="min-w-0">
       <router-outlet />
     </main>
+  } @else if (isDocsRoute()) {
+    <div class="mx-auto flex max-w-screen-2xl">
+      <aside
+        class="sticky top-14 hidden h-[calc(100svh-3.5rem)] w-64 shrink-0 overflow-y-auto border-r bg-background p-4 md:block"
+      >
+        <nav class="space-y-1 text-sm">
+          <p
+            class="mb-1.5 px-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase"
+          >
+            Documentation
+          </p>
+          <ul class="space-y-0.5">
+            @for (link of docsLinks; track link.path) {
+              <li>
+                <a
+                  class="block rounded-md px-2 py-1.5 text-foreground transition-colors hover:bg-accent/60"
+                  [routerLink]="link.path"
+                  routerLinkActive="bg-accent text-accent-foreground font-medium"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  >{{ link.label }}</a
+                >
+              </li>
+            }
+          </ul>
+        </nav>
+      </aside>
+
+      <main class="min-w-0 flex-1 px-4 py-8 lg:px-10">
+        <div class="mx-auto max-w-3xl">
+          <router-outlet />
+        </div>
+      </main>
+    </div>
   } @else if (isComponentRoute()) {
     <div class="mx-auto flex max-w-screen-2xl">
       <aside

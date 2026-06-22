@@ -189,6 +189,8 @@ export class App {
   );
   /** Component routes (/components, /components/:slug) get the categorized docs sidebar. */
   protected readonly isComponentRoute = computed(() => this.url().startsWith('/components'));
+  /** Docs routes (/docs/*) get the docs sidebar. */
+  protected readonly isDocsRoute = computed(() => this.url().startsWith('/docs'));
   /** Mobile slide-over navigation (hamburger menu). */
   protected readonly mobileNavOpen = signal(false);
 
@@ -211,6 +213,13 @@ export class App {
     { label: 'Templates', path: '/templates' },
     { label: 'Charts', path: '/charts' },
     { label: 'Themes', path: '/themes' },
+  ];
+
+  /** Docs sidebar links. */
+  protected readonly docsLinks: readonly NavLink[] = [
+    { label: 'Installation', path: '/docs/installation' },
+    { label: 'Theming', path: '/docs/theming' },
+    { label: 'AI & MCP', path: '/docs/ai' },
   ];
 
   /** Categorized component sidebar — mirrors BlatUI's docs sidebar (config/docs.php). */
