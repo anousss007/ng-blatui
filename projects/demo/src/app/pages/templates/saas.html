@@ -1,0 +1,478 @@
+<div id="tpl-saas">
+  <!-- Announcement -->
+  <div class="sa-banner">
+    <span class="inline-flex items-center gap-2"
+      ><app-lucide name="sparkles" class="size-4" /> Nimbus 2.0 is here — automations, faster
+      dashboards &amp; SSO.</span
+    >
+    <a href="#pricing" class="font-semibold underline underline-offset-2">See what's new</a>
+  </div>
+
+  <!-- Nav -->
+  <header
+    class="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60"
+  >
+    <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-6">
+      <a href="#" class="flex items-center gap-2 font-semibold tracking-tight">
+        <span
+          class="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground"
+          ><app-lucide name="cloud" class="size-5"
+        /></span>
+        Nimbus
+      </a>
+      <nav class="ml-4 hidden items-center gap-1 text-sm md:flex">
+        @for (link of nav; track link.href) {
+          <a
+            [href]="link.href"
+            class="rounded-md px-3 py-1.5 font-medium text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
+            >{{ link.label }}</a
+          >
+        }
+      </nav>
+      <div class="ml-auto flex items-center gap-1.5">
+        <button type="button" class="sa-icon-btn" aria-label="Toggle theme">
+          <app-lucide name="sun" class="size-4 dark:hidden" /><app-lucide
+            name="moon"
+            class="hidden size-4 dark:block"
+          />
+        </button>
+        <a href="#" class="sa-btn sa-btn-sm sa-btn-ghost hidden sm:inline-flex">Sign in</a>
+        <a href="#pricing" class="sa-btn sa-btn-sm sa-btn-primary hidden sm:inline-flex"
+          >Get started <app-lucide name="arrow-right" class="size-4"
+        /></a>
+        <button
+          class="sa-btn sa-btn-sm sa-btn-outline md:hidden"
+          style="width: 2.25rem; padding: 0"
+          aria-label="Open menu"
+        >
+          <app-lucide name="menu" class="size-4" />
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b">
+    <div class="pointer-events-none absolute inset-x-0 -top-40 -z-10 flex justify-center">
+      <div
+        class="h-[28rem] w-[60rem] rounded-full bg-gradient-to-b from-primary/25 to-transparent blur-3xl"
+      ></div>
+    </div>
+    <div class="mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:py-28">
+      <div>
+        <span class="sa-badge sa-badge-primary mb-5"
+          ><app-lucide name="rocket" class="size-3.5" /> New · Automations &amp; SSO</span
+        >
+        <h1 class="text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+          Ship <bui-typewriter [words]="typeWords" class="text-primary" /><br
+            class="hidden sm:block"
+          />with one source of truth.
+        </h1>
+        <p class="mt-5 max-w-lg text-lg text-balance text-muted-foreground">
+          Nimbus turns your scattered data into live dashboards and hands-off automations — so your
+          whole team makes faster decisions, together.
+        </p>
+        <div class="mt-7 flex flex-wrap items-center gap-3">
+          <a href="#pricing" class="sa-btn sa-btn-lg sa-btn-primary"
+            >Start free <app-lucide name="arrow-right" class="size-4"
+          /></a>
+          <a href="#spotlight" class="sa-btn sa-btn-lg sa-btn-outline"
+            ><app-lucide name="play" class="size-4" /> Watch demo</a
+          >
+        </div>
+        <div class="mt-8 flex items-center gap-4">
+          <div class="flex -space-x-2">
+            @for (id of heroAvatars; track id) {
+              <bui-avatar
+                class="size-9 ring-2 ring-background"
+                [src]="'https://images.unsplash.com/photo-' + id + '?w=80&q=80'"
+                alt=""
+                >N</bui-avatar
+              >
+            }
+          </div>
+          <div class="text-sm">
+            <div class="flex text-amber-500">
+              @for (s of [1, 2, 3, 4, 5]; track s) {
+                <app-lucide name="star" class="size-4 fill-current" />
+              }
+            </div>
+            <span class="text-muted-foreground"
+              >Loved by <span class="font-medium text-foreground">12,000+</span> teams</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Product mock -->
+      <div class="relative">
+        <div class="rounded-xl border bg-card shadow-2xl">
+          <div class="flex items-center gap-1.5 border-b px-4 py-3">
+            <span class="size-3 rounded-full bg-red-400"></span
+            ><span class="size-3 rounded-full bg-amber-400"></span
+            ><span class="size-3 rounded-full bg-emerald-400"></span>
+            <div
+              class="ml-3 flex-1 truncate rounded bg-muted px-2 py-1 text-xs text-muted-foreground"
+            >
+              app.nimbus.io/dashboard
+            </div>
+          </div>
+          <div class="space-y-4 p-5">
+            <div class="grid grid-cols-3 gap-3">
+              @for (k of mockKpis; track k.l) {
+                <div class="rounded-lg border bg-muted/40 p-3">
+                  <div class="text-xs text-muted-foreground">{{ k.l }}</div>
+                  <div class="mt-1 text-lg font-semibold">{{ k.v }}</div>
+                  <div class="text-xs font-medium text-primary">{{ k.d }}</div>
+                </div>
+              }
+            </div>
+            <div class="rounded-lg border bg-muted/40 p-4">
+              <div class="mb-3 flex items-center justify-between">
+                <span class="text-sm font-medium">Visitors</span>
+                <span class="sa-badge sa-badge-success text-xs">Live</span>
+              </div>
+              <div class="flex h-28 items-end gap-1.5">
+                @for (h of mockBars; track $index) {
+                  <div
+                    class="flex-1 rounded-t bg-primary/80 transition-colors hover:bg-primary"
+                    [style.height.%]="h"
+                  ></div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logo wall -->
+  <section class="border-b py-10">
+    <p class="mb-6 text-center text-sm text-muted-foreground">
+      Trusted by fast-moving teams worldwide
+    </p>
+    <div class="sa-marquee mx-auto max-w-5xl">
+      @for (name of logos; track name) {
+        <span class="px-2 text-xl font-semibold whitespace-nowrap text-muted-foreground/70">{{
+          name
+        }}</span>
+      }
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="scroll-mt-20 py-20 lg:py-28">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mx-auto max-w-2xl text-center">
+        <span class="sa-badge sa-badge-outline mb-4">Features</span>
+        <h2 class="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+          Everything you need to move faster
+        </h2>
+        <p class="mt-3 text-lg text-balance text-muted-foreground">
+          One platform for analytics, automation and collaboration — so your team stops switching
+          tabs and starts shipping.
+        </p>
+      </div>
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        @for (f of features; track f.title) {
+          <div class="sa-card sa-card-hover">
+            <div
+              class="mb-4 inline-flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary"
+            >
+              <app-lucide [name]="f.icon" class="size-5" />
+            </div>
+            <h3 class="font-semibold">{{ f.title }}</h3>
+            <p class="mt-1.5 text-sm text-muted-foreground">{{ f.desc }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Spotlight (tabs, dashboards active) -->
+  <section id="spotlight" class="scroll-mt-20 border-y bg-muted/30 py-20 lg:py-28">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mx-auto mb-12 max-w-2xl text-center">
+        <span class="sa-badge sa-badge-outline mb-4">How it works</span>
+        <h2 class="text-3xl font-bold tracking-tight text-balance sm:text-4xl">A closer look</h2>
+      </div>
+      <div class="mx-auto w-full max-w-4xl">
+        <div class="sa-tablist mx-auto max-w-md">
+          @for (s of spotlight; track s.key; let first = $first) {
+            <span class="sa-tab" [class.sa-tab-active]="first">{{ s.label }}</span>
+          }
+        </div>
+        @for (s of spotlight; track s.key; let first = $first) {
+          @if (first) {
+            <div class="mt-8 grid items-center gap-8 lg:grid-cols-2">
+              <div>
+                <div
+                  class="mb-4 inline-flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary"
+                >
+                  <app-lucide [name]="s.icon" class="size-5" />
+                </div>
+                <h3 class="text-2xl font-semibold tracking-tight">{{ s.title }}</h3>
+                <p class="mt-3 text-muted-foreground">{{ s.desc }}</p>
+                <ul class="mt-5 space-y-2.5 text-sm">
+                  @for (p of s.points; track p) {
+                    <li class="flex items-center gap-2.5">
+                      <span
+                        class="inline-flex size-5 items-center justify-center rounded-full bg-primary/10 text-primary"
+                        ><app-lucide name="check" class="size-3.5"
+                      /></span>
+                      {{ p }}
+                    </li>
+                  }
+                </ul>
+              </div>
+              <div class="aspect-[4/3] overflow-hidden rounded-xl border bg-card shadow-sm">
+                <img
+                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80"
+                  [alt]="s.title"
+                  loading="lazy"
+                  class="size-full object-cover"
+                />
+              </div>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="py-16">
+    <div class="mx-auto grid max-w-5xl grid-cols-2 gap-8 px-6 text-center lg:grid-cols-4">
+      @for (s of stats; track s.l) {
+        <div>
+          <div class="text-4xl font-bold tracking-tight">{{ s.v }}</div>
+          <div class="mt-1 text-sm text-muted-foreground">{{ s.l }}</div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="border-y bg-muted/30 py-20 lg:py-28">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mx-auto mb-12 max-w-2xl text-center">
+        <span class="sa-badge sa-badge-outline mb-4">Testimonials</span>
+        <h2 class="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+          Teams ship more with Nimbus
+        </h2>
+      </div>
+      <div class="grid gap-6 lg:grid-cols-3">
+        @for (t of testimonials; track t.a) {
+          <div class="sa-card flex flex-col">
+            <figure class="flex flex-1 flex-col">
+              <blockquote class="flex-1 text-base">"{{ t.q }}"</blockquote>
+              <figcaption class="mt-5 flex items-center gap-3">
+                <bui-avatar class="size-10" [src]="t.img" [alt]="t.a">{{
+                  t.a.charAt(0)
+                }}</bui-avatar>
+                <div>
+                  <div class="text-sm font-semibold">{{ t.a }}</div>
+                  <div class="text-xs text-muted-foreground">{{ t.r }}</div>
+                </div>
+              </figcaption>
+            </figure>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="scroll-mt-20 py-20 lg:py-28">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="mx-auto mb-10 max-w-2xl text-center">
+        <span class="sa-badge sa-badge-outline mb-4">Pricing</span>
+        <h2 class="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+          Simple, per-workspace pricing
+        </h2>
+        <p class="mt-3 text-lg text-muted-foreground">
+          Start free. Upgrade when you're ready. Adding teammates never costs more.
+        </p>
+        <div class="mt-6 inline-flex items-center gap-1 rounded-lg border p-1 text-sm">
+          <button
+            type="button"
+            (click)="yearly.set(false)"
+            class="sa-toggle-btn"
+            [class.sa-toggle-active]="!yearly()"
+          >
+            Monthly
+          </button>
+          <button
+            type="button"
+            (click)="yearly.set(true)"
+            class="sa-toggle-btn"
+            [class.sa-toggle-active]="yearly()"
+          >
+            Yearly <span class="sa-badge sa-badge-success" style="font-size: 10px">-17%</span>
+          </button>
+        </div>
+      </div>
+      <div class="grid items-stretch gap-6 lg:grid-cols-3">
+        @for (plan of plans; track plan.name) {
+          <div class="sa-card relative flex flex-col" [class.sa-card-highlight]="plan.highlight">
+            @if (plan.highlight) {
+              <span
+                class="sa-badge sa-badge-primary-solid absolute -top-3 left-1/2 -translate-x-1/2"
+                >Most popular</span
+              >
+            }
+            <h3 class="text-lg font-semibold">{{ plan.name }}</h3>
+            <p class="text-sm text-muted-foreground">{{ plan.tag }}</p>
+            <div class="mt-4 flex items-baseline gap-1">
+              <span class="text-4xl font-bold tracking-tight"
+                >${{ yearly() ? plan.y : plan.m }}</span
+              >
+              <span class="text-sm text-muted-foreground">/mo</span>
+            </div>
+            <a
+              href="#"
+              class="sa-btn mt-5 w-full"
+              [class.sa-btn-primary]="plan.highlight"
+              [class.sa-btn-outline]="!plan.highlight"
+              >{{ plan.cta }}</a
+            >
+            <hr class="my-5 border-border" />
+            <ul class="space-y-3 text-sm">
+              @for (feat of plan.features; track feat) {
+                <li class="flex items-start gap-2.5">
+                  <app-lucide name="check" class="mt-0.5 size-4 shrink-0 text-primary" /> {{ feat }}
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="scroll-mt-20 border-y bg-muted/30 py-20 lg:py-28">
+    <div class="mx-auto max-w-3xl px-6">
+      <div class="mb-10 text-center">
+        <span class="sa-badge sa-badge-outline mb-4">FAQ</span>
+        <h2 class="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+          Questions, answered
+        </h2>
+      </div>
+      <div class="w-full">
+        @for (faq of faqs; track faq.q; let first = $first) {
+          <details class="group border-b" [open]="first">
+            <summary
+              class="flex cursor-pointer items-center justify-between py-4 text-left font-medium"
+            >
+              {{ faq.q }}
+              <app-lucide
+                name="chevron-down"
+                class="size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180"
+              />
+            </summary>
+            <p class="pb-4 text-sm text-muted-foreground">{{ faq.a }}</p>
+          </details>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 lg:py-28">
+    <div class="mx-auto max-w-5xl px-6">
+      <div
+        class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-primary/80 p-10 text-center text-primary-foreground shadow-xl lg:p-16"
+      >
+        <h2 class="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+          Start shipping with Nimbus today
+        </h2>
+        <p class="mx-auto mt-3 max-w-xl text-balance text-primary-foreground/80">
+          Free for side projects. A 14-day trial on Pro — no credit card required.
+        </p>
+        <div
+          class="mx-auto mt-6 flex max-w-sm items-center gap-2 rounded-lg bg-black/15 p-1.5 font-mono text-sm"
+        >
+          <span class="pl-2 text-primary-foreground/60">$</span>
+          <span class="flex-1 truncate text-left">npx create-nimbus&#64;latest</span>
+          <button
+            type="button"
+            class="inline-flex size-8 items-center justify-center rounded-md text-primary-foreground hover:bg-white/15"
+            aria-label="Copy command"
+          >
+            <app-lucide name="copy" class="size-4" />
+          </button>
+        </div>
+        <div class="mt-6 flex flex-wrap justify-center gap-3">
+          <a href="#" class="sa-btn sa-btn-lg sa-btn-secondary"
+            >Get started free <app-lucide name="arrow-right" class="size-4"
+          /></a>
+          <a
+            href="#"
+            class="sa-btn sa-btn-lg"
+            style="
+              border: 1px solid rgba(255, 255, 255, 0.3);
+              color: var(--primary-foreground);
+              background: transparent;
+            "
+            >Talk to sales</a
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t">
+    <div class="mx-auto max-w-6xl px-6 py-14">
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-6">
+        <div class="lg:col-span-2">
+          <a href="#" class="flex items-center gap-2 font-semibold">
+            <span
+              class="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground"
+              ><app-lucide name="cloud" class="size-5"
+            /></span>
+            Nimbus
+          </a>
+          <p class="mt-3 max-w-xs text-sm text-muted-foreground">
+            Analytics, automation and collaboration for modern teams.
+          </p>
+          <div class="mt-5 flex gap-2">
+            @for (s of socials; track s) {
+              <a
+                href="#"
+                [attr.aria-label]="s"
+                class="sa-social inline-flex size-9 items-center justify-center rounded-md border text-muted-foreground transition-colors"
+                ><app-lucide [name]="s" class="size-4"
+              /></a>
+            }
+          </div>
+        </div>
+        @for (col of footer; track col.heading) {
+          <div>
+            <h3 class="text-sm font-semibold">{{ col.heading }}</h3>
+            <ul class="mt-3 space-y-2 text-sm">
+              @for (link of col.links; track link) {
+                <li>
+                  <a href="#" class="sa-foot-link text-muted-foreground transition-colors">{{
+                    link
+                  }}</a>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+      <hr class="my-8 border-border" />
+      <div
+        class="flex flex-col items-center justify-between gap-3 text-sm text-muted-foreground sm:flex-row"
+      >
+        <span>© 2026 Nimbus, Inc. All rights reserved.</span>
+        <span class="flex items-center gap-1.5"
+          ><app-lucide name="shield-check" class="size-4" /> SOC 2 Type II · GDPR ready</span
+        >
+      </div>
+    </div>
+  </footer>
+</div>
