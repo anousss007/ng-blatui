@@ -949,6 +949,7 @@ export class ComponentPage {
     });
   }
   protected readonly acValue = signal('');
+  protected readonly acMultiple = signal<string[]>(['Angular', 'Svelte']);
   protected readonly acOptions = ['Angular', 'React', 'Svelte', 'Vue', 'Solid', 'Qwik'];
   protected readonly compareValue = signal(50);
   protected readonly drawerOpen = signal(false);
@@ -3199,6 +3200,9 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 <bui-autocomplete [options]="opts" size="lg" />`,
     autocompleteIcon: `<!-- icon = an SVG path d string (leading icon) -->
 <bui-autocomplete [options]="opts" icon="m21 21-4.3-4.3M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z" />`,
+    autocompleteMultiple: `<!-- [multiple]="true" → removable chips, Backspace removes last, picked are filtered out -->
+<bui-autocomplete [multiple]="true" [(values)]="picked" [options]="opts" />
+// picked = signal<string[]>([])`,
     comparisonSlider: `import { BuiComparisonSlider } from 'ng-blatui';
 
 <bui-comparison-slider before="/before.jpg" after="/after.jpg" beforeLabel="Before" afterLabel="After" />`,

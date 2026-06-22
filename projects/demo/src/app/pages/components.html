@@ -8396,6 +8396,17 @@ This content is read-only and cannot be edited.</textarea
           placeholder="Search…"
         />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Multiple</h2>
+      <app-example [code]="code.autocompleteMultiple">
+        <bui-autocomplete
+          class="w-64"
+          [multiple]="true"
+          [(values)]="acMultiple"
+          [options]="acOptions"
+          placeholder="Add frameworks…"
+        />
+      </app-example>
     }
     @case ('comparison-slider') {
       <app-example [code]="code.comparisonSlider">

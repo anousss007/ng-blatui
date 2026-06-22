@@ -19,39 +19,85 @@ const AC_SIZE: Record<AutocompleteSize, string> = {
     '(document:click)': 'onDocumentClick($event)',
   },
   template: `
-    @if (icon(); as icon) {
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-        class="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
-      >
-        <path [attr.d]="icon" />
-      </svg>
+    @if (multiple()) {
+      <div [class]="boxClass()">
+        @for (chip of values(); track chip) {
+          <span
+            class="inline-flex items-center gap-1 rounded bg-secondary px-1.5 py-0.5 text-xs text-secondary-foreground"
+          >
+            {{ chip }}
+            <button
+              type="button"
+              class="text-muted-foreground hover:text-foreground"
+              [attr.aria-label]="'Remove ' + chip"
+              (click)="removeChip(chip); $event.stopPropagation()"
+            >
+              <svg
+                class="size-3"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                aria-hidden="true"
+              >
+                <path d="M18 6 6 18M6 6l12 12" />
+              </svg>
+            </button>
+          </span>
+        }
+        <input
+          type="text"
+          role="combobox"
+          aria-autocomplete="list"
+          [attr.aria-expanded]="open()"
+          [attr.aria-controls]="listId"
+          [value]="value()"
+          [placeholder]="values().length > 0 ? '' : placeholder()"
+          [disabled]="disabled()"
+          [attr.name]="name() || null"
+          class="min-w-24 flex-1 bg-transparent text-sm outline-none disabled:cursor-not-allowed"
+          (input)="onInput($event)"
+          (focus)="open.set(true)"
+          (keydown)="onKeydown($event)"
+        />
+      </div>
+    } @else {
+      @if (icon(); as icon) {
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          class="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+        >
+          <path [attr.d]="icon" />
+        </svg>
+      }
+      <input
+        type="text"
+        role="combobox"
+        aria-autocomplete="list"
+        [attr.aria-expanded]="open()"
+        [attr.aria-controls]="listId"
+        [value]="value()"
+        [placeholder]="placeholder()"
+        [disabled]="disabled()"
+        [attr.name]="name() || null"
+        [class]="inputClass()"
+        (input)="onInput($event)"
+        (focus)="open.set(true)"
+        (keydown)="onKeydown($event)"
+      />
     }
-    <input
-      type="text"
-      role="combobox"
-      aria-autocomplete="list"
-      [attr.aria-expanded]="open()"
-      [attr.aria-controls]="listId"
-      [value]="value()"
-      [placeholder]="placeholder()"
-      [disabled]="disabled()"
-      [attr.name]="name() || null"
-      [class]="inputClass()"
-      (input)="onInput($event)"
-      (focus)="open.set(true)"
-      (keydown)="onKeydown($event)"
-    />
     @if (open() && filtered().length > 0) {
       <ul
         [id]="listId"
         role="listbox"
+        [attr.aria-multiselectable]="multiple() ? true : null"
         class="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-popover p-1 shadow-md"
       >
         @for (option of filtered(); track option; let i = $index) {
@@ -78,6 +124,9 @@ const AC_SIZE: Record<AutocompleteSize, string> = {
 })
 export class BuiAutocomplete {
   readonly value = model('');
+  /** Pick several values, shown as removable chips; binds `values`. */
+  readonly multiple = input(false);
+  readonly values = model<readonly string[]>([]);
   readonly options = input<readonly string[]>([]);
   readonly placeholder = input('Search...');
   readonly empty = input('No results found.');
@@ -95,6 +144,11 @@ export class BuiAutocomplete {
       this.icon() ? 'pr-3 pl-9' : 'px-3',
     ),
   );
+  protected readonly boxClass = computed(() =>
+    cn(
+      'flex min-h-9 w-full flex-wrap items-center gap-1 rounded-md border border-input bg-transparent px-2 py-1 shadow-xs focus-within:border-ring focus-within:ring-[3px] focus-within:ring-ring/50',
+    ),
+  );
 
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly listId = inject(_IdGenerator).getId('bui-autocomplete-');
@@ -102,10 +156,14 @@ export class BuiAutocomplete {
   protected readonly active = signal(0);
   protected readonly filtered = computed(() => {
     const query = this.value().trim().toLowerCase();
+    const picked = this.values();
+    const pool = this.multiple()
+      ? this.options().filter((option) => !picked.includes(option))
+      : this.options();
     if (query === '') {
-      return this.options();
+      return pool;
     }
-    return this.options().filter((option) => option.toLowerCase().includes(query));
+    return pool.filter((option) => option.toLowerCase().includes(query));
   });
   protected readonly computedClass = computed(() => cn('relative block', this.userClass()));
 
@@ -129,12 +187,29 @@ export class BuiAutocomplete {
       this.choose(options[this.active()]);
     } else if (event.key === 'Escape') {
       this.open.set(false);
+    } else if (event.key === 'Backspace' && this.multiple() && this.value() === '') {
+      const picked = this.values();
+      if (picked.length > 0) {
+        this.values.set(picked.slice(0, -1));
+      }
     }
   }
 
   protected choose(option: string): void {
+    if (this.multiple()) {
+      if (!this.values().includes(option)) {
+        this.values.set([...this.values(), option]);
+      }
+      this.value.set('');
+      this.active.set(0);
+      return;
+    }
     this.value.set(option);
     this.open.set(false);
+  }
+
+  protected removeChip(chip: string): void {
+    this.values.set(this.values().filter((value) => value !== chip));
   }
 
   protected onDocumentClick(event: MouseEvent): void {
