@@ -1,5 +1,6 @@
 import { afterNextRender, Component, computed, input, signal } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 const VARIANTS = {
@@ -22,7 +23,7 @@ const VARIANTS = {
   template: `
     <button
       type="button"
-      aria-label="Back to top"
+      [attr.aria-label]="labelText()"
       class="inline-flex size-10 items-center justify-center rounded-full shadow-md transition-colors outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
       [class]="variantClass()"
       (click)="toTop()"
@@ -47,7 +48,9 @@ export class BuiBackToTop {
   readonly threshold = input(300);
   readonly variant = input<keyof typeof VARIANTS>('primary');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly label = input<string>();
 
+  protected readonly labelText = buiLabel('backToTop', this.label);
   protected readonly shown = signal(false);
   protected readonly variantClass = computed(() => VARIANTS[this.variant()]);
   protected readonly computedClass = computed(() =>

@@ -1,5 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface ComparisonRow {
@@ -52,13 +53,13 @@ export interface ComparisonRow {
                     stroke-width="2"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    aria-label="Included"
+                    [attr.aria-label]="includedText()"
                     class="mx-auto size-4 text-primary"
                   >
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                 } @else if (value === false || value === null) {
-                  <span class="text-muted-foreground" aria-label="Not included">—</span>
+                  <span class="text-muted-foreground" [attr.aria-label]="notIncludedText()">—</span>
                 } @else {
                   {{ value }}
                 }
@@ -76,6 +77,14 @@ export class BuiComparisonTable {
   readonly highlight = input<number | string | null>(null);
   readonly featureLabel = input('Feature');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly includedLabel = input<string>();
+  readonly notIncludedLabel = input<string>();
+
+  protected readonly includedText = buiLabel('comparisonTableIncluded', this.includedLabel);
+  protected readonly notIncludedText = buiLabel(
+    'comparisonTableNotIncluded',
+    this.notIncludedLabel,
+  );
 
   protected readonly highlightIndex = computed(() => {
     const highlight = this.highlight();

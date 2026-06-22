@@ -8,6 +8,7 @@ import {
   viewChild,
 } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 interface Tool {
@@ -32,7 +33,7 @@ const TOOLS: Tool[] = [
   template: `
     <div
       role="toolbar"
-      aria-label="Formatting"
+      [attr.aria-label]="formattingText()"
       class="flex flex-wrap gap-0.5 border-b bg-muted/40 p-1"
     >
       @for (tool of tools; track tool.cmd) {
@@ -64,8 +65,11 @@ export class BuiRichTextEditor {
   readonly value = model('');
   readonly placeholder = input('Write something…');
   readonly ariaLabel = input('Rich text editor');
+  readonly formattingLabel = input<string>();
   readonly name = input('');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+  protected readonly formattingText = buiLabel('richTextEditorFormatting', this.formattingLabel);
 
   protected readonly tools = TOOLS;
   private readonly editor = viewChild<ElementRef<HTMLElement>>('editor');

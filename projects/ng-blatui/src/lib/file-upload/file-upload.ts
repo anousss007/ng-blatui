@@ -1,5 +1,6 @@
 import { Component, computed, input, output, signal } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 function formatSize(bytes: number): string {
@@ -39,7 +40,7 @@ function formatSize(bytes: number): string {
       >
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
       </svg>
-      <span class="text-sm font-medium">Click to upload or drag &amp; drop</span>
+      <span class="text-sm font-medium">{{ dropzoneText() }}</span>
       @if (hint()) {
         <span class="text-xs text-muted-foreground">{{ hint() }}</span>
       }
@@ -68,7 +69,7 @@ function formatSize(bytes: number): string {
             <button
               type="button"
               class="rounded-sm p-1 hover:bg-accent"
-              aria-label="Remove file"
+              [attr.aria-label]="removeText()"
               (click)="remove(file)"
             >
               <svg
@@ -98,6 +99,11 @@ export class BuiFileUpload {
   readonly disabled = input(false);
   readonly filesChange = output<readonly File[]>();
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly dropzoneLabel = input<string>();
+  readonly removeLabel = input<string>();
+
+  protected readonly dropzoneText = buiLabel('fileUploadDropzone', this.dropzoneLabel);
+  protected readonly removeText = buiLabel('fileUploadRemove', this.removeLabel);
 
   protected readonly dragging = signal(false);
   protected readonly files = signal<readonly File[]>([]);

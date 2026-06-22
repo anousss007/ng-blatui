@@ -1,5 +1,6 @@
 import { Component, computed, inject, Injectable, input, signal } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { cn } from '../utils/cn';
 
 export type ToastTone = 'default' | 'success' | 'error' | 'warning' | 'info';
@@ -64,7 +65,7 @@ const TONE: Record<ToastTone, string> = {
   selector: 'bui-sonner',
   host: { 'data-slot': 'sonner' },
   template: `
-    <div role="region" aria-label="Notifications" [class]="regionClass()">
+    <div role="region" [attr.aria-label]="ariaLabelText()" [class]="regionClass()">
       @for (toast of toaster.toasts(); track toast.id) {
         <div
           role="status"
@@ -90,7 +91,7 @@ const TONE: Record<ToastTone, string> = {
           <button
             type="button"
             class="shrink-0 opacity-70 hover:opacity-100"
-            aria-label="Dismiss notification"
+            [attr.aria-label]="dismissText()"
             (click)="toaster.dismiss(toast.id)"
           >
             <svg
@@ -112,6 +113,12 @@ const TONE: Record<ToastTone, string> = {
 })
 export class BuiSonner {
   readonly position = input('bottom-right');
+  readonly ariaLabel = input<string>();
+  readonly dismissLabel = input<string>();
+
+  protected readonly ariaLabelText = buiLabel('sonner', this.ariaLabel);
+  protected readonly dismissText = buiLabel('sonnerDismiss', this.dismissLabel);
+
   protected readonly toaster = inject(BuiToaster);
   protected readonly regionClass = computed(() =>
     cn('pointer-events-none fixed z-[100] flex flex-col gap-2', POSITION[this.position()]),

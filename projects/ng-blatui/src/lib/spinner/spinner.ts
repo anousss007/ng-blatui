@@ -1,5 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 /** A spinning loading indicator (`role="status"`). */
@@ -8,7 +9,7 @@ import { type ClassValue, cn } from '../utils/cn';
   host: {
     'data-slot': 'spinner',
     role: 'status',
-    'aria-label': 'Loading',
+    '[attr.aria-label]': 'labelText()',
     '[class]': 'computedClass()',
   },
   template: `
@@ -28,6 +29,9 @@ import { type ClassValue, cn } from '../utils/cn';
 })
 export class BuiSpinner {
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly label = input<string>();
+
+  protected readonly labelText = buiLabel('spinnerLoading', this.label);
   protected readonly computedClass = computed(() =>
     cn('inline-block size-4 animate-spin', this.userClass()),
   );

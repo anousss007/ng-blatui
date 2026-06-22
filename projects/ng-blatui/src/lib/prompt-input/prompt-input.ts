@@ -9,6 +9,7 @@ import {
   viewChild,
 } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 /** A chat composer: an autosizing textarea with a send button. Emits `submitted` on send. */
@@ -31,7 +32,7 @@ import { type ClassValue, cn } from '../utils/cn';
       @if (attachable()) {
         <button
           type="button"
-          aria-label="Attach file"
+          [attr.aria-label]="attachText()"
           class="inline-flex size-8 items-center justify-center text-muted-foreground hover:text-foreground"
         >
           <svg
@@ -54,7 +55,7 @@ import { type ClassValue, cn } from '../utils/cn';
         type="button"
         class="ml-auto inline-flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground disabled:opacity-50"
         [disabled]="disabled() || value().trim() === ''"
-        aria-label="Send"
+        [attr.aria-label]="sendText()"
         (click)="send()"
       >
         <svg
@@ -80,8 +81,13 @@ export class BuiPromptInput {
   readonly attachable = input(false);
   readonly disabled = input(false);
   readonly ariaLabel = input('Message');
+  readonly attachLabel = input<string>();
+  readonly sendLabel = input<string>();
   readonly submitted = output<string>();
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+  protected readonly attachText = buiLabel('promptInputAttach', this.attachLabel);
+  protected readonly sendText = buiLabel('promptInputSend', this.sendLabel);
 
   private readonly ta = viewChild<ElementRef<HTMLTextAreaElement>>('ta');
   protected readonly computedClass = computed(() =>

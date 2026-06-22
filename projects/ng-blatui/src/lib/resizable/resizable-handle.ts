@@ -1,5 +1,6 @@
 import { Component, computed, inject, input } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 import { BuiResizablePanelGroup } from './resizable-panel-group';
@@ -11,7 +12,7 @@ import { BuiResizablePanelGroup } from './resizable-panel-group';
     'data-slot': 'resizable-handle',
     role: 'separator',
     tabindex: '0',
-    'aria-label': 'Resize panel',
+    '[attr.aria-label]': 'ariaLabelText()',
     'aria-valuemin': '10',
     'aria-valuemax': '90',
     '[attr.aria-orientation]': "group.direction() === 'horizontal' ? 'vertical' : 'horizontal'",
@@ -30,8 +31,10 @@ import { BuiResizablePanelGroup } from './resizable-panel-group';
 })
 export class BuiResizableHandle {
   readonly withHandle = input(false);
+  readonly ariaLabel = input<string>();
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
+  protected readonly ariaLabelText = buiLabel('resizableHandle', this.ariaLabel);
   protected readonly group = inject(BuiResizablePanelGroup);
   protected readonly roundedSize = computed(() => Math.round(this.group.size()));
   protected readonly computedClass = computed(() =>

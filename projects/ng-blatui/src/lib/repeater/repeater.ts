@@ -1,5 +1,6 @@
 import { Component, computed, input, model } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface RepeaterField {
@@ -34,7 +35,7 @@ export interface RepeaterField {
           type="button"
           class="inline-flex size-9 shrink-0 items-center justify-center rounded-md border border-input text-muted-foreground hover:bg-accent disabled:opacity-50"
           [disabled]="rows().length <= min()"
-          aria-label="Remove row"
+          [attr.aria-label]="removeText()"
           (click)="removeRow(i)"
         >
           <svg
@@ -83,7 +84,10 @@ export class BuiRepeater {
   readonly min = input(1);
   readonly max = input<number | null>(null);
   readonly addLabel = input('Add row');
+  readonly removeLabel = input<string>();
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+  protected readonly removeText = buiLabel('repeaterRemove', this.removeLabel);
 
   protected readonly atMax = computed(() => {
     const max = this.max();

@@ -8,6 +8,7 @@ import {
   signal,
 } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 /**
@@ -21,7 +22,7 @@ import { type ClassValue, cn } from '../utils/cn';
     '[class]': 'computedClass()',
     '[style.height.px]': 'height()',
     role: 'progressbar',
-    'aria-label': 'Page loading',
+    '[attr.aria-label]': 'ariaLabelText()',
     '[attr.aria-valuenow]': 'visible() ? round(progress() * 100) : null',
   },
   template: `
@@ -38,6 +39,9 @@ export class BuiTopProgress {
   readonly height = input(2);
   readonly demo = input(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly ariaLabel = input<string>();
+
+  protected readonly ariaLabelText = buiLabel('topProgressLoading', this.ariaLabel);
 
   protected readonly progress = signal(0);
   protected readonly visible = signal(false);

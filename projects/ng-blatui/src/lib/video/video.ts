@@ -1,5 +1,6 @@
 import { Component, computed, type ElementRef, input, signal, viewChild } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 /** A styled HTML5 video with a poster + play-button facade. */
@@ -29,7 +30,7 @@ import { type ClassValue, cn } from '../utils/cn';
       <button
         type="button"
         class="absolute inset-0 flex items-center justify-center bg-black/30 transition-colors hover:bg-black/40"
-        aria-label="Play video"
+        [attr.aria-label]="playText()"
         (click)="play()"
       >
         <span
@@ -53,6 +54,9 @@ export class BuiVideo {
   readonly muted = input(false);
   readonly rounded = input('rounded-xl');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly playLabel = input<string>();
+
+  protected readonly playText = buiLabel('videoPlay', this.playLabel);
 
   private readonly v = viewChild<ElementRef<HTMLVideoElement>>('v');
   protected readonly started = signal(false);

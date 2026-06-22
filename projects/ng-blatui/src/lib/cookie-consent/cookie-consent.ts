@@ -1,5 +1,6 @@
 import { afterNextRender, Component, computed, input, output, signal } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 /** A GDPR cookie banner. Persists the choice in localStorage (skipped in `demo` mode). */
@@ -8,7 +9,7 @@ import { type ClassValue, cn } from '../utils/cn';
   host: {
     'data-slot': 'cookie-consent',
     role: 'region',
-    'aria-label': 'Cookie consent',
+    '[attr.aria-label]': 'ariaLabelText()',
     '[class]': 'computedClass()',
     '[hidden]': '!visible()',
   },
@@ -38,6 +39,9 @@ export class BuiCookieConsent {
   readonly storageKey = input('bui-cookie-consent');
   readonly decided = output<boolean>();
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  readonly ariaLabel = input<string>();
+
+  protected readonly ariaLabelText = buiLabel('cookieConsent', this.ariaLabel);
 
   protected readonly visible = signal(false);
   protected readonly computedClass = computed(() =>
