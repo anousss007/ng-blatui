@@ -5794,6 +5794,22 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.sliderVertical">
         <bui-slider class="h-40" orientation="vertical" [value]="40" ariaLabel="Volume" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Range</h2>
+      <app-example [code]="code.sliderRange">
+        <div class="w-full max-w-xs space-y-2">
+          <bui-slider
+            class="w-full"
+            [range]="true"
+            [(value)]="priceLow"
+            [(endValue)]="priceHigh"
+            ariaLabel="Price"
+          />
+          <p class="text-sm text-muted-foreground tabular-nums">
+            {{ priceLow() }} – {{ priceHigh() }}
+          </p>
+        </div>
+      </app-example>
     }
     @case ('rating') {
       <app-example [code]="code.rating">

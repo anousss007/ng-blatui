@@ -771,6 +771,8 @@ export class ComponentPage {
   protected readonly dmActivityBar = signal(false);
   protected readonly dmPanel = signal('bottom');
   protected readonly volume = signal(60);
+  protected readonly priceLow = signal(30);
+  protected readonly priceHigh = signal(70);
   protected readonly score = signal(4);
   protected readonly qty = signal(2);
   protected readonly view = signal('list');
@@ -2437,6 +2439,8 @@ this.dialog.open(tpl, { ariaModal: true });`,
     sliderSteps: `<bui-slider [value]="40" [min]="0" [max]="100" [step]="10" ariaLabel="Stepped" />`,
     sliderDisabled: `<bui-slider [value]="60" [disabled]="true" ariaLabel="Disabled" />`,
     sliderVertical: `<bui-slider class="h-40" orientation="vertical" [value]="40" ariaLabel="Volume" />`,
+    sliderRange: `<!-- [range]="true" adds a second thumb; bind both handles -->
+<bui-slider [range]="true" [(value)]="low" [(endValue)]="high" />`,
     rating: `import { BuiRating } from 'ng-blatui';
 
 <bui-rating [(value)]="score" [max]="5" ariaLabel="Rate" />`,
