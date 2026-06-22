@@ -122,6 +122,11 @@ export const routes: Routes = [
     title: 'Verdure · ng-blatui',
   },
   {
+    path: 'templates/vinyl',
+    loadComponent: async () => (await import('./pages/templates/vinyl')).VinylTemplate,
+    title: 'Vinyl · ng-blatui',
+  },
+  {
     path: 'templates/:slug',
     loadComponent: async () => (await import('./pages/templates')).TemplatesPage,
     title: 'Templates · ng-blatui',
