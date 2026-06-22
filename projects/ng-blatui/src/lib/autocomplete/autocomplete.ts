@@ -1,7 +1,22 @@
 import { _IdGenerator } from '@angular/cdk/a11y';
-import { Component, computed, ElementRef, inject, input, model, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  ElementRef,
+  forwardRef,
+  inject,
+  input,
+  model,
+  signal,
+} from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
+
+type AutocompleteValue = string | readonly string[];
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = (): void => {};
 
 export type AutocompleteSize = 'sm' | 'default' | 'lg';
 const AC_SIZE: Record<AutocompleteSize, string> = {
@@ -18,6 +33,9 @@ const AC_SIZE: Record<AutocompleteSize, string> = {
     '[class]': 'computedClass()',
     '(document:click)': 'onDocumentClick($event)',
   },
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiAutocomplete), multi: true },
+  ],
   template: `
     @if (multiple()) {
       <div [class]="boxClass()">
@@ -122,7 +140,7 @@ const AC_SIZE: Record<AutocompleteSize, string> = {
     }
   `,
 })
-export class BuiAutocomplete {
+export class BuiAutocomplete implements ControlValueAccessor {
   readonly value = model('');
   /** Pick several values, shown as removable chips; binds `values`. */
   readonly multiple = input(false);
@@ -130,7 +148,7 @@ export class BuiAutocomplete {
   readonly options = input<readonly string[]>([]);
   readonly placeholder = input('Search...');
   readonly empty = input('No results found.');
-  readonly disabled = input(false);
+  readonly disabled = model(false);
   readonly name = input('');
   readonly size = input<AutocompleteSize>('default');
   /** Optional leading icon, given as an SVG path `d` string. */
@@ -150,6 +168,8 @@ export class BuiAutocomplete {
     ),
   );
 
+  private onChange: (value: AutocompleteValue) => void = noop;
+  protected onTouched: () => void = noop;
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly listId = inject(_IdGenerator).getId('bui-autocomplete-');
   protected readonly open = signal(false);
@@ -171,6 +191,9 @@ export class BuiAutocomplete {
     this.value.set((event.target as HTMLInputElement).value);
     this.open.set(true);
     this.active.set(0);
+    if (!this.multiple()) {
+      this.onChange(this.value());
+    }
   }
 
   protected onKeydown(event: KeyboardEvent): void {
@@ -191,6 +214,7 @@ export class BuiAutocomplete {
       const picked = this.values();
       if (picked.length > 0) {
         this.values.set(picked.slice(0, -1));
+        this.onChange(this.values());
       }
     }
   }
@@ -202,19 +226,45 @@ export class BuiAutocomplete {
       }
       this.value.set('');
       this.active.set(0);
+      this.onChange(this.values());
       return;
     }
     this.value.set(option);
     this.open.set(false);
+    this.onChange(option);
   }
 
   protected removeChip(chip: string): void {
     this.values.set(this.values().filter((value) => value !== chip));
+    this.onChange(this.values());
   }
 
   protected onDocumentClick(event: MouseEvent): void {
-    if (this.open() && !this.host.nativeElement.contains(event.target as Node)) {
-      this.open.set(false);
+    if (!(this.open() && !this.host.nativeElement.contains(event.target as Node))) {
+      return;
     }
+
+    this.open.set(false);
+    this.onTouched();
+  }
+
+  writeValue(value: AutocompleteValue | null): void {
+    if (this.multiple()) {
+      this.values.set(Array.isArray(value) ? [...(value as readonly string[])] : []);
+    } else {
+      this.value.set(typeof value === 'string' ? value : '');
+    }
+  }
+
+  registerOnChange(callback: (value: AutocompleteValue) => void): void {
+    this.onChange = callback;
+  }
+
+  registerOnTouched(callback: () => void): void {
+    this.onTouched = callback;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
   }
 }

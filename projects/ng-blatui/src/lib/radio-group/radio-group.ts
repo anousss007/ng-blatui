@@ -1,6 +1,19 @@
-import { Component, computed, Directive, ElementRef, inject, input, model } from '@angular/core';
+import {
+  Component,
+  computed,
+  Directive,
+  ElementRef,
+  forwardRef,
+  inject,
+  input,
+  model,
+} from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = (): void => {};
 
 /**
  * BlatUI radio group. `role="radiogroup"` with arrow-key roving focus across the
@@ -14,17 +27,41 @@ import { type ClassValue, cn } from '../utils/cn';
     'data-slot': 'radio-group',
     '[class]': 'computedClass()',
     '(keydown)': 'onKeydown($event)',
+    '(focusout)': 'onTouched()',
   },
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiRadioGroup), multi: true },
+  ],
 })
-export class BuiRadioGroup {
+export class BuiRadioGroup implements ControlValueAccessor {
   readonly value = model<string | null>(null);
+  readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
+  private onChange: (value: string | null) => void = noop;
+  protected onTouched: () => void = noop;
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly computedClass = computed(() => cn('grid gap-3', this.userClass()));
 
   select(next: string): void {
     this.value.set(next);
+    this.onChange(next);
+  }
+
+  writeValue(value: string | null): void {
+    this.value.set(typeof value === 'string' ? value : null);
+  }
+
+  registerOnChange(callback: (value: string | null) => void): void {
+    this.onChange = callback;
+  }
+
+  registerOnTouched(callback: () => void): void {
+    this.onTouched = callback;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
   }
 
   protected onKeydown(event: KeyboardEvent): void {
@@ -60,7 +97,7 @@ const ITEM =
     '[attr.aria-checked]': 'checked()',
     '[attr.data-state]': "checked() ? 'checked' : 'unchecked'",
     '[attr.tabindex]': 'tabIndex()',
-    '[disabled]': 'disabled()',
+    '[disabled]': 'isDisabled()',
     '[class]': 'computedClass()',
     '(click)': 'select()',
   },
@@ -81,13 +118,14 @@ export class BuiRadioGroupItem {
 
   private readonly group = inject(BuiRadioGroup);
   protected readonly checked = computed(() => this.group.value() === this.value());
+  protected readonly isDisabled = computed(() => this.disabled() || this.group.disabled());
   protected readonly tabIndex = computed(() =>
     this.checked() || this.group.value() === null ? 0 : -1,
   );
   protected readonly computedClass = computed(() => cn(ITEM, this.userClass()));
 
   protected select(): void {
-    if (!this.disabled()) {
+    if (!this.isDisabled()) {
       this.group.select(this.value());
     }
   }
