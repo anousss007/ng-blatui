@@ -19,42 +19,108 @@
       "label": "Button",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/button"
+      "url": "https://ngblatui.remix-it.com/components/button",
+      "api": {
+        "inputs": [
+          {
+            "name": "variant",
+            "type": "ButtonVariant"
+          },
+          {
+            "name": "size",
+            "type": "ButtonSize"
+          }
+        ],
+        "types": ["ButtonSize", "ButtonVariant"]
+      }
     },
     {
       "name": "badge",
       "label": "Badge",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/badge"
+      "url": "https://ngblatui.remix-it.com/components/badge",
+      "api": {
+        "inputs": [
+          {
+            "name": "variant",
+            "type": "BadgeVariant"
+          },
+          {
+            "name": "tone",
+            "type": "\"success\" | \"warning\" | \"info\" | \"danger\" | \"neutral\" | null"
+          },
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\" | \"lg\""
+          }
+        ],
+        "types": ["BadgeVariant"]
+      }
     },
     {
       "name": "card",
       "label": "Card",
       "type": "component",
       "category": "Layout",
-      "url": "https://ngblatui.remix-it.com/components/card"
+      "url": "https://ngblatui.remix-it.com/components/card",
+      "api": {
+        "inputs": [
+          {
+            "name": "variant",
+            "type": "\"default\" | \"sectioned\""
+          }
+        ]
+      }
     },
     {
       "name": "alert",
       "label": "Alert",
       "type": "component",
       "category": "Feedback",
-      "url": "https://ngblatui.remix-it.com/components/alert"
+      "url": "https://ngblatui.remix-it.com/components/alert",
+      "api": {
+        "inputs": [
+          {
+            "name": "variant",
+            "type": "\"default\" | \"destructive\""
+          },
+          {
+            "name": "tone",
+            "type": "\"success\" | \"warning\" | \"info\" | \"danger\" | \"neutral\" | null"
+          }
+        ]
+      }
     },
     {
       "name": "input",
       "label": "Input",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/input"
+      "url": "https://ngblatui.remix-it.com/components/input",
+      "api": {
+        "inputs": [
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\" | \"lg\""
+          }
+        ]
+      }
     },
     {
       "name": "textarea",
       "label": "Textarea",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/textarea"
+      "url": "https://ngblatui.remix-it.com/components/textarea",
+      "api": {
+        "inputs": [
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\" | \"lg\""
+          }
+        ]
+      }
     },
     {
       "name": "label",
@@ -68,7 +134,20 @@
       "label": "Separator",
       "type": "component",
       "category": "Layout",
-      "url": "https://ngblatui.remix-it.com/components/separator"
+      "url": "https://ngblatui.remix-it.com/components/separator",
+      "api": {
+        "inputs": [
+          {
+            "name": "orientation",
+            "type": "SeparatorOrientation"
+          },
+          {
+            "name": "decorative",
+            "type": "boolean"
+          }
+        ],
+        "types": ["SeparatorOrientation"]
+      }
     },
     {
       "name": "skeleton",
@@ -82,35 +161,140 @@
       "label": "Avatar",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/avatar"
+      "url": "https://ngblatui.remix-it.com/components/avatar",
+      "api": {
+        "inputs": [
+          {
+            "name": "src",
+            "type": "string | null"
+          },
+          {
+            "name": "alt",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "progress",
       "label": "Progress",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/progress"
+      "url": "https://ngblatui.remix-it.com/components/progress",
+      "api": {
+        "inputs": [
+          {
+            "name": "value",
+            "type": "number"
+          },
+          {
+            "name": "indeterminate",
+            "type": "boolean"
+          },
+          {
+            "name": "circular",
+            "type": "boolean"
+          },
+          {
+            "name": "size",
+            "type": "number"
+          },
+          {
+            "name": "thickness",
+            "type": "number"
+          },
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "checkbox",
       "label": "Checkbox",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/checkbox"
+      "url": "https://ngblatui.remix-it.com/components/checkbox",
+      "api": {
+        "models": [
+          {
+            "name": "checked",
+            "type": "boolean"
+          },
+          {
+            "name": "indeterminate",
+            "type": "boolean"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "switch",
       "label": "Switch",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/switch"
+      "url": "https://ngblatui.remix-it.com/components/switch",
+      "api": {
+        "inputs": [
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\" | \"lg\""
+          },
+          {
+            "name": "iconOn",
+            "type": "string"
+          },
+          {
+            "name": "iconOff",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "checked",
+            "type": "boolean"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "radio-group",
       "label": "Radio Group",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/radio-group"
+      "url": "https://ngblatui.remix-it.com/components/radio-group",
+      "api": {
+        "inputs": [
+          {
+            "name": "value",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string | null"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "accordion",
@@ -138,21 +322,71 @@
       "label": "Tooltip",
       "type": "component",
       "category": "Feedback",
-      "url": "https://ngblatui.remix-it.com/components/tooltip"
+      "url": "https://ngblatui.remix-it.com/components/tooltip",
+      "api": {
+        "inputs": [
+          {
+            "name": "buiTooltip",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "side",
+            "type": "TooltipSide"
+          },
+          {
+            "name": "delay",
+            "type": "number"
+          },
+          {
+            "name": "tooltipClass",
+            "type": "ClassValue"
+          },
+          {
+            "name": "text",
+            "type": "string"
+          },
+          {
+            "name": "extraClass",
+            "type": "ClassValue"
+          }
+        ],
+        "types": ["TooltipSide"]
+      }
     },
     {
       "name": "breadcrumb",
       "label": "Breadcrumb",
       "type": "component",
       "category": "Navigation",
-      "url": "https://ngblatui.remix-it.com/components/breadcrumb"
+      "url": "https://ngblatui.remix-it.com/components/breadcrumb",
+      "api": {
+        "inputs": [
+          {
+            "name": "label",
+            "type": "string"
+          },
+          {
+            "name": "moreLabel",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "button-group",
       "label": "Button Group",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/button-group"
+      "url": "https://ngblatui.remix-it.com/components/button-group",
+      "api": {
+        "inputs": [
+          {
+            "name": "orientation",
+            "type": "\"horizontal\" | \"vertical\""
+          }
+        ]
+      }
     },
     {
       "name": "kbd",
@@ -166,98 +400,287 @@
       "label": "Aspect Ratio",
       "type": "component",
       "category": "Layout",
-      "url": "https://ngblatui.remix-it.com/components/aspect-ratio"
+      "url": "https://ngblatui.remix-it.com/components/aspect-ratio",
+      "api": {
+        "inputs": [
+          {
+            "name": "ratio",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "collapsible",
       "label": "Collapsible",
       "type": "component",
       "category": "Disclosure",
-      "url": "https://ngblatui.remix-it.com/components/collapsible"
+      "url": "https://ngblatui.remix-it.com/components/collapsible",
+      "api": {
+        "models": [
+          {
+            "name": "open",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "empty",
       "label": "Empty",
       "type": "component",
       "category": "Feedback",
-      "url": "https://ngblatui.remix-it.com/components/empty"
+      "url": "https://ngblatui.remix-it.com/components/empty",
+      "api": {
+        "inputs": [
+          {
+            "name": "variant",
+            "type": "\"default\" | \"icon\""
+          }
+        ]
+      }
     },
     {
       "name": "field",
       "label": "Field",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/field"
+      "url": "https://ngblatui.remix-it.com/components/field",
+      "api": {
+        "inputs": [
+          {
+            "name": "orientation",
+            "type": "\"horizontal\" | \"vertical\" | \"responsive\""
+          },
+          {
+            "name": "for",
+            "type": "string"
+          },
+          {
+            "name": "variant",
+            "type": "\"label\" | \"legend\""
+          }
+        ]
+      }
     },
     {
       "name": "container",
       "label": "Container",
       "type": "component",
       "category": "Layout",
-      "url": "https://ngblatui.remix-it.com/components/container"
+      "url": "https://ngblatui.remix-it.com/components/container",
+      "api": {
+        "inputs": [
+          {
+            "name": "size",
+            "type": "\"sm\" | \"lg\" | \"xl\" | \"md\" | \"prose\" | \"full\""
+          }
+        ]
+      }
     },
     {
       "name": "toggle",
       "label": "Toggle",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/toggle"
+      "url": "https://ngblatui.remix-it.com/components/toggle",
+      "api": {
+        "inputs": [
+          {
+            "name": "variant",
+            "type": "\"default\" | \"outline\" | null"
+          },
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\" | \"lg\" | null"
+          }
+        ],
+        "models": [
+          {
+            "name": "pressed",
+            "type": "boolean"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "spinner",
       "label": "Spinner",
       "type": "component",
       "category": "Feedback",
-      "url": "https://ngblatui.remix-it.com/components/spinner"
+      "url": "https://ngblatui.remix-it.com/components/spinner",
+      "api": {
+        "inputs": [
+          {
+            "name": "label",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "copy-button",
       "label": "Copy Button",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/copy-button"
+      "url": "https://ngblatui.remix-it.com/components/copy-button",
+      "api": {
+        "inputs": [
+          {
+            "name": "value",
+            "type": "string"
+          },
+          {
+            "name": "label",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "banner",
       "label": "Banner",
       "type": "component",
       "category": "Feedback",
-      "url": "https://ngblatui.remix-it.com/components/banner"
+      "url": "https://ngblatui.remix-it.com/components/banner",
+      "api": {
+        "inputs": [
+          {
+            "name": "tone",
+            "type": "\"default\" | \"success\" | \"warning\" | \"info\" | \"danger\" | \"primary\""
+          },
+          {
+            "name": "dismissible",
+            "type": "boolean"
+          },
+          {
+            "name": "persistKey",
+            "type": "string"
+          },
+          {
+            "name": "announcementLabel",
+            "type": "string"
+          },
+          {
+            "name": "dismissLabel",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "table",
       "label": "Table",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/table"
+      "url": "https://ngblatui.remix-it.com/components/table",
+      "api": {
+        "inputs": [
+          {
+            "name": "variant",
+            "type": "\"default\" | \"card\""
+          }
+        ]
+      }
     },
     {
       "name": "avatar-group",
       "label": "Avatar Group",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/avatar-group"
+      "url": "https://ngblatui.remix-it.com/components/avatar-group",
+      "api": {
+        "inputs": [
+          {
+            "name": "avatars",
+            "type": "readonly GroupAvatar[]"
+          },
+          {
+            "name": "max",
+            "type": "number"
+          },
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\" | \"lg\""
+          }
+        ],
+        "types": ["GroupAvatar"]
+      }
     },
     {
       "name": "pagination",
       "label": "Pagination",
       "type": "component",
       "category": "Navigation",
-      "url": "https://ngblatui.remix-it.com/components/pagination"
+      "url": "https://ngblatui.remix-it.com/components/pagination",
+      "api": {
+        "inputs": [
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          },
+          {
+            "name": "moreLabel",
+            "type": "string"
+          },
+          {
+            "name": "active",
+            "type": "boolean"
+          },
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\" | \"lg\" | \"icon\""
+          }
+        ]
+      }
     },
     {
       "name": "popover",
       "label": "Popover",
       "type": "component",
       "category": "Overlays",
-      "url": "https://ngblatui.remix-it.com/components/popover"
+      "url": "https://ngblatui.remix-it.com/components/popover",
+      "api": {
+        "inputs": [
+          {
+            "name": "buiPopover",
+            "type": "TemplateRef<unknown>",
+            "required": true
+          },
+          {
+            "name": "side",
+            "type": "PopoverSide"
+          }
+        ],
+        "types": ["PopoverSide"]
+      }
     },
     {
       "name": "item",
       "label": "Item",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/item"
+      "url": "https://ngblatui.remix-it.com/components/item",
+      "api": {
+        "inputs": [
+          {
+            "name": "variant",
+            "type": "\"default\" | \"outline\" | \"muted\""
+          },
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\""
+          },
+          {
+            "name": "variant",
+            "type": "\"default\" | \"image\" | \"icon\""
+          }
+        ]
+      }
     },
     {
       "name": "scroll-area",
@@ -271,63 +694,310 @@
       "label": "Input Group",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/input-group"
+      "url": "https://ngblatui.remix-it.com/components/input-group",
+      "api": {
+        "inputs": [
+          {
+            "name": "align",
+            "type": "\"inline-start\" | \"inline-end\" | \"block-start\" | \"block-end\""
+          },
+          {
+            "name": "variant",
+            "type": "\"default\" | \"outline\" | \"ghost\""
+          },
+          {
+            "name": "size",
+            "type": "\"xs\" | \"sm\" | \"icon-xs\" | \"icon-sm\""
+          }
+        ]
+      }
     },
     {
       "name": "meter",
       "label": "Meter",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/meter"
+      "url": "https://ngblatui.remix-it.com/components/meter",
+      "api": {
+        "inputs": [
+          {
+            "name": "value",
+            "type": "number"
+          },
+          {
+            "name": "min",
+            "type": "number"
+          },
+          {
+            "name": "max",
+            "type": "number"
+          },
+          {
+            "name": "label",
+            "type": "string | null"
+          },
+          {
+            "name": "tone",
+            "type": "\"default\" | \"warning\" | \"danger\" | \"good\""
+          },
+          {
+            "name": "thresholds",
+            "type": "readonly { at: number; tone: keyof typeof TONES; }[]"
+          },
+          {
+            "name": "showValue",
+            "type": "boolean"
+          },
+          {
+            "name": "unit",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "stat",
       "label": "Stat",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/stat"
+      "url": "https://ngblatui.remix-it.com/components/stat",
+      "api": {
+        "inputs": [
+          {
+            "name": "label",
+            "type": "string | null"
+          },
+          {
+            "name": "value",
+            "type": "string | number"
+          },
+          {
+            "name": "change",
+            "type": "string | null"
+          },
+          {
+            "name": "trend",
+            "type": "\"neutral\" | \"up\" | \"down\" | null"
+          },
+          {
+            "name": "caption",
+            "type": "string | null"
+          },
+          {
+            "name": "sparkline",
+            "type": "readonly number[]"
+          }
+        ]
+      }
     },
     {
       "name": "visually-hidden",
       "label": "Visually Hidden",
       "type": "component",
       "category": "Layout",
-      "url": "https://ngblatui.remix-it.com/components/visually-hidden"
+      "url": "https://ngblatui.remix-it.com/components/visually-hidden",
+      "api": {
+        "inputs": [
+          {
+            "name": "focusable",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "hover-card",
       "label": "Hover Card",
       "type": "component",
       "category": "Feedback",
-      "url": "https://ngblatui.remix-it.com/components/hover-card"
+      "url": "https://ngblatui.remix-it.com/components/hover-card",
+      "api": {
+        "inputs": [
+          {
+            "name": "buiHoverCard",
+            "type": "TemplateRef<unknown>",
+            "required": true
+          },
+          {
+            "name": "openDelay",
+            "type": "number"
+          },
+          {
+            "name": "closeDelay",
+            "type": "number"
+          }
+        ]
+      }
     },
     {
       "name": "code-block",
       "label": "Code Block",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/code-block"
+      "url": "https://ngblatui.remix-it.com/components/code-block",
+      "api": {
+        "inputs": [
+          {
+            "name": "code",
+            "type": "string"
+          },
+          {
+            "name": "filename",
+            "type": "string | null"
+          },
+          {
+            "name": "copyLabel",
+            "type": "string"
+          },
+          {
+            "name": "copyShortLabel",
+            "type": "string"
+          },
+          {
+            "name": "copiedLabel",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "slider",
       "label": "Slider",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/slider"
+      "url": "https://ngblatui.remix-it.com/components/slider",
+      "api": {
+        "inputs": [
+          {
+            "name": "range",
+            "type": "boolean"
+          },
+          {
+            "name": "min",
+            "type": "number"
+          },
+          {
+            "name": "max",
+            "type": "number"
+          },
+          {
+            "name": "step",
+            "type": "number"
+          },
+          {
+            "name": "orientation",
+            "type": "\"horizontal\" | \"vertical\""
+          },
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "number"
+          },
+          {
+            "name": "endValue",
+            "type": "number"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "rating",
       "label": "Rating",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/rating"
+      "url": "https://ngblatui.remix-it.com/components/rating",
+      "api": {
+        "inputs": [
+          {
+            "name": "max",
+            "type": "number"
+          },
+          {
+            "name": "readonly",
+            "type": "boolean"
+          },
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\" | \"lg\""
+          },
+          {
+            "name": "color",
+            "type": "string"
+          },
+          {
+            "name": "ariaLabel",
+            "type": "string | null"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "number"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "quantity-selector",
       "label": "Quantity Selector",
       "type": "component",
       "category": "E-commerce",
-      "url": "https://ngblatui.remix-it.com/components/quantity-selector"
+      "url": "https://ngblatui.remix-it.com/components/quantity-selector",
+      "api": {
+        "inputs": [
+          {
+            "name": "min",
+            "type": "number"
+          },
+          {
+            "name": "max",
+            "type": "number | null"
+          },
+          {
+            "name": "step",
+            "type": "number"
+          },
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\" | \"lg\""
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          },
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          },
+          {
+            "name": "decreaseLabel",
+            "type": "string"
+          },
+          {
+            "name": "increaseLabel",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "number"
+          }
+        ]
+      }
     },
     {
       "name": "alert-dialog",
@@ -341,7 +1011,19 @@
       "label": "Autosize Textarea",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/autosize-textarea"
+      "url": "https://ngblatui.remix-it.com/components/autosize-textarea",
+      "api": {
+        "inputs": [
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\" | \"lg\""
+          },
+          {
+            "name": "maxRows",
+            "type": "number | null"
+          }
+        ]
+      }
     },
     {
       "name": "dropdown-menu",
@@ -362,147 +1044,542 @@
       "label": "Typography",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/typography"
+      "url": "https://ngblatui.remix-it.com/components/typography",
+      "api": {
+        "inputs": [
+          {
+            "name": "variant",
+            "type": "\"blockquote\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"p\" | \"small\" | \"list\" | \"muted\" | \"lead\" | \"large\" | \"inline-code\" | \"gradient\""
+          }
+        ]
+      }
     },
     {
       "name": "segmented-control",
       "label": "Segmented Control",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/segmented-control"
+      "url": "https://ngblatui.remix-it.com/components/segmented-control",
+      "api": {
+        "inputs": [
+          {
+            "name": "options",
+            "type": "readonly (string | SegmentOption)[]"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ],
+        "types": ["SegmentOption"]
+      }
     },
     {
       "name": "dot-pattern",
       "label": "Dot Pattern",
       "type": "component",
       "category": "Effects",
-      "url": "https://ngblatui.remix-it.com/components/dot-pattern"
+      "url": "https://ngblatui.remix-it.com/components/dot-pattern",
+      "api": {
+        "inputs": [
+          {
+            "name": "size",
+            "type": "number"
+          },
+          {
+            "name": "gap",
+            "type": "number"
+          },
+          {
+            "name": "mask",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "grid-pattern",
       "label": "Grid Pattern",
       "type": "component",
       "category": "Effects",
-      "url": "https://ngblatui.remix-it.com/components/grid-pattern"
+      "url": "https://ngblatui.remix-it.com/components/grid-pattern",
+      "api": {
+        "inputs": [
+          {
+            "name": "gap",
+            "type": "number"
+          },
+          {
+            "name": "lineWidth",
+            "type": "number"
+          },
+          {
+            "name": "mask",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "terminal",
       "label": "Terminal",
       "type": "component",
       "category": "AI",
-      "url": "https://ngblatui.remix-it.com/components/terminal"
+      "url": "https://ngblatui.remix-it.com/components/terminal",
+      "api": {
+        "inputs": [
+          {
+            "name": "title",
+            "type": "string | null"
+          },
+          {
+            "name": "buttons",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "comparison-table",
       "label": "Comparison Table",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/comparison-table"
+      "url": "https://ngblatui.remix-it.com/components/comparison-table",
+      "api": {
+        "inputs": [
+          {
+            "name": "tiers",
+            "type": "readonly string[]"
+          },
+          {
+            "name": "rows",
+            "type": "readonly ComparisonRow[]"
+          },
+          {
+            "name": "highlight",
+            "type": "string | number | null"
+          },
+          {
+            "name": "featureLabel",
+            "type": "string"
+          },
+          {
+            "name": "includedLabel",
+            "type": "string"
+          },
+          {
+            "name": "notIncludedLabel",
+            "type": "string"
+          }
+        ],
+        "types": ["ComparisonRow"]
+      }
     },
     {
       "name": "flip-card",
       "label": "Flip Card",
       "type": "component",
       "category": "Effects",
-      "url": "https://ngblatui.remix-it.com/components/flip-card"
+      "url": "https://ngblatui.remix-it.com/components/flip-card",
+      "api": {
+        "inputs": [
+          {
+            "name": "trigger",
+            "type": "\"click\" | \"hover\""
+          },
+          {
+            "name": "height",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "spotlight-card",
       "label": "Spotlight Card",
       "type": "component",
       "category": "Effects",
-      "url": "https://ngblatui.remix-it.com/components/spotlight-card"
+      "url": "https://ngblatui.remix-it.com/components/spotlight-card",
+      "api": {
+        "inputs": [
+          {
+            "name": "color",
+            "type": "string | null"
+          },
+          {
+            "name": "size",
+            "type": "number"
+          }
+        ]
+      }
     },
     {
       "name": "tilt-card",
       "label": "Tilt Card",
       "type": "component",
       "category": "Effects",
-      "url": "https://ngblatui.remix-it.com/components/tilt-card"
+      "url": "https://ngblatui.remix-it.com/components/tilt-card",
+      "api": {
+        "inputs": [
+          {
+            "name": "max",
+            "type": "number"
+          },
+          {
+            "name": "scaleTo",
+            "type": "number"
+          }
+        ]
+      }
     },
     {
       "name": "select",
       "label": "Select",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/select"
+      "url": "https://ngblatui.remix-it.com/components/select",
+      "api": {
+        "inputs": [
+          {
+            "name": "multiple",
+            "type": "boolean"
+          },
+          {
+            "name": "options",
+            "type": "readonly SelectOption[]"
+          },
+          {
+            "name": "placeholder",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string"
+          },
+          {
+            "name": "values",
+            "type": "readonly string[]"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ],
+        "types": ["SelectOption"]
+      }
     },
     {
       "name": "combobox",
       "label": "Combobox",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/combobox"
+      "url": "https://ngblatui.remix-it.com/components/combobox",
+      "api": {
+        "inputs": [
+          {
+            "name": "multiple",
+            "type": "boolean"
+          },
+          {
+            "name": "options",
+            "type": "readonly ComboboxOption[]"
+          },
+          {
+            "name": "placeholder",
+            "type": "string"
+          },
+          {
+            "name": "searchable",
+            "type": "boolean"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string"
+          },
+          {
+            "name": "values",
+            "type": "readonly string[]"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ],
+        "types": ["ComboboxOption"]
+      }
     },
     {
       "name": "back-to-top",
       "label": "Back To Top",
       "type": "component",
       "category": "Navigation",
-      "url": "https://ngblatui.remix-it.com/components/back-to-top"
+      "url": "https://ngblatui.remix-it.com/components/back-to-top",
+      "api": {
+        "inputs": [
+          {
+            "name": "threshold",
+            "type": "number"
+          },
+          {
+            "name": "variant",
+            "type": "\"primary\" | \"subtle\""
+          },
+          {
+            "name": "label",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "countdown",
       "label": "Countdown",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/countdown"
+      "url": "https://ngblatui.remix-it.com/components/countdown",
+      "api": {
+        "inputs": [
+          {
+            "name": "to",
+            "type": "string | number | Date",
+            "required": true
+          },
+          {
+            "name": "expired",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "number-ticker",
       "label": "Number Ticker",
       "type": "component",
       "category": "Effects",
-      "url": "https://ngblatui.remix-it.com/components/number-ticker"
+      "url": "https://ngblatui.remix-it.com/components/number-ticker",
+      "api": {
+        "inputs": [
+          {
+            "name": "value",
+            "type": "number"
+          },
+          {
+            "name": "from",
+            "type": "number"
+          },
+          {
+            "name": "duration",
+            "type": "number"
+          },
+          {
+            "name": "decimals",
+            "type": "number"
+          },
+          {
+            "name": "prefix",
+            "type": "string"
+          },
+          {
+            "name": "suffix",
+            "type": "string"
+          },
+          {
+            "name": "separator",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "link",
       "label": "Link",
       "type": "component",
       "category": "Navigation",
-      "url": "https://ngblatui.remix-it.com/components/link"
+      "url": "https://ngblatui.remix-it.com/components/link",
+      "api": {
+        "inputs": [
+          {
+            "name": "variant",
+            "type": "\"default\" | \"muted\" | \"subtle\""
+          },
+          {
+            "name": "external",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "gradient-text",
       "label": "Gradient Text",
       "type": "component",
       "category": "Effects",
-      "url": "https://ngblatui.remix-it.com/components/gradient-text"
+      "url": "https://ngblatui.remix-it.com/components/gradient-text",
+      "api": {
+        "inputs": [
+          {
+            "name": "preset",
+            "type": "\"brand\" | \"sunset\" | \"ocean\" | \"candy\" | \"gold\" | \"aurora\" | \"flamingo\" | \"mint\""
+          },
+          {
+            "name": "from",
+            "type": "string | null"
+          },
+          {
+            "name": "via",
+            "type": "string | null"
+          },
+          {
+            "name": "to",
+            "type": "string | null"
+          },
+          {
+            "name": "animate",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "page-header",
       "label": "Page Header",
       "type": "component",
       "category": "Layout",
-      "url": "https://ngblatui.remix-it.com/components/page-header"
+      "url": "https://ngblatui.remix-it.com/components/page-header",
+      "api": {
+        "inputs": [
+          {
+            "name": "heading",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "name": "separator",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "quote",
       "label": "Quote",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/quote"
+      "url": "https://ngblatui.remix-it.com/components/quote",
+      "api": {
+        "inputs": [
+          {
+            "name": "author",
+            "type": "string"
+          },
+          {
+            "name": "role",
+            "type": "string"
+          },
+          {
+            "name": "avatar",
+            "type": "string"
+          },
+          {
+            "name": "cite",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "price",
       "label": "Price",
       "type": "component",
       "category": "E-commerce",
-      "url": "https://ngblatui.remix-it.com/components/price"
+      "url": "https://ngblatui.remix-it.com/components/price",
+      "api": {
+        "inputs": [
+          {
+            "name": "amount",
+            "type": "number"
+          },
+          {
+            "name": "compareAt",
+            "type": "number | null"
+          },
+          {
+            "name": "currency",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\" | \"lg\""
+          },
+          {
+            "name": "showDiscount",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "stack",
       "label": "Stack",
       "type": "component",
       "category": "Layout",
-      "url": "https://ngblatui.remix-it.com/components/stack"
+      "url": "https://ngblatui.remix-it.com/components/stack",
+      "api": {
+        "inputs": [
+          {
+            "name": "direction",
+            "type": "\"col\" | \"row\""
+          },
+          {
+            "name": "gap",
+            "type": "string"
+          },
+          {
+            "name": "align",
+            "type": "string"
+          },
+          {
+            "name": "justify",
+            "type": "string"
+          },
+          {
+            "name": "wrap",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "accent",
       "label": "Accent",
       "type": "component",
       "category": "Layout",
-      "url": "https://ngblatui.remix-it.com/components/accent"
+      "url": "https://ngblatui.remix-it.com/components/accent",
+      "api": {
+        "inputs": [
+          {
+            "name": "color",
+            "type": "string | null"
+          },
+          {
+            "name": "foreground",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "kbd-group",
@@ -516,588 +1593,2747 @@
       "label": "Presence",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/presence"
+      "url": "https://ngblatui.remix-it.com/components/presence",
+      "api": {
+        "inputs": [
+          {
+            "name": "status",
+            "type": "\"online\" | \"away\" | \"busy\" | \"offline\""
+          },
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\" | \"lg\""
+          },
+          {
+            "name": "pulse",
+            "type": "boolean"
+          },
+          {
+            "name": "label",
+            "type": "string"
+          },
+          {
+            "name": "showLabel",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "timeline",
       "label": "Timeline",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/timeline"
+      "url": "https://ngblatui.remix-it.com/components/timeline",
+      "api": {
+        "inputs": [
+          {
+            "name": "time",
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "active",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "description-list",
       "label": "Description List",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/description-list"
+      "url": "https://ngblatui.remix-it.com/components/description-list",
+      "api": {
+        "inputs": [
+          {
+            "name": "layout",
+            "type": "\"horizontal\" | \"vertical\""
+          },
+          {
+            "name": "bordered",
+            "type": "boolean"
+          },
+          {
+            "name": "term",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "masonry",
       "label": "Masonry",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/masonry"
+      "url": "https://ngblatui.remix-it.com/components/masonry",
+      "api": {
+        "inputs": [
+          {
+            "name": "columns",
+            "type": "number"
+          },
+          {
+            "name": "gap",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "bento-grid",
       "label": "Bento Grid",
       "type": "component",
       "category": "Layout",
-      "url": "https://ngblatui.remix-it.com/components/bento-grid"
+      "url": "https://ngblatui.remix-it.com/components/bento-grid",
+      "api": {
+        "inputs": [
+          {
+            "name": "columns",
+            "type": "number"
+          },
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "name": "colSpan",
+            "type": "number"
+          },
+          {
+            "name": "rowSpan",
+            "type": "number"
+          }
+        ]
+      }
     },
     {
       "name": "gallery",
       "label": "Gallery",
       "type": "component",
       "category": "Media",
-      "url": "https://ngblatui.remix-it.com/components/gallery"
+      "url": "https://ngblatui.remix-it.com/components/gallery",
+      "api": {
+        "inputs": [
+          {
+            "name": "images",
+            "type": "readonly (string | GalleryImage)[]"
+          },
+          {
+            "name": "columns",
+            "type": "number"
+          },
+          {
+            "name": "rounded",
+            "type": "string"
+          }
+        ],
+        "types": ["GalleryImage"]
+      }
     },
     {
       "name": "loading-overlay",
       "label": "Loading Overlay",
       "type": "component",
       "category": "Feedback",
-      "url": "https://ngblatui.remix-it.com/components/loading-overlay"
+      "url": "https://ngblatui.remix-it.com/components/loading-overlay",
+      "api": {
+        "inputs": [
+          {
+            "name": "show",
+            "type": "boolean"
+          },
+          {
+            "name": "message",
+            "type": "string"
+          },
+          {
+            "name": "blur",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "number-input",
       "label": "Number Input",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/number-input"
+      "url": "https://ngblatui.remix-it.com/components/number-input",
+      "api": {
+        "inputs": [
+          {
+            "name": "min",
+            "type": "number | null"
+          },
+          {
+            "name": "max",
+            "type": "number | null"
+          },
+          {
+            "name": "step",
+            "type": "number"
+          },
+          {
+            "name": "size",
+            "type": "NumberInputSize"
+          },
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          },
+          {
+            "name": "decreaseLabel",
+            "type": "string"
+          },
+          {
+            "name": "increaseLabel",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "number"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ],
+        "types": ["NumberInputSize"]
+      }
     },
     {
       "name": "variant-selector",
       "label": "Variant Selector",
       "type": "component",
       "category": "E-commerce",
-      "url": "https://ngblatui.remix-it.com/components/variant-selector"
+      "url": "https://ngblatui.remix-it.com/components/variant-selector",
+      "api": {
+        "inputs": [
+          {
+            "name": "options",
+            "type": "readonly (string | VariantOption)[]"
+          },
+          {
+            "name": "type",
+            "type": "\"pill\" | \"color\""
+          },
+          {
+            "name": "label",
+            "type": "string"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string"
+          }
+        ],
+        "types": ["VariantOption"]
+      }
     },
     {
       "name": "sparkline",
       "label": "Sparkline",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/sparkline"
+      "url": "https://ngblatui.remix-it.com/components/sparkline",
+      "api": {
+        "inputs": [
+          {
+            "name": "data",
+            "type": "readonly number[]"
+          },
+          {
+            "name": "width",
+            "type": "number"
+          },
+          {
+            "name": "height",
+            "type": "number"
+          },
+          {
+            "name": "area",
+            "type": "boolean"
+          },
+          {
+            "name": "strokeWidth",
+            "type": "number"
+          },
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "add-to-cart",
       "label": "Add To Cart",
       "type": "component",
       "category": "E-commerce",
-      "url": "https://ngblatui.remix-it.com/components/add-to-cart"
+      "url": "https://ngblatui.remix-it.com/components/add-to-cart",
+      "api": {
+        "inputs": [
+          {
+            "name": "label",
+            "type": "string"
+          },
+          {
+            "name": "addedLabel",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\" | \"lg\""
+          }
+        ],
+        "outputs": [
+          {
+            "name": "triggered",
+            "type": "void"
+          }
+        ]
+      }
     },
     {
       "name": "password-strength",
       "label": "Password Strength",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/password-strength"
+      "url": "https://ngblatui.remix-it.com/components/password-strength",
+      "api": {
+        "inputs": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "placeholder",
+            "type": "string"
+          },
+          {
+            "name": "showChecklist",
+            "type": "boolean"
+          },
+          {
+            "name": "minLength",
+            "type": "number"
+          },
+          {
+            "name": "label",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "password",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "product-card",
       "label": "Product Card",
       "type": "component",
       "category": "E-commerce",
-      "url": "https://ngblatui.remix-it.com/components/product-card"
+      "url": "https://ngblatui.remix-it.com/components/product-card",
+      "api": {
+        "inputs": [
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "href",
+            "type": "string"
+          },
+          {
+            "name": "image",
+            "type": "string"
+          },
+          {
+            "name": "imageAlt",
+            "type": "string"
+          },
+          {
+            "name": "price",
+            "type": "number | null"
+          },
+          {
+            "name": "compareAt",
+            "type": "number | null"
+          },
+          {
+            "name": "currency",
+            "type": "string"
+          },
+          {
+            "name": "badge",
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "type": "string"
+          },
+          {
+            "name": "rating",
+            "type": "number | null"
+          },
+          {
+            "name": "reviews",
+            "type": "number | null"
+          },
+          {
+            "name": "wishlist",
+            "type": "boolean"
+          },
+          {
+            "name": "wishlistLabel",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "typewriter",
       "label": "Typewriter",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/typewriter"
+      "url": "https://ngblatui.remix-it.com/components/typewriter",
+      "api": {
+        "inputs": [
+          {
+            "name": "words",
+            "type": "readonly string[]"
+          },
+          {
+            "name": "typeSpeed",
+            "type": "number"
+          },
+          {
+            "name": "deleteSpeed",
+            "type": "number"
+          },
+          {
+            "name": "pause",
+            "type": "number"
+          },
+          {
+            "name": "loop",
+            "type": "boolean"
+          },
+          {
+            "name": "cursor",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "streaming-text",
       "label": "Streaming Text",
       "type": "component",
       "category": "AI",
-      "url": "https://ngblatui.remix-it.com/components/streaming-text"
+      "url": "https://ngblatui.remix-it.com/components/streaming-text",
+      "api": {
+        "inputs": [
+          {
+            "name": "text",
+            "type": "string"
+          },
+          {
+            "name": "speed",
+            "type": "number"
+          },
+          {
+            "name": "startDelay",
+            "type": "number"
+          },
+          {
+            "name": "by",
+            "type": "\"char\" | \"word\""
+          },
+          {
+            "name": "caret",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "border-beam",
       "label": "Border Beam",
       "type": "component",
       "category": "Effects",
-      "url": "https://ngblatui.remix-it.com/components/border-beam"
+      "url": "https://ngblatui.remix-it.com/components/border-beam",
+      "api": {
+        "inputs": [
+          {
+            "name": "duration",
+            "type": "number"
+          },
+          {
+            "name": "color",
+            "type": "string | null"
+          },
+          {
+            "name": "size",
+            "type": "number"
+          }
+        ]
+      }
     },
     {
       "name": "meteors",
       "label": "Meteors",
       "type": "component",
       "category": "Effects",
-      "url": "https://ngblatui.remix-it.com/components/meteors"
+      "url": "https://ngblatui.remix-it.com/components/meteors",
+      "api": {
+        "inputs": [
+          {
+            "name": "count",
+            "type": "number"
+          },
+          {
+            "name": "color",
+            "type": "string | null"
+          }
+        ]
+      }
     },
     {
       "name": "aurora",
       "label": "Aurora",
       "type": "component",
       "category": "Effects",
-      "url": "https://ngblatui.remix-it.com/components/aurora"
+      "url": "https://ngblatui.remix-it.com/components/aurora",
+      "api": {
+        "inputs": [
+          {
+            "name": "blur",
+            "type": "number"
+          },
+          {
+            "name": "speed",
+            "type": "number"
+          }
+        ]
+      }
     },
     {
       "name": "marquee",
       "label": "Marquee",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/marquee"
+      "url": "https://ngblatui.remix-it.com/components/marquee",
+      "api": {
+        "inputs": [
+          {
+            "name": "items",
+            "type": "readonly string[]"
+          },
+          {
+            "name": "direction",
+            "type": "\"right\" | \"left\" | \"up\" | \"down\""
+          },
+          {
+            "name": "duration",
+            "type": "string"
+          },
+          {
+            "name": "gap",
+            "type": "string"
+          },
+          {
+            "name": "pauseOnHover",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "bottom-navigation",
       "label": "Bottom Navigation",
       "type": "component",
       "category": "Navigation",
-      "url": "https://ngblatui.remix-it.com/components/bottom-navigation"
+      "url": "https://ngblatui.remix-it.com/components/bottom-navigation",
+      "api": {
+        "inputs": [
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          },
+          {
+            "name": "label",
+            "type": "string"
+          },
+          {
+            "name": "active",
+            "type": "boolean"
+          },
+          {
+            "name": "badge",
+            "type": "string | number | boolean | null"
+          }
+        ]
+      }
     },
     {
       "name": "text-reveal",
       "label": "Text Reveal",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/text-reveal"
+      "url": "https://ngblatui.remix-it.com/components/text-reveal",
+      "api": {
+        "inputs": [
+          {
+            "name": "text",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "parallax",
       "label": "Parallax",
       "type": "component",
       "category": "Effects",
-      "url": "https://ngblatui.remix-it.com/components/parallax"
+      "url": "https://ngblatui.remix-it.com/components/parallax",
+      "api": {
+        "inputs": [
+          {
+            "name": "speed",
+            "type": "number"
+          },
+          {
+            "name": "axis",
+            "type": "\"x\" | \"y\""
+          }
+        ]
+      }
     },
     {
       "name": "scrollspy",
       "label": "Scrollspy",
       "type": "component",
       "category": "Navigation",
-      "url": "https://ngblatui.remix-it.com/components/scrollspy"
+      "url": "https://ngblatui.remix-it.com/components/scrollspy",
+      "api": {
+        "inputs": [
+          {
+            "name": "items",
+            "type": "readonly ScrollspyItem[]"
+          },
+          {
+            "name": "label",
+            "type": "string"
+          }
+        ],
+        "types": ["ScrollspyItem"]
+      }
     },
     {
       "name": "time-field",
       "label": "Time Field",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/time-field"
+      "url": "https://ngblatui.remix-it.com/components/time-field",
+      "api": {
+        "inputs": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "min",
+            "type": "string"
+          },
+          {
+            "name": "max",
+            "type": "string"
+          },
+          {
+            "name": "seconds",
+            "type": "boolean"
+          },
+          {
+            "name": "mode",
+            "type": "TimeFieldMode"
+          },
+          {
+            "name": "minuteStep",
+            "type": "number"
+          },
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ],
+        "types": ["TimeFieldMode"]
+      }
     },
     {
       "name": "toggle-group",
       "label": "Toggle Group",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/toggle-group"
+      "url": "https://ngblatui.remix-it.com/components/toggle-group",
+      "api": {
+        "inputs": [
+          {
+            "name": "type",
+            "type": "\"single\" | \"multiple\""
+          },
+          {
+            "name": "orientation",
+            "type": "\"horizontal\" | \"vertical\""
+          },
+          {
+            "name": "value",
+            "type": "string"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "ToggleValue"
+          }
+        ],
+        "types": ["ToggleValue"]
+      }
     },
     {
       "name": "tags-input",
       "label": "Tags Input",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/tags-input"
+      "url": "https://ngblatui.remix-it.com/components/tags-input",
+      "api": {
+        "inputs": [
+          {
+            "name": "placeholder",
+            "type": "string"
+          },
+          {
+            "name": "max",
+            "type": "number | null"
+          }
+        ],
+        "models": [
+          {
+            "name": "tags",
+            "type": "string[]"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "editable",
       "label": "Editable",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/editable"
+      "url": "https://ngblatui.remix-it.com/components/editable",
+      "api": {
+        "inputs": [
+          {
+            "name": "placeholder",
+            "type": "string"
+          },
+          {
+            "name": "label",
+            "type": "string"
+          },
+          {
+            "name": "multiline",
+            "type": "boolean"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "speed-dial",
       "label": "Speed Dial",
       "type": "component",
       "category": "Navigation",
-      "url": "https://ngblatui.remix-it.com/components/speed-dial"
+      "url": "https://ngblatui.remix-it.com/components/speed-dial",
+      "api": {
+        "inputs": [
+          {
+            "name": "actions",
+            "type": "readonly SpeedDialAction[]"
+          },
+          {
+            "name": "direction",
+            "type": "\"up\" | \"down\""
+          },
+          {
+            "name": "label",
+            "type": "string"
+          }
+        ],
+        "types": ["SpeedDialAction"]
+      }
     },
     {
       "name": "knob",
       "label": "Knob",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/knob"
+      "url": "https://ngblatui.remix-it.com/components/knob",
+      "api": {
+        "inputs": [
+          {
+            "name": "min",
+            "type": "number"
+          },
+          {
+            "name": "max",
+            "type": "number"
+          },
+          {
+            "name": "step",
+            "type": "number"
+          },
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\" | \"lg\""
+          },
+          {
+            "name": "label",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "number"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "image",
       "label": "Image",
       "type": "component",
       "category": "Media",
-      "url": "https://ngblatui.remix-it.com/components/image"
+      "url": "https://ngblatui.remix-it.com/components/image",
+      "api": {
+        "inputs": [
+          {
+            "name": "src",
+            "type": "string"
+          },
+          {
+            "name": "alt",
+            "type": "string"
+          },
+          {
+            "name": "ratio",
+            "type": "string"
+          },
+          {
+            "name": "placeholder",
+            "type": "string"
+          },
+          {
+            "name": "rounded",
+            "type": "string"
+          },
+          {
+            "name": "fit",
+            "type": "\"cover\" | \"contain\""
+          }
+        ]
+      }
     },
     {
       "name": "reasoning",
       "label": "Reasoning",
       "type": "component",
       "category": "AI",
-      "url": "https://ngblatui.remix-it.com/components/reasoning"
+      "url": "https://ngblatui.remix-it.com/components/reasoning",
+      "api": {
+        "inputs": [
+          {
+            "name": "label",
+            "type": "string"
+          },
+          {
+            "name": "duration",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "open",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "tool-call",
       "label": "Tool Call",
       "type": "component",
       "category": "AI",
-      "url": "https://ngblatui.remix-it.com/components/tool-call"
+      "url": "https://ngblatui.remix-it.com/components/tool-call",
+      "api": {
+        "inputs": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "type": "\"success\" | \"error\" | \"pending\" | \"running\""
+          },
+          {
+            "name": "args",
+            "type": "string"
+          },
+          {
+            "name": "result",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "open",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "chat",
       "label": "Chat",
       "type": "component",
       "category": "AI",
-      "url": "https://ngblatui.remix-it.com/components/chat"
+      "url": "https://ngblatui.remix-it.com/components/chat",
+      "api": {
+        "inputs": [
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          },
+          {
+            "name": "role",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "time",
+            "type": "string"
+          },
+          {
+            "name": "avatar",
+            "type": "string"
+          },
+          {
+            "name": "typing",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "confetti",
       "label": "Confetti",
       "type": "component",
       "category": "Effects",
-      "url": "https://ngblatui.remix-it.com/components/confetti"
+      "url": "https://ngblatui.remix-it.com/components/confetti",
+      "api": {
+        "inputs": [
+          {
+            "name": "count",
+            "type": "number"
+          },
+          {
+            "name": "spread",
+            "type": "number"
+          },
+          {
+            "name": "colors",
+            "type": "readonly string[] | null"
+          }
+        ]
+      }
     },
     {
       "name": "stepper",
       "label": "Stepper",
       "type": "component",
       "category": "Navigation",
-      "url": "https://ngblatui.remix-it.com/components/stepper"
+      "url": "https://ngblatui.remix-it.com/components/stepper",
+      "api": {
+        "inputs": [
+          {
+            "name": "value",
+            "type": "number"
+          },
+          {
+            "name": "orientation",
+            "type": "\"horizontal\" | \"vertical\""
+          },
+          {
+            "name": "step",
+            "type": "number"
+          }
+        ]
+      }
     },
     {
       "name": "input-otp",
       "label": "Input OTP",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/input-otp"
+      "url": "https://ngblatui.remix-it.com/components/input-otp",
+      "api": {
+        "inputs": [
+          {
+            "name": "maxlength",
+            "type": "number"
+          },
+          {
+            "name": "alphanumeric",
+            "type": "boolean"
+          },
+          {
+            "name": "groupSize",
+            "type": "number"
+          },
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "phone-input",
       "label": "Phone Input",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/phone-input"
+      "url": "https://ngblatui.remix-it.com/components/phone-input",
+      "api": {
+        "inputs": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "placeholder",
+            "type": "string"
+          },
+          {
+            "name": "countryLabel",
+            "type": "string"
+          },
+          {
+            "name": "numberLabel",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string"
+          },
+          {
+            "name": "country",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "prompt-input",
       "label": "Prompt Input",
       "type": "component",
       "category": "AI",
-      "url": "https://ngblatui.remix-it.com/components/prompt-input"
+      "url": "https://ngblatui.remix-it.com/components/prompt-input",
+      "api": {
+        "inputs": [
+          {
+            "name": "placeholder",
+            "type": "string"
+          },
+          {
+            "name": "attachable",
+            "type": "boolean"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          },
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          },
+          {
+            "name": "attachLabel",
+            "type": "string"
+          },
+          {
+            "name": "sendLabel",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "submitted",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "heatmap",
       "label": "Heatmap",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/heatmap"
+      "url": "https://ngblatui.remix-it.com/components/heatmap",
+      "api": {
+        "inputs": [
+          {
+            "name": "data",
+            "type": "readonly number[]"
+          },
+          {
+            "name": "compact",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "citation",
       "label": "Citation",
       "type": "component",
       "category": "AI",
-      "url": "https://ngblatui.remix-it.com/components/citation"
+      "url": "https://ngblatui.remix-it.com/components/citation",
+      "api": {
+        "inputs": [
+          {
+            "name": "index",
+            "type": "number"
+          },
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "url",
+            "type": "string"
+          },
+          {
+            "name": "snippet",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "resizable",
       "label": "Resizable",
       "type": "component",
       "category": "Layout",
-      "url": "https://ngblatui.remix-it.com/components/resizable"
+      "url": "https://ngblatui.remix-it.com/components/resizable",
+      "api": {
+        "inputs": [
+          {
+            "name": "withHandle",
+            "type": "boolean"
+          },
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          },
+          {
+            "name": "primary",
+            "type": "boolean"
+          },
+          {
+            "name": "direction",
+            "type": "\"horizontal\" | \"vertical\""
+          }
+        ],
+        "models": [
+          {
+            "name": "size",
+            "type": "number"
+          }
+        ]
+      }
     },
     {
       "name": "video",
       "label": "Video",
       "type": "component",
       "category": "Media",
-      "url": "https://ngblatui.remix-it.com/components/video"
+      "url": "https://ngblatui.remix-it.com/components/video",
+      "api": {
+        "inputs": [
+          {
+            "name": "src",
+            "type": "string"
+          },
+          {
+            "name": "poster",
+            "type": "string"
+          },
+          {
+            "name": "aspect",
+            "type": "string"
+          },
+          {
+            "name": "controls",
+            "type": "boolean"
+          },
+          {
+            "name": "autoplay",
+            "type": "boolean"
+          },
+          {
+            "name": "loop",
+            "type": "boolean"
+          },
+          {
+            "name": "muted",
+            "type": "boolean"
+          },
+          {
+            "name": "rounded",
+            "type": "string"
+          },
+          {
+            "name": "playLabel",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "color-picker",
       "label": "Color Picker",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/color-picker"
+      "url": "https://ngblatui.remix-it.com/components/color-picker",
+      "api": {
+        "inputs": [
+          {
+            "name": "swatches",
+            "type": "readonly string[] | null"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          },
+          {
+            "name": "pickLabel",
+            "type": "string"
+          },
+          {
+            "name": "hexLabel",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "cookie-consent",
       "label": "Cookie Consent",
       "type": "component",
       "category": "Feedback",
-      "url": "https://ngblatui.remix-it.com/components/cookie-consent"
+      "url": "https://ngblatui.remix-it.com/components/cookie-consent",
+      "api": {
+        "inputs": [
+          {
+            "name": "message",
+            "type": "string"
+          },
+          {
+            "name": "demo",
+            "type": "boolean"
+          },
+          {
+            "name": "storageKey",
+            "type": "string"
+          },
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "decided",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "infinite-scroll",
       "label": "Infinite Scroll",
       "type": "component",
       "category": "Navigation",
-      "url": "https://ngblatui.remix-it.com/components/infinite-scroll"
+      "url": "https://ngblatui.remix-it.com/components/infinite-scroll",
+      "api": {
+        "inputs": [
+          {
+            "name": "loading",
+            "type": "boolean"
+          },
+          {
+            "name": "finished",
+            "type": "boolean"
+          },
+          {
+            "name": "threshold",
+            "type": "number"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "more",
+            "type": "void"
+          }
+        ]
+      }
     },
     {
       "name": "audio-player",
       "label": "Audio Player",
       "type": "component",
       "category": "Media",
-      "url": "https://ngblatui.remix-it.com/components/audio-player"
+      "url": "https://ngblatui.remix-it.com/components/audio-player",
+      "api": {
+        "inputs": [
+          {
+            "name": "src",
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "artist",
+            "type": "string"
+          },
+          {
+            "name": "autoplay",
+            "type": "boolean"
+          },
+          {
+            "name": "compact",
+            "type": "boolean"
+          },
+          {
+            "name": "seekLabel",
+            "type": "string"
+          },
+          {
+            "name": "playLabel",
+            "type": "string"
+          },
+          {
+            "name": "pauseLabel",
+            "type": "string"
+          },
+          {
+            "name": "muteLabel",
+            "type": "string"
+          },
+          {
+            "name": "unmuteLabel",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "signature-pad",
       "label": "Signature Pad",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/signature-pad"
+      "url": "https://ngblatui.remix-it.com/components/signature-pad",
+      "api": {
+        "inputs": [
+          {
+            "name": "height",
+            "type": "number"
+          },
+          {
+            "name": "penColor",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "dock",
       "label": "Dock",
       "type": "component",
       "category": "Navigation",
-      "url": "https://ngblatui.remix-it.com/components/dock"
+      "url": "https://ngblatui.remix-it.com/components/dock",
+      "api": {
+        "inputs": [
+          {
+            "name": "magnify",
+            "type": "number"
+          },
+          {
+            "name": "distance",
+            "type": "number"
+          },
+          {
+            "name": "label",
+            "type": "string"
+          },
+          {
+            "name": "active",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "tree",
       "label": "Tree",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/tree"
+      "url": "https://ngblatui.remix-it.com/components/tree",
+      "api": {
+        "inputs": [
+          {
+            "name": "items",
+            "type": "readonly TreeItem[]"
+          },
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          },
+          {
+            "name": "item",
+            "type": "TreeItem",
+            "required": true
+          },
+          {
+            "name": "level",
+            "type": "number"
+          }
+        ],
+        "types": ["TreeItem"]
+      }
     },
     {
       "name": "repeater",
       "label": "Repeater",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/repeater"
+      "url": "https://ngblatui.remix-it.com/components/repeater",
+      "api": {
+        "inputs": [
+          {
+            "name": "fields",
+            "type": "readonly RepeaterField[]"
+          },
+          {
+            "name": "min",
+            "type": "number"
+          },
+          {
+            "name": "max",
+            "type": "number | null"
+          },
+          {
+            "name": "addLabel",
+            "type": "string"
+          },
+          {
+            "name": "removeLabel",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "rows",
+            "type": "Record<string, string>[]"
+          }
+        ],
+        "types": ["RepeaterField"]
+      }
     },
     {
       "name": "notification-center",
       "label": "Notification Center",
       "type": "component",
       "category": "Overlays",
-      "url": "https://ngblatui.remix-it.com/components/notification-center"
+      "url": "https://ngblatui.remix-it.com/components/notification-center",
+      "api": {
+        "inputs": [
+          {
+            "name": "notifications",
+            "type": "readonly NotificationItem[]"
+          },
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          },
+          {
+            "name": "unreadLabel",
+            "type": "string"
+          },
+          {
+            "name": "markAllReadLabel",
+            "type": "string"
+          },
+          {
+            "name": "emptyLabel",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "open",
+            "type": "boolean"
+          }
+        ],
+        "types": ["NotificationItem"]
+      }
     },
     {
       "name": "json-viewer",
       "label": "JSON Viewer",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/json-viewer"
+      "url": "https://ngblatui.remix-it.com/components/json-viewer",
+      "api": {
+        "inputs": [
+          {
+            "name": "data",
+            "type": "unknown"
+          },
+          {
+            "name": "expanded",
+            "type": "boolean"
+          },
+          {
+            "name": "value",
+            "type": "unknown"
+          },
+          {
+            "name": "keyName",
+            "type": "string | number | null"
+          },
+          {
+            "name": "expanded",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "org-chart",
       "label": "Org Chart",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/org-chart"
+      "url": "https://ngblatui.remix-it.com/components/org-chart",
+      "api": {
+        "inputs": [
+          {
+            "name": "node",
+            "type": "OrgNode | null"
+          },
+          {
+            "name": "node",
+            "type": "OrgNode",
+            "required": true
+          }
+        ],
+        "types": ["OrgNode"]
+      }
     },
     {
       "name": "mini-cart",
       "label": "Mini Cart",
       "type": "component",
       "category": "E-commerce",
-      "url": "https://ngblatui.remix-it.com/components/mini-cart"
+      "url": "https://ngblatui.remix-it.com/components/mini-cart",
+      "api": {
+        "inputs": [
+          {
+            "name": "items",
+            "type": "readonly CartItem[]"
+          },
+          {
+            "name": "currency",
+            "type": "string"
+          },
+          {
+            "name": "triggerLabel",
+            "type": "string"
+          },
+          {
+            "name": "label",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "open",
+            "type": "boolean"
+          }
+        ],
+        "types": ["CartItem"]
+      }
     },
     {
       "name": "animated-beam",
       "label": "Animated Beam",
       "type": "component",
       "category": "Effects",
-      "url": "https://ngblatui.remix-it.com/components/animated-beam"
+      "url": "https://ngblatui.remix-it.com/components/animated-beam",
+      "api": {
+        "inputs": [
+          {
+            "name": "from",
+            "type": "string"
+          },
+          {
+            "name": "to",
+            "type": "string"
+          },
+          {
+            "name": "curvature",
+            "type": "number"
+          },
+          {
+            "name": "duration",
+            "type": "number"
+          }
+        ]
+      }
     },
     {
       "name": "diff-viewer",
       "label": "Diff Viewer",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/diff-viewer"
+      "url": "https://ngblatui.remix-it.com/components/diff-viewer",
+      "api": {
+        "inputs": [
+          {
+            "name": "before",
+            "type": "string"
+          },
+          {
+            "name": "after",
+            "type": "string"
+          },
+          {
+            "name": "filename",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "tree-table",
       "label": "Tree Table",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/tree-table"
+      "url": "https://ngblatui.remix-it.com/components/tree-table",
+      "api": {
+        "inputs": [
+          {
+            "name": "columns",
+            "type": "readonly TreeTableColumn[]"
+          },
+          {
+            "name": "rows",
+            "type": "readonly TreeTableRow[]"
+          },
+          {
+            "name": "toggleLabel",
+            "type": "string"
+          }
+        ],
+        "types": ["TreeTableColumn", "TreeTableRow"]
+      }
     },
     {
       "name": "markdown-editor",
       "label": "Markdown Editor",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/markdown-editor"
+      "url": "https://ngblatui.remix-it.com/components/markdown-editor",
+      "api": {
+        "inputs": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "placeholder",
+            "type": "string"
+          },
+          {
+            "name": "rows",
+            "type": "number"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "calendar",
       "label": "Calendar",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/calendar"
+      "url": "https://ngblatui.remix-it.com/components/calendar",
+      "api": {
+        "inputs": [
+          {
+            "name": "mode",
+            "type": "CalendarMode"
+          },
+          {
+            "name": "months",
+            "type": "number"
+          },
+          {
+            "name": "weekStart",
+            "type": "number"
+          },
+          {
+            "name": "minDate",
+            "type": "string"
+          },
+          {
+            "name": "maxDate",
+            "type": "string"
+          },
+          {
+            "name": "disabledDates",
+            "type": "readonly string[]"
+          },
+          {
+            "name": "disableWeekends",
+            "type": "boolean"
+          },
+          {
+            "name": "showWeekNumbers",
+            "type": "boolean"
+          },
+          {
+            "name": "captionLayout",
+            "type": "\"label\" | \"dropdown\""
+          },
+          {
+            "name": "hideOutsideDays",
+            "type": "boolean"
+          },
+          {
+            "name": "previousMonthLabel",
+            "type": "string"
+          },
+          {
+            "name": "monthSelectLabel",
+            "type": "string"
+          },
+          {
+            "name": "yearLabel",
+            "type": "string"
+          },
+          {
+            "name": "nextMonthLabel",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string"
+          },
+          {
+            "name": "range",
+            "type": "CalendarRange"
+          },
+          {
+            "name": "values",
+            "type": "readonly string[]"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ],
+        "types": ["CalendarMode", "CalendarRange"]
+      }
     },
     {
       "name": "date-picker",
       "label": "Date Picker",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/date-picker"
+      "url": "https://ngblatui.remix-it.com/components/date-picker",
+      "api": {
+        "inputs": [
+          {
+            "name": "mode",
+            "type": "CalendarMode"
+          },
+          {
+            "name": "months",
+            "type": "number"
+          },
+          {
+            "name": "placeholder",
+            "type": "string"
+          },
+          {
+            "name": "minDate",
+            "type": "string"
+          },
+          {
+            "name": "maxDate",
+            "type": "string"
+          },
+          {
+            "name": "weekStart",
+            "type": "number"
+          },
+          {
+            "name": "disabledDates",
+            "type": "readonly string[]"
+          },
+          {
+            "name": "disableWeekends",
+            "type": "boolean"
+          },
+          {
+            "name": "showWeekNumbers",
+            "type": "boolean"
+          },
+          {
+            "name": "captionLayout",
+            "type": "\"label\" | \"dropdown\""
+          },
+          {
+            "name": "hideOutsideDays",
+            "type": "boolean"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string"
+          },
+          {
+            "name": "range",
+            "type": "CalendarRange"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ],
+        "types": ["CalendarMode", "CalendarRange"]
+      }
     },
     {
       "name": "carousel",
       "label": "Carousel",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/carousel"
+      "url": "https://ngblatui.remix-it.com/components/carousel",
+      "api": {
+        "inputs": [
+          {
+            "name": "orientation",
+            "type": "CarouselOrientation"
+          },
+          {
+            "name": "perView",
+            "type": "number"
+          },
+          {
+            "name": "previousLabel",
+            "type": "string"
+          },
+          {
+            "name": "nextLabel",
+            "type": "string"
+          },
+          {
+            "name": "goToSlideLabel",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "index",
+            "type": "number"
+          }
+        ],
+        "types": ["CarouselOrientation"]
+      }
     },
     {
       "name": "command",
       "label": "Command",
       "type": "component",
       "category": "Overlays",
-      "url": "https://ngblatui.remix-it.com/components/command"
+      "url": "https://ngblatui.remix-it.com/components/command",
+      "api": {
+        "inputs": [
+          {
+            "name": "groups",
+            "type": "readonly CommandGroup[]"
+          },
+          {
+            "name": "placeholder",
+            "type": "string"
+          },
+          {
+            "name": "checkable",
+            "type": "boolean"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "selected",
+            "type": "CommandItem"
+          }
+        ],
+        "types": ["CommandGroup", "CommandItem"]
+      }
     },
     {
       "name": "context-menu",
       "label": "Context Menu",
       "type": "component",
       "category": "Overlays",
-      "url": "https://ngblatui.remix-it.com/components/context-menu"
+      "url": "https://ngblatui.remix-it.com/components/context-menu",
+      "api": {
+        "inputs": [
+          {
+            "name": "items",
+            "type": "readonly ContextMenuItem[]"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "selected",
+            "type": "ContextMenuItem"
+          }
+        ],
+        "types": ["ContextMenuItem"]
+      }
     },
     {
       "name": "data-table",
       "label": "Data Table",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/data-table"
+      "url": "https://ngblatui.remix-it.com/components/data-table",
+      "api": {
+        "inputs": [
+          {
+            "name": "columns",
+            "type": "readonly DataTableColumn[]"
+          },
+          {
+            "name": "rows",
+            "type": "readonly DataRow[]"
+          },
+          {
+            "name": "searchable",
+            "type": "boolean"
+          },
+          {
+            "name": "searchPlaceholder",
+            "type": "string"
+          },
+          {
+            "name": "selectable",
+            "type": "boolean"
+          },
+          {
+            "name": "pageSize",
+            "type": "number"
+          },
+          {
+            "name": "searchLabel",
+            "type": "string"
+          },
+          {
+            "name": "selectAllLabel",
+            "type": "string"
+          },
+          {
+            "name": "selectRowLabel",
+            "type": "string"
+          }
+        ],
+        "types": ["DataRow", "DataTableColumn"]
+      }
     },
     {
       "name": "chart",
       "label": "Chart",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/chart"
+      "url": "https://ngblatui.remix-it.com/components/chart",
+      "api": {
+        "inputs": [
+          {
+            "name": "type",
+            "type": "\"area\" | \"line\" | \"bar\""
+          },
+          {
+            "name": "series",
+            "type": "readonly ChartSeries[]"
+          },
+          {
+            "name": "labels",
+            "type": "readonly string[]"
+          },
+          {
+            "name": "height",
+            "type": "number"
+          },
+          {
+            "name": "label",
+            "type": "string"
+          }
+        ],
+        "types": ["ChartSeries"]
+      }
     },
     {
       "name": "datetime-picker",
       "label": "Datetime Picker",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/datetime-picker"
+      "url": "https://ngblatui.remix-it.com/components/datetime-picker",
+      "api": {
+        "inputs": [
+          {
+            "name": "mode",
+            "type": "CalendarMode"
+          },
+          {
+            "name": "months",
+            "type": "number"
+          },
+          {
+            "name": "placeholder",
+            "type": "string"
+          },
+          {
+            "name": "minDate",
+            "type": "string"
+          },
+          {
+            "name": "maxDate",
+            "type": "string"
+          },
+          {
+            "name": "captionLayout",
+            "type": "\"label\" | \"dropdown\""
+          },
+          {
+            "name": "seconds",
+            "type": "boolean"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string"
+          },
+          {
+            "name": "range",
+            "type": "CalendarRange"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ],
+        "types": ["CalendarMode", "CalendarRange"]
+      }
     },
     {
       "name": "autocomplete",
       "label": "Autocomplete",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/autocomplete"
+      "url": "https://ngblatui.remix-it.com/components/autocomplete",
+      "api": {
+        "inputs": [
+          {
+            "name": "multiple",
+            "type": "boolean"
+          },
+          {
+            "name": "options",
+            "type": "readonly string[]"
+          },
+          {
+            "name": "placeholder",
+            "type": "string"
+          },
+          {
+            "name": "empty",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "type": "AutocompleteSize"
+          },
+          {
+            "name": "icon",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string"
+          },
+          {
+            "name": "values",
+            "type": "readonly string[]"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ],
+        "types": ["AutocompleteSize"]
+      }
     },
     {
       "name": "comparison-slider",
       "label": "Comparison Slider",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/comparison-slider"
+      "url": "https://ngblatui.remix-it.com/components/comparison-slider",
+      "api": {
+        "inputs": [
+          {
+            "name": "before",
+            "type": "string"
+          },
+          {
+            "name": "after",
+            "type": "string"
+          },
+          {
+            "name": "beforeLabel",
+            "type": "string"
+          },
+          {
+            "name": "afterLabel",
+            "type": "string"
+          },
+          {
+            "name": "beforeAlt",
+            "type": "string"
+          },
+          {
+            "name": "afterAlt",
+            "type": "string"
+          },
+          {
+            "name": "positionLabel",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "number"
+          }
+        ]
+      }
     },
     {
       "name": "file-upload",
       "label": "File Upload",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/file-upload"
+      "url": "https://ngblatui.remix-it.com/components/file-upload",
+      "api": {
+        "inputs": [
+          {
+            "name": "multiple",
+            "type": "boolean"
+          },
+          {
+            "name": "accept",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "hint",
+            "type": "string"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          },
+          {
+            "name": "dropzoneLabel",
+            "type": "string"
+          },
+          {
+            "name": "removeLabel",
+            "type": "string"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "filesChange",
+            "type": "readonly File[]"
+          }
+        ]
+      }
     },
     {
       "name": "top-progress",
       "label": "Top Progress",
       "type": "component",
       "category": "Feedback",
-      "url": "https://ngblatui.remix-it.com/components/top-progress"
+      "url": "https://ngblatui.remix-it.com/components/top-progress",
+      "api": {
+        "inputs": [
+          {
+            "name": "color",
+            "type": "string"
+          },
+          {
+            "name": "height",
+            "type": "number"
+          },
+          {
+            "name": "demo",
+            "type": "boolean"
+          },
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "drawer",
       "label": "Drawer",
       "type": "component",
       "category": "Overlays",
-      "url": "https://ngblatui.remix-it.com/components/drawer"
+      "url": "https://ngblatui.remix-it.com/components/drawer",
+      "api": {
+        "inputs": [
+          {
+            "name": "direction",
+            "type": "\"top\" | \"right\" | \"bottom\" | \"left\""
+          },
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "open",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "input-mask",
       "label": "Input Mask",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/input-mask"
+      "url": "https://ngblatui.remix-it.com/components/input-mask",
+      "api": {
+        "inputs": [
+          {
+            "name": "mask",
+            "type": "string"
+          },
+          {
+            "name": "placeholder",
+            "type": "string"
+          },
+          {
+            "name": "inputmode",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "sheet",
       "label": "Sheet",
       "type": "component",
       "category": "Overlays",
-      "url": "https://ngblatui.remix-it.com/components/sheet"
+      "url": "https://ngblatui.remix-it.com/components/sheet",
+      "api": {
+        "inputs": [
+          {
+            "name": "side",
+            "type": "\"top\" | \"right\" | \"bottom\" | \"left\""
+          },
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "open",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "sonner",
       "label": "Sonner",
       "type": "component",
       "category": "Feedback",
-      "url": "https://ngblatui.remix-it.com/components/sonner"
+      "url": "https://ngblatui.remix-it.com/components/sonner",
+      "api": {
+        "inputs": [
+          {
+            "name": "position",
+            "type": "string"
+          },
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          },
+          {
+            "name": "dismissLabel",
+            "type": "string"
+          }
+        ],
+        "types": ["Toast"]
+      }
     },
     {
       "name": "navigation-menu",
       "label": "Navigation Menu",
       "type": "component",
       "category": "Navigation",
-      "url": "https://ngblatui.remix-it.com/components/navigation-menu"
+      "url": "https://ngblatui.remix-it.com/components/navigation-menu",
+      "api": {
+        "inputs": [
+          {
+            "name": "items",
+            "type": "readonly NavMenuItem[]"
+          }
+        ],
+        "types": ["NavMenuItem", "NavMenuLink"]
+      }
     },
     {
       "name": "mention-input",
       "label": "Mention Input",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/mention-input"
+      "url": "https://ngblatui.remix-it.com/components/mention-input",
+      "api": {
+        "inputs": [
+          {
+            "name": "mentions",
+            "type": "readonly Mention[]"
+          },
+          {
+            "name": "trigger",
+            "type": "string"
+          },
+          {
+            "name": "placeholder",
+            "type": "string"
+          },
+          {
+            "name": "rows",
+            "type": "number"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string"
+          }
+        ],
+        "types": ["Mention"]
+      }
     },
     {
       "name": "map",
       "label": "Map",
       "type": "component",
       "category": "Media",
-      "url": "https://ngblatui.remix-it.com/components/map"
+      "url": "https://ngblatui.remix-it.com/components/map",
+      "api": {
+        "inputs": [
+          {
+            "name": "lat",
+            "type": "number"
+          },
+          {
+            "name": "lon",
+            "type": "number"
+          },
+          {
+            "name": "zoom",
+            "type": "number"
+          },
+          {
+            "name": "label",
+            "type": "string"
+          },
+          {
+            "name": "marker",
+            "type": "boolean"
+          },
+          {
+            "name": "height",
+            "type": "number"
+          },
+          {
+            "name": "ratio",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "gantt",
       "label": "Gantt",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/gantt"
+      "url": "https://ngblatui.remix-it.com/components/gantt",
+      "api": {
+        "inputs": [
+          {
+            "name": "tasks",
+            "type": "readonly GanttTask[]"
+          },
+          {
+            "name": "milestones",
+            "type": "readonly GanttMilestone[]"
+          },
+          {
+            "name": "start",
+            "type": "string"
+          },
+          {
+            "name": "end",
+            "type": "string"
+          }
+        ],
+        "types": ["GanttMilestone", "GanttTask"]
+      }
     },
     {
       "name": "scheduler",
       "label": "Scheduler",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/scheduler"
+      "url": "https://ngblatui.remix-it.com/components/scheduler",
+      "api": {
+        "inputs": [
+          {
+            "name": "events",
+            "type": "readonly SchedulerEvent[]"
+          },
+          {
+            "name": "days",
+            "type": "readonly string[]"
+          },
+          {
+            "name": "startHour",
+            "type": "number"
+          },
+          {
+            "name": "endHour",
+            "type": "number"
+          },
+          {
+            "name": "view",
+            "type": "\"day\" | \"week\""
+          },
+          {
+            "name": "label",
+            "type": "string"
+          }
+        ],
+        "types": ["SchedulerEvent"]
+      }
     },
     {
       "name": "kanban",
       "label": "Kanban",
       "type": "component",
       "category": "Data Display",
-      "url": "https://ngblatui.remix-it.com/components/kanban"
+      "url": "https://ngblatui.remix-it.com/components/kanban",
+      "api": {
+        "inputs": [
+          {
+            "name": "columns",
+            "type": "readonly KanbanColumn[]"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "changed",
+            "type": "KanbanColumn[]"
+          }
+        ],
+        "types": ["KanbanCard", "KanbanColumn"]
+      }
     },
     {
       "name": "rich-text-editor",
       "label": "Rich Text Editor",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/rich-text-editor"
+      "url": "https://ngblatui.remix-it.com/components/rich-text-editor",
+      "api": {
+        "inputs": [
+          {
+            "name": "placeholder",
+            "type": "string"
+          },
+          {
+            "name": "ariaLabel",
+            "type": "string"
+          },
+          {
+            "name": "formattingLabel",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string"
+          }
+        ]
+      }
     },
     {
       "name": "sidebar",
       "label": "Sidebar",
       "type": "component",
       "category": "Layout",
-      "url": "https://ngblatui.remix-it.com/components/sidebar"
+      "url": "https://ngblatui.remix-it.com/components/sidebar",
+      "api": {
+        "inputs": [
+          {
+            "name": "side",
+            "type": "\"right\" | \"left\""
+          },
+          {
+            "name": "collapsible",
+            "type": "\"icon\" | \"offcanvas\""
+          },
+          {
+            "name": "isActive",
+            "type": "boolean"
+          }
+        ],
+        "models": [
+          {
+            "name": "open",
+            "type": "boolean"
+          }
+        ]
+      }
     },
     {
       "name": "onboarding-tour",
       "label": "Onboarding Tour",
       "type": "component",
       "category": "Overlays",
-      "url": "https://ngblatui.remix-it.com/components/onboarding-tour"
+      "url": "https://ngblatui.remix-it.com/components/onboarding-tour",
+      "api": {
+        "inputs": [
+          {
+            "name": "steps",
+            "type": "readonly TourStep[]"
+          }
+        ],
+        "models": [
+          {
+            "name": "open",
+            "type": "boolean"
+          }
+        ],
+        "types": ["TourStep"]
+      }
     },
     {
       "name": "qr-code",
       "label": "QR Code",
       "type": "component",
       "category": "Media",
-      "url": "https://ngblatui.remix-it.com/components/qr-code"
+      "url": "https://ngblatui.remix-it.com/components/qr-code",
+      "api": {
+        "inputs": [
+          {
+            "name": "value",
+            "type": "string"
+          },
+          {
+            "name": "size",
+            "type": "number"
+          },
+          {
+            "name": "label",
+            "type": "string"
+          },
+          {
+            "name": "foreground",
+            "type": "string"
+          },
+          {
+            "name": "background",
+            "type": "string"
+          },
+          {
+            "name": "margin",
+            "type": "number"
+          }
+        ]
+      }
     },
     {
       "name": "login-01",

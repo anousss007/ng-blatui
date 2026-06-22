@@ -264,6 +264,8 @@ import {
   Tabs,
 } from 'ng-blatui';
 
+import { API_DOCS } from '../generated/api';
+import { ApiReference } from '../ui/api-reference';
 import { Example } from '../ui/example';
 
 const META: Record<string, { title: string; description: string }> = {
@@ -485,6 +487,7 @@ type ToggleValue = string | string[] | null;
   selector: 'app-components',
   imports: [
     Example,
+    ApiReference,
     ReactiveFormsModule,
     BuiButton,
     BuiBadge,
@@ -749,6 +752,7 @@ export class ComponentPage {
     const slug = this.slug();
     return Object.hasOwn(META, slug) ? META[slug].description : '';
   });
+  protected readonly hasApi = computed(() => Object.hasOwn(API_DOCS, this.slug()));
 
   private readonly dialog = inject(Dialog);
   private readonly overlay = inject(Overlay);

@@ -1,0 +1,5 @@
+# Auto-generated — owned by scripts/extract-api.mjs / build-registry.mjs
+projects/demo/src/app/generated/
+projects/demo/public/api.json
+projects/demo/public/registry.json
+projects/demo/public/llms.txt

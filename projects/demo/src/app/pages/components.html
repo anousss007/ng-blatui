@@ -9036,6 +9036,11 @@ This content is read-only and cannot be edited.</textarea
       <p class="text-muted-foreground">Component not found.</p>
     }
   }
+
+  @if (hasApi()) {
+    <h2 class="mt-12 mb-1 text-xl font-semibold tracking-tight">API reference</h2>
+    <app-api-reference [slug]="slug()" />
+  }
 </article>
 
 <ng-template #alertTpl>

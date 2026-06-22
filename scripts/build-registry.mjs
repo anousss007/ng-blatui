@@ -52,6 +52,50 @@ for (const block of categoriesSrc.matchAll(
 const slugCategory = new Map();
 for (const c of categories) for (const s of c.slugs) slugCategory.set(s, c.label);
 
+// Per-component API (inputs/models/outputs/types), extracted from the typed source by
+// scripts/extract-api.mjs. Run `npm run extract:api` first; absent file → registry without api.
+let apiDocs = {};
+try {
+  apiDocs = JSON.parse(read('projects/demo/public/api.json'));
+} catch {
+  console.warn(
+    '! projects/demo/public/api.json not found — run `npm run extract:api` first; registry will omit API.',
+  );
+}
+
+/** Compact API summary for a component: input/model/output names+types (+required) and type names. */
+function apiSummary(slug) {
+  const entry = apiDocs[slug];
+  if (!entry) return undefined;
+  const inputs = [];
+  const models = [];
+  const outputs = [];
+  for (const c of entry.components) {
+    for (const m of c.inputs)
+      inputs.push({ name: m.name, type: m.type, ...(m.required ? { required: true } : {}) });
+    for (const m of c.models) models.push({ name: m.name, type: m.type });
+    for (const m of c.outputs) outputs.push({ name: m.name, type: m.type });
+  }
+  const out = {};
+  if (inputs.length) out.inputs = inputs;
+  if (models.length) out.models = models;
+  if (outputs.length) out.outputs = outputs;
+  if (entry.types.length) out.types = entry.types.map((t) => t.name);
+  return Object.keys(out).length ? out : undefined;
+}
+
+/** One-line prop synopsis for llms.txt, e.g. "props: variant, size · two-way: open · types: TourStep". */
+function apiSynopsis(slug) {
+  const a = apiSummary(slug);
+  if (!a) return '';
+  const parts = [];
+  if (a.inputs) parts.push(`props: ${a.inputs.map((i) => i.name).join(', ')}`);
+  if (a.models) parts.push(`two-way: ${a.models.map((m) => m.name).join(', ')}`);
+  if (a.outputs) parts.push(`emits: ${a.outputs.map((o) => o.name).join(', ')}`);
+  if (a.types) parts.push(`types: ${a.types.join(', ')}`);
+  return parts.join(' · ');
+}
+
 const allComponentSlugs = strArray(read('projects/demo/src/app/app.ts'), 'COMPONENTS');
 const components = allComponentSlugs.map((slug) => ({
   name: slug,
@@ -59,6 +103,7 @@ const components = allComponentSlugs.map((slug) => ({
   type: 'component',
   category: slugCategory.get(slug) ?? 'Components',
   url: `${HOMEPAGE}/components/${slug}`,
+  api: apiSummary(slug),
 }));
 
 // ── Templates / Blocks / Charts ────────────────────────────────────────────────
@@ -133,11 +178,12 @@ for (const c of components) {
   if (!byCategory.has(c.category)) byCategory.set(c.category, []);
   byCategory.get(c.category).push(c);
 }
+const componentLine = (i) => {
+  const synopsis = apiSynopsis(i.name);
+  return `- [${i.label}](${i.url})${synopsis ? ` — ${synopsis}` : ''}`;
+};
 const componentSections = [...byCategory.entries()]
-  .map(
-    ([label, list]) =>
-      `### ${label}\n\n${list.map((i) => `- [${i.label}](${i.url})`).join('\n')}\n`,
-  )
+  .map(([label, list]) => `### ${label}\n\n${list.map(componentLine).join('\n')}\n`)
   .join('\n');
 
 const llms = `# ng-blatui

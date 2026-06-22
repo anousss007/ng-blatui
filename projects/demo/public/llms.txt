@@ -19,181 +19,181 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 
 ### Forms & Input
 
-- [Button](https://ngblatui.remix-it.com/components/button)
-- [Input](https://ngblatui.remix-it.com/components/input)
-- [Textarea](https://ngblatui.remix-it.com/components/textarea)
+- [Button](https://ngblatui.remix-it.com/components/button) — props: variant, size · types: ButtonSize, ButtonVariant
+- [Input](https://ngblatui.remix-it.com/components/input) — props: size
+- [Textarea](https://ngblatui.remix-it.com/components/textarea) — props: size
 - [Label](https://ngblatui.remix-it.com/components/label)
-- [Checkbox](https://ngblatui.remix-it.com/components/checkbox)
-- [Switch](https://ngblatui.remix-it.com/components/switch)
-- [Radio Group](https://ngblatui.remix-it.com/components/radio-group)
-- [Button Group](https://ngblatui.remix-it.com/components/button-group)
-- [Field](https://ngblatui.remix-it.com/components/field)
-- [Toggle](https://ngblatui.remix-it.com/components/toggle)
-- [Copy Button](https://ngblatui.remix-it.com/components/copy-button)
-- [Input Group](https://ngblatui.remix-it.com/components/input-group)
-- [Slider](https://ngblatui.remix-it.com/components/slider)
-- [Rating](https://ngblatui.remix-it.com/components/rating)
-- [Autosize Textarea](https://ngblatui.remix-it.com/components/autosize-textarea)
-- [Segmented Control](https://ngblatui.remix-it.com/components/segmented-control)
-- [Select](https://ngblatui.remix-it.com/components/select)
-- [Combobox](https://ngblatui.remix-it.com/components/combobox)
-- [Number Input](https://ngblatui.remix-it.com/components/number-input)
-- [Password Strength](https://ngblatui.remix-it.com/components/password-strength)
-- [Time Field](https://ngblatui.remix-it.com/components/time-field)
-- [Toggle Group](https://ngblatui.remix-it.com/components/toggle-group)
-- [Tags Input](https://ngblatui.remix-it.com/components/tags-input)
-- [Editable](https://ngblatui.remix-it.com/components/editable)
-- [Knob](https://ngblatui.remix-it.com/components/knob)
-- [Input OTP](https://ngblatui.remix-it.com/components/input-otp)
-- [Phone Input](https://ngblatui.remix-it.com/components/phone-input)
-- [Color Picker](https://ngblatui.remix-it.com/components/color-picker)
-- [Signature Pad](https://ngblatui.remix-it.com/components/signature-pad)
-- [Repeater](https://ngblatui.remix-it.com/components/repeater)
-- [Markdown Editor](https://ngblatui.remix-it.com/components/markdown-editor)
-- [Calendar](https://ngblatui.remix-it.com/components/calendar)
-- [Date Picker](https://ngblatui.remix-it.com/components/date-picker)
-- [Datetime Picker](https://ngblatui.remix-it.com/components/datetime-picker)
-- [Autocomplete](https://ngblatui.remix-it.com/components/autocomplete)
-- [File Upload](https://ngblatui.remix-it.com/components/file-upload)
-- [Input Mask](https://ngblatui.remix-it.com/components/input-mask)
-- [Mention Input](https://ngblatui.remix-it.com/components/mention-input)
-- [Rich Text Editor](https://ngblatui.remix-it.com/components/rich-text-editor)
+- [Checkbox](https://ngblatui.remix-it.com/components/checkbox) — two-way: checked, indeterminate, disabled
+- [Switch](https://ngblatui.remix-it.com/components/switch) — props: size, iconOn, iconOff · two-way: checked, disabled
+- [Radio Group](https://ngblatui.remix-it.com/components/radio-group) — props: value, disabled · two-way: value, disabled
+- [Button Group](https://ngblatui.remix-it.com/components/button-group) — props: orientation
+- [Field](https://ngblatui.remix-it.com/components/field) — props: orientation, for, variant
+- [Toggle](https://ngblatui.remix-it.com/components/toggle) — props: variant, size · two-way: pressed, disabled
+- [Copy Button](https://ngblatui.remix-it.com/components/copy-button) — props: value, label
+- [Input Group](https://ngblatui.remix-it.com/components/input-group) — props: align, variant, size
+- [Slider](https://ngblatui.remix-it.com/components/slider) — props: range, min, max, step, orientation, ariaLabel · two-way: value, endValue, disabled
+- [Rating](https://ngblatui.remix-it.com/components/rating) — props: max, readonly, size, color, ariaLabel · two-way: value, disabled
+- [Autosize Textarea](https://ngblatui.remix-it.com/components/autosize-textarea) — props: size, maxRows
+- [Segmented Control](https://ngblatui.remix-it.com/components/segmented-control) — props: options · two-way: value, disabled · types: SegmentOption
+- [Select](https://ngblatui.remix-it.com/components/select) — props: multiple, options, placeholder · two-way: value, values, disabled · types: SelectOption
+- [Combobox](https://ngblatui.remix-it.com/components/combobox) — props: multiple, options, placeholder, searchable · two-way: value, values, disabled · types: ComboboxOption
+- [Number Input](https://ngblatui.remix-it.com/components/number-input) — props: min, max, step, size, ariaLabel, decreaseLabel, increaseLabel · two-way: value, disabled · types: NumberInputSize
+- [Password Strength](https://ngblatui.remix-it.com/components/password-strength) — props: name, id, placeholder, showChecklist, minLength, label · two-way: password
+- [Time Field](https://ngblatui.remix-it.com/components/time-field) — props: name, id, min, max, seconds, mode, minuteStep, ariaLabel · two-way: value, disabled · types: TimeFieldMode
+- [Toggle Group](https://ngblatui.remix-it.com/components/toggle-group) — props: type, orientation, value, disabled · two-way: value · types: ToggleValue
+- [Tags Input](https://ngblatui.remix-it.com/components/tags-input) — props: placeholder, max · two-way: tags, disabled
+- [Editable](https://ngblatui.remix-it.com/components/editable) — props: placeholder, label, multiline · two-way: value
+- [Knob](https://ngblatui.remix-it.com/components/knob) — props: min, max, step, size, label · two-way: value, disabled
+- [Input OTP](https://ngblatui.remix-it.com/components/input-otp) — props: maxlength, alphanumeric, groupSize, ariaLabel · two-way: value, disabled
+- [Phone Input](https://ngblatui.remix-it.com/components/phone-input) — props: name, id, placeholder, countryLabel, numberLabel · two-way: value, country
+- [Color Picker](https://ngblatui.remix-it.com/components/color-picker) — props: swatches, disabled, pickLabel, hexLabel · two-way: value
+- [Signature Pad](https://ngblatui.remix-it.com/components/signature-pad) — props: height, penColor
+- [Repeater](https://ngblatui.remix-it.com/components/repeater) — props: fields, min, max, addLabel, removeLabel · two-way: rows · types: RepeaterField
+- [Markdown Editor](https://ngblatui.remix-it.com/components/markdown-editor) — props: name, placeholder, rows · two-way: value
+- [Calendar](https://ngblatui.remix-it.com/components/calendar) — props: mode, months, weekStart, minDate, maxDate, disabledDates, disableWeekends, showWeekNumbers, captionLayout, hideOutsideDays, previousMonthLabel, monthSelectLabel, yearLabel, nextMonthLabel · two-way: value, range, values, disabled · types: CalendarMode, CalendarRange
+- [Date Picker](https://ngblatui.remix-it.com/components/date-picker) — props: mode, months, placeholder, minDate, maxDate, weekStart, disabledDates, disableWeekends, showWeekNumbers, captionLayout, hideOutsideDays · two-way: value, range, disabled · types: CalendarMode, CalendarRange
+- [Datetime Picker](https://ngblatui.remix-it.com/components/datetime-picker) — props: mode, months, placeholder, minDate, maxDate, captionLayout, seconds · two-way: value, range, disabled · types: CalendarMode, CalendarRange
+- [Autocomplete](https://ngblatui.remix-it.com/components/autocomplete) — props: multiple, options, placeholder, empty, name, size, icon · two-way: value, values, disabled · types: AutocompleteSize
+- [File Upload](https://ngblatui.remix-it.com/components/file-upload) — props: multiple, accept, name, hint, disabled, dropzoneLabel, removeLabel · emits: filesChange
+- [Input Mask](https://ngblatui.remix-it.com/components/input-mask) — props: mask, placeholder, inputmode, name · two-way: value, disabled
+- [Mention Input](https://ngblatui.remix-it.com/components/mention-input) — props: mentions, trigger, placeholder, rows, name · two-way: value · types: Mention
+- [Rich Text Editor](https://ngblatui.remix-it.com/components/rich-text-editor) — props: placeholder, ariaLabel, formattingLabel, name · two-way: value
 
 ### Data Display
 
-- [Badge](https://ngblatui.remix-it.com/components/badge)
+- [Badge](https://ngblatui.remix-it.com/components/badge) — props: variant, tone, size · types: BadgeVariant
 - [Skeleton](https://ngblatui.remix-it.com/components/skeleton)
-- [Avatar](https://ngblatui.remix-it.com/components/avatar)
-- [Progress](https://ngblatui.remix-it.com/components/progress)
+- [Avatar](https://ngblatui.remix-it.com/components/avatar) — props: src, alt
+- [Progress](https://ngblatui.remix-it.com/components/progress) — props: value, indeterminate, circular, size, thickness, ariaLabel
 - [Kbd](https://ngblatui.remix-it.com/components/kbd)
-- [Table](https://ngblatui.remix-it.com/components/table)
-- [Avatar Group](https://ngblatui.remix-it.com/components/avatar-group)
-- [Item](https://ngblatui.remix-it.com/components/item)
-- [Meter](https://ngblatui.remix-it.com/components/meter)
-- [Stat](https://ngblatui.remix-it.com/components/stat)
-- [Code Block](https://ngblatui.remix-it.com/components/code-block)
-- [Typography](https://ngblatui.remix-it.com/components/typography)
-- [Comparison Table](https://ngblatui.remix-it.com/components/comparison-table)
-- [Countdown](https://ngblatui.remix-it.com/components/countdown)
-- [Quote](https://ngblatui.remix-it.com/components/quote)
-- [Presence](https://ngblatui.remix-it.com/components/presence)
-- [Timeline](https://ngblatui.remix-it.com/components/timeline)
-- [Description List](https://ngblatui.remix-it.com/components/description-list)
-- [Masonry](https://ngblatui.remix-it.com/components/masonry)
-- [Sparkline](https://ngblatui.remix-it.com/components/sparkline)
-- [Typewriter](https://ngblatui.remix-it.com/components/typewriter)
-- [Marquee](https://ngblatui.remix-it.com/components/marquee)
-- [Text Reveal](https://ngblatui.remix-it.com/components/text-reveal)
-- [Heatmap](https://ngblatui.remix-it.com/components/heatmap)
-- [Tree](https://ngblatui.remix-it.com/components/tree)
-- [JSON Viewer](https://ngblatui.remix-it.com/components/json-viewer)
-- [Org Chart](https://ngblatui.remix-it.com/components/org-chart)
-- [Diff Viewer](https://ngblatui.remix-it.com/components/diff-viewer)
-- [Tree Table](https://ngblatui.remix-it.com/components/tree-table)
-- [Carousel](https://ngblatui.remix-it.com/components/carousel)
-- [Data Table](https://ngblatui.remix-it.com/components/data-table)
-- [Chart](https://ngblatui.remix-it.com/components/chart)
-- [Comparison Slider](https://ngblatui.remix-it.com/components/comparison-slider)
-- [Gantt](https://ngblatui.remix-it.com/components/gantt)
-- [Scheduler](https://ngblatui.remix-it.com/components/scheduler)
-- [Kanban](https://ngblatui.remix-it.com/components/kanban)
+- [Table](https://ngblatui.remix-it.com/components/table) — props: variant
+- [Avatar Group](https://ngblatui.remix-it.com/components/avatar-group) — props: avatars, max, size · types: GroupAvatar
+- [Item](https://ngblatui.remix-it.com/components/item) — props: variant, size, variant
+- [Meter](https://ngblatui.remix-it.com/components/meter) — props: value, min, max, label, tone, thresholds, showValue, unit
+- [Stat](https://ngblatui.remix-it.com/components/stat) — props: label, value, change, trend, caption, sparkline
+- [Code Block](https://ngblatui.remix-it.com/components/code-block) — props: code, filename, copyLabel, copyShortLabel, copiedLabel
+- [Typography](https://ngblatui.remix-it.com/components/typography) — props: variant
+- [Comparison Table](https://ngblatui.remix-it.com/components/comparison-table) — props: tiers, rows, highlight, featureLabel, includedLabel, notIncludedLabel · types: ComparisonRow
+- [Countdown](https://ngblatui.remix-it.com/components/countdown) — props: to, expired
+- [Quote](https://ngblatui.remix-it.com/components/quote) — props: author, role, avatar, cite
+- [Presence](https://ngblatui.remix-it.com/components/presence) — props: status, size, pulse, label, showLabel
+- [Timeline](https://ngblatui.remix-it.com/components/timeline) — props: time, title, active
+- [Description List](https://ngblatui.remix-it.com/components/description-list) — props: layout, bordered, term
+- [Masonry](https://ngblatui.remix-it.com/components/masonry) — props: columns, gap
+- [Sparkline](https://ngblatui.remix-it.com/components/sparkline) — props: data, width, height, area, strokeWidth, ariaLabel
+- [Typewriter](https://ngblatui.remix-it.com/components/typewriter) — props: words, typeSpeed, deleteSpeed, pause, loop, cursor
+- [Marquee](https://ngblatui.remix-it.com/components/marquee) — props: items, direction, duration, gap, pauseOnHover
+- [Text Reveal](https://ngblatui.remix-it.com/components/text-reveal) — props: text
+- [Heatmap](https://ngblatui.remix-it.com/components/heatmap) — props: data, compact
+- [Tree](https://ngblatui.remix-it.com/components/tree) — props: items, ariaLabel, item, level · types: TreeItem
+- [JSON Viewer](https://ngblatui.remix-it.com/components/json-viewer) — props: data, expanded, value, keyName, expanded
+- [Org Chart](https://ngblatui.remix-it.com/components/org-chart) — props: node, node · types: OrgNode
+- [Diff Viewer](https://ngblatui.remix-it.com/components/diff-viewer) — props: before, after, filename
+- [Tree Table](https://ngblatui.remix-it.com/components/tree-table) — props: columns, rows, toggleLabel · types: TreeTableColumn, TreeTableRow
+- [Carousel](https://ngblatui.remix-it.com/components/carousel) — props: orientation, perView, previousLabel, nextLabel, goToSlideLabel · two-way: index · types: CarouselOrientation
+- [Data Table](https://ngblatui.remix-it.com/components/data-table) — props: columns, rows, searchable, searchPlaceholder, selectable, pageSize, searchLabel, selectAllLabel, selectRowLabel · types: DataRow, DataTableColumn
+- [Chart](https://ngblatui.remix-it.com/components/chart) — props: type, series, labels, height, label · types: ChartSeries
+- [Comparison Slider](https://ngblatui.remix-it.com/components/comparison-slider) — props: before, after, beforeLabel, afterLabel, beforeAlt, afterAlt, positionLabel · two-way: value
+- [Gantt](https://ngblatui.remix-it.com/components/gantt) — props: tasks, milestones, start, end · types: GanttMilestone, GanttTask
+- [Scheduler](https://ngblatui.remix-it.com/components/scheduler) — props: events, days, startHour, endHour, view, label · types: SchedulerEvent
+- [Kanban](https://ngblatui.remix-it.com/components/kanban) — props: columns · emits: changed · types: KanbanCard, KanbanColumn
 
 ### Layout
 
-- [Card](https://ngblatui.remix-it.com/components/card)
-- [Separator](https://ngblatui.remix-it.com/components/separator)
-- [Aspect Ratio](https://ngblatui.remix-it.com/components/aspect-ratio)
-- [Container](https://ngblatui.remix-it.com/components/container)
+- [Card](https://ngblatui.remix-it.com/components/card) — props: variant
+- [Separator](https://ngblatui.remix-it.com/components/separator) — props: orientation, decorative · types: SeparatorOrientation
+- [Aspect Ratio](https://ngblatui.remix-it.com/components/aspect-ratio) — props: ratio
+- [Container](https://ngblatui.remix-it.com/components/container) — props: size
 - [Scroll Area](https://ngblatui.remix-it.com/components/scroll-area)
-- [Visually Hidden](https://ngblatui.remix-it.com/components/visually-hidden)
-- [Page Header](https://ngblatui.remix-it.com/components/page-header)
-- [Stack](https://ngblatui.remix-it.com/components/stack)
-- [Accent](https://ngblatui.remix-it.com/components/accent)
-- [Bento Grid](https://ngblatui.remix-it.com/components/bento-grid)
-- [Resizable](https://ngblatui.remix-it.com/components/resizable)
-- [Sidebar](https://ngblatui.remix-it.com/components/sidebar)
+- [Visually Hidden](https://ngblatui.remix-it.com/components/visually-hidden) — props: focusable
+- [Page Header](https://ngblatui.remix-it.com/components/page-header) — props: heading, description, separator
+- [Stack](https://ngblatui.remix-it.com/components/stack) — props: direction, gap, align, justify, wrap
+- [Accent](https://ngblatui.remix-it.com/components/accent) — props: color, foreground
+- [Bento Grid](https://ngblatui.remix-it.com/components/bento-grid) — props: columns, title, description, colSpan, rowSpan
+- [Resizable](https://ngblatui.remix-it.com/components/resizable) — props: withHandle, ariaLabel, primary, direction · two-way: size
+- [Sidebar](https://ngblatui.remix-it.com/components/sidebar) — props: side, collapsible, isActive · two-way: open
 
 ### Feedback
 
-- [Alert](https://ngblatui.remix-it.com/components/alert)
-- [Tooltip](https://ngblatui.remix-it.com/components/tooltip)
-- [Empty](https://ngblatui.remix-it.com/components/empty)
-- [Spinner](https://ngblatui.remix-it.com/components/spinner)
-- [Banner](https://ngblatui.remix-it.com/components/banner)
-- [Hover Card](https://ngblatui.remix-it.com/components/hover-card)
-- [Loading Overlay](https://ngblatui.remix-it.com/components/loading-overlay)
-- [Cookie Consent](https://ngblatui.remix-it.com/components/cookie-consent)
-- [Top Progress](https://ngblatui.remix-it.com/components/top-progress)
-- [Sonner](https://ngblatui.remix-it.com/components/sonner)
+- [Alert](https://ngblatui.remix-it.com/components/alert) — props: variant, tone
+- [Tooltip](https://ngblatui.remix-it.com/components/tooltip) — props: buiTooltip, side, delay, tooltipClass, text, extraClass · types: TooltipSide
+- [Empty](https://ngblatui.remix-it.com/components/empty) — props: variant
+- [Spinner](https://ngblatui.remix-it.com/components/spinner) — props: label
+- [Banner](https://ngblatui.remix-it.com/components/banner) — props: tone, dismissible, persistKey, announcementLabel, dismissLabel
+- [Hover Card](https://ngblatui.remix-it.com/components/hover-card) — props: buiHoverCard, openDelay, closeDelay
+- [Loading Overlay](https://ngblatui.remix-it.com/components/loading-overlay) — props: show, message, blur
+- [Cookie Consent](https://ngblatui.remix-it.com/components/cookie-consent) — props: message, demo, storageKey, ariaLabel · emits: decided
+- [Top Progress](https://ngblatui.remix-it.com/components/top-progress) — props: color, height, demo, ariaLabel
+- [Sonner](https://ngblatui.remix-it.com/components/sonner) — props: position, ariaLabel, dismissLabel · types: Toast
 
 ### Disclosure
 
 - [Accordion](https://ngblatui.remix-it.com/components/accordion)
-- [Collapsible](https://ngblatui.remix-it.com/components/collapsible)
+- [Collapsible](https://ngblatui.remix-it.com/components/collapsible) — two-way: open
 
 ### Navigation
 
 - [Tabs](https://ngblatui.remix-it.com/components/tabs)
-- [Breadcrumb](https://ngblatui.remix-it.com/components/breadcrumb)
-- [Pagination](https://ngblatui.remix-it.com/components/pagination)
-- [Back To Top](https://ngblatui.remix-it.com/components/back-to-top)
-- [Link](https://ngblatui.remix-it.com/components/link)
-- [Bottom Navigation](https://ngblatui.remix-it.com/components/bottom-navigation)
-- [Scrollspy](https://ngblatui.remix-it.com/components/scrollspy)
-- [Speed Dial](https://ngblatui.remix-it.com/components/speed-dial)
-- [Stepper](https://ngblatui.remix-it.com/components/stepper)
-- [Infinite Scroll](https://ngblatui.remix-it.com/components/infinite-scroll)
-- [Dock](https://ngblatui.remix-it.com/components/dock)
-- [Navigation Menu](https://ngblatui.remix-it.com/components/navigation-menu)
+- [Breadcrumb](https://ngblatui.remix-it.com/components/breadcrumb) — props: label, moreLabel
+- [Pagination](https://ngblatui.remix-it.com/components/pagination) — props: ariaLabel, moreLabel, active, size
+- [Back To Top](https://ngblatui.remix-it.com/components/back-to-top) — props: threshold, variant, label
+- [Link](https://ngblatui.remix-it.com/components/link) — props: variant, external
+- [Bottom Navigation](https://ngblatui.remix-it.com/components/bottom-navigation) — props: ariaLabel, label, active, badge
+- [Scrollspy](https://ngblatui.remix-it.com/components/scrollspy) — props: items, label · types: ScrollspyItem
+- [Speed Dial](https://ngblatui.remix-it.com/components/speed-dial) — props: actions, direction, label · types: SpeedDialAction
+- [Stepper](https://ngblatui.remix-it.com/components/stepper) — props: value, orientation, step
+- [Infinite Scroll](https://ngblatui.remix-it.com/components/infinite-scroll) — props: loading, finished, threshold · emits: more
+- [Dock](https://ngblatui.remix-it.com/components/dock) — props: magnify, distance, label, active
+- [Navigation Menu](https://ngblatui.remix-it.com/components/navigation-menu) — props: items · types: NavMenuItem, NavMenuLink
 
 ### Overlays
 
 - [Dialog](https://ngblatui.remix-it.com/components/dialog)
-- [Popover](https://ngblatui.remix-it.com/components/popover)
+- [Popover](https://ngblatui.remix-it.com/components/popover) — props: buiPopover, side · types: PopoverSide
 - [Alert Dialog](https://ngblatui.remix-it.com/components/alert-dialog)
 - [Dropdown Menu](https://ngblatui.remix-it.com/components/dropdown-menu)
 - [Menubar](https://ngblatui.remix-it.com/components/menubar)
-- [Notification Center](https://ngblatui.remix-it.com/components/notification-center)
-- [Command](https://ngblatui.remix-it.com/components/command)
-- [Context Menu](https://ngblatui.remix-it.com/components/context-menu)
-- [Drawer](https://ngblatui.remix-it.com/components/drawer)
-- [Sheet](https://ngblatui.remix-it.com/components/sheet)
-- [Onboarding Tour](https://ngblatui.remix-it.com/components/onboarding-tour)
+- [Notification Center](https://ngblatui.remix-it.com/components/notification-center) — props: notifications, ariaLabel, unreadLabel, markAllReadLabel, emptyLabel · two-way: open · types: NotificationItem
+- [Command](https://ngblatui.remix-it.com/components/command) — props: groups, placeholder, checkable · emits: selected · types: CommandGroup, CommandItem
+- [Context Menu](https://ngblatui.remix-it.com/components/context-menu) — props: items · emits: selected · types: ContextMenuItem
+- [Drawer](https://ngblatui.remix-it.com/components/drawer) — props: direction, ariaLabel · two-way: open
+- [Sheet](https://ngblatui.remix-it.com/components/sheet) — props: side, ariaLabel · two-way: open
+- [Onboarding Tour](https://ngblatui.remix-it.com/components/onboarding-tour) — props: steps · two-way: open · types: TourStep
 
 ### E-commerce
 
-- [Quantity Selector](https://ngblatui.remix-it.com/components/quantity-selector)
-- [Price](https://ngblatui.remix-it.com/components/price)
-- [Variant Selector](https://ngblatui.remix-it.com/components/variant-selector)
-- [Add To Cart](https://ngblatui.remix-it.com/components/add-to-cart)
-- [Product Card](https://ngblatui.remix-it.com/components/product-card)
-- [Mini Cart](https://ngblatui.remix-it.com/components/mini-cart)
+- [Quantity Selector](https://ngblatui.remix-it.com/components/quantity-selector) — props: min, max, step, size, disabled, ariaLabel, decreaseLabel, increaseLabel · two-way: value
+- [Price](https://ngblatui.remix-it.com/components/price) — props: amount, compareAt, currency, size, showDiscount
+- [Variant Selector](https://ngblatui.remix-it.com/components/variant-selector) — props: options, type, label, disabled · two-way: value · types: VariantOption
+- [Add To Cart](https://ngblatui.remix-it.com/components/add-to-cart) — props: label, addedLabel, size · emits: triggered
+- [Product Card](https://ngblatui.remix-it.com/components/product-card) — props: title, href, image, imageAlt, price, compareAt, currency, badge, category, rating, reviews, wishlist, wishlistLabel
+- [Mini Cart](https://ngblatui.remix-it.com/components/mini-cart) — props: items, currency, triggerLabel, label · two-way: open · types: CartItem
 
 ### Effects
 
-- [Dot Pattern](https://ngblatui.remix-it.com/components/dot-pattern)
-- [Grid Pattern](https://ngblatui.remix-it.com/components/grid-pattern)
-- [Flip Card](https://ngblatui.remix-it.com/components/flip-card)
-- [Spotlight Card](https://ngblatui.remix-it.com/components/spotlight-card)
-- [Tilt Card](https://ngblatui.remix-it.com/components/tilt-card)
-- [Number Ticker](https://ngblatui.remix-it.com/components/number-ticker)
-- [Gradient Text](https://ngblatui.remix-it.com/components/gradient-text)
-- [Border Beam](https://ngblatui.remix-it.com/components/border-beam)
-- [Meteors](https://ngblatui.remix-it.com/components/meteors)
-- [Aurora](https://ngblatui.remix-it.com/components/aurora)
-- [Parallax](https://ngblatui.remix-it.com/components/parallax)
-- [Confetti](https://ngblatui.remix-it.com/components/confetti)
-- [Animated Beam](https://ngblatui.remix-it.com/components/animated-beam)
+- [Dot Pattern](https://ngblatui.remix-it.com/components/dot-pattern) — props: size, gap, mask
+- [Grid Pattern](https://ngblatui.remix-it.com/components/grid-pattern) — props: gap, lineWidth, mask
+- [Flip Card](https://ngblatui.remix-it.com/components/flip-card) — props: trigger, height
+- [Spotlight Card](https://ngblatui.remix-it.com/components/spotlight-card) — props: color, size
+- [Tilt Card](https://ngblatui.remix-it.com/components/tilt-card) — props: max, scaleTo
+- [Number Ticker](https://ngblatui.remix-it.com/components/number-ticker) — props: value, from, duration, decimals, prefix, suffix, separator
+- [Gradient Text](https://ngblatui.remix-it.com/components/gradient-text) — props: preset, from, via, to, animate
+- [Border Beam](https://ngblatui.remix-it.com/components/border-beam) — props: duration, color, size
+- [Meteors](https://ngblatui.remix-it.com/components/meteors) — props: count, color
+- [Aurora](https://ngblatui.remix-it.com/components/aurora) — props: blur, speed
+- [Parallax](https://ngblatui.remix-it.com/components/parallax) — props: speed, axis
+- [Confetti](https://ngblatui.remix-it.com/components/confetti) — props: count, spread, colors
+- [Animated Beam](https://ngblatui.remix-it.com/components/animated-beam) — props: from, to, curvature, duration
 
 ### AI
 
-- [Terminal](https://ngblatui.remix-it.com/components/terminal)
-- [Streaming Text](https://ngblatui.remix-it.com/components/streaming-text)
-- [Reasoning](https://ngblatui.remix-it.com/components/reasoning)
-- [Tool Call](https://ngblatui.remix-it.com/components/tool-call)
-- [Chat](https://ngblatui.remix-it.com/components/chat)
-- [Prompt Input](https://ngblatui.remix-it.com/components/prompt-input)
-- [Citation](https://ngblatui.remix-it.com/components/citation)
+- [Terminal](https://ngblatui.remix-it.com/components/terminal) — props: title, buttons
+- [Streaming Text](https://ngblatui.remix-it.com/components/streaming-text) — props: text, speed, startDelay, by, caret
+- [Reasoning](https://ngblatui.remix-it.com/components/reasoning) — props: label, duration · two-way: open
+- [Tool Call](https://ngblatui.remix-it.com/components/tool-call) — props: name, status, args, result · two-way: open
+- [Chat](https://ngblatui.remix-it.com/components/chat) — props: ariaLabel, role, name, time, avatar, typing
+- [Prompt Input](https://ngblatui.remix-it.com/components/prompt-input) — props: placeholder, attachable, disabled, ariaLabel, attachLabel, sendLabel · two-way: value · emits: submitted
+- [Citation](https://ngblatui.remix-it.com/components/citation) — props: index, title, url, snippet
 
 ### Components
 
@@ -201,12 +201,12 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 
 ### Media
 
-- [Gallery](https://ngblatui.remix-it.com/components/gallery)
-- [Image](https://ngblatui.remix-it.com/components/image)
-- [Video](https://ngblatui.remix-it.com/components/video)
-- [Audio Player](https://ngblatui.remix-it.com/components/audio-player)
-- [Map](https://ngblatui.remix-it.com/components/map)
-- [QR Code](https://ngblatui.remix-it.com/components/qr-code)
+- [Gallery](https://ngblatui.remix-it.com/components/gallery) — props: images, columns, rounded · types: GalleryImage
+- [Image](https://ngblatui.remix-it.com/components/image) — props: src, alt, ratio, placeholder, rounded, fit
+- [Video](https://ngblatui.remix-it.com/components/video) — props: src, poster, aspect, controls, autoplay, loop, muted, rounded, playLabel
+- [Audio Player](https://ngblatui.remix-it.com/components/audio-player) — props: src, title, artist, autoplay, compact, seekLabel, playLabel, pauseLabel, muteLabel, unmuteLabel
+- [Map](https://ngblatui.remix-it.com/components/map) — props: lat, lon, zoom, label, marker, height, ratio
+- [QR Code](https://ngblatui.remix-it.com/components/qr-code) — props: value, size, label, foreground, background, margin
 
 ## Blocks (16)
 
