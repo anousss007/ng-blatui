@@ -713,6 +713,50 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
           <path d="M12 16v-4" />
           <path d="M12 8h.01" />
         }
+        @case ('pen-tool') {
+          <path
+            d="M15.707 21.293a1 1 0 0 1-1.414 0l-1.586-1.586a1 1 0 0 1 0-1.414l5.586-5.586a1 1 0 0 1 1.414 0l1.586 1.586a1 1 0 0 1 0 1.414z"
+          />
+          <path
+            d="m18 13-1.375-6.874a1 1 0 0 0-.746-.776L3.235 2.028a1 1 0 0 0-1.207 1.207L5.35 15.879a1 1 0 0 0 .776.746L13 18"
+          />
+          <path d="m2.3 2.3 7.286 7.286" />
+          <circle cx="11" cy="11" r="2" />
+        }
+        @case ('monitor') {
+          <rect width="20" height="14" x="2" y="3" rx="2" />
+          <line x1="8" x2="16" y1="21" y2="21" />
+          <line x1="12" x2="12" y1="17" y2="21" />
+        }
+        @case ('film') {
+          <rect width="18" height="18" x="3" y="3" rx="2" />
+          <path d="M7 3v18" />
+          <path d="M3 7.5h4" />
+          <path d="M3 12h18" />
+          <path d="M3 16.5h4" />
+          <path d="M17 3v18" />
+          <path d="M17 7.5h4" />
+          <path d="M17 16.5h4" />
+        }
+        @case ('megaphone') {
+          <path
+            d="M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"
+          />
+          <path d="M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14" />
+          <path d="M8 6v8" />
+        }
+        @case ('type') {
+          <path d="M12 4v16" />
+          <path d="M4 7V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2" />
+          <path d="M9 20h6" />
+        }
+        @case ('arrow-down') {
+          <path d="M12 5v14" />
+          <path d="m19 12-7 7-7-7" />
+        }
+        @case ('circle') {
+          <circle cx="12" cy="12" r="10" />
+        }
       }
     </svg>
   `,

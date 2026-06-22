@@ -1,0 +1,281 @@
+@import url('https://fonts.bunny.net/css?family=archivo:800,900|dm-sans:400,500');
+
+/* ── Reset within scope ── */
+#tpl-brut {
+  font-family: 'DM Sans', sans-serif;
+  background-color: #f4f1e8;
+  color: #111111;
+}
+#tpl-brut * {
+  box-sizing: border-box;
+  border-radius: 0 !important;
+}
+
+/* ── Display font ── */
+#tpl-brut .brut-display {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: #111111;
+}
+
+/* ── Hard offset shadow system ── */
+#tpl-brut .brut-shadow {
+  box-shadow: 6px 6px 0 #111111;
+}
+#tpl-brut .brut-shadow-red {
+  box-shadow: 6px 6px 0 #ff4d2e;
+}
+#tpl-brut .brut-shadow-blue {
+  box-shadow: 6px 6px 0 #2b50ff;
+}
+#tpl-brut .brut-shadow-yellow {
+  box-shadow: 6px 6px 0 #ffd400;
+}
+#tpl-brut .brut-shadow-lime {
+  box-shadow: 6px 6px 0 #b6ff3c;
+}
+
+/* ── Lift effect on hover ── */
+#tpl-brut .brut-lift {
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+#tpl-brut .brut-lift:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 #111111;
+}
+
+/* ── Cards ── */
+#tpl-brut .brut-card {
+  background: #f4f1e8;
+  border: 3px solid #111111;
+  padding: 1.5rem;
+}
+
+/* ── Buttons ── */
+#tpl-brut .brut-btn {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 3px solid #111111;
+  padding: 0.625rem 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+#tpl-brut .brut-btn-ink {
+  background: #111111;
+  color: #f4f1e8;
+  box-shadow: 4px 4px 0 #ff4d2e;
+}
+#tpl-brut .brut-btn-ink:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #ff4d2e;
+}
+#tpl-brut .brut-btn-paper {
+  background: #f4f1e8;
+  color: #111111;
+  box-shadow: 4px 4px 0 #111111;
+}
+#tpl-brut .brut-btn-paper:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #111111;
+}
+#tpl-brut .brut-btn-red {
+  background: #ff4d2e;
+  color: #111111;
+  box-shadow: 4px 4px 0 #111111;
+}
+#tpl-brut .brut-btn-red:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #111111;
+}
+
+/* ── Ticker / marquee strip ── */
+#tpl-brut .brut-ticker {
+  background: #111111;
+  color: #f4f1e8;
+  border-top: 3px solid #111111;
+  border-bottom: 3px solid #111111;
+  overflow: hidden;
+  padding: 0.75rem 0;
+}
+#tpl-brut .brut-ticker-word {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 900;
+  font-size: 1.125rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0 2rem;
+  color: #f4f1e8;
+  white-space: nowrap;
+}
+#tpl-brut .brut-ticker-dot {
+  color: #ff4d2e;
+  font-size: 1.5rem;
+}
+
+/* ── Sticker badge ── */
+#tpl-brut .brut-sticker {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 900;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: #ffd400;
+  color: #111111;
+  border: 3px solid #111111;
+  padding: 0.375rem 0.75rem;
+  display: inline-block;
+  box-shadow: 4px 4px 0 #111111;
+  transform: rotate(-4deg);
+}
+#tpl-brut .brut-sticker-red {
+  background: #ff4d2e;
+  color: #f4f1e8;
+}
+#tpl-brut .brut-sticker-blue {
+  background: #2b50ff;
+  color: #f4f1e8;
+  transform: rotate(3deg);
+}
+#tpl-brut .brut-sticker-lime {
+  background: #b6ff3c;
+  color: #111111;
+  transform: rotate(-2deg);
+}
+
+/* ── Section borders ── */
+#tpl-brut .brut-section {
+  border-top: 3px solid #111111;
+}
+
+/* ── Hero oversized background word ── */
+#tpl-brut .brut-hero-bg-text {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 900;
+  font-size: clamp(8rem, 22vw, 22rem);
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 3px rgba(17, 17, 17, 0.07);
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+  top: -0.1em;
+  left: -0.02em;
+  white-space: nowrap;
+}
+
+/* ── Number counter in stats ── */
+#tpl-brut .brut-stat-number {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 900;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: #111111;
+}
+
+/* ── Work card image hover ── */
+#tpl-brut .brut-work-card img {
+  transition: transform 0.25s ease;
+}
+#tpl-brut .brut-work-card:hover img {
+  transform: scale(1.03);
+}
+
+/* ── Nav bar ── */
+#tpl-brut .brut-nav {
+  background: #111111;
+  border-bottom: 3px solid #111111;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+#tpl-brut .brut-nav-link {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 232, 0.7);
+  text-decoration: none;
+  padding: 0.25rem 0;
+  transition: color 0.12s ease;
+  border-bottom: 2px solid transparent;
+}
+#tpl-brut .brut-nav-link:hover {
+  color: #ffd400;
+  border-bottom-color: #ffd400;
+}
+
+/* ── Footer ── */
+#tpl-brut .brut-footer {
+  background: #111111;
+  color: #f4f1e8;
+  border-top: 3px solid #111111;
+}
+#tpl-brut .brut-foot-link {
+  transition: color 0.12s ease;
+}
+#tpl-brut .brut-foot-link:hover {
+  color: #ffd400 !important;
+}
+#tpl-brut .brut-social:hover {
+  border-color: #ff4d2e !important;
+  color: #ff4d2e !important;
+}
+
+/* ── Contact label ── */
+#tpl-brut .brut-contact-label {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #111111;
+}
+
+/* ── Brutalist form fields ── */
+#tpl-brut .brut-field {
+  border: 3px solid #111111;
+  background: #f4f1e8;
+  color: #111111;
+  box-shadow: 4px 4px 0 #111111;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.9rem;
+  width: 100%;
+  outline: none;
+}
+#tpl-brut .brut-field:focus {
+  box-shadow: 4px 4px 0 #2b50ff;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  #tpl-brut .brut-lift,
+  #tpl-brut .brut-btn {
+    transition: none !important;
+  }
+  #tpl-brut .brut-lift:hover,
+  #tpl-brut .brut-btn:hover {
+    transform: none !important;
+  }
+  #tpl-brut .brut-work-card img,
+  #tpl-brut .brut-work-card:hover img {
+    transition: none !important;
+    transform: none !important;
+  }
+}
