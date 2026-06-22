@@ -1,0 +1,194 @@
+<div id="tpl-pricing">
+  <!-- Top bar -->
+  <header
+    class="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60"
+  >
+    <div class="mx-auto flex h-16 max-w-6xl items-center px-6">
+      <a href="/templates/saas" class="flex items-center gap-2 font-semibold">
+        <span
+          class="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground"
+          ><app-lucide name="cloud" class="size-5"
+        /></span>
+        Nimbus
+      </a>
+      <div class="ml-auto flex items-center gap-2">
+        <button
+          type="button"
+          class="inline-flex size-9 items-center justify-center rounded-md transition-colors hover:bg-accent"
+          aria-label="Toggle theme"
+        >
+          <app-lucide name="sun" class="size-4 dark:hidden" /><app-lucide
+            name="moon"
+            class="hidden size-4 dark:block"
+          />
+        </button>
+        <a href="#" class="pr-btn pr-btn-sm pr-btn-primary">Get started</a>
+      </div>
+    </div>
+  </header>
+
+  <div>
+    <!-- Hero + toggle -->
+    <section class="relative overflow-hidden border-b py-16 text-center lg:py-20">
+      <div class="pointer-events-none absolute inset-x-0 -top-32 -z-10 flex justify-center">
+        <div
+          class="h-72 w-[640px] rounded-full bg-gradient-to-b from-primary/20 to-transparent blur-3xl"
+        ></div>
+      </div>
+      <div class="mx-auto max-w-2xl px-6">
+        <span class="pr-badge-outline mb-4">Pricing</span>
+        <h1 class="text-4xl font-bold tracking-tight text-balance sm:text-5xl">
+          Plans that scale with you
+        </h1>
+        <p class="mt-3 text-lg text-balance text-muted-foreground">
+          Start free. Upgrade when you're ready. Cancel anytime, no questions asked.
+        </p>
+        <div class="mt-6 inline-flex items-center gap-1 rounded-lg border p-1 text-sm">
+          <button
+            type="button"
+            (click)="yearly.set(false)"
+            class="pr-toggle-btn"
+            [class.pr-toggle-active]="!yearly()"
+          >
+            Monthly
+          </button>
+          <button
+            type="button"
+            (click)="yearly.set(true)"
+            class="pr-toggle-btn"
+            [class.pr-toggle-active]="yearly()"
+          >
+            Yearly <span class="pr-badge-success">-15%</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tier cards -->
+    <section class="py-14">
+      <div class="mx-auto grid max-w-6xl items-stretch gap-6 px-6 md:grid-cols-2 lg:grid-cols-4">
+        @for (plan of plans; track plan.name) {
+          <div class="pr-card relative flex flex-col" [class.pr-card-highlight]="plan.highlight">
+            @if (plan.highlight) {
+              <span class="pr-badge-primary absolute -top-3 left-1/2 -translate-x-1/2"
+                >Most popular</span
+              >
+            }
+            <h3 class="font-semibold">{{ plan.name }}</h3>
+            <p class="mt-1 text-sm text-muted-foreground">{{ plan.tag }}</p>
+            <div class="mt-4 flex items-baseline gap-1">
+              @if (plan.m === null) {
+                <span class="text-3xl font-bold tracking-tight">Custom</span>
+              } @else {
+                <span class="text-4xl font-bold tracking-tight"
+                  >${{ yearly() ? plan.y : plan.m }}</span
+                >
+                <span class="text-sm text-muted-foreground">/mo</span>
+              }
+            </div>
+            <a
+              href="#"
+              class="pr-btn mt-5 w-full"
+              [class.pr-btn-primary]="plan.highlight"
+              [class.pr-btn-outline]="!plan.highlight"
+              >{{ plan.cta }}</a
+            >
+          </div>
+        }
+      </div>
+    </section>
+
+    <!-- Comparison table -->
+    <section class="border-y py-16">
+      <div class="mx-auto max-w-6xl px-6">
+        <h2 class="mb-8 text-center text-2xl font-bold tracking-tight sm:text-3xl">
+          Compare every feature
+        </h2>
+        <div class="overflow-x-auto">
+          <table class="pr-table min-w-[760px]">
+            <thead>
+              <tr>
+                <th class="w-[34%]">Feature</th>
+                @for (plan of plans; track plan.name) {
+                  <th class="text-center">{{ plan.name }}</th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @for (grp of matrix; track grp.group) {
+                <tr class="pr-group-row">
+                  <td colspan="5">{{ grp.group }}</td>
+                </tr>
+                @for (row of grp.rows; track row.feature) {
+                  <tr>
+                    <td class="font-medium">{{ row.feature }}</td>
+                    @for (v of row.vals; track $index) {
+                      <td class="text-center">
+                        @if (isBool(v)) {
+                          @if (v) {
+                            <span class="inline-flex text-primary"
+                              ><app-lucide name="check" class="size-4" /><span class="sr-only"
+                                >Included</span
+                              ></span
+                            >
+                          } @else {
+                            <span class="inline-flex text-muted-foreground/40"
+                              ><app-lucide name="minus" class="size-4" /><span class="sr-only"
+                                >Not included</span
+                              ></span
+                            >
+                          }
+                        } @else {
+                          <span class="text-sm">{{ v }}</span>
+                        }
+                      </td>
+                    }
+                  </tr>
+                }
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-16">
+      <div class="mx-auto max-w-3xl px-6">
+        <h2 class="mb-8 text-center text-2xl font-bold tracking-tight sm:text-3xl">Pricing FAQ</h2>
+        <div class="w-full">
+          @for (faq of faqs; track faq.q; let first = $first) {
+            <details class="group border-b" [open]="first">
+              <summary
+                class="flex cursor-pointer items-center justify-between py-4 text-left font-medium"
+              >
+                {{ faq.q }}
+                <app-lucide
+                  name="chevron-down"
+                  class="size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180"
+                />
+              </summary>
+              <p class="pb-4 text-sm text-muted-foreground">{{ faq.a }}</p>
+            </details>
+          }
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- CTA -->
+  <section class="border-t py-16">
+    <div class="mx-auto max-w-4xl px-6 text-center">
+      <h2 class="text-2xl font-bold tracking-tight sm:text-3xl">Still deciding?</h2>
+      <p class="mt-2 text-muted-foreground">
+        Try Nimbus free for 14 days. No credit card, cancel anytime.
+      </p>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <a href="#" class="pr-btn pr-btn-lg pr-btn-primary"
+          >Start free trial <app-lucide name="arrow-right" class="size-4"
+        /></a>
+        <a href="#" class="pr-btn pr-btn-lg pr-btn-outline">Talk to sales</a>
+      </div>
+    </div>
+  </section>
+</div>
