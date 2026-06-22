@@ -1,6 +1,10 @@
-import { Component, computed, input, model, signal } from '@angular/core';
+import { Component, computed, forwardRef, input, model, signal } from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = (): void => {};
 
 const STAR_SIZE = { sm: 'size-4', default: 'size-5', lg: 'size-6' } as const;
 
@@ -14,7 +18,11 @@ const STAR_SIZE = { sm: 'size-4', default: 'size-5', lg: 'size-6' } as const;
     '[class]': 'computedClass()',
     '(mouseleave)': 'hover.set(0)',
     '(keydown)': 'onKeydown($event)',
+    '(focusout)': 'onTouched()',
   },
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiRating), multi: true },
+  ],
   template: `
     @for (star of stars(); track star) {
       <button
@@ -23,7 +31,7 @@ const STAR_SIZE = { sm: 'size-4', default: 'size-5', lg: 'size-6' } as const;
         [attr.aria-checked]="value() === star"
         [attr.aria-label]="star + ' / ' + max()"
         [attr.tabindex]="tabindexFor(star)"
-        [disabled]="readonly()"
+        [disabled]="inactive()"
         class="rounded-sm transition-colors outline-none not-disabled:cursor-pointer focus-visible:ring-[3px] focus-visible:ring-ring/50"
         [class]="current() >= star ? color() : 'text-muted-foreground/30'"
         (click)="set(star)"
@@ -48,15 +56,19 @@ const STAR_SIZE = { sm: 'size-4', default: 'size-5', lg: 'size-6' } as const;
     }
   `,
 })
-export class BuiRating {
+export class BuiRating implements ControlValueAccessor {
   readonly value = model(0);
   readonly max = input(5);
   readonly readonly = input(false);
+  readonly disabled = model(false);
   readonly size = input<keyof typeof STAR_SIZE>('default');
   readonly color = input('text-amber-500');
   readonly ariaLabel = input<string | null>(null);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
+  private onChange: (value: number) => void = noop;
+  protected onTouched: () => void = noop;
+  protected readonly inactive = computed(() => this.readonly() || this.disabled());
   protected readonly hover = signal(0);
   protected readonly current = computed(() => this.hover() || this.value());
   protected readonly stars = computed(() =>
@@ -68,23 +80,26 @@ export class BuiRating {
   );
 
   protected set(next: number): void {
-    if (!this.readonly()) {
-      this.value.set(next);
+    if (this.inactive()) {
+      return;
     }
+
+    this.value.set(next);
+    this.onChange(next);
   }
   protected onHover(next: number): void {
-    if (!this.readonly()) {
+    if (!this.inactive()) {
       this.hover.set(next);
     }
   }
   protected tabindexFor(star: number): number {
-    if (this.readonly()) {
+    if (this.inactive()) {
       return -1;
     }
     return star === (this.value() || 1) ? 0 : -1;
   }
   protected onKeydown(event: KeyboardEvent): void {
-    if (this.readonly()) {
+    if (this.inactive()) {
       return;
     }
     if (event.key === 'ArrowRight' || event.key === 'ArrowUp') {
@@ -94,5 +109,21 @@ export class BuiRating {
       event.preventDefault();
       this.set(Math.max(0, this.value() - 1));
     }
+  }
+
+  writeValue(value: number | null | undefined): void {
+    this.value.set(typeof value === 'number' ? value : 0);
+  }
+
+  registerOnChange(callback: (value: number) => void): void {
+    this.onChange = callback;
+  }
+
+  registerOnTouched(callback: () => void): void {
+    this.onTouched = callback;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
   }
 }

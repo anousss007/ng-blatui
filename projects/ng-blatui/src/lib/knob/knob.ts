@@ -1,6 +1,10 @@
-import { Component, computed, ElementRef, inject, input, model } from '@angular/core';
+import { Component, computed, ElementRef, forwardRef, inject, input, model } from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = (): void => {};
 
 const DIMS = {
   sm: { box: 'size-16', text: 'text-sm' },
@@ -19,7 +23,9 @@ const ARC = CIRC * 0.75;
     '[class]': 'computedClass()',
     '(document:pointermove)': 'onMove($event)',
     '(document:pointerup)': 'onUp()',
+    '(focusout)': 'onTouched()',
   },
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiKnob), multi: true }],
   template: `
     <div
       role="slider"
@@ -69,16 +75,18 @@ const ARC = CIRC * 0.75;
     </div>
   `,
 })
-export class BuiKnob {
+export class BuiKnob implements ControlValueAccessor {
   readonly value = model(50);
   readonly min = input(0);
   readonly max = input(100);
   readonly step = input(1);
   readonly size = input<keyof typeof DIMS>('default');
   readonly label = input('Value');
-  readonly disabled = input(false);
+  readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
+  private onChange: (value: number) => void = noop;
+  protected onTouched: () => void = noop;
   protected readonly radius = RADIUS;
   protected readonly dashArray = `${ARC} ${CIRC}`;
   private dragging = false;
@@ -141,19 +149,19 @@ export class BuiKnob {
         break;
       }
       case 'Home': {
-        this.value.set(this.min());
+        this.commit(this.min());
         break;
       }
       case 'End': {
-        this.value.set(this.max());
+        this.commit(this.max());
         break;
       }
       case 'PageUp': {
-        this.value.set(this.clamp(this.value() + this.bigStep()));
+        this.commit(this.clamp(this.value() + this.bigStep()));
         break;
       }
       case 'PageDown': {
-        this.value.set(this.clamp(this.value() - this.bigStep()));
+        this.commit(this.clamp(this.value() - this.bigStep()));
         break;
       }
       default: {
@@ -175,11 +183,11 @@ export class BuiKnob {
     const cy = rect.top + rect.height / 2;
     const angle = (Math.atan2(event.clientX - cx, cy - event.clientY) * 180) / Math.PI;
     const ratio = Math.min(1, Math.max(0, (angle + 135) / 270));
-    this.value.set(this.snap(this.min() + ratio * (this.max() - this.min())));
+    this.commit(this.snap(this.min() + ratio * (this.max() - this.min())));
   }
 
   private bump(direction: number): void {
-    this.value.set(this.clamp(this.value() + direction * this.step()));
+    this.commit(this.clamp(this.value() + direction * this.step()));
   }
 
   private bigStep(): number {
@@ -193,5 +201,26 @@ export class BuiKnob {
   private snap(value: number): number {
     const snapped = Math.round((value - this.min()) / this.step()) * this.step() + this.min();
     return Number.parseFloat(this.clamp(snapped).toFixed(6));
+  }
+
+  private commit(value: number): void {
+    this.value.set(value);
+    this.onChange(value);
+  }
+
+  writeValue(value: number | null | undefined): void {
+    this.value.set(typeof value === 'number' ? value : 0);
+  }
+
+  registerOnChange(callback: (value: number) => void): void {
+    this.onChange = callback;
+  }
+
+  registerOnTouched(callback: () => void): void {
+    this.onTouched = callback;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
   }
 }

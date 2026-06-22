@@ -1,6 +1,10 @@
-import { Component, computed, input, model, signal } from '@angular/core';
+import { Component, computed, forwardRef, input, model, signal } from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = (): void => {};
 
 export type CalendarMode = 'single' | 'range' | 'multiple';
 export interface CalendarRange {
@@ -36,7 +40,10 @@ function isoOf(date: Date): string {
  */
 @Component({
   selector: 'bui-calendar',
-  host: { 'data-slot': 'calendar', '[class]': 'computedClass()' },
+  host: { 'data-slot': 'calendar', '[class]': 'computedClass()', '(focusout)': 'onTouched()' },
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiCalendar), multi: true },
+  ],
   template: `
     <div class="flex items-center justify-between pb-2">
       <button
@@ -144,7 +151,7 @@ function isoOf(date: Date): string {
                           [class]="dayClass(day)"
                           [attr.aria-pressed]="isSelected(day.iso)"
                           [attr.aria-current]="day.isToday ? 'date' : null"
-                          [disabled]="day.disabled"
+                          [disabled]="day.disabled || disabled()"
                           (click)="select(day.iso)"
                         >
                           {{ day.num }}
@@ -163,7 +170,7 @@ function isoOf(date: Date): string {
     </div>
   `,
 })
-export class BuiCalendar {
+export class BuiCalendar implements ControlValueAccessor {
   readonly value = model('');
   /** Selection mode: `single` | `range` | `multiple`. */
   readonly mode = input<CalendarMode>('single');
@@ -186,8 +193,11 @@ export class BuiCalendar {
   readonly captionLayout = input<'label' | 'dropdown'>('label');
   /** Hide days that fall outside the current month. */
   readonly hideOutsideDays = input(false);
+  readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
+  private onChange: (value: string) => void = noop;
+  protected onTouched: () => void = noop;
   private readonly view = signal(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
   protected readonly weekdays = computed(() => {
     const start = ((this.weekStart() % 7) + 7) % 7;
@@ -271,6 +281,23 @@ export class BuiCalendar {
       return;
     }
     this.value.set(iso);
+    this.onChange(iso);
+  }
+
+  writeValue(value: string | null | undefined): void {
+    this.value.set(typeof value === 'string' ? value : '');
+  }
+
+  registerOnChange(callback: (value: string) => void): void {
+    this.onChange = callback;
+  }
+
+  registerOnTouched(callback: () => void): void {
+    this.onTouched = callback;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
   }
 
   protected isSelected(iso: string): boolean {
