@@ -8,6 +8,7 @@ import {
   type TemplateRef,
   viewChild,
 } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import {
   AccordionContent,
@@ -484,6 +485,7 @@ type ToggleValue = string | string[] | null;
   selector: 'app-components',
   imports: [
     Example,
+    ReactiveFormsModule,
     BuiButton,
     BuiBadge,
     BuiCard,
@@ -1192,6 +1194,7 @@ export class ComponentPage {
     'https://picsum.photos/seed/c/300',
   ];
   protected readonly fruit = signal('');
+  protected readonly fruitForm = new FormControl('banana');
   protected readonly fruitsMulti = signal<string[]>(['apple', 'cherry']);
   protected readonly fruits = [
     { value: 'apple', label: 'Apple' },
@@ -2640,6 +2643,13 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
     selectMultiple: `<!-- [multiple]="true" binds an array via [(values)]; stays open, toggles, shows checks -->
 <bui-select [multiple]="true" [(values)]="picked" [options]="opts" placeholder="Pick fruits" />
 // picked = signal<string[]>([])`,
+    selectReactiveForm: `<!-- bui-select implements ControlValueAccessor → works with Reactive,
+     Template (ngModel) and Signal forms -->
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
+
+fruitForm = new FormControl('banana');
+
+<bui-select [formControl]="fruitForm" [options]="opts" />`,
     selectUtility: `<!-- a native select styled entirely with utility classes -->
 <select aria-label="Plan" class="h-9 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50">…</select>`,
     combobox: `import { BuiCombobox } from 'ng-blatui';

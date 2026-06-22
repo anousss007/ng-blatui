@@ -1,7 +1,22 @@
 import { _IdGenerator } from '@angular/cdk/a11y';
-import { Component, computed, ElementRef, inject, input, model, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  ElementRef,
+  forwardRef,
+  inject,
+  input,
+  model,
+  signal,
+} from '@angular/core';
+import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
+
+type SelectValue = string | readonly string[];
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = (): void => {};
 
 export interface SelectOption {
   value: string;
@@ -25,6 +40,9 @@ export interface SelectOption {
     '[class]': 'computedClass()',
     '(document:click)': 'onDocumentClick($event)',
   },
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiSelect), multi: true },
+  ],
   template: `
     <button
       type="button"
@@ -129,15 +147,18 @@ export interface SelectOption {
     }
   `,
 })
-export class BuiSelect {
+export class BuiSelect implements ControlValueAccessor {
   readonly value = model('');
   /** Select several options; binds `values` instead of `value`. */
   readonly multiple = input(false);
   readonly values = model<readonly string[]>([]);
   readonly options = input<readonly SelectOption[]>([]);
   readonly placeholder = input('Select…');
-  readonly disabled = input(false);
+  readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+  private onChange: (value: SelectValue) => void = noop;
+  private onTouched: () => void = noop;
 
   protected readonly listId = inject(_IdGenerator).getId('bui-select-');
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -182,9 +203,11 @@ export class BuiSelect {
         next.add(option.value);
       }
       this.values.set([...next]);
+      this.onChange([...next]);
       return;
     }
     this.value.set(option.value);
+    this.onChange(option.value);
     this.close();
   }
 
@@ -253,6 +276,29 @@ export class BuiSelect {
   }
 
   private close(): void {
+    if (this.open()) {
+      this.onTouched();
+    }
     this.open.set(false);
+  }
+
+  writeValue(value: SelectValue | null): void {
+    if (this.multiple()) {
+      this.values.set(Array.isArray(value) ? [...(value as readonly string[])] : []);
+    } else {
+      this.value.set(typeof value === 'string' ? value : '');
+    }
+  }
+
+  registerOnChange(callback: (value: SelectValue) => void): void {
+    this.onChange = callback;
+  }
+
+  registerOnTouched(callback: () => void): void {
+    this.onTouched = callback;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
   }
 }
