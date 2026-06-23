@@ -50,6 +50,11 @@
               {
                 "glob": "**/*",
                 "input": "projects/demo/public"
+              },
+              {
+                "glob": "**/*",
+                "input": "projects/demo/public/.well-known",
+                "output": ".well-known"
               }
             ],
             "styles": ["projects/demo/src/styles.css"]

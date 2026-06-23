@@ -168,6 +168,8 @@ const registryJson = JSON.stringify(registry, null, 2) + '\n';
 writeFileSync(join(root, 'projects/demo/public/registry.json'), registryJson);
 mkdirSync(join(root, 'mcp'), { recursive: true });
 writeFileSync(join(root, 'mcp/registry.json'), registryJson);
+// Bundle the structured API too, so the stdio MCP server works fully offline.
+writeFileSync(join(root, 'mcp/api.json'), `${JSON.stringify(apiDocs, null, 2)}\n`);
 
 // ── llms.txt (https://llmstxt.org standard) ──────────────────────────────────────
 const section = (title, list) =>

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "io.github.anousss007/ng-blatui",
+  "description": "ng-blatui for Angular — discover components, blocks, charts and page templates and read their typed API (inputs, two-way models, outputs and the shape of the types they use).",
+  "repository": {
+    "url": "https://github.com/anousss007/ng-blatui",
+    "source": "github"
+  },
+  "websiteUrl": "https://ngblatui.remix-it.com",
+  "version": "1.1.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://ngblatui.remix-it.com/mcp"
+    }
+  ]
+}

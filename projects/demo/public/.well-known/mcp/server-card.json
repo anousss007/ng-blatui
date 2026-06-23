@@ -1,0 +1,32 @@
+{
+  "name": "ng-blatui",
+  "title": "ng-blatui MCP",
+  "description": "Discover and correctly use ng-blatui — an accessible Angular UI library (Angular 21 & 22, standalone, signals, zoneless, SSR-ready). Search 155 components, 16 blocks, 70 charts and 34 page templates, and read each component's typed API (inputs, two-way models, outputs and the interfaces/types it uses).",
+  "version": "1.1.0",
+  "websiteUrl": "https://ngblatui.remix-it.com",
+  "repository": "https://github.com/anousss007/ng-blatui",
+  "protocolVersion": "2025-06-18",
+  "remotes": [{ "type": "streamable-http", "url": "https://ngblatui.remix-it.com/mcp" }],
+  "packages": [
+    { "registryType": "npm", "identifier": "ng-blatui-mcp", "transport": { "type": "stdio" } }
+  ],
+  "capabilities": { "tools": true, "resources": true, "prompts": true },
+  "tools": [
+    {
+      "name": "list_components",
+      "description": "List components, optionally filtered by category."
+    },
+    { "name": "list_blocks", "description": "List prebuilt blocks." },
+    { "name": "list_charts", "description": "List chart examples." },
+    { "name": "list_templates", "description": "List full page templates." },
+    { "name": "search", "description": "Keyword search across the whole catalog." },
+    {
+      "name": "get_docs",
+      "description": "Install, import and the full structured API of a component/block/chart/template."
+    },
+    {
+      "name": "get_api",
+      "description": "Just the typed API (inputs, two-way models, outputs, types) of a component."
+    }
+  ]
+}

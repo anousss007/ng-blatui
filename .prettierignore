@@ -4,3 +4,4 @@ projects/demo/public/api.json
 projects/demo/public/registry.json
 projects/demo/public/llms.txt
 mcp/registry.json
+mcp/api.json
