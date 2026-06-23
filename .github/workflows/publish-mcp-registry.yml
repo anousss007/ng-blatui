@@ -1,0 +1,25 @@
+name: Publish to MCP Registry
+
+# Submits server.json (repo root) to the official MCP Registry using GitHub OIDC — the workflow
+# running in this repo proves ownership of the io.github.anousss007/* namespace, so no interactive
+# login or secret is needed. Manual trigger; re-run after bumping server.json "version".
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write # OIDC
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install mcp-publisher
+        run: |
+          curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
+      - name: Authenticate (GitHub OIDC)
+        run: ./mcp-publisher login github-oidc
+      - name: Publish server.json
+        run: ./mcp-publisher publish
