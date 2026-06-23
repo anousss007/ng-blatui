@@ -1,6 +1,6 @@
 # ng-blatui-mcp
 
-A [Model Context Protocol](https://modelcontextprotocol.io) server for **[ng-blatui](https://ngblatui.remix-it.com)** — the accessible Angular UI library (Angular 22, standalone, signals, zoneless, SSR-ready) ported from BlatUI.
+A [Model Context Protocol](https://modelcontextprotocol.io) server for **[ng-blatui](https://ngblatui.remix-it.com)** — the accessible Angular UI library (Angular 21 & 22, standalone, signals, zoneless, SSR-ready) ported from BlatUI.
 
 It lets any MCP-capable AI agent — Claude Desktop/Code, Cursor, Windsurf, Cline, Zed, VS Code — **discover and correctly use** ng-blatui's 155 components, 16 blocks, 70 charts and 34 page templates instead of guessing.
 
@@ -9,13 +9,26 @@ It lets any MCP-capable AI agent — Claude Desktop/Code, Cursor, Windsurf, Clin
 - `list_components` — list components, optional `category` filter
 - `list_blocks` · `list_charts` · `list_templates`
 - `search({ query })` — keyword search across the whole catalog
-- `get_docs({ name })` — full usage, props and copy-paste code for any slug
+- `get_docs({ name })` — install, import and the full **structured API** (inputs, two-way models, outputs and the types they use) for any slug
+- `get_api({ name })` — focused: just a component's typed API
 
-It reads the live registry (`https://ngblatui.remix-it.com/registry.json`) and falls back to a bundled copy offline.
+It also exposes **resources** (`ngblatui://component/{name}`) and **prompts** (`use-component`, `scaffold-page`).
 
 ## Setup
 
-Add to your MCP client config (Claude Desktop `claude_desktop_config.json`, Claude Code `.mcp.json`, Cursor `.cursor/mcp.json`, Windsurf `mcp_config.json`, …):
+### Hosted (recommended — zero install)
+
+Point your client at the hosted Streamable-HTTP endpoint:
+
+```json
+{
+  "mcpServers": {
+    "ng-blatui": { "type": "streamable-http", "url": "https://ngblatui.remix-it.com/mcp" }
+  }
+}
+```
+
+### Local (stdio, via npm)
 
 ```json
 {
@@ -25,7 +38,10 @@ Add to your MCP client config (Claude Desktop `claude_desktop_config.json`, Clau
 }
 ```
 
-Claude Code CLI: `claude mcp add ng-blatui -- npx -y ng-blatui-mcp`
+Claude Code CLI: `claude mcp add --transport http ng-blatui https://ngblatui.remix-it.com/mcp`
+(or `claude mcp add ng-blatui -- npx -y ng-blatui-mcp` for the local server).
+
+The stdio server reads the live registry + API (`https://ngblatui.remix-it.com/registry.json` and `/api.json`) and falls back to a bundled copy offline.
 
 ## Links
 

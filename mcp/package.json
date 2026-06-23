@@ -1,14 +1,22 @@
 {
   "name": "ng-blatui-mcp",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Model Context Protocol server for ng-blatui — lets any AI agent (Claude, Cursor, Windsurf, Cline, Zed, VS Code…) discover and use ng-blatui components, blocks, charts and templates.",
   "type": "module",
   "bin": {
     "ng-blatui-mcp": "index.mjs"
   },
+  "scripts": {
+    "start": "node index.mjs",
+    "serve": "node server.mjs",
+    "test": "node test.mjs"
+  },
   "files": [
     "index.mjs",
+    "core.mjs",
+    "server.mjs",
     "registry.json",
+    "api.json",
     "README.md"
   ],
   "engines": {
