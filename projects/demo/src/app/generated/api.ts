@@ -32,7 +32,7 @@ export const API_DOCS = {
         "name": "ButtonSize",
         "kind": "type",
         "description": "Size preset controlling height, padding and icon scale.",
-        "definition": "\"default\" | \"sm\" | \"lg\" | \"xs\" | \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\""
+        "definition": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\""
       },
       {
         "name": "ButtonVariant",
@@ -65,7 +65,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\"",
+            "type": "\"default\" | \"sm\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Badge size preset."
@@ -142,7 +142,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\"",
+            "type": "\"default\" | \"sm\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Size preset controlling input height, padding and text size."
@@ -163,7 +163,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\"",
+            "type": "\"default\" | \"sm\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Size preset controlling minimum height, padding and text size."
@@ -352,7 +352,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\"",
+            "type": "\"default\" | \"sm\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Track and thumb size."
@@ -737,7 +737,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\" | null",
+            "type": "\"default\" | \"sm\" | \"lg\" | null",
             "default": "'default'",
             "required": false,
             "description": "Button size."
@@ -904,7 +904,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\"",
+            "type": "\"default\" | \"sm\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Avatar size preset, which also controls overlap and ring width."
@@ -982,7 +982,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\" | \"icon\"",
+            "type": "\"default\" | \"sm\" | \"lg\" | \"icon\"",
             "default": "'icon'",
             "required": false,
             "description": "Size variant controlling link dimensions and padding."
@@ -1045,7 +1045,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\"",
+            "type": "\"default\" | \"sm\"",
             "default": "'default'",
             "required": false,
             "description": "Item density: standard padding or a more compact `sm` size."
@@ -1108,7 +1108,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"xs\" | \"icon-xs\" | \"icon-sm\"",
+            "type": "\"xs\" | \"sm\" | \"icon-xs\" | \"icon-sm\"",
             "default": "'xs'",
             "required": false,
             "description": "Size preset for the addon button (text or icon variants)."
@@ -1220,7 +1220,7 @@ export const API_DOCS = {
           },
           {
             "name": "trend",
-            "type": "\"neutral\" | \"up\" | \"down\" | null",
+            "type": "\"down\" | \"up\" | \"neutral\" | null",
             "default": "null",
             "required": false,
             "description": "Explicit trend direction; inferred from `change`'s sign when null."
@@ -1449,7 +1449,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\"",
+            "type": "\"default\" | \"sm\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Size of each star."
@@ -1504,7 +1504,7 @@ export const API_DOCS = {
     "types": []
   },
   "menubar": {
-    "summary": "Application menu bar styling on Angular Aria's `ngMenuBar`. Each top-level entry is a\n`ngMenuTrigger` opening a `ngMenu` (style the menus with `buiDropdownMenu` /\n`buiDropdownMenuItem`). `MenuBar` is re-exported from `ng-blatui`.\n\n```html\n<div ngMenuBar buiMenubar>\n  <button ngMenuTrigger [menu]=\"file\" buiMenubarTrigger>File</button>\n  <div ngMenu #file=\"ngMenu\" buiDropdownMenu>\n    <div ngMenuItem value=\"new\" buiDropdownMenuItem>New</div>\n  </div>\n</div>\n```",
+    "summary": "Application menu bar styling on Angular Aria's `ngMenuBar`. Each top-level entry is a\n`ngMenuTrigger` opening a `ngMenu` (style the menus with `buiDropdownMenu` /\n`buiDropdownMenuItem`). `MenuBar` is re-exported from `ng-blatui`.\n\nWrap each trigger + its menu in a `relative` element so the menu anchors under its own\ntrigger (otherwise the absolutely-positioned panel lands over the bar itself).\n\n```html\n<div ngMenuBar buiMenubar>\n  <div class=\"relative\">\n    <button ngMenuTrigger [menu]=\"file\" buiMenubarTrigger>File</button>\n    <div ngMenu #file=\"ngMenu\" buiDropdownMenu>\n      <div ngMenuItem value=\"new\" buiDropdownMenuItem>New</div>\n    </div>\n  </div>\n</div>\n```",
     "components": [],
     "types": []
   },
@@ -2330,7 +2330,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\"",
+            "type": "\"default\" | \"sm\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Text size preset for the price."
@@ -2358,7 +2358,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "direction",
-            "type": "\"col\" | \"row\"",
+            "type": "\"row\" | \"col\"",
             "default": "'col'",
             "required": false,
             "description": "Flex direction: vertical (`col`) or horizontal (`row`)."
@@ -2447,7 +2447,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\"",
+            "type": "\"default\" | \"sm\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Size preset for the status dot."
@@ -3381,7 +3381,7 @@ export const API_DOCS = {
           },
           {
             "name": "direction",
-            "type": "\"right\" | \"left\" | \"up\" | \"down\"",
+            "type": "\"down\" | \"up\" | \"left\" | \"right\"",
             "default": "'left'",
             "required": false,
             "description": "Scroll direction; `up`/`down` switch the marquee to a vertical track."
@@ -3814,7 +3814,7 @@ export const API_DOCS = {
           },
           {
             "name": "direction",
-            "type": "\"up\" | \"down\"",
+            "type": "\"down\" | \"up\"",
             "default": "'up'",
             "required": false,
             "description": "Direction the action stack expands relative to the trigger button."
@@ -3883,7 +3883,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\"",
+            "type": "\"default\" | \"sm\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Size preset controlling the knob's diameter and text size."
@@ -4141,6 +4141,20 @@ export const API_DOCS = {
             "description": "Horizontal spread factor of the burst."
           },
           {
+            "name": "direction",
+            "type": "ConfettiDirection",
+            "default": "'down'",
+            "required": false,
+            "description": "Direction the particles fly out from the origin."
+          },
+          {
+            "name": "fullscreen",
+            "type": "boolean",
+            "default": "false",
+            "required": false,
+            "description": "Rain confetti across the whole viewport instead of bursting from the trigger."
+          },
+          {
             "name": "colors",
             "type": "readonly string[] | null",
             "default": "null",
@@ -4152,7 +4166,14 @@ export const API_DOCS = {
         "outputs": []
       }
     ],
-    "types": []
+    "types": [
+      {
+        "name": "ConfettiDirection",
+        "kind": "type",
+        "description": "Burst direction of the confetti particles.",
+        "definition": "\"right\" | \"left\" | \"down\" | \"up\" | \"radial\""
+      }
+    ]
   },
   "stepper": {
     "summary": "A step indicator. The `value` (1-based) marks the active step. Use `li[buiStepperItem]`.",
@@ -5463,6 +5484,27 @@ export const API_DOCS = {
             "default": null,
             "required": false,
             "description": "Accessible label for the expand/collapse toggle button."
+          },
+          {
+            "name": "copyable",
+            "type": "boolean",
+            "default": "false",
+            "required": false,
+            "description": "Show a button that copies the full hierarchy as a markdown ASCII tree."
+          },
+          {
+            "name": "copyLabel",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "Label override for the copy button (idle state)."
+          },
+          {
+            "name": "copiedLabel",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "Label override for the copy button after copying."
           }
         ],
         "models": [],
@@ -6660,7 +6702,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "direction",
-            "type": "\"top\" | \"right\" | \"bottom\" | \"left\"",
+            "type": "\"left\" | \"right\" | \"top\" | \"bottom\"",
             "default": "'bottom'",
             "required": false,
             "description": "Screen edge the drawer is anchored to and slides in from."
@@ -6750,7 +6792,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "side",
-            "type": "\"top\" | \"right\" | \"bottom\" | \"left\"",
+            "type": "\"left\" | \"right\" | \"top\" | \"bottom\"",
             "default": "'right'",
             "required": false,
             "description": "Screen edge the sheet slides in from."
@@ -7377,7 +7419,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "side",
-            "type": "\"right\" | \"left\"",
+            "type": "\"left\" | \"right\"",
             "default": "'left'",
             "required": false,
             "description": "Edge the sidebar is docked to, which sets its border side."

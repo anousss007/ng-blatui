@@ -89,7 +89,7 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [JSON Viewer](https://ngblatui.remix-it.com/components/json-viewer) — props: data, expanded, value, keyName, expanded
 - [Org Chart](https://ngblatui.remix-it.com/components/org-chart) — props: node, node · types: OrgNode
 - [Diff Viewer](https://ngblatui.remix-it.com/components/diff-viewer) — props: before, after, filename
-- [Tree Table](https://ngblatui.remix-it.com/components/tree-table) — props: columns, rows, toggleLabel · types: TreeTableColumn, TreeTableRow
+- [Tree Table](https://ngblatui.remix-it.com/components/tree-table) — props: columns, rows, toggleLabel, copyable, copyLabel, copiedLabel · types: TreeTableColumn, TreeTableRow
 - [Carousel](https://ngblatui.remix-it.com/components/carousel) — props: orientation, perView, previousLabel, nextLabel, goToSlideLabel · two-way: index · types: CarouselOrientation
 - [Data Table](https://ngblatui.remix-it.com/components/data-table) — props: columns, rows, searchable, searchPlaceholder, selectable, pageSize, searchLabel, selectAllLabel, selectRowLabel · types: DataRow, DataTableColumn
 - [Chart](https://ngblatui.remix-it.com/components/chart) — props: type, series, labels, height, label · types: ChartSeries
@@ -173,7 +173,7 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Meteors](https://ngblatui.remix-it.com/components/meteors) — props: count, color
 - [Aurora](https://ngblatui.remix-it.com/components/aurora) — props: blur, speed
 - [Parallax](https://ngblatui.remix-it.com/components/parallax) — props: speed, axis
-- [Confetti](https://ngblatui.remix-it.com/components/confetti) — props: count, spread, colors
+- [Confetti](https://ngblatui.remix-it.com/components/confetti) — props: count, spread, direction, fullscreen, colors · types: ConfettiDirection
 - [Animated Beam](https://ngblatui.remix-it.com/components/animated-beam) — props: from, to, curvature, duration
 
 ### AI

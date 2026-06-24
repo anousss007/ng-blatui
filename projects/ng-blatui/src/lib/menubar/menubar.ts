@@ -7,11 +7,16 @@ import { type ClassValue, cn } from '../utils/cn';
  * `ngMenuTrigger` opening a `ngMenu` (style the menus with `buiDropdownMenu` /
  * `buiDropdownMenuItem`). `MenuBar` is re-exported from `ng-blatui`.
  *
+ * Wrap each trigger + its menu in a `relative` element so the menu anchors under its own
+ * trigger (otherwise the absolutely-positioned panel lands over the bar itself).
+ *
  * ```html
  * <div ngMenuBar buiMenubar>
- *   <button ngMenuTrigger [menu]="file" buiMenubarTrigger>File</button>
- *   <div ngMenu #file="ngMenu" buiDropdownMenu>
- *     <div ngMenuItem value="new" buiDropdownMenuItem>New</div>
+ *   <div class="relative">
+ *     <button ngMenuTrigger [menu]="file" buiMenubarTrigger>File</button>
+ *     <div ngMenu #file="ngMenu" buiDropdownMenu>
+ *       <div ngMenuItem value="new" buiDropdownMenuItem>New</div>
+ *     </div>
  *   </div>
  * </div>
  * ```

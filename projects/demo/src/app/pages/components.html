@@ -4144,11 +4144,11 @@ This content is read-only and cannot be edited.</textarea
         <div buiCollapsible class="w-full max-w-sm rounded-lg border">
           <button
             buiCollapsibleTrigger
-            class="flex w-full items-center justify-between px-4 py-3 text-sm font-medium"
+            class="group flex w-full items-center justify-between px-4 py-3 text-sm font-medium"
           >
             &#64;peduarte starred 3 repositories
             <svg
-              class="size-4"
+              class="size-4 transition-transform group-data-[state=open]:rotate-180"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -4170,10 +4170,15 @@ This content is read-only and cannot be edited.</textarea
       <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Avatar list</h2>
       <app-example [code]="code.collapsibleAvatarList">
         <div buiCollapsible class="w-full max-w-sm space-y-2">
-          <button buiCollapsibleTrigger buiButton variant="outline" class="w-full justify-between">
+          <button
+            buiCollapsibleTrigger
+            buiButton
+            variant="outline"
+            class="group w-full justify-between"
+          >
             Team members (4)
             <svg
-              class="size-4"
+              class="size-4 transition-transform group-data-[state=open]:rotate-180"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -6146,15 +6151,19 @@ This content is read-only and cannot be edited.</textarea
     @case ('menubar') {
       <app-example [code]="code.menubar">
         <div ngMenuBar buiMenubar>
-          <button ngMenuTrigger [menu]="fileMenu" buiMenubarTrigger>File</button>
-          <div ngMenu #fileMenu="ngMenu" buiDropdownMenu>
-            <div ngMenuItem value="new" buiDropdownMenuItem>New tab</div>
-            <div ngMenuItem value="open" buiDropdownMenuItem>Open…</div>
+          <div class="relative">
+            <button ngMenuTrigger [menu]="fileMenu" buiMenubarTrigger>File</button>
+            <div ngMenu #fileMenu="ngMenu" buiDropdownMenu>
+              <div ngMenuItem value="new" buiDropdownMenuItem>New tab</div>
+              <div ngMenuItem value="open" buiDropdownMenuItem>Open…</div>
+            </div>
           </div>
-          <button ngMenuTrigger [menu]="editMenu" buiMenubarTrigger>Edit</button>
-          <div ngMenu #editMenu="ngMenu" buiDropdownMenu>
-            <div ngMenuItem value="undo" buiDropdownMenuItem>Undo</div>
-            <div ngMenuItem value="redo" buiDropdownMenuItem>Redo</div>
+          <div class="relative">
+            <button ngMenuTrigger [menu]="editMenu" buiMenubarTrigger>Edit</button>
+            <div ngMenu #editMenu="ngMenu" buiDropdownMenu>
+              <div ngMenuItem value="undo" buiDropdownMenuItem>Undo</div>
+              <div ngMenuItem value="redo" buiDropdownMenuItem>Redo</div>
+            </div>
           </div>
         </div>
       </app-example>
@@ -6162,15 +6171,19 @@ This content is read-only and cannot be edited.</textarea
       <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Simple</h2>
       <app-example [code]="code.menubarSimple">
         <div ngMenuBar buiMenubar>
-          <button ngMenuTrigger [menu]="simpleViewMenu" buiMenubarTrigger>View</button>
-          <div ngMenu #simpleViewMenu="ngMenu" buiDropdownMenu>
-            <div ngMenuItem value="zoom-in" buiDropdownMenuItem>Zoom in</div>
-            <div ngMenuItem value="zoom-out" buiDropdownMenuItem>Zoom out</div>
+          <div class="relative">
+            <button ngMenuTrigger [menu]="simpleViewMenu" buiMenubarTrigger>View</button>
+            <div ngMenu #simpleViewMenu="ngMenu" buiDropdownMenu>
+              <div ngMenuItem value="zoom-in" buiDropdownMenuItem>Zoom in</div>
+              <div ngMenuItem value="zoom-out" buiDropdownMenuItem>Zoom out</div>
+            </div>
           </div>
-          <button ngMenuTrigger [menu]="simpleHelpMenu" buiMenubarTrigger>Help</button>
-          <div ngMenu #simpleHelpMenu="ngMenu" buiDropdownMenu>
-            <div ngMenuItem value="docs" buiDropdownMenuItem>Documentation</div>
-            <div ngMenuItem value="about" buiDropdownMenuItem>About</div>
+          <div class="relative">
+            <button ngMenuTrigger [menu]="simpleHelpMenu" buiMenubarTrigger>Help</button>
+            <div ngMenu #simpleHelpMenu="ngMenu" buiDropdownMenu>
+              <div ngMenuItem value="docs" buiDropdownMenuItem>Documentation</div>
+              <div ngMenuItem value="about" buiDropdownMenuItem>About</div>
+            </div>
           </div>
         </div>
       </app-example>
@@ -6558,6 +6571,13 @@ This content is read-only and cannot be edited.</textarea
       </app-example>
     }
     @case ('back-to-top') {
+      <!-- the real, working component: position:fixed, reveals itself past the scroll threshold -->
+      <bui-back-to-top />
+      <p class="mb-3 text-sm text-muted-foreground">
+        The button is <code class="font-mono text-xs">position: fixed</code> and reveals itself once
+        you scroll past the threshold (300px by default). Scroll down to see the live one appear in
+        the bottom-right corner. The cards below show the available styles.
+      </p>
       <app-example [code]="code.backToTop">
         <button
           type="button"
@@ -6602,6 +6622,12 @@ This content is read-only and cannot be edited.</textarea
           </svg>
         </button>
       </app-example>
+
+      <div
+        class="mt-6 grid h-[700px] place-items-center rounded-lg border border-dashed text-sm text-muted-foreground"
+      >
+        Keep scrolling — the live back-to-top button stays pinned to the bottom-right corner.
+      </div>
     }
     @case ('countdown') {
       <app-example [code]="code.countdown">
@@ -7651,6 +7677,31 @@ This content is read-only and cannot be edited.</textarea
           <button buiButton variant="outline">Celebrate 🎊</button>
         </bui-confetti>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Directions</h2>
+      <app-example [code]="code.confettiDirections">
+        <div class="flex flex-wrap gap-3">
+          <bui-confetti direction="up"
+            ><button buiButton variant="outline">Up</button></bui-confetti
+          >
+          <bui-confetti direction="left"
+            ><button buiButton variant="outline">Left</button></bui-confetti
+          >
+          <bui-confetti direction="right"
+            ><button buiButton variant="outline">Right</button></bui-confetti
+          >
+          <bui-confetti direction="radial"
+            ><button buiButton variant="outline">Radial</button></bui-confetti
+          >
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Fullscreen</h2>
+      <app-example [code]="code.confettiFullscreen">
+        <bui-confetti [fullscreen]="true" [count]="160">
+          <button buiButton>Rain confetti 🌧️</button>
+        </bui-confetti>
+      </app-example>
     }
     @case ('stepper') {
       <app-example [code]="code.stepper">
@@ -7936,12 +7987,20 @@ This content is read-only and cannot be edited.</textarea
       </app-example>
     }
     @case ('infinite-scroll') {
+      <p class="mb-3 text-sm text-muted-foreground">
+        Scroll to the bottom of the list — a new batch loads automatically until the cap is reached.
+      </p>
       <app-example [code]="code.infiniteScroll">
-        <bui-infinite-scroll class="w-full max-w-md">
+        <bui-infinite-scroll
+          class="w-full max-w-md"
+          [loading]="feedLoading()"
+          [finished]="feedFinished()"
+          (more)="loadMoreFeed()"
+        >
           <div class="space-y-2">
-            <div class="rounded border p-2 text-sm">Item 1</div>
-            <div class="rounded border p-2 text-sm">Item 2</div>
-            <div class="rounded border p-2 text-sm">Item 3</div>
+            @for (n of feedItems(); track n) {
+              <div class="rounded border p-2 text-sm">Item {{ n }}</div>
+            }
           </div>
         </bui-infinite-scroll>
       </app-example>
@@ -8152,6 +8211,21 @@ This content is read-only and cannot be edited.</textarea
           class="w-full max-w-md rounded-lg border"
           [columns]="ttColumns"
           [rows]="ttRows"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Copy as markdown tree</h2>
+      <p class="mb-3 text-sm text-muted-foreground">
+        Set <code class="font-mono text-xs">[copyable]="true"</code> for a button that copies the
+        hierarchy as an ASCII tree (<code class="font-mono text-xs">├──</code> /
+        <code class="font-mono text-xs">└──</code>), ready to paste into a README.
+      </p>
+      <app-example [code]="code.treeTableCopy">
+        <bui-tree-table
+          class="w-full max-w-md rounded-lg border p-2"
+          [columns]="ttColumns"
+          [rows]="ttRows"
+          [copyable]="true"
         />
       </app-example>
     }
@@ -9057,8 +9131,8 @@ This content is read-only and cannot be edited.</textarea
       <p buiAlertDialogDescription>This action cannot be undone.</p>
     </div>
     <div buiAlertDialogFooter>
-      <button buiAlertDialogCancel>Cancel</button>
-      <button buiAlertDialogAction>Delete</button>
+      <button buiAlertDialogCancel (click)="closeDialog()">Cancel</button>
+      <button buiAlertDialogAction (click)="closeDialog()">Delete</button>
     </div>
   </div>
 </ng-template>
@@ -9070,8 +9144,8 @@ This content is read-only and cannot be edited.</textarea
       <p buiAlertDialogDescription>You have unsaved changes that will be lost.</p>
     </div>
     <div buiAlertDialogFooter>
-      <button buiAlertDialogCancel>Stay</button>
-      <button buiAlertDialogAction>Leave</button>
+      <button buiAlertDialogCancel (click)="closeDialog()">Stay</button>
+      <button buiAlertDialogAction (click)="closeDialog()">Leave</button>
     </div>
   </div>
 </ng-template>
@@ -9083,7 +9157,7 @@ This content is read-only and cannot be edited.</textarea
       <p buiDialogDescription>This action cannot be undone.</p>
     </div>
     <div buiDialogFooter>
-      <button buiButton variant="destructive">Delete</button>
+      <button buiButton variant="destructive" (click)="closeDialog()">Delete</button>
     </div>
   </div>
 </ng-template>
@@ -9104,7 +9178,7 @@ This content is read-only and cannot be edited.</textarea
       </div>
     </div>
     <div buiDialogFooter>
-      <button buiButton>Save changes</button>
+      <button buiButton (click)="closeDialog()">Save changes</button>
     </div>
   </div>
 </ng-template>
@@ -9115,8 +9189,8 @@ This content is read-only and cannot be edited.</textarea
       <p buiDialogDescription>This will permanently remove the item. You can't undo this.</p>
     </div>
     <div buiDialogFooter>
-      <button buiButton variant="outline">Cancel</button>
-      <button buiButton variant="destructive">Delete</button>
+      <button buiButton variant="outline" (click)="closeDialog()">Cancel</button>
+      <button buiButton variant="destructive" (click)="closeDialog()">Delete</button>
     </div>
   </div>
 </ng-template>
@@ -9135,8 +9209,8 @@ This content is read-only and cannot be edited.</textarea
       }
     </div>
     <div buiDialogFooter>
-      <button buiButton variant="outline">Decline</button>
-      <button buiButton>Accept</button>
+      <button buiButton variant="outline" (click)="closeDialog()">Decline</button>
+      <button buiButton (click)="closeDialog()">Accept</button>
     </div>
   </div>
 </ng-template>
@@ -9148,8 +9222,8 @@ This content is read-only and cannot be edited.</textarea
     </div>
     <div class="flex-1 py-4 text-sm text-muted-foreground">Your full-screen content goes here.</div>
     <div buiDialogFooter>
-      <button buiButton variant="outline">Close</button>
-      <button buiButton>Done</button>
+      <button buiButton variant="outline" (click)="closeDialog()">Close</button>
+      <button buiButton (click)="closeDialog()">Done</button>
     </div>
   </div>
 </ng-template>
@@ -9159,7 +9233,7 @@ This content is read-only and cannot be edited.</textarea
       <h2 buiDialogTitle>Positioned dialog</h2>
       <p buiDialogDescription>Anchored near the top of the viewport.</p>
     </div>
-    <div buiDialogFooter><button buiButton>Got it</button></div>
+    <div buiDialogFooter><button buiButton (click)="closeDialog()">Got it</button></div>
   </div>
 </ng-template>
 <ng-template #dialogDispatchTpl>
@@ -9168,6 +9242,6 @@ This content is read-only and cannot be edited.</textarea
       <h2 buiDialogTitle>New message</h2>
       <p buiDialogDescription>Opened programmatically from anywhere in your app.</p>
     </div>
-    <div buiDialogFooter><button buiButton>Dismiss</button></div>
+    <div buiDialogFooter><button buiButton (click)="closeDialog()">Dismiss</button></div>
   </div>
 </ng-template>

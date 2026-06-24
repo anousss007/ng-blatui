@@ -54,11 +54,24 @@ const noop = (): void => {};
       [disabled]="disabled()"
       [readonly]="!searchable()"
       [class.cursor-pointer]="!searchable()"
-      class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50"
+      class="flex h-9 w-full rounded-md border border-input bg-transparent py-2 ps-3 pe-9 text-sm shadow-xs outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50"
       (input)="onInput($event)"
       (focus)="openList()"
       (keydown)="onKeydown($event)"
     />
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+      class="pointer-events-none absolute end-3 top-[1.125rem] size-4 -translate-y-1/2 text-muted-foreground transition-transform"
+      [class.rotate-180]="open()"
+    >
+      <path d="m6 9 6 6 6-6" />
+    </svg>
     @if (open() && filtered().length > 0) {
       <ul
         [id]="listId"

@@ -27,4 +27,23 @@ describe('BuiNotificationCenter', () => {
     fixture.detectChanges();
     expect(bell.querySelector('span')).toBeNull(); // unread badge removed
   });
+
+  it('closes on an outside click but stays open on an inside click', () => {
+    const fixture = TestBed.createComponent(TestHost);
+    fixture.detectChanges();
+    const root = fixture.nativeElement as HTMLElement;
+    expect(root.querySelector('[role="region"]')).not.toBeNull();
+
+    // A click inside the panel must not dismiss it.
+    root
+      .querySelector('[role="region"]')!
+      .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    fixture.detectChanges();
+    expect(root.querySelector('[role="region"]')).not.toBeNull();
+
+    // A click outside the bell + panel closes it.
+    document.body.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    fixture.detectChanges();
+    expect(root.querySelector('[role="region"]')).toBeNull();
+  });
 });

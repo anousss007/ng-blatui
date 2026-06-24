@@ -71,7 +71,9 @@ export class BuiPopover implements OnDestroy {
       .withPositions([POPOVER_POSITIONS[side], POPOVER_POSITIONS[POPOVER_FALLBACK[side]]]);
     const overlayReference = this.overlay.create({
       positionStrategy,
-      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      // Close (not reposition) on scroll, so the popover doesn't hang detached over the page
+      // once its trigger scrolls out of view.
+      scrollStrategy: this.overlay.scrollStrategies.close(),
     });
     overlayReference.attach(new TemplatePortal(this.content(), this.viewContainerRef));
     overlayReference.outsidePointerEvents().subscribe((event) => {

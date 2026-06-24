@@ -107,6 +107,8 @@ export interface BuiLabels {
   themeCustomizer: string;
   // tree-table
   treeTableToggle: string;
+  treeTableCopy: string;
+  treeTableCopied: string;
   // video
   videoPlay: string;
 }
@@ -172,6 +174,8 @@ export const BUI_DEFAULT_LABELS: BuiLabels = {
   sonnerDismiss: 'Dismiss notification',
   themeCustomizer: 'Theme customizer',
   treeTableToggle: 'Toggle row',
+  treeTableCopy: 'Copy as tree',
+  treeTableCopied: 'Copied',
   videoPlay: 'Play video',
 };
 
