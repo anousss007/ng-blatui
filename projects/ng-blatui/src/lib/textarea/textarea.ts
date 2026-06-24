@@ -14,21 +14,43 @@ const TEXTAREA_SIZES = {
 /** Size preset controlling minimum height, padding and text size. */
 export type TextareaSize = keyof typeof TEXTAREA_SIZES;
 
-/** Applies BlatUI textarea styling to a native `<textarea>` (auto-grows via field-sizing). */
+// Vertical padding (top + bottom) baked into each size preset, used to compute the `maxRows`
+// height cap. Mirrors the `py-*` utilities in TEXTAREA_SIZES.
+const TEXTAREA_PADDING_Y: Record<TextareaSize, string> = {
+  sm: '0.75rem',
+  default: '1rem',
+  lg: '1.25rem',
+} as const;
+
+/**
+ * Applies BlatUI textarea styling to a native `<textarea>`. Auto-grows with its content via CSS
+ * `field-sizing-content` (no JS). Set `[maxRows]` to cap the growth — past it the field scrolls.
+ */
 @Directive({
   selector: 'textarea[buiTextarea]',
   host: {
     'data-slot': 'textarea',
     '[attr.data-size]': 'size()',
     '[class]': 'computedClass()',
+    '[style.max-height]': 'maxHeight()',
+    '[style.overflow-y]': "maxRows() === null ? null : 'auto'",
   },
 })
 export class BuiTextarea {
   /** Size preset controlling minimum height, padding and text size. */
   readonly size = input<TextareaSize>('default');
+  /** Maximum number of rows before the textarea scrolls instead of growing (null = unlimited). */
+  readonly maxRows = input<number | null>(null);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
   protected readonly computedClass = computed(() =>
     cn(TEXTAREA_BASE, TEXTAREA_SIZES[this.size()], this.userClass()),
   );
+
+  // Cap the auto-grow at `maxRows` lines using the `lh` unit (one line-height) plus the size's
+  // vertical padding and the 1px borders — purely declarative, so it stays SSR-safe.
+  protected readonly maxHeight = computed(() => {
+    const rows = this.maxRows();
+    return rows === null ? null : `calc(${rows} * 1lh + ${TEXTAREA_PADDING_Y[this.size()]} + 2px)`;
+  });
 }

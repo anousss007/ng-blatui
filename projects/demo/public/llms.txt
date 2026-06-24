@@ -15,13 +15,13 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Installation](https://ngblatui.remix-it.com/docs/installation)
 - [Theming](https://ngblatui.remix-it.com/docs/theming)
 
-## Components (155)
+## Components (154)
 
 ### Forms & Input
 
 - [Button](https://ngblatui.remix-it.com/components/button) — props: variant, size · types: ButtonSize, ButtonVariant
 - [Input](https://ngblatui.remix-it.com/components/input) — props: size
-- [Textarea](https://ngblatui.remix-it.com/components/textarea) — props: size
+- [Textarea](https://ngblatui.remix-it.com/components/textarea) — props: size, maxRows
 - [Label](https://ngblatui.remix-it.com/components/label)
 - [Checkbox](https://ngblatui.remix-it.com/components/checkbox) — two-way: checked, indeterminate, disabled
 - [Switch](https://ngblatui.remix-it.com/components/switch) — props: size, iconOn, iconOff · two-way: checked, disabled
@@ -33,7 +33,7 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Input Group](https://ngblatui.remix-it.com/components/input-group) — props: align, variant, size
 - [Slider](https://ngblatui.remix-it.com/components/slider) — props: range, min, max, step, orientation, ariaLabel · two-way: value, endValue, disabled
 - [Rating](https://ngblatui.remix-it.com/components/rating) — props: max, readonly, size, color, ariaLabel · two-way: value, disabled
-- [Autosize Textarea](https://ngblatui.remix-it.com/components/autosize-textarea) — props: size, maxRows
+- [Autosize Textarea](https://ngblatui.remix-it.com/components/autosize-textarea)
 - [Segmented Control](https://ngblatui.remix-it.com/components/segmented-control) — props: options · two-way: value, disabled · types: SegmentOption
 - [Select](https://ngblatui.remix-it.com/components/select) — props: multiple, options, placeholder · two-way: value, values, disabled · types: SelectOption
 - [Combobox](https://ngblatui.remix-it.com/components/combobox) — props: multiple, options, placeholder, searchable · two-way: value, values, disabled · types: ComboboxOption
@@ -160,15 +160,6 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Sheet](https://ngblatui.remix-it.com/components/sheet) — props: side, ariaLabel · two-way: open
 - [Onboarding Tour](https://ngblatui.remix-it.com/components/onboarding-tour) — props: steps · two-way: open · types: TourStep
 
-### E-commerce
-
-- [Quantity Selector](https://ngblatui.remix-it.com/components/quantity-selector) — props: min, max, step, size, disabled, ariaLabel, decreaseLabel, increaseLabel · two-way: value
-- [Price](https://ngblatui.remix-it.com/components/price) — props: amount, compareAt, currency, size, showDiscount
-- [Variant Selector](https://ngblatui.remix-it.com/components/variant-selector) — props: options, type, label, disabled · two-way: value · types: VariantOption
-- [Add To Cart](https://ngblatui.remix-it.com/components/add-to-cart) — props: label, addedLabel, size · emits: triggered
-- [Product Card](https://ngblatui.remix-it.com/components/product-card) — props: title, href, image, imageAlt, price, compareAt, currency, badge, category, rating, reviews, wishlist, wishlistLabel
-- [Mini Cart](https://ngblatui.remix-it.com/components/mini-cart) — props: items, currency, triggerLabel, label · two-way: open · types: CartItem
-
 ### Effects
 
 - [Dot Pattern](https://ngblatui.remix-it.com/components/dot-pattern) — props: size, gap, mask
@@ -194,6 +185,14 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Chat](https://ngblatui.remix-it.com/components/chat) — props: ariaLabel, role, name, time, avatar, typing
 - [Prompt Input](https://ngblatui.remix-it.com/components/prompt-input) — props: placeholder, attachable, disabled, ariaLabel, attachLabel, sendLabel · two-way: value · emits: submitted
 - [Citation](https://ngblatui.remix-it.com/components/citation) — props: index, title, url, snippet
+
+### E-commerce
+
+- [Price](https://ngblatui.remix-it.com/components/price) — props: amount, compareAt, currency, size, showDiscount
+- [Variant Selector](https://ngblatui.remix-it.com/components/variant-selector) — props: options, type, label, disabled · two-way: value · types: VariantOption
+- [Add To Cart](https://ngblatui.remix-it.com/components/add-to-cart) — props: label, addedLabel, size · emits: triggered · types: AddToCartSize
+- [Product Card](https://ngblatui.remix-it.com/components/product-card) — props: title, href, image, imageAlt, price, compareAt, currency, badge, category, rating, reviews, wishlist, wishlistLabel
+- [Mini Cart](https://ngblatui.remix-it.com/components/mini-cart) — props: items, currency, triggerLabel, label · two-way: open · types: CartItem
 
 ### Components
 

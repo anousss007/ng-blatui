@@ -36,6 +36,7 @@ import {
   BuiAudioPlayer,
   BuiAurora,
   BuiAutocomplete,
+  // eslint-disable-next-line sonarjs/deprecation -- demo page documents the deprecated alias
   BuiAutosizeTextarea,
   BuiAvatar,
   BuiAvatarGroup,
@@ -185,7 +186,6 @@ import {
   BuiProgress,
   BuiPromptInput,
   BuiQrCode,
-  BuiQuantitySelector,
   BuiQuote,
   BuiRadioGroup,
   BuiRadioGroupItem,
@@ -337,7 +337,6 @@ const META: Record<string, { title: string; description: string }> = {
     description: 'Pick a value from a range, with full keyboard support.',
   },
   rating: { title: 'Rating', description: 'A star rating with hover preview and keyboard.' },
-  'quantity-selector': { title: 'Quantity selector', description: 'A compact − [n] + stepper.' },
   'alert-dialog': {
     title: 'Alert dialog',
     description: 'A confirm modal (role=alertdialog) on the CDK.',
@@ -601,7 +600,6 @@ type ToggleValue = string | string[] | null;
     BuiHoverCard,
     BuiHoverCardContent,
     BuiSlider,
-    BuiQuantitySelector,
     BuiRating,
     BuiAlertDialogAction,
     BuiAlertDialogCancel,
@@ -610,6 +608,7 @@ type ToggleValue = string | string[] | null;
     BuiAlertDialogFooter,
     BuiAlertDialogHeader,
     BuiAlertDialogTitle,
+    // eslint-disable-next-line @typescript-eslint/no-deprecated, sonarjs/deprecation -- demo page documents the deprecated alias
     BuiAutosizeTextarea,
     BuiDropdownMenu,
     BuiDropdownMenuItem,
@@ -1654,6 +1653,8 @@ export class ComponentPage {
     textareaInvalid: `<textarea buiTextarea aria-invalid="true" placeholder="…"></textarea>
 <p class="text-destructive text-sm" role="alert">Bio must be at least 10 characters.</p>`,
     textareaNoResize: `<textarea buiTextarea class="resize-none" placeholder="Can't be resized."></textarea>`,
+    textareaMaxRows: `<!-- auto-grows, then scrolls past 4 rows -->
+<textarea buiTextarea [maxRows]="4" placeholder="Grows up to 4 rows…"></textarea>`,
     textareaReadonly: `<textarea buiTextarea readonly class="bg-muted" aria-label="Read-only">…</textarea>`,
     textareaDisabled: `<textarea buiTextarea placeholder="…" disabled></textarea>`,
     textareaUtility: `<!-- a native textarea styled with utility classes -->
@@ -2470,13 +2471,6 @@ this.dialog.open(tpl, { ariaModal: true });`,
 <bui-rating [value]="3" size="lg" ariaLabel="Large" />`,
     ratingColors: `<bui-rating [value]="4" color="text-rose-500" ariaLabel="Rose" />
 <bui-rating [value]="4" color="text-amber-500" ariaLabel="Amber" />`,
-    quantitySelector: `import { BuiQuantitySelector } from 'ng-blatui';
-
-<bui-quantity-selector [(value)]="qty" />`,
-    quantityMax: `<bui-quantity-selector [value]="2" [min]="1" [max]="10" ariaLabel="Quantity" />`,
-    quantitySizes: `<bui-quantity-selector [value]="1" size="sm" ariaLabel="Small" />
-<bui-quantity-selector [value]="1" size="lg" ariaLabel="Large" />`,
-    quantityDisabled: `<bui-quantity-selector [value]="3" [disabled]="true" ariaLabel="Disabled" />`,
     alertDialog: `import { Dialog } from 'ng-blatui';
 
 open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
@@ -2810,6 +2804,8 @@ fruitForm = new FormControl('banana');
     numberInputSizes: `<!-- size = sm | default | lg -->
 <bui-number-input [value]="2" size="sm" />
 <bui-number-input [value]="2" size="lg" />`,
+    numberInputQuantity: `<!-- cart/product quantity stepper -->
+<bui-number-input [value]="1" [min]="1" size="sm" ariaLabel="Quantity" />`,
     variantSelector: `import { BuiVariantSelector } from 'ng-blatui';
 
 <bui-variant-selector [(value)]="size" [options]="['S','M','L']" />`,

@@ -1,5 +1,6 @@
 import { Component, computed, input, model, signal } from '@angular/core';
 
+import { BuiTextarea } from '../textarea/textarea';
 import { type ClassValue, cn } from '../utils/cn';
 
 export interface Mention {
@@ -13,13 +14,14 @@ export interface Mention {
 @Component({
   selector: 'bui-mention-input',
   host: { 'data-slot': 'mention-input', '[class]': 'computedClass()' },
+  imports: [BuiTextarea],
   template: `
     <textarea
+      buiTextarea
       [value]="value()"
       [placeholder]="placeholder()"
       [rows]="rows()"
       [attr.name]="name() || null"
-      class="w-full resize-y rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
       (input)="onInput($event)"
       (keydown)="onKeydown($event)"
     ></textarea>

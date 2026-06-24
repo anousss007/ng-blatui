@@ -32,13 +32,13 @@ export const API_DOCS = {
         "name": "ButtonSize",
         "kind": "type",
         "description": "Size preset controlling height, padding and icon scale.",
-        "definition": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\""
+        "definition": "\"default\" | \"sm\" | \"lg\" | \"xs\" | \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\""
       },
       {
         "name": "ButtonVariant",
         "kind": "type",
         "description": "Visual style of the button.",
-        "definition": "\"default\" | \"link\" | \"destructive\" | \"outline\" | \"secondary\" | \"ghost\""
+        "definition": "\"default\" | \"destructive\" | \"outline\" | \"secondary\" | \"ghost\" | \"link\""
       }
     ]
   },
@@ -58,14 +58,14 @@ export const API_DOCS = {
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"info\" | \"danger\" | \"neutral\" | null",
+            "type": "\"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | null",
             "default": "null",
             "required": false,
             "description": "Optional semantic tone; when set it overrides the brand variant's color."
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
+            "type": "\"sm\" | \"default\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Badge size preset."
@@ -121,7 +121,7 @@ export const API_DOCS = {
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"info\" | \"danger\" | \"neutral\" | null",
+            "type": "\"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | null",
             "default": "null",
             "required": false,
             "description": "Semantic tone; when set, overrides `variant`."
@@ -142,7 +142,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
+            "type": "\"sm\" | \"default\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Size preset controlling input height, padding and text size."
@@ -155,7 +155,7 @@ export const API_DOCS = {
     "types": []
   },
   "textarea": {
-    "summary": "Applies BlatUI textarea styling to a native `<textarea>` (auto-grows via field-sizing).",
+    "summary": "Applies BlatUI textarea styling to a native `<textarea>`. Auto-grows with its content via CSS\n`field-sizing-content` (no JS). Set `[maxRows]` to cap the growth — past it the field scrolls.",
     "components": [
       {
         "class": "BuiTextarea",
@@ -163,10 +163,17 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
+            "type": "\"sm\" | \"default\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Size preset controlling minimum height, padding and text size."
+          },
+          {
+            "name": "maxRows",
+            "type": "number | null",
+            "default": "null",
+            "required": false,
+            "description": "Maximum number of rows before the textarea scrolls instead of growing (null = unlimited)."
           }
         ],
         "models": [],
@@ -345,7 +352,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
+            "type": "\"sm\" | \"default\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Track and thumb size."
@@ -730,7 +737,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\" | null",
+            "type": "\"sm\" | \"default\" | \"lg\" | null",
             "default": "'default'",
             "required": false,
             "description": "Button size."
@@ -813,7 +820,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "tone",
-            "type": "\"default\" | \"success\" | \"warning\" | \"info\" | \"danger\" | \"primary\"",
+            "type": "\"default\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"primary\"",
             "default": "'default'",
             "required": false,
             "description": "Color tone (`default | primary | info | success | warning | danger`)."
@@ -897,7 +904,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
+            "type": "\"sm\" | \"default\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Avatar size preset, which also controls overlap and ring width."
@@ -975,7 +982,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\" | \"icon\"",
+            "type": "\"sm\" | \"default\" | \"lg\" | \"icon\"",
             "default": "'icon'",
             "required": false,
             "description": "Size variant controlling link dimensions and padding."
@@ -1038,7 +1045,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\"",
+            "type": "\"sm\" | \"default\"",
             "default": "'default'",
             "required": false,
             "description": "Item density: standard padding or a more compact `sm` size."
@@ -1053,7 +1060,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "variant",
-            "type": "\"default\" | \"image\" | \"icon\"",
+            "type": "\"default\" | \"icon\" | \"image\"",
             "default": "'default'",
             "required": false,
             "description": "Media presentation: plain, an icon tile, or a cropped image thumbnail."
@@ -1101,7 +1108,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"xs\" | \"sm\" | \"icon-xs\" | \"icon-sm\"",
+            "type": "\"sm\" | \"xs\" | \"icon-xs\" | \"icon-sm\"",
             "default": "'xs'",
             "required": false,
             "description": "Size preset for the addon button (text or icon variants)."
@@ -1442,7 +1449,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
+            "type": "\"sm\" | \"default\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Size of each star."
@@ -1481,114 +1488,14 @@ export const API_DOCS = {
     ],
     "types": []
   },
-  "quantity-selector": {
-    "summary": "A compact − [n] + quantity stepper (`role=\"group\"` with a `spinbutton` field).",
-    "components": [
-      {
-        "class": "BuiQuantitySelector",
-        "selector": "bui-quantity-selector",
-        "inputs": [
-          {
-            "name": "min",
-            "type": "number",
-            "default": "1",
-            "required": false,
-            "description": "Minimum allowed quantity."
-          },
-          {
-            "name": "max",
-            "type": "number | null",
-            "default": "null",
-            "required": false,
-            "description": "Maximum allowed quantity; unbounded when null."
-          },
-          {
-            "name": "step",
-            "type": "number",
-            "default": "1",
-            "required": false,
-            "description": "Increment/decrement applied per button press."
-          },
-          {
-            "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
-            "default": "'default'",
-            "required": false,
-            "description": "Size preset controlling height and button width."
-          },
-          {
-            "name": "disabled",
-            "type": "boolean",
-            "default": "false",
-            "required": false,
-            "description": "Whether the whole control is disabled."
-          },
-          {
-            "name": "ariaLabel",
-            "type": "string",
-            "default": "'Quantity'",
-            "required": false,
-            "description": "Accessible label for the numeric input field."
-          },
-          {
-            "name": "decreaseLabel",
-            "type": "string",
-            "default": null,
-            "required": false,
-            "description": "Accessible label override for the decrease button."
-          },
-          {
-            "name": "increaseLabel",
-            "type": "string",
-            "default": null,
-            "required": false,
-            "description": "Accessible label override for the increase button."
-          }
-        ],
-        "models": [
-          {
-            "name": "value",
-            "type": "number",
-            "default": "1",
-            "description": "Current quantity. Two-way bindable with `[(value)]`."
-          }
-        ],
-        "outputs": []
-      }
-    ],
-    "types": []
-  },
   "alert-dialog": {
     "summary": "Primary confirm action button.",
     "components": [],
     "types": []
   },
   "autosize-textarea": {
-    "summary": "A textarea that grows with its content. SSR-safe — the height is measured only in the\nbrowser (via `afterNextRender` and the `input` event).",
-    "components": [
-      {
-        "class": "BuiAutosizeTextarea",
-        "selector": "textarea[buiAutosizeTextarea]",
-        "inputs": [
-          {
-            "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
-            "default": "'default'",
-            "required": false,
-            "description": "Size preset controlling minimum height, padding and text size."
-          },
-          {
-            "name": "maxRows",
-            "type": "number | null",
-            "default": "null",
-            "required": false,
-            "description": "Maximum number of rows before the textarea scrolls instead of growing (null = unlimited)."
-          }
-        ],
-        "models": [],
-        "outputs": []
-      }
-    ],
+    "summary": "",
+    "components": [],
     "types": []
   },
   "dropdown-menu": {
@@ -2423,7 +2330,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
+            "type": "\"sm\" | \"default\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Text size preset for the price."
@@ -2540,7 +2447,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
+            "type": "\"sm\" | \"default\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Size preset for the status dot."
@@ -3069,7 +2976,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
+            "type": "AddToCartSize",
             "default": "'default'",
             "required": false,
             "description": "Size preset controlling height and padding."
@@ -3085,7 +2992,14 @@ export const API_DOCS = {
         ]
       }
     ],
-    "types": []
+    "types": [
+      {
+        "name": "AddToCartSize",
+        "kind": "type",
+        "description": "Size preset controlling button height and padding.",
+        "definition": "\"default\" | \"sm\" | \"lg\""
+      }
+    ]
   },
   "password-strength": {
     "summary": "A password field with a live strength meter and (optional) requirement checklist.",
@@ -3969,7 +3883,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
+            "type": "\"sm\" | \"default\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Size preset controlling the knob's diameter and text size."
