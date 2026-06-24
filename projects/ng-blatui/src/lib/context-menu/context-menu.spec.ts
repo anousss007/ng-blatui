@@ -38,4 +38,19 @@ describe('BuiContextMenu', () => {
     fixture.detectChanges();
     expect(fixture.componentInstance.picked?.value).toBe('copy');
   });
+
+  it('closes on scroll (its position is fixed to the viewport)', () => {
+    const fixture = TestBed.createComponent(TestHost);
+    fixture.detectChanges();
+    const host = (fixture.nativeElement as HTMLElement).querySelector(
+      '[data-slot="context-menu"]',
+    )!;
+    host.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, clientX: 10, clientY: 10 }));
+    fixture.detectChanges();
+    expect(host.querySelector('[role="menu"]')).not.toBeNull();
+
+    globalThis.dispatchEvent(new Event('scroll'));
+    fixture.detectChanges();
+    expect(host.querySelector('[role="menu"]')).toBeNull();
+  });
 });

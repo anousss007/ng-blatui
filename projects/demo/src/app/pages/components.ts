@@ -253,6 +253,7 @@ import {
   BuiVideo,
   BuiVisuallyHidden,
   Dialog,
+  type DialogRef,
   Menu,
   MenuBar,
   MenuItem,
@@ -755,6 +756,28 @@ export class ComponentPage {
 
   private readonly dialog = inject(Dialog);
   private readonly overlay = inject(Overlay);
+  /** The currently-open dialog, so its footer buttons can close it. */
+  protected dialogRef: DialogRef | null = null;
+
+  /** Demo state for the infinite-scroll example: appends batches until a cap is hit. */
+  protected readonly feedItems = signal(Array.from({ length: 8 }, (_, index) => index + 1));
+  protected readonly feedLoading = signal(false);
+  protected readonly feedFinished = computed(() => this.feedItems().length >= 40);
+
+  protected loadMoreFeed(): void {
+    if (this.feedLoading() || this.feedFinished()) {
+      return;
+    }
+    this.feedLoading.set(true);
+    setTimeout(() => {
+      const count = this.feedItems().length;
+      this.feedItems.update((items) => [
+        ...items,
+        ...Array.from({ length: 8 }, (_, index) => count + index + 1),
+      ]);
+      this.feedLoading.set(false);
+    }, 600);
+  }
   protected readonly dialogTpl = viewChild.required<TemplateRef<unknown>>('dialogTpl');
   protected readonly alertTpl = viewChild.required<TemplateRef<unknown>>('alertTpl');
   protected readonly alertConfirmTpl = viewChild.required<TemplateRef<unknown>>('alertConfirmTpl');
@@ -1286,23 +1309,28 @@ export class ComponentPage {
   ];
 
   protected openDialog(): void {
-    this.dialog.open(this.dialogTpl(), { ariaModal: true });
+    this.dialogRef = this.dialog.open(this.dialogTpl(), { ariaModal: true });
+  }
+
+  /** Close the open dialog — wired to the footer buttons in every dialog/alert example. */
+  protected closeDialog(): void {
+    this.dialogRef?.close();
   }
 
   protected openFormDialog(): void {
-    this.dialog.open(this.dialogFormTpl(), { ariaModal: true });
+    this.dialogRef = this.dialog.open(this.dialogFormTpl(), { ariaModal: true });
   }
 
   protected openDialogConfirm(): void {
-    this.dialog.open(this.dialogConfirmTpl(), { ariaModal: true });
+    this.dialogRef = this.dialog.open(this.dialogConfirmTpl(), { ariaModal: true });
   }
 
   protected openDialogScroll(): void {
-    this.dialog.open(this.dialogScrollTpl(), { ariaModal: true });
+    this.dialogRef = this.dialog.open(this.dialogScrollTpl(), { ariaModal: true });
   }
 
   protected openDialogFullscreen(): void {
-    this.dialog.open(this.dialogFullscreenTpl(), {
+    this.dialogRef = this.dialog.open(this.dialogFullscreenTpl(), {
       ariaModal: true,
       width: '100vw',
       height: '100vh',
@@ -1311,22 +1339,22 @@ export class ComponentPage {
   }
 
   protected openDialogPositioned(): void {
-    this.dialog.open(this.dialogPositionedTpl(), {
+    this.dialogRef = this.dialog.open(this.dialogPositionedTpl(), {
       ariaModal: true,
       positionStrategy: this.overlay.position().global().top('1.5rem').centerHorizontally(),
     });
   }
 
   protected openDialogDispatch(): void {
-    this.dialog.open(this.dialogDispatchTpl(), { ariaModal: true });
+    this.dialogRef = this.dialog.open(this.dialogDispatchTpl(), { ariaModal: true });
   }
 
   protected openAlertDialog(): void {
-    this.dialog.open(this.alertTpl(), { ariaModal: true });
+    this.dialogRef = this.dialog.open(this.alertTpl(), { ariaModal: true });
   }
 
   protected openConfirmDialog(): void {
-    this.dialog.open(this.alertConfirmTpl(), { ariaModal: true });
+    this.dialogRef = this.dialog.open(this.alertConfirmTpl(), { ariaModal: true });
   }
 
   protected readonly code = {
@@ -1915,46 +1943,51 @@ export class ComponentPage {
   <div ngTabPanel buiTabPanel class="flex-1">…</div>
 </div>`,
     dialog: `import { inject, viewChild, TemplateRef } from '@angular/core';
-import { Dialog, BuiDialogContent, BuiDialogTitle } from 'ng-blatui';
+import { Dialog, DialogRef, BuiDialogContent, BuiDialogTitle } from 'ng-blatui';
 
 private dialog = inject(Dialog);
 tpl = viewChild.required<TemplateRef<unknown>>('tpl');
-open() { this.dialog.open(this.tpl(), { ariaModal: true }); }
+dialogRef: DialogRef<unknown> | null = null;
+open() { this.dialogRef = this.dialog.open(this.tpl(), { ariaModal: true }); }
+close() { this.dialogRef?.close(); }
 
 <button buiButton (click)="open()">Open dialog</button>
 <ng-template #tpl>
   <div buiDialogContent>
     <h2 buiDialogTitle>Title</h2>
     <p>Body…</p>
+    <div buiDialogFooter>
+      <button buiButton (click)="close()">Done</button>
+    </div>
   </div>
 </ng-template>`,
     dialogForm: `<ng-template #tpl>
   <div buiDialogContent class="sm:max-w-md">
     <div buiDialogHeader><h2 buiDialogTitle>Edit profile</h2></div>
     <div class="grid gap-4 py-2"><!-- form fields --></div>
-    <div buiDialogFooter><button buiButton>Save changes</button></div>
+    <div buiDialogFooter><button buiButton (click)="close()">Save changes</button></div>
   </div>
 </ng-template>`,
     dialogConfirm: `<!-- a confirm dialog: title + description + cancel/destructive -->
 <div buiDialogContent>
   <div buiDialogHeader><h2 buiDialogTitle>Are you sure?</h2></div>
   <div buiDialogFooter>
-    <button buiButton variant="outline">Cancel</button>
-    <button buiButton variant="destructive">Delete</button>
+    <button buiButton variant="outline" (click)="close()">Cancel</button>
+    <button buiButton variant="destructive" (click)="close()">Delete</button>
   </div>
 </div>`,
     dialogScroll: `<!-- long body: cap height + overflow-y-auto -->
 <div class="max-h-[50vh] overflow-y-auto py-2">…long content…</div>`,
     dialogFullscreen: `<!-- pass width/height to open(); make the content fill -->
-this.dialog.open(tpl, { ariaModal: true, width: '100vw', height: '100vh', maxWidth: '100vw' });
+this.dialogRef = this.dialog.open(tpl, { ariaModal: true, width: '100vw', height: '100vh', maxWidth: '100vw' });
 // <div buiDialogContent class="h-full !max-w-none !rounded-none flex flex-col">…</div>`,
     dialogPositioned: `<!-- anchor it with a global position strategy -->
 import { Overlay } from '@angular/cdk/overlay';
 overlay = inject(Overlay);
-this.dialog.open(tpl, { ariaModal: true,
+this.dialogRef = this.dialog.open(tpl, { ariaModal: true,
   positionStrategy: this.overlay.position().global().top('1.5rem').centerHorizontally() });`,
     dialogDispatch: `<!-- open from anywhere via the Dialog service -->
-this.dialog.open(tpl, { ariaModal: true });`,
+this.dialogRef = this.dialog.open(tpl, { ariaModal: true });`,
     radioGroup: `import { BuiRadioGroup, BuiRadioGroupItem } from 'ng-blatui';
 
 <div buiRadioGroup [(value)]="plan">
@@ -2089,11 +2122,18 @@ this.dialog.open(tpl, { ariaModal: true });`,
 </div>`,
     collapsibleOpen: `<div buiCollapsible [open]="true">…starts expanded…</div>`,
     collapsibleCard: `<div buiCollapsible class="rounded-lg border">
-  <button buiCollapsibleTrigger class="flex w-full justify-between px-4 py-3">Title <svg><!-- chevron --></svg></button>
+  <!-- mark the trigger \`group\` so the chevron can rotate via its data-state -->
+  <button buiCollapsibleTrigger class="group flex w-full justify-between px-4 py-3">
+    Title
+    <svg class="size-4 transition-transform group-data-[state=open]:rotate-180"><!-- chevron --></svg>
+  </button>
   <div buiCollapsibleContent class="border-t px-4 py-3">…</div>
 </div>`,
     collapsibleAvatarList: `<div buiCollapsible class="space-y-2">
-  <button buiCollapsibleTrigger buiButton variant="outline" class="w-full justify-between">Team members (4) <svg><!-- chevron --></svg></button>
+  <button buiCollapsibleTrigger buiButton variant="outline" class="group w-full justify-between">
+    Team members (4)
+    <svg class="size-4 transition-transform group-data-[state=open]:rotate-180"><!-- chevron --></svg>
+  </button>
   <div buiCollapsibleContent class="space-y-2">… avatar rows …</div>
 </div>`,
     collapsibleFileTree: `<!-- nest a buiCollapsible inside the content for sub-folders -->
@@ -2471,9 +2511,11 @@ this.dialog.open(tpl, { ariaModal: true });`,
 <bui-rating [value]="3" size="lg" ariaLabel="Large" />`,
     ratingColors: `<bui-rating [value]="4" color="text-rose-500" ariaLabel="Rose" />
 <bui-rating [value]="4" color="text-amber-500" ariaLabel="Amber" />`,
-    alertDialog: `import { Dialog } from 'ng-blatui';
+    alertDialog: `import { Dialog, DialogRef } from 'ng-blatui';
 
-open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
+dialogRef: DialogRef<unknown> | null = null;
+open(tpl) { this.dialogRef = this.dialog.open(tpl, { ariaModal: true }); }
+close() { this.dialogRef?.close(); }
 
 <button buiButton variant="destructive" (click)="open(tpl)">Delete…</button>
 <ng-template #tpl>
@@ -2483,8 +2525,8 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
       <p buiAlertDialogDescription>This cannot be undone.</p>
     </div>
     <div buiAlertDialogFooter>
-      <button buiAlertDialogCancel>Cancel</button>
-      <button buiAlertDialogAction>Delete</button>
+      <button buiAlertDialogCancel (click)="close()">Cancel</button>
+      <button buiAlertDialogAction (click)="close()">Delete</button>
     </div>
   </div>
 </ng-template>`,
@@ -2571,15 +2613,20 @@ open(tpl) { this.dialog.open(tpl, { ariaModal: true }); }
 } from 'ng-blatui';
 
 <div ngMenuBar buiMenubar>
-  <button ngMenuTrigger [menu]="file" buiMenubarTrigger>File</button>
-  <div ngMenu #file="ngMenu" buiDropdownMenu>
-    <div ngMenuItem value="new" buiDropdownMenuItem>New tab</div>
+  <!-- wrap each trigger + its menu in a relative anchor so the menu opens under its own trigger -->
+  <div class="relative">
+    <button ngMenuTrigger [menu]="file" buiMenubarTrigger>File</button>
+    <div ngMenu #file="ngMenu" buiDropdownMenu>
+      <div ngMenuItem value="new" buiDropdownMenuItem>New tab</div>
+    </div>
   </div>
 </div>`,
     menubarSimple: `<div ngMenuBar buiMenubar>
-  <button ngMenuTrigger [menu]="view" buiMenubarTrigger>View</button>
-  <div ngMenu #view="ngMenu" buiDropdownMenu>
-    <div ngMenuItem value="zoom-in" buiDropdownMenuItem>Zoom in</div>
+  <div class="relative">
+    <button ngMenuTrigger [menu]="view" buiMenubarTrigger>View</button>
+    <div ngMenu #view="ngMenu" buiDropdownMenu>
+      <div ngMenuItem value="zoom-in" buiDropdownMenuItem>Zoom in</div>
+    </div>
   </div>
 </div>`,
     segmentedControl: `import { BuiSegmentedControl } from 'ng-blatui';
@@ -2973,6 +3020,13 @@ fruitForm = new FormControl('banana');
     confettiColors: `<bui-confetti [colors]="['#f43f5e', '#8b5cf6', '#0ea5e9']" [count]="120">
   <button buiButton variant="outline">Celebrate 🎊</button>
 </bui-confetti>`,
+    confettiDirections: `<!-- direction = down (default) | up | left | right | radial -->
+<bui-confetti direction="up"><button buiButton>Up</button></bui-confetti>
+<bui-confetti direction="radial"><button buiButton>Radial</button></bui-confetti>`,
+    confettiFullscreen: `<!-- rains across the whole viewport instead of bursting from the trigger -->
+<bui-confetti [fullscreen]="true" [count]="160">
+  <button buiButton>Rain confetti 🌧️</button>
+</bui-confetti>`,
     stepper: `import { BuiStepper, BuiStepperItem } from 'ng-blatui';
 
 <bui-stepper [value]="2">
@@ -3136,6 +3190,8 @@ fruitForm = new FormControl('banana');
     treeTable: `import { BuiTreeTable } from 'ng-blatui';
 
 <bui-tree-table [columns]="columns" [rows]="rows" />`,
+    treeTableCopy: `<!-- [copyable] adds a button that copies the tree as markdown (├── / └──) -->
+<bui-tree-table [columns]="columns" [rows]="rows" [copyable]="true" />`,
     markdownEditor: `import { BuiMarkdownEditor } from 'ng-blatui';
 
 <bui-markdown-editor [(value)]="md" />`,

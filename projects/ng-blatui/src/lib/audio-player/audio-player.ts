@@ -49,7 +49,7 @@ import { type ClassValue, cn } from '../utils/cn';
       step="0.1"
       [max]="duration() || 0"
       [value]="current()"
-      class="h-1 flex-1 accent-primary"
+      class="h-1 min-w-0 flex-1 accent-primary"
       [attr.aria-label]="seekText()"
       (input)="seek($event)"
     />
@@ -108,7 +108,10 @@ export class BuiAudioPlayer {
   protected readonly duration = signal(0);
   protected readonly muted = signal(false);
   protected readonly computedClass = computed(() =>
-    cn('flex items-center gap-3 rounded-lg border bg-card p-3', this.userClass()),
+    cn(
+      'flex min-w-0 items-center gap-2 rounded-lg border bg-card p-2 sm:gap-3 sm:p-3',
+      this.userClass(),
+    ),
   );
 
   protected toggle(): void {

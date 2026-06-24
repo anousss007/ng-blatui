@@ -25,6 +25,7 @@ export { Menu, MenuBar, MenuContent, MenuItem, MenuTrigger } from '@angular/aria
     'data-slot': 'dropdown-menu',
     '[hidden]': '!menu.visible()',
     '[class]': 'computedClass()',
+    '(window:scroll)': 'onScroll()',
   },
 })
 export class BuiDropdownMenu {
@@ -36,6 +37,14 @@ export class BuiDropdownMenu {
       this.userClass(),
     ),
   );
+
+  // The menu is absolutely anchored to its trigger; once the page scrolls it would otherwise
+  // drift across the layout (e.g. over a sticky navbar). Closing on scroll matches native menus.
+  protected onScroll(): void {
+    if (this.menu.visible()) {
+      this.menu.close();
+    }
+  }
 }
 
 @Directive({

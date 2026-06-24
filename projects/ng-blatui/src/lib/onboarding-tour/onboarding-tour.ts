@@ -22,7 +22,14 @@ export interface TourStep {
 /** A guided product tour with a spotlight on each step's target element. SSR-safe. */
 @Component({
   selector: 'bui-onboarding-tour',
-  host: { 'data-slot': 'onboarding-tour', '(document:keydown.escape)': 'finish()' },
+  host: {
+    'data-slot': 'onboarding-tour',
+    '(document:keydown.escape)': 'finish()',
+    // The spotlight/card use viewport (fixed) coordinates; re-measure on scroll & resize so the
+    // highlight tracks its target instead of drifting out of alignment.
+    '(window:scroll)': 'onViewportChange()',
+    '(window:resize)': 'onViewportChange()',
+  },
   template: `
     @if (open() && current()) {
       <div
@@ -107,6 +114,12 @@ export class BuiOnboardingTour {
 
   protected prev(): void {
     this.step.set(Math.max(0, this.step() - 1));
+  }
+
+  protected onViewportChange(): void {
+    if (this.open()) {
+      this.measure();
+    }
   }
 
   protected finish(): void {

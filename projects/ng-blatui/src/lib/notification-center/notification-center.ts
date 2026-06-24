@@ -1,4 +1,4 @@
-import { Component, computed, input, model, signal } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, model, signal } from '@angular/core';
 
 import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
@@ -17,7 +17,13 @@ export interface NotificationItem {
 /** A bell trigger with a dropdown feed of notifications and an unread badge. */
 @Component({
   selector: 'bui-notification-center',
-  host: { 'data-slot': 'notification-center', '[class]': 'computedClass()' },
+  host: {
+    'data-slot': 'notification-center',
+    '[class]': 'computedClass()',
+    '(document:click)': 'onDocumentClick($event)',
+    '(document:keydown.escape)': 'open.set(false)',
+    '(window:scroll)': 'open.set(false)',
+  },
   template: `
     <button
       type="button"
@@ -112,11 +118,20 @@ export class BuiNotificationCenter {
   );
   protected readonly emptyText = buiLabel('notificationCenterEmpty', this.emptyLabel);
 
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly markedRead = signal<ReadonlySet<number>>(new Set());
   protected readonly unread = computed(
     () => this.notifications().filter((_, index) => !this.isRead(index)).length,
   );
   protected readonly computedClass = computed(() => cn('relative inline-block', this.userClass()));
+
+  // Close when a click lands outside the bell + panel. The trigger's own click is contained in
+  // the host, so it toggles open without this handler immediately closing it again.
+  protected onDocumentClick(event: MouseEvent): void {
+    if (this.open() && !this.host.nativeElement.contains(event.target as Node)) {
+      this.open.set(false);
+    }
+  }
 
   protected isRead(index: number): boolean {
     return this.markedRead().has(index) || (this.notifications()[index]?.read ?? false);

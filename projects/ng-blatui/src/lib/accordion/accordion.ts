@@ -33,7 +33,7 @@ export {
 } from '@angular/aria/accordion';
 
 const TRIGGER =
-  'focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&>svg]:text-muted-foreground [&>svg]:pointer-events-none [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:translate-y-0.5 [&>svg]:transition-transform [&>svg]:duration-200 [&[aria-expanded=true]>svg]:rotate-180';
+  'flex flex-1 cursor-pointer items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-default disabled:opacity-50 [&>svg]:pointer-events-none [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:translate-y-0.5 [&>svg]:text-muted-foreground [&>svg]:transition-transform [&>svg]:duration-200 [&[aria-expanded=true]>svg]:rotate-180';
 
 @Directive({
   selector: '[buiAccordion]',

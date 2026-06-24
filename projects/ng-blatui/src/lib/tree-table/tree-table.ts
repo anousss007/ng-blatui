@@ -1,4 +1,4 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, input, type OnDestroy, signal } from '@angular/core';
 
 import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
@@ -38,6 +38,46 @@ const ALIGN: Record<string, string> = {
   selector: 'bui-tree-table',
   host: { 'data-slot': 'tree-table', '[class]': 'computedClass()' },
   template: `
+    @if (copyable()) {
+      <div class="mb-2 flex justify-end">
+        <button
+          type="button"
+          class="inline-flex items-center gap-1.5 rounded-md border border-input px-2.5 py-1 text-xs font-medium hover:bg-accent"
+          (click)="copyTree()"
+        >
+          @if (copied()) {
+            <svg
+              class="size-3.5 text-emerald-500"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M20 6 9 17l-5-5" />
+            </svg>
+            {{ copiedText() }}
+          } @else {
+            <svg
+              class="size-3.5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+              <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+            </svg>
+            {{ copyText() }}
+          }
+        </button>
+      </div>
+    }
     <table class="w-full text-sm">
       <thead>
         <tr class="border-b">
@@ -94,7 +134,7 @@ const ALIGN: Record<string, string> = {
     </table>
   `,
 })
-export class BuiTreeTable {
+export class BuiTreeTable implements OnDestroy {
   /** Column definitions in display order. */
   readonly columns = input<readonly TreeTableColumn[]>([]);
   /** Top-level rows, each able to nest children via `children`. */
@@ -102,8 +142,18 @@ export class BuiTreeTable {
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   /** Accessible label for the expand/collapse toggle button. */
   readonly toggleLabel = input<string>();
+  /** Show a button that copies the full hierarchy as a markdown ASCII tree. */
+  readonly copyable = input(false);
+  /** Label override for the copy button (idle state). */
+  readonly copyLabel = input<string>();
+  /** Label override for the copy button after copying. */
+  readonly copiedLabel = input<string>();
 
   protected readonly toggleText = buiLabel('treeTableToggle', this.toggleLabel);
+  protected readonly copyText = buiLabel('treeTableCopy', this.copyLabel);
+  protected readonly copiedText = buiLabel('treeTableCopied', this.copiedLabel);
+  protected readonly copied = signal(false);
+  private copiedTimer: ReturnType<typeof setTimeout> | undefined;
 
   private readonly overrides = signal<ReadonlyMap<string, boolean>>(new Map());
   private readonly defaults = computed(() => {
@@ -146,6 +196,50 @@ export class BuiTreeTable {
     const next = new Map(this.overrides());
     next.set(path, !this.isOpen(path));
     this.overrides.set(next);
+  }
+
+  /**
+   * Render the full row hierarchy as a markdown ASCII tree (`├──`/`└──`), using the first
+   * column's value as each node's label and a trailing `/` for rows that have children.
+   */
+  toMarkdownTree(): string {
+    const key = this.columns()[0]?.key ?? '';
+    const lines: string[] = [];
+    const render = (rows: readonly TreeTableRow[], prefix: string, isRoot: boolean): void => {
+      for (const [index, row] of rows.entries()) {
+        const children = row.children ?? [];
+        const hasChildren = children.length > 0;
+        const label = this.cell(row, key) + (hasChildren ? '/' : '');
+        if (isRoot) {
+          lines.push(label);
+          if (hasChildren) {
+            render(children, '', false);
+          }
+          continue;
+        }
+        const isLast = index === rows.length - 1;
+        lines.push(`${prefix}${isLast ? '└── ' : '├── '}${label}`);
+        if (hasChildren) {
+          const childIndent = isLast ? ' '.repeat(4) : `│${' '.repeat(3)}`;
+          render(children, prefix + childIndent, false);
+        }
+      }
+    };
+    render(this.rows(), '', true);
+    return lines.join('\n');
+  }
+
+  protected copyTree(): void {
+    void navigator.clipboard.writeText(this.toMarkdownTree());
+    this.copied.set(true);
+    clearTimeout(this.copiedTimer);
+    this.copiedTimer = setTimeout(() => {
+      this.copied.set(false);
+    }, 1500);
+  }
+
+  ngOnDestroy(): void {
+    clearTimeout(this.copiedTimer);
   }
 
   protected alignClass(align: string | undefined): string {

@@ -56,36 +56,38 @@ export interface NavMenuItem {
               </svg>
             </button>
             @if (active() === i) {
-              <div
-                class="absolute start-0 top-full z-50 mt-1.5 w-64 rounded-lg border bg-popover p-2 shadow-md"
-              >
-                @if (item.featured; as featured) {
-                  <a
-                    [href]="href(featured.href)"
-                    class="mb-1 block rounded-md bg-accent/50 p-3 hover:bg-accent"
-                  >
-                    <span class="text-sm font-semibold">{{ featured.label }}</span>
-                    @if (featured.description) {
-                      <span class="mt-0.5 block text-xs text-muted-foreground">{{
-                        featured.description
-                      }}</span>
-                    }
-                  </a>
-                }
-                <ul class="space-y-1">
-                  @for (link of item.links; track link.label) {
-                    <li>
-                      <a [href]="href(link.href)" class="block rounded-md p-2 hover:bg-accent">
-                        <span class="text-sm font-medium">{{ link.label }}</span>
-                        @if (link.description) {
-                          <span class="block text-xs text-muted-foreground">{{
-                            link.description
-                          }}</span>
-                        }
-                      </a>
-                    </li>
+              <!-- pt-1.5 (not mt-1.5) keeps the gap below the trigger hoverable, so moving the
+                   cursor onto the panel doesn't leave the menu and snap it shut. -->
+              <div class="absolute start-0 top-full z-50 w-64 pt-1.5">
+                <div class="rounded-lg border bg-popover p-2 shadow-md">
+                  @if (item.featured; as featured) {
+                    <a
+                      [href]="href(featured.href)"
+                      class="mb-1 block rounded-md bg-accent/50 p-3 hover:bg-accent"
+                    >
+                      <span class="text-sm font-semibold">{{ featured.label }}</span>
+                      @if (featured.description) {
+                        <span class="mt-0.5 block text-xs text-muted-foreground">{{
+                          featured.description
+                        }}</span>
+                      }
+                    </a>
                   }
-                </ul>
+                  <ul class="space-y-1">
+                    @for (link of item.links; track link.label) {
+                      <li>
+                        <a [href]="href(link.href)" class="block rounded-md p-2 hover:bg-accent">
+                          <span class="text-sm font-medium">{{ link.label }}</span>
+                          @if (link.description) {
+                            <span class="block text-xs text-muted-foreground">{{
+                              link.description
+                            }}</span>
+                          }
+                        </a>
+                      </li>
+                    }
+                  </ul>
+                </div>
               </div>
             }
           } @else {

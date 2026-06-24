@@ -28,6 +28,9 @@ export interface ContextMenuItem {
     '(contextmenu)': 'onContext($event)',
     '(document:click)': 'open.set(false)',
     '(document:keydown.escape)': 'open.set(false)',
+    // The menu is fixed to viewport coordinates captured at open time; close it on scroll
+    // instead of letting it hang at a now-wrong position.
+    '(window:scroll)': 'open.set(false)',
   },
   template: `
     <ng-content />
