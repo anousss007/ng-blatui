@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-deprecated, sonarjs/deprecation
+   -- this suite intentionally exercises the deprecated BuiQuantitySelector compatibility shim */
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 

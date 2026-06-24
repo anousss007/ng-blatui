@@ -11,7 +11,13 @@ const BTN_SIZE = {
 } as const;
 const FIELD_WIDTH = { sm: 'w-9', default: 'w-10', lg: 'w-12' } as const;
 
-/** A compact − [n] + quantity stepper (`role="group"` with a `spinbutton` field). */
+/**
+ * @deprecated Use `<bui-number-input [min]="1" size="sm">` instead — it is the same numeric
+ * stepper, so this duplicate was dropped from the registry and docs. Still exported as a thin
+ * compatibility shim; existing usages keep working.
+ *
+ * A compact − [n] + quantity stepper (`role="group"` with a `spinbutton` field).
+ */
 @Component({
   selector: 'bui-quantity-selector',
   host: { 'data-slot': 'quantity-selector', role: 'group', '[class]': 'computedClass()' },

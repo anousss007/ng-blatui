@@ -5,10 +5,11 @@ import { BuiTextarea, type TextareaSize } from './textarea';
 
 @Component({
   imports: [BuiTextarea],
-  template: `<textarea buiTextarea [size]="size()"></textarea>`,
+  template: `<textarea buiTextarea [size]="size()" [maxRows]="maxRows()"></textarea>`,
 })
 class TestHost {
   readonly size = signal<TextareaSize>('default');
+  readonly maxRows = signal<number | null>(null);
 }
 
 describe('BuiTextarea', () => {
@@ -32,5 +33,19 @@ describe('BuiTextarea', () => {
     fixture.componentInstance.size.set('lg');
     fixture.detectChanges();
     expect(el.classList.contains('min-h-20')).toBe(true);
+  });
+
+  it('caps the height at maxRows and scrolls past it', () => {
+    const { fixture, el } = setup();
+    expect(el.style.maxHeight).toBe('');
+    fixture.componentInstance.maxRows.set(4);
+    fixture.detectChanges();
+    // 4 rows via the `lh` unit, plus the default vertical padding (1rem) and borders (2px).
+    // (Asserted by parts — the CSS serializer normalizes `4 * 1lh` → `4lh` and reorders terms.)
+    const max = el.style.maxHeight;
+    expect(max).toContain('4lh');
+    expect(max).toContain('1rem');
+    expect(max).toContain('2px');
+    expect(el.style.overflowY).toBe('auto');
   });
 });

@@ -6,9 +6,9 @@
   "description": "Accessible Angular UI library (Angular 21 & 22, standalone, signals, zoneless, SSR-ready) ported from BlatUI. Components, blocks, charts and ready-made page templates, themed with Tailwind CSS v4 + oklch design tokens.",
   "install": "npm i ng-blatui",
   "llms": "https://ngblatui.remix-it.com/llms.txt",
-  "generatedAt": "2026-06-23",
+  "generatedAt": "2026-06-24",
   "counts": {
-    "components": 155,
+    "components": 154,
     "blocks": 16,
     "charts": 70,
     "templates": 34
@@ -51,11 +51,11 @@
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"info\" | \"danger\" | \"neutral\" | null"
+            "type": "\"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | null"
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"sm\" | \"default\" | \"lg\""
           }
         ],
         "types": [
@@ -92,7 +92,7 @@
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"info\" | \"danger\" | \"neutral\" | null"
+            "type": "\"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | null"
           }
         ]
       }
@@ -107,7 +107,7 @@
         "inputs": [
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"sm\" | \"default\" | \"lg\""
           }
         ]
       }
@@ -122,7 +122,11 @@
         "inputs": [
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"sm\" | \"default\" | \"lg\""
+          },
+          {
+            "name": "maxRows",
+            "type": "number | null"
           }
         ]
       }
@@ -250,7 +254,7 @@
         "inputs": [
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"sm\" | \"default\" | \"lg\""
           },
           {
             "name": "iconOn",
@@ -501,7 +505,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\" | null"
+            "type": "\"sm\" | \"default\" | \"lg\" | null"
           }
         ],
         "models": [
@@ -560,7 +564,7 @@
         "inputs": [
           {
             "name": "tone",
-            "type": "\"default\" | \"success\" | \"warning\" | \"info\" | \"danger\" | \"primary\""
+            "type": "\"default\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"primary\""
           },
           {
             "name": "dismissible",
@@ -614,7 +618,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"sm\" | \"default\" | \"lg\""
           }
         ],
         "types": [
@@ -644,7 +648,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\" | \"icon\""
+            "type": "\"sm\" | \"default\" | \"lg\" | \"icon\""
           }
         ]
       }
@@ -686,11 +690,11 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\""
+            "type": "\"sm\" | \"default\""
           },
           {
             "name": "variant",
-            "type": "\"default\" | \"image\" | \"icon\""
+            "type": "\"default\" | \"icon\" | \"image\""
           }
         ]
       }
@@ -720,7 +724,7 @@
           },
           {
             "name": "size",
-            "type": "\"xs\" | \"sm\" | \"icon-xs\" | \"icon-sm\""
+            "type": "\"sm\" | \"xs\" | \"icon-xs\" | \"icon-sm\""
           }
         ]
       }
@@ -940,7 +944,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"sm\" | \"default\" | \"lg\""
           },
           {
             "name": "color",
@@ -964,55 +968,6 @@
       }
     },
     {
-      "name": "quantity-selector",
-      "label": "Quantity Selector",
-      "type": "component",
-      "category": "E-commerce",
-      "url": "https://ngblatui.remix-it.com/components/quantity-selector",
-      "api": {
-        "inputs": [
-          {
-            "name": "min",
-            "type": "number"
-          },
-          {
-            "name": "max",
-            "type": "number | null"
-          },
-          {
-            "name": "step",
-            "type": "number"
-          },
-          {
-            "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
-          },
-          {
-            "name": "disabled",
-            "type": "boolean"
-          },
-          {
-            "name": "ariaLabel",
-            "type": "string"
-          },
-          {
-            "name": "decreaseLabel",
-            "type": "string"
-          },
-          {
-            "name": "increaseLabel",
-            "type": "string"
-          }
-        ],
-        "models": [
-          {
-            "name": "value",
-            "type": "number"
-          }
-        ]
-      }
-    },
-    {
       "name": "alert-dialog",
       "label": "Alert Dialog",
       "type": "component",
@@ -1024,19 +979,7 @@
       "label": "Autosize Textarea",
       "type": "component",
       "category": "Forms & Input",
-      "url": "https://ngblatui.remix-it.com/components/autosize-textarea",
-      "api": {
-        "inputs": [
-          {
-            "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
-          },
-          {
-            "name": "maxRows",
-            "type": "number | null"
-          }
-        ]
-      }
+      "url": "https://ngblatui.remix-it.com/components/autosize-textarea"
     },
     {
       "name": "dropdown-menu",
@@ -1543,7 +1486,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"sm\" | \"default\" | \"lg\""
           },
           {
             "name": "showDiscount",
@@ -1623,7 +1566,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"sm\" | \"default\" | \"lg\""
           },
           {
             "name": "pulse",
@@ -1926,7 +1869,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "AddToCartSize"
           }
         ],
         "outputs": [
@@ -1934,6 +1877,9 @@
             "name": "triggered",
             "type": "void"
           }
+        ],
+        "types": [
+          "AddToCartSize"
         ]
       }
     },
@@ -2480,7 +2426,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"sm\" | \"default\" | \"lg\""
           },
           {
             "name": "label",

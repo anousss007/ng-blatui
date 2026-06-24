@@ -174,14 +174,7 @@ export const CATEGORIES: readonly { label: string; slugs: readonly string[] }[] 
   },
   {
     label: 'E-commerce',
-    slugs: [
-      'product-card',
-      'price',
-      'quantity-selector',
-      'variant-selector',
-      'add-to-cart',
-      'mini-cart',
-    ],
+    slugs: ['product-card', 'price', 'variant-selector', 'add-to-cart', 'mini-cart'],
   },
   {
     label: 'Effects',

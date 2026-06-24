@@ -1,8 +1,10 @@
 import { Component, computed, input, type OnDestroy, output, signal } from '@angular/core';
 
+import { buttonVariants } from '../button/button';
 import { type ClassValue, cn } from '../utils/cn';
 
-const SIZES = { default: 'h-9 px-4 py-2', sm: 'h-8 gap-1.5 px-3', lg: 'h-10 px-6' } as const;
+/** Size preset controlling button height and padding. */
+export type AddToCartSize = 'sm' | 'default' | 'lg';
 
 /** A stateful add-to-cart button: idle → adding → added → idle. Emits `triggered` on click. */
 @Component({
@@ -76,20 +78,20 @@ export class BuiAddToCart implements OnDestroy {
   /** Button text shown briefly in the added (success) state. */
   readonly addedLabel = input('Added');
   /** Size preset controlling height and padding. */
-  readonly size = input<keyof typeof SIZES>('default');
+  readonly size = input<AddToCartSize>('default');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   /** Emitted when the button is clicked to add the item. */
   readonly triggered = output();
 
   protected readonly state = signal<'idle' | 'adding' | 'added'>('idle');
   private readonly timers: ReturnType<typeof setTimeout>[] = [];
+  // Composes the button's styling (single source of truth via `buttonVariants`); the busy/added
+  // states only recolor on top — tailwind-merge drops the conflicting base background.
   protected readonly btnClass = computed(() =>
     cn(
-      'inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium transition-all outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:opacity-90',
-      SIZES[this.size()],
-      this.state() === 'added'
-        ? 'bg-emerald-600 text-white'
-        : 'bg-primary text-primary-foreground hover:bg-primary/90',
+      buttonVariants({ size: this.size() }),
+      'disabled:opacity-90',
+      this.state() === 'added' ? 'bg-emerald-600 text-white hover:bg-emerald-600' : '',
       this.userClass(),
     ),
   );

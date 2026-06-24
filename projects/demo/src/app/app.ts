@@ -59,7 +59,6 @@ export const COMPONENTS = [
   'code-block',
   'slider',
   'rating',
-  'quantity-selector',
   'alert-dialog',
   'autosize-textarea',
   'dropdown-menu',

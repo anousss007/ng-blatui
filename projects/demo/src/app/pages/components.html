@@ -1473,6 +1473,20 @@
         ></textarea>
       </app-example>
 
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Max rows</h2>
+      <p class="mb-3 text-sm text-muted-foreground">
+        The field auto-grows with its content; <code class="font-mono text-xs">[maxRows]</code> caps
+        the growth — past it the textarea scrolls.
+      </p>
+      <app-example [code]="code.textareaMaxRows">
+        <textarea
+          buiTextarea
+          [maxRows]="4"
+          class="w-full max-w-sm"
+          placeholder="Grows up to 4 rows, then scrolls…"
+        ></textarea>
+      </app-example>
+
       <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Read only</h2>
       <app-example [code]="code.textareaReadonly">
         <textarea
@@ -5868,30 +5882,6 @@ This content is read-only and cannot be edited.</textarea
         </div>
       </app-example>
     }
-    @case ('quantity-selector') {
-      <app-example [code]="code.quantitySelector">
-        <bui-quantity-selector [(value)]="qty" />
-      </app-example>
-
-      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With min/max</h2>
-      <app-example [code]="code.quantityMax">
-        <bui-quantity-selector [value]="2" [min]="1" [max]="10" ariaLabel="Quantity" />
-      </app-example>
-
-      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sizes</h2>
-      <app-example [code]="code.quantitySizes">
-        <div class="flex flex-wrap items-center gap-4">
-          <bui-quantity-selector [value]="1" size="sm" ariaLabel="Small" />
-          <bui-quantity-selector [value]="1" ariaLabel="Default" />
-          <bui-quantity-selector [value]="1" size="lg" ariaLabel="Large" />
-        </div>
-      </app-example>
-
-      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Disabled</h2>
-      <app-example [code]="code.quantityDisabled">
-        <bui-quantity-selector [value]="3" [disabled]="true" ariaLabel="Disabled" />
-      </app-example>
-    }
     @case ('alert-dialog') {
       <app-example [code]="code.alertDialog">
         <button buiButton variant="destructive" (click)="openAlertDialog()">Delete…</button>
@@ -5903,6 +5893,14 @@ This content is read-only and cannot be edited.</textarea
       </app-example>
     }
     @case ('autosize-textarea') {
+      <div
+        class="mb-6 rounded-md border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-400"
+      >
+        <strong>Deprecated.</strong> <code class="font-mono text-xs">buiTextarea</code> now
+        auto-grows on its own and supports <code class="font-mono text-xs">[maxRows]</code>. Use
+        <code class="font-mono text-xs">&lt;textarea buiTextarea [maxRows]="…"&gt;</code> instead;
+        <code class="font-mono text-xs">buiAutosizeTextarea</code> stays as a thin alias.
+      </div>
       <app-example [code]="code.autosizeTextarea">
         <textarea
           buiAutosizeTextarea
@@ -7006,6 +7004,15 @@ This content is read-only and cannot be edited.</textarea
           <bui-number-input [value]="2" ariaLabel="Default" />
           <bui-number-input [value]="2" size="lg" ariaLabel="Large" />
         </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Quantity stepper</h2>
+      <p class="mb-3 text-sm text-muted-foreground">
+        Compose a cart/product quantity stepper from the number input — start at 1 and clamp the
+        lower bound with <code class="font-mono text-xs">[min]="1"</code>.
+      </p>
+      <app-example [code]="code.numberInputQuantity">
+        <bui-number-input [value]="1" [min]="1" size="sm" ariaLabel="Quantity" />
       </app-example>
     }
     @case ('variant-selector') {
