@@ -56,7 +56,7 @@ const TOOLS: Tool[] = [
       [attr.aria-label]="ariaLabel()"
       [attr.data-placeholder]="placeholder()"
       contenteditable="true"
-      class="min-h-32 p-3 text-sm text-foreground outline-none empty:before:text-muted-foreground/60 empty:before:content-[attr(data-placeholder)]"
+      class="min-h-32 p-3 text-sm text-foreground outline-none empty:before:text-muted-foreground/60 empty:before:content-[attr(data-placeholder)] [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-6 [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-6"
       (input)="sync()"
     ></div>
   `,
