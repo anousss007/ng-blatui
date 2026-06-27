@@ -56,7 +56,7 @@ const TOOLS: Tool[] = [
       [attr.aria-label]="ariaLabel()"
       [attr.data-placeholder]="placeholder()"
       contenteditable="true"
-      class="min-h-32 p-3 text-sm text-foreground text-muted-foreground/60 outline-none empty:before:content-[attr(data-placeholder)]"
+      class="min-h-32 p-3 text-sm text-foreground outline-none empty:before:text-muted-foreground/60 empty:before:content-[attr(data-placeholder)]"
       (input)="sync()"
     ></div>
   `,
@@ -103,8 +103,15 @@ export class BuiRichTextEditor {
 
   protected sync(): void {
     const element = this.editor()?.nativeElement;
-    if (element) {
-      this.value.set(element.innerHTML);
+    if (!element) {
+      return;
     }
+    // Browsers leave residual markup (e.g. `<p><br></p>`) after the user clears
+    // all text, which keeps `:empty` from matching so the placeholder never
+    // reappears. Normalise truly-empty content so the placeholder can show again.
+    if (element.textContent === '' && !element.querySelector('img, hr')) {
+      element.innerHTML = '';
+    }
+    this.value.set(element.innerHTML);
   }
 }
