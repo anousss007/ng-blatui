@@ -3,11 +3,19 @@ import { RouterLink } from '@angular/router';
 
 import { TEMPLATES } from './templates';
 
+/** Display-name overrides for slugs that title-casing would mangle. */
+const LABEL_OVERRIDES: Record<string, string> = {
+  admincn: 'AdminCN',
+};
+
 function titleCase(slug: string): string {
-  return slug
-    .split('-')
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(' ');
+  return (
+    LABEL_OVERRIDES[slug] ??
+    slug
+      .split('-')
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(' ')
+  );
 }
 
 /** Gallery index for /templates — a grid of cards linking to each template. */
