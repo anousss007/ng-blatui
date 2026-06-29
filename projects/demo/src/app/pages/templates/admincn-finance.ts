@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  signal,
+  ViewEncapsulation,
+} from '@angular/core';
 
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
@@ -151,8 +157,9 @@ export class AdmincnFinance {
     },
   ];
 
-  /* Users data-table */
-  protected readonly users: UserRow[] = [
+  /* Users data-table — first 5 rows are the original users (page 1); the rest
+     are varied duplicates so pagination is meaningful (25 total). */
+  private readonly baseUsers: UserRow[] = [
     {
       name: 'Jack Alfredo',
       email: 'jack.alfredo@shadcnstudio.com',
@@ -204,4 +211,135 @@ export class AdmincnFinance {
       status: 'active',
     },
   ];
+
+  protected readonly allUsers: UserRow[] = this.seedUsers();
+
+  private seedUsers(): UserRow[] {
+    const statuses: UserRow['status'][] = ['active', 'pending', 'inactive'];
+    const billings = ['Auto debit', 'Manual - PayPal', 'Manual - cash'];
+    const rows: UserRow[] = [...this.baseUsers];
+    for (let index = rows.length; index < 25; index++) {
+      const b = this.baseUsers[index % this.baseUsers.length];
+      rows.push({
+        ...b,
+        name: `${b.name} ${Math.floor(index / this.baseUsers.length) + 1}`,
+        email: b.email.replace('@', () => `+${index}@`),
+        status: statuses[index % statuses.length],
+        billing: billings[index % billings.length],
+      });
+    }
+    return rows;
+  }
+
+  /* Table interactivity (signals) ----------------------------------------- */
+  protected readonly search = signal('');
+  protected readonly roleFilter = signal('all');
+  protected readonly planFilter = signal('all');
+  protected readonly statusFilter = signal('all');
+  protected readonly pageSize = signal(5);
+  protected readonly page = signal(1);
+  protected readonly sortKey = signal<'name' | 'role' | 'plan' | 'billing' | 'status' | ''>('');
+  protected readonly sortDir = signal<'asc' | 'desc'>('asc');
+  protected readonly checked = signal<Set<string>>(new Set());
+
+  protected readonly roleOptions = computed(() => [
+    'all',
+    ...new Set(this.allUsers.map((u) => u.role)),
+  ]);
+  protected readonly planOptions = computed(() => [
+    'all',
+    ...new Set(this.allUsers.map((u) => u.plan)),
+  ]);
+  protected readonly statusOptions = ['all', 'active', 'pending', 'inactive'];
+
+  protected readonly filtered = computed(() => {
+    const q = this.search().toLowerCase().trim();
+    const rf = this.roleFilter();
+    const pf = this.planFilter();
+    const sf = this.statusFilter();
+    let rows = this.allUsers.filter((u) => {
+      if (rf !== 'all' && u.role !== rf) return false;
+      if (pf !== 'all' && u.plan !== pf) return false;
+      if (sf !== 'all' && u.status !== sf) return false;
+      if (!q) return true;
+      return [u.name, u.email, u.role, u.plan, u.status].join(' ').toLowerCase().includes(q);
+    });
+    const key = this.sortKey();
+    if (key) {
+      const direction = this.sortDir() === 'asc' ? 1 : -1;
+      // toSorted() requires ES2023 lib; copy-then-sort keeps this non-mutating.
+      // eslint-disable-next-line unicorn/no-array-sort
+      rows = [...rows].sort((a, b) => a[key].localeCompare(b[key]) * direction);
+    }
+    return rows;
+  });
+
+  protected readonly total = computed(() => this.filtered().length);
+  protected readonly totalPages = computed(() =>
+    Math.max(1, Math.ceil(this.total() / this.pageSize())),
+  );
+  protected readonly currentPage = computed(() => Math.min(this.page(), this.totalPages()));
+  protected readonly pageRows = computed(() => {
+    const start = (this.currentPage() - 1) * this.pageSize();
+    return this.filtered().slice(start, start + this.pageSize());
+  });
+  protected readonly rangeStart = computed(() =>
+    this.total() === 0 ? 0 : (this.currentPage() - 1) * this.pageSize() + 1,
+  );
+  protected readonly rangeEnd = computed(() =>
+    Math.min(this.currentPage() * this.pageSize(), this.total()),
+  );
+  protected readonly pageNumbers = computed(() =>
+    Array.from({ length: this.totalPages() }, (_, index) => index + 1),
+  );
+
+  protected setRole(v: string): void {
+    this.roleFilter.set(v);
+    this.page.set(1);
+  }
+  protected setPlan(v: string): void {
+    this.planFilter.set(v);
+    this.page.set(1);
+  }
+  protected setStatus(v: string): void {
+    this.statusFilter.set(v);
+    this.page.set(1);
+  }
+  protected sortBy(key: 'name' | 'role' | 'plan' | 'billing' | 'status'): void {
+    if (this.sortKey() === key) {
+      this.sortDir.set(this.sortDir() === 'asc' ? 'desc' : 'asc');
+    } else {
+      this.sortKey.set(key);
+      this.sortDir.set('asc');
+    }
+  }
+  protected goTo(p: number): void {
+    this.page.set(Math.min(Math.max(1, p), this.totalPages()));
+  }
+  protected prev(): void {
+    this.goTo(this.currentPage() - 1);
+  }
+  protected next(): void {
+    this.goTo(this.currentPage() + 1);
+  }
+  protected toggleRow(id: string): void {
+    const set = new Set(this.checked());
+    if (set.has(id)) set.delete(id);
+    else set.add(id);
+    this.checked.set(set);
+  }
+  protected isChecked(id: string): boolean {
+    return this.checked().has(id);
+  }
+  protected readonly allChecked = computed(() => {
+    const rows = this.pageRows();
+    return rows.length > 0 && rows.every((r) => this.checked().has(r.email));
+  });
+  protected toggleAll(): void {
+    const set = new Set(this.checked());
+    const rows = this.pageRows();
+    if (this.allChecked()) for (const r of rows) set.delete(r.email);
+    else for (const r of rows) set.add(r.email);
+    this.checked.set(set);
+  }
 }

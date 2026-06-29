@@ -16,18 +16,23 @@
         >
           <button
             type="button"
+            (click)="setBilling('monthly')"
             class="inline-flex h-8 items-center rounded-full px-4 text-sm font-medium"
-            style="
-              background: var(--background);
-              color: var(--foreground);
-              box-shadow: 0 1px 2px rgb(0 0 0 / 0.06);
-            "
+            [class.text-muted-foreground]="billing() !== 'monthly'"
+            [style.background]="billing() === 'monthly' ? 'var(--background)' : null"
+            [style.color]="billing() === 'monthly' ? 'var(--foreground)' : null"
+            [style.box-shadow]="billing() === 'monthly' ? '0 1px 2px rgb(0 0 0 / 0.06)' : null"
           >
             Monthly
           </button>
           <button
             type="button"
-            class="inline-flex h-8 items-center rounded-full px-4 text-sm font-medium text-muted-foreground"
+            (click)="setBilling('yearly')"
+            class="inline-flex h-8 items-center rounded-full px-4 text-sm font-medium"
+            [class.text-muted-foreground]="billing() !== 'yearly'"
+            [style.background]="billing() === 'yearly' ? 'var(--background)' : null"
+            [style.color]="billing() === 'yearly' ? 'var(--foreground)' : null"
+            [style.box-shadow]="billing() === 'yearly' ? '0 1px 2px rgb(0 0 0 / 0.06)' : null"
           >
             Yearly
           </button>
@@ -48,11 +53,15 @@
       </div>
 
       <!-- Tier cards -->
-      @for (plan of plans; track plan.name) {
+      @for (plan of displayPlans(); track plan.name) {
         <div
           class="acn-card relative flex flex-col gap-4 p-6"
           [style.box-shadow]="
-            plan.popular ? '0 0 0 2px var(--primary), 0 8px 24px rgb(0 0 0 / 0.08)' : null
+            selected() === plan.name
+              ? '0 0 0 2px var(--primary), 0 0 0 6px color-mix(in oklab, var(--primary) 25%, transparent), 0 8px 24px rgb(0 0 0 / 0.08)'
+              : plan.popular
+                ? '0 0 0 2px var(--primary), 0 8px 24px rgb(0 0 0 / 0.08)'
+                : null
           "
         >
           @if (plan.badge) {
@@ -78,9 +87,21 @@
           <p class="flex items-baseline gap-1">
             <span class="text-3xl font-semibold tracking-tight">${{ plan.price }}</span>
             <span class="text-sm text-muted-foreground">{{ plan.period }}</span>
+            @if (billing() === 'yearly') {
+              <span
+                class="ml-1 inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium"
+                style="
+                  background: color-mix(in oklab, var(--primary) 12%, transparent);
+                  color: var(--primary);
+                "
+                >Save 20%</span
+              >
+            }
           </p>
 
-          <button type="button" class="acn-btn-primary mt-2 w-full">{{ plan.cta }}</button>
+          <button type="button" class="acn-btn-primary mt-2 w-full" (click)="selectPlan(plan.name)">
+            {{ plan.cta }}
+          </button>
         </div>
       }
     </div>
@@ -88,43 +109,55 @@
     <!-- ============ Feature comparison ============ -->
     @for (section of sections; track section.title) {
       <div class="mt-10 space-y-4">
-        <div class="flex items-center gap-2">
+        <button
+          type="button"
+          class="flex w-full items-center gap-2 text-left"
+          (click)="toggleSection(section.title)"
+          [attr.aria-expanded]="isOpen(section.title)"
+        >
           <span class="acn-icon-tile acn-tile-muted size-8">
             <app-lucide [name]="section.icon" class="size-4" />
           </span>
           <p class="text-xl font-medium">{{ section.title }}</p>
-        </div>
+          <app-lucide
+            name="chevron-down"
+            class="ml-auto size-5 text-muted-foreground transition-transform"
+            [style.transform]="isOpen(section.title) ? null : 'rotate(-90deg)'"
+          />
+        </button>
 
-        <div class="acn-card">
-          @for (row of section.rows; track row.label) {
-            <div
-              class="grid w-full grid-cols-4 not-last:border-b"
-              style="border-color: var(--border)"
-            >
-              <p class="px-2 py-3 text-sm text-muted-foreground">{{ row.label }}</p>
-              @for (cell of row.cells; track $index) {
-                <div class="flex items-center justify-center px-2 py-3">
-                  @switch (cell.kind) {
-                    @case ('check') {
-                      <span
-                        class="flex size-[1.375rem] items-center justify-center rounded-full"
-                        style="background: color-mix(in oklab, var(--primary) 10%, transparent)"
-                      >
-                        <app-lucide name="check" class="size-3.5" style="color: var(--primary)" />
-                      </span>
+        @if (isOpen(section.title)) {
+          <div class="acn-card">
+            @for (row of section.rows; track row.label) {
+              <div
+                class="grid w-full grid-cols-4 not-last:border-b"
+                style="border-color: var(--border)"
+              >
+                <p class="px-2 py-3 text-sm text-muted-foreground">{{ row.label }}</p>
+                @for (cell of row.cells; track $index) {
+                  <div class="flex items-center justify-center px-2 py-3">
+                    @switch (cell.kind) {
+                      @case ('check') {
+                        <span
+                          class="flex size-[1.375rem] items-center justify-center rounded-full"
+                          style="background: color-mix(in oklab, var(--primary) 10%, transparent)"
+                        >
+                          <app-lucide name="check" class="size-3.5" style="color: var(--primary)" />
+                        </span>
+                      }
+                      @case ('dash') {
+                        <app-lucide name="minus" class="size-4 text-muted-foreground" />
+                      }
+                      @case ('text') {
+                        <span class="text-sm font-medium">{{ cell.value }}</span>
+                      }
                     }
-                    @case ('dash') {
-                      <app-lucide name="minus" class="size-4 text-muted-foreground" />
-                    }
-                    @case ('text') {
-                      <span class="text-sm font-medium">{{ cell.value }}</span>
-                    }
-                  }
-                </div>
-              }
-            </div>
-          }
-        </div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        }
       </div>
     }
 

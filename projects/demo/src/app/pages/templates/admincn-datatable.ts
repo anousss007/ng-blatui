@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  signal,
+  type Signal,
+  ViewEncapsulation,
+} from '@angular/core';
 
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
@@ -99,13 +106,191 @@ interface GraphRow {
   delta: string;
 }
 
+/** Sort direction cycled by clicking a header: none → asc → desc → none. */
+type SortDirection = 'asc' | 'desc' | null;
+
 /**
- * AdminCN — pixel-faithful clone of the shadcn admin "Data Table" page.
- * Eleven stacked table cards (basic, column-visibility, filters, resizable,
- * pinnable, page-size, draggable, expandable, progress, export, graph) each
- * with a toolbar/header and pagination footer. Reuses the AdmincnShell + the
- * acn-* table primitives. Light mode, Geist font, responsive (tables scroll
- * horizontally on smaller screens).
+ * Generic client-side table controller built on Angular signals.
+ *
+ * Owns search / sort / pagination / row-selection state for one table and
+ * exposes computed views (`paged`, `total`, `showingFrom` …) the template
+ * binds to. Construct one per table card with:
+ *  - `rows`      the full dataset,
+ *  - `searchText` a fn returning the searchable text for a row,
+ *  - `sortValue` (optional) a fn returning a sortable value for a column key,
+ *  - `pageSize`  initial page size,
+ *  - `id`        a stable identity fn for selection tracking.
+ */
+class DataTable<T> {
+  readonly query = signal('');
+  readonly sortKey = signal<string | null>(null);
+  readonly sortDir = signal<SortDirection>(null);
+  readonly pageSize = signal(5);
+  readonly page = signal(0);
+  readonly selected = signal<ReadonlySet<unknown>>(new Set());
+
+  /** Extra row-level predicate (used by the Filters demo). */
+  readonly extraFilter = signal<(row: T) => boolean>(() => true);
+
+  constructor(
+    private readonly rows: Signal<readonly T[]>,
+    private readonly searchText: (row: T) => string,
+    private readonly id: (row: T) => unknown,
+    private readonly sortValue: (row: T, key: string) => string | number = () => '',
+    initialPageSize = 5,
+  ) {
+    this.pageSize.set(initialPageSize);
+  }
+
+  /** Rows after search + extra filter, before sorting/pagination. */
+  readonly filtered = computed<readonly T[]>(() => {
+    const q = this.query().trim().toLowerCase();
+    const extra = this.extraFilter();
+    return this.rows().filter(
+      (r) => extra(r) && (q === '' || this.searchText(r).toLowerCase().includes(q)),
+    );
+  });
+
+  readonly sorted = computed<readonly T[]>(() => {
+    const key = this.sortKey();
+    const direction = this.sortDir();
+    const rows = this.filtered();
+    if (!key || !direction) {
+      return rows;
+    }
+    const factor = direction === 'asc' ? 1 : -1;
+    // toSorted() requires ES2023 lib; copy-then-sort keeps this non-mutating.
+    // eslint-disable-next-line unicorn/no-array-sort
+    return [...rows].sort((a, b) => {
+      const av = this.sortValue(a, key);
+      const bv = this.sortValue(b, key);
+      if (typeof av === 'number' && typeof bv === 'number') {
+        return (av - bv) * factor;
+      }
+      return String(av).localeCompare(String(bv)) * factor;
+    });
+  });
+
+  readonly total = computed(() => this.filtered().length);
+  readonly pageCount = computed(() => Math.max(1, Math.ceil(this.total() / this.pageSize())));
+
+  /** Rows on the current page. */
+  readonly paged = computed<readonly T[]>(() => {
+    const size = this.pageSize();
+    const start = this.page() * size;
+    return this.sorted().slice(start, start + size);
+  });
+
+  readonly showingFrom = computed(() =>
+    this.total() === 0 ? 0 : this.page() * this.pageSize() + 1,
+  );
+  readonly showingTo = computed(() => Math.min(this.total(), (this.page() + 1) * this.pageSize()));
+
+  /** Page numbers to render (1-based), capped so the bar stays compact. */
+  readonly pageNumbers = computed<number[]>(() => {
+    const count = this.pageCount();
+    const max = Math.min(count, 5);
+    const current = this.page();
+    const start = Math.max(0, Math.min(current - 2, count - max));
+    return Array.from({ length: max }, (_, index) => start + index + 1);
+  });
+
+  /* ----- mutations ----- */
+  setQuery(value: string): void {
+    this.query.set(value);
+    this.page.set(0);
+  }
+
+  toggleSort(key: string): void {
+    if (this.sortKey() === key) {
+      let next: SortDirection;
+      if (this.sortDir() === 'asc') {
+        next = 'desc';
+      } else if (this.sortDir() === 'desc') {
+        next = null;
+      } else {
+        next = 'asc';
+      }
+      this.sortDir.set(next);
+      if (next === null) {
+        this.sortKey.set(null);
+      }
+    } else {
+      this.sortKey.set(key);
+      this.sortDir.set('asc');
+    }
+    this.page.set(0);
+  }
+
+  dirFor(key: string): SortDirection {
+    return this.sortKey() === key ? this.sortDir() : null;
+  }
+
+  setPageSize(size: number): void {
+    this.pageSize.set(size);
+    this.page.set(0);
+  }
+
+  goTo(page1: number): void {
+    const lastPage = this.pageCount() - 1;
+    this.page.set(Math.max(0, Math.min(page1 - 1, lastPage)));
+  }
+  prev(): void {
+    this.page.set(Math.max(0, this.page() - 1));
+  }
+  next(): void {
+    this.page.set(Math.min(this.pageCount() - 1, this.page() + 1));
+  }
+
+  setExtraFilter(shouldInclude: (row: T) => boolean): void {
+    this.extraFilter.set(shouldInclude);
+    this.page.set(0);
+  }
+
+  /* ----- selection ----- */
+  isSelected(row: T): boolean {
+    return this.selected().has(this.id(row));
+  }
+  toggleRow(row: T): void {
+    const next = new Set(this.selected());
+    const key = this.id(row);
+    if (next.has(key)) {
+      next.delete(key);
+    } else {
+      next.add(key);
+    }
+    this.selected.set(next);
+  }
+  readonly allOnPageSelected = computed(() => {
+    const page = this.paged();
+    return page.length > 0 && page.every((r) => this.selected().has(this.id(r)));
+  });
+  toggleAllOnPage(): void {
+    const page = this.paged();
+    const next = new Set(this.selected());
+    if (this.allOnPageSelected()) {
+      for (const r of page) next.delete(this.id(r));
+    } else {
+      for (const r of page) next.add(this.id(r));
+    }
+    this.selected.set(next);
+  }
+}
+
+/** Duplicate a 5-row seed up to `count` rows so pagination is demonstrable. */
+function expand<T>(seed: readonly T[], count: number, clone: (row: T, index: number) => T): T[] {
+  const out: T[] = [...seed];
+  for (let index = seed.length; index < count; index++) {
+    out.push(clone(seed[index % seed.length], index));
+  }
+  return out;
+}
+
+/**
+ * AdminCN — pixel-faithful clone of the shadcn admin "Data Table" page,
+ * now fully interactive: live search, column sort, pagination (page size +
+ * prev/next + numbered pages), row selection, column visibility, filters and
+ * expandable rows — all client-side via Angular signals.
  */
 @Component({
   selector: 'app-tpl-admincn-datatable',
@@ -126,8 +311,10 @@ export class AdmincnDatatable {
     '/admincn/avatars/avatar-16.webp',
   ];
 
+  protected readonly pageSizes = [5, 10, 25];
+
   /* 1 — Basic Data Table */
-  protected readonly basic: BasicRow[] = [
+  private readonly basicSeed: BasicRow[] = [
     {
       customer: 'Jack Alfredo',
       email: 'jack@shadcnstudio.com',
@@ -164,9 +351,25 @@ export class AdmincnDatatable {
       platform: this.avatars[0],
     },
   ];
+  protected readonly basicRows = signal<BasicRow[]>(
+    expand(this.basicSeed, 25, (r, index) => ({
+      ...r,
+      customer: `${r.customer} ${index + 1}`,
+      email: r.email.replace('@', () => `+${index + 1}@`),
+    })),
+  );
+  protected readonly basic = new DataTable<BasicRow>(
+    this.basicRows,
+    (r) => `${r.customer} ${r.email} ${r.amount} ${r.status}`,
+    (r) => r.email,
+    (r, k) =>
+      k === 'amount'
+        ? Number(r.amount.replaceAll(/[^0-9.]/g, ''))
+        : ({ status: r.status }[k] ?? r.customer),
+  );
 
   /* 2 & 3 — Column Visibility + Filters (same user dataset) */
-  protected readonly users: UserRow[] = [
+  private readonly usersSeed: UserRow[] = [
     {
       name: 'Jack Alfredo',
       email: 'jack.alfredo@shadcnstudio.com',
@@ -218,9 +421,97 @@ export class AdmincnDatatable {
       status: 'active',
     },
   ];
+  protected readonly usersRows = signal<UserRow[]>(
+    expand(this.usersSeed, 15, (r, index) => ({
+      ...r,
+      name: `${r.name} ${index + 1}`,
+      email: r.email.replace('@', () => `+${index + 1}@`),
+    })),
+  );
+  protected readonly users = new DataTable<UserRow>(
+    this.usersRows,
+    (r) => `${r.name} ${r.email} ${r.role} ${r.plan} ${r.billing} ${r.status}`,
+    (r) => r.email,
+    (r, k) => {
+      if (k === 'role') return r.role;
+      if (k === 'plan') return r.plan;
+      if (k === 'status') return r.status;
+      return r.name;
+    },
+  );
+
+  /* Column-visibility demo state (table 2). */
+  protected readonly userColumns = [
+    { key: 'role', label: 'Role' },
+    { key: 'plan', label: 'Plan' },
+    { key: 'billing', label: 'Billing' },
+    { key: 'status', label: 'Status' },
+  ];
+  protected readonly visibleCols = signal<ReadonlySet<string>>(
+    new Set(['role', 'plan', 'billing', 'status']),
+  );
+  protected readonly columnsMenuOpen = signal(false);
+  protected colVisible(key: string): boolean {
+    return this.visibleCols().has(key);
+  }
+  protected toggleCol(key: string): void {
+    const next = new Set(this.visibleCols());
+    if (next.has(key)) {
+      next.delete(key);
+    } else {
+      next.add(key);
+    }
+    this.visibleCols.set(next);
+  }
+
+  /* Filters demo state (table 3) — a separate DataTable over the same rows. */
+  protected readonly usersFiltered = new DataTable<UserRow>(
+    this.usersRows,
+    (r) => `${r.name} ${r.email} ${r.role} ${r.plan} ${r.billing} ${r.status}`,
+    (r) => r.email,
+  );
+  protected readonly roleFilter = signal('all');
+  protected readonly planFilter = signal('all');
+  protected readonly statusFilter = signal('all');
+  protected readonly openFilterMenu = signal<string | null>(null);
+  protected readonly roleOptions = ['all', 'maintainer', 'admin', 'editor', 'author', 'subscriber'];
+  protected readonly planOptions = ['all', 'enterprise', 'team', 'basic', 'company'];
+  protected readonly statusOptions = ['all', 'active', 'pending', 'inactive'];
+  private applyUserFilters(): void {
+    const role = this.roleFilter();
+    const plan = this.planFilter();
+    const status = this.statusFilter();
+    this.usersFiltered.setExtraFilter(
+      (u) =>
+        (role === 'all' || u.role === role) &&
+        (plan === 'all' || u.plan === plan) &&
+        (status === 'all' || u.status === status),
+    );
+  }
+  protected pickFilter(kind: 'role' | 'plan' | 'status', value: string): void {
+    switch (kind) {
+      case 'role': {
+        this.roleFilter.set(value);
+        break;
+      }
+      case 'plan': {
+        this.planFilter.set(value);
+        break;
+      }
+      case 'status': {
+        this.statusFilter.set(value);
+        break;
+      }
+    }
+    this.openFilterMenu.set(null);
+    this.applyUserFilters();
+  }
+  protected toggleFilterMenu(kind: string): void {
+    this.openFilterMenu.set(this.openFilterMenu() === kind ? null : kind);
+  }
 
   /* 4 — Resizable Columns (support tickets) */
-  protected readonly tickets: TicketRow[] = [
+  private readonly ticketsSeed: TicketRow[] = [
     {
       name: 'Morgan Walsh',
       email: 'morgan.walsh@helixcorp.com',
@@ -262,9 +553,27 @@ export class AdmincnDatatable {
       status: 'closed',
     },
   ];
+  protected readonly ticketsRows = signal<TicketRow[]>(
+    expand(this.ticketsSeed, 15, (r, index) => ({
+      ...r,
+      name: `${r.name} ${index + 1}`,
+      email: r.email.replace('@', () => `+${index + 1}@`),
+    })),
+  );
+  protected readonly tickets = new DataTable<TicketRow>(
+    this.ticketsRows,
+    (r) => `${r.name} ${r.email} ${r.subject} ${r.department} ${r.priority} ${r.status}`,
+    (r) => r.email,
+    (r, k) => {
+      if (k === 'department') return r.department;
+      if (k === 'priority') return r.priority;
+      if (k === 'status') return r.status;
+      return r.name;
+    },
+  );
 
   /* 5 — Pinnable Columns (employees) */
-  protected readonly employees: EmployeeRow[] = [
+  private readonly employeesSeed: EmployeeRow[] = [
     {
       name: 'Keira Lawson',
       email: 'keira.lawson@company.com',
@@ -301,9 +610,27 @@ export class AdmincnDatatable {
       status: 'active',
     },
   ];
+  protected readonly employeesRows = signal<EmployeeRow[]>(
+    expand(this.employeesSeed, 15, (r, index) => ({
+      ...r,
+      name: `${r.name} ${index + 1}`,
+      email: r.email.replace('@', () => `+${index + 1}@`),
+    })),
+  );
+  protected readonly employees = new DataTable<EmployeeRow>(
+    this.employeesRows,
+    (r) => `${r.name} ${r.email} ${r.department} ${r.role} ${r.status}`,
+    (r) => r.email,
+    (r, k) => {
+      if (k === 'department') return r.department;
+      if (k === 'role') return r.role;
+      if (k === 'status') return r.status;
+      return r.name;
+    },
+  );
 
   /* 6 — Page Size Selector (invoices) */
-  protected readonly invoices: Invoice[] = [
+  private readonly invoicesSeed: Invoice[] = [
     {
       id: '#5099',
       statusIcon: 'mail',
@@ -361,6 +688,31 @@ export class AdmincnDatatable {
       paid: true,
     },
   ];
+  protected readonly invoicesRows = signal<Invoice[]>(
+    expand(this.invoicesSeed, 25, (r, index) => ({
+      ...r,
+      id: `#${4000 + index}`,
+      name: `${r.name} ${index + 1}`,
+    })),
+  );
+  protected readonly invoices = new DataTable<Invoice>(
+    this.invoicesRows,
+    (r) => `${r.id} ${r.name} ${r.role} ${r.total} ${r.date}`,
+    (r) => r.id,
+    (r, k) =>
+      k === 'total' ? Number(r.total.replaceAll(/[^0-9.]/g, '')) : ({ id: r.id }[k] ?? r.name),
+  );
+  protected readonly invoiceStatusFilter = signal('all');
+  protected readonly invoiceStatusOptions = ['all', 'paid', 'unpaid'];
+  protected readonly invoiceStatusMenuOpen = signal(false);
+  protected pickInvoiceStatus(value: string): void {
+    this.invoiceStatusFilter.set(value);
+    this.invoiceStatusMenuOpen.set(false);
+    this.invoices.setExtraFilter((inv) => {
+      if (value === 'all') return true;
+      return value === 'paid' ? inv.paid : !inv.paid;
+    });
+  }
 
   /* 7 — Draggable Columns (contracts) */
   protected readonly dragCols = [
@@ -371,7 +723,7 @@ export class AdmincnDatatable {
     'Annual Cost',
     'Status',
   ];
-  protected readonly contracts: ContractRow[] = [
+  private readonly contractsSeed: ContractRow[] = [
     {
       vendor: 'Atlas Cloud',
       email: 'contracts@atlascloud.io',
@@ -418,9 +770,25 @@ export class AdmincnDatatable {
       status: 'active',
     },
   ];
+  protected readonly contractsRows = signal<ContractRow[]>(
+    expand(this.contractsSeed, 15, (r, index) => ({
+      ...r,
+      vendor: `${r.vendor} ${index + 1}`,
+      contract: `CTR-${4900 + index}`,
+    })),
+  );
+  protected readonly contracts = new DataTable<ContractRow>(
+    this.contractsRows,
+    (r) => `${r.vendor} ${r.email} ${r.contract} ${r.category} ${r.renews} ${r.cost} ${r.status}`,
+    (r) => r.contract,
+    (r, k) =>
+      k === 'cost'
+        ? Number(r.cost.replaceAll(/[^0-9.]/g, ''))
+        : ({ category: r.category, status: r.status }[k] ?? r.vendor),
+  );
 
   /* 8 — Expandable Rows (launches) */
-  protected readonly launches: LaunchRow[] = [
+  private readonly launchesSeed: LaunchRow[] = [
     {
       launch: 'NovaPay Wallet',
       code: 'LNH-2401',
@@ -467,9 +835,39 @@ export class AdmincnDatatable {
       status: 'delayed',
     },
   ];
+  protected readonly launchesRows = signal<LaunchRow[]>(
+    expand(this.launchesSeed, 15, (r, index) => ({
+      ...r,
+      launch: `${r.launch} ${index + 1}`,
+      code: `LNH-${2500 + index}`,
+    })),
+  );
+  protected readonly launches = new DataTable<LaunchRow>(
+    this.launchesRows,
+    (r) => `${r.launch} ${r.code} ${r.lead} ${r.leadEmail} ${r.market} ${r.date} ${r.status}`,
+    (r) => r.code,
+    (r, k) => {
+      if (k === 'market') return r.market;
+      if (k === 'status') return r.status;
+      return r.launch;
+    },
+  );
+  protected readonly expandedRows = signal<ReadonlySet<string>>(new Set());
+  protected isExpanded(l: LaunchRow): boolean {
+    return this.expandedRows().has(l.code);
+  }
+  protected toggleExpand(l: LaunchRow): void {
+    const next = new Set(this.expandedRows());
+    if (next.has(l.code)) {
+      next.delete(l.code);
+    } else {
+      next.add(l.code);
+    }
+    this.expandedRows.set(next);
+  }
 
   /* 9 — Progress (courses) */
-  protected readonly courses: CourseRow[] = [
+  private readonly coursesSeed: CourseRow[] = [
     {
       course: 'UI/UX design',
       author: 'John cartal',
@@ -531,9 +929,21 @@ export class AdmincnDatatable {
       s3: 30,
     },
   ];
+  protected readonly coursesRows = signal<CourseRow[]>(
+    expand(this.coursesSeed, 25, (r, index) => ({
+      ...r,
+      course: `${r.course} ${index + 1}`,
+    })),
+  );
+  protected readonly courses = new DataTable<CourseRow>(
+    this.coursesRows,
+    (r) => `${r.course} ${r.author} ${r.time}`,
+    (r) => r.course,
+    (r, k) => (k === 'progress' ? r.percent : ({ time: r.time }[k] ?? r.course)),
+  );
 
   /* 10 — Export Buttons (products) */
-  protected readonly products: ProductRow[] = [
+  private readonly productsSeed: ProductRow[] = [
     {
       name: 'Samsung galaxy s35',
       brand: 'Samsung',
@@ -585,9 +995,72 @@ export class AdmincnDatatable {
       status: 'inactive',
     },
   ];
+  protected readonly productsRows = signal<ProductRow[]>(
+    expand(this.productsSeed, 25, (r, index) => ({
+      ...r,
+      name: `${r.name} ${index + 1}`,
+    })),
+  );
+  protected readonly products = new DataTable<ProductRow>(
+    this.productsRows,
+    (r) => `${r.name} ${r.brand} ${r.category} ${r.amount} ${r.status}`,
+    (r) => r.name,
+    (r, k) =>
+      ({
+        category: r.category,
+        amount: Number(r.amount.replaceAll(/[^0-9.]/g, '')),
+        qty: r.qty,
+        status: r.status,
+      })[k] ?? r.name,
+  );
+  protected readonly productCategoryFilter = signal('all');
+  protected readonly productStockFilter = signal('all');
+  protected readonly productStatusFilter = signal('all');
+  protected readonly productMenuOpen = signal<string | null>(null);
+  protected readonly productCategoryOptions = [
+    'all',
+    'smartphone',
+    'laptop',
+    'headphone',
+    'smartwatch',
+  ];
+  protected readonly productStockOptions = ['all', 'in stock', 'low stock'];
+  protected readonly productStatusOptions = ['all', 'publish', 'inactive'];
+  private applyProductFilters(): void {
+    const cat = this.productCategoryFilter();
+    const stock = this.productStockFilter();
+    const status = this.productStatusFilter();
+    this.products.setExtraFilter(
+      (p) =>
+        (cat === 'all' || p.category === cat) &&
+        (stock === 'all' || (stock === 'low stock' ? p.qty < 50 : p.qty >= 50)) &&
+        (status === 'all' || p.status === status),
+    );
+  }
+  protected pickProductFilter(kind: 'category' | 'stock' | 'status', value: string): void {
+    switch (kind) {
+      case 'category': {
+        this.productCategoryFilter.set(value);
+        break;
+      }
+      case 'stock': {
+        this.productStockFilter.set(value);
+        break;
+      }
+      case 'status': {
+        this.productStatusFilter.set(value);
+        break;
+      }
+    }
+    this.productMenuOpen.set(null);
+    this.applyProductFilters();
+  }
+  protected toggleProductMenu(kind: string): void {
+    this.productMenuOpen.set(this.productMenuOpen() === kind ? null : kind);
+  }
 
   /* 11 — Graph (products with sparkline) */
-  protected readonly graphs: GraphRow[] = [
+  private readonly graphsSeed: GraphRow[] = [
     {
       name: 'Samsung galaxy s35',
       brand: 'Samsung',
@@ -639,8 +1112,29 @@ export class AdmincnDatatable {
       delta: '+6',
     },
   ];
+  protected readonly graphsRows = signal<GraphRow[]>(
+    expand(this.graphsSeed, 25, (r, index) => ({
+      ...r,
+      name: `${r.name} ${index + 1}`,
+    })),
+  );
+  protected readonly graphs = new DataTable<GraphRow>(
+    this.graphsRows,
+    (r) => `${r.name} ${r.brand} ${r.price}`,
+    (r) => r.name,
+    (r, k) =>
+      ({
+        price: Number(r.price.replaceAll(/[^0-9.]/g, '')),
+        orders: r.orders,
+      })[k] ?? r.name,
+  );
 
-  /* Map a status/role string to a badge tone class. */
+  /** Filled-checkbox inline fill (CSS is shared & must not be edited). */
+  protected checkboxFill(isOn: boolean): string | null {
+    return isOn ? 'var(--primary)' : null;
+  }
+
+  /** Map a status/role string to a badge tone class. */
   protected badgeTone(value: string): string {
     switch (value) {
       case 'active':
