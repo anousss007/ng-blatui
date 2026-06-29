@@ -299,8 +299,9 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Radar Chart — Custom Label](https://ngblatui.remix-it.com/charts/chart-radar-label-custom)
 - [Radar Chart — Radius Axis](https://ngblatui.remix-it.com/charts/chart-radar-radius)
 
-## Templates (34)
+## Templates (35)
 
+- [Admincn](https://ngblatui.remix-it.com/templates/admincn)
 - [Auth](https://ngblatui.remix-it.com/templates/auth)
 - [Pricing](https://ngblatui.remix-it.com/templates/pricing)
 - [Dashboard](https://ngblatui.remix-it.com/templates/dashboard)
