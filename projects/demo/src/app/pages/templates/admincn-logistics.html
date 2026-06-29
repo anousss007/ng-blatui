@@ -1,0 +1,336 @@
+<app-admincn-shell active="Logistics">
+  <div class="grid grid-cols-6 gap-6">
+    <!-- ============ Vehicle overview ============ -->
+    <div class="acn-card col-span-full flex flex-col gap-5 p-6 xl:col-span-3">
+      <div class="flex items-start justify-between">
+        <h3 class="font-heading text-lg font-semibold">Vehicle overview</h3>
+        <button type="button" class="acn-menu-btn" aria-label="Menu">
+          <app-lucide name="ellipsis-vertical" class="size-4" />
+        </button>
+      </div>
+
+      <!-- legend -->
+      <div class="flex">
+        @for (s of segments; track s.label) {
+          <div class="flex flex-col gap-1" [style.width]="s.pct">
+            <span class="flex items-center gap-1.5 text-sm text-muted-foreground">
+              <span class="size-1.5 rounded-full bg-muted-foreground"></span>{{ s.label }}
+            </span>
+          </div>
+        }
+      </div>
+
+      <!-- segmented bar -->
+      <div class="flex overflow-hidden rounded-lg">
+        @for (s of segments; track s.label) {
+          <div
+            class="flex items-center justify-center p-3 text-base font-medium"
+            [class]="s.fill"
+            [style.width]="s.pct"
+          >
+            {{ s.pct }}
+          </div>
+        }
+      </div>
+
+      <!-- stat rows -->
+      <div class="flex flex-col">
+        @for (r of vehicleStats; track r.label) {
+          <div class="flex items-center gap-3 border-t py-3 first:border-t-0">
+            <app-lucide [name]="r.icon" class="size-4 text-muted-foreground" />
+            <span class="flex-1 text-sm">{{ r.label }}</span>
+            <span class="text-sm font-medium">{{ r.time }}</span>
+            <span class="w-12 text-right text-sm text-muted-foreground">{{ r.pct }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- ============ Order (@jackwilliams) ============ -->
+    <div class="acn-card col-span-full flex flex-col gap-5 p-6 md:col-span-3">
+      <div class="flex items-start justify-between">
+        <div class="flex items-center gap-3">
+          <img
+            [src]="img + '/avatars/avatar-1.webp'"
+            alt="@jackwilliams"
+            class="size-10 rounded-full"
+          />
+          <div class="flex flex-col leading-tight">
+            <span class="font-heading font-semibold">&#64;jackwilliams</span>
+            <span class="text-sm text-muted-foreground">Business</span>
+          </div>
+        </div>
+        <button type="button" class="acn-menu-btn" aria-label="Menu">
+          <app-lucide name="ellipsis-vertical" class="size-4" />
+        </button>
+      </div>
+
+      <div class="flex items-baseline gap-2">
+        <span class="text-2xl font-semibold tracking-tight">4,689</span>
+        <span class="text-sm text-muted-foreground">Orders</span>
+      </div>
+
+      <!-- toggle group -->
+      <div class="grid grid-cols-3 gap-2 rounded-lg bg-muted p-1 text-sm font-medium">
+        <button
+          type="button"
+          class="flex items-center justify-center gap-1.5 rounded-md bg-background py-1.5 shadow-xs"
+        >
+          <app-lucide name="package" class="size-4" /> Packed
+        </button>
+        <button
+          type="button"
+          class="flex items-center justify-center gap-1.5 rounded-md py-1.5 text-muted-foreground"
+        >
+          <app-lucide name="truck" class="size-4" /> Shipped
+        </button>
+        <button
+          type="button"
+          class="flex items-center justify-center gap-1.5 rounded-md py-1.5 text-muted-foreground"
+        >
+          <app-lucide name="package" class="size-4" /> Received
+        </button>
+      </div>
+
+      <!-- packing progress rows -->
+      <div class="flex flex-col gap-5">
+        @for (p of packing; track p.label) {
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center justify-between text-sm">
+              <span>{{ p.label }}</span>
+              <span class="text-muted-foreground">{{ p.count }}</span>
+            </div>
+            <div class="h-1.5 w-full overflow-hidden rounded-full bg-muted">
+              <div class="h-full rounded-full bg-primary" [style.width.%]="p.value"></div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- ============ Sales performance ============ -->
+    <div class="acn-card col-span-full flex flex-col gap-5 p-6 md:col-span-3 xl:col-span-2">
+      <div class="flex items-start justify-between">
+        <h3 class="font-heading text-lg font-semibold">Sales performance</h3>
+        <button type="button" class="acn-btn-outline-xs">Details</button>
+      </div>
+      <div class="flex items-baseline gap-2">
+        <span class="text-2xl font-semibold tracking-tight">68K</span>
+        <span class="acn-badge-muted">-6%</span>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-sm text-muted-foreground">Online Store</span>
+            <span class="flex items-baseline gap-1.5">
+              <span class="font-semibold">88</span>
+              <span class="acn-badge-muted">Good</span>
+            </span>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            @for (b of perfBars; track $index) {
+              <div class="h-1.5 rounded-full bg-chart-1" [style.width.%]="b"></div>
+            }
+          </div>
+        </div>
+        <div class="flex flex-col gap-3 border-l pl-4">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-sm text-muted-foreground">Offline Store</span>
+            <span class="flex items-baseline gap-1.5">
+              <span class="font-semibold">64</span>
+              <span class="acn-badge-muted">Average</span>
+            </span>
+          </div>
+          <div class="flex flex-col gap-1.5">
+            @for (b of perfBars; track $index) {
+              <div class="h-1.5 rounded-full bg-chart-2" [style.width.%]="b"></div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ Vehicles Condition ============ -->
+    <div class="acn-card col-span-full flex flex-col gap-5 p-6 md:col-span-3 xl:col-span-2">
+      <div class="flex items-start justify-between">
+        <h3 class="font-heading text-lg font-semibold">Vehicles Condition</h3>
+        <button type="button" class="acn-menu-btn" aria-label="Menu">
+          <app-lucide name="ellipsis-vertical" class="size-4" />
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        @for (c of conditions; track c.label) {
+          <div class="flex items-center gap-3">
+            <div class="relative size-11 shrink-0">
+              <svg viewBox="0 0 36 36" class="size-full -rotate-90">
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="currentColor"
+                  class="text-primary/20"
+                  stroke-width="3"
+                />
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="16"
+                  fill="none"
+                  stroke="currentColor"
+                  [class]="c.stroke"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  [attr.stroke-dasharray]="ringDash(c.ring)"
+                />
+              </svg>
+              <span class="absolute inset-0 flex items-center justify-center text-xs font-medium">
+                {{ c.ring }}%
+              </span>
+            </div>
+            <div class="flex flex-1 flex-col leading-tight">
+              <span class="text-sm font-medium">{{ c.label }}</span>
+              <span class="text-xs text-muted-foreground">{{ c.sub }}</span>
+            </div>
+            <span class="acn-badge-muted">{{ c.delta }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- ============ Customer Ratings ============ -->
+    <div class="acn-card col-span-full flex flex-col gap-5 p-6 md:col-span-3 xl:col-span-2">
+      <div class="flex items-start justify-between">
+        <h3 class="font-heading text-lg font-semibold">Customer Ratings</h3>
+        <button type="button" class="acn-menu-btn" aria-label="Menu">
+          <app-lucide name="ellipsis-vertical" class="size-4" />
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl font-semibold tracking-tight">4.5</span>
+          <span class="flex items-center gap-0.5 text-chart-4">
+            @for (i of [1, 2, 3, 4, 5]; track i) {
+              <app-lucide name="star" class="size-4 fill-current" />
+            }
+          </span>
+        </div>
+        <div class="flex items-center gap-2 text-sm">
+          <span class="acn-chip">+ 5.0</span>
+          <span class="text-muted-foreground">Points from last month</span>
+        </div>
+      </div>
+
+      <div class="relative mt-1">
+        <svg viewBox="0 0 296 96" class="h-28 w-full" preserveAspectRatio="none">
+          <path [attr.d]="ratingArea" fill="var(--chart-2)" fill-opacity="0.1" />
+          <polyline
+            [attr.points]="ratingDash"
+            fill="none"
+            stroke="var(--muted-foreground)"
+            stroke-opacity="0.4"
+            stroke-width="2"
+            stroke-dasharray="4 4"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+          />
+          <polyline
+            [attr.points]="ratingPath"
+            fill="none"
+            stroke="var(--chart-2)"
+            stroke-width="2.5"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+          />
+        </svg>
+        <span
+          class="absolute top-2 right-6 inline-flex items-center rounded-md bg-foreground px-2.5 py-1 text-xs font-medium text-background shadow-md"
+        >
+          Buy Now
+        </span>
+      </div>
+      <div class="flex justify-between px-1 text-xs text-muted-foreground">
+        @for (m of ratingMonths; track m) {
+          <span>{{ m }}</span>
+        }
+      </div>
+    </div>
+
+    <!-- ============ On route vehicle table ============ -->
+    <div class="acn-card col-span-full flex flex-col py-6">
+      <div class="flex items-start justify-between px-6">
+        <h3 class="font-heading text-lg font-semibold">On route vehicle</h3>
+        <button type="button" class="acn-menu-btn" aria-label="Menu">
+          <app-lucide name="ellipsis-vertical" class="size-4" />
+        </button>
+      </div>
+
+      <div class="mt-2 overflow-x-auto px-2">
+        <table class="acn-table">
+          <thead>
+            <tr>
+              <th class="w-12"><span class="acn-checkbox"></span></th>
+              <th>Vehicle</th>
+              <th>Starting route</th>
+              <th>Ending route</th>
+              <th>Warnings</th>
+              <th>Progress</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (r of routes; track r.vol) {
+              <tr>
+                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <div class="flex items-center gap-2.5">
+                    <span class="acn-icon-tile acn-tile-muted size-8">
+                      <app-lucide name="truck" class="size-4" />
+                    </span>
+                    <span class="font-medium whitespace-nowrap">{{ r.vol }}</span>
+                  </div>
+                </td>
+                <td class="whitespace-nowrap text-muted-foreground">{{ r.start }}</td>
+                <td class="whitespace-nowrap text-muted-foreground">{{ r.end }}</td>
+                <td>
+                  <span class="acn-badge-muted">{{ r.warning }}</span>
+                </td>
+                <td>
+                  <div class="flex items-center gap-3">
+                    <div class="h-1.5 w-32 overflow-hidden rounded-full bg-muted">
+                      <div
+                        class="h-full rounded-full"
+                        [class]="r.bar"
+                        [style.width.%]="r.progress"
+                      ></div>
+                    </div>
+                    <span class="text-sm text-muted-foreground">{{ r.progress }}%</span>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
+        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 25 entries</span>
+        <div class="flex items-center gap-1">
+          <button type="button" class="acn-page-btn" aria-label="Previous">
+            <app-lucide name="chevron-left" class="size-4" /> Previous
+          </button>
+          <button type="button" class="acn-page-num acn-page-active">1</button>
+          <button type="button" class="acn-page-num">2</button>
+          <button type="button" class="acn-page-num">
+            <app-lucide name="ellipsis" class="size-4" />
+          </button>
+          <button type="button" class="acn-page-btn" aria-label="Next">
+            Next <app-lucide name="chevron-right" class="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-admincn-shell>

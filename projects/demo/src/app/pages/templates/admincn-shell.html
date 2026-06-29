@@ -1,0 +1,121 @@
+<div id="tpl-admincn" class="acn-page">
+  <div class="flex min-h-screen">
+    <!-- Mobile backdrop -->
+    <div
+      class="acn-backdrop"
+      [class.acn-backdrop-open]="sidebarOpen()"
+      (click)="sidebarOpen.set(false)"
+    ></div>
+
+    <!-- ===================== SIDEBAR ===================== -->
+    <aside class="acn-sidebar" [class.acn-sidebar-open]="sidebarOpen()">
+      <div class="acn-sidebar-header">
+        <span class="acn-logo">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.4"
+            stroke-linecap="round"
+            class="size-5"
+          >
+            <path d="M12 2.6v18.8" />
+            <path d="M2.6 12h18.8" />
+            <path d="m5.4 5.4 13.2 13.2" />
+            <path d="m18.6 5.4-13.2 13.2" />
+          </svg>
+        </span>
+        <div class="min-w-0 leading-tight">
+          <div class="truncate text-[0.95rem] font-semibold">AdminCN</div>
+          <div class="truncate text-xs text-muted-foreground">Dashboard Template</div>
+        </div>
+      </div>
+
+      <nav class="acn-sidebar-nav">
+        @for (group of nav; track group.label) {
+          <div class="acn-nav-group">
+            <p class="acn-nav-label">{{ group.label }}</p>
+            @for (item of group.items; track item.label) {
+              <a
+                [routerLink]="item.route ?? null"
+                [attr.href]="item.route ? null : '#'"
+                class="acn-nav-item"
+                [class.acn-nav-active]="item.label === active()"
+                (click)="sidebarOpen.set(false)"
+              >
+                <app-lucide [name]="item.icon" class="size-4 shrink-0" />
+                <span class="flex-1 truncate">{{ item.label }}</span>
+                @if (item.chevron) {
+                  <app-lucide name="chevron-right" class="size-4 shrink-0 opacity-60" />
+                }
+                @if (item.external) {
+                  <app-lucide name="external-link" class="size-3.5 shrink-0 opacity-50" />
+                }
+              </a>
+            }
+          </div>
+        }
+      </nav>
+    </aside>
+
+    <!-- ===================== INSET MAIN ===================== -->
+    <main class="acn-main">
+      <!-- Topbar -->
+      <header class="acn-topbar">
+        <button
+          type="button"
+          class="acn-icon-btn"
+          aria-label="Toggle sidebar"
+          (click)="sidebarOpen.set(!sidebarOpen())"
+        >
+          <app-lucide name="panel-left" class="size-4.5" />
+        </button>
+        <span class="acn-topbar-divider"></span>
+        <button type="button" class="acn-search">
+          <app-lucide name="search" class="size-4" />
+          <span>Type to search...</span>
+          <kbd class="acn-kbd">⌘K</kbd>
+        </button>
+
+        <div class="ml-auto flex items-center gap-0.5 sm:gap-1">
+          <button type="button" class="acn-icon-btn" aria-label="Activity">
+            <app-lucide name="activity" class="size-4.5" />
+          </button>
+          <button type="button" class="acn-icon-btn relative" aria-label="Notifications">
+            <app-lucide name="bell" class="size-4.5" />
+            <span class="acn-dot-red"></span>
+          </button>
+          <button type="button" class="acn-icon-btn" aria-label="Toggle theme">
+            <app-lucide name="moon" class="size-4.5" />
+          </button>
+          <button type="button" class="acn-icon-btn" aria-label="Customize">
+            <app-lucide name="palette" class="size-4.5" />
+          </button>
+          <button type="button" class="acn-avatar-btn" aria-label="Account">
+            <img src="/admincn/avatars/avatar-1.webp" alt="John Doe" class="size-8 rounded-full" />
+            <span class="acn-dot-green"></span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="acn-content">
+        <ng-content />
+
+        <!-- Footer -->
+        <footer class="acn-footer">
+          <span
+            >©2026 <a href="#" class="font-medium text-foreground">shadcn/studio</a>, Made for
+            better web design</span
+          >
+          <div class="flex items-center gap-5 max-sm:hidden">
+            <a href="#">License</a>
+            <a href="#">More Dashboards</a>
+            <a href="#">Documentation</a>
+            <a href="#">Support</a>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,138 @@
+<app-admincn-shell active="Kanban">
+  <!-- ============ KANBAN BOARD ============ -->
+  <div class="-mx-1 flex items-start gap-5 overflow-x-auto px-1 pb-4">
+    @for (col of columns; track col.title) {
+      <!-- ---------- Column (lane) ---------- -->
+      <div
+        class="flex w-72 shrink-0 flex-col gap-3 rounded-2xl bg-muted p-4"
+        style="background: var(--muted)"
+      >
+        <!-- Column header -->
+        <div class="flex items-center justify-between gap-2.5">
+          <div class="flex items-center gap-2.5">
+            <span
+              class="line-clamp-1 max-w-40 overflow-hidden text-sm font-semibold text-ellipsis"
+              >{{ col.title }}</span
+            >
+            <span class="acn-chip" style="height: 1.25rem; padding: 0 0.5rem; line-height: 1">{{
+              col.count
+            }}</span>
+          </div>
+          <button type="button" class="acn-menu-btn" aria-label="Column actions">
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+        </div>
+
+        <!-- Cards -->
+        @for (card of col.cards; track card.title) {
+          <div
+            class="acn-card flex flex-col gap-3"
+            style="
+              padding: 0.875rem;
+              border-radius: var(--radius);
+              box-shadow:
+                0 0 0 1px var(--acn-ring),
+                0 1px 2px rgb(0 0 0 / 0.04);
+            "
+          >
+            <!-- Priority chip + card actions -->
+            <div class="flex items-center justify-between gap-2">
+              @switch (card.priority) {
+                @case ('high') {
+                  <span
+                    class="acn-badge-red"
+                    style="border-radius: 9999px; text-transform: capitalize"
+                    >high</span
+                  >
+                }
+                @case ('medium') {
+                  <span
+                    class="acn-badge-amber"
+                    style="border-radius: 9999px; text-transform: capitalize"
+                    >medium</span
+                  >
+                }
+                @case ('low') {
+                  <span
+                    style="
+                      display: inline-flex;
+                      align-items: center;
+                      border-radius: 9999px;
+                      padding: 0.075rem 0.5rem;
+                      font-size: 0.75rem;
+                      font-weight: 500;
+                      text-transform: capitalize;
+                      background: color-mix(in oklab, var(--chart-1, #6366f1) 12%, transparent);
+                      color: #6366f1;
+                    "
+                    >low</span
+                  >
+                }
+              }
+              <button type="button" class="acn-menu-btn" aria-label="Card actions">
+                <app-lucide name="ellipsis-vertical" class="size-4" />
+              </button>
+            </div>
+
+            <!-- Cover image (optional) -->
+            @if (card.cover) {
+              <div class="overflow-hidden" style="border-radius: var(--radius-md, 0.5rem)">
+                <img
+                  [src]="card.cover"
+                  alt=""
+                  class="w-full object-cover"
+                  style="aspect-ratio: 16 / 9"
+                />
+              </div>
+            }
+
+            <!-- Title -->
+            <p class="text-sm font-semibold">{{ card.title }}</p>
+
+            <!-- Footer: assignees + due date -->
+            <div class="flex items-center justify-between gap-2">
+              <div class="flex items-center" style="padding-left: 0.5rem">
+                @for (a of card.assignees; track a.name) {
+                  <img
+                    [src]="a.avatar"
+                    [alt]="a.name"
+                    [title]="a.name"
+                    class="object-cover"
+                    style="
+                      height: 1.5rem;
+                      width: 1.5rem;
+                      border-radius: 9999px;
+                      margin-left: -0.5rem;
+                      box-shadow: 0 0 0 2px var(--card);
+                    "
+                  />
+                }
+              </div>
+              <div class="flex items-center gap-1.5 text-xs" style="color: var(--muted-foreground)">
+                <app-lucide name="calendar" class="size-3" />
+                <time>{{ card.due }}</time>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- Add New Item -->
+        <button
+          type="button"
+          class="flex items-center justify-center gap-1.5 text-sm font-medium"
+          style="
+            height: 2.25rem;
+            border-radius: var(--radius-md, 0.5rem);
+            border: none;
+            background: transparent;
+            color: var(--muted-foreground);
+            cursor: pointer;
+          "
+        >
+          <app-lucide name="plus" class="size-4" />
+          Add New Item
+        </button>
+      </div>
+    }
+  </div>
+</app-admincn-shell>

@@ -217,6 +217,102 @@ export const routes: Routes = [
     title: 'Event · ng-blatui',
   },
   {
+    path: 'templates/admincn',
+    loadComponent: async () => (await import('./pages/templates/admincn')).AdmincnTemplate,
+    title: 'AdminCN · ng-blatui',
+  },
+  {
+    path: 'templates/admincn/finance',
+    loadComponent: async () => (await import('./pages/templates/admincn-finance')).AdmincnFinance,
+    title: 'Finance · AdminCN · ng-blatui',
+  },
+  {
+    path: 'templates/admincn/analytics',
+    loadComponent: async () =>
+      (await import('./pages/templates/admincn-analytics')).AdmincnAnalytics,
+    title: 'Analytics · AdminCN · ng-blatui',
+  },
+  {
+    path: 'templates/admincn/ecommerce',
+    loadComponent: async () =>
+      (await import('./pages/templates/admincn-ecommerce')).AdmincnEcommerce,
+    title: 'eCommerce · AdminCN · ng-blatui',
+  },
+  {
+    path: 'templates/admincn/logistics',
+    loadComponent: async () =>
+      (await import('./pages/templates/admincn-logistics')).AdmincnLogistics,
+    title: 'Logistics · AdminCN · ng-blatui',
+  },
+  {
+    path: 'templates/admincn/orders',
+    loadComponent: async () => (await import('./pages/templates/admincn-orders')).AdmincnOrders,
+    title: 'Orders · AdminCN · ng-blatui',
+  },
+  {
+    path: 'templates/admincn/payments',
+    loadComponent: async () => (await import('./pages/templates/admincn-payments')).AdmincnPayments,
+    title: 'Payments · AdminCN · ng-blatui',
+  },
+  {
+    path: 'templates/admincn/productivity',
+    loadComponent: async () =>
+      (await import('./pages/templates/admincn-productivity')).AdmincnProductivity,
+    title: 'Productivity · AdminCN · ng-blatui',
+  },
+  {
+    path: 'templates/admincn/campaign',
+    loadComponent: async () => (await import('./pages/templates/admincn-campaign')).AdmincnCampaign,
+    title: 'Campaign · AdminCN · ng-blatui',
+  },
+  {
+    path: 'templates/admincn/mail',
+    loadComponent: async () => (await import('./pages/templates/admincn-mail')).AdmincnMail,
+    title: 'Mail · AdminCN · ng-blatui',
+  },
+  {
+    path: 'templates/admincn/chat',
+    loadComponent: async () => (await import('./pages/templates/admincn-chat')).AdmincnChat,
+    title: 'Chat · AdminCN · ng-blatui',
+  },
+  {
+    path: 'templates/admincn/kanban',
+    loadComponent: async () => (await import('./pages/templates/admincn-kanban')).AdmincnKanban,
+    title: 'Kanban · AdminCN · ng-blatui',
+  },
+  {
+    path: 'templates/admincn/calendar',
+    loadComponent: async () => (await import('./pages/templates/admincn-calendar')).AdmincnCalendar,
+    title: 'Calendar · AdminCN · ng-blatui',
+  },
+  {
+    path: 'templates/admincn/contact',
+    loadComponent: async () => (await import('./pages/templates/admincn-contact')).AdmincnContact,
+    title: 'Contact · AdminCN · ng-blatui',
+  },
+  {
+    path: 'templates/admincn/datatable',
+    loadComponent: async () =>
+      (await import('./pages/templates/admincn-datatable')).AdmincnDatatable,
+    title: 'Data Table · AdminCN · ng-blatui',
+  },
+  {
+    path: 'templates/admincn/form-validation',
+    loadComponent: async () =>
+      (await import('./pages/templates/admincn-form-validation')).AdmincnFormValidation,
+    title: 'Form Validation · AdminCN · ng-blatui',
+  },
+  {
+    path: 'templates/admincn/faq',
+    loadComponent: async () => (await import('./pages/templates/admincn-faq')).AdmincnFaq,
+    title: 'FAQ · AdminCN · ng-blatui',
+  },
+  {
+    path: 'templates/admincn/pricing',
+    loadComponent: async () => (await import('./pages/templates/admincn-pricing')).AdmincnPricing,
+    title: 'Pricing · AdminCN · ng-blatui',
+  },
+  {
     path: 'templates/:slug',
     loadComponent: async () => (await import('./pages/templates')).TemplatesPage,
     title: 'Templates · ng-blatui',
