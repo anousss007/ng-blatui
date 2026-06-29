@@ -1,7 +1,19 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation } from '@angular/core';
 
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
+
+interface PerformanceStat {
+  role: string;
+  name: string;
+  avatar: string;
+  badge: string;
+  badgeValue: string;
+  productLabel: string;
+  productValue: string;
+  delta: string;
+  footerLead: string;
+}
 
 interface TimelineBar {
   label: string;
@@ -45,6 +57,7 @@ interface UserRow {
   encapsulation: ViewEncapsulation.None,
   imports: [Lucide, AdmincnShell],
   templateUrl: './admincn-productivity.html',
+  host: { '(document:click)': 'closeMenus()' },
 })
 export class AdmincnProductivity {
   protected readonly img = '/admincn';
@@ -104,6 +117,58 @@ export class AdmincnProductivity {
     '/admincn/avatars/avatar-5.webp',
     '/admincn/avatars/avatar-16.webp',
   ];
+  /** Active performance tab index. */
+  protected readonly perfTab = signal(0);
+  /** Per-tab stat sets (one per perfTabs entry). */
+  protected readonly perfStats: PerformanceStat[] = [
+    {
+      role: 'Product Manager',
+      name: 'Angel George',
+      avatar: '/admincn/avatars/avatar-5.webp',
+      badge: 'Daily purchase',
+      badgeValue: '10 Items',
+      productLabel: 'Physical product',
+      productValue: '$78,263',
+      delta: '14.78%',
+      footerLead: 'Increase 24% ',
+    },
+    {
+      role: 'Sales Lead',
+      name: 'Brian Carter',
+      avatar: '/admincn/avatars/avatar-6.webp',
+      badge: 'Online orders',
+      badgeValue: '42 Items',
+      productLabel: 'Online product',
+      productValue: '$124,980',
+      delta: '21.40%',
+      footerLead: 'Increase 31% ',
+    },
+    {
+      role: 'Account Manager',
+      name: 'Sophia Reed',
+      avatar: '/admincn/avatars/avatar-16.webp',
+      badge: 'Daily sales',
+      badgeValue: '7 Items',
+      productLabel: 'Daily product',
+      productValue: '$45,120',
+      delta: '8.92%',
+      footerLead: 'Increase 12% ',
+    },
+  ];
+  protected setPerfTab(index: number): void {
+    this.perfTab.set(index);
+  }
+
+  /* Per-card ellipsis menus ------------------------------------------------ */
+  /** id of the currently open card menu, or null. */
+  protected readonly openMenu = signal<string | null>(null);
+  protected toggleMenu(id: string, event: MouseEvent): void {
+    event.stopPropagation();
+    this.openMenu.update((current) => (current === id ? null : id));
+  }
+  protected closeMenus(): void {
+    this.openMenu.set(null);
+  }
 
   /* Users table ------------------------------------------------------------ */
   protected readonly users: UserRow[] = [

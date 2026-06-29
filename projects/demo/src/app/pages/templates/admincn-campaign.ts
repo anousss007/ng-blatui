@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  signal,
+  ViewEncapsulation,
+} from '@angular/core';
 
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
@@ -22,6 +28,8 @@ interface CampaignRow {
 interface Plan {
   label: string;
   price: string;
+  /** numeric price for total computation */
+  amount: number;
   checked: boolean;
 }
 interface Condition {
@@ -56,6 +64,7 @@ interface UserRow {
   encapsulation: ViewEncapsulation.None,
   imports: [Lucide, AdmincnShell],
   templateUrl: './admincn-campaign.html',
+  host: { '(document:click)': 'closeMenus()' },
 })
 export class AdmincnCampaign {
   protected readonly img = '/admincn';
@@ -138,13 +147,36 @@ export class AdmincnCampaign {
     { x: 288.625, pvY: 60.18, pvH: 28.32, uvH: 64.9 },
   ];
 
-  /* For Business Shark ---------------------------------------------------- */
-  protected readonly plans: Plan[] = [
-    { label: 'Branding', price: '$60', checked: false },
-    { label: 'Marketing', price: '$120', checked: true },
-    { label: 'Web Development', price: '$250', checked: false },
-    { label: 'App Development', price: '$320', checked: false },
-  ];
+  /* For Business Shark — plan selector ------------------------------------ */
+  protected readonly taxes = 32;
+  protected readonly plans = signal<Plan[]>([
+    { label: 'Branding', price: '$60', amount: 60, checked: false },
+    { label: 'Marketing', price: '$120', amount: 120, checked: true },
+    { label: 'Web Development', price: '$250', amount: 250, checked: false },
+    { label: 'App Development', price: '$320', amount: 320, checked: false },
+  ]);
+  /** Total = checked plan prices + flat taxes. */
+  protected readonly planTotal = computed(() => {
+    const subtotal = this.plans()
+      .filter((plan) => plan.checked)
+      .reduce((sum, plan) => sum + plan.amount, 0);
+    return subtotal + this.taxes;
+  });
+  protected togglePlan(label: string): void {
+    this.plans.update((list) =>
+      list.map((plan) => (plan.label === label ? { ...plan, checked: !plan.checked } : plan)),
+    );
+  }
+
+  /* Per-card ellipsis menus ----------------------------------------------- */
+  protected readonly openMenu = signal<string | null>(null);
+  protected toggleMenu(id: string, event: MouseEvent): void {
+    event.stopPropagation();
+    this.openMenu.update((current) => (current === id ? null : id));
+  }
+  protected closeMenus(): void {
+    this.openMenu.set(null);
+  }
 
   /* Vehicles Condition (ring r=23.5 => circumference 147.65) -------------- */
   protected readonly conditions: Condition[] = [

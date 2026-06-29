@@ -1,4 +1,12 @@
 <app-admincn-shell active="Orders">
+  @if (openMenu() !== null) {
+    <button
+      type="button"
+      class="fixed inset-0 z-10 cursor-default"
+      aria-label="Close menu"
+      (click)="closeMenu()"
+    ></button>
+  }
   <div class="grid grid-cols-6 gap-6">
     <!-- ============ KPI row — Shipped / Damaged / Missed ============ -->
     @for (k of kpis; track k.label) {
@@ -87,9 +95,32 @@
       <div class="acn-card flex flex-1 flex-col gap-5 p-6">
         <div class="flex items-start justify-between">
           <h3 class="font-heading text-lg font-semibold">Total Earning</h3>
-          <button type="button" class="acn-menu-btn" aria-label="Menu">
-            <app-lucide name="ellipsis-vertical" class="size-4" />
-          </button>
+          <div class="relative">
+            <button
+              type="button"
+              class="acn-menu-btn"
+              aria-label="Menu"
+              (click)="toggleMenu('earning')"
+            >
+              <app-lucide name="ellipsis-vertical" class="size-4" />
+            </button>
+            @if (openMenu() === 'earning') {
+              <div
+                class="absolute top-full right-0 z-20 mt-1 w-36 rounded-lg border p-1 shadow-md ring-1 ring-border"
+                style="background: var(--card)"
+              >
+                @for (item of menuItems; track item) {
+                  <button
+                    type="button"
+                    class="flex w-full items-center rounded-md px-2.5 py-1.5 text-left text-sm hover:bg-muted"
+                    (click)="closeMenu()"
+                  >
+                    {{ item }}
+                  </button>
+                }
+              </div>
+            }
+          </div>
         </div>
         <div class="flex flex-col gap-1">
           <div class="flex items-center gap-2">
@@ -339,10 +370,31 @@
                   <img [src]="o.card" [alt]="o.status" class="h-6 w-9 object-contain" />
                 </td>
                 <td>
-                  <div class="flex items-center justify-end">
-                    <button type="button" class="acn-row-btn" aria-label="Actions">
+                  <div class="relative flex items-center justify-end">
+                    <button
+                      type="button"
+                      class="acn-row-btn"
+                      aria-label="Actions"
+                      (click)="toggleMenu('row-' + o.email)"
+                    >
                       <app-lucide name="ellipsis-vertical" class="size-4" />
                     </button>
+                    @if (openMenu() === 'row-' + o.email) {
+                      <div
+                        class="absolute top-full right-0 z-20 mt-1 w-36 rounded-lg border p-1 shadow-md ring-1 ring-border"
+                        style="background: var(--card)"
+                      >
+                        @for (item of menuItems; track item) {
+                          <button
+                            type="button"
+                            class="flex w-full items-center rounded-md px-2.5 py-1.5 text-left text-sm hover:bg-muted"
+                            (click)="closeMenu()"
+                          >
+                            {{ item }}
+                          </button>
+                        }
+                      </div>
+                    }
                   </div>
                 </td>
               </tr>

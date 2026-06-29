@@ -1,4 +1,12 @@
 <app-admincn-shell active="eCommerce">
+  @if (openMenu() !== null) {
+    <button
+      type="button"
+      class="fixed inset-0 z-10 cursor-default"
+      aria-label="Close menu"
+      (click)="closeMenu()"
+    ></button>
+  }
   <div class="grid grid-cols-6 gap-6">
     <!-- ============ KPI tiles (2x2 block) ============ -->
     <div class="col-span-full grid grid-cols-2 gap-6 lg:col-span-2">
@@ -33,9 +41,32 @@
           <h3 class="font-heading text-lg font-semibold">Earning insights</h3>
           <p class="text-sm text-muted-foreground">Weekly Earning overview</p>
         </div>
-        <button type="button" class="acn-menu-btn" aria-label="Menu">
-          <app-lucide name="ellipsis-vertical" class="size-4" />
-        </button>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('earning')"
+          >
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+          @if (openMenu() === 'earning') {
+            <div
+              class="absolute top-full right-0 z-20 mt-1 w-36 rounded-lg border p-1 shadow-md ring-1 ring-border"
+              style="background: var(--card)"
+            >
+              @for (item of menuItems; track item) {
+                <button
+                  type="button"
+                  class="flex w-full items-center rounded-md px-2.5 py-1.5 text-left text-sm hover:bg-muted"
+                  (click)="closeMenu()"
+                >
+                  {{ item }}
+                </button>
+              }
+            </div>
+          }
+        </div>
       </div>
 
       <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -91,9 +122,32 @@
           <span class="font-medium">@jackwilliams</span>
           <span class="text-xs text-muted-foreground">Business</span>
         </div>
-        <button type="button" class="acn-menu-btn" aria-label="Menu">
-          <app-lucide name="ellipsis" class="size-4" />
-        </button>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('packing')"
+          >
+            <app-lucide name="ellipsis" class="size-4" />
+          </button>
+          @if (openMenu() === 'packing') {
+            <div
+              class="absolute top-full right-0 z-20 mt-1 w-36 rounded-lg border p-1 shadow-md ring-1 ring-border"
+              style="background: var(--card)"
+            >
+              @for (item of menuItems; track item) {
+                <button
+                  type="button"
+                  class="flex w-full items-center rounded-md px-2.5 py-1.5 text-left text-sm hover:bg-muted"
+                  (click)="closeMenu()"
+                >
+                  {{ item }}
+                </button>
+              }
+            </div>
+          }
+        </div>
       </div>
 
       <div class="flex items-baseline gap-2">
@@ -102,13 +156,14 @@
       </div>
 
       <div class="grid grid-cols-3 gap-1 rounded-lg bg-muted p-1">
-        @for (t of packTabs; track t.label; let first = $first) {
+        @for (t of packTabs; track t.label) {
           <button
             type="button"
             class="flex items-center justify-center gap-1.5 rounded-md px-2 py-1.5 text-sm font-medium"
-            [class.bg-card]="first"
-            [class.shadow-sm]="first"
-            [class.text-muted-foreground]="!first"
+            [class.bg-card]="activePackTab() === t.label"
+            [class.shadow-sm]="activePackTab() === t.label"
+            [class.text-muted-foreground]="activePackTab() !== t.label"
+            (click)="setPackTab(t.label)"
           >
             <app-lucide [name]="t.icon" class="size-4" /> {{ t.label }}
           </button>
@@ -116,7 +171,7 @@
       </div>
 
       <div class="flex flex-col gap-4">
-        @for (p of packRows; track p.label) {
+        @for (p of packRows(); track p.label) {
           <div class="flex flex-col gap-2">
             <div class="flex items-center justify-between gap-2 text-sm">
               <span class="font-medium">{{ p.label }}</span>
@@ -141,20 +196,44 @@
           <h3 class="font-heading text-lg font-semibold">Orders</h3>
           <p class="text-sm text-muted-foreground">75 Deliveries in progress</p>
         </div>
-        <button type="button" class="acn-menu-btn" aria-label="Menu">
-          <app-lucide name="ellipsis-vertical" class="size-4" />
-        </button>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('orders')"
+          >
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+          @if (openMenu() === 'orders') {
+            <div
+              class="absolute top-full right-0 z-20 mt-1 w-36 rounded-lg border p-1 shadow-md ring-1 ring-border"
+              style="background: var(--card)"
+            >
+              @for (item of menuItems; track item) {
+                <button
+                  type="button"
+                  class="flex w-full items-center rounded-md px-2.5 py-1.5 text-left text-sm hover:bg-muted"
+                  (click)="closeMenu()"
+                >
+                  {{ item }}
+                </button>
+              }
+            </div>
+          }
+        </div>
       </div>
 
       <div class="flex items-center gap-4 border-b text-sm">
-        @for (t of orderTabs; track t; let first = $first) {
+        @for (t of orderTabs; track t) {
           <button
             type="button"
             class="-mb-px border-b-2 px-1 pb-2.5 font-medium"
-            [class.border-primary]="first"
-            [class.text-foreground]="first"
-            [class.border-transparent]="!first"
-            [class.text-muted-foreground]="!first"
+            [class.border-primary]="activeOrderTab() === t"
+            [class.text-foreground]="activeOrderTab() === t"
+            [class.border-transparent]="activeOrderTab() !== t"
+            [class.text-muted-foreground]="activeOrderTab() !== t"
+            (click)="setOrderTab(t)"
           >
             {{ t }}
           </button>
@@ -162,7 +241,7 @@
       </div>
 
       <div class="flex flex-col gap-4">
-        @for (o of orders; track $index) {
+        @for (o of orders(); track $index) {
           <div class="flex items-center gap-3">
             <span class="acn-icon-tile acn-tile-muted size-9">
               <app-lucide [name]="o.icon" class="size-4" />
@@ -184,9 +263,32 @@
           <h3 class="font-heading text-lg font-semibold">Popular product</h3>
           <p class="text-sm text-muted-foreground">Total 10.4K visitors</p>
         </div>
-        <button type="button" class="acn-menu-btn" aria-label="Menu">
-          <app-lucide name="ellipsis-vertical" class="size-4" />
-        </button>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('popular')"
+          >
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+          @if (openMenu() === 'popular') {
+            <div
+              class="absolute top-full right-0 z-20 mt-1 w-36 rounded-lg border p-1 shadow-md ring-1 ring-border"
+              style="background: var(--card)"
+            >
+              @for (item of menuItems; track item) {
+                <button
+                  type="button"
+                  class="flex w-full items-center rounded-md px-2.5 py-1.5 text-left text-sm hover:bg-muted"
+                  (click)="closeMenu()"
+                >
+                  {{ item }}
+                </button>
+              }
+            </div>
+          }
+        </div>
       </div>
 
       <div class="flex flex-col gap-4">
@@ -296,10 +398,31 @@
                   }
                 </td>
                 <td>
-                  <div class="flex items-center justify-end">
-                    <button type="button" class="acn-row-btn" aria-label="More">
+                  <div class="relative flex items-center justify-end">
+                    <button
+                      type="button"
+                      class="acn-row-btn"
+                      aria-label="More"
+                      (click)="toggleMenu('row-' + r.name)"
+                    >
                       <app-lucide name="ellipsis-vertical" class="size-4" />
                     </button>
+                    @if (openMenu() === 'row-' + r.name) {
+                      <div
+                        class="absolute top-full right-0 z-20 mt-1 w-36 rounded-lg border p-1 shadow-md ring-1 ring-border"
+                        style="background: var(--card)"
+                      >
+                        @for (item of menuItems; track item) {
+                          <button
+                            type="button"
+                            class="flex w-full items-center rounded-md px-2.5 py-1.5 text-left text-sm hover:bg-muted"
+                            (click)="closeMenu()"
+                          >
+                            {{ item }}
+                          </button>
+                        }
+                      </div>
+                    }
                   </div>
                 </td>
               </tr>

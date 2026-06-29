@@ -297,4 +297,14 @@ export class AdmincnOrders {
   protected arcDash(pct: number): string {
     return `${(pct / 100) * 251.3} 251.3`;
   }
+
+  /* ---- Per-card / per-row ellipsis menus (one open at a time) ---- */
+  protected readonly openMenu = signal<string | null>(null);
+  protected readonly menuItems = ['View', 'Refresh', 'Export', 'Remove'];
+  protected toggleMenu(id: string): void {
+    this.openMenu.set(this.openMenu() === id ? null : id);
+  }
+  protected closeMenu(): void {
+    this.openMenu.set(null);
+  }
 }

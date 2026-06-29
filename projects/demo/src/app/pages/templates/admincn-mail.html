@@ -3,7 +3,7 @@
     <!-- ============ Mailbox / label sidebar ============ -->
     <aside class="hidden w-56 shrink-0 flex-col border-r md:flex">
       <div class="p-3">
-        <button type="button" class="acn-btn-primary w-full">
+        <button type="button" class="acn-btn-primary w-full" (click)="toggleCompose()">
           <app-lucide name="pencil" class="size-4" /> Compose
         </button>
       </div>
@@ -17,12 +17,15 @@
             <button
               type="button"
               class="flex h-9 items-center gap-2.5 rounded-md px-3 text-sm font-medium"
-              [class.text-foreground]="!m.active"
-              [class.hover:bg-muted]="!m.active"
-              [class.text-primary]="m.active"
+              [class.text-foreground]="activeFolder() !== m.label"
+              [class.hover:bg-muted]="activeFolder() !== m.label"
+              [class.text-primary]="activeFolder() === m.label"
               [style.background]="
-                m.active ? 'color-mix(in oklab, var(--primary) 10%, transparent)' : null
+                activeFolder() === m.label
+                  ? 'color-mix(in oklab, var(--primary) 10%, transparent)'
+                  : null
               "
+              (click)="selectFolder(m.label)"
             >
               <app-lucide [name]="m.icon" class="size-4" />
               {{ m.label }}
@@ -62,19 +65,31 @@
         <button type="button" class="acn-icon-btn size-9 md:hidden" aria-label="Menu">
           <app-lucide name="menu" class="size-5" />
         </button>
-        <h1 class="flex-1 text-lg font-semibold">Inbox</h1>
+        <h1 class="flex-1 text-lg font-semibold">{{ activeFolder() }}</h1>
         <div class="flex items-center gap-1 rounded-lg bg-muted p-0.5">
           <button
             type="button"
-            class="inline-flex h-7 items-center rounded-md bg-background px-3 text-sm font-medium whitespace-nowrap text-foreground shadow-sm"
+            class="inline-flex h-7 items-center rounded-md px-3 text-sm font-medium whitespace-nowrap"
+            [class.bg-background]="activeTab() === 'all'"
+            [class.text-foreground]="activeTab() === 'all'"
+            [class.shadow-sm]="activeTab() === 'all'"
+            [class.text-muted-foreground]="activeTab() !== 'all'"
+            [class.hover:text-foreground]="activeTab() !== 'all'"
+            (click)="setTab('all')"
           >
             All mail
           </button>
           <button
             type="button"
-            class="inline-flex h-7 items-center rounded-md px-3 text-sm font-medium whitespace-nowrap text-muted-foreground hover:text-foreground"
+            class="inline-flex h-7 items-center rounded-md px-3 text-sm font-medium whitespace-nowrap"
+            [class.bg-background]="activeTab() === 'unread'"
+            [class.text-foreground]="activeTab() === 'unread'"
+            [class.shadow-sm]="activeTab() === 'unread'"
+            [class.text-muted-foreground]="activeTab() !== 'unread'"
+            [class.hover:text-foreground]="activeTab() !== 'unread'"
+            (click)="setTab('unread')"
           >
-            Unread (6)
+            Unread ({{ unreadCount() }})
           </button>
         </div>
       </div>
@@ -83,7 +98,13 @@
       <div class="flex items-center gap-2 border-b px-4 py-3">
         <div class="acn-input h-9 flex-1">
           <app-lucide name="search" class="size-4 text-muted-foreground" />
-          <input type="search" placeholder="Search mail" aria-label="Search mail" />
+          <input
+            type="search"
+            placeholder="Search mail"
+            aria-label="Search mail"
+            [value]="searchQuery()"
+            (input)="onSearch($any($event.target).value)"
+          />
         </div>
         <button type="button" class="acn-select size-9 justify-center px-0" aria-label="Sort">
           <app-lucide name="arrow-down-up" class="size-4 opacity-70" />
@@ -92,12 +113,13 @@
 
       <!-- email rows -->
       <div class="flex-1 overflow-y-auto">
-        @for (e of emails; track e.sender) {
+        @for (e of visibleEmails(); track e.id) {
           <button
             type="button"
             class="flex w-full gap-3 border-b border-l-2 border-l-transparent px-4 py-3.5 text-left hover:bg-muted/50"
-            [class.!bg-muted]="e.active"
-            [style.border-left-color]="e.active ? 'var(--primary)' : null"
+            [class.!bg-muted]="selectedId() === e.id"
+            [style.border-left-color]="selectedId() === e.id ? 'var(--primary)' : null"
+            (click)="openEmail(e.id)"
           >
             @if (e.avatar) {
               <img
@@ -119,9 +141,23 @@
                   [class.font-medium]="!e.unread"
                   >{{ e.sender }}</span
                 >
-                @if (e.starred) {
-                  <app-lucide name="star" class="size-3.5 shrink-0 fill-current text-foreground" />
-                }
+                <span
+                  role="button"
+                  tabindex="0"
+                  aria-label="Toggle star"
+                  class="shrink-0 cursor-pointer"
+                  (click)="toggleStar(e.id, $event)"
+                  (keydown.enter)="toggleStar(e.id, $event)"
+                  (keydown.space)="toggleStar(e.id, $event)"
+                >
+                  <app-lucide
+                    name="star"
+                    class="size-3.5"
+                    [class.fill-current]="e.starred"
+                    [class.text-foreground]="e.starred"
+                    [class.text-muted-foreground]="!e.starred"
+                  />
+                </span>
                 <span class="ml-auto shrink-0 text-xs text-muted-foreground">{{ e.time }}</span>
               </div>
               <div class="flex items-center gap-2">
@@ -143,111 +179,144 @@
               <p class="truncate text-xs text-muted-foreground">{{ e.preview }}</p>
             </div>
           </button>
+        } @empty {
+          <div
+            class="flex h-full flex-col items-center justify-center gap-2 px-6 py-16 text-center text-sm text-muted-foreground"
+          >
+            <app-lucide name="mail" class="size-8 opacity-40" />
+            No messages here.
+          </div>
         }
       </div>
     </section>
 
     <!-- ============ Reading pane (hidden on tablet & mobile) ============ -->
     <section class="hidden min-w-0 flex-1 flex-col lg:flex">
-      <!-- reading toolbar -->
-      <div class="flex h-14 items-center gap-1 border-b px-3">
-        <button type="button" class="acn-icon-btn size-9" aria-label="Archive">
-          <app-lucide name="package" class="size-4" />
-        </button>
-        <button type="button" class="acn-icon-btn size-9" aria-label="Move to spam">
-          <app-lucide name="triangle-alert" class="size-4" />
-        </button>
-        <button type="button" class="acn-icon-btn size-9" aria-label="Move to trash">
-          <app-lucide name="trash-2" class="size-4" />
-        </button>
-        <button type="button" class="acn-icon-btn size-9" aria-label="Manage labels">
-          <app-lucide name="circle" class="size-4" />
-        </button>
-        <button type="button" class="acn-icon-btn size-9" aria-label="Star">
-          <app-lucide name="star" class="size-4" />
-        </button>
-        <span class="acn-badge-muted ml-1">updates</span>
-        <div class="ml-auto flex items-center gap-1">
-          <button type="button" class="acn-icon-btn size-9" aria-label="Reply">
-            <app-lucide name="arrow-left" class="size-4" />
+      @if (selectedEmail(); as sel) {
+        <!-- reading toolbar -->
+        <div class="flex h-14 items-center gap-1 border-b px-3">
+          <button type="button" class="acn-icon-btn size-9" aria-label="Archive">
+            <app-lucide name="package" class="size-4" />
           </button>
-          <button type="button" class="acn-icon-btn size-9" aria-label="Reply all">
-            <app-lucide name="arrow-left-right" class="size-4" />
+          <button type="button" class="acn-icon-btn size-9" aria-label="Move to spam">
+            <app-lucide name="triangle-alert" class="size-4" />
           </button>
-          <button type="button" class="acn-icon-btn size-9" aria-label="Forward">
-            <app-lucide name="arrow-right" class="size-4" />
+          <button type="button" class="acn-icon-btn size-9" aria-label="Move to trash">
+            <app-lucide name="trash-2" class="size-4" />
           </button>
-          <button type="button" class="acn-icon-btn size-9" aria-label="More">
-            <app-lucide name="ellipsis-vertical" class="size-4" />
+          <button type="button" class="acn-icon-btn size-9" aria-label="Manage labels">
+            <app-lucide name="circle" class="size-4" />
           </button>
-        </div>
-      </div>
-
-      <!-- thread head -->
-      <div class="flex items-start gap-3 border-b px-6 py-5">
-        <div class="flex flex-1 flex-col gap-1">
-          <h2 class="text-xl font-semibold tracking-tight">Q4 Marketing Campaign Review</h2>
-          <div class="flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground">
-            <span class="font-medium text-foreground">Sarah Johnson</span>
-            <span>Reply-To: sarah.johnson&#64;example.com</span>
+          <button
+            type="button"
+            class="acn-icon-btn size-9"
+            aria-label="Star"
+            (click)="toggleStar(sel.id, $event)"
+          >
+            <app-lucide name="star" class="size-4" [class.fill-current]="sel.starred" />
+          </button>
+          <span class="acn-badge-muted ml-1">updates</span>
+          <div class="ml-auto flex items-center gap-1">
+            <button type="button" class="acn-icon-btn size-9" aria-label="Reply">
+              <app-lucide name="arrow-left" class="size-4" />
+            </button>
+            <button type="button" class="acn-icon-btn size-9" aria-label="Reply all">
+              <app-lucide name="arrow-left-right" class="size-4" />
+            </button>
+            <button type="button" class="acn-icon-btn size-9" aria-label="Forward">
+              <app-lucide name="arrow-right" class="size-4" />
+            </button>
+            <button type="button" class="acn-icon-btn size-9" aria-label="More">
+              <app-lucide name="ellipsis-vertical" class="size-4" />
+            </button>
           </div>
         </div>
-        <span class="shrink-0 text-sm text-muted-foreground">2 hours ago</span>
-      </div>
 
-      <!-- messages -->
-      <div class="flex-1 overflow-y-auto px-6 py-5">
-        <button
-          type="button"
-          class="mb-4 flex w-full items-center gap-2 rounded-md border bg-muted/40 px-3 py-2 text-sm text-muted-foreground hover:bg-muted/60"
-        >
-          <app-lucide name="chevron-down" class="size-4" /> 3 earlier messages
-        </button>
-
-        <div class="flex flex-col gap-3">
-          <div class="flex items-center gap-3">
-            <img
-              [src]="img + '/avatars/avatar-1.webp'"
-              alt="Sarah Johnson"
-              class="size-9 rounded-full object-cover"
-            />
-            <div class="flex flex-1 flex-col">
-              <span class="text-sm font-semibold">Sarah Johnson</span>
-              <span class="text-xs text-muted-foreground">sarah.johnson&#64;example.com</span>
+        <!-- thread head -->
+        <div class="flex items-start gap-3 border-b px-6 py-5">
+          <div class="flex flex-1 flex-col gap-1">
+            <h2 class="text-xl font-semibold tracking-tight">{{ sel.subject }}</h2>
+            <div class="flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground">
+              <span class="font-medium text-foreground">{{ sel.sender }}</span>
+              <span>Reply-To: {{ sel.email }}</span>
             </div>
-            <span class="text-xs text-muted-foreground">2 hours ago</span>
           </div>
-
-          <div class="flex flex-col gap-3 pl-12 text-sm leading-relaxed">
-            <p>Thanks for the feedback — I'll incorporate your suggestions into the Q1 plan.</p>
-            <p>Let's sync on Monday to finalize the deck.</p>
-            <p>Best,<br />Sarah</p>
-          </div>
+          <span class="shrink-0 text-sm text-muted-foreground">{{ sel.time }}</span>
         </div>
-      </div>
 
-      <!-- reply composer -->
-      <div class="border-t p-4">
-        <div class="rounded-lg border bg-background focus-within:ring-2 focus-within:ring-ring/40">
-          <textarea
-            rows="2"
-            placeholder="Reply to Sarah Johnson..."
-            aria-label="Reply to Sarah Johnson"
-            class="w-full resize-none rounded-t-lg bg-transparent px-3 py-2.5 text-sm text-foreground outline-none placeholder:text-muted-foreground"
-          ></textarea>
-          <div class="flex items-center justify-between gap-2 border-t px-3 py-2">
+        <!-- messages -->
+        <div class="flex-1 overflow-y-auto px-6 py-5">
+          @if (sel.thread) {
             <button
               type="button"
-              class="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+              class="mb-4 flex w-full items-center gap-2 rounded-md border bg-muted/40 px-3 py-2 text-sm text-muted-foreground hover:bg-muted/60"
             >
-              <app-lucide name="volume-2" class="size-4" /> Mute this thread
+              <app-lucide name="chevron-down" class="size-4" /> {{ sel.thread - 1 }} earlier
+              messages
             </button>
-            <button type="button" class="acn-btn-primary h-8">
-              Send <app-lucide name="send" class="size-4" />
-            </button>
+          }
+
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-3">
+              @if (sel.avatar) {
+                <img
+                  [src]="sel.avatar"
+                  [alt]="sel.sender"
+                  class="size-9 rounded-full object-cover"
+                />
+              } @else {
+                <span
+                  class="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-medium text-muted-foreground"
+                  >{{ sel.initials }}</span
+                >
+              }
+              <div class="flex flex-1 flex-col">
+                <span class="text-sm font-semibold">{{ sel.sender }}</span>
+                <span class="text-xs text-muted-foreground">{{ sel.email }}</span>
+              </div>
+              <span class="text-xs text-muted-foreground">{{ sel.time }}</span>
+            </div>
+
+            <div class="flex flex-col gap-3 pl-12 text-sm leading-relaxed">
+              @for (para of sel.body; track $index) {
+                <p class="whitespace-pre-line">{{ para }}</p>
+              }
+            </div>
           </div>
         </div>
-      </div>
+
+        <!-- reply composer -->
+        <div class="border-t p-4">
+          <div
+            class="rounded-lg border bg-background focus-within:ring-2 focus-within:ring-ring/40"
+          >
+            <textarea
+              rows="2"
+              [placeholder]="'Reply to ' + sel.sender + '...'"
+              [attr.aria-label]="'Reply to ' + sel.sender"
+              class="w-full resize-none rounded-t-lg bg-transparent px-3 py-2.5 text-sm text-foreground outline-none placeholder:text-muted-foreground"
+            ></textarea>
+            <div class="flex items-center justify-between gap-2 border-t px-3 py-2">
+              <button
+                type="button"
+                class="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+              >
+                <app-lucide name="volume-2" class="size-4" /> Mute this thread
+              </button>
+              <button type="button" class="acn-btn-primary h-8">
+                Send <app-lucide name="send" class="size-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      } @else {
+        <div
+          class="flex flex-1 flex-col items-center justify-center gap-3 px-6 text-center text-muted-foreground"
+        >
+          <app-lucide name="mail" class="size-10 opacity-30" />
+          <p class="text-sm">Select a message to read</p>
+        </div>
+      }
     </section>
   </div>
 </app-admincn-shell>
