@@ -1,5 +1,5 @@
-@import 'tailwindcss';
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
+@import 'tailwindcss';
 
 /* Scan Angular templates & TS (inline templates + class strings) for both the
    demo app and the ng-blatui library. Paths are relative to this file
