@@ -8,7 +8,11 @@
     ></div>
 
     <!-- ===================== SIDEBAR ===================== -->
-    <aside class="acn-sidebar" [class.acn-sidebar-open]="sidebarOpen()">
+    <aside
+      class="acn-sidebar"
+      [class.acn-sidebar-open]="sidebarOpen()"
+      [class.acn-rail]="collapsed()"
+    >
       <div class="acn-sidebar-header">
         <span class="acn-logo">
           <svg
@@ -25,7 +29,7 @@
             <path d="m18.6 5.4-13.2 13.2" />
           </svg>
         </span>
-        <div class="min-w-0 leading-tight">
+        <div class="acn-logo-text min-w-0 leading-tight">
           <div class="truncate text-[0.95rem] font-semibold">AdminCN</div>
           <div class="truncate text-xs text-muted-foreground">Dashboard Template</div>
         </div>
@@ -37,19 +41,30 @@
             <p class="acn-nav-label">{{ group.label }}</p>
             @for (item of group.items; track item.label) {
               <a
-                [routerLink]="item.route ?? null"
-                [attr.href]="item.route ? null : '#'"
+                [routerLink]="item.chevron ? null : (item.route ?? null)"
+                [attr.href]="item.route || item.chevron ? null : '#'"
                 class="acn-nav-item"
                 [class.acn-nav-active]="item.label === active()"
-                (click)="sidebarOpen.set(false)"
+                [attr.title]="item.label"
+                (click)="
+                  item.chevron ? toggleExpanded(item.label) : sidebarOpen.set(false);
+                  $event.stopPropagation()
+                "
               >
                 <app-lucide [name]="item.icon" class="size-4 shrink-0" />
-                <span class="flex-1 truncate">{{ item.label }}</span>
+                <span class="acn-nav-text flex-1 truncate">{{ item.label }}</span>
                 @if (item.chevron) {
-                  <app-lucide name="chevron-right" class="size-4 shrink-0 opacity-60" />
+                  <app-lucide
+                    name="chevron-right"
+                    class="acn-nav-text size-4 shrink-0 opacity-60 transition-transform"
+                    [class.rotate-90]="expanded().has(item.label)"
+                  />
                 }
                 @if (item.external) {
-                  <app-lucide name="external-link" class="size-3.5 shrink-0 opacity-50" />
+                  <app-lucide
+                    name="external-link"
+                    class="acn-nav-text size-3.5 shrink-0 opacity-50"
+                  />
                 }
               </a>
             }
@@ -66,12 +81,12 @@
           type="button"
           class="acn-icon-btn"
           aria-label="Toggle sidebar"
-          (click)="sidebarOpen.set(!sidebarOpen())"
+          (click)="toggleSidebar()"
         >
           <app-lucide name="panel-left" class="size-4.5" />
         </button>
         <span class="acn-topbar-divider"></span>
-        <button type="button" class="acn-search">
+        <button type="button" class="acn-search" (click)="paletteOpen.set(true)">
           <app-lucide name="search" class="size-4" />
           <span>Type to search...</span>
           <kbd class="acn-kbd">⌘K</kbd>
@@ -81,20 +96,90 @@
           <button type="button" class="acn-icon-btn" aria-label="Activity">
             <app-lucide name="activity" class="size-4.5" />
           </button>
-          <button type="button" class="acn-icon-btn relative" aria-label="Notifications">
-            <app-lucide name="bell" class="size-4.5" />
-            <span class="acn-dot-red"></span>
+
+          <!-- Notifications dropdown -->
+          <div class="acn-menu-wrap">
+            <button
+              type="button"
+              class="acn-icon-btn relative"
+              aria-label="Notifications"
+              (click)="toggleMenu('bell')"
+            >
+              <app-lucide name="bell" class="size-4.5" />
+              <span class="acn-dot-red"></span>
+            </button>
+            @if (openMenu() === 'bell') {
+              <div class="acn-dropdown acn-dropdown-wide">
+                <div class="acn-dropdown-head">
+                  Notifications <span class="acn-badge-primary">3 new</span>
+                </div>
+                @for (n of notifications; track n.title) {
+                  <a href="#" class="acn-dropdown-item">
+                    <span class="acn-icon-tile acn-tile-teal size-8">
+                      <app-lucide [name]="n.icon" class="size-4" />
+                    </span>
+                    <span class="flex min-w-0 flex-1 flex-col">
+                      <span class="truncate text-sm font-medium">{{ n.title }}</span>
+                      <span class="truncate text-xs text-muted-foreground">{{ n.time }}</span>
+                    </span>
+                  </a>
+                }
+                <a href="#" class="acn-dropdown-foot">View all notifications</a>
+              </div>
+            }
+          </div>
+
+          <!-- Theme toggle -->
+          <button
+            type="button"
+            class="acn-icon-btn"
+            aria-label="Toggle theme"
+            (click)="theme.toggle()"
+          >
+            @if (theme.isDark()) {
+              <app-lucide name="sun" class="size-4.5" />
+            } @else {
+              <app-lucide name="moon" class="size-4.5" />
+            }
           </button>
-          <button type="button" class="acn-icon-btn" aria-label="Toggle theme">
-            <app-lucide name="moon" class="size-4.5" />
-          </button>
+
           <button type="button" class="acn-icon-btn" aria-label="Customize">
             <app-lucide name="palette" class="size-4.5" />
           </button>
-          <button type="button" class="acn-avatar-btn" aria-label="Account">
-            <img src="/admincn/avatars/avatar-1.webp" alt="John Doe" class="size-8 rounded-full" />
-            <span class="acn-dot-green"></span>
-          </button>
+
+          <!-- Account dropdown -->
+          <div class="acn-menu-wrap">
+            <button
+              type="button"
+              class="acn-avatar-btn"
+              aria-label="Account"
+              (click)="toggleMenu('avatar')"
+            >
+              <img
+                src="/admincn/avatars/avatar-1.webp"
+                alt="John Doe"
+                class="size-8 rounded-full"
+              />
+              <span class="acn-dot-green"></span>
+            </button>
+            @if (openMenu() === 'avatar') {
+              <div class="acn-dropdown">
+                <div class="acn-dropdown-user">
+                  <img src="/admincn/avatars/avatar-1.webp" alt="" class="size-9 rounded-full" />
+                  <span class="flex min-w-0 flex-col">
+                    <span class="truncate text-sm font-medium">John Doe</span>
+                    <span class="truncate text-xs text-muted-foreground">john&#64;example.com</span>
+                  </span>
+                </div>
+                @for (m of accountMenu; track m.label) {
+                  <a href="#" class="acn-dropdown-item">
+                    <app-lucide [name]="m.icon" class="size-4 text-muted-foreground" />
+                    <span class="text-sm">{{ m.label }}</span>
+                  </a>
+                }
+              </div>
+            }
+          </div>
         </div>
       </header>
 
@@ -117,5 +202,52 @@
         </footer>
       </div>
     </main>
+
+    <!-- Dropdown click-away catcher -->
+    @if (openMenu()) {
+      <div class="acn-menu-catcher" (click)="openMenu.set(null)"></div>
+    }
+
+    <!-- ===================== COMMAND PALETTE (⌘K) ===================== -->
+    @if (paletteOpen()) {
+      <div class="acn-palette-overlay" (click)="paletteOpen.set(false)">
+        <div class="acn-palette" (click)="$event.stopPropagation()">
+          <div class="acn-palette-input">
+            <app-lucide name="search" class="size-4 text-muted-foreground" />
+            <input
+              #cmd
+              type="text"
+              placeholder="Type a command or search…"
+              (input)="query.set(cmd.value)"
+            />
+            <kbd class="acn-kbd">esc</kbd>
+          </div>
+          <div class="acn-palette-list">
+            @for (group of nav; track group.label) {
+              @if (filteredItems(group.items).length) {
+                <p class="acn-palette-group">{{ group.label }}</p>
+                @for (item of filteredItems(group.items); track item.label) {
+                  <a
+                    [routerLink]="item.route ?? null"
+                    [attr.href]="item.route ? null : '#'"
+                    class="acn-palette-item"
+                    (click)="paletteOpen.set(false)"
+                  >
+                    <app-lucide [name]="item.icon" class="size-4 text-muted-foreground" />
+                    <span>{{ item.label }}</span>
+                    @if (item.route) {
+                      <app-lucide name="arrow-up-right" class="ml-auto size-3.5 opacity-40" />
+                    }
+                  </a>
+                }
+              }
+            }
+            @if (!hasResults()) {
+              <p class="acn-palette-empty">No results found.</p>
+            }
+          </div>
+        </div>
+      </div>
+    }
   </div>
 </div>
