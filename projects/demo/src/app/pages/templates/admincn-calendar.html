@@ -1,0 +1,358 @@
+<app-admincn-shell active="Calendar">
+  <div class="flex flex-col gap-6 lg:flex-row lg:items-start">
+    <!-- ============ LEFT PANEL ============ -->
+    <aside class="flex w-full flex-shrink-0 flex-col gap-6 lg:w-[260px]">
+      <!-- New event -->
+      <button type="button" class="acn-btn-primary w-full">
+        <app-lucide name="plus" class="size-4" />
+        <span>New event</span>
+      </button>
+
+      <!-- Mini month calendar -->
+      <div class="acn-card p-3">
+        <div class="mb-2 flex items-center justify-between px-1">
+          <button type="button" class="acn-menu-btn" aria-label="Previous month">
+            <app-lucide name="chevron-left" class="size-4" />
+          </button>
+          <span class="text-sm font-semibold">June 2026</span>
+          <button type="button" class="acn-menu-btn" aria-label="Next month">
+            <app-lucide name="chevron-right" class="size-4" />
+          </button>
+        </div>
+        <div class="grid grid-cols-7 gap-y-1 text-center">
+          @for (wd of miniWeekdays; track wd) {
+            <span class="py-1 text-[0.7rem] font-medium text-muted-foreground">{{ wd }}</span>
+          }
+          @for (week of miniWeeks; track $index) {
+            @for (d of week; track $index) {
+              <button
+                type="button"
+                class="acn-mini-day"
+                [class.acn-mini-today]="d.today"
+                [class.text-muted-foreground]="d.outside"
+                [class.opacity-50]="d.outside"
+              >
+                <span>{{ d.num }}</span>
+                @if (d.dots?.length) {
+                  <span class="acn-mini-dots">
+                    @for (c of d.dots; track $index) {
+                      <span class="acn-dot-cat" [class]="'acn-cat-' + c"></span>
+                    }
+                  </span>
+                }
+              </button>
+            }
+          }
+        </div>
+      </div>
+
+      <!-- Event filters -->
+      <div class="acn-card p-4">
+        <p class="mb-3 text-sm font-semibold">Event filters</p>
+        <div class="flex flex-col gap-3">
+          @for (f of filters; track f.id) {
+            <label [attr.for]="f.id" class="flex cursor-pointer items-center gap-2.5">
+              <span class="acn-check" [class]="'acn-check-' + f.color">
+                <app-lucide name="check" class="size-3.5" />
+              </span>
+              <span class="text-sm">{{ f.label }}</span>
+              <input
+                [id]="f.id"
+                type="checkbox"
+                checked
+                class="sr-only"
+                [attr.aria-label]="f.label"
+              />
+            </label>
+          }
+        </div>
+      </div>
+    </aside>
+
+    <!-- ============ MONTH GRID ============ -->
+    <div class="acn-card min-w-0 flex-1">
+      <!-- Calendar toolbar -->
+      <div class="flex flex-wrap items-center gap-3 border-b border-border p-3 sm:p-4">
+        <button type="button" class="acn-select lg:hidden" aria-label="Menu">
+          <app-lucide name="menu" class="size-4" />
+        </button>
+        <button type="button" class="acn-select">
+          <app-lucide name="calendar-check" class="size-4" />
+          <span>Today</span>
+        </button>
+
+        <div class="mx-auto flex items-center gap-1">
+          <button type="button" class="acn-menu-btn" aria-label="Previous">
+            <app-lucide name="chevron-left" class="size-4" />
+          </button>
+          <span class="px-1 text-base font-semibold sm:text-lg">June 2026</span>
+          <button type="button" class="acn-menu-btn" aria-label="Next">
+            <app-lucide name="chevron-right" class="size-4" />
+          </button>
+        </div>
+
+        <button type="button" class="acn-select">
+          <span>Month</span>
+          <app-lucide name="chevron-down" class="size-4 opacity-70" />
+        </button>
+      </div>
+
+      <!-- Weekday header -->
+      <div class="grid grid-cols-7 border-b border-border">
+        @for (wd of weekdays; track wd) {
+          <div class="px-2 py-2.5 text-xs text-muted-foreground sm:text-sm">{{ wd }}</div>
+        }
+      </div>
+
+      <!-- Weeks -->
+      @for (week of weeks; track $index) {
+        <div class="grid grid-cols-7 border-b border-border last:border-b-0">
+          @for (d of week; track $index) {
+            <div class="acn-day-cell" [class.acn-day-outside]="d.outside">
+              <div class="acn-day-num" [class.acn-day-today]="d.today">{{ d.num }}</div>
+              @if (d.events?.length) {
+                <div class="acn-day-events">
+                  @for (e of d.events; track $index) {
+                    <span
+                      class="acn-evt"
+                      [class]="'acn-evt-' + e.color"
+                      [class.acn-evt-past]="e.past"
+                      [class.acn-evt-start]="e.span === 'start'"
+                      [class.acn-evt-mid]="e.span === 'mid'"
+                      [class.acn-evt-end]="e.span === 'end'"
+                    >
+                      @if (e.time) {
+                        <span class="acn-evt-time">{{ e.time }}</span>
+                      }
+                      @if (e.span === 'mid' || e.span === 'end') {
+                        <span class="sr-only">{{ e.title }}</span>
+                      } @else {
+                        <span class="acn-evt-title">{{ e.title }}</span>
+                      }
+                    </span>
+                  }
+                  @if (d.more) {
+                    <span class="acn-evt-more">+ {{ d.more }} more</span>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</app-admincn-shell>
+
+<!-- One-off styles scoped to this page (encapsulation None, no styleUrl). -->
+<style>
+  /* Mini calendar day cells */
+  #tpl-admincn .acn-mini-day {
+    position: relative;
+    display: inline-flex;
+    height: 2rem;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: var(--radius-md, 0.5rem);
+    background: transparent;
+    font-size: 0.8rem;
+    color: var(--foreground);
+    cursor: pointer;
+  }
+  #tpl-admincn .acn-mini-day:hover {
+    background: var(--accent);
+  }
+  #tpl-admincn .acn-mini-today,
+  #tpl-admincn .acn-mini-today:hover {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+  #tpl-admincn .acn-mini-dots {
+    position: absolute;
+    bottom: 0.18rem;
+    display: inline-flex;
+    gap: 0.1rem;
+  }
+  #tpl-admincn .acn-dot-cat {
+    height: 0.3rem;
+    width: 0.3rem;
+    border-radius: 9999px;
+  }
+  #tpl-admincn .acn-cat-sky {
+    background: var(--color-sky-400, #38bdf8);
+  }
+  #tpl-admincn .acn-cat-amber {
+    background: var(--color-amber-400, #fbbf24);
+  }
+  #tpl-admincn .acn-cat-emerald {
+    background: var(--color-emerald-400, #34d399);
+  }
+  #tpl-admincn .acn-cat-violet {
+    background: var(--color-violet-400, #a78bfa);
+  }
+  #tpl-admincn .acn-cat-rose {
+    background: var(--color-rose-400, #fb7185);
+  }
+
+  /* Filter check swatches */
+  #tpl-admincn .acn-check {
+    display: inline-flex;
+    height: 1rem;
+    width: 1rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    color: white;
+  }
+  #tpl-admincn .acn-check-primary {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--primary-foreground);
+  }
+  #tpl-admincn .acn-check-amber {
+    background: var(--color-amber-400, #fbbf24);
+    border-color: var(--color-amber-400, #fbbf24);
+  }
+  #tpl-admincn .acn-check-violet {
+    background: var(--color-violet-400, #a78bfa);
+    border-color: var(--color-violet-400, #a78bfa);
+  }
+  #tpl-admincn .acn-check-rose {
+    background: var(--color-rose-400, #fb7185);
+    border-color: var(--color-rose-400, #fb7185);
+  }
+  #tpl-admincn .acn-check-emerald {
+    background: var(--color-emerald-400, #34d399);
+    border-color: var(--color-emerald-400, #34d399);
+  }
+  #tpl-admincn .acn-check-sky {
+    background: var(--color-sky-400, #38bdf8);
+    border-color: var(--color-sky-400, #38bdf8);
+  }
+
+  /* Month grid day cells */
+  #tpl-admincn .acn-day-cell {
+    position: relative;
+    display: flex;
+    min-height: 72px;
+    flex-direction: column;
+    gap: 0.25rem;
+    border-right: 1px solid var(--border);
+    padding: 0.4rem;
+  }
+  #tpl-admincn .acn-day-cell:nth-child(7n) {
+    border-right: none;
+  }
+  @media (min-width: 640px) {
+    #tpl-admincn .acn-day-cell {
+      min-height: 112px;
+    }
+  }
+  #tpl-admincn .acn-day-outside {
+    background: color-mix(in oklab, var(--muted) 35%, transparent);
+  }
+  #tpl-admincn .acn-day-num {
+    display: inline-flex;
+    height: 1.5rem;
+    min-width: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  #tpl-admincn .acn-day-outside .acn-day-num {
+    color: var(--muted-foreground);
+  }
+  #tpl-admincn .acn-day-today {
+    background: var(--primary);
+    color: var(--primary-foreground);
+    font-weight: 600;
+  }
+  #tpl-admincn .acn-day-events {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  /* Event pills */
+  #tpl-admincn .acn-evt {
+    display: flex;
+    height: 24px;
+    align-items: center;
+    gap: 0.25rem;
+    overflow: hidden;
+    border-radius: 0.25rem;
+    padding: 0 0.4rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  @media (min-width: 640px) {
+    #tpl-admincn .acn-evt {
+      font-size: 0.75rem;
+    }
+  }
+  #tpl-admincn .acn-evt-time {
+    font-weight: 400;
+    opacity: 0.7;
+  }
+  #tpl-admincn .acn-evt-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  #tpl-admincn .acn-evt-past .acn-evt-title,
+  #tpl-admincn .acn-evt-past .acn-evt-time {
+    text-decoration: line-through;
+  }
+  /* Multi-day span rounding (visually continuous across cells) */
+  #tpl-admincn .acn-evt-start {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-right: -0.4rem;
+  }
+  #tpl-admincn .acn-evt-mid {
+    border-radius: 0;
+    margin-inline: -0.4rem;
+  }
+  #tpl-admincn .acn-evt-end {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: -0.4rem;
+  }
+
+  /* Category tints */
+  #tpl-admincn .acn-evt-sky {
+    background: color-mix(in oklab, var(--color-sky-400, #38bdf8) 35%, transparent);
+    color: color-mix(in oklab, var(--color-sky-950, #082f49) 85%, transparent);
+  }
+  #tpl-admincn .acn-evt-amber {
+    background: color-mix(in oklab, var(--color-amber-400, #fbbf24) 38%, transparent);
+    color: color-mix(in oklab, var(--color-amber-950, #451a03) 85%, transparent);
+  }
+  #tpl-admincn .acn-evt-emerald {
+    background: color-mix(in oklab, var(--color-emerald-400, #34d399) 38%, transparent);
+    color: color-mix(in oklab, var(--color-emerald-950, #022c22) 85%, transparent);
+  }
+  #tpl-admincn .acn-evt-violet {
+    background: color-mix(in oklab, var(--color-violet-400, #a78bfa) 38%, transparent);
+    color: color-mix(in oklab, var(--color-violet-950, #2e1065) 85%, transparent);
+  }
+  #tpl-admincn .acn-evt-rose {
+    background: color-mix(in oklab, var(--color-rose-400, #fb7185) 38%, transparent);
+    color: color-mix(in oklab, var(--color-rose-950, #4c0519) 85%, transparent);
+  }
+
+  #tpl-admincn .acn-evt-more {
+    padding: 0.1rem 0.4rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+  }
+</style>

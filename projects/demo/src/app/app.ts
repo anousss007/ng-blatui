@@ -186,6 +186,8 @@ export class App {
   protected readonly isFullBleed = computed(
     () => this.isHome() || this.url().startsWith('/templates/'),
   );
+  /** Self-contained app templates render with no demo header/footer chrome. */
+  protected readonly isBare = computed(() => this.url().startsWith('/templates/admincn'));
   /** Component routes (/components, /components/:slug) get the categorized docs sidebar. */
   protected readonly isComponentRoute = computed(() => this.url().startsWith('/components'));
   /** Docs routes (/docs/*) get the docs sidebar. */

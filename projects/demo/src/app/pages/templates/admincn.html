@@ -1,0 +1,578 @@
+<app-admincn-shell active="Sales">
+  <div class="grid grid-cols-6 gap-6">
+    <!-- ============ KPI 1 — Total Profit ============ -->
+    <div class="acn-card acn-kpi acn-span justify-between">
+      <div class="flex flex-col gap-1">
+        <div class="flex items-baseline gap-2">
+          <span class="text-2xl font-semibold tracking-tight">$88.5k</span>
+          <span class="text-sm text-muted-foreground">-18%</span>
+        </div>
+        <p class="text-sm text-muted-foreground">Total Profit</p>
+      </div>
+      <div class="acn-kpi-chart">
+        <svg viewBox="0 0 120 56" class="h-14 w-full" preserveAspectRatio="none">
+          @for (b of profitBars; track $index) {
+            <rect
+              [attr.x]="$index * 24 + 6"
+              [attr.y]="56 - b.amber"
+              width="12"
+              [attr.height]="b.amber"
+              rx="2.5"
+              class="acn-bar-amber"
+            />
+            <rect
+              [attr.x]="$index * 24 + 6"
+              [attr.y]="56 - b.amber - b.teal"
+              width="12"
+              [attr.height]="b.teal + 3"
+              rx="2.5"
+              class="acn-bar-teal"
+            />
+          }
+        </svg>
+      </div>
+    </div>
+
+    <!-- ============ KPI 2 — Order ============ -->
+    <div class="acn-card acn-kpi acn-span">
+      <div class="flex flex-col gap-1">
+        <span class="font-heading text-base font-semibold">Order</span>
+        <p class="text-sm text-muted-foreground">Last week</p>
+      </div>
+      <div class="acn-kpi-chart">
+        <svg viewBox="0 0 120 56" class="h-14 w-full" preserveAspectRatio="none">
+          @for (v of orderBars; track $index) {
+            <rect
+              [attr.x]="$index * 17 + 4"
+              y="0"
+              width="10"
+              height="56"
+              rx="3"
+              class="acn-bar-track"
+            />
+            <rect
+              [attr.x]="$index * 17 + 4"
+              [attr.y]="56 - (v / 100) * 56"
+              width="10"
+              [attr.height]="(v / 100) * 56"
+              rx="3"
+              class="acn-bar-orange"
+            />
+          }
+        </svg>
+      </div>
+      <div class="flex items-baseline gap-2">
+        <span class="text-lg font-semibold tracking-tight">124K</span>
+        <span class="text-sm text-primary">+12.6%</span>
+      </div>
+    </div>
+
+    <!-- ============ KPI 3 — Profit ============ -->
+    <div class="acn-card acn-kpi acn-span">
+      <div class="flex flex-col gap-1">
+        <span class="font-heading text-base font-semibold">Profit</span>
+        <p class="text-sm text-muted-foreground">Last Month</p>
+      </div>
+      <div class="acn-kpi-chart">
+        <svg viewBox="0 0 104 56" class="h-14 w-full">
+          @for (g of [20, 40, 60, 80]; track g) {
+            <line [attr.x1]="g" y1="2" [attr.x2]="g" y2="54" class="acn-grid-line" />
+          }
+          <polyline
+            [attr.points]="profitLine"
+            fill="none"
+            stroke="var(--chart-2)"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          @for (d of profitDots; track $index) {
+            <circle [attr.cx]="d[0]" [attr.cy]="d[1]" r="2.6" class="acn-dot" />
+          }
+        </svg>
+      </div>
+      <div class="flex items-baseline gap-2">
+        <span class="text-lg font-semibold tracking-tight">624K</span>
+        <span class="text-sm text-primary">+12.6%</span>
+      </div>
+    </div>
+
+    <!-- ============ KPI 4 — User reach ============ -->
+    <div class="acn-card acn-kpi acn-span">
+      <div class="flex flex-col gap-1">
+        <span class="font-heading text-base font-semibold">User reach</span>
+        <p class="text-sm text-muted-foreground">Last week</p>
+      </div>
+      <div class="flex flex-1 items-center justify-center">
+        <div class="relative size-[88px]">
+          <svg viewBox="0 0 100 100" class="size-full -rotate-90">
+            <circle cx="50" cy="50" r="40" fill="none" class="acn-bar-track" stroke-width="11" />
+            <circle
+              cx="50"
+              cy="50"
+              r="40"
+              fill="none"
+              stroke="var(--chart-5)"
+              stroke-width="11"
+              stroke-linecap="round"
+              [attr.stroke-dasharray]="donutDash * 2.513 + ' 251.3'"
+            />
+          </svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center leading-none">
+            <span class="text-base font-semibold">500</span>
+            <span class="text-xs text-muted-foreground">Visitors</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-baseline gap-2">
+        <span class="text-lg font-semibold tracking-tight">32K</span>
+        <span class="text-sm text-primary">+12%</span>
+      </div>
+    </div>
+
+    <!-- ============ KPI 5 — Total Income ============ -->
+    <div class="acn-card acn-kpi acn-span justify-between">
+      <span class="acn-icon-tile acn-tile-teal size-10">
+        <app-lucide name="circle-dollar-sign" class="size-5" />
+      </span>
+      <div class="flex flex-col gap-1">
+        <span class="font-heading text-base font-semibold">Total Income</span>
+        <p class="text-sm text-muted-foreground">Last week</p>
+        <div class="mt-1 flex items-center justify-between gap-2">
+          <span class="text-xl font-semibold tracking-tight">$4,673</span>
+          <span class="acn-badge-green">+25.2%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ KPI 6 — Total Expense ============ -->
+    <div class="acn-card acn-kpi acn-span justify-between">
+      <span class="acn-icon-tile acn-tile-amber size-10">
+        <app-lucide name="wallet" class="size-5" />
+      </span>
+      <div class="flex flex-col gap-1">
+        <span class="font-heading text-base font-semibold">Total Expense</span>
+        <p class="text-sm text-muted-foreground">Last month</p>
+        <div class="mt-1 flex items-center justify-between gap-2">
+          <span class="text-xl font-semibold tracking-tight">$1.28K</span>
+          <span class="acn-badge-red">-12.2%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ Total Transaction + Report ============ -->
+    <div class="acn-card col-span-full grid grid-cols-1 gap-4 py-6 md:grid-cols-5 lg:col-span-4">
+      <!-- Transaction -->
+      <div
+        class="flex flex-col gap-6 px-6 max-md:border-b max-md:pb-4 md:col-span-3 md:border-r md:pr-4"
+      >
+        <div class="flex items-start justify-between">
+          <div class="flex flex-col gap-1">
+            <h3 class="font-heading text-lg font-semibold">Total Transaction</h3>
+            <p class="text-sm text-muted-foreground">Weekly overview</p>
+          </div>
+          <button type="button" class="acn-menu-btn" aria-label="Menu">
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+        </div>
+        <div class="acn-barchart">
+          @for (b of txBars; track b.label) {
+            <div class="acn-barcol">
+              <div class="acn-bartrack">
+                <div
+                  class="acn-barfill"
+                  [class.acn-barfill-hi]="b.label === txHighlight"
+                  [style.height.%]="barH(b.value, txMax)"
+                >
+                  <span class="acn-barval">{{ b.display }}</span>
+                </div>
+              </div>
+              <span class="acn-barlabel">{{ b.label }}</span>
+            </div>
+          }
+        </div>
+      </div>
+      <!-- Report -->
+      <div class="flex flex-col gap-6 px-6 md:col-span-2">
+        <div class="flex items-start justify-between">
+          <div class="flex flex-col gap-1">
+            <h3 class="font-heading text-lg font-semibold">Report</h3>
+            <p class="text-sm text-muted-foreground">Last month transactions $23.4K</p>
+          </div>
+          <button type="button" class="acn-menu-btn" aria-label="Menu">
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+        </div>
+        <div class="grid grid-cols-2">
+          <div class="flex flex-col gap-3 pr-4">
+            <span class="acn-icon-tile acn-tile-amber size-9">
+              <app-lucide name="circle-dollar-sign" class="size-5" />
+            </span>
+            <div>
+              <p class="text-sm text-muted-foreground">This week</p>
+              <p class="text-2xl font-semibold tracking-tight">+82.46%</p>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3 border-l pl-4">
+            <span class="acn-icon-tile acn-tile-teal size-9">
+              <app-lucide name="wallet" class="size-5" />
+            </span>
+            <div>
+              <p class="text-sm text-muted-foreground">This week</p>
+              <p class="text-2xl font-semibold tracking-tight">-24.8%</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-auto flex items-end justify-between gap-2">
+          <div class="flex flex-col gap-1">
+            <span class="flex items-center gap-1.5 text-sm text-muted-foreground">
+              <app-lucide name="trending-up" class="size-4 text-chart-2" /> Performance
+            </span>
+            <span class="text-xl font-semibold tracking-tight">+94.13%</span>
+          </div>
+          <button type="button" class="acn-btn-primary">View Report</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ Total sales ============ -->
+    <div class="acn-card col-span-full flex flex-col gap-4 p-6 sm:col-span-3 lg:col-span-2">
+      <div class="flex items-center justify-between gap-2">
+        <h3 class="flex items-center gap-2 font-heading text-lg font-semibold">
+          <span class="acn-icon-tile acn-tile-teal size-8">
+            <app-lucide name="trending-up" class="size-4" />
+          </span>
+          Total sales
+        </h3>
+        <button type="button" class="acn-btn-outline-xs">Details</button>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-2xl font-semibold tracking-tight">$2,150.00</span>
+        <span class="acn-badge-muted">+5%</span>
+      </div>
+      <div class="flex flex-col gap-3 border-t pt-4 text-sm">
+        <div class="flex items-center justify-between gap-2">
+          <span class="flex items-center gap-2 text-muted-foreground">
+            <app-lucide name="globe" class="size-4" /> Online Store
+          </span>
+          <span class="flex items-center gap-2">
+            <span class="font-medium">$20k</span><span class="acn-badge-green">+12.6%</span>
+          </span>
+        </div>
+        <div class="flex items-center justify-between gap-2">
+          <span class="flex items-center gap-2 text-muted-foreground">
+            <app-lucide name="store" class="size-4" /> Offline Store
+          </span>
+          <span class="flex items-center gap-2">
+            <span class="font-medium">$20k</span><span class="acn-badge-red">-4.2%</span>
+          </span>
+        </div>
+      </div>
+      <div class="mt-1">
+        <svg viewBox="0 0 309 130" class="h-28 w-full" preserveAspectRatio="none">
+          <path [attr.d]="salesArea" fill="var(--chart-2)" fill-opacity="0.1" />
+          <polyline
+            [attr.points]="salesPath"
+            fill="none"
+            stroke="var(--chart-2)"
+            stroke-width="2.5"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+          />
+        </svg>
+        <div class="flex justify-between px-1 text-xs text-muted-foreground">
+          @for (t of salesTimes; track t) {
+            <span>{{ t }}</span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ Upgrade your plan ============ -->
+    <div class="acn-card col-span-full flex flex-col gap-5 p-6 sm:col-span-3 lg:col-span-2">
+      <div class="flex items-start justify-between">
+        <div class="flex flex-col gap-1">
+          <h3 class="font-heading text-lg font-semibold">Upgrade your plan</h3>
+          <p class="text-sm text-muted-foreground">
+            To fully enjoy all the amazing features and benefits of our premium plan.
+          </p>
+        </div>
+        <button type="button" class="acn-menu-btn" aria-label="Menu">
+          <app-lucide name="ellipsis-vertical" class="size-4" />
+        </button>
+      </div>
+
+      <div class="acn-plan-row">
+        <span class="acn-icon-tile acn-tile-muted size-10">
+          <app-lucide name="wallet" class="size-5" />
+        </span>
+        <div class="flex flex-1 flex-col">
+          <span class="font-medium">Platinum</span>
+          <span class="text-xs text-muted-foreground">Last 6 months</span>
+        </div>
+        <div class="text-right">
+          <span class="font-semibold">$5,550</span
+          ><span class="text-sm text-muted-foreground">/Year</span>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-sm font-medium">Payment details</p>
+        <div class="acn-pay-row">
+          <img
+            [src]="img + '/widgets/master-card.webp'"
+            alt="master-card"
+            class="h-6 w-9 object-contain"
+          />
+          <div class="flex flex-1 flex-col">
+            <span class="text-sm font-medium">Credit card</span>
+            <span class="text-xs text-muted-foreground">5688 xxxx xxxx 2356</span>
+          </div>
+          <span class="text-xs text-muted-foreground">CVC</span>
+        </div>
+        <div class="acn-pay-row">
+          <img [src]="img + '/widgets/visa.webp'" alt="visa" class="h-6 w-9 object-contain" />
+          <div class="flex flex-1 flex-col">
+            <span class="text-sm font-medium">Credit card</span>
+            <span class="text-xs text-muted-foreground">8562 xxxx xxxx 4563</span>
+          </div>
+          <span class="text-xs text-muted-foreground">CVC</span>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <p class="text-sm font-medium">Add Payment method</p>
+        <div class="acn-input">
+          <app-lucide name="credit-card" class="size-4 text-muted-foreground" />
+          <input type="text" placeholder="Card Number" aria-label="Card Number" />
+        </div>
+      </div>
+
+      <button type="button" class="acn-btn-primary w-full">Pay now</button>
+    </div>
+
+    <!-- ============ Earning Report ============ -->
+    <div class="acn-card col-span-full flex flex-col gap-6 p-6 sm:col-span-3 lg:col-span-2">
+      <div class="flex items-start justify-between">
+        <div class="flex flex-col gap-1">
+          <h3 class="font-heading text-lg font-semibold">Earning Report</h3>
+          <p class="text-sm text-muted-foreground">Weekly Earning overview</p>
+        </div>
+        <button type="button" class="acn-menu-btn" aria-label="Menu">
+          <app-lucide name="ellipsis-vertical" class="size-4" />
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <div class="acn-earn-row">
+          <span class="acn-icon-tile acn-tile-orange size-9">
+            <app-lucide name="pie-chart" class="size-5" />
+          </span>
+          <div class="flex flex-1 flex-col">
+            <span class="text-sm font-medium">Net profit</span>
+            <span class="text-xs text-muted-foreground">Sales</span>
+          </div>
+          <span class="font-semibold">$1,623</span>
+          <span class="acn-earn-delta"><app-lucide name="chevron-up" class="size-3.5" />20.3%</span>
+        </div>
+        <div class="acn-earn-row">
+          <span class="acn-icon-tile acn-tile-teal size-9">
+            <app-lucide name="dollar-sign" class="size-5" />
+          </span>
+          <div class="flex flex-1 flex-col">
+            <span class="text-sm font-medium">Total income</span>
+            <span class="text-xs text-muted-foreground">Sales, Affiliation</span>
+          </div>
+          <span class="font-semibold">$5,600</span>
+          <span class="acn-earn-delta"><app-lucide name="chevron-up" class="size-3.5" />16.2%</span>
+        </div>
+        <div class="acn-earn-row">
+          <span class="acn-icon-tile acn-tile-amber size-9">
+            <app-lucide name="wallet" class="size-5" />
+          </span>
+          <div class="flex flex-1 flex-col">
+            <span class="text-sm font-medium">Total expense</span>
+            <span class="text-xs text-muted-foreground">ADVT, Marketing</span>
+          </div>
+          <span class="font-semibold">$3,200</span>
+          <span class="acn-earn-delta"><app-lucide name="chevron-up" class="size-3.5" />10.5%</span>
+        </div>
+      </div>
+
+      <div class="acn-barchart acn-barchart-sm mt-auto">
+        @for (b of earnBars; track b.label) {
+          <div class="acn-barcol">
+            <div class="acn-bartrack">
+              <div
+                class="acn-barfill"
+                [class.acn-barfill-hi]="b.label === earnHighlight"
+                [style.height.%]="barH(b.value, earnMax)"
+              ></div>
+            </div>
+            <span class="acn-barlabel">{{ b.label }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- ============ Design strategy master class ============ -->
+    <div
+      class="acn-card relative col-span-full flex flex-col gap-4 p-6 sm:col-span-3 lg:col-span-2"
+    >
+      <span class="acn-buy-now">Buy Now</span>
+      <div class="flex items-start gap-3">
+        <img [src]="img + '/avatars/avatar-6.webp'" alt="" class="size-10 rounded-full" />
+        <div class="flex flex-1 flex-col gap-1">
+          <h3 class="font-heading text-lg leading-tight font-semibold">
+            Design strategy master class
+          </h3>
+          <p class="text-sm text-muted-foreground">07 Jun 2025 at 10:00 PM</p>
+        </div>
+        <button type="button" class="acn-menu-btn" aria-label="Menu">
+          <app-lucide name="ellipsis-vertical" class="size-4" />
+        </button>
+      </div>
+
+      <div class="relative overflow-hidden rounded-lg">
+        <img
+          [src]="img + '/widgets/image-6.webp'"
+          alt="background image"
+          class="h-40 w-full object-cover"
+        />
+        <div class="acn-date-chip">
+          <span class="text-lg leading-none font-semibold">12</span>
+          <span class="text-xs">Dec</span>
+        </div>
+      </div>
+
+      <p class="text-sm font-medium">
+        How to improve you next design's strategy that works for user and business
+      </p>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="acn-chip">Technical</span>
+        <span class="acn-chip">User research</span>
+        <span class="acn-chip">Analytics</span>
+      </div>
+
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center gap-4 text-sm text-muted-foreground">
+          <span class="flex items-center gap-1.5"
+            ><app-lucide name="heart" class="size-4" />56k</span
+          >
+          <span class="flex items-center gap-1.5"
+            ><app-lucide name="message-circle" class="size-4" />2k</span
+          >
+        </div>
+        <button type="button" class="acn-btn-primary">Join now</button>
+      </div>
+    </div>
+
+    <!-- ============ Invoice table ============ -->
+    <div class="acn-card col-span-full flex flex-col py-6">
+      <div
+        class="flex flex-col gap-4 px-6 max-lg:flex-col lg:flex-row lg:items-center lg:justify-between"
+      >
+        <div class="flex items-center gap-3">
+          <span class="text-sm text-muted-foreground max-sm:sr-only">Show</span>
+          <button type="button" class="acn-select">
+            5 <app-lucide name="chevron-down" class="size-4 opacity-60" />
+          </button>
+          <button type="button" class="acn-btn-primary">Create Invoice</button>
+        </div>
+        <div class="flex flex-1 flex-wrap items-center gap-3 lg:max-w-md lg:justify-end">
+          <div class="acn-input flex-1">
+            <app-lucide name="search" class="size-4 text-muted-foreground" />
+            <input type="search" placeholder="Search client" aria-label="Search client" />
+          </div>
+          <button type="button" class="acn-select w-24 justify-between">
+            All <app-lucide name="chevron-down" class="size-4 opacity-60" />
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-2 overflow-x-auto px-2">
+        <table class="acn-table">
+          <thead>
+            <tr>
+              <th class="w-12"><span class="acn-checkbox"></span></th>
+              <th>ID</th>
+              <th>Status</th>
+              <th>Client</th>
+              <th>Total</th>
+              <th>Issued Date</th>
+              <th>Balance</th>
+              <th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (inv of invoices; track inv.id) {
+              <tr>
+                <td><span class="acn-checkbox"></span></td>
+                <td class="font-medium">{{ inv.id }}</td>
+                <td>
+                  <span class="acn-status" [class]="'acn-status-' + inv.statusTone">
+                    <app-lucide [name]="inv.statusIcon" class="size-4" />
+                  </span>
+                </td>
+                <td>
+                  <div class="flex items-center gap-2.5">
+                    <img [src]="inv.avatar" [alt]="inv.name" class="size-8 rounded-full" />
+                    <div class="flex flex-col">
+                      <span class="font-medium whitespace-nowrap">{{ inv.name }}</span>
+                      <span class="text-sm whitespace-nowrap text-muted-foreground">{{
+                        inv.role
+                      }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="font-medium whitespace-nowrap">{{ inv.total }}</td>
+                <td class="whitespace-nowrap text-muted-foreground">{{ inv.date }}</td>
+                <td>
+                  @if (inv.paid) {
+                    <span class="acn-badge-green">Paid</span>
+                  } @else {
+                    <span class="font-medium text-destructive">{{ inv.balance }}</span>
+                  }
+                </td>
+                <td>
+                  <div class="flex items-center justify-end gap-1 text-chart-2">
+                    <button type="button" class="acn-row-btn" aria-label="Send">
+                      <app-lucide name="send" class="size-4" />
+                    </button>
+                    <button type="button" class="acn-row-btn" aria-label="Delete">
+                      <app-lucide name="trash-2" class="size-4" />
+                    </button>
+                    <button type="button" class="acn-row-btn" aria-label="View">
+                      <app-lucide name="eye" class="size-4" />
+                    </button>
+                    <button type="button" class="acn-row-btn" aria-label="More">
+                      <app-lucide name="ellipsis-vertical" class="size-4" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
+        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 25 entries</span>
+        <div class="flex items-center gap-1">
+          <button type="button" class="acn-page-btn" aria-label="Previous">
+            <app-lucide name="chevron-left" class="size-4" /> Previous
+          </button>
+          <button type="button" class="acn-page-num acn-page-active">1</button>
+          <button type="button" class="acn-page-num">2</button>
+          <button type="button" class="acn-page-num">
+            <app-lucide name="ellipsis" class="size-4" />
+          </button>
+          <button type="button" class="acn-page-btn" aria-label="Next">
+            Next <app-lucide name="chevron-right" class="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-admincn-shell>

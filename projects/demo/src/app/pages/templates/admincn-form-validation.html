@@ -1,0 +1,644 @@
+<app-admincn-shell active="Form Validation">
+  <div class="flex flex-col gap-6">
+    <!-- ============================================================= -->
+    <!-- Validation Types                                              -->
+    <!-- ============================================================= -->
+    <div class="acn-card flex flex-col gap-6 p-6">
+      <h2 class="font-heading text-lg font-semibold">Validation Types</h2>
+
+      <div class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2">
+        <!-- Required Field -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Required Field</span>
+          <div class="acn-input">
+            <input type="text" placeholder="This field is required" aria-label="Required Field" />
+          </div>
+        </div>
+
+        <!-- Numeric Only -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Numeric Only</span>
+          <div class="acn-input">
+            <input
+              type="text"
+              placeholder="Must only consist of numbers"
+              aria-label="Numeric Only"
+            />
+          </div>
+        </div>
+
+        <!-- Alphabetic Only -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Alphabetic Only</span>
+          <div class="acn-input">
+            <input
+              type="text"
+              placeholder="Only alphabetic characters"
+              aria-label="Alphabetic Only"
+            />
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Password</span>
+          <div class="acn-input">
+            <app-lucide name="lock" class="size-4 text-muted-foreground" />
+            <input type="password" placeholder="Password Input Field" aria-label="Password" />
+            <button
+              type="button"
+              class="text-muted-foreground hover:text-foreground"
+              aria-label="Show password"
+            >
+              <app-lucide name="eye" class="size-4" />
+            </button>
+          </div>
+        </div>
+
+        <!-- Min & Max Length -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Min &amp; Max Length</span>
+          <div class="acn-input">
+            <input
+              type="text"
+              placeholder="Must be between 5 and 10 characters"
+              aria-label="Min and Max Length"
+            />
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Email</span>
+          <div class="acn-input">
+            <app-lucide name="mail" class="size-4 text-muted-foreground" />
+            <input type="email" placeholder="Must be a valid email" aria-label="Email" />
+          </div>
+        </div>
+
+        <!-- Number Range -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Number Range</span>
+          <div class="acn-input">
+            <input
+              type="text"
+              placeholder="Enter Number between 10 &amp; 20"
+              aria-label="Number Range"
+            />
+          </div>
+        </div>
+
+        <!-- Regex Pattern -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Regex Pattern</span>
+          <div class="acn-input">
+            <input
+              type="text"
+              placeholder="Must match regular expression : ^([0-9]+)$ - numbers only"
+              aria-label="Regex Pattern"
+            />
+          </div>
+        </div>
+
+        <!-- Exact Length -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Exact Length</span>
+          <div class="acn-input">
+            <input
+              type="text"
+              placeholder="Length must be exactly 3 characters."
+              aria-label="Exact Length"
+            />
+          </div>
+        </div>
+
+        <!-- Digits -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Digits</span>
+          <div class="acn-input">
+            <input
+              type="text"
+              placeholder="The digits field must be numeric and exactly contain 3 digits"
+              aria-label="Digits"
+            />
+          </div>
+        </div>
+
+        <!-- Alphanumeric & Symbols -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Alphanumeric &amp; Symbols</span>
+          <div class="acn-input">
+            <input
+              type="text"
+              placeholder="Only alphabetic characters, numbers, dashes or underscores"
+              aria-label="Alphanumeric and Symbols"
+            />
+          </div>
+        </div>
+
+        <!-- URL -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">URL</span>
+          <div class="acn-input">
+            <input type="text" placeholder="Must be a valid url" aria-label="URL" />
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button type="button" class="acn-btn-primary">Submit</button>
+        <button
+          type="button"
+          class="inline-flex h-9 items-center justify-center rounded-md border border-border bg-background px-3.5 text-sm font-medium text-foreground hover:bg-accent"
+        >
+          Reset
+        </button>
+      </div>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- Validation Modes Demo                                         -->
+    <!-- ============================================================= -->
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-1">
+        <h2 class="font-heading text-lg font-semibold">Validation Modes Demo</h2>
+        <p class="text-sm text-muted-foreground">
+          Experience how different validation modes affect user experience. Try typing in each field
+          to see when validation occurs.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <!-- onChange -->
+        <div class="acn-card flex flex-col gap-4 p-5">
+          <div class="flex flex-col gap-1">
+            <h3 class="font-heading text-base font-semibold">onChange Mode</h3>
+            <p class="text-sm text-muted-foreground">Validates on every keystroke</p>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Demo Input</span>
+            <div class="acn-input">
+              <input type="text" placeholder="Type here..." aria-label="onChange demo input" />
+            </div>
+            <p class="text-xs text-muted-foreground">
+              Error appears <span class="font-medium text-foreground">instantly</span> as you type
+            </p>
+          </div>
+          <div class="mt-auto flex items-center gap-2">
+            <button
+              type="button"
+              class="inline-flex h-8 items-center justify-center rounded-md border-none bg-primary px-3 text-sm font-medium text-primary-foreground"
+            >
+              Submit
+            </button>
+            <button
+              type="button"
+              class="inline-flex h-8 items-center justify-center rounded-md border border-border bg-background px-3 text-sm font-medium text-foreground hover:bg-accent"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- onBlur -->
+        <div class="acn-card flex flex-col gap-4 p-5">
+          <div class="flex flex-col gap-1">
+            <h3 class="font-heading text-base font-semibold">onBlur Mode</h3>
+            <p class="text-sm text-muted-foreground">Validates when you leave the field</p>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Demo Input</span>
+            <div class="acn-input">
+              <input type="text" placeholder="Type here..." aria-label="onBlur demo input" />
+            </div>
+            <p class="text-xs text-muted-foreground">
+              Error appears <span class="font-medium text-foreground">after</span> you leave the
+              field
+            </p>
+          </div>
+          <div class="mt-auto flex items-center gap-2">
+            <button
+              type="button"
+              class="inline-flex h-8 items-center justify-center rounded-md border-none bg-primary px-3 text-sm font-medium text-primary-foreground"
+            >
+              Submit
+            </button>
+            <button
+              type="button"
+              class="inline-flex h-8 items-center justify-center rounded-md border border-border bg-background px-3 text-sm font-medium text-foreground hover:bg-accent"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- onSubmit -->
+        <div class="acn-card flex flex-col gap-4 p-5">
+          <div class="flex flex-col gap-1">
+            <h3 class="font-heading text-base font-semibold">onSubmit Mode (Default)</h3>
+            <p class="text-sm text-muted-foreground">Validates only when you click submit</p>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Demo Input</span>
+            <div class="acn-input">
+              <input type="text" placeholder="Type here..." aria-label="onSubmit demo input" />
+            </div>
+            <p class="text-xs text-muted-foreground">
+              Error appears <span class="font-medium text-foreground">only</span> after clicking
+              submit
+            </p>
+          </div>
+          <div class="mt-auto flex items-center gap-2">
+            <button
+              type="button"
+              class="inline-flex h-8 items-center justify-center rounded-md border-none bg-primary px-3 text-sm font-medium text-primary-foreground"
+            >
+              Submit
+            </button>
+            <button
+              type="button"
+              class="inline-flex h-8 items-center justify-center rounded-md border border-border bg-background px-3 text-sm font-medium text-foreground hover:bg-accent"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- onTouched -->
+        <div class="acn-card flex flex-col gap-4 p-5">
+          <div class="flex flex-col gap-1">
+            <h3 class="font-heading text-base font-semibold">onTouched Mode</h3>
+            <p class="text-sm text-muted-foreground">Validates on blur, then on every change</p>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Demo Input</span>
+            <div class="acn-input">
+              <input type="text" placeholder="Type here..." aria-label="onTouched demo input" />
+            </div>
+            <p class="text-xs text-muted-foreground">
+              First validation on blur, then
+              <span class="font-medium text-foreground">real-time</span>
+            </p>
+          </div>
+          <div class="mt-auto flex items-center gap-2">
+            <button
+              type="button"
+              class="inline-flex h-8 items-center justify-center rounded-md border-none bg-primary px-3 text-sm font-medium text-primary-foreground"
+            >
+              Submit
+            </button>
+            <button
+              type="button"
+              class="inline-flex h-8 items-center justify-center rounded-md border border-border bg-background px-3 text-sm font-medium text-foreground hover:bg-accent"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modes reference table -->
+      <div class="acn-card overflow-x-auto">
+        <table class="acn-table">
+          <thead>
+            <tr>
+              <th>Mode</th>
+              <th>When Validation Occurs</th>
+              <th>Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="acn-badge-muted font-mono">onChange</span></td>
+              <td class="text-muted-foreground">Every keystroke</td>
+              <td class="text-muted-foreground">Real-time feedback (e.g., password strength)</td>
+            </tr>
+            <tr>
+              <td><span class="acn-badge-muted font-mono">onBlur</span></td>
+              <td class="text-muted-foreground">When leaving the field</td>
+              <td class="text-muted-foreground">
+                Less intrusive validation (recommended for most cases)
+              </td>
+            </tr>
+            <tr>
+              <td><span class="acn-badge-muted font-mono">onSubmit</span></td>
+              <td class="text-muted-foreground">When form is submitted</td>
+              <td class="text-muted-foreground">Simple forms, minimal interruption</td>
+            </tr>
+            <tr>
+              <td><span class="acn-badge-muted font-mono">onTouched</span></td>
+              <td class="text-muted-foreground">First blur, then every change</td>
+              <td class="text-muted-foreground">Balance between UX and feedback</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- Registration Form                                             -->
+    <!-- ============================================================= -->
+    <div class="flex flex-col gap-4">
+      <h2 class="font-heading text-lg font-semibold">Registration Form</h2>
+
+      <!-- Personal Information -->
+      <div class="acn-card flex flex-col gap-6 p-6">
+        <div class="flex flex-col gap-1">
+          <h3 class="font-heading text-base font-semibold">Personal Information</h3>
+          <p class="text-sm text-muted-foreground">Please provide your basic information</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2">
+          <!-- Full Name (valid / success) -->
+          <div class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Full Name</span>
+            <div class="acn-input" style="border-color: #16a34a">
+              <app-lucide name="user" class="size-4 text-muted-foreground" />
+              <input type="text" placeholder="John Doe" value="John Doe" aria-label="Full Name" />
+              <app-lucide name="check-circle-2" class="size-4" style="color: #16a34a" />
+            </div>
+            <p class="text-xs text-muted-foreground">
+              Your full name as it appears on official documents
+            </p>
+          </div>
+
+          <!-- Email Address (error) -->
+          <div class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Email Address</span>
+            <div class="acn-input border-destructive" style="border-color: var(--destructive)">
+              <app-lucide name="mail" class="size-4 text-destructive" />
+              <input
+                type="email"
+                placeholder="john.doe@example.com"
+                aria-label="Email Address"
+                aria-invalid="true"
+              />
+              <app-lucide name="triangle-alert" class="size-4 text-destructive" />
+            </div>
+            <p class="text-xs text-muted-foreground">
+              We'll never share your email with anyone else
+            </p>
+          </div>
+
+          <!-- Password (full width) -->
+          <div class="flex flex-col gap-2 md:col-span-2">
+            <span class="text-sm font-medium">Password</span>
+            <div class="acn-input">
+              <app-lucide name="lock" class="size-4 text-muted-foreground" />
+              <input type="password" placeholder="••••••••" aria-label="Password" />
+              <button
+                type="button"
+                class="text-muted-foreground hover:text-foreground"
+                aria-label="Show password"
+              >
+                <app-lucide name="eye" class="size-4" />
+              </button>
+            </div>
+            <p class="text-xs text-muted-foreground">
+              Must be at least 8 characters with uppercase, lowercase, and numbers
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Details -->
+      <div class="acn-card flex flex-col gap-6 p-6">
+        <div class="flex flex-col gap-1">
+          <h3 class="font-heading text-base font-semibold">Profile Details</h3>
+          <p class="text-sm text-muted-foreground">Tell us more about yourself</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2">
+          <!-- Date of Birth -->
+          <div class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Date of Birth</span>
+            <div class="acn-input">
+              <app-lucide name="calendar" class="size-4 text-muted-foreground" />
+              <input type="text" placeholder="YYYY-MM-DD" aria-label="Date of Birth" />
+            </div>
+            <p class="text-xs text-muted-foreground">Select your date of birth</p>
+          </div>
+
+          <!-- Age -->
+          <div class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Age</span>
+            <div class="acn-input">
+              <input type="number" placeholder="25" aria-label="Age" />
+            </div>
+            <p class="text-xs text-muted-foreground">
+              You must be at least 18 years old to register
+            </p>
+          </div>
+
+          <!-- Country -->
+          <div class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Country</span>
+            <button
+              type="button"
+              class="flex h-10 items-center justify-between rounded-md border border-border bg-background px-3 text-sm text-foreground"
+            >
+              <span class="text-muted-foreground">Select your country</span>
+              <app-lucide name="chevron-down" class="size-4 text-muted-foreground" />
+            </button>
+            <p class="text-xs text-muted-foreground">Your country of residence</p>
+          </div>
+
+          <!-- Preferred Language -->
+          <div class="flex flex-col gap-2">
+            <span class="flex items-center gap-1.5 text-sm font-medium">
+              Preferred Language
+              <span class="text-xs font-normal text-muted-foreground">(Optional)</span>
+            </span>
+            <button
+              type="button"
+              class="flex h-10 items-center justify-between rounded-md border border-border bg-background px-3 text-sm text-foreground"
+            >
+              <span class="text-muted-foreground">Select a language</span>
+              <app-lucide name="chevron-down" class="size-4 text-muted-foreground" />
+            </button>
+            <p class="text-xs text-muted-foreground">
+              Choose your preferred communication language
+            </p>
+          </div>
+
+          <!-- Bio (full width) -->
+          <div class="flex flex-col gap-2 md:col-span-2">
+            <span class="text-sm font-medium">Bio</span>
+            <textarea
+              class="w-full resize-y rounded-md border border-border bg-background p-3 text-sm text-foreground outline-none placeholder:text-muted-foreground"
+              rows="4"
+              placeholder="Tell us about yourself..."
+              aria-label="Bio"
+            ></textarea>
+            <p class="text-xs text-muted-foreground">
+              Brief description about yourself (0/500 characters)
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preferences -->
+      <div class="acn-card flex flex-col gap-6 p-6">
+        <div class="flex flex-col gap-1">
+          <h3 class="font-heading text-base font-semibold">Preferences</h3>
+          <p class="text-sm text-muted-foreground">Customize your experience</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <!-- Newsletter Topics -->
+          <div class="flex flex-col gap-3">
+            <div class="flex flex-col gap-1">
+              <p class="text-sm font-medium">Newsletter Topics</p>
+              <p class="text-xs text-muted-foreground">
+                Choose the topics you want to receive updates about
+              </p>
+            </div>
+            <span class="flex items-center gap-2.5">
+              <span class="acn-checkbox" aria-hidden="true"></span>
+              <span class="text-sm">Product Updates</span>
+            </span>
+            <span class="flex items-center gap-2.5">
+              <span class="acn-checkbox" aria-hidden="true"></span>
+              <span class="text-sm">Industry News</span>
+            </span>
+            <span class="flex items-center gap-2.5">
+              <span class="acn-checkbox" aria-hidden="true"></span>
+              <span class="text-sm">Tips &amp; Tricks</span>
+            </span>
+          </div>
+
+          <!-- Communication Settings -->
+          <div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-1">
+              <p class="text-sm font-medium">Communication Settings</p>
+              <p class="text-xs text-muted-foreground">Manage your notification preferences</p>
+            </div>
+
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex flex-col gap-0.5">
+                <span class="text-sm font-medium">Email Notifications</span>
+                <span class="text-xs text-muted-foreground">
+                  Receive notifications about your account activity
+                </span>
+              </div>
+              <button
+                type="button"
+                role="switch"
+                aria-checked="true"
+                aria-label="Email Notifications"
+                class="relative inline-flex h-5 w-9 flex-shrink-0 items-center rounded-full bg-primary transition-colors"
+              >
+                <span
+                  class="ml-[1.125rem] size-4 rounded-full bg-white transition-transform"
+                ></span>
+              </button>
+            </div>
+
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex flex-col gap-0.5">
+                <span class="text-sm font-medium">Marketing Emails</span>
+                <span class="text-xs text-muted-foreground">
+                  Receive emails about new products and features
+                </span>
+              </div>
+              <button
+                type="button"
+                role="switch"
+                aria-checked="false"
+                aria-label="Marketing Emails"
+                class="relative inline-flex h-5 w-9 flex-shrink-0 items-center rounded-full bg-input transition-colors"
+                style="background-color: var(--input)"
+              >
+                <span class="ml-0.5 size-4 rounded-full bg-white transition-transform"></span>
+              </button>
+            </div>
+
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex flex-col gap-0.5">
+                <span class="text-sm font-medium">Two-Factor Authentication</span>
+                <span class="text-xs text-muted-foreground">
+                  Add an extra layer of security to your account
+                </span>
+              </div>
+              <button
+                type="button"
+                role="switch"
+                aria-checked="false"
+                aria-label="Two-Factor Authentication"
+                class="relative inline-flex h-5 w-9 flex-shrink-0 items-center rounded-full bg-input transition-colors"
+                style="background-color: var(--input)"
+              >
+                <span class="ml-0.5 size-4 rounded-full bg-white transition-transform"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Account Type -->
+        <div class="flex flex-col gap-3">
+          <div class="flex flex-col gap-1">
+            <p class="text-sm font-medium">Account Type</p>
+            <p class="text-xs text-muted-foreground">Choose the plan that best fits your needs</p>
+          </div>
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <span
+              class="flex cursor-pointer items-start gap-3 rounded-lg border-2 p-4"
+              style="
+                border-color: var(--primary);
+                background-color: color-mix(in oklab, var(--primary) 6%, transparent);
+              "
+            >
+              <span
+                class="mt-0.5 flex size-4 flex-shrink-0 items-center justify-center rounded-full border-2"
+                style="border-color: var(--primary)"
+                aria-hidden="true"
+              >
+                <span class="size-2 rounded-full" style="background-color: var(--primary)"></span>
+              </span>
+              <span class="flex flex-col gap-0.5">
+                <span class="text-sm font-medium">Personal</span>
+                <span class="text-xs text-muted-foreground"
+                  >For individual use with basic features</span
+                >
+              </span>
+            </span>
+            <span
+              class="flex cursor-pointer items-start gap-3 rounded-lg border border-border p-4 hover:bg-accent"
+            >
+              <span
+                class="mt-0.5 size-4 flex-shrink-0 rounded-full border-2 border-border"
+                aria-hidden="true"
+              ></span>
+              <span class="flex flex-col gap-0.5">
+                <span class="text-sm font-medium">Business</span>
+                <span class="text-xs text-muted-foreground">For small to medium-sized teams</span>
+              </span>
+            </span>
+            <span
+              class="flex cursor-pointer items-start gap-3 rounded-lg border border-border p-4 hover:bg-accent"
+            >
+              <span
+                class="mt-0.5 size-4 flex-shrink-0 rounded-full border-2 border-border"
+                aria-hidden="true"
+              ></span>
+              <span class="flex flex-col gap-0.5">
+                <span class="text-sm font-medium">Enterprise</span>
+                <span class="text-xs text-muted-foreground">For large organizations</span>
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button type="button" class="acn-btn-primary">Register</button>
+          <button
+            type="button"
+            class="inline-flex h-9 items-center justify-center rounded-md border border-border bg-background px-3.5 text-sm font-medium text-foreground hover:bg-accent"
+          >
+            Reset
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-admincn-shell>

@@ -1,0 +1,132 @@
+<app-admincn-shell active="FAQ">
+  <!-- ============ HERO ============ -->
+  <section class="acn-card mb-6 px-6 py-12 text-center sm:px-8" style="background: var(--muted)">
+    <p class="mb-3 text-sm font-medium text-muted-foreground">FAQs</p>
+    <h1 class="font-heading text-3xl tracking-tight sm:text-4xl">Frequently Inquired Queries</h1>
+    <p class="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:text-base">
+      Find answers about analytics, permissions, billing, and operational support for your team.
+    </p>
+    <div class="mx-auto mt-6 flex max-w-md flex-col gap-2 sm:flex-row">
+      <div class="acn-input flex-1" style="background: var(--card)">
+        <input
+          type="text"
+          placeholder="Search for an admin question"
+          aria-label="Search for an admin question"
+        />
+      </div>
+      <button type="button" class="acn-btn-primary">Search</button>
+    </div>
+  </section>
+
+  <!-- ============ CATEGORIES + ACCORDION ============ -->
+  <div class="grid grid-cols-1 gap-6 lg:grid-cols-[18rem_1fr]">
+    <!-- Category sidebar -->
+    <aside class="flex flex-col gap-3">
+      @for (cat of categories; track cat.id; let i = $index) {
+        <button
+          type="button"
+          class="acn-card flex w-full items-center gap-3 px-4 py-3 text-left transition-colors"
+          [style.background]="
+            activeCategory() === i
+              ? 'color-mix(in oklab, var(--primary) 8%, var(--card))'
+              : 'var(--card)'
+          "
+          [style.box-shadow]="
+            activeCategory() === i
+              ? '0 0 0 1px color-mix(in oklab, var(--primary) 35%, transparent)'
+              : null
+          "
+          (click)="selectCategory(i)"
+        >
+          <span
+            class="acn-icon-tile size-9"
+            [class.acn-tile-primary]="activeCategory() === i"
+            [class.acn-tile-muted]="activeCategory() !== i"
+          >
+            <app-lucide [name]="cat.icon" class="size-4" />
+          </span>
+          <span class="flex-1 text-sm font-medium">{{ cat.title }}</span>
+          <app-lucide name="chevron-right" class="size-4 text-muted-foreground" />
+        </button>
+      }
+
+      <!-- Illustration -->
+      <div class="mt-2 hidden items-center justify-center px-4 py-6 lg:flex">
+        <app-lucide
+          name="megaphone"
+          class="size-16"
+          style="color: var(--muted-foreground); opacity: 0.35"
+        />
+      </div>
+    </aside>
+
+    <!-- Accordion panel -->
+    @let active = categories[activeCategory()];
+    <div class="acn-card relative p-6">
+      <span class="acn-buy-now">Buy Now</span>
+
+      <div class="mb-4 flex items-start gap-3">
+        <span class="acn-icon-tile acn-tile-muted size-10">
+          <app-lucide [name]="active.icon" class="size-5" />
+        </span>
+        <div>
+          <h2 class="font-heading text-base">{{ active.title }}</h2>
+          <p class="mt-0.5 text-sm text-muted-foreground">{{ active.description }}</p>
+        </div>
+      </div>
+
+      <div class="border-t border-border">
+        @for (q of active.questions; track q.question; let i = $index) {
+          <div class="border-b border-border">
+            <button
+              type="button"
+              class="flex w-full items-center justify-between gap-4 py-4 text-left"
+              (click)="toggle(i)"
+              [attr.aria-expanded]="openItem() === i"
+            >
+              <span class="text-sm font-medium">{{ q.question }}</span>
+              <app-lucide
+                name="chevron-down"
+                class="size-4 shrink-0 text-muted-foreground transition-transform duration-200"
+                [style.transform]="openItem() === i ? 'rotate(180deg)' : null"
+              />
+            </button>
+            @if (openItem() === i) {
+              <p class="pb-4 text-sm leading-relaxed text-muted-foreground">{{ q.answer }}</p>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ NEED MORE HELP ============ -->
+  <section class="mt-12 text-center">
+    <p class="text-sm text-muted-foreground">Still have questions?</p>
+    <h2 class="mt-1 font-heading text-2xl tracking-tight sm:text-3xl">Need More Admin Help?</h2>
+    <p class="mx-auto mt-2 max-w-2xl text-sm text-muted-foreground">
+      Choose the best support channel for your team and get assistance from the right specialists.
+    </p>
+
+    <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+      @for (card of supportCards; track card.title) {
+        <div class="acn-card flex flex-col items-center p-8 text-center">
+          <span class="acn-icon-tile acn-tile-muted mb-4 size-12">
+            <app-lucide [name]="card.icon" class="size-5" />
+          </span>
+          <h3 class="font-heading text-base">{{ card.title }}</h3>
+          <p class="mt-2 mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">
+            {{ card.description }}
+          </p>
+          <button
+            type="button"
+            class="acn-btn-outline-xs mt-auto w-full justify-center"
+            style="height: 2.25rem"
+          >
+            {{ card.buttonText }}
+          </button>
+        </div>
+      }
+    </div>
+  </section>
+</app-admincn-shell>

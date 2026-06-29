@@ -1,0 +1,928 @@
+<app-admincn-shell active="Data Table">
+  <div class="grid grid-cols-6 gap-6">
+    <!-- ================= 1 — Basic Data Table ================= -->
+    <div class="acn-card col-span-full flex flex-col py-6">
+      <div class="px-6">
+        <h2 class="font-heading text-lg font-semibold">Basic Data Table</h2>
+      </div>
+      <div class="mt-2 overflow-x-auto px-2">
+        <table class="acn-table">
+          <thead>
+            <tr>
+              <th class="w-12"><span class="acn-checkbox"></span></th>
+              <th>Customer</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Paid by</th>
+              <th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (r of basic; track r.email) {
+              <tr>
+                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <div class="flex flex-col">
+                    <span class="font-medium whitespace-nowrap">{{ r.customer }}</span>
+                    <span class="text-sm whitespace-nowrap text-muted-foreground">{{
+                      r.email
+                    }}</span>
+                  </div>
+                </td>
+                <td class="font-medium whitespace-nowrap">{{ r.amount }}</td>
+                <td>
+                  <span [class]="badgeTone(r.status)">{{ r.status }}</span>
+                </td>
+                <td>
+                  <img [src]="r.platform" alt="Payment platform" class="size-8 rounded-full" />
+                </td>
+                <td>
+                  <div class="flex items-center justify-end">
+                    <button type="button" class="acn-row-btn" aria-label="More">
+                      <app-lucide name="ellipsis-vertical" class="size-5" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
+        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 25 entries</span>
+        <div class="flex items-center gap-1">
+          <button type="button" class="acn-page-btn" aria-label="Previous">
+            <app-lucide name="chevron-left" class="size-4" /> Previous
+          </button>
+          <button type="button" class="acn-page-num acn-page-active">1</button>
+          <button type="button" class="acn-page-num">2</button>
+          <button type="button" class="acn-page-num">
+            <app-lucide name="ellipsis" class="size-4" />
+          </button>
+          <button type="button" class="acn-page-btn" aria-label="Next">
+            Next <app-lucide name="chevron-right" class="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 2 — Column Visibility ================= -->
+    <div class="acn-card col-span-full flex flex-col py-6">
+      <div class="flex flex-col gap-4 px-6 sm:flex-row sm:items-center sm:justify-between">
+        <h2 class="font-heading text-lg font-semibold">Data Table with Column Visibility</h2>
+        <button type="button" class="acn-select">
+          <app-lucide name="grid-3x3" class="size-4 opacity-70" /> Columns
+          <app-lucide name="chevron-down" class="ml-3 size-4 opacity-60" />
+        </button>
+      </div>
+      <div class="mt-2 overflow-x-auto px-2">
+        <table class="acn-table">
+          <thead>
+            <tr>
+              <th class="w-12"><span class="acn-checkbox"></span></th>
+              <th>User</th>
+              <th>Role</th>
+              <th>Plan</th>
+              <th>Billing</th>
+              <th>Status</th>
+              <th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (u of users; track u.email) {
+              <tr>
+                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <div class="flex flex-col">
+                    <span class="font-medium whitespace-nowrap">{{ u.name }}</span>
+                    <span class="text-sm whitespace-nowrap text-muted-foreground">{{
+                      u.email
+                    }}</span>
+                  </div>
+                </td>
+                <td>
+                  <span class="flex items-center gap-2 whitespace-nowrap capitalize">
+                    <app-lucide [name]="u.roleIcon" [class]="'size-4 ' + u.roleTone" />{{ u.role }}
+                  </span>
+                </td>
+                <td class="capitalize">{{ u.plan }}</td>
+                <td class="whitespace-nowrap text-muted-foreground">{{ u.billing }}</td>
+                <td>
+                  <span [class]="badgeTone(u.status)">{{ u.status }}</span>
+                </td>
+                <td>
+                  <div class="flex items-center justify-end gap-1 text-chart-2">
+                    <button type="button" class="acn-row-btn" aria-label="Delete">
+                      <app-lucide name="trash-2" class="size-4" />
+                    </button>
+                    <button type="button" class="acn-row-btn" aria-label="View">
+                      <app-lucide name="eye" class="size-4" />
+                    </button>
+                    <button type="button" class="acn-row-btn" aria-label="More">
+                      <app-lucide name="ellipsis-vertical" class="size-4" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
+        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 15 entries</span>
+        <div class="flex items-center gap-1">
+          <button type="button" class="acn-page-btn" aria-label="Previous">
+            <app-lucide name="chevron-left" class="size-4" /> Previous
+          </button>
+          <button type="button" class="acn-page-num acn-page-active">1</button>
+          <button type="button" class="acn-page-num">2</button>
+          <button type="button" class="acn-page-btn" aria-label="Next">
+            Next <app-lucide name="chevron-right" class="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 3 — Filters ================= -->
+    <div class="acn-card col-span-full flex flex-col py-6">
+      <div class="flex flex-col gap-4 px-6">
+        <h2 class="font-heading text-lg font-semibold">Data table with Filters</h2>
+        <div class="flex flex-wrap items-center gap-3">
+          <button type="button" class="acn-select w-32 justify-between">
+            Role: All <app-lucide name="chevron-down" class="size-4 opacity-60" />
+          </button>
+          <button type="button" class="acn-select w-32 justify-between">
+            Plan: All <app-lucide name="chevron-down" class="size-4 opacity-60" />
+          </button>
+          <button type="button" class="acn-select w-32 justify-between">
+            Status: All <app-lucide name="chevron-down" class="size-4 opacity-60" />
+          </button>
+        </div>
+      </div>
+      <div class="mt-2 overflow-x-auto px-2">
+        <table class="acn-table">
+          <thead>
+            <tr>
+              <th class="w-12"><span class="acn-checkbox"></span></th>
+              <th>User</th>
+              <th>Role</th>
+              <th>Plan</th>
+              <th>Billing</th>
+              <th>Status</th>
+              <th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (u of users; track u.email) {
+              <tr>
+                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <div class="flex flex-col">
+                    <span class="font-medium whitespace-nowrap">{{ u.name }}</span>
+                    <span class="text-sm whitespace-nowrap text-muted-foreground">{{
+                      u.email
+                    }}</span>
+                  </div>
+                </td>
+                <td>
+                  <span class="flex items-center gap-2 whitespace-nowrap capitalize">
+                    <app-lucide [name]="u.roleIcon" [class]="'size-4 ' + u.roleTone" />{{ u.role }}
+                  </span>
+                </td>
+                <td class="capitalize">{{ u.plan }}</td>
+                <td class="whitespace-nowrap text-muted-foreground">{{ u.billing }}</td>
+                <td>
+                  <span [class]="badgeTone(u.status)">{{ u.status }}</span>
+                </td>
+                <td>
+                  <div class="flex items-center justify-end gap-1 text-chart-2">
+                    <button type="button" class="acn-row-btn" aria-label="Delete">
+                      <app-lucide name="trash-2" class="size-4" />
+                    </button>
+                    <button type="button" class="acn-row-btn" aria-label="View">
+                      <app-lucide name="eye" class="size-4" />
+                    </button>
+                    <button type="button" class="acn-row-btn" aria-label="More">
+                      <app-lucide name="ellipsis-vertical" class="size-4" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
+        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 25 entries</span>
+        <div class="flex items-center gap-1">
+          <button type="button" class="acn-page-btn" aria-label="Previous">
+            <app-lucide name="chevron-left" class="size-4" /> Previous
+          </button>
+          <button type="button" class="acn-page-num acn-page-active">1</button>
+          <button type="button" class="acn-page-num">2</button>
+          <button type="button" class="acn-page-num">
+            <app-lucide name="ellipsis" class="size-4" />
+          </button>
+          <button type="button" class="acn-page-btn" aria-label="Next">
+            Next <app-lucide name="chevron-right" class="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 4 — Resizable Columns ================= -->
+    <div class="acn-card col-span-full flex flex-col py-6">
+      <div class="px-6">
+        <h2 class="font-heading text-lg font-semibold">Data table with Resizable Columns</h2>
+      </div>
+      <div class="mt-2 overflow-x-auto px-2">
+        <table class="acn-table">
+          <thead>
+            <tr>
+              <th class="w-12"><span class="acn-checkbox"></span></th>
+              <th>Requester</th>
+              <th>Subject</th>
+              <th>Department</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (t of tickets; track t.email) {
+              <tr>
+                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <div class="flex flex-col">
+                    <span class="font-medium whitespace-nowrap">{{ t.name }}</span>
+                    <span class="text-sm whitespace-nowrap text-muted-foreground">{{
+                      t.email
+                    }}</span>
+                  </div>
+                </td>
+                <td class="max-w-xs">{{ t.subject }}</td>
+                <td class="text-muted-foreground capitalize">{{ t.department }}</td>
+                <td>
+                  <span [class]="badgeTone(t.priority)" class="capitalize">{{ t.priority }}</span>
+                </td>
+                <td>
+                  <span [class]="badgeTone(t.status)" class="capitalize">{{ t.status }}</span>
+                </td>
+                <td>
+                  <div class="flex items-center justify-end">
+                    <button type="button" class="acn-row-btn" aria-label="More">
+                      <app-lucide name="ellipsis-vertical" class="size-5" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
+        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 15 entries</span>
+        <div class="flex items-center gap-1">
+          <button type="button" class="acn-page-btn" aria-label="Previous">
+            <app-lucide name="chevron-left" class="size-4" /> Previous
+          </button>
+          <button type="button" class="acn-page-num acn-page-active">1</button>
+          <button type="button" class="acn-page-num">2</button>
+          <button type="button" class="acn-page-btn" aria-label="Next">
+            Next <app-lucide name="chevron-right" class="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 5 — Pinnable Columns ================= -->
+    <div class="acn-card col-span-full flex flex-col py-6">
+      <div class="px-6">
+        <h2 class="font-heading text-lg font-semibold">Data table with Pinnable Columns</h2>
+      </div>
+      <div class="mt-2 overflow-x-auto px-2">
+        <table class="acn-table">
+          <thead>
+            <tr>
+              <th class="w-12"><span class="acn-checkbox"></span></th>
+              <th>
+                <span class="flex items-center gap-1"
+                  >Employee <app-lucide name="ellipsis" class="size-4 opacity-60"
+                /></span>
+              </th>
+              <th>
+                <span class="flex items-center gap-1"
+                  >Department <app-lucide name="ellipsis" class="size-4 opacity-60"
+                /></span>
+              </th>
+              <th>
+                <span class="flex items-center gap-1"
+                  >Role <app-lucide name="ellipsis" class="size-4 opacity-60"
+                /></span>
+              </th>
+              <th>
+                <span class="flex items-center gap-1"
+                  >Status <app-lucide name="ellipsis" class="size-4 opacity-60"
+                /></span>
+              </th>
+              <th class="text-right">
+                <span class="flex items-center justify-end gap-1"
+                  >Actions <app-lucide name="ellipsis" class="size-4 opacity-60"
+                /></span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (e of employees; track e.email) {
+              <tr>
+                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <div class="flex flex-col">
+                    <span class="font-medium whitespace-nowrap">{{ e.name }}</span>
+                    <span class="text-sm whitespace-nowrap text-muted-foreground">{{
+                      e.email
+                    }}</span>
+                  </div>
+                </td>
+                <td class="text-muted-foreground capitalize">{{ e.department }}</td>
+                <td class="whitespace-nowrap">{{ e.role }}</td>
+                <td>
+                  <span [class]="badgeTone(e.status)" class="capitalize">{{ e.status }}</span>
+                </td>
+                <td>
+                  <div class="flex items-center justify-end">
+                    <button type="button" class="acn-row-btn" aria-label="More">
+                      <app-lucide name="ellipsis-vertical" class="size-5" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
+        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 15 entries</span>
+        <div class="flex items-center gap-1">
+          <button type="button" class="acn-page-btn" aria-label="Previous">
+            <app-lucide name="chevron-left" class="size-4" /> Previous
+          </button>
+          <button type="button" class="acn-page-num acn-page-active">1</button>
+          <button type="button" class="acn-page-num">2</button>
+          <button type="button" class="acn-page-btn" aria-label="Next">
+            Next <app-lucide name="chevron-right" class="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 6 — Page Size Selector (invoices) ================= -->
+    <div class="acn-card col-span-full flex flex-col py-6">
+      <div class="px-6">
+        <h2 class="mb-4 font-heading text-lg font-semibold">Data Table with Page Size Selector</h2>
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-sm text-muted-foreground max-sm:sr-only">Show</span>
+            <button type="button" class="acn-select">
+              5 <app-lucide name="chevron-down" class="size-4 opacity-60" />
+            </button>
+            <button type="button" class="acn-btn-primary">Create Invoice</button>
+          </div>
+          <div class="flex flex-1 flex-wrap items-center gap-3 lg:max-w-md lg:justify-end">
+            <div class="acn-input flex-1">
+              <app-lucide name="search" class="size-4 text-muted-foreground" />
+              <input type="search" placeholder="Client" aria-label="Search client" />
+            </div>
+            <button type="button" class="acn-select w-28 justify-between">
+              Status: All <app-lucide name="chevron-down" class="size-4 opacity-60" />
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="mt-2 overflow-x-auto px-2">
+        <table class="acn-table">
+          <thead>
+            <tr>
+              <th class="w-12"><span class="acn-checkbox"></span></th>
+              <th>ID</th>
+              <th>Status</th>
+              <th>Client</th>
+              <th>Total</th>
+              <th>Issued Date</th>
+              <th>Balance</th>
+              <th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (inv of invoices; track inv.id) {
+              <tr>
+                <td><span class="acn-checkbox"></span></td>
+                <td class="font-medium">{{ inv.id }}</td>
+                <td>
+                  <span class="acn-status" [class]="'acn-status-' + inv.statusTone">
+                    <app-lucide [name]="inv.statusIcon" class="size-4" />
+                  </span>
+                </td>
+                <td>
+                  <div class="flex items-center gap-2.5">
+                    <img [src]="inv.avatar" [alt]="inv.name" class="size-8 rounded-full" />
+                    <div class="flex flex-col">
+                      <span class="font-medium whitespace-nowrap">{{ inv.name }}</span>
+                      <span class="text-sm whitespace-nowrap text-muted-foreground">{{
+                        inv.role
+                      }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="font-medium whitespace-nowrap">{{ inv.total }}</td>
+                <td class="whitespace-nowrap text-muted-foreground">{{ inv.date }}</td>
+                <td>
+                  @if (inv.paid) {
+                    <span class="acn-badge-green">Paid</span>
+                  } @else {
+                    <span class="font-medium text-destructive">{{ inv.balance }}</span>
+                  }
+                </td>
+                <td>
+                  <div class="flex items-center justify-end gap-1 text-chart-2">
+                    <button type="button" class="acn-row-btn" aria-label="Delete">
+                      <app-lucide name="trash-2" class="size-4" />
+                    </button>
+                    <button type="button" class="acn-row-btn" aria-label="View">
+                      <app-lucide name="eye" class="size-4" />
+                    </button>
+                    <button type="button" class="acn-row-btn" aria-label="More">
+                      <app-lucide name="ellipsis-vertical" class="size-4" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
+        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 25 entries</span>
+        <div class="flex items-center gap-1">
+          <button type="button" class="acn-page-btn" aria-label="Previous">
+            <app-lucide name="chevron-left" class="size-4" /> Previous
+          </button>
+          <button type="button" class="acn-page-num acn-page-active">1</button>
+          <button type="button" class="acn-page-num">2</button>
+          <button type="button" class="acn-page-num">
+            <app-lucide name="ellipsis" class="size-4" />
+          </button>
+          <button type="button" class="acn-page-btn" aria-label="Next">
+            Next <app-lucide name="chevron-right" class="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 7 — Draggable Columns ================= -->
+    <div class="acn-card col-span-full flex flex-col py-6">
+      <div class="px-6">
+        <h2 class="font-heading text-lg font-semibold">Data table with Draggable Columns</h2>
+      </div>
+      <div class="mt-2 overflow-x-auto px-2">
+        <table class="acn-table">
+          <thead>
+            <tr>
+              <th class="w-12"><span class="acn-checkbox"></span></th>
+              @for (c of dragCols; track c) {
+                <th>
+                  <span class="group flex items-center gap-1">
+                    <app-lucide name="ellipsis-vertical" class="size-4 opacity-60" />{{ c }}
+                    <app-lucide
+                      name="chevron-up"
+                      class="size-4 shrink-0 opacity-0 group-hover:opacity-60"
+                    />
+                  </span>
+                </th>
+              }
+              <th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (c of contracts; track c.contract) {
+              <tr>
+                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <div class="flex flex-col">
+                    <span class="font-medium whitespace-nowrap">{{ c.vendor }}</span>
+                    <span class="text-sm whitespace-nowrap text-muted-foreground">{{
+                      c.email
+                    }}</span>
+                  </div>
+                </td>
+                <td class="font-medium whitespace-nowrap">{{ c.contract }}</td>
+                <td class="text-muted-foreground capitalize">{{ c.category }}</td>
+                <td class="whitespace-nowrap text-muted-foreground">{{ c.renews }}</td>
+                <td class="font-medium whitespace-nowrap">{{ c.cost }}</td>
+                <td>
+                  <span [class]="badgeTone(c.status)" class="capitalize">{{ c.status }}</span>
+                </td>
+                <td>
+                  <div class="flex items-center justify-end">
+                    <button type="button" class="acn-row-btn" aria-label="More">
+                      <app-lucide name="ellipsis-vertical" class="size-5" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
+        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 15 entries</span>
+        <div class="flex items-center gap-1">
+          <button type="button" class="acn-page-btn" aria-label="Previous">
+            <app-lucide name="chevron-left" class="size-4" /> Previous
+          </button>
+          <button type="button" class="acn-page-num acn-page-active">1</button>
+          <button type="button" class="acn-page-num">2</button>
+          <button type="button" class="acn-page-btn" aria-label="Next">
+            Next <app-lucide name="chevron-right" class="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 8 — Expandable Rows ================= -->
+    <div class="acn-card col-span-full flex flex-col py-6">
+      <div class="px-6">
+        <h2 class="font-heading text-lg font-semibold">Data table with Expandable Rows</h2>
+      </div>
+      <div class="mt-2 overflow-x-auto px-2">
+        <table class="acn-table">
+          <thead>
+            <tr>
+              <th class="w-12"><span class="acn-checkbox"></span></th>
+              <th class="w-8"></th>
+              <th>Launch</th>
+              <th>Lead</th>
+              <th>Market</th>
+              <th>Launch Date</th>
+              <th>Status</th>
+              <th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (l of launches; track l.code) {
+              <tr>
+                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <button type="button" class="acn-row-btn" aria-label="Expand">
+                    <app-lucide name="chevron-down" class="size-4 opacity-60" />
+                  </button>
+                </td>
+                <td>
+                  <div class="flex flex-col">
+                    <span class="font-medium whitespace-nowrap">{{ l.launch }}</span>
+                    <span class="text-sm whitespace-nowrap text-muted-foreground">{{
+                      l.code
+                    }}</span>
+                  </div>
+                </td>
+                <td>
+                  <div class="flex flex-col">
+                    <span class="font-medium whitespace-nowrap">{{ l.lead }}</span>
+                    <span class="text-sm whitespace-nowrap text-muted-foreground">{{
+                      l.leadEmail
+                    }}</span>
+                  </div>
+                </td>
+                <td class="text-muted-foreground capitalize">{{ l.market }}</td>
+                <td class="whitespace-nowrap text-muted-foreground">{{ l.date }}</td>
+                <td>
+                  <span [class]="badgeTone(l.status)" class="capitalize">{{ l.status }}</span>
+                </td>
+                <td>
+                  <div class="flex items-center justify-end">
+                    <button type="button" class="acn-row-btn" aria-label="More">
+                      <app-lucide name="ellipsis-vertical" class="size-5" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
+        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 15 entries</span>
+        <div class="flex items-center gap-1">
+          <button type="button" class="acn-page-btn" aria-label="Previous">
+            <app-lucide name="chevron-left" class="size-4" /> Previous
+          </button>
+          <button type="button" class="acn-page-num acn-page-active">1</button>
+          <button type="button" class="acn-page-num">2</button>
+          <button type="button" class="acn-page-btn" aria-label="Next">
+            Next <app-lucide name="chevron-right" class="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 9 — Progress (courses) ================= -->
+    <div class="acn-card col-span-full flex flex-col py-6">
+      <div class="px-6">
+        <h2 class="font-heading text-lg font-semibold">Data table with Progress</h2>
+        <p class="text-sm text-muted-foreground">Course you are taking</p>
+      </div>
+      <div class="mt-2 overflow-x-auto px-2">
+        <table class="acn-table">
+          <thead>
+            <tr>
+              <th class="w-12"><span class="acn-checkbox"></span></th>
+              <th>Course</th>
+              <th>Time</th>
+              <th class="min-w-48">Progress</th>
+              <th>Statistics</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (c of courses; track c.course) {
+              <tr>
+                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <div class="flex items-center gap-3">
+                    <span class="acn-icon-tile acn-tile-primary size-9"
+                      ><app-lucide [name]="c.icon" class="size-5"
+                    /></span>
+                    <div class="flex flex-col">
+                      <span class="font-medium whitespace-nowrap">{{ c.course }}</span>
+                      <span class="text-sm whitespace-nowrap text-muted-foreground">{{
+                        c.author
+                      }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="whitespace-nowrap text-muted-foreground">{{ c.time }}</td>
+                <td>
+                  <div class="flex flex-col gap-1.5">
+                    <span class="text-sm font-medium"
+                      >{{ c.percent }}%
+                      <span class="text-muted-foreground">x {{ c.done }}/{{ c.total }}</span></span
+                    >
+                    <span class="acn-progress"
+                      ><span class="acn-progress-bar" [style.width.%]="c.percent"></span
+                    ></span>
+                  </div>
+                </td>
+                <td>
+                  <div class="flex items-center gap-4 text-sm text-muted-foreground">
+                    <span class="flex items-center gap-1.5"
+                      ><app-lucide name="user" class="size-4" />{{ c.s1 }}</span
+                    >
+                    <span class="flex items-center gap-1.5"
+                      ><app-lucide name="book-open" class="size-4" />{{ c.s2 }}</span
+                    >
+                    <span class="flex items-center gap-1.5"
+                      ><app-lucide name="video" class="size-4" />{{ c.s3 }}</span
+                    >
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
+        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 25 entries</span>
+        <div class="flex items-center gap-1">
+          <button type="button" class="acn-page-btn" aria-label="Previous">
+            <app-lucide name="chevron-left" class="size-4" /> Previous
+          </button>
+          <button type="button" class="acn-page-num acn-page-active">1</button>
+          <button type="button" class="acn-page-num">2</button>
+          <button type="button" class="acn-page-num">
+            <app-lucide name="ellipsis" class="size-4" />
+          </button>
+          <button type="button" class="acn-page-btn" aria-label="Next">
+            Next <app-lucide name="chevron-right" class="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 10 — Export Buttons (products) ================= -->
+    <div class="acn-card col-span-full flex flex-col py-6">
+      <div class="px-6">
+        <h2 class="mb-4 font-heading text-lg font-semibold">Data table with Export Buttons</h2>
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div class="flex flex-wrap items-center gap-3">
+            <button type="button" class="acn-select w-32 justify-between">
+              Category: All <app-lucide name="chevron-down" class="size-4 opacity-60" />
+            </button>
+            <button type="button" class="acn-select w-28 justify-between">
+              Stock: All <app-lucide name="chevron-down" class="size-4 opacity-60" />
+            </button>
+            <button type="button" class="acn-select w-28 justify-between">
+              Status: All <app-lucide name="chevron-down" class="size-4 opacity-60" />
+            </button>
+          </div>
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="acn-input">
+              <app-lucide name="search" class="size-4 text-muted-foreground" />
+              <input type="search" placeholder="Product" aria-label="Search product" />
+            </div>
+            <button type="button" class="acn-select">
+              5 <app-lucide name="chevron-down" class="size-4 opacity-60" />
+            </button>
+            <button type="button" class="acn-select">
+              <app-lucide name="upload" class="size-4" /> Export
+            </button>
+            <button type="button" class="acn-btn-primary">
+              <app-lucide name="plus" class="size-4" /> Add Product
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="mt-2 overflow-x-auto px-2">
+        <table class="acn-table">
+          <thead>
+            <tr>
+              <th class="w-12"><span class="acn-checkbox"></span></th>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Stock</th>
+              <th>Amount</th>
+              <th>QTY</th>
+              <th>Status</th>
+              <th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (p of products; track p.name) {
+              <tr>
+                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <div class="flex items-center gap-2.5">
+                    <img [src]="p.image" [alt]="p.name" class="size-9 rounded-md object-cover" />
+                    <div class="flex flex-col">
+                      <span class="font-medium whitespace-nowrap">{{ p.name }}</span>
+                      <span class="text-sm whitespace-nowrap text-muted-foreground">{{
+                        p.brand
+                      }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span
+                    class="flex items-center gap-2 whitespace-nowrap text-muted-foreground capitalize"
+                  >
+                    <app-lucide [name]="p.catIcon" class="size-4" />{{ p.category }}
+                  </span>
+                </td>
+                <td class="font-medium whitespace-nowrap">{{ p.amount }}</td>
+                <td>{{ p.qty }}</td>
+                <td>
+                  <span [class]="badgeTone(p.status)" class="capitalize">{{ p.status }}</span>
+                </td>
+                <td>
+                  <div class="flex items-center justify-end">
+                    <button type="button" class="acn-row-btn" aria-label="More">
+                      <app-lucide name="ellipsis-vertical" class="size-4" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
+        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 25 entries</span>
+        <div class="flex items-center gap-1">
+          <button type="button" class="acn-page-btn" aria-label="Previous">
+            <app-lucide name="chevron-left" class="size-4" /> Previous
+          </button>
+          <button type="button" class="acn-page-num acn-page-active">1</button>
+          <button type="button" class="acn-page-num">2</button>
+          <button type="button" class="acn-page-num">
+            <app-lucide name="ellipsis" class="size-4" />
+          </button>
+          <button type="button" class="acn-page-btn" aria-label="Next">
+            Next <app-lucide name="chevron-right" class="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 11 — Graph (products with sparkline) ================= -->
+    <div class="acn-card col-span-full flex flex-col py-6">
+      <div class="px-6">
+        <h2 class="mb-4 font-heading text-lg font-semibold">Data table with Graph</h2>
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="acn-input flex-1 lg:max-w-xs">
+            <app-lucide name="search" class="size-4 text-muted-foreground" />
+            <input type="search" placeholder="Product" aria-label="Search product" />
+          </div>
+          <button type="button" class="acn-select">
+            5 <app-lucide name="chevron-down" class="size-4 opacity-60" />
+          </button>
+          <button type="button" class="acn-select">
+            <app-lucide name="upload" class="size-4" /> Export
+          </button>
+          <button type="button" class="acn-btn-primary">
+            <app-lucide name="plus" class="size-4" /> Add Product
+          </button>
+        </div>
+      </div>
+      <div class="mt-2 overflow-x-auto px-2">
+        <table class="acn-table">
+          <thead>
+            <tr>
+              <th class="w-12"><span class="acn-checkbox"></span></th>
+              <th>Product</th>
+              <th>Graph</th>
+              <th>Price</th>
+              <th>Orders</th>
+              <th>Sales</th>
+              <th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (g of graphs; track g.name) {
+              <tr>
+                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <div class="flex items-center gap-2.5">
+                    <img [src]="g.image" [alt]="g.name" class="size-9 rounded-md object-cover" />
+                    <div class="flex flex-col">
+                      <span class="font-medium whitespace-nowrap">{{ g.name }}</span>
+                      <span class="text-sm whitespace-nowrap text-muted-foreground">{{
+                        g.brand
+                      }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <svg viewBox="0 0 72 22" class="h-6 w-20" preserveAspectRatio="none">
+                    <polyline
+                      [attr.points]="g.spark"
+                      fill="none"
+                      [attr.stroke]="g.arrow === 'down' ? 'var(--destructive)' : 'var(--chart-2)'"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </td>
+                <td class="font-medium whitespace-nowrap">{{ g.price }}</td>
+                <td>
+                  <span class="flex items-center gap-1 whitespace-nowrap">
+                    <app-lucide
+                      [name]="g.arrow === 'down' ? 'arrow-down' : 'arrow-up'"
+                      [class]="
+                        'size-4 ' + (g.arrow === 'down' ? 'text-destructive' : 'text-chart-2')
+                      "
+                    />{{ g.orders }}
+                  </span>
+                </td>
+                <td>
+                  <span
+                    class="font-medium"
+                    [class]="g.arrow === 'down' ? 'text-destructive' : 'text-chart-2'"
+                    >{{ g.delta }}%</span
+                  >
+                </td>
+                <td>
+                  <div class="flex items-center justify-end gap-1 text-chart-2">
+                    <button type="button" class="acn-row-btn" aria-label="Delete">
+                      <app-lucide name="trash-2" class="size-4" />
+                    </button>
+                    <button type="button" class="acn-row-btn" aria-label="View">
+                      <app-lucide name="eye" class="size-4" />
+                    </button>
+                    <button type="button" class="acn-row-btn" aria-label="More">
+                      <app-lucide name="ellipsis-vertical" class="size-4" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
+        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 25 entries</span>
+        <div class="flex items-center gap-1">
+          <button type="button" class="acn-page-btn" aria-label="Previous">
+            <app-lucide name="chevron-left" class="size-4" /> Previous
+          </button>
+          <button type="button" class="acn-page-num acn-page-active">1</button>
+          <button type="button" class="acn-page-num">2</button>
+          <button type="button" class="acn-page-num">
+            <app-lucide name="ellipsis" class="size-4" />
+          </button>
+          <button type="button" class="acn-page-btn" aria-label="Next">
+            Next <app-lucide name="chevron-right" class="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-admincn-shell>

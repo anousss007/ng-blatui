@@ -1,0 +1,253 @@
+<app-admincn-shell active="Mail">
+  <div class="acn-card flex h-[calc(100vh-9rem)] min-h-[640px] w-full overflow-hidden">
+    <!-- ============ Mailbox / label sidebar ============ -->
+    <aside class="hidden w-56 shrink-0 flex-col border-r md:flex">
+      <div class="p-3">
+        <button type="button" class="acn-btn-primary w-full">
+          <app-lucide name="pencil" class="size-4" /> Compose
+        </button>
+      </div>
+
+      <nav class="flex-1 overflow-y-auto px-2 pb-4">
+        <p class="px-2 pt-2 pb-1 text-[11px] font-medium text-muted-foreground uppercase">
+          Mailboxes
+        </p>
+        <div class="grid gap-1">
+          @for (m of mailboxes; track m.label) {
+            <button
+              type="button"
+              class="flex h-9 items-center gap-2.5 rounded-md px-3 text-sm font-medium"
+              [class.text-foreground]="!m.active"
+              [class.hover:bg-muted]="!m.active"
+              [class.text-primary]="m.active"
+              [style.background]="
+                m.active ? 'color-mix(in oklab, var(--primary) 10%, transparent)' : null
+              "
+            >
+              <app-lucide [name]="m.icon" class="size-4" />
+              {{ m.label }}
+              @if (m.count !== null) {
+                <span class="ml-auto text-xs text-muted-foreground tabular-nums">{{
+                  m.count
+                }}</span>
+              }
+            </button>
+          }
+        </div>
+
+        <p class="px-2 pt-4 pb-1 text-[11px] font-medium text-muted-foreground uppercase">Labels</p>
+        <div class="grid gap-1">
+          @for (l of labels; track l.label) {
+            <button
+              type="button"
+              class="flex h-9 items-center gap-2.5 rounded-md px-3 text-sm font-medium text-foreground/80 hover:bg-muted/60"
+            >
+              <span class="size-2 shrink-0 rounded-full" [class]="l.dot"></span>
+              {{ l.label }}
+              @if (l.count !== null) {
+                <span class="ml-auto text-xs text-muted-foreground tabular-nums">{{
+                  l.count
+                }}</span>
+              }
+            </button>
+          }
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ============ Message list ============ -->
+    <section class="flex w-full shrink-0 flex-col border-r md:w-[22rem] lg:w-[24rem]">
+      <!-- list header: title + tabs -->
+      <div class="flex h-14 items-center gap-2 border-b px-4">
+        <button type="button" class="acn-icon-btn size-9 md:hidden" aria-label="Menu">
+          <app-lucide name="menu" class="size-5" />
+        </button>
+        <h1 class="flex-1 text-lg font-semibold">Inbox</h1>
+        <div class="flex items-center gap-1 rounded-lg bg-muted p-0.5">
+          <button
+            type="button"
+            class="inline-flex h-7 items-center rounded-md bg-background px-3 text-sm font-medium whitespace-nowrap text-foreground shadow-sm"
+          >
+            All mail
+          </button>
+          <button
+            type="button"
+            class="inline-flex h-7 items-center rounded-md px-3 text-sm font-medium whitespace-nowrap text-muted-foreground hover:text-foreground"
+          >
+            Unread (6)
+          </button>
+        </div>
+      </div>
+
+      <!-- search + sort -->
+      <div class="flex items-center gap-2 border-b px-4 py-3">
+        <div class="acn-input h-9 flex-1">
+          <app-lucide name="search" class="size-4 text-muted-foreground" />
+          <input type="search" placeholder="Search mail" aria-label="Search mail" />
+        </div>
+        <button type="button" class="acn-select size-9 justify-center px-0" aria-label="Sort">
+          <app-lucide name="arrow-down-up" class="size-4 opacity-70" />
+        </button>
+      </div>
+
+      <!-- email rows -->
+      <div class="flex-1 overflow-y-auto">
+        @for (e of emails; track e.sender) {
+          <button
+            type="button"
+            class="flex w-full gap-3 border-b border-l-2 border-l-transparent px-4 py-3.5 text-left hover:bg-muted/50"
+            [class.!bg-muted]="e.active"
+            [style.border-left-color]="e.active ? 'var(--primary)' : null"
+          >
+            @if (e.avatar) {
+              <img
+                [src]="e.avatar"
+                [alt]="e.sender"
+                class="size-9 shrink-0 rounded-full object-cover"
+              />
+            } @else {
+              <span
+                class="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-medium text-muted-foreground"
+                >{{ e.initials }}</span
+              >
+            }
+            <div class="flex min-w-0 flex-1 flex-col gap-0.5">
+              <div class="flex items-center gap-2">
+                <span
+                  class="truncate text-sm"
+                  [class.font-semibold]="e.unread"
+                  [class.font-medium]="!e.unread"
+                  >{{ e.sender }}</span
+                >
+                @if (e.starred) {
+                  <app-lucide name="star" class="size-3.5 shrink-0 fill-current text-foreground" />
+                }
+                <span class="ml-auto shrink-0 text-xs text-muted-foreground">{{ e.time }}</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span
+                  class="truncate text-sm"
+                  [class.font-medium]="e.unread"
+                  [class.text-foreground]="e.unread"
+                  [class.text-muted-foreground]="!e.unread"
+                >
+                  {{ e.subject }}
+                  @if (e.thread !== null) {
+                    <span class="text-muted-foreground"> ({{ e.thread }})</span>
+                  }
+                </span>
+                @if (e.unread) {
+                  <span class="ml-auto size-2 shrink-0 rounded-full" [class]="e.dot"></span>
+                }
+              </div>
+              <p class="truncate text-xs text-muted-foreground">{{ e.preview }}</p>
+            </div>
+          </button>
+        }
+      </div>
+    </section>
+
+    <!-- ============ Reading pane (hidden on tablet & mobile) ============ -->
+    <section class="hidden min-w-0 flex-1 flex-col lg:flex">
+      <!-- reading toolbar -->
+      <div class="flex h-14 items-center gap-1 border-b px-3">
+        <button type="button" class="acn-icon-btn size-9" aria-label="Archive">
+          <app-lucide name="package" class="size-4" />
+        </button>
+        <button type="button" class="acn-icon-btn size-9" aria-label="Move to spam">
+          <app-lucide name="triangle-alert" class="size-4" />
+        </button>
+        <button type="button" class="acn-icon-btn size-9" aria-label="Move to trash">
+          <app-lucide name="trash-2" class="size-4" />
+        </button>
+        <button type="button" class="acn-icon-btn size-9" aria-label="Manage labels">
+          <app-lucide name="circle" class="size-4" />
+        </button>
+        <button type="button" class="acn-icon-btn size-9" aria-label="Star">
+          <app-lucide name="star" class="size-4" />
+        </button>
+        <span class="acn-badge-muted ml-1">updates</span>
+        <div class="ml-auto flex items-center gap-1">
+          <button type="button" class="acn-icon-btn size-9" aria-label="Reply">
+            <app-lucide name="arrow-left" class="size-4" />
+          </button>
+          <button type="button" class="acn-icon-btn size-9" aria-label="Reply all">
+            <app-lucide name="arrow-left-right" class="size-4" />
+          </button>
+          <button type="button" class="acn-icon-btn size-9" aria-label="Forward">
+            <app-lucide name="arrow-right" class="size-4" />
+          </button>
+          <button type="button" class="acn-icon-btn size-9" aria-label="More">
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+        </div>
+      </div>
+
+      <!-- thread head -->
+      <div class="flex items-start gap-3 border-b px-6 py-5">
+        <div class="flex flex-1 flex-col gap-1">
+          <h2 class="text-xl font-semibold tracking-tight">Q4 Marketing Campaign Review</h2>
+          <div class="flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground">
+            <span class="font-medium text-foreground">Sarah Johnson</span>
+            <span>Reply-To: sarah.johnson&#64;example.com</span>
+          </div>
+        </div>
+        <span class="shrink-0 text-sm text-muted-foreground">2 hours ago</span>
+      </div>
+
+      <!-- messages -->
+      <div class="flex-1 overflow-y-auto px-6 py-5">
+        <button
+          type="button"
+          class="mb-4 flex w-full items-center gap-2 rounded-md border bg-muted/40 px-3 py-2 text-sm text-muted-foreground hover:bg-muted/60"
+        >
+          <app-lucide name="chevron-down" class="size-4" /> 3 earlier messages
+        </button>
+
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center gap-3">
+            <img
+              [src]="img + '/avatars/avatar-1.webp'"
+              alt="Sarah Johnson"
+              class="size-9 rounded-full object-cover"
+            />
+            <div class="flex flex-1 flex-col">
+              <span class="text-sm font-semibold">Sarah Johnson</span>
+              <span class="text-xs text-muted-foreground">sarah.johnson&#64;example.com</span>
+            </div>
+            <span class="text-xs text-muted-foreground">2 hours ago</span>
+          </div>
+
+          <div class="flex flex-col gap-3 pl-12 text-sm leading-relaxed">
+            <p>Thanks for the feedback — I'll incorporate your suggestions into the Q1 plan.</p>
+            <p>Let's sync on Monday to finalize the deck.</p>
+            <p>Best,<br />Sarah</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- reply composer -->
+      <div class="border-t p-4">
+        <div class="rounded-lg border bg-background focus-within:ring-2 focus-within:ring-ring/40">
+          <textarea
+            rows="2"
+            placeholder="Reply to Sarah Johnson..."
+            aria-label="Reply to Sarah Johnson"
+            class="w-full resize-none rounded-t-lg bg-transparent px-3 py-2.5 text-sm text-foreground outline-none placeholder:text-muted-foreground"
+          ></textarea>
+          <div class="flex items-center justify-between gap-2 border-t px-3 py-2">
+            <button
+              type="button"
+              class="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+            >
+              <app-lucide name="volume-2" class="size-4" /> Mute this thread
+            </button>
+            <button type="button" class="acn-btn-primary h-8">
+              Send <app-lucide name="send" class="size-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</app-admincn-shell>
