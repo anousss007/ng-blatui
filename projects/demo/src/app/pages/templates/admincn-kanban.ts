@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation } from '@angular/core';
 
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
@@ -10,6 +10,7 @@ interface Assignee {
   avatar: string;
 }
 interface Card {
+  id: number;
   priority: Priority;
   title: string;
   cover?: string;
@@ -18,7 +19,6 @@ interface Card {
 }
 interface Column {
   title: string;
-  count: number;
   cards: Card[];
 }
 
@@ -50,12 +50,14 @@ export class AdmincnKanban {
   // No flower cover art ships locally; reuse the only available cover-ish image.
   private readonly cover = '/admincn/widgets/image-6.webp';
 
-  protected readonly columns: Column[] = [
+  private nextId = 100;
+
+  protected readonly columns = signal<Column[]>([
     {
       title: 'Backlog',
-      count: 3,
       cards: [
         {
+          id: 1,
           priority: 'high',
           title: 'AI Dashboard Research',
           cover: this.cover,
@@ -66,12 +68,14 @@ export class AdmincnKanban {
           due: 'Jul 05, 2026',
         },
         {
+          id: 2,
           priority: 'medium',
           title: 'Create Landing Page Wireframes',
           assignees: [{ name: 'Sarah Chen', avatar: this.a2 }],
           due: 'Jul 08, 2026',
         },
         {
+          id: 3,
           priority: 'low',
           title: 'User Interview Analysis',
           assignees: [{ name: 'Olivia Sparks', avatar: this.a16 }],
@@ -81,9 +85,9 @@ export class AdmincnKanban {
     },
     {
       title: 'In Progress',
-      count: 3,
       cards: [
         {
+          id: 4,
           priority: 'high',
           title: 'Build Authentication Flow',
           assignees: [
@@ -93,6 +97,7 @@ export class AdmincnKanban {
           due: 'Jul 15, 2026',
         },
         {
+          id: 5,
           priority: 'medium',
           title: 'Dark Mode Implementation',
           cover: this.cover,
@@ -100,6 +105,7 @@ export class AdmincnKanban {
           due: 'Jul 18, 2026',
         },
         {
+          id: 6,
           priority: 'high',
           title: 'Mobile Responsive Layout',
           assignees: [{ name: 'James Brown', avatar: this.a16 }],
@@ -109,9 +115,9 @@ export class AdmincnKanban {
     },
     {
       title: 'Review',
-      count: 2,
       cards: [
         {
+          id: 7,
           priority: 'medium',
           title: 'Analytics Charts',
           cover: this.cover,
@@ -122,6 +128,7 @@ export class AdmincnKanban {
           due: 'Jul 22, 2026',
         },
         {
+          id: 8,
           priority: 'high',
           title: 'Notification System',
           assignees: [
@@ -134,9 +141,9 @@ export class AdmincnKanban {
     },
     {
       title: 'Done',
-      count: 3,
       cards: [
         {
+          id: 9,
           priority: 'high',
           title: 'Project Setup',
           assignees: [
@@ -146,6 +153,7 @@ export class AdmincnKanban {
           due: 'Jun 28, 2026',
         },
         {
+          id: 10,
           priority: 'medium',
           title: 'Design System Foundation',
           assignees: [
@@ -155,6 +163,7 @@ export class AdmincnKanban {
           due: 'Jun 30, 2026',
         },
         {
+          id: 11,
           priority: 'high',
           title: 'Database Architecture',
           cover: this.cover,
@@ -163,5 +172,99 @@ export class AdmincnKanban {
         },
       ],
     },
-  ];
+  ]);
+
+  /** Index of the column whose inline "add item" input is currently open, or -1. */
+  protected readonly addingColumn = signal(-1);
+  /** Draft title for the inline add input. */
+  protected readonly draftTitle = signal('');
+  /** Open ⋮ menu, identified by a string key, or '' when none is open. */
+  protected readonly openMenu = signal('');
+
+  protected cardCount(column: Column): number {
+    return column.cards.length;
+  }
+
+  // ----- Add new item -----
+  protected startAdding(columnIndex: number): void {
+    this.closeMenu();
+    this.draftTitle.set('');
+    this.addingColumn.set(columnIndex);
+  }
+
+  protected cancelAdding(): void {
+    this.addingColumn.set(-1);
+    this.draftTitle.set('');
+  }
+
+  protected confirmAdding(columnIndex: number): void {
+    const title = this.draftTitle().trim();
+    if (title === '') {
+      this.cancelAdding();
+      return;
+    }
+    const newCard: Card = {
+      id: this.nextId++,
+      priority: 'medium',
+      title,
+      assignees: [{ name: 'Unassigned', avatar: this.a1 }],
+      due: 'No due date',
+    };
+    this.columns.update((columns) =>
+      columns.map((column, index) =>
+        index === columnIndex ? { ...column, cards: [...column.cards, newCard] } : column,
+      ),
+    );
+    this.cancelAdding();
+  }
+
+  // ----- Move card between columns -----
+  protected moveCard(columnIndex: number, cardId: number, direction: -1 | 1): void {
+    const target = columnIndex + direction;
+    this.columns.update((columns) => {
+      if (target < 0 || target >= columns.length) {
+        return columns;
+      }
+      const moving = columns[columnIndex].cards.find((card) => card.id === cardId);
+      if (!moving) {
+        return columns;
+      }
+      return columns.map((column, index) => {
+        if (index === columnIndex) {
+          return { ...column, cards: column.cards.filter((card) => card.id !== cardId) };
+        }
+        if (index === target) {
+          return { ...column, cards: [...column.cards, moving] };
+        }
+        return column;
+      });
+    });
+    this.closeMenu();
+  }
+
+  protected canMove(columnIndex: number, direction: -1 | 1): boolean {
+    const target = columnIndex + direction;
+    return target >= 0 && target < this.columns().length;
+  }
+
+  // ----- Delete -----
+  protected deleteCard(columnIndex: number, cardId: number): void {
+    this.columns.update((columns) =>
+      columns.map((column, index) =>
+        index === columnIndex
+          ? { ...column, cards: column.cards.filter((card) => card.id !== cardId) }
+          : column,
+      ),
+    );
+    this.closeMenu();
+  }
+
+  // ----- ⋮ menus -----
+  protected toggleMenu(key: string): void {
+    this.openMenu.update((current) => (current === key ? '' : key));
+  }
+
+  protected closeMenu(): void {
+    this.openMenu.set('');
+  }
 }

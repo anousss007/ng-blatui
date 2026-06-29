@@ -56,9 +56,38 @@
             <h3 class="text-lg font-semibold">Total Income</h3>
             <p class="text-sm text-muted-foreground">Weekly report overview</p>
           </div>
-          <button type="button" class="acn-menu-btn" aria-label="Menu">
-            <app-lucide name="ellipsis-vertical" class="size-4" />
-          </button>
+          <div class="relative">
+            <button
+              type="button"
+              class="acn-menu-btn"
+              aria-label="Menu"
+              (click)="toggleMenu('income', $event)"
+            >
+              <app-lucide name="ellipsis-vertical" class="size-4" />
+            </button>
+            @if (openMenu() === 'income') {
+              <div
+                class="absolute right-0 z-20 mt-1 flex w-36 flex-col rounded-md border bg-[var(--popover,var(--card))] p-1 text-sm shadow-md ring-1 ring-black/5"
+                (click)="$event.stopPropagation()"
+              >
+                <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                  View
+                </button>
+                <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                  Refresh
+                </button>
+                <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                  Export
+                </button>
+                <button
+                  type="button"
+                  class="rounded-sm px-2 py-1.5 text-left text-destructive hover:bg-muted"
+                >
+                  Remove
+                </button>
+              </div>
+            }
+          </div>
         </div>
         <div class="flex gap-3">
           <div class="flex flex-col justify-between py-1 text-xs text-muted-foreground">
@@ -99,9 +128,38 @@
             <h3 class="text-lg font-semibold">Report</h3>
             <p class="text-sm text-muted-foreground">Weekly activity</p>
           </div>
-          <button type="button" class="acn-menu-btn" aria-label="Menu">
-            <app-lucide name="ellipsis-vertical" class="size-4" />
-          </button>
+          <div class="relative">
+            <button
+              type="button"
+              class="acn-menu-btn"
+              aria-label="Menu"
+              (click)="toggleMenu('report', $event)"
+            >
+              <app-lucide name="ellipsis-vertical" class="size-4" />
+            </button>
+            @if (openMenu() === 'report') {
+              <div
+                class="absolute right-0 z-20 mt-1 flex w-36 flex-col rounded-md border bg-[var(--popover,var(--card))] p-1 text-sm shadow-md ring-1 ring-black/5"
+                (click)="$event.stopPropagation()"
+              >
+                <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                  View
+                </button>
+                <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                  Refresh
+                </button>
+                <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                  Export
+                </button>
+                <button
+                  type="button"
+                  class="rounded-sm px-2 py-1.5 text-left text-destructive hover:bg-muted"
+                >
+                  Remove
+                </button>
+              </div>
+            }
+          </div>
         </div>
         <div class="flex flex-1 flex-col gap-4">
           @for (r of report; track r.label) {
@@ -126,9 +184,38 @@
           <h3 class="text-lg font-semibold">Monthly campaign state</h3>
           <p class="text-sm text-muted-foreground">7.58k Social Visitors</p>
         </div>
-        <button type="button" class="acn-menu-btn" aria-label="Menu">
-          <app-lucide name="ellipsis-vertical" class="size-4" />
-        </button>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('campaign', $event)"
+          >
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+          @if (openMenu() === 'campaign') {
+            <div
+              class="absolute right-0 z-20 mt-1 flex w-36 flex-col rounded-md border bg-[var(--popover,var(--card))] p-1 text-sm shadow-md ring-1 ring-black/5"
+              (click)="$event.stopPropagation()"
+            >
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                View
+              </button>
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                Refresh
+              </button>
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                Export
+              </button>
+              <button
+                type="button"
+                class="rounded-sm px-2 py-1.5 text-left text-destructive hover:bg-muted"
+              >
+                Remove
+              </button>
+            </div>
+          }
+        </div>
       </div>
       <div class="flex flex-1 flex-col justify-between gap-4">
         @for (c of campaign; track c.label) {
@@ -164,9 +251,38 @@
             </span>
           </div>
         </div>
-        <button type="button" class="acn-menu-btn" aria-label="Menu">
-          <app-lucide name="ellipsis-vertical" class="size-4" />
-        </button>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('earning', $event)"
+          >
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+          @if (openMenu() === 'earning') {
+            <div
+              class="absolute right-0 z-20 mt-1 flex w-36 flex-col rounded-md border bg-[var(--popover,var(--card))] p-1 text-sm shadow-md ring-1 ring-black/5"
+              (click)="$event.stopPropagation()"
+            >
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                View
+              </button>
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                Refresh
+              </button>
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                Export
+              </button>
+              <button
+                type="button"
+                class="rounded-sm px-2 py-1.5 text-left text-destructive hover:bg-muted"
+              >
+                Remove
+              </button>
+            </div>
+          }
+        </div>
       </div>
       <div class="mt-auto">
         <svg viewBox="0 0 315 177" class="h-44 w-full" preserveAspectRatio="none">
@@ -220,18 +336,48 @@
     <div class="acn-card col-span-full flex flex-col gap-4 p-6 sm:col-span-3 lg:col-span-2">
       <div class="flex items-start justify-between">
         <h3 class="text-lg font-semibold">For Business Shark</h3>
-        <button type="button" class="acn-menu-btn" aria-label="Menu">
-          <app-lucide name="ellipsis-vertical" class="size-4" />
-        </button>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('business', $event)"
+          >
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+          @if (openMenu() === 'business') {
+            <div
+              class="absolute right-0 z-20 mt-1 flex w-36 flex-col rounded-md border bg-[var(--popover,var(--card))] p-1 text-sm shadow-md ring-1 ring-black/5"
+              (click)="$event.stopPropagation()"
+            >
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                View
+              </button>
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                Refresh
+              </button>
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                Export
+              </button>
+              <button
+                type="button"
+                class="rounded-sm px-2 py-1.5 text-left text-destructive hover:bg-muted"
+              >
+                Remove
+              </button>
+            </div>
+          }
+        </div>
       </div>
       <p class="text-sm text-muted-foreground">
         Here, I focus on a range of items and features that we use in life without them
       </p>
       <p class="text-base font-medium">Choose a plan to get started</p>
       <div class="flex flex-col gap-2">
-        @for (p of plans; track p.label) {
+        @for (p of plans(); track p.label) {
           <span
             class="flex cursor-pointer items-center gap-3 rounded-md border px-4 py-2"
+            (click)="togglePlan(p.label)"
             [class.border-primary]="p.checked"
           >
             <span
@@ -257,11 +403,11 @@
       <div class="flex flex-col gap-2">
         <div class="flex items-center justify-between text-sm">
           <span>Taxes</span>
-          <span>$32</span>
+          <span>${{ taxes }}</span>
         </div>
         <div class="flex items-center justify-between">
           <span class="text-sm">Total amount</span>
-          <span class="text-lg font-medium">$152</span>
+          <span class="text-lg font-medium">${{ planTotal() }}</span>
         </div>
       </div>
       <button type="button" class="acn-btn-primary w-full">Pay now</button>
@@ -271,9 +417,38 @@
     <div class="acn-card col-span-full flex flex-col gap-6 p-6 sm:col-span-3 lg:col-span-2">
       <div class="flex items-center justify-between">
         <h3 class="text-lg font-semibold">Vehicles Condition</h3>
-        <button type="button" class="acn-menu-btn" aria-label="Menu">
-          <app-lucide name="ellipsis-vertical" class="size-4" />
-        </button>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('condition', $event)"
+          >
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+          @if (openMenu() === 'condition') {
+            <div
+              class="absolute right-0 z-20 mt-1 flex w-36 flex-col rounded-md border bg-[var(--popover,var(--card))] p-1 text-sm shadow-md ring-1 ring-black/5"
+              (click)="$event.stopPropagation()"
+            >
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                View
+              </button>
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                Refresh
+              </button>
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                Export
+              </button>
+              <button
+                type="button"
+                class="rounded-sm px-2 py-1.5 text-left text-destructive hover:bg-muted"
+              >
+                Remove
+              </button>
+            </div>
+          }
+        </div>
       </div>
       <div class="flex flex-1 flex-col justify-between gap-6">
         @for (c of conditions; track c.label) {

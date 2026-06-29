@@ -37,6 +37,8 @@
             type="search"
             placeholder="Search conversations..."
             aria-label="Search conversations"
+            [value]="query()"
+            (input)="onSearch($event)"
           />
         </div>
       </div>
@@ -47,10 +49,11 @@
           <button
             type="button"
             class="-mb-px border-b-2 py-2 font-medium whitespace-nowrap transition-colors"
-            [class.border-primary]="t.active"
-            [class.text-foreground]="t.active"
-            [class.border-transparent]="!t.active"
-            [class.text-muted-foreground]="!t.active"
+            [class.border-primary]="activeTab() === t.label"
+            [class.text-foreground]="activeTab() === t.label"
+            [class.border-transparent]="activeTab() !== t.label"
+            [class.text-muted-foreground]="activeTab() !== t.label"
+            (click)="selectTab(t.label)"
           >
             {{ t.label }} <span class="text-muted-foreground">({{ t.count }})</span>
           </button>
@@ -60,134 +63,142 @@
       <!-- Scrollable list -->
       <div class="mt-1 flex-1 overflow-y-auto px-2 pb-3">
         <!-- Pinned -->
-        <div class="flex items-center justify-between px-2.5 pt-3 pb-1">
-          <span class="text-xs font-medium text-muted-foreground">Pinned</span>
-          <app-lucide name="chevron-up" class="size-4 text-muted-foreground" />
-        </div>
-        <div class="flex flex-col gap-1">
-          @for (c of pinned; track c.name) {
-            <button
-              type="button"
-              class="w-full overflow-hidden rounded-lg px-2.5 py-2.5 text-left transition-colors ring-inset hover:bg-muted/75"
-            >
-              <div class="flex min-w-0 items-start gap-2.5">
-                <span class="relative inline-flex size-10 shrink-0">
-                  <img
-                    [src]="c.avatar"
-                    [alt]="c.name"
-                    class="size-full rounded-full object-cover"
-                  />
-                  @if (c.status) {
-                    <span
-                      class="absolute right-0 bottom-0 size-2.5 rounded-full border-2 border-background"
-                      [class]="statusClass[c.status]"
-                    ></span>
-                  }
-                </span>
-                <div class="w-0 min-w-0 flex-1 overflow-hidden">
-                  <div class="flex w-full items-center justify-between gap-2">
-                    <div
-                      class="truncate text-sm leading-5 text-foreground"
-                      [class.font-semibold]="c.unread"
-                      [class.font-medium]="!c.unread"
-                    >
-                      {{ c.name }}
-                    </div>
-                    <span class="shrink-0 text-xs leading-5 text-muted-foreground tabular-nums">{{
-                      c.time
-                    }}</span>
-                  </div>
-                  <div class="mt-0.5 flex min-w-0 items-end gap-2">
-                    <div class="w-0 min-w-0 flex-1 overflow-hidden">
-                      <div class="truncate text-xs leading-4 text-muted-foreground">
-                        @if (c.outgoing) {
-                          <span class="text-muted-foreground/80">You: </span>
-                        }
-                        {{ c.preview }}
+        @if (visiblePinned().length) {
+          <div class="flex items-center justify-between px-2.5 pt-3 pb-1">
+            <span class="text-xs font-medium text-muted-foreground">Pinned</span>
+            <app-lucide name="chevron-up" class="size-4 text-muted-foreground" />
+          </div>
+          <div class="flex flex-col gap-1">
+            @for (c of visiblePinned(); track c.name) {
+              <button
+                type="button"
+                class="w-full overflow-hidden rounded-lg px-2.5 py-2.5 text-left transition-colors ring-inset hover:bg-muted/75"
+                [class.bg-muted]="active().name === c.name"
+                (click)="openConversation(c)"
+              >
+                <div class="flex min-w-0 items-start gap-2.5">
+                  <span class="relative inline-flex size-10 shrink-0">
+                    <img
+                      [src]="c.avatar"
+                      [alt]="c.name"
+                      class="size-full rounded-full object-cover"
+                    />
+                    @if (c.status) {
+                      <span
+                        class="absolute right-0 bottom-0 size-2.5 rounded-full border-2 border-background"
+                        [class]="statusClass[c.status]"
+                      ></span>
+                    }
+                  </span>
+                  <div class="w-0 min-w-0 flex-1 overflow-hidden">
+                    <div class="flex w-full items-center justify-between gap-2">
+                      <div
+                        class="truncate text-sm leading-5 text-foreground"
+                        [class.font-semibold]="c.unread"
+                        [class.font-medium]="!c.unread"
+                      >
+                        {{ c.name }}
                       </div>
+                      <span class="shrink-0 text-xs leading-5 text-muted-foreground tabular-nums">{{
+                        c.time
+                      }}</span>
                     </div>
-                    <div class="flex shrink-0 items-center gap-1">
-                      @if (c.pinned) {
-                        <app-lucide name="star" class="size-3 text-muted-foreground opacity-70" />
-                      }
-                      @if (c.unread) {
-                        <span
-                          class="grid size-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-xs font-medium text-primary-foreground"
-                          >{{ c.unread }}</span
-                        >
-                      }
+                    <div class="mt-0.5 flex min-w-0 items-end gap-2">
+                      <div class="w-0 min-w-0 flex-1 overflow-hidden">
+                        <div class="truncate text-xs leading-4 text-muted-foreground">
+                          @if (c.outgoing) {
+                            <span class="text-muted-foreground/80">You: </span>
+                          }
+                          {{ c.preview }}
+                        </div>
+                      </div>
+                      <div class="flex shrink-0 items-center gap-1">
+                        @if (c.pinned) {
+                          <app-lucide name="star" class="size-3 text-muted-foreground opacity-70" />
+                        }
+                        @if (c.unread) {
+                          <span
+                            class="grid size-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-xs font-medium text-primary-foreground"
+                            >{{ c.unread }}</span
+                          >
+                        }
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </button>
-          }
-        </div>
+              </button>
+            }
+          </div>
+        }
 
         <!-- Recent -->
-        <div class="flex items-center justify-between px-2.5 pt-3 pb-1">
-          <span class="text-xs font-medium text-muted-foreground">Recent</span>
-          <app-lucide name="chevron-up" class="size-4 text-muted-foreground" />
-        </div>
-        <div class="flex flex-col gap-1">
-          @for (c of recent; track c.name) {
-            <button
-              type="button"
-              class="w-full overflow-hidden rounded-lg px-2.5 py-2.5 text-left transition-colors ring-inset hover:bg-muted/75"
-            >
-              <div class="flex min-w-0 items-start gap-2.5">
-                <span class="relative inline-flex size-10 shrink-0">
-                  <img
-                    [src]="c.avatar"
-                    [alt]="c.name"
-                    class="size-full rounded-full object-cover"
-                  />
-                  @if (c.status) {
-                    <span
-                      class="absolute right-0 bottom-0 size-2.5 rounded-full border-2 border-background"
-                      [class]="statusClass[c.status]"
-                    ></span>
-                  }
-                </span>
-                <div class="w-0 min-w-0 flex-1 overflow-hidden">
-                  <div class="flex w-full items-center justify-between gap-2">
-                    <div
-                      class="truncate text-sm leading-5 text-foreground"
-                      [class.font-semibold]="c.unread"
-                      [class.font-medium]="!c.unread"
-                    >
-                      {{ c.name }}
-                    </div>
-                    <span class="shrink-0 text-xs leading-5 text-muted-foreground tabular-nums">{{
-                      c.time
-                    }}</span>
-                  </div>
-                  <div class="mt-0.5 flex min-w-0 items-end gap-2">
-                    <div class="w-0 min-w-0 flex-1 overflow-hidden">
-                      <div class="truncate text-xs leading-4 text-muted-foreground">
-                        @if (c.outgoing) {
-                          <span class="text-muted-foreground/80">You: </span>
-                        }
-                        {{ c.preview }}
+        @if (visibleRecent().length) {
+          <div class="flex items-center justify-between px-2.5 pt-3 pb-1">
+            <span class="text-xs font-medium text-muted-foreground">Recent</span>
+            <app-lucide name="chevron-up" class="size-4 text-muted-foreground" />
+          </div>
+          <div class="flex flex-col gap-1">
+            @for (c of visibleRecent(); track c.name) {
+              <button
+                type="button"
+                class="w-full overflow-hidden rounded-lg px-2.5 py-2.5 text-left transition-colors ring-inset hover:bg-muted/75"
+                [class.bg-muted]="active().name === c.name"
+                (click)="openConversation(c)"
+              >
+                <div class="flex min-w-0 items-start gap-2.5">
+                  <span class="relative inline-flex size-10 shrink-0">
+                    <img
+                      [src]="c.avatar"
+                      [alt]="c.name"
+                      class="size-full rounded-full object-cover"
+                    />
+                    @if (c.status) {
+                      <span
+                        class="absolute right-0 bottom-0 size-2.5 rounded-full border-2 border-background"
+                        [class]="statusClass[c.status]"
+                      ></span>
+                    }
+                  </span>
+                  <div class="w-0 min-w-0 flex-1 overflow-hidden">
+                    <div class="flex w-full items-center justify-between gap-2">
+                      <div
+                        class="truncate text-sm leading-5 text-foreground"
+                        [class.font-semibold]="c.unread"
+                        [class.font-medium]="!c.unread"
+                      >
+                        {{ c.name }}
                       </div>
+                      <span class="shrink-0 text-xs leading-5 text-muted-foreground tabular-nums">{{
+                        c.time
+                      }}</span>
                     </div>
-                    <div class="flex shrink-0 items-center gap-1">
-                      @if (c.pinned) {
-                        <app-lucide name="star" class="size-3 text-muted-foreground opacity-70" />
-                      }
-                      @if (c.unread) {
-                        <span
-                          class="grid size-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-xs font-medium text-primary-foreground"
-                          >{{ c.unread }}</span
-                        >
-                      }
+                    <div class="mt-0.5 flex min-w-0 items-end gap-2">
+                      <div class="w-0 min-w-0 flex-1 overflow-hidden">
+                        <div class="truncate text-xs leading-4 text-muted-foreground">
+                          @if (c.outgoing) {
+                            <span class="text-muted-foreground/80">You: </span>
+                          }
+                          {{ c.preview }}
+                        </div>
+                      </div>
+                      <div class="flex shrink-0 items-center gap-1">
+                        @if (c.pinned) {
+                          <app-lucide name="star" class="size-3 text-muted-foreground opacity-70" />
+                        }
+                        @if (c.unread) {
+                          <span
+                            class="grid size-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-xs font-medium text-primary-foreground"
+                            >{{ c.unread }}</span
+                          >
+                        }
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </button>
-          }
-        </div>
+              </button>
+            }
+          </div>
+        }
       </div>
     </aside>
 
@@ -198,19 +209,24 @@
         <div class="flex min-w-0 items-center gap-2.5">
           <span class="relative inline-flex size-9 shrink-0">
             <img
-              [src]="active.avatar"
-              [alt]="active.name"
+              [src]="active().avatar"
+              [alt]="active().name"
               class="size-full rounded-full object-cover"
             />
-            <span
-              class="absolute right-0 bottom-0 size-2.5 rounded-full border-2 border-background"
-              [class]="statusClass[active.status]"
-            ></span>
+            @if (active().status) {
+              <span
+                class="absolute right-0 bottom-0 size-2.5 rounded-full border-2 border-background"
+                [class]="statusClass[active().status!]"
+              ></span>
+            }
           </span>
           <div class="flex min-w-0 flex-col">
-            <span class="truncate text-sm leading-5 font-semibold">{{ active.name }}</span>
-            <span class="truncate text-xs leading-4 text-muted-foreground"
-              >Online · {{ active.role }}</span
+            <span class="truncate text-sm leading-5 font-semibold">{{ active().name }}</span>
+            <span class="truncate text-xs leading-4 text-muted-foreground">
+              @if (active().status === 'online') {
+                Online ·
+              }
+              {{ active().role }}</span
             >
           </div>
         </div>
@@ -237,7 +253,7 @@
             >Jun 11</span
           >
         </div>
-        @for (m of thread; track $index) {
+        @for (m of active().messages; track $index) {
           <div class="flex items-end gap-2.5" [class.flex-row-reverse]="m.outgoing">
             @if (!m.outgoing) {
               <img
@@ -277,10 +293,12 @@
             <app-lucide name="images" class="size-4" />
           </button>
           <input
+            #composer
             type="text"
             class="min-w-0 flex-1 border-0 bg-transparent px-1 text-sm text-foreground outline-none placeholder:text-muted-foreground"
             placeholder="Type a message..."
             aria-label="Type a message"
+            (keydown.enter)="send(composer)"
           />
           <button type="button" class="acn-menu-btn size-8 shrink-0" aria-label="Emoji">
             <app-lucide name="smile" class="size-4" />
@@ -288,7 +306,12 @@
           <button type="button" class="acn-menu-btn size-8 shrink-0" aria-label="Voice message">
             <app-lucide name="mic" class="size-4" />
           </button>
-          <button type="button" class="acn-btn-primary size-9 shrink-0 !px-0" aria-label="Send">
+          <button
+            type="button"
+            class="acn-btn-primary size-9 shrink-0 !px-0"
+            aria-label="Send"
+            (click)="send(composer)"
+          >
             <app-lucide name="send" class="size-4" />
           </button>
         </div>

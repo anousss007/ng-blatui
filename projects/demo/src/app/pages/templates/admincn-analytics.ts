@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation } from '@angular/core';
 
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
@@ -263,5 +263,64 @@ export class AdmincnAnalytics {
 
   protected barH(value: number, max: number): number {
     return Math.round((value / max) * 1000) / 10;
+  }
+
+  /* ---- Performance card tabs ---- */
+  protected readonly perfTabs = ['New Users', 'Online Sales', 'Daily Sales'];
+  protected readonly activePerfTab = signal('New Users');
+  /** Seeded per-tab figures so the card content reflects the active tab. */
+  protected readonly perfData: Record<
+    string,
+    {
+      items: string;
+      role: string;
+      name: string;
+      badge: string;
+      metric: string;
+      value: string;
+      delta: string;
+    }
+  > = {
+    'New Users': {
+      items: '10 Items',
+      role: 'Product Manager',
+      name: 'Angel George',
+      badge: 'Daily purchase',
+      metric: 'Physical product',
+      value: '$78,263',
+      delta: '+14.78%',
+    },
+    'Online Sales': {
+      items: '24 Items',
+      role: 'Sales Lead',
+      name: 'Marcus Reyes',
+      badge: 'Online orders',
+      metric: 'Digital product',
+      value: '$52,940',
+      delta: '+9.21%',
+    },
+    'Daily Sales': {
+      items: '7 Items',
+      role: 'Account Exec',
+      name: 'Priya Sharma',
+      badge: 'Daily revenue',
+      metric: 'Subscription',
+      value: '$12,408',
+      delta: '+5.36%',
+    },
+  };
+  protected readonly perf = () => this.perfData[this.activePerfTab()];
+  protected setPerfTab(tab: string): void {
+    this.activePerfTab.set(tab);
+  }
+
+  /* ---- Per-card ellipsis menus (one open at a time) ---- */
+  protected readonly openMenu = signal<string | null>(null);
+  protected readonly menuItems = ['View', 'Refresh', 'Export', 'Remove'];
+  protected toggleMenu(id: string): void {
+    this.openMenu.set(this.openMenu() === id ? null : id);
+  }
+  protected closeMenu(): void {
+    this.openMenu.set(null);
   }
 }

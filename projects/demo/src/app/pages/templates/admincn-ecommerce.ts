@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation } from '@angular/core';
 
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
@@ -126,40 +126,100 @@ export class AdmincnEcommerce {
     { icon: 'truck', label: 'Shipped' },
     { icon: 'box', label: 'Received' },
   ];
-  protected readonly packRows: PackRow[] = [
-    { label: 'Packing Pending', value: 4250, pct: 88 },
-    { label: 'Packing in Progress', value: 2150, pct: 60 },
-    { label: 'Packing Complete', value: 1750, pct: 40, buy: true },
-  ];
+  protected readonly activePackTab = signal('Packed');
+  /** Seeded pack-progress rows per tab. */
+  private readonly packData: Record<string, PackRow[]> = {
+    Packed: [
+      { label: 'Packing Pending', value: 4250, pct: 88 },
+      { label: 'Packing in Progress', value: 2150, pct: 60 },
+      { label: 'Packing Complete', value: 1750, pct: 40, buy: true },
+    ],
+    Shipped: [
+      { label: 'In Transit', value: 3120, pct: 72 },
+      { label: 'Out for Delivery', value: 1840, pct: 48 },
+      { label: 'Delivery Complete', value: 980, pct: 30, buy: true },
+    ],
+    Received: [
+      { label: 'Awaiting Inspection', value: 2210, pct: 64 },
+      { label: 'Inspection in Progress', value: 1320, pct: 42 },
+      { label: 'Stocked', value: 760, pct: 22, buy: true },
+    ],
+  };
+  protected readonly packRows = (): PackRow[] => this.packData[this.activePackTab()];
+  protected setPackTab(label: string): void {
+    this.activePackTab.set(label);
+  }
 
   /* ---- Orders ---- */
   protected readonly orderTabs = ['New', 'Pending', 'Shipping'];
-  protected readonly orders: OrderRow[] = [
-    {
-      role: 'Sender',
-      icon: 'user',
-      name: 'Mytrle Ullrich',
-      address: '101 Boulder, California(CA), 959595',
-    },
-    {
-      role: 'Receiver',
-      icon: 'map-pin',
-      name: 'Barry Schowalter',
-      address: '939 orange, California(CA), 92118',
-    },
-    {
-      role: 'Sender',
-      icon: 'user',
-      name: 'Lucas Smith',
-      address: '203 Riverdale, New York(NY), 10001',
-    },
-    {
-      role: 'Receiver',
-      icon: 'map-pin',
-      name: 'Emma Johnson',
-      address: '305 Maple Avenue, Austin, Texas(TX), 73301',
-    },
-  ];
+  protected readonly activeOrderTab = signal('New');
+  /** Seeded order lists per tab. */
+  private readonly orderData: Record<string, OrderRow[]> = {
+    New: [
+      {
+        role: 'Sender',
+        icon: 'user',
+        name: 'Mytrle Ullrich',
+        address: '101 Boulder, California(CA), 959595',
+      },
+      {
+        role: 'Receiver',
+        icon: 'map-pin',
+        name: 'Barry Schowalter',
+        address: '939 orange, California(CA), 92118',
+      },
+      {
+        role: 'Sender',
+        icon: 'user',
+        name: 'Lucas Smith',
+        address: '203 Riverdale, New York(NY), 10001',
+      },
+      {
+        role: 'Receiver',
+        icon: 'map-pin',
+        name: 'Emma Johnson',
+        address: '305 Maple Avenue, Austin, Texas(TX), 73301',
+      },
+    ],
+    Pending: [
+      {
+        role: 'Sender',
+        icon: 'user',
+        name: 'Olivia Bennett',
+        address: '88 Pine Street, Seattle, Washington(WA), 98101',
+      },
+      {
+        role: 'Receiver',
+        icon: 'map-pin',
+        name: 'Noah Williams',
+        address: '412 Sunset Blvd, Los Angeles, California(CA), 90028',
+      },
+      {
+        role: 'Sender',
+        icon: 'user',
+        name: 'Sophia Martinez',
+        address: '27 Elm Court, Denver, Colorado(CO), 80014',
+      },
+    ],
+    Shipping: [
+      {
+        role: 'Receiver',
+        icon: 'map-pin',
+        name: 'Liam Anderson',
+        address: '910 Harbor Way, Miami, Florida(FL), 33101',
+      },
+      {
+        role: 'Sender',
+        icon: 'user',
+        name: 'Ava Thompson',
+        address: '53 Birch Lane, Portland, Oregon(OR), 97201',
+      },
+    ],
+  };
+  protected readonly orders = (): OrderRow[] => this.orderData[this.activeOrderTab()];
+  protected setOrderTab(tab: string): void {
+    this.activeOrderTab.set(tab);
+  }
 
   /* ---- Popular products ---- */
   protected readonly products: Product[] = [
@@ -255,4 +315,14 @@ export class AdmincnEcommerce {
   ];
 
   protected readonly selects = ['Category', 'Stock', 'Status'];
+
+  /* ---- Per-card ellipsis menus (one open at a time) ---- */
+  protected readonly openMenu = signal<string | null>(null);
+  protected readonly menuItems = ['View', 'Refresh', 'Export', 'Remove'];
+  protected toggleMenu(id: string): void {
+    this.openMenu.set(this.openMenu() === id ? null : id);
+  }
+  protected closeMenu(): void {
+    this.openMenu.set(null);
+  }
 }

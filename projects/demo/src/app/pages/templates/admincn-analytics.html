@@ -1,4 +1,12 @@
 <app-admincn-shell active="Analytics">
+  @if (openMenu() !== null) {
+    <button
+      type="button"
+      class="fixed inset-0 z-10 cursor-default"
+      aria-label="Close menu"
+      (click)="closeMenu()"
+    ></button>
+  }
   <div class="grid grid-cols-6 gap-6">
     <!-- ============ KPI 1 — Total Profit ============ -->
     <div
@@ -165,9 +173,32 @@
     <div class="acn-card col-span-full flex flex-col gap-6 p-6 2xl:col-span-4">
       <div class="flex items-start justify-between">
         <h3 class="font-heading text-lg font-semibold">Top Services by Sales</h3>
-        <button type="button" class="acn-menu-btn" aria-label="Menu">
-          <app-lucide name="ellipsis-vertical" class="size-4" />
-        </button>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('services')"
+          >
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+          @if (openMenu() === 'services') {
+            <div
+              class="absolute top-full right-0 z-20 mt-1 w-36 rounded-lg border p-1 shadow-md ring-1 ring-border"
+              style="background: var(--card)"
+            >
+              @for (item of menuItems; track item) {
+                <button
+                  type="button"
+                  class="flex w-full items-center rounded-md px-2.5 py-1.5 text-left text-sm hover:bg-muted"
+                  (click)="closeMenu()"
+                >
+                  {{ item }}
+                </button>
+              }
+            </div>
+          }
+        </div>
       </div>
 
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-10">
@@ -214,9 +245,32 @@
           <h3 class="font-heading text-lg font-semibold">Conversion rate</h3>
           <p class="text-sm text-muted-foreground">Compared to last month</p>
         </div>
-        <button type="button" class="acn-menu-btn" aria-label="Menu">
-          <app-lucide name="ellipsis-vertical" class="size-4" />
-        </button>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('conversion')"
+          >
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+          @if (openMenu() === 'conversion') {
+            <div
+              class="absolute top-full right-0 z-20 mt-1 w-36 rounded-lg border p-1 shadow-md ring-1 ring-border"
+              style="background: var(--card)"
+            >
+              @for (item of menuItems; track item) {
+                <button
+                  type="button"
+                  class="flex w-full items-center rounded-md px-2.5 py-1.5 text-left text-sm hover:bg-muted"
+                  (click)="closeMenu()"
+                >
+                  {{ item }}
+                </button>
+              }
+            </div>
+          }
+        </div>
       </div>
 
       <div class="flex items-center justify-between gap-4">
@@ -265,55 +319,72 @@
         <h3 class="flex items-center gap-2 font-heading text-lg font-semibold">
           <app-lucide name="activity" class="size-5 text-chart-2" /> Performance
         </h3>
-        <button type="button" class="acn-menu-btn" aria-label="Menu">
-          <app-lucide name="ellipsis-vertical" class="size-4" />
-        </button>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('performance')"
+          >
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+          @if (openMenu() === 'performance') {
+            <div
+              class="absolute top-full right-0 z-20 mt-1 w-36 rounded-lg border p-1 shadow-md ring-1 ring-border"
+              style="background: var(--card)"
+            >
+              @for (item of menuItems; track item) {
+                <button
+                  type="button"
+                  class="flex w-full items-center rounded-md px-2.5 py-1.5 text-left text-sm hover:bg-muted"
+                  (click)="closeMenu()"
+                >
+                  {{ item }}
+                </button>
+              }
+            </div>
+          }
+        </div>
       </div>
 
       <div class="flex items-center gap-1 rounded-lg bg-muted p-1 text-sm">
-        <button
-          type="button"
-          class="flex-1 rounded-md bg-background px-3 py-1.5 font-medium shadow-xs"
-        >
-          New Users
-        </button>
-        <button
-          type="button"
-          class="flex-1 rounded-md px-3 py-1.5 font-medium text-muted-foreground"
-        >
-          Online Sales
-        </button>
-        <button
-          type="button"
-          class="flex-1 rounded-md px-3 py-1.5 font-medium text-muted-foreground"
-        >
-          Daily Sales
-        </button>
+        @for (tab of perfTabs; track tab) {
+          <button
+            type="button"
+            class="flex-1 rounded-md px-3 py-1.5 font-medium"
+            [class.bg-background]="activePerfTab() === tab"
+            [class.shadow-xs]="activePerfTab() === tab"
+            [class.text-muted-foreground]="activePerfTab() !== tab"
+            (click)="setPerfTab(tab)"
+          >
+            {{ tab }}
+          </button>
+        }
       </div>
 
       <div class="flex items-center justify-between gap-3">
         <div class="flex items-center gap-3">
           <img
             [src]="img + '/avatars/avatar-5.webp'"
-            alt="Angel George"
+            [alt]="perf().name"
             class="size-10 rounded-full"
           />
           <div class="flex flex-col">
-            <span class="text-xs text-muted-foreground">Product Manager</span>
-            <span class="font-medium">Angel George</span>
+            <span class="text-xs text-muted-foreground">{{ perf().role }}</span>
+            <span class="font-medium">{{ perf().name }}</span>
           </div>
         </div>
-        <span class="acn-badge-muted">Daily purchase</span>
+        <span class="acn-badge-muted">{{ perf().badge }}</span>
       </div>
 
-      <span class="text-sm text-muted-foreground">10 Items</span>
+      <span class="text-sm text-muted-foreground">{{ perf().items }}</span>
 
       <div class="flex items-center justify-between gap-2 rounded-lg border p-4">
         <div class="flex flex-col gap-1">
-          <span class="text-sm text-muted-foreground">Physical product</span>
-          <span class="text-2xl font-semibold tracking-tight">$78,263</span>
+          <span class="text-sm text-muted-foreground">{{ perf().metric }}</span>
+          <span class="text-2xl font-semibold tracking-tight">{{ perf().value }}</span>
         </div>
-        <span class="acn-badge-green">+14.78%</span>
+        <span class="acn-badge-green">{{ perf().delta }}</span>
       </div>
 
       <div class="flex items-center justify-between gap-2">
@@ -342,9 +413,32 @@
           <h3 class="font-heading text-lg font-semibold">Earning Report</h3>
           <p class="text-sm text-muted-foreground">Weekly Earning overview</p>
         </div>
-        <button type="button" class="acn-menu-btn" aria-label="Menu">
-          <app-lucide name="ellipsis-vertical" class="size-4" />
-        </button>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('earning')"
+          >
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+          @if (openMenu() === 'earning') {
+            <div
+              class="absolute top-full right-0 z-20 mt-1 w-36 rounded-lg border p-1 shadow-md ring-1 ring-border"
+              style="background: var(--card)"
+            >
+              @for (item of menuItems; track item) {
+                <button
+                  type="button"
+                  class="flex w-full items-center rounded-md px-2.5 py-1.5 text-left text-sm hover:bg-muted"
+                  (click)="closeMenu()"
+                >
+                  {{ item }}
+                </button>
+              }
+            </div>
+          }
+        </div>
       </div>
 
       <div class="flex flex-col gap-4">
@@ -385,9 +479,32 @@
     <div class="acn-card col-span-full flex flex-col py-6 lg:col-span-3 2xl:col-span-2">
       <div class="flex items-start justify-between px-6">
         <h3 class="font-heading text-lg font-semibold">Payment History</h3>
-        <button type="button" class="acn-menu-btn" aria-label="Menu">
-          <app-lucide name="ellipsis-vertical" class="size-4" />
-        </button>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('payment')"
+          >
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+          @if (openMenu() === 'payment') {
+            <div
+              class="absolute top-full right-0 z-20 mt-1 w-36 rounded-lg border p-1 shadow-md ring-1 ring-border"
+              style="background: var(--card)"
+            >
+              @for (item of menuItems; track item) {
+                <button
+                  type="button"
+                  class="flex w-full items-center rounded-md px-2.5 py-1.5 text-left text-sm hover:bg-muted"
+                  (click)="closeMenu()"
+                >
+                  {{ item }}
+                </button>
+              }
+            </div>
+          }
+        </div>
       </div>
 
       <div class="mt-2 overflow-x-auto px-2">

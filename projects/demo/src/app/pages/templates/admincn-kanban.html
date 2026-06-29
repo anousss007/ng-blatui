@@ -1,7 +1,7 @@
 <app-admincn-shell active="Kanban">
   <!-- ============ KANBAN BOARD ============ -->
   <div class="-mx-1 flex items-start gap-5 overflow-x-auto px-1 pb-4">
-    @for (col of columns; track col.title) {
+    @for (col of columns(); track col.title; let colIndex = $index) {
       <!-- ---------- Column (lane) ---------- -->
       <div
         class="flex w-72 shrink-0 flex-col gap-3 rounded-2xl bg-muted p-4"
@@ -15,16 +15,37 @@
               >{{ col.title }}</span
             >
             <span class="acn-chip" style="height: 1.25rem; padding: 0 0.5rem; line-height: 1">{{
-              col.count
+              cardCount(col)
             }}</span>
           </div>
-          <button type="button" class="acn-menu-btn" aria-label="Column actions">
-            <app-lucide name="ellipsis-vertical" class="size-4" />
-          </button>
+          <div class="acn-menu-wrap">
+            <button
+              type="button"
+              class="acn-menu-btn"
+              aria-label="Column actions"
+              (click)="toggleMenu('col-' + colIndex)"
+            >
+              <app-lucide name="ellipsis-vertical" class="size-4" />
+            </button>
+            @if (openMenu() === 'col-' + colIndex) {
+              <div class="acn-menu-catcher" (click)="closeMenu()"></div>
+              <div class="acn-dropdown" style="width: 12rem">
+                <button
+                  type="button"
+                  class="acn-dropdown-item"
+                  style="width: 100%; border: none; background: transparent; cursor: pointer"
+                  (click)="startAdding(colIndex)"
+                >
+                  <app-lucide name="plus" class="size-4" />
+                  Add New Item
+                </button>
+              </div>
+            }
+          </div>
         </div>
 
         <!-- Cards -->
-        @for (card of col.cards; track card.title) {
+        @for (card of col.cards; track card.id) {
           <div
             class="acn-card flex flex-col gap-3"
             style="
@@ -69,9 +90,82 @@
                   >
                 }
               }
-              <button type="button" class="acn-menu-btn" aria-label="Card actions">
-                <app-lucide name="ellipsis-vertical" class="size-4" />
-              </button>
+              <div class="flex items-center gap-1">
+                <button
+                  type="button"
+                  class="acn-menu-btn"
+                  aria-label="Move card to previous column"
+                  [disabled]="!canMove(colIndex, -1)"
+                  [style.opacity]="canMove(colIndex, -1) ? 1 : 0.35"
+                  [style.cursor]="canMove(colIndex, -1) ? 'pointer' : 'not-allowed'"
+                  (click)="moveCard(colIndex, card.id, -1)"
+                >
+                  <app-lucide name="chevron-left" class="size-4" />
+                </button>
+                <button
+                  type="button"
+                  class="acn-menu-btn"
+                  aria-label="Move card to next column"
+                  [disabled]="!canMove(colIndex, 1)"
+                  [style.opacity]="canMove(colIndex, 1) ? 1 : 0.35"
+                  [style.cursor]="canMove(colIndex, 1) ? 'pointer' : 'not-allowed'"
+                  (click)="moveCard(colIndex, card.id, 1)"
+                >
+                  <app-lucide name="chevron-right" class="size-4" />
+                </button>
+                <div class="acn-menu-wrap">
+                  <button
+                    type="button"
+                    class="acn-menu-btn"
+                    aria-label="Card actions"
+                    (click)="toggleMenu('card-' + card.id)"
+                  >
+                    <app-lucide name="ellipsis-vertical" class="size-4" />
+                  </button>
+                  @if (openMenu() === 'card-' + card.id) {
+                    <div class="acn-menu-catcher" (click)="closeMenu()"></div>
+                    <div class="acn-dropdown" style="width: 12rem">
+                      <button
+                        type="button"
+                        class="acn-dropdown-item"
+                        style="width: 100%; border: none; background: transparent; cursor: pointer"
+                        [disabled]="!canMove(colIndex, -1)"
+                        [style.opacity]="canMove(colIndex, -1) ? 1 : 0.45"
+                        (click)="moveCard(colIndex, card.id, -1)"
+                      >
+                        <app-lucide name="chevron-left" class="size-4" />
+                        Move Left
+                      </button>
+                      <button
+                        type="button"
+                        class="acn-dropdown-item"
+                        style="width: 100%; border: none; background: transparent; cursor: pointer"
+                        [disabled]="!canMove(colIndex, 1)"
+                        [style.opacity]="canMove(colIndex, 1) ? 1 : 0.45"
+                        (click)="moveCard(colIndex, card.id, 1)"
+                      >
+                        <app-lucide name="chevron-right" class="size-4" />
+                        Move Right
+                      </button>
+                      <button
+                        type="button"
+                        class="acn-dropdown-item"
+                        style="
+                          width: 100%;
+                          border: none;
+                          background: transparent;
+                          cursor: pointer;
+                          color: var(--destructive);
+                        "
+                        (click)="deleteCard(colIndex, card.id)"
+                      >
+                        <app-lucide name="trash-2" class="size-4" />
+                        Delete
+                      </button>
+                    </div>
+                  }
+                </div>
+              </div>
             </div>
 
             <!-- Cover image (optional) -->
@@ -92,11 +186,11 @@
             <!-- Footer: assignees + due date -->
             <div class="flex items-center justify-between gap-2">
               <div class="flex items-center" style="padding-left: 0.5rem">
-                @for (a of card.assignees; track a.name) {
+                @for (assignee of card.assignees; track assignee.name) {
                   <img
-                    [src]="a.avatar"
-                    [alt]="a.name"
-                    [title]="a.name"
+                    [src]="assignee.avatar"
+                    [alt]="assignee.name"
+                    [title]="assignee.name"
                     class="object-cover"
                     style="
                       height: 1.5rem;
@@ -116,6 +210,29 @@
           </div>
         }
 
+        <!-- Inline add input -->
+        @if (addingColumn() === colIndex) {
+          <div class="acn-input">
+            <input
+              type="text"
+              placeholder="Item title…"
+              [value]="draftTitle()"
+              (input)="draftTitle.set($any($event.target).value)"
+              (keydown.enter)="confirmAdding(colIndex)"
+              (keydown.escape)="cancelAdding()"
+              (blur)="cancelAdding()"
+            />
+            <button
+              type="button"
+              class="acn-menu-btn"
+              aria-label="Add item"
+              (mousedown)="confirmAdding(colIndex)"
+            >
+              <app-lucide name="plus" class="size-4" />
+            </button>
+          </div>
+        }
+
         <!-- Add New Item -->
         <button
           type="button"
@@ -128,6 +245,7 @@
             color: var(--muted-foreground);
             cursor: pointer;
           "
+          (click)="startAdding(colIndex)"
         >
           <app-lucide name="plus" class="size-4" />
           Add New Item

@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  signal,
+  ViewEncapsulation,
+} from '@angular/core';
 
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
@@ -47,6 +53,7 @@ interface RouteRow {
   encapsulation: ViewEncapsulation.None,
   imports: [Lucide, AdmincnShell],
   templateUrl: './admincn-logistics.html',
+  host: { '(document:click)': 'closeMenus()' },
 })
 export class AdmincnLogistics {
   protected readonly img = '/admincn';
@@ -66,11 +73,42 @@ export class AdmincnLogistics {
   ];
 
   /* Order / packing card -------------------------------------------------- */
-  protected readonly packing: PackingBar[] = [
-    { label: 'Packing Pending', count: '4250', value: 80 },
-    { label: 'Packing in Progress', count: '2150', value: 60 },
-    { label: 'Packing Complete', count: '1750', value: 40 },
+  protected readonly packTabs = ['Packed', 'Shipped', 'Received'];
+  protected readonly packIcons = ['package', 'truck', 'package'];
+  /** Active order toggle index (0=Packed, 1=Shipped, 2=Received). */
+  protected readonly packTab = signal(0);
+  /** Per-toggle progress-bar sets. */
+  protected readonly packingSets: PackingBar[][] = [
+    [
+      { label: 'Packing Pending', count: '4250', value: 80 },
+      { label: 'Packing in Progress', count: '2150', value: 60 },
+      { label: 'Packing Complete', count: '1750', value: 40 },
+    ],
+    [
+      { label: 'Awaiting Pickup', count: '3120', value: 70 },
+      { label: 'In Transit', count: '2680', value: 55 },
+      { label: 'Out for Delivery', count: '1340', value: 30 },
+    ],
+    [
+      { label: 'Delivered', count: '5120', value: 90 },
+      { label: 'Signed', count: '4380', value: 65 },
+      { label: 'Returned', count: '420', value: 15 },
+    ],
   ];
+  protected readonly packing = computed(() => this.packingSets[this.packTab()]);
+  protected setPackTab(index: number): void {
+    this.packTab.set(index);
+  }
+
+  /* Per-card ellipsis menus ----------------------------------------------- */
+  protected readonly openMenu = signal<string | null>(null);
+  protected toggleMenu(id: string, event: MouseEvent): void {
+    event.stopPropagation();
+    this.openMenu.update((current) => (current === id ? null : id));
+  }
+  protected closeMenus(): void {
+    this.openMenu.set(null);
+  }
 
   /* Sales performance — twin bar columns ---------------------------------- */
   protected readonly perfBars = [40, 70, 55, 90, 48, 75, 62, 85, 52, 68];
