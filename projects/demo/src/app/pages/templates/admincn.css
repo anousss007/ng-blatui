@@ -901,3 +901,44 @@
   color: var(--muted-foreground);
   font-size: 0.875rem;
 }
+
+/* ===================== RESPONSIVE / MOBILE FIXES ===================== */
+/* Native <select>: drop the OS arrow — a custom chevron icon is already rendered
+   next to it (otherwise both show → double chevron). */
+#tpl-admincn select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: none;
+}
+/* Wide data tables: keep columns readable and horizontally scrollable on small
+   screens instead of crushing/clipping them. The .acn-table is always inside an
+   overflow-x-auto wrapper, so this just makes the scroll real on narrow widths. */
+#tpl-admincn .acn-table {
+  min-width: 42rem;
+}
+/* Mobile search trigger collapses to an icon-only button (label/kbd hidden via
+   utilities) — keep it compact so the topbar never overflows. */
+@media (max-width: 639px) {
+  #tpl-admincn .acn-search {
+    gap: 0;
+    padding: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    justify-content: center;
+    border-radius: 9999px;
+  }
+  #tpl-admincn .acn-search:hover {
+    background: var(--accent);
+  }
+  /* Hide the ⌘K hint (no keyboard on touch) and secondary topbar icons so the
+     search + bell + theme + avatar always fit without overflowing. */
+  #tpl-admincn .acn-search .acn-kbd,
+  #tpl-admincn .acn-topbar .acn-icon-btn[aria-label='Activity'],
+  #tpl-admincn .acn-topbar .acn-icon-btn[aria-label='Customize'] {
+    display: none;
+  }
+  /* Avatar must never be pushed off-screen */
+  #tpl-admincn .acn-avatar-btn {
+    margin-left: 0;
+  }
+}
