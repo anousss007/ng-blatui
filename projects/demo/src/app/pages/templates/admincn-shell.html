@@ -88,12 +88,12 @@
         <span class="acn-topbar-divider"></span>
         <button type="button" class="acn-search" (click)="paletteOpen.set(true)">
           <app-lucide name="search" class="size-4" />
-          <span>Type to search...</span>
-          <kbd class="acn-kbd">⌘K</kbd>
+          <span class="max-sm:hidden">Type to search...</span>
+          <kbd class="acn-kbd max-sm:hidden">⌘K</kbd>
         </button>
 
         <div class="ml-auto flex items-center gap-0.5 sm:gap-1">
-          <button type="button" class="acn-icon-btn" aria-label="Activity">
+          <button type="button" class="acn-icon-btn max-sm:hidden" aria-label="Activity">
             <app-lucide name="activity" class="size-4.5" />
           </button>
 
@@ -143,7 +143,7 @@
             }
           </button>
 
-          <button type="button" class="acn-icon-btn" aria-label="Customize">
+          <button type="button" class="acn-icon-btn max-sm:hidden" aria-label="Customize">
             <app-lucide name="palette" class="size-4.5" />
           </button>
 
