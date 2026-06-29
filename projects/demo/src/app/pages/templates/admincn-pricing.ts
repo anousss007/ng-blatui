@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  signal,
+  ViewEncapsulation,
+} from '@angular/core';
 
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
@@ -58,6 +64,48 @@ export class AdmincnPricing {
     },
     { name: 'Pro Plan', icon: 'flower-2', price: '99', period: '/month', cta: 'Elite Access' },
   ];
+
+  /** Billing period; drives per-plan price + period display. */
+  protected readonly billing = signal<'monthly' | 'yearly'>('monthly');
+
+  /** CTA-selected plan name (highlighted with a ring, in addition to the popular plan). */
+  protected readonly selected = signal<string | null>(null);
+
+  /** Expanded comparison sections (all open by default); rows collapse via header toggle. */
+  protected readonly openSections = signal<Set<string>>(new Set());
+
+  /** Plans with prices/periods recomputed for the active billing period (yearly = 10x monthly). */
+  protected readonly displayPlans = computed<Plan[]>(() => {
+    const isYearly = this.billing() === 'yearly';
+    return this.plans.map((p) => {
+      if (!isYearly) return p;
+      const monthly = Number(p.price);
+      const yearlyPrice = Number.isFinite(monthly) ? String(monthly * 10) : p.price;
+      return { ...p, price: yearlyPrice, period: '/year' };
+    });
+  });
+
+  protected setBilling(period: 'monthly' | 'yearly'): void {
+    this.billing.set(period);
+  }
+
+  protected selectPlan(name: string): void {
+    this.selected.set(name);
+  }
+
+  protected toggleSection(title: string): void {
+    this.openSections.update((set) => {
+      const next = new Set(set);
+      if (next.has(title)) next.delete(title);
+      else next.add(title);
+      return next;
+    });
+  }
+
+  protected isOpen(title: string): boolean {
+    // Sections start expanded: a title is "open" unless it's been explicitly collapsed.
+    return !this.openSections().has(title);
+  }
 
   protected readonly footerCtas: string[] = ['Basic Access', 'Premium Access', 'Elite Access'];
 

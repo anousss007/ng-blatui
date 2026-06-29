@@ -233,20 +233,86 @@
 
     <!-- ============ Orders table ============ -->
     <div class="acn-card col-span-full flex flex-col py-6">
+      <div
+        class="flex flex-col gap-4 px-6 max-lg:flex-col lg:flex-row lg:items-center lg:justify-between"
+      >
+        <div class="flex items-center gap-3">
+          <span class="text-sm text-muted-foreground max-sm:sr-only">Show</span>
+          <label class="acn-select">
+            <select
+              class="bg-transparent outline-none"
+              aria-label="Show entries"
+              [value]="pageSize()"
+              (change)="setPageSize(+$any($event.target).value)"
+            >
+              @for (n of pageSizeOptions; track n) {
+                <option [value]="n">{{ n }}</option>
+              }
+            </select>
+            <app-lucide name="chevron-down" class="size-4 opacity-60" />
+          </label>
+        </div>
+        <div class="flex flex-1 flex-wrap items-center gap-3 lg:max-w-md lg:justify-end">
+          <div class="acn-input flex-1">
+            <app-lucide name="search" class="size-4 text-muted-foreground" />
+            <input
+              type="search"
+              placeholder="Search client"
+              aria-label="Search client"
+              [value]="search()"
+              (input)="onSearch($any($event.target).value)"
+            />
+          </div>
+          <label class="acn-select w-28 justify-between">
+            <select
+              class="bg-transparent capitalize outline-none"
+              aria-label="Filter status"
+              [value]="statusFilter()"
+              (change)="setStatus($any($event.target).value)"
+            >
+              @for (s of statusOptions; track s) {
+                <option [value]="s">{{ s === 'all' ? 'All' : s }}</option>
+              }
+            </select>
+            <app-lucide name="chevron-down" class="size-4 opacity-60" />
+          </label>
+        </div>
+      </div>
+
       <div class="mt-2 overflow-x-auto px-2">
         <table class="acn-table">
           <thead>
             <tr>
-              <th>Customer</th>
-              <th>Amount</th>
-              <th>Status</th>
+              <th class="w-12">
+                <span
+                  class="acn-checkbox"
+                  role="checkbox"
+                  [attr.aria-checked]="allChecked()"
+                  (click)="toggleAll()"
+                  [style.background]="allChecked() ? 'var(--primary)' : null"
+                  [style.cursor]="'pointer'"
+                ></span>
+              </th>
+              <th [style.cursor]="'pointer'" (click)="sortBy('name')">Customer</th>
+              <th [style.cursor]="'pointer'" (click)="sortBy('amount')">Amount</th>
+              <th [style.cursor]="'pointer'" (click)="sortBy('status')">Status</th>
               <th>Paid by</th>
               <th class="text-right">Actions</th>
             </tr>
           </thead>
           <tbody>
-            @for (o of orders; track o.email) {
+            @for (o of pageRows(); track o.email) {
               <tr>
+                <td>
+                  <span
+                    class="acn-checkbox"
+                    role="checkbox"
+                    [attr.aria-checked]="isChecked(o.email)"
+                    (click)="toggleRow(o.email)"
+                    [style.background]="isChecked(o.email) ? 'var(--primary)' : null"
+                    [style.cursor]="'pointer'"
+                  ></span>
+                </td>
                 <td>
                   <div class="flex items-center gap-2.5">
                     <img [src]="o.avatar" [alt]="o.name" class="size-8 rounded-full" />
@@ -286,17 +352,36 @@
       </div>
 
       <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
-        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 25 entries</span>
+        <span class="text-sm text-muted-foreground"
+          >Showing {{ rangeStart() }} to {{ rangeEnd() }} of {{ total() }} entries</span
+        >
         <div class="flex items-center gap-1">
-          <button type="button" class="acn-page-btn" aria-label="Previous">
+          <button
+            type="button"
+            class="acn-page-btn"
+            aria-label="Previous"
+            [disabled]="currentPage() === 1"
+            (click)="prev()"
+          >
             <app-lucide name="chevron-left" class="size-4" /> Previous
           </button>
-          <button type="button" class="acn-page-num acn-page-active">1</button>
-          <button type="button" class="acn-page-num">2</button>
-          <button type="button" class="acn-page-num">
-            <app-lucide name="ellipsis" class="size-4" />
-          </button>
-          <button type="button" class="acn-page-btn" aria-label="Next">
+          @for (p of pageNumbers(); track p) {
+            <button
+              type="button"
+              class="acn-page-num"
+              [class.acn-page-active]="p === currentPage()"
+              (click)="goTo(p)"
+            >
+              {{ p }}
+            </button>
+          }
+          <button
+            type="button"
+            class="acn-page-btn"
+            aria-label="Next"
+            [disabled]="currentPage() === totalPages()"
+            (click)="next()"
+          >
             Next <app-lucide name="chevron-right" class="size-4" />
           </button>
         </div>

@@ -11,11 +11,16 @@
       <!-- Mini month calendar -->
       <div class="acn-card p-3">
         <div class="mb-2 flex items-center justify-between px-1">
-          <button type="button" class="acn-menu-btn" aria-label="Previous month">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Previous month"
+            (click)="prevMonth()"
+          >
             <app-lucide name="chevron-left" class="size-4" />
           </button>
-          <span class="text-sm font-semibold">June 2026</span>
-          <button type="button" class="acn-menu-btn" aria-label="Next month">
+          <span class="text-sm font-semibold">{{ label() }}</span>
+          <button type="button" class="acn-menu-btn" aria-label="Next month" (click)="nextMonth()">
             <app-lucide name="chevron-right" class="size-4" />
           </button>
         </div>
@@ -23,7 +28,7 @@
           @for (wd of miniWeekdays; track wd) {
             <span class="py-1 text-[0.7rem] font-medium text-muted-foreground">{{ wd }}</span>
           }
-          @for (week of miniWeeks; track $index) {
+          @for (week of miniWeeks(); track $index) {
             @for (d of week; track $index) {
               <button
                 type="button"
@@ -31,6 +36,7 @@
                 [class.acn-mini-today]="d.today"
                 [class.text-muted-foreground]="d.outside"
                 [class.opacity-50]="d.outside"
+                (click)="pickDay(d)"
               >
                 <span>{{ d.num }}</span>
                 @if (d.dots?.length) {
@@ -52,14 +58,21 @@
         <div class="flex flex-col gap-3">
           @for (f of filters; track f.id) {
             <label [attr.for]="f.id" class="flex cursor-pointer items-center gap-2.5">
-              <span class="acn-check" [class]="'acn-check-' + f.color">
-                <app-lucide name="check" class="size-3.5" />
+              <span
+                class="acn-check"
+                [class]="'acn-check-' + f.color"
+                [class.opacity-30]="!isOn(f)"
+              >
+                @if (isOn(f)) {
+                  <app-lucide name="check" class="size-3.5" />
+                }
               </span>
               <span class="text-sm">{{ f.label }}</span>
               <input
                 [id]="f.id"
                 type="checkbox"
-                checked
+                [checked]="isOn(f)"
+                (change)="toggleFilter(f)"
                 class="sr-only"
                 [attr.aria-label]="f.label"
               />
@@ -76,17 +89,17 @@
         <button type="button" class="acn-select lg:hidden" aria-label="Menu">
           <app-lucide name="menu" class="size-4" />
         </button>
-        <button type="button" class="acn-select">
+        <button type="button" class="acn-select" (click)="goToday()">
           <app-lucide name="calendar-check" class="size-4" />
           <span>Today</span>
         </button>
 
         <div class="mx-auto flex items-center gap-1">
-          <button type="button" class="acn-menu-btn" aria-label="Previous">
+          <button type="button" class="acn-menu-btn" aria-label="Previous" (click)="prevMonth()">
             <app-lucide name="chevron-left" class="size-4" />
           </button>
-          <span class="px-1 text-base font-semibold sm:text-lg">June 2026</span>
-          <button type="button" class="acn-menu-btn" aria-label="Next">
+          <span class="px-1 text-base font-semibold sm:text-lg">{{ label() }}</span>
+          <button type="button" class="acn-menu-btn" aria-label="Next" (click)="nextMonth()">
             <app-lucide name="chevron-right" class="size-4" />
           </button>
         </div>
@@ -105,7 +118,7 @@
       </div>
 
       <!-- Weeks -->
-      @for (week of weeks; track $index) {
+      @for (week of weeks(); track $index) {
         <div class="grid grid-cols-7 border-b border-border last:border-b-0">
           @for (d of week; track $index) {
             <div class="acn-day-cell" [class.acn-day-outside]="d.outside">

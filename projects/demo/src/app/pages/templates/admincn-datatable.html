@@ -2,25 +2,99 @@
   <div class="grid grid-cols-6 gap-6">
     <!-- ================= 1 — Basic Data Table ================= -->
     <div class="acn-card col-span-full flex flex-col py-6">
-      <div class="px-6">
+      <div class="flex flex-col gap-4 px-6 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="font-heading text-lg font-semibold">Basic Data Table</h2>
+        <div class="acn-input sm:w-64">
+          <app-lucide name="search" class="size-4 text-muted-foreground" />
+          <input
+            type="search"
+            placeholder="Search"
+            aria-label="Search customers"
+            [value]="basic.query()"
+            (input)="basic.setQuery($any($event.target).value)"
+          />
+        </div>
       </div>
       <div class="mt-2 overflow-x-auto px-2">
         <table class="acn-table">
           <thead>
             <tr>
-              <th class="w-12"><span class="acn-checkbox"></span></th>
-              <th>Customer</th>
-              <th>Amount</th>
-              <th>Status</th>
+              <th class="w-12">
+                <span
+                  class="acn-checkbox cursor-pointer"
+                  [style.background]="checkboxFill(basic.allOnPageSelected())"
+                  [style.borderColor]="checkboxFill(basic.allOnPageSelected())"
+                  (click)="basic.toggleAllOnPage()"
+                >
+                  @if (basic.allOnPageSelected()) {
+                    <app-lucide name="check" class="size-4 text-primary-foreground" />
+                  }
+                </span>
+              </th>
+              <th>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="basic.toggleSort('customer')"
+                >
+                  Customer
+                  @if (basic.dirFor('customer'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-70"
+                    />
+                  }
+                </button>
+              </th>
+              <th>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="basic.toggleSort('amount')"
+                >
+                  Amount
+                  @if (basic.dirFor('amount'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-70"
+                    />
+                  }
+                </button>
+              </th>
+              <th>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="basic.toggleSort('status')"
+                >
+                  Status
+                  @if (basic.dirFor('status'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-70"
+                    />
+                  }
+                </button>
+              </th>
               <th>Paid by</th>
               <th class="text-right">Actions</th>
             </tr>
           </thead>
           <tbody>
-            @for (r of basic; track r.email) {
+            @for (r of basic.paged(); track r.email) {
               <tr>
-                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <span
+                    class="acn-checkbox cursor-pointer"
+                    [style.background]="checkboxFill(basic.isSelected(r))"
+                    [style.borderColor]="checkboxFill(basic.isSelected(r))"
+                    (click)="basic.toggleRow(r)"
+                  >
+                    @if (basic.isSelected(r)) {
+                      <app-lucide name="check" class="size-4 text-primary-foreground" />
+                    }
+                  </span>
+                </td>
                 <td>
                   <div class="flex flex-col">
                     <span class="font-medium whitespace-nowrap">{{ r.customer }}</span>
@@ -49,17 +123,25 @@
         </table>
       </div>
       <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
-        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 25 entries</span>
+        <span class="text-sm text-muted-foreground"
+          >Showing {{ basic.showingFrom() }} to {{ basic.showingTo() }} of
+          {{ basic.total() }} entries</span
+        >
         <div class="flex items-center gap-1">
-          <button type="button" class="acn-page-btn" aria-label="Previous">
+          <button type="button" class="acn-page-btn" aria-label="Previous" (click)="basic.prev()">
             <app-lucide name="chevron-left" class="size-4" /> Previous
           </button>
-          <button type="button" class="acn-page-num acn-page-active">1</button>
-          <button type="button" class="acn-page-num">2</button>
-          <button type="button" class="acn-page-num">
-            <app-lucide name="ellipsis" class="size-4" />
-          </button>
-          <button type="button" class="acn-page-btn" aria-label="Next">
+          @for (n of basic.pageNumbers(); track n) {
+            <button
+              type="button"
+              class="acn-page-num"
+              [class.acn-page-active]="basic.page() + 1 === n"
+              (click)="basic.goTo(n)"
+            >
+              {{ n }}
+            </button>
+          }
+          <button type="button" class="acn-page-btn" aria-label="Next" (click)="basic.next()">
             Next <app-lucide name="chevron-right" class="size-4" />
           </button>
         </div>
@@ -70,28 +152,144 @@
     <div class="acn-card col-span-full flex flex-col py-6">
       <div class="flex flex-col gap-4 px-6 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="font-heading text-lg font-semibold">Data Table with Column Visibility</h2>
-        <button type="button" class="acn-select">
-          <app-lucide name="grid-3x3" class="size-4 opacity-70" /> Columns
-          <app-lucide name="chevron-down" class="ml-3 size-4 opacity-60" />
-        </button>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-select"
+            (click)="columnsMenuOpen.set(!columnsMenuOpen())"
+          >
+            <app-lucide name="grid-3x3" class="size-4 opacity-70" /> Columns
+            <app-lucide name="chevron-down" class="ml-3 size-4 opacity-60" />
+          </button>
+          @if (columnsMenuOpen()) {
+            <div
+              class="absolute right-0 z-10 mt-1 w-44 rounded-md border border-border bg-background p-1 shadow-md"
+            >
+              @for (c of userColumns; track c.key) {
+                <button
+                  type="button"
+                  class="flex w-full items-center gap-2 rounded-sm px-2 py-1.5 text-sm capitalize hover:bg-accent"
+                  (click)="toggleCol(c.key)"
+                >
+                  <span
+                    class="acn-checkbox"
+                    [style.background]="checkboxFill(colVisible(c.key))"
+                    [style.borderColor]="checkboxFill(colVisible(c.key))"
+                  >
+                    @if (colVisible(c.key)) {
+                      <app-lucide name="check" class="size-4 text-primary-foreground" />
+                    }
+                  </span>
+                  {{ c.label }}
+                </button>
+              }
+            </div>
+          }
+        </div>
       </div>
       <div class="mt-2 overflow-x-auto px-2">
         <table class="acn-table">
           <thead>
             <tr>
-              <th class="w-12"><span class="acn-checkbox"></span></th>
-              <th>User</th>
-              <th>Role</th>
-              <th>Plan</th>
-              <th>Billing</th>
-              <th>Status</th>
+              <th class="w-12">
+                <span
+                  class="acn-checkbox cursor-pointer"
+                  [style.background]="checkboxFill(users.allOnPageSelected())"
+                  [style.borderColor]="checkboxFill(users.allOnPageSelected())"
+                  (click)="users.toggleAllOnPage()"
+                >
+                  @if (users.allOnPageSelected()) {
+                    <app-lucide name="check" class="size-4 text-primary-foreground" />
+                  }
+                </span>
+              </th>
+              <th>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="users.toggleSort('name')"
+                >
+                  User
+                  @if (users.dirFor('name'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-70"
+                    />
+                  }
+                </button>
+              </th>
+              @if (colVisible('role')) {
+                <th>
+                  <button
+                    type="button"
+                    class="flex cursor-pointer items-center gap-1"
+                    (click)="users.toggleSort('role')"
+                  >
+                    Role
+                    @if (users.dirFor('role'); as d) {
+                      <app-lucide
+                        [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                        class="size-4 opacity-70"
+                      />
+                    }
+                  </button>
+                </th>
+              }
+              @if (colVisible('plan')) {
+                <th>
+                  <button
+                    type="button"
+                    class="flex cursor-pointer items-center gap-1"
+                    (click)="users.toggleSort('plan')"
+                  >
+                    Plan
+                    @if (users.dirFor('plan'); as d) {
+                      <app-lucide
+                        [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                        class="size-4 opacity-70"
+                      />
+                    }
+                  </button>
+                </th>
+              }
+              @if (colVisible('billing')) {
+                <th>Billing</th>
+              }
+              @if (colVisible('status')) {
+                <th>
+                  <button
+                    type="button"
+                    class="flex cursor-pointer items-center gap-1"
+                    (click)="users.toggleSort('status')"
+                  >
+                    Status
+                    @if (users.dirFor('status'); as d) {
+                      <app-lucide
+                        [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                        class="size-4 opacity-70"
+                      />
+                    }
+                  </button>
+                </th>
+              }
               <th class="text-right">Actions</th>
             </tr>
           </thead>
           <tbody>
-            @for (u of users; track u.email) {
+            @for (u of users.paged(); track u.email) {
               <tr>
-                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <span
+                    class="acn-checkbox cursor-pointer"
+                    [style.background]="checkboxFill(users.isSelected(u))"
+                    [style.borderColor]="checkboxFill(users.isSelected(u))"
+                    (click)="users.toggleRow(u)"
+                  >
+                    @if (users.isSelected(u)) {
+                      <app-lucide name="check" class="size-4 text-primary-foreground" />
+                    }
+                  </span>
+                </td>
                 <td>
                   <div class="flex flex-col">
                     <span class="font-medium whitespace-nowrap">{{ u.name }}</span>
@@ -100,16 +298,26 @@
                     }}</span>
                   </div>
                 </td>
-                <td>
-                  <span class="flex items-center gap-2 whitespace-nowrap capitalize">
-                    <app-lucide [name]="u.roleIcon" [class]="'size-4 ' + u.roleTone" />{{ u.role }}
-                  </span>
-                </td>
-                <td class="capitalize">{{ u.plan }}</td>
-                <td class="whitespace-nowrap text-muted-foreground">{{ u.billing }}</td>
-                <td>
-                  <span [class]="badgeTone(u.status)">{{ u.status }}</span>
-                </td>
+                @if (colVisible('role')) {
+                  <td>
+                    <span class="flex items-center gap-2 whitespace-nowrap capitalize">
+                      <app-lucide [name]="u.roleIcon" [class]="'size-4 ' + u.roleTone" />{{
+                        u.role
+                      }}
+                    </span>
+                  </td>
+                }
+                @if (colVisible('plan')) {
+                  <td class="capitalize">{{ u.plan }}</td>
+                }
+                @if (colVisible('billing')) {
+                  <td class="whitespace-nowrap text-muted-foreground">{{ u.billing }}</td>
+                }
+                @if (colVisible('status')) {
+                  <td>
+                    <span [class]="badgeTone(u.status)">{{ u.status }}</span>
+                  </td>
+                }
                 <td>
                   <div class="flex items-center justify-end gap-1 text-chart-2">
                     <button type="button" class="acn-row-btn" aria-label="Delete">
@@ -129,14 +337,25 @@
         </table>
       </div>
       <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
-        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 15 entries</span>
+        <span class="text-sm text-muted-foreground"
+          >Showing {{ users.showingFrom() }} to {{ users.showingTo() }} of
+          {{ users.total() }} entries</span
+        >
         <div class="flex items-center gap-1">
-          <button type="button" class="acn-page-btn" aria-label="Previous">
+          <button type="button" class="acn-page-btn" aria-label="Previous" (click)="users.prev()">
             <app-lucide name="chevron-left" class="size-4" /> Previous
           </button>
-          <button type="button" class="acn-page-num acn-page-active">1</button>
-          <button type="button" class="acn-page-num">2</button>
-          <button type="button" class="acn-page-btn" aria-label="Next">
+          @for (n of users.pageNumbers(); track n) {
+            <button
+              type="button"
+              class="acn-page-num"
+              [class.acn-page-active]="users.page() + 1 === n"
+              (click)="users.goTo(n)"
+            >
+              {{ n }}
+            </button>
+          }
+          <button type="button" class="acn-page-btn" aria-label="Next" (click)="users.next()">
             Next <app-lucide name="chevron-right" class="size-4" />
           </button>
         </div>
@@ -148,22 +367,99 @@
       <div class="flex flex-col gap-4 px-6">
         <h2 class="font-heading text-lg font-semibold">Data table with Filters</h2>
         <div class="flex flex-wrap items-center gap-3">
-          <button type="button" class="acn-select w-32 justify-between">
-            Role: All <app-lucide name="chevron-down" class="size-4 opacity-60" />
-          </button>
-          <button type="button" class="acn-select w-32 justify-between">
-            Plan: All <app-lucide name="chevron-down" class="size-4 opacity-60" />
-          </button>
-          <button type="button" class="acn-select w-32 justify-between">
-            Status: All <app-lucide name="chevron-down" class="size-4 opacity-60" />
-          </button>
+          <div class="relative">
+            <button
+              type="button"
+              class="acn-select w-32 justify-between"
+              (click)="toggleFilterMenu('role')"
+            >
+              <span class="capitalize">Role: {{ roleFilter() }}</span>
+              <app-lucide name="chevron-down" class="size-4 opacity-60" />
+            </button>
+            @if (openFilterMenu() === 'role') {
+              <div
+                class="absolute z-10 mt-1 w-40 rounded-md border border-border bg-background p-1 shadow-md"
+              >
+                @for (o of roleOptions; track o) {
+                  <button
+                    type="button"
+                    class="block w-full rounded-sm px-2 py-1.5 text-left text-sm capitalize hover:bg-accent"
+                    (click)="pickFilter('role', o)"
+                  >
+                    {{ o }}
+                  </button>
+                }
+              </div>
+            }
+          </div>
+          <div class="relative">
+            <button
+              type="button"
+              class="acn-select w-32 justify-between"
+              (click)="toggleFilterMenu('plan')"
+            >
+              <span class="capitalize">Plan: {{ planFilter() }}</span>
+              <app-lucide name="chevron-down" class="size-4 opacity-60" />
+            </button>
+            @if (openFilterMenu() === 'plan') {
+              <div
+                class="absolute z-10 mt-1 w-40 rounded-md border border-border bg-background p-1 shadow-md"
+              >
+                @for (o of planOptions; track o) {
+                  <button
+                    type="button"
+                    class="block w-full rounded-sm px-2 py-1.5 text-left text-sm capitalize hover:bg-accent"
+                    (click)="pickFilter('plan', o)"
+                  >
+                    {{ o }}
+                  </button>
+                }
+              </div>
+            }
+          </div>
+          <div class="relative">
+            <button
+              type="button"
+              class="acn-select w-32 justify-between"
+              (click)="toggleFilterMenu('status')"
+            >
+              <span class="capitalize">Status: {{ statusFilter() }}</span>
+              <app-lucide name="chevron-down" class="size-4 opacity-60" />
+            </button>
+            @if (openFilterMenu() === 'status') {
+              <div
+                class="absolute z-10 mt-1 w-40 rounded-md border border-border bg-background p-1 shadow-md"
+              >
+                @for (o of statusOptions; track o) {
+                  <button
+                    type="button"
+                    class="block w-full rounded-sm px-2 py-1.5 text-left text-sm capitalize hover:bg-accent"
+                    (click)="pickFilter('status', o)"
+                  >
+                    {{ o }}
+                  </button>
+                }
+              </div>
+            }
+          </div>
         </div>
       </div>
       <div class="mt-2 overflow-x-auto px-2">
         <table class="acn-table">
           <thead>
             <tr>
-              <th class="w-12"><span class="acn-checkbox"></span></th>
+              <th class="w-12">
+                <span
+                  class="acn-checkbox cursor-pointer"
+                  [style.background]="checkboxFill(usersFiltered.allOnPageSelected())"
+                  [style.borderColor]="checkboxFill(usersFiltered.allOnPageSelected())"
+                  (click)="usersFiltered.toggleAllOnPage()"
+                >
+                  @if (usersFiltered.allOnPageSelected()) {
+                    <app-lucide name="check" class="size-4 text-primary-foreground" />
+                  }
+                </span>
+              </th>
               <th>User</th>
               <th>Role</th>
               <th>Plan</th>
@@ -173,9 +469,20 @@
             </tr>
           </thead>
           <tbody>
-            @for (u of users; track u.email) {
+            @for (u of usersFiltered.paged(); track u.email) {
               <tr>
-                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <span
+                    class="acn-checkbox cursor-pointer"
+                    [style.background]="checkboxFill(usersFiltered.isSelected(u))"
+                    [style.borderColor]="checkboxFill(usersFiltered.isSelected(u))"
+                    (click)="usersFiltered.toggleRow(u)"
+                  >
+                    @if (usersFiltered.isSelected(u)) {
+                      <app-lucide name="check" class="size-4 text-primary-foreground" />
+                    }
+                  </span>
+                </td>
                 <td>
                   <div class="flex flex-col">
                     <span class="font-medium whitespace-nowrap">{{ u.name }}</span>
@@ -213,17 +520,35 @@
         </table>
       </div>
       <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
-        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 25 entries</span>
+        <span class="text-sm text-muted-foreground"
+          >Showing {{ usersFiltered.showingFrom() }} to {{ usersFiltered.showingTo() }} of
+          {{ usersFiltered.total() }} entries</span
+        >
         <div class="flex items-center gap-1">
-          <button type="button" class="acn-page-btn" aria-label="Previous">
+          <button
+            type="button"
+            class="acn-page-btn"
+            aria-label="Previous"
+            (click)="usersFiltered.prev()"
+          >
             <app-lucide name="chevron-left" class="size-4" /> Previous
           </button>
-          <button type="button" class="acn-page-num acn-page-active">1</button>
-          <button type="button" class="acn-page-num">2</button>
-          <button type="button" class="acn-page-num">
-            <app-lucide name="ellipsis" class="size-4" />
-          </button>
-          <button type="button" class="acn-page-btn" aria-label="Next">
+          @for (n of usersFiltered.pageNumbers(); track n) {
+            <button
+              type="button"
+              class="acn-page-num"
+              [class.acn-page-active]="usersFiltered.page() + 1 === n"
+              (click)="usersFiltered.goTo(n)"
+            >
+              {{ n }}
+            </button>
+          }
+          <button
+            type="button"
+            class="acn-page-btn"
+            aria-label="Next"
+            (click)="usersFiltered.next()"
+          >
             Next <app-lucide name="chevron-right" class="size-4" />
           </button>
         </div>
@@ -232,26 +557,114 @@
 
     <!-- ================= 4 — Resizable Columns ================= -->
     <div class="acn-card col-span-full flex flex-col py-6">
-      <div class="px-6">
+      <div class="flex flex-col gap-4 px-6 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="font-heading text-lg font-semibold">Data table with Resizable Columns</h2>
+        <div class="acn-input sm:w-64">
+          <app-lucide name="search" class="size-4 text-muted-foreground" />
+          <input
+            type="search"
+            placeholder="Search"
+            aria-label="Search tickets"
+            [value]="tickets.query()"
+            (input)="tickets.setQuery($any($event.target).value)"
+          />
+        </div>
       </div>
       <div class="mt-2 overflow-x-auto px-2">
         <table class="acn-table">
           <thead>
             <tr>
-              <th class="w-12"><span class="acn-checkbox"></span></th>
-              <th>Requester</th>
+              <th class="w-12">
+                <span
+                  class="acn-checkbox cursor-pointer"
+                  [style.background]="checkboxFill(tickets.allOnPageSelected())"
+                  [style.borderColor]="checkboxFill(tickets.allOnPageSelected())"
+                  (click)="tickets.toggleAllOnPage()"
+                >
+                  @if (tickets.allOnPageSelected()) {
+                    <app-lucide name="check" class="size-4 text-primary-foreground" />
+                  }
+                </span>
+              </th>
+              <th>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="tickets.toggleSort('name')"
+                >
+                  Requester
+                  @if (tickets.dirFor('name'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-70"
+                    />
+                  }
+                </button>
+              </th>
               <th>Subject</th>
-              <th>Department</th>
-              <th>Priority</th>
-              <th>Status</th>
+              <th>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="tickets.toggleSort('department')"
+                >
+                  Department
+                  @if (tickets.dirFor('department'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-70"
+                    />
+                  }
+                </button>
+              </th>
+              <th>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="tickets.toggleSort('priority')"
+                >
+                  Priority
+                  @if (tickets.dirFor('priority'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-70"
+                    />
+                  }
+                </button>
+              </th>
+              <th>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="tickets.toggleSort('status')"
+                >
+                  Status
+                  @if (tickets.dirFor('status'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-70"
+                    />
+                  }
+                </button>
+              </th>
               <th class="text-right">Actions</th>
             </tr>
           </thead>
           <tbody>
-            @for (t of tickets; track t.email) {
+            @for (t of tickets.paged(); track t.email) {
               <tr>
-                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <span
+                    class="acn-checkbox cursor-pointer"
+                    [style.background]="checkboxFill(tickets.isSelected(t))"
+                    [style.borderColor]="checkboxFill(tickets.isSelected(t))"
+                    (click)="tickets.toggleRow(t)"
+                  >
+                    @if (tickets.isSelected(t)) {
+                      <app-lucide name="check" class="size-4 text-primary-foreground" />
+                    }
+                  </span>
+                </td>
                 <td>
                   <div class="flex flex-col">
                     <span class="font-medium whitespace-nowrap">{{ t.name }}</span>
@@ -281,14 +694,25 @@
         </table>
       </div>
       <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
-        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 15 entries</span>
+        <span class="text-sm text-muted-foreground"
+          >Showing {{ tickets.showingFrom() }} to {{ tickets.showingTo() }} of
+          {{ tickets.total() }} entries</span
+        >
         <div class="flex items-center gap-1">
-          <button type="button" class="acn-page-btn" aria-label="Previous">
+          <button type="button" class="acn-page-btn" aria-label="Previous" (click)="tickets.prev()">
             <app-lucide name="chevron-left" class="size-4" /> Previous
           </button>
-          <button type="button" class="acn-page-num acn-page-active">1</button>
-          <button type="button" class="acn-page-num">2</button>
-          <button type="button" class="acn-page-btn" aria-label="Next">
+          @for (n of tickets.pageNumbers(); track n) {
+            <button
+              type="button"
+              class="acn-page-num"
+              [class.acn-page-active]="tickets.page() + 1 === n"
+              (click)="tickets.goTo(n)"
+            >
+              {{ n }}
+            </button>
+          }
+          <button type="button" class="acn-page-btn" aria-label="Next" (click)="tickets.next()">
             Next <app-lucide name="chevron-right" class="size-4" />
           </button>
         </div>
@@ -297,33 +721,102 @@
 
     <!-- ================= 5 — Pinnable Columns ================= -->
     <div class="acn-card col-span-full flex flex-col py-6">
-      <div class="px-6">
+      <div class="flex flex-col gap-4 px-6 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="font-heading text-lg font-semibold">Data table with Pinnable Columns</h2>
+        <div class="acn-input sm:w-64">
+          <app-lucide name="search" class="size-4 text-muted-foreground" />
+          <input
+            type="search"
+            placeholder="Search"
+            aria-label="Search employees"
+            [value]="employees.query()"
+            (input)="employees.setQuery($any($event.target).value)"
+          />
+        </div>
       </div>
       <div class="mt-2 overflow-x-auto px-2">
         <table class="acn-table">
           <thead>
             <tr>
-              <th class="w-12"><span class="acn-checkbox"></span></th>
-              <th>
-                <span class="flex items-center gap-1"
-                  >Employee <app-lucide name="ellipsis" class="size-4 opacity-60"
-                /></span>
+              <th class="w-12">
+                <span
+                  class="acn-checkbox cursor-pointer"
+                  [style.background]="checkboxFill(employees.allOnPageSelected())"
+                  [style.borderColor]="checkboxFill(employees.allOnPageSelected())"
+                  (click)="employees.toggleAllOnPage()"
+                >
+                  @if (employees.allOnPageSelected()) {
+                    <app-lucide name="check" class="size-4 text-primary-foreground" />
+                  }
+                </span>
               </th>
               <th>
-                <span class="flex items-center gap-1"
-                  >Department <app-lucide name="ellipsis" class="size-4 opacity-60"
-                /></span>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="employees.toggleSort('name')"
+                >
+                  Employee
+                  @if (employees.dirFor('name'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-60"
+                    />
+                  } @else {
+                    <app-lucide name="ellipsis" class="size-4 opacity-60" />
+                  }
+                </button>
               </th>
               <th>
-                <span class="flex items-center gap-1"
-                  >Role <app-lucide name="ellipsis" class="size-4 opacity-60"
-                /></span>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="employees.toggleSort('department')"
+                >
+                  Department
+                  @if (employees.dirFor('department'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-60"
+                    />
+                  } @else {
+                    <app-lucide name="ellipsis" class="size-4 opacity-60" />
+                  }
+                </button>
               </th>
               <th>
-                <span class="flex items-center gap-1"
-                  >Status <app-lucide name="ellipsis" class="size-4 opacity-60"
-                /></span>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="employees.toggleSort('role')"
+                >
+                  Role
+                  @if (employees.dirFor('role'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-60"
+                    />
+                  } @else {
+                    <app-lucide name="ellipsis" class="size-4 opacity-60" />
+                  }
+                </button>
+              </th>
+              <th>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="employees.toggleSort('status')"
+                >
+                  Status
+                  @if (employees.dirFor('status'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-60"
+                    />
+                  } @else {
+                    <app-lucide name="ellipsis" class="size-4 opacity-60" />
+                  }
+                </button>
               </th>
               <th class="text-right">
                 <span class="flex items-center justify-end gap-1"
@@ -333,9 +826,20 @@
             </tr>
           </thead>
           <tbody>
-            @for (e of employees; track e.email) {
+            @for (e of employees.paged(); track e.email) {
               <tr>
-                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <span
+                    class="acn-checkbox cursor-pointer"
+                    [style.background]="checkboxFill(employees.isSelected(e))"
+                    [style.borderColor]="checkboxFill(employees.isSelected(e))"
+                    (click)="employees.toggleRow(e)"
+                  >
+                    @if (employees.isSelected(e)) {
+                      <app-lucide name="check" class="size-4 text-primary-foreground" />
+                    }
+                  </span>
+                </td>
                 <td>
                   <div class="flex flex-col">
                     <span class="font-medium whitespace-nowrap">{{ e.name }}</span>
@@ -362,14 +866,30 @@
         </table>
       </div>
       <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
-        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 15 entries</span>
+        <span class="text-sm text-muted-foreground"
+          >Showing {{ employees.showingFrom() }} to {{ employees.showingTo() }} of
+          {{ employees.total() }} entries</span
+        >
         <div class="flex items-center gap-1">
-          <button type="button" class="acn-page-btn" aria-label="Previous">
+          <button
+            type="button"
+            class="acn-page-btn"
+            aria-label="Previous"
+            (click)="employees.prev()"
+          >
             <app-lucide name="chevron-left" class="size-4" /> Previous
           </button>
-          <button type="button" class="acn-page-num acn-page-active">1</button>
-          <button type="button" class="acn-page-num">2</button>
-          <button type="button" class="acn-page-btn" aria-label="Next">
+          @for (n of employees.pageNumbers(); track n) {
+            <button
+              type="button"
+              class="acn-page-num"
+              [class.acn-page-active]="employees.page() + 1 === n"
+              (click)="employees.goTo(n)"
+            >
+              {{ n }}
+            </button>
+          }
+          <button type="button" class="acn-page-btn" aria-label="Next" (click)="employees.next()">
             Next <app-lucide name="chevron-right" class="size-4" />
           </button>
         </div>
@@ -383,19 +903,69 @@
         <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div class="flex items-center gap-3">
             <span class="text-sm text-muted-foreground max-sm:sr-only">Show</span>
-            <button type="button" class="acn-select">
-              5 <app-lucide name="chevron-down" class="size-4 opacity-60" />
-            </button>
+            <div class="relative">
+              <button
+                type="button"
+                class="acn-select"
+                (click)="productMenuOpen.set(productMenuOpen() === 'invsize' ? null : 'invsize')"
+              >
+                {{ invoices.pageSize() }}
+                <app-lucide name="chevron-down" class="size-4 opacity-60" />
+              </button>
+              @if (productMenuOpen() === 'invsize') {
+                <div
+                  class="absolute z-10 mt-1 w-20 rounded-md border border-border bg-background p-1 shadow-md"
+                >
+                  @for (s of pageSizes; track s) {
+                    <button
+                      type="button"
+                      class="block w-full rounded-sm px-2 py-1.5 text-left text-sm hover:bg-accent"
+                      (click)="invoices.setPageSize(s); productMenuOpen.set(null)"
+                    >
+                      {{ s }}
+                    </button>
+                  }
+                </div>
+              }
+            </div>
             <button type="button" class="acn-btn-primary">Create Invoice</button>
           </div>
           <div class="flex flex-1 flex-wrap items-center gap-3 lg:max-w-md lg:justify-end">
             <div class="acn-input flex-1">
               <app-lucide name="search" class="size-4 text-muted-foreground" />
-              <input type="search" placeholder="Client" aria-label="Search client" />
+              <input
+                type="search"
+                placeholder="Client"
+                aria-label="Search client"
+                [value]="invoices.query()"
+                (input)="invoices.setQuery($any($event.target).value)"
+              />
             </div>
-            <button type="button" class="acn-select w-28 justify-between">
-              Status: All <app-lucide name="chevron-down" class="size-4 opacity-60" />
-            </button>
+            <div class="relative">
+              <button
+                type="button"
+                class="acn-select w-28 justify-between"
+                (click)="invoiceStatusMenuOpen.set(!invoiceStatusMenuOpen())"
+              >
+                <span class="capitalize">Status: {{ invoiceStatusFilter() }}</span>
+                <app-lucide name="chevron-down" class="size-4 opacity-60" />
+              </button>
+              @if (invoiceStatusMenuOpen()) {
+                <div
+                  class="absolute right-0 z-10 mt-1 w-28 rounded-md border border-border bg-background p-1 shadow-md"
+                >
+                  @for (o of invoiceStatusOptions; track o) {
+                    <button
+                      type="button"
+                      class="block w-full rounded-sm px-2 py-1.5 text-left text-sm capitalize hover:bg-accent"
+                      (click)="pickInvoiceStatus(o)"
+                    >
+                      {{ o }}
+                    </button>
+                  }
+                </div>
+              }
+            </div>
           </div>
         </div>
       </div>
@@ -403,20 +973,70 @@
         <table class="acn-table">
           <thead>
             <tr>
-              <th class="w-12"><span class="acn-checkbox"></span></th>
-              <th>ID</th>
+              <th class="w-12">
+                <span
+                  class="acn-checkbox cursor-pointer"
+                  [style.background]="checkboxFill(invoices.allOnPageSelected())"
+                  [style.borderColor]="checkboxFill(invoices.allOnPageSelected())"
+                  (click)="invoices.toggleAllOnPage()"
+                >
+                  @if (invoices.allOnPageSelected()) {
+                    <app-lucide name="check" class="size-4 text-primary-foreground" />
+                  }
+                </span>
+              </th>
+              <th>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="invoices.toggleSort('id')"
+                >
+                  ID
+                  @if (invoices.dirFor('id'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-70"
+                    />
+                  }
+                </button>
+              </th>
               <th>Status</th>
               <th>Client</th>
-              <th>Total</th>
+              <th>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="invoices.toggleSort('total')"
+                >
+                  Total
+                  @if (invoices.dirFor('total'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-70"
+                    />
+                  }
+                </button>
+              </th>
               <th>Issued Date</th>
               <th>Balance</th>
               <th class="text-right">Actions</th>
             </tr>
           </thead>
           <tbody>
-            @for (inv of invoices; track inv.id) {
+            @for (inv of invoices.paged(); track inv.id) {
               <tr>
-                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <span
+                    class="acn-checkbox cursor-pointer"
+                    [style.background]="checkboxFill(invoices.isSelected(inv))"
+                    [style.borderColor]="checkboxFill(invoices.isSelected(inv))"
+                    (click)="invoices.toggleRow(inv)"
+                  >
+                    @if (invoices.isSelected(inv)) {
+                      <app-lucide name="check" class="size-4 text-primary-foreground" />
+                    }
+                  </span>
+                </td>
                 <td class="font-medium">{{ inv.id }}</td>
                 <td>
                   <span class="acn-status" [class]="'acn-status-' + inv.statusTone">
@@ -462,17 +1082,30 @@
         </table>
       </div>
       <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
-        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 25 entries</span>
+        <span class="text-sm text-muted-foreground"
+          >Showing {{ invoices.showingFrom() }} to {{ invoices.showingTo() }} of
+          {{ invoices.total() }} entries</span
+        >
         <div class="flex items-center gap-1">
-          <button type="button" class="acn-page-btn" aria-label="Previous">
+          <button
+            type="button"
+            class="acn-page-btn"
+            aria-label="Previous"
+            (click)="invoices.prev()"
+          >
             <app-lucide name="chevron-left" class="size-4" /> Previous
           </button>
-          <button type="button" class="acn-page-num acn-page-active">1</button>
-          <button type="button" class="acn-page-num">2</button>
-          <button type="button" class="acn-page-num">
-            <app-lucide name="ellipsis" class="size-4" />
-          </button>
-          <button type="button" class="acn-page-btn" aria-label="Next">
+          @for (n of invoices.pageNumbers(); track n) {
+            <button
+              type="button"
+              class="acn-page-num"
+              [class.acn-page-active]="invoices.page() + 1 === n"
+              (click)="invoices.goTo(n)"
+            >
+              {{ n }}
+            </button>
+          }
+          <button type="button" class="acn-page-btn" aria-label="Next" (click)="invoices.next()">
             Next <app-lucide name="chevron-right" class="size-4" />
           </button>
         </div>
@@ -481,14 +1114,35 @@
 
     <!-- ================= 7 — Draggable Columns ================= -->
     <div class="acn-card col-span-full flex flex-col py-6">
-      <div class="px-6">
+      <div class="flex flex-col gap-4 px-6 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="font-heading text-lg font-semibold">Data table with Draggable Columns</h2>
+        <div class="acn-input sm:w-64">
+          <app-lucide name="search" class="size-4 text-muted-foreground" />
+          <input
+            type="search"
+            placeholder="Search"
+            aria-label="Search contracts"
+            [value]="contracts.query()"
+            (input)="contracts.setQuery($any($event.target).value)"
+          />
+        </div>
       </div>
       <div class="mt-2 overflow-x-auto px-2">
         <table class="acn-table">
           <thead>
             <tr>
-              <th class="w-12"><span class="acn-checkbox"></span></th>
+              <th class="w-12">
+                <span
+                  class="acn-checkbox cursor-pointer"
+                  [style.background]="checkboxFill(contracts.allOnPageSelected())"
+                  [style.borderColor]="checkboxFill(contracts.allOnPageSelected())"
+                  (click)="contracts.toggleAllOnPage()"
+                >
+                  @if (contracts.allOnPageSelected()) {
+                    <app-lucide name="check" class="size-4 text-primary-foreground" />
+                  }
+                </span>
+              </th>
               @for (c of dragCols; track c) {
                 <th>
                   <span class="group flex items-center gap-1">
@@ -504,9 +1158,20 @@
             </tr>
           </thead>
           <tbody>
-            @for (c of contracts; track c.contract) {
+            @for (c of contracts.paged(); track c.contract) {
               <tr>
-                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <span
+                    class="acn-checkbox cursor-pointer"
+                    [style.background]="checkboxFill(contracts.isSelected(c))"
+                    [style.borderColor]="checkboxFill(contracts.isSelected(c))"
+                    (click)="contracts.toggleRow(c)"
+                  >
+                    @if (contracts.isSelected(c)) {
+                      <app-lucide name="check" class="size-4 text-primary-foreground" />
+                    }
+                  </span>
+                </td>
                 <td>
                   <div class="flex flex-col">
                     <span class="font-medium whitespace-nowrap">{{ c.vendor }}</span>
@@ -535,14 +1200,30 @@
         </table>
       </div>
       <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
-        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 15 entries</span>
+        <span class="text-sm text-muted-foreground"
+          >Showing {{ contracts.showingFrom() }} to {{ contracts.showingTo() }} of
+          {{ contracts.total() }} entries</span
+        >
         <div class="flex items-center gap-1">
-          <button type="button" class="acn-page-btn" aria-label="Previous">
+          <button
+            type="button"
+            class="acn-page-btn"
+            aria-label="Previous"
+            (click)="contracts.prev()"
+          >
             <app-lucide name="chevron-left" class="size-4" /> Previous
           </button>
-          <button type="button" class="acn-page-num acn-page-active">1</button>
-          <button type="button" class="acn-page-num">2</button>
-          <button type="button" class="acn-page-btn" aria-label="Next">
+          @for (n of contracts.pageNumbers(); track n) {
+            <button
+              type="button"
+              class="acn-page-num"
+              [class.acn-page-active]="contracts.page() + 1 === n"
+              (click)="contracts.goTo(n)"
+            >
+              {{ n }}
+            </button>
+          }
+          <button type="button" class="acn-page-btn" aria-label="Next" (click)="contracts.next()">
             Next <app-lucide name="chevron-right" class="size-4" />
           </button>
         </div>
@@ -551,14 +1232,35 @@
 
     <!-- ================= 8 — Expandable Rows ================= -->
     <div class="acn-card col-span-full flex flex-col py-6">
-      <div class="px-6">
+      <div class="flex flex-col gap-4 px-6 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="font-heading text-lg font-semibold">Data table with Expandable Rows</h2>
+        <div class="acn-input sm:w-64">
+          <app-lucide name="search" class="size-4 text-muted-foreground" />
+          <input
+            type="search"
+            placeholder="Search"
+            aria-label="Search launches"
+            [value]="launches.query()"
+            (input)="launches.setQuery($any($event.target).value)"
+          />
+        </div>
       </div>
       <div class="mt-2 overflow-x-auto px-2">
         <table class="acn-table">
           <thead>
             <tr>
-              <th class="w-12"><span class="acn-checkbox"></span></th>
+              <th class="w-12">
+                <span
+                  class="acn-checkbox cursor-pointer"
+                  [style.background]="checkboxFill(launches.allOnPageSelected())"
+                  [style.borderColor]="checkboxFill(launches.allOnPageSelected())"
+                  (click)="launches.toggleAllOnPage()"
+                >
+                  @if (launches.allOnPageSelected()) {
+                    <app-lucide name="check" class="size-4 text-primary-foreground" />
+                  }
+                </span>
+              </th>
               <th class="w-8"></th>
               <th>Launch</th>
               <th>Lead</th>
@@ -569,12 +1271,31 @@
             </tr>
           </thead>
           <tbody>
-            @for (l of launches; track l.code) {
+            @for (l of launches.paged(); track l.code) {
               <tr>
-                <td><span class="acn-checkbox"></span></td>
                 <td>
-                  <button type="button" class="acn-row-btn" aria-label="Expand">
-                    <app-lucide name="chevron-down" class="size-4 opacity-60" />
+                  <span
+                    class="acn-checkbox cursor-pointer"
+                    [style.background]="checkboxFill(launches.isSelected(l))"
+                    [style.borderColor]="checkboxFill(launches.isSelected(l))"
+                    (click)="launches.toggleRow(l)"
+                  >
+                    @if (launches.isSelected(l)) {
+                      <app-lucide name="check" class="size-4 text-primary-foreground" />
+                    }
+                  </span>
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    class="acn-row-btn"
+                    aria-label="Expand"
+                    (click)="toggleExpand(l)"
+                  >
+                    <app-lucide
+                      [name]="isExpanded(l) ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-60"
+                    />
                   </button>
                 </td>
                 <td>
@@ -606,19 +1327,55 @@
                   </div>
                 </td>
               </tr>
+              @if (isExpanded(l)) {
+                <tr>
+                  <td colspan="8" class="bg-muted/30">
+                    <div class="grid gap-4 px-6 py-3 text-sm sm:grid-cols-3">
+                      <div class="flex flex-col gap-0.5">
+                        <span class="text-muted-foreground">Launch Code</span>
+                        <span class="font-medium">{{ l.code }}</span>
+                      </div>
+                      <div class="flex flex-col gap-0.5">
+                        <span class="text-muted-foreground">Lead Contact</span>
+                        <span class="font-medium">{{ l.leadEmail }}</span>
+                      </div>
+                      <div class="flex flex-col gap-0.5">
+                        <span class="text-muted-foreground">Target Market</span>
+                        <span class="font-medium capitalize">{{ l.market }}</span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              }
             }
           </tbody>
         </table>
       </div>
       <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
-        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 15 entries</span>
+        <span class="text-sm text-muted-foreground"
+          >Showing {{ launches.showingFrom() }} to {{ launches.showingTo() }} of
+          {{ launches.total() }} entries</span
+        >
         <div class="flex items-center gap-1">
-          <button type="button" class="acn-page-btn" aria-label="Previous">
+          <button
+            type="button"
+            class="acn-page-btn"
+            aria-label="Previous"
+            (click)="launches.prev()"
+          >
             <app-lucide name="chevron-left" class="size-4" /> Previous
           </button>
-          <button type="button" class="acn-page-num acn-page-active">1</button>
-          <button type="button" class="acn-page-num">2</button>
-          <button type="button" class="acn-page-btn" aria-label="Next">
+          @for (n of launches.pageNumbers(); track n) {
+            <button
+              type="button"
+              class="acn-page-num"
+              [class.acn-page-active]="launches.page() + 1 === n"
+              (click)="launches.goTo(n)"
+            >
+              {{ n }}
+            </button>
+          }
+          <button type="button" class="acn-page-btn" aria-label="Next" (click)="launches.next()">
             Next <app-lucide name="chevron-right" class="size-4" />
           </button>
         </div>
@@ -627,25 +1384,87 @@
 
     <!-- ================= 9 — Progress (courses) ================= -->
     <div class="acn-card col-span-full flex flex-col py-6">
-      <div class="px-6">
-        <h2 class="font-heading text-lg font-semibold">Data table with Progress</h2>
-        <p class="text-sm text-muted-foreground">Course you are taking</p>
+      <div class="flex flex-col gap-4 px-6 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h2 class="font-heading text-lg font-semibold">Data table with Progress</h2>
+          <p class="text-sm text-muted-foreground">Course you are taking</p>
+        </div>
+        <div class="acn-input sm:w-64">
+          <app-lucide name="search" class="size-4 text-muted-foreground" />
+          <input
+            type="search"
+            placeholder="Search"
+            aria-label="Search courses"
+            [value]="courses.query()"
+            (input)="courses.setQuery($any($event.target).value)"
+          />
+        </div>
       </div>
       <div class="mt-2 overflow-x-auto px-2">
         <table class="acn-table">
           <thead>
             <tr>
-              <th class="w-12"><span class="acn-checkbox"></span></th>
-              <th>Course</th>
+              <th class="w-12">
+                <span
+                  class="acn-checkbox cursor-pointer"
+                  [style.background]="checkboxFill(courses.allOnPageSelected())"
+                  [style.borderColor]="checkboxFill(courses.allOnPageSelected())"
+                  (click)="courses.toggleAllOnPage()"
+                >
+                  @if (courses.allOnPageSelected()) {
+                    <app-lucide name="check" class="size-4 text-primary-foreground" />
+                  }
+                </span>
+              </th>
+              <th>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="courses.toggleSort('course')"
+                >
+                  Course
+                  @if (courses.dirFor('course'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-70"
+                    />
+                  }
+                </button>
+              </th>
               <th>Time</th>
-              <th class="min-w-48">Progress</th>
+              <th class="min-w-48">
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="courses.toggleSort('progress')"
+                >
+                  Progress
+                  @if (courses.dirFor('progress'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-70"
+                    />
+                  }
+                </button>
+              </th>
               <th>Statistics</th>
             </tr>
           </thead>
           <tbody>
-            @for (c of courses; track c.course) {
+            @for (c of courses.paged(); track c.course) {
               <tr>
-                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <span
+                    class="acn-checkbox cursor-pointer"
+                    [style.background]="checkboxFill(courses.isSelected(c))"
+                    [style.borderColor]="checkboxFill(courses.isSelected(c))"
+                    (click)="courses.toggleRow(c)"
+                  >
+                    @if (courses.isSelected(c)) {
+                      <app-lucide name="check" class="size-4 text-primary-foreground" />
+                    }
+                  </span>
+                </td>
                 <td>
                   <div class="flex items-center gap-3">
                     <span class="acn-icon-tile acn-tile-primary size-9"
@@ -690,17 +1509,25 @@
         </table>
       </div>
       <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
-        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 25 entries</span>
+        <span class="text-sm text-muted-foreground"
+          >Showing {{ courses.showingFrom() }} to {{ courses.showingTo() }} of
+          {{ courses.total() }} entries</span
+        >
         <div class="flex items-center gap-1">
-          <button type="button" class="acn-page-btn" aria-label="Previous">
+          <button type="button" class="acn-page-btn" aria-label="Previous" (click)="courses.prev()">
             <app-lucide name="chevron-left" class="size-4" /> Previous
           </button>
-          <button type="button" class="acn-page-num acn-page-active">1</button>
-          <button type="button" class="acn-page-num">2</button>
-          <button type="button" class="acn-page-num">
-            <app-lucide name="ellipsis" class="size-4" />
-          </button>
-          <button type="button" class="acn-page-btn" aria-label="Next">
+          @for (n of courses.pageNumbers(); track n) {
+            <button
+              type="button"
+              class="acn-page-num"
+              [class.acn-page-active]="courses.page() + 1 === n"
+              (click)="courses.goTo(n)"
+            >
+              {{ n }}
+            </button>
+          }
+          <button type="button" class="acn-page-btn" aria-label="Next" (click)="courses.next()">
             Next <app-lucide name="chevron-right" class="size-4" />
           </button>
         </div>
@@ -713,24 +1540,114 @@
         <h2 class="mb-4 font-heading text-lg font-semibold">Data table with Export Buttons</h2>
         <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div class="flex flex-wrap items-center gap-3">
-            <button type="button" class="acn-select w-32 justify-between">
-              Category: All <app-lucide name="chevron-down" class="size-4 opacity-60" />
-            </button>
-            <button type="button" class="acn-select w-28 justify-between">
-              Stock: All <app-lucide name="chevron-down" class="size-4 opacity-60" />
-            </button>
-            <button type="button" class="acn-select w-28 justify-between">
-              Status: All <app-lucide name="chevron-down" class="size-4 opacity-60" />
-            </button>
+            <div class="relative">
+              <button
+                type="button"
+                class="acn-select w-32 justify-between"
+                (click)="toggleProductMenu('category')"
+              >
+                <span class="capitalize">Category: {{ productCategoryFilter() }}</span>
+                <app-lucide name="chevron-down" class="size-4 opacity-60" />
+              </button>
+              @if (productMenuOpen() === 'category') {
+                <div
+                  class="absolute z-10 mt-1 w-40 rounded-md border border-border bg-background p-1 shadow-md"
+                >
+                  @for (o of productCategoryOptions; track o) {
+                    <button
+                      type="button"
+                      class="block w-full rounded-sm px-2 py-1.5 text-left text-sm capitalize hover:bg-accent"
+                      (click)="pickProductFilter('category', o)"
+                    >
+                      {{ o }}
+                    </button>
+                  }
+                </div>
+              }
+            </div>
+            <div class="relative">
+              <button
+                type="button"
+                class="acn-select w-28 justify-between"
+                (click)="toggleProductMenu('stock')"
+              >
+                <span class="capitalize">Stock: {{ productStockFilter() }}</span>
+                <app-lucide name="chevron-down" class="size-4 opacity-60" />
+              </button>
+              @if (productMenuOpen() === 'stock') {
+                <div
+                  class="absolute z-10 mt-1 w-36 rounded-md border border-border bg-background p-1 shadow-md"
+                >
+                  @for (o of productStockOptions; track o) {
+                    <button
+                      type="button"
+                      class="block w-full rounded-sm px-2 py-1.5 text-left text-sm capitalize hover:bg-accent"
+                      (click)="pickProductFilter('stock', o)"
+                    >
+                      {{ o }}
+                    </button>
+                  }
+                </div>
+              }
+            </div>
+            <div class="relative">
+              <button
+                type="button"
+                class="acn-select w-28 justify-between"
+                (click)="toggleProductMenu('status')"
+              >
+                <span class="capitalize">Status: {{ productStatusFilter() }}</span>
+                <app-lucide name="chevron-down" class="size-4 opacity-60" />
+              </button>
+              @if (productMenuOpen() === 'status') {
+                <div
+                  class="absolute z-10 mt-1 w-32 rounded-md border border-border bg-background p-1 shadow-md"
+                >
+                  @for (o of productStatusOptions; track o) {
+                    <button
+                      type="button"
+                      class="block w-full rounded-sm px-2 py-1.5 text-left text-sm capitalize hover:bg-accent"
+                      (click)="pickProductFilter('status', o)"
+                    >
+                      {{ o }}
+                    </button>
+                  }
+                </div>
+              }
+            </div>
           </div>
           <div class="flex flex-wrap items-center gap-3">
             <div class="acn-input">
               <app-lucide name="search" class="size-4 text-muted-foreground" />
-              <input type="search" placeholder="Product" aria-label="Search product" />
+              <input
+                type="search"
+                placeholder="Product"
+                aria-label="Search product"
+                [value]="products.query()"
+                (input)="products.setQuery($any($event.target).value)"
+              />
             </div>
-            <button type="button" class="acn-select">
-              5 <app-lucide name="chevron-down" class="size-4 opacity-60" />
-            </button>
+            <div class="relative">
+              <button type="button" class="acn-select" (click)="toggleProductMenu('size')">
+                {{ products.pageSize() }}
+                <app-lucide name="chevron-down" class="size-4 opacity-60" />
+              </button>
+              @if (productMenuOpen() === 'size') {
+                <div
+                  class="absolute z-10 mt-1 w-20 rounded-md border border-border bg-background p-1 shadow-md"
+                >
+                  @for (s of pageSizes; track s) {
+                    <button
+                      type="button"
+                      class="block w-full rounded-sm px-2 py-1.5 text-left text-sm hover:bg-accent"
+                      (click)="products.setPageSize(s); productMenuOpen.set(null)"
+                    >
+                      {{ s }}
+                    </button>
+                  }
+                </div>
+              }
+            </div>
             <button type="button" class="acn-select">
               <app-lucide name="upload" class="size-4" /> Export
             </button>
@@ -744,20 +1661,98 @@
         <table class="acn-table">
           <thead>
             <tr>
-              <th class="w-12"><span class="acn-checkbox"></span></th>
-              <th>Product</th>
-              <th>Category</th>
-              <th>Stock</th>
+              <th class="w-12">
+                <span
+                  class="acn-checkbox cursor-pointer"
+                  [style.background]="checkboxFill(products.allOnPageSelected())"
+                  [style.borderColor]="checkboxFill(products.allOnPageSelected())"
+                  (click)="products.toggleAllOnPage()"
+                >
+                  @if (products.allOnPageSelected()) {
+                    <app-lucide name="check" class="size-4 text-primary-foreground" />
+                  }
+                </span>
+              </th>
+              <th>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="products.toggleSort('name')"
+                >
+                  Product
+                  @if (products.dirFor('name'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-70"
+                    />
+                  }
+                </button>
+              </th>
+              <th>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="products.toggleSort('category')"
+                >
+                  Category
+                  @if (products.dirFor('category'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-70"
+                    />
+                  }
+                </button>
+              </th>
+              <th>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="products.toggleSort('amount')"
+                >
+                  Stock
+                  @if (products.dirFor('amount'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-70"
+                    />
+                  }
+                </button>
+              </th>
               <th>Amount</th>
-              <th>QTY</th>
+              <th>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="products.toggleSort('qty')"
+                >
+                  QTY
+                  @if (products.dirFor('qty'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-70"
+                    />
+                  }
+                </button>
+              </th>
               <th>Status</th>
               <th class="text-right">Actions</th>
             </tr>
           </thead>
           <tbody>
-            @for (p of products; track p.name) {
+            @for (p of products.paged(); track p.name) {
               <tr>
-                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <span
+                    class="acn-checkbox cursor-pointer"
+                    [style.background]="checkboxFill(products.isSelected(p))"
+                    [style.borderColor]="checkboxFill(products.isSelected(p))"
+                    (click)="products.toggleRow(p)"
+                  >
+                    @if (products.isSelected(p)) {
+                      <app-lucide name="check" class="size-4 text-primary-foreground" />
+                    }
+                  </span>
+                </td>
                 <td>
                   <div class="flex items-center gap-2.5">
                     <img [src]="p.image" [alt]="p.name" class="size-9 rounded-md object-cover" />
@@ -794,17 +1789,30 @@
         </table>
       </div>
       <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
-        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 25 entries</span>
+        <span class="text-sm text-muted-foreground"
+          >Showing {{ products.showingFrom() }} to {{ products.showingTo() }} of
+          {{ products.total() }} entries</span
+        >
         <div class="flex items-center gap-1">
-          <button type="button" class="acn-page-btn" aria-label="Previous">
+          <button
+            type="button"
+            class="acn-page-btn"
+            aria-label="Previous"
+            (click)="products.prev()"
+          >
             <app-lucide name="chevron-left" class="size-4" /> Previous
           </button>
-          <button type="button" class="acn-page-num acn-page-active">1</button>
-          <button type="button" class="acn-page-num">2</button>
-          <button type="button" class="acn-page-num">
-            <app-lucide name="ellipsis" class="size-4" />
-          </button>
-          <button type="button" class="acn-page-btn" aria-label="Next">
+          @for (n of products.pageNumbers(); track n) {
+            <button
+              type="button"
+              class="acn-page-num"
+              [class.acn-page-active]="products.page() + 1 === n"
+              (click)="products.goTo(n)"
+            >
+              {{ n }}
+            </button>
+          }
+          <button type="button" class="acn-page-btn" aria-label="Next" (click)="products.next()">
             Next <app-lucide name="chevron-right" class="size-4" />
           </button>
         </div>
@@ -818,11 +1826,38 @@
         <div class="flex flex-wrap items-center gap-3">
           <div class="acn-input flex-1 lg:max-w-xs">
             <app-lucide name="search" class="size-4 text-muted-foreground" />
-            <input type="search" placeholder="Product" aria-label="Search product" />
+            <input
+              type="search"
+              placeholder="Product"
+              aria-label="Search product"
+              [value]="graphs.query()"
+              (input)="graphs.setQuery($any($event.target).value)"
+            />
           </div>
-          <button type="button" class="acn-select">
-            5 <app-lucide name="chevron-down" class="size-4 opacity-60" />
-          </button>
+          <div class="relative">
+            <button
+              type="button"
+              class="acn-select"
+              (click)="productMenuOpen.set(productMenuOpen() === 'graphsize' ? null : 'graphsize')"
+            >
+              {{ graphs.pageSize() }} <app-lucide name="chevron-down" class="size-4 opacity-60" />
+            </button>
+            @if (productMenuOpen() === 'graphsize') {
+              <div
+                class="absolute z-10 mt-1 w-20 rounded-md border border-border bg-background p-1 shadow-md"
+              >
+                @for (s of pageSizes; track s) {
+                  <button
+                    type="button"
+                    class="block w-full rounded-sm px-2 py-1.5 text-left text-sm hover:bg-accent"
+                    (click)="graphs.setPageSize(s); productMenuOpen.set(null)"
+                  >
+                    {{ s }}
+                  </button>
+                }
+              </div>
+            }
+          </div>
           <button type="button" class="acn-select">
             <app-lucide name="upload" class="size-4" /> Export
           </button>
@@ -835,19 +1870,83 @@
         <table class="acn-table">
           <thead>
             <tr>
-              <th class="w-12"><span class="acn-checkbox"></span></th>
-              <th>Product</th>
+              <th class="w-12">
+                <span
+                  class="acn-checkbox cursor-pointer"
+                  [style.background]="checkboxFill(graphs.allOnPageSelected())"
+                  [style.borderColor]="checkboxFill(graphs.allOnPageSelected())"
+                  (click)="graphs.toggleAllOnPage()"
+                >
+                  @if (graphs.allOnPageSelected()) {
+                    <app-lucide name="check" class="size-4 text-primary-foreground" />
+                  }
+                </span>
+              </th>
+              <th>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="graphs.toggleSort('name')"
+                >
+                  Product
+                  @if (graphs.dirFor('name'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-70"
+                    />
+                  }
+                </button>
+              </th>
               <th>Graph</th>
-              <th>Price</th>
-              <th>Orders</th>
+              <th>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="graphs.toggleSort('price')"
+                >
+                  Price
+                  @if (graphs.dirFor('price'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-70"
+                    />
+                  }
+                </button>
+              </th>
+              <th>
+                <button
+                  type="button"
+                  class="flex cursor-pointer items-center gap-1"
+                  (click)="graphs.toggleSort('orders')"
+                >
+                  Orders
+                  @if (graphs.dirFor('orders'); as d) {
+                    <app-lucide
+                      [name]="d === 'asc' ? 'chevron-up' : 'chevron-down'"
+                      class="size-4 opacity-70"
+                    />
+                  }
+                </button>
+              </th>
               <th>Sales</th>
               <th class="text-right">Actions</th>
             </tr>
           </thead>
           <tbody>
-            @for (g of graphs; track g.name) {
+            @for (g of graphs.paged(); track g.name) {
               <tr>
-                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <span
+                    class="acn-checkbox cursor-pointer"
+                    [style.background]="checkboxFill(graphs.isSelected(g))"
+                    [style.borderColor]="checkboxFill(graphs.isSelected(g))"
+                    (click)="graphs.toggleRow(g)"
+                  >
+                    @if (graphs.isSelected(g)) {
+                      <app-lucide name="check" class="size-4 text-primary-foreground" />
+                    }
+                  </span>
+                </td>
                 <td>
                   <div class="flex items-center gap-2.5">
                     <img [src]="g.image" [alt]="g.name" class="size-9 rounded-md object-cover" />
@@ -908,17 +2007,25 @@
         </table>
       </div>
       <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
-        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 25 entries</span>
+        <span class="text-sm text-muted-foreground"
+          >Showing {{ graphs.showingFrom() }} to {{ graphs.showingTo() }} of
+          {{ graphs.total() }} entries</span
+        >
         <div class="flex items-center gap-1">
-          <button type="button" class="acn-page-btn" aria-label="Previous">
+          <button type="button" class="acn-page-btn" aria-label="Previous" (click)="graphs.prev()">
             <app-lucide name="chevron-left" class="size-4" /> Previous
           </button>
-          <button type="button" class="acn-page-num acn-page-active">1</button>
-          <button type="button" class="acn-page-num">2</button>
-          <button type="button" class="acn-page-num">
-            <app-lucide name="ellipsis" class="size-4" />
-          </button>
-          <button type="button" class="acn-page-btn" aria-label="Next">
+          @for (n of graphs.pageNumbers(); track n) {
+            <button
+              type="button"
+              class="acn-page-num"
+              [class.acn-page-active]="graphs.page() + 1 === n"
+              (click)="graphs.goTo(n)"
+            >
+              {{ n }}
+            </button>
+          }
+          <button type="button" class="acn-page-btn" aria-label="Next" (click)="graphs.next()">
             Next <app-lucide name="chevron-right" class="size-4" />
           </button>
         </div>
