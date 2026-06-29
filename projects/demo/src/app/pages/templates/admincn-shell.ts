@@ -1,11 +1,16 @@
+import { isPlatformBrowser } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   input,
+  PLATFORM_ID,
   signal,
   ViewEncapsulation,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
+
+import { ThemeStore } from 'ng-blatui';
 
 import { Lucide } from './lucide';
 
@@ -32,6 +37,7 @@ const BASE = '/templates/admincn';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   imports: [Lucide, RouterLink],
+  host: { '(document:keydown)': 'onKeydown($event)' },
   templateUrl: './admincn-shell.html',
   styleUrl: './admincn.css',
 })
@@ -39,8 +45,82 @@ export class AdmincnShell {
   /** Label of the active nav item (e.g. "Sales"). */
   readonly active = input<string>('Sales');
 
+  protected readonly theme = inject(ThemeStore);
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+
   /** Mobile off-canvas sidebar open state. */
   protected readonly sidebarOpen = signal(false);
+  /** Desktop icon-rail collapse state. */
+  protected readonly collapsed = signal(false);
+  /** Command palette (⌘K) open state. */
+  protected readonly paletteOpen = signal(false);
+  /** Which topbar dropdown is open ('bell' | 'avatar' | null). */
+  protected readonly openMenu = signal<string | null>(null);
+  /** Expanded collapsible nav items (by label). */
+  protected readonly expanded = signal<ReadonlySet<string>>(new Set());
+
+  protected toggleSidebar(): void {
+    if (this.isBrowser && window.innerWidth >= 1024) {
+      this.collapsed.update((v) => !v);
+    } else {
+      this.sidebarOpen.update((v) => !v);
+    }
+  }
+
+  protected toggleMenu(name: string): void {
+    this.openMenu.update((current) => (current === name ? null : name));
+  }
+
+  protected toggleExpanded(label: string): void {
+    this.expanded.update((s) => {
+      const next = new Set(s);
+      if (next.has(label)) {
+        next.delete(label);
+      } else {
+        next.add(label);
+      }
+      return next;
+    });
+  }
+
+  /** Command-palette search query. */
+  protected readonly query = signal('');
+
+  protected filteredItems(items: NavItem[]): NavItem[] {
+    const q = this.query().trim().toLowerCase();
+    if (!q) {
+      return items;
+    }
+    return items.filter((index) => index.label.toLowerCase().includes(q));
+  }
+
+  protected hasResults(): boolean {
+    return this.nav.some((g) => this.filteredItems(g.items).length > 0);
+  }
+
+  protected readonly notifications = [
+    { icon: 'shopping-cart', title: 'New order #5099 received', time: '2 min ago' },
+    { icon: 'user', title: 'Sarah Mitchell signed up', time: '1 hour ago' },
+    { icon: 'credit-card', title: 'Payment of $3,120 confirmed', time: '3 hours ago' },
+  ];
+
+  protected readonly accountMenu = [
+    { icon: 'user', label: 'Profile' },
+    { icon: 'settings', label: 'Settings' },
+    { icon: 'credit-card', label: 'Billing' },
+    { icon: 'circle-help', label: 'Support' },
+    { icon: 'log-out', label: 'Log out' },
+  ];
+
+  protected onKeydown(event: KeyboardEvent): void {
+    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+      event.preventDefault();
+      this.paletteOpen.set(true);
+    } else if (event.key === 'Escape') {
+      this.paletteOpen.set(false);
+      this.openMenu.set(null);
+    }
+  }
 
   protected readonly nav: NavGroup[] = [
     {
