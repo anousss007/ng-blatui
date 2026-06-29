@@ -1,0 +1,176 @@
+<app-admincn-shell active="Pricing">
+  <section id="pricing-details">
+    <!-- ============ Heading ============ -->
+    <div class="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
+      <p class="text-sm font-medium uppercase" style="color: var(--primary)">Pricing</p>
+      <h1 class="text-2xl font-semibold md:text-3xl lg:text-4xl">Pricing Details</h1>
+      <p class="mb-9 text-lg text-muted-foreground">
+        A Comprehensive Breakdown Of Our Pricing Plans to Help You Make The Best Choice!
+      </p>
+
+      <!-- Billing toggle -->
+      <div class="flex justify-center">
+        <div
+          class="inline-flex items-center gap-1 rounded-full p-1"
+          style="background: var(--muted)"
+        >
+          <button
+            type="button"
+            (click)="setBilling('monthly')"
+            class="inline-flex h-8 items-center rounded-full px-4 text-sm font-medium"
+            [class.text-muted-foreground]="billing() !== 'monthly'"
+            [style.background]="billing() === 'monthly' ? 'var(--background)' : null"
+            [style.color]="billing() === 'monthly' ? 'var(--foreground)' : null"
+            [style.box-shadow]="billing() === 'monthly' ? '0 1px 2px rgb(0 0 0 / 0.06)' : null"
+          >
+            Monthly
+          </button>
+          <button
+            type="button"
+            (click)="setBilling('yearly')"
+            class="inline-flex h-8 items-center rounded-full px-4 text-sm font-medium"
+            [class.text-muted-foreground]="billing() !== 'yearly'"
+            [style.background]="billing() === 'yearly' ? 'var(--background)' : null"
+            [style.color]="billing() === 'yearly' ? 'var(--foreground)' : null"
+            [style.box-shadow]="billing() === 'yearly' ? '0 1px 2px rgb(0 0 0 / 0.06)' : null"
+          >
+            Yearly
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ Promo + Pricing tiers ============ -->
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+      <!-- FLAT 20% OFF promo -->
+      <div class="acn-card flex flex-col justify-center gap-2 p-6">
+        <p class="text-2xl font-semibold tracking-tight uppercase">Flat</p>
+        <p class="flex items-baseline gap-2">
+          <span class="text-5xl font-bold" style="color: var(--destructive)">20%</span>
+          <span class="text-lg font-medium text-muted-foreground">OFF</span>
+        </p>
+        <p class="text-sm text-muted-foreground">For first 250 users, hurry up and get in now</p>
+      </div>
+
+      <!-- Tier cards -->
+      @for (plan of displayPlans(); track plan.name) {
+        <div
+          class="acn-card relative flex flex-col gap-4 p-6"
+          [style.box-shadow]="
+            selected() === plan.name
+              ? '0 0 0 2px var(--primary), 0 0 0 6px color-mix(in oklab, var(--primary) 25%, transparent), 0 8px 24px rgb(0 0 0 / 0.08)'
+              : plan.popular
+                ? '0 0 0 2px var(--primary), 0 8px 24px rgb(0 0 0 / 0.08)'
+                : null
+          "
+        >
+          @if (plan.badge) {
+            <span
+              class="absolute top-3 right-3 z-10 inline-flex h-auto w-fit items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium whitespace-nowrap"
+              style="background: var(--destructive); color: white"
+            >
+              <app-lucide name="zap" class="size-3" />
+              {{ plan.badge }}
+            </span>
+          }
+
+          <span
+            class="acn-icon-tile size-9"
+            [class.acn-tile-primary]="plan.popular"
+            [class.acn-tile-muted]="!plan.popular"
+          >
+            <app-lucide [name]="plan.icon" class="size-5" />
+          </span>
+
+          <p class="text-lg font-semibold">{{ plan.name }}</p>
+
+          <p class="flex items-baseline gap-1">
+            <span class="text-3xl font-semibold tracking-tight">${{ plan.price }}</span>
+            <span class="text-sm text-muted-foreground">{{ plan.period }}</span>
+            @if (billing() === 'yearly') {
+              <span
+                class="ml-1 inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium"
+                style="
+                  background: color-mix(in oklab, var(--primary) 12%, transparent);
+                  color: var(--primary);
+                "
+                >Save 20%</span
+              >
+            }
+          </p>
+
+          <button type="button" class="acn-btn-primary mt-2 w-full" (click)="selectPlan(plan.name)">
+            {{ plan.cta }}
+          </button>
+        </div>
+      }
+    </div>
+
+    <!-- ============ Feature comparison ============ -->
+    @for (section of sections; track section.title) {
+      <div class="mt-10 space-y-4">
+        <button
+          type="button"
+          class="flex w-full items-center gap-2 text-left"
+          (click)="toggleSection(section.title)"
+          [attr.aria-expanded]="isOpen(section.title)"
+        >
+          <span class="acn-icon-tile acn-tile-muted size-8">
+            <app-lucide [name]="section.icon" class="size-4" />
+          </span>
+          <p class="text-xl font-medium">{{ section.title }}</p>
+          <app-lucide
+            name="chevron-down"
+            class="ml-auto size-5 text-muted-foreground transition-transform"
+            [style.transform]="isOpen(section.title) ? null : 'rotate(-90deg)'"
+          />
+        </button>
+
+        @if (isOpen(section.title)) {
+          <div class="acn-card">
+            @for (row of section.rows; track row.label) {
+              <div
+                class="grid w-full grid-cols-4 not-last:border-b"
+                style="border-color: var(--border)"
+              >
+                <p class="px-2 py-3 text-sm text-muted-foreground">{{ row.label }}</p>
+                @for (cell of row.cells; track $index) {
+                  <div class="flex items-center justify-center px-2 py-3">
+                    @switch (cell.kind) {
+                      @case ('check') {
+                        <span
+                          class="flex size-[1.375rem] items-center justify-center rounded-full"
+                          style="background: color-mix(in oklab, var(--primary) 10%, transparent)"
+                        >
+                          <app-lucide name="check" class="size-3.5" style="color: var(--primary)" />
+                        </span>
+                      }
+                      @case ('dash') {
+                        <app-lucide name="minus" class="size-4 text-muted-foreground" />
+                      }
+                      @case ('text') {
+                        <span class="text-sm font-medium">{{ cell.value }}</span>
+                      }
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+
+    <!-- ============ Footer CTAs ============ -->
+    <div class="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+      @for (cta of footerCtas; track cta) {
+        <button type="button" class="acn-btn-primary w-full">{{ cta }}</button>
+      }
+    </div>
+  </section>
+
+  <!-- Floating Buy Now CTA -->
+  <a href="#pricing-details" class="acn-btn-primary fixed right-6 bottom-8 z-50 gap-1.5">
+    Buy Now
+  </a>
+</app-admincn-shell>

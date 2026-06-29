@@ -1157,6 +1157,80 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
           <path d="M3 11h18v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
           <path d="m6.18 5.276 3.1 3.899" />
         }
+        @case ('briefcase') {
+          <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+          <rect width="20" height="14" x="2" y="6" rx="2" />
+        }
+        @case ('square-kanban') {
+          <rect width="18" height="18" x="3" y="3" rx="2" />
+          <path d="M8 7v7" />
+          <path d="M12 7v4" />
+          <path d="M16 7v9" />
+        }
+        @case ('contact-round') {
+          <path d="M16 18a4 4 0 0 0-8 0" />
+          <circle cx="12" cy="11" r="3" />
+          <rect width="18" height="18" x="3" y="3" rx="2" />
+          <line x1="8" x2="8" y1="2" y2="4" />
+          <line x1="16" x2="16" y1="2" y2="4" />
+        }
+        @case ('external-link') {
+          <path d="M15 3h6v6" />
+          <path d="M10 14 21 3" />
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6" />
+        }
+        @case ('user-cog') {
+          <circle cx="18" cy="15" r="3" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M10 15H6a4 4 0 0 0-4 4v2" />
+          <path d="m21.7 16.4-.9-.3" />
+          <path d="m15.2 13.9-.9-.3" />
+          <path d="m16.6 18.7.3-.9" />
+          <path d="m19.1 12.2.3-.9" />
+          <path d="m19.6 18.7-.4-1" />
+          <path d="m16.8 12.3-.4-1" />
+          <path d="m14.3 16.6 1-.4" />
+          <path d="m20.7 13.8 1-.4" />
+        }
+        @case ('panel-left') {
+          <rect width="18" height="18" x="3" y="3" rx="2" />
+          <path d="M9 3v18" />
+        }
+        @case ('store') {
+          <path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7" />
+          <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+          <path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4" />
+          <path d="M2 7h20" />
+          <path
+            d="M22 7v3a2 2 0 0 1-2 2 2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7"
+          />
+        }
+        @case ('ellipsis-vertical') {
+          <circle cx="12" cy="12" r="1" />
+          <circle cx="12" cy="5" r="1" />
+          <circle cx="12" cy="19" r="1" />
+        }
+        @case ('circle-dollar-sign') {
+          <circle cx="12" cy="12" r="10" />
+          <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
+          <path d="M12 18V6" />
+        }
+        @case ('trash-2') {
+          <path d="M3 6h18" />
+          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+          <line x1="10" x2="10" y1="11" y2="17" />
+          <line x1="14" x2="14" y1="11" y2="17" />
+        }
+        @case ('chevron-up') {
+          <path d="m18 15-6-6-6 6" />
+        }
+        @case ('arrow-down-up') {
+          <path d="m3 16 4 4 4-4" />
+          <path d="M7 20V4" />
+          <path d="m21 8-4-4-4 4" />
+          <path d="M17 4v16" />
+        }
       }
     </svg>
   `,

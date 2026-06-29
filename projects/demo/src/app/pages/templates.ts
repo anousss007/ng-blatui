@@ -22,6 +22,7 @@ import {
 } from 'ng-blatui';
 
 export const TEMPLATES = [
+  'admincn',
   'auth',
   'pricing',
   'dashboard',

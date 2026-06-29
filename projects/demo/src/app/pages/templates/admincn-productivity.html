@@ -1,0 +1,588 @@
+<app-admincn-shell active="Productivity">
+  <div class="grid grid-cols-6 gap-6">
+    <!-- ============ Project Timeline + Project List ============ -->
+    <div class="acn-card col-span-full grid grid-cols-1 lg:grid-cols-3 2xl:col-span-4">
+      <!-- Timeline -->
+      <div class="flex flex-col gap-4 p-6 max-lg:border-b lg:col-span-2 lg:border-r">
+        <div class="flex flex-col gap-1">
+          <h3 class="font-heading text-lg font-semibold">Project Timeline</h3>
+          <p class="text-sm text-muted-foreground">Total 840 Task Completed</p>
+        </div>
+        <div class="flex flex-1 flex-col justify-center gap-4 pt-2">
+          @for (b of timeline; track $index) {
+            <div class="relative h-7">
+              <div
+                class="absolute top-0 flex h-7 items-center justify-center rounded-md px-3 text-xs font-medium whitespace-nowrap text-white"
+                [class.bg-chart-2]="b.tone === 'teal'"
+                [class.bg-chart-4]="b.tone === 'amber'"
+                [class.bg-foreground]="b.tone === 'dark'"
+                [class.text-background]="b.tone === 'dark'"
+                [class.bg-chart-1]="b.tone === 'orange'"
+                [style.left.%]="b.start"
+                [style.width.%]="b.width"
+              >
+                {{ b.label }}
+              </div>
+            </div>
+          }
+          <div class="mt-2 flex justify-between border-t pt-2 text-xs text-muted-foreground">
+            @for (m of months; track m) {
+              <span>{{ m }}</span>
+            }
+          </div>
+        </div>
+      </div>
+      <!-- Project List -->
+      <div class="flex flex-col gap-8 p-6">
+        <div class="flex items-start justify-between">
+          <div class="flex flex-col gap-1">
+            <h3 class="font-heading text-lg font-semibold">Project List</h3>
+            <p class="text-sm text-muted-foreground">4 ongoing project</p>
+          </div>
+          <div class="relative">
+            <button
+              type="button"
+              class="acn-menu-btn"
+              aria-label="Menu"
+              (click)="toggleMenu('projectList', $event)"
+            >
+              <app-lucide name="ellipsis-vertical" class="size-4" />
+            </button>
+            @if (openMenu() === 'projectList') {
+              <div
+                class="absolute right-0 z-20 mt-1 flex w-36 flex-col rounded-md border bg-[var(--popover,var(--card))] p-1 text-sm shadow-md ring-1 ring-black/5"
+                (click)="$event.stopPropagation()"
+              >
+                <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                  View
+                </button>
+                <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                  Refresh
+                </button>
+                <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                  Export
+                </button>
+                <button
+                  type="button"
+                  class="rounded-sm px-2 py-1.5 text-left text-destructive hover:bg-muted"
+                >
+                  Remove
+                </button>
+              </div>
+            }
+          </div>
+        </div>
+        <div class="flex h-full flex-col justify-between gap-6">
+          @for (p of projects; track p.name) {
+            <div class="flex items-center gap-3">
+              <span
+                class="acn-icon-tile size-8 rounded-sm"
+                [class.bg-chart-2/10]="p.tone === 'teal'"
+                [class.text-chart-2]="p.tone === 'teal'"
+                [class.bg-chart-5/10]="p.tone === 'amber'"
+                [class.text-chart-5]="p.tone === 'amber'"
+                [class.bg-chart-3/10]="p.tone === 'cyan'"
+                [class.text-chart-3]="p.tone === 'cyan'"
+                [class.bg-chart-1/10]="p.tone === 'orange'"
+                [class.text-chart-1]="p.tone === 'orange'"
+              >
+                <app-lucide [name]="p.icon" class="size-4" />
+              </span>
+              <div class="flex flex-col gap-0.5">
+                <span class="text-sm">{{ p.name }}</span>
+                <span class="text-xs text-muted-foreground">{{ p.task }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ Weekly overview ============ -->
+    <div class="acn-card col-span-full flex flex-col gap-6 p-6 lg:col-span-3 2xl:col-span-2">
+      <div class="flex items-start justify-between">
+        <span class="text-lg font-semibold">Weekly overview</span>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('weekly', $event)"
+          >
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+          @if (openMenu() === 'weekly') {
+            <div
+              class="absolute right-0 z-20 mt-1 flex w-36 flex-col rounded-md border bg-[var(--popover,var(--card))] p-1 text-sm shadow-md ring-1 ring-black/5"
+              (click)="$event.stopPropagation()"
+            >
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                View
+              </button>
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                Refresh
+              </button>
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                Export
+              </button>
+              <button
+                type="button"
+                class="rounded-sm px-2 py-1.5 text-left text-destructive hover:bg-muted"
+              >
+                Remove
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+      <div>
+        <svg viewBox="0 0 336 100" class="h-36 w-full" preserveAspectRatio="none">
+          @for (v of weeklyBars; track $index) {
+            <rect
+              [attr.x]="$index * 40 + 2"
+              [attr.y]="96 - v"
+              width="14"
+              [attr.height]="v"
+              rx="4"
+              class="acn-bar-track"
+            />
+          }
+          <path [attr.d]="weeklyArea" fill="var(--chart-2)" fill-opacity="0.12" />
+          <polyline
+            [attr.points]="weeklyPath"
+            fill="none"
+            stroke="var(--chart-2)"
+            stroke-width="2.5"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+          />
+        </svg>
+      </div>
+      <div class="flex flex-col items-stretch gap-4">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl font-medium">80%</span>
+          <span class="text-sm text-muted-foreground">
+            Your sales performance is 60% Better compare to Last month
+          </span>
+        </div>
+        <button type="button" class="acn-btn-primary">Details</button>
+      </div>
+    </div>
+
+    <!-- ============ Conversion rate ============ -->
+    <div class="acn-card col-span-full flex flex-col gap-4 p-6 lg:col-span-3 2xl:col-span-2">
+      <div class="flex items-start justify-between">
+        <div class="flex flex-col gap-1">
+          <span class="text-lg font-semibold">Conversion rate</span>
+          <span class="text-sm text-muted-foreground">Compared to last month</span>
+        </div>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('conversion', $event)"
+          >
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+          @if (openMenu() === 'conversion') {
+            <div
+              class="absolute right-0 z-20 mt-1 flex w-36 flex-col rounded-md border bg-[var(--popover,var(--card))] p-1 text-sm shadow-md ring-1 ring-black/5"
+              (click)="$event.stopPropagation()"
+            >
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                View
+              </button>
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                Refresh
+              </button>
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                Export
+              </button>
+              <button
+                type="button"
+                class="rounded-sm px-2 py-1.5 text-left text-destructive hover:bg-muted"
+              >
+                Remove
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <span class="text-3xl font-semibold">92.8%</span>
+        <span class="flex items-center gap-1 text-sm text-primary">
+          <app-lucide name="arrow-up" class="size-4" />6.3%
+        </span>
+        <svg viewBox="0 0 250 32" class="h-8 flex-1" preserveAspectRatio="none">
+          <polyline
+            [attr.points]="convSpark"
+            fill="none"
+            stroke="var(--chart-2)"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+
+      <div class="flex flex-col gap-4 border-t pt-4">
+        @for (r of convRows; track r.label) {
+          <div class="grid grid-cols-5 items-center gap-2">
+            <div class="col-span-4 flex flex-col gap-0.5">
+              <span class="font-medium">{{ r.label }}</span>
+              <span class="text-sm text-muted-foreground">{{ r.meta }}</span>
+            </div>
+            <div class="flex items-center justify-end gap-1 text-sm">
+              <app-lucide
+                [name]="r.icon"
+                class="size-4"
+                [class.text-chart-2]="r.icon === 'arrow-up'"
+                [class.text-destructive]="r.icon === 'arrow-down'"
+              />
+              {{ r.delta }}
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- ============ Upgrade your plan ============ -->
+    <div
+      class="acn-card col-span-full flex flex-col justify-between gap-6 p-6 lg:col-span-3 2xl:col-span-2"
+    >
+      <div class="flex flex-col gap-1">
+        <div class="flex items-center justify-between gap-2">
+          <span class="text-lg font-semibold">Upgrade your plan</span>
+          <div class="relative">
+            <button
+              type="button"
+              class="acn-menu-btn"
+              aria-label="Menu"
+              (click)="toggleMenu('upgrade', $event)"
+            >
+              <app-lucide name="ellipsis-vertical" class="size-4" />
+            </button>
+            @if (openMenu() === 'upgrade') {
+              <div
+                class="absolute right-0 z-20 mt-1 flex w-36 flex-col rounded-md border bg-[var(--popover,var(--card))] p-1 text-sm shadow-md ring-1 ring-black/5"
+                (click)="$event.stopPropagation()"
+              >
+                <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                  View
+                </button>
+                <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                  Refresh
+                </button>
+                <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                  Export
+                </button>
+                <button
+                  type="button"
+                  class="rounded-sm px-2 py-1.5 text-left text-destructive hover:bg-muted"
+                >
+                  Remove
+                </button>
+              </div>
+            }
+          </div>
+        </div>
+        <p class="text-sm text-muted-foreground">
+          To fully enjoy all the amazing features and benefits of our premium plan.
+        </p>
+      </div>
+
+      <div class="flex items-center justify-between gap-2 rounded-md bg-primary/10 px-2 py-1.5">
+        <div class="flex items-center gap-2">
+          <span class="acn-icon-tile size-9 rounded-sm bg-background text-primary">
+            <app-lucide name="wallet" class="size-5" />
+          </span>
+          <div class="flex flex-col">
+            <span class="font-medium">Platinum</span>
+            <span class="text-sm text-muted-foreground">Last 6 months</span>
+          </div>
+        </div>
+        <div class="flex items-baseline">
+          <span class="text-xl font-medium">$5,550</span><span class="text-sm">/Year</span>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <span class="font-semibold">Payment details</span>
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <div class="rounded-sm bg-muted p-2">
+                <img [src]="img + '/widgets/master-card.webp'" alt="master-card" class="w-8" />
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <span class="text-sm font-medium">Credit card</span>
+                <span class="text-xs text-muted-foreground">5688 xxxx xxxx 2356</span>
+              </div>
+            </div>
+            <div class="acn-input h-7 max-w-16">
+              <input type="text" placeholder="CVC" aria-label="CVC" />
+            </div>
+          </div>
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <div class="rounded-sm bg-muted px-2 py-3">
+                <img [src]="img + '/widgets/visa.webp'" alt="visa" class="w-8" />
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <span class="text-sm font-medium">Credit card</span>
+                <span class="text-xs text-muted-foreground">8562 xxxx xxxx 4563</span>
+              </div>
+            </div>
+            <div class="acn-input h-7 max-w-16">
+              <input type="text" placeholder="CVC" aria-label="CVC" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <span class="font-semibold">Add Payment method</span>
+        <div class="acn-input">
+          <input type="text" placeholder="Card Number" aria-label="Card number" />
+          <app-lucide name="credit-card" class="size-4 text-muted-foreground" />
+        </div>
+        <button type="button" class="acn-btn-primary h-10 w-full">Pay now</button>
+      </div>
+    </div>
+
+    <!-- ============ Performance ============ -->
+    <div class="acn-card col-span-full flex flex-col gap-6 p-6 lg:col-span-3 2xl:col-span-2">
+      <div class="flex items-start justify-between">
+        <div class="flex items-center gap-2">
+          <app-lucide name="activity" class="size-5" />
+          <span class="text-lg font-semibold">Performance</span>
+        </div>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('performance', $event)"
+          >
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+          @if (openMenu() === 'performance') {
+            <div
+              class="absolute right-0 z-20 mt-1 flex w-36 flex-col rounded-md border bg-[var(--popover,var(--card))] p-1 text-sm shadow-md ring-1 ring-black/5"
+              (click)="$event.stopPropagation()"
+            >
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                View
+              </button>
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                Refresh
+              </button>
+              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
+                Export
+              </button>
+              <button
+                type="button"
+                class="rounded-sm px-2 py-1.5 text-left text-destructive hover:bg-muted"
+              >
+                Remove
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="flex border-b text-sm font-medium">
+        @for (t of perfTabs; track t; let i = $index) {
+          <button
+            type="button"
+            class="relative flex-1 px-2 py-1 transition-colors"
+            (click)="setPerfTab(i)"
+            [class.text-foreground]="perfTab() === i"
+            [class.text-foreground/60]="perfTab() !== i"
+            [class.after:absolute]="perfTab() === i"
+            [class.after:inset-x-0]="perfTab() === i"
+            [class.after:-bottom-px]="perfTab() === i"
+            [class.after:h-0.5]="perfTab() === i"
+            [class.after:bg-foreground]="perfTab() === i"
+          >
+            {{ t }}
+          </button>
+        }
+      </div>
+
+      @let perf = perfStats[perfTab()];
+      <div class="flex flex-1 flex-col justify-between gap-4">
+        <div class="flex items-center gap-4 rounded-xl border px-4 py-2">
+          <img [src]="perf.avatar" [alt]="perf.name" class="size-10 rounded-full object-cover" />
+          <div class="flex flex-col">
+            <span class="text-muted-foreground">{{ perf.role }}</span>
+            <span class="text-lg font-medium">{{ perf.name }}</span>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between rounded-xl border px-4 py-3">
+          <span
+            class="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary"
+            >{{ perf.badge }}</span
+          >
+          <span class="text-xl font-medium">{{ perf.badgeValue }}</span>
+        </div>
+
+        <div class="flex flex-col gap-4 rounded-xl border px-5 py-3.5">
+          <div class="flex items-center justify-between">
+            <div class="flex flex-col gap-1">
+              <span class="text-muted-foreground">{{ perf.productLabel }}</span>
+              <span class="text-xl font-semibold">{{ perf.productValue }}</span>
+            </div>
+            <div class="flex items-center gap-2.5">
+              <span class="acn-icon-tile size-6 rounded-full bg-primary/10 text-primary">
+                <app-lucide name="arrow-up-right" class="size-4" />
+              </span>
+              <span class="text-xl font-semibold">{{ perf.delta }}</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex -space-x-2">
+              @for (a of perfAvatars; track $index) {
+                <img [src]="a" alt="" class="size-8 rounded-full object-cover ring-2 ring-card" />
+              }
+            </div>
+            <button
+              type="button"
+              class="inline-flex h-8 items-center gap-1 rounded-md bg-primary/10 px-2.5 text-sm font-medium text-primary hover:bg-primary/20"
+            >
+              View all <app-lucide name="arrow-up-right" class="size-4" />
+            </button>
+          </div>
+        </div>
+
+        <p class="text-center">
+          <span class="font-medium">{{ perf.footerLead }}</span>
+          <span class="text-sm text-muted-foreground">
+            More email marketing to reach your acquisition target.
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <!-- ============ Users table ============ -->
+    <div class="acn-card col-span-full flex flex-col">
+      <div class="flex flex-col gap-4 border-b p-6">
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+          <div class="flex w-full flex-col gap-2">
+            <span class="text-sm font-medium">Select Role</span>
+            <button type="button" class="acn-select w-full justify-between">
+              All <app-lucide name="chevron-down" class="size-4 opacity-60" />
+            </button>
+          </div>
+          <div class="flex w-full flex-col gap-2">
+            <span class="text-sm font-medium">Select Plan</span>
+            <button type="button" class="acn-select w-full justify-between">
+              All <app-lucide name="chevron-down" class="size-4 opacity-60" />
+            </button>
+          </div>
+          <div class="flex w-full flex-col gap-2 max-md:col-span-full">
+            <span class="text-sm font-medium">Select Status</span>
+            <button type="button" class="acn-select w-full justify-between">
+              All <app-lucide name="chevron-down" class="size-4 opacity-60" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="acn-table">
+          <thead>
+            <tr>
+              <th class="w-12"><span class="acn-checkbox"></span></th>
+              <th class="w-[360px]">User</th>
+              <th>Role</th>
+              <th>Plan</th>
+              <th>Billing</th>
+              <th>Status</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (u of users; track u.email) {
+              <tr>
+                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <div class="flex items-center gap-2.5">
+                    <img [src]="u.avatar" [alt]="u.name" class="size-9 rounded-full object-cover" />
+                    <div class="flex flex-col">
+                      <span class="font-medium whitespace-nowrap">{{ u.name }}</span>
+                      <span class="text-sm whitespace-nowrap text-muted-foreground">{{
+                        u.email
+                      }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="flex items-center gap-2">
+                    <app-lucide [name]="u.roleIcon" class="size-4 text-muted-foreground" />
+                    <span class="capitalize">{{ u.role }}</span>
+                  </div>
+                </td>
+                <td class="text-muted-foreground capitalize">{{ u.plan }}</td>
+                <td class="whitespace-nowrap text-muted-foreground">{{ u.billing }}</td>
+                <td>
+                  @switch (u.status) {
+                    @case ('active') {
+                      <span class="acn-badge-green capitalize">active</span>
+                    }
+                    @case ('pending') {
+                      <span
+                        class="inline-flex items-center rounded-sm px-2 py-0.5 text-xs font-medium capitalize"
+                        style="
+                          background: color-mix(in oklab, var(--acn-amber) 12%, transparent);
+                          color: var(--acn-amber);
+                        "
+                        >pending</span
+                      >
+                    }
+                    @default {
+                      <span class="acn-badge-red capitalize">inactive</span>
+                    }
+                  }
+                </td>
+                <td>
+                  <div class="flex items-center justify-center gap-1">
+                    <button type="button" class="acn-row-btn" aria-label="Delete item">
+                      <app-lucide name="trash-2" class="size-4" />
+                    </button>
+                    <button type="button" class="acn-row-btn" aria-label="View item">
+                      <app-lucide name="eye" class="size-4" />
+                    </button>
+                    <button type="button" class="acn-row-btn" aria-label="Edit item">
+                      <app-lucide name="ellipsis-vertical" class="size-4" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flex items-center justify-between gap-3 px-6 py-4 max-sm:flex-col">
+        <p class="text-sm whitespace-nowrap text-muted-foreground">Showing 1 to 5 of 25 entries</p>
+        <div class="flex items-center gap-1">
+          <button type="button" class="acn-page-btn" disabled aria-label="Go to previous page">
+            <app-lucide name="chevron-left" class="size-4" /> Previous
+          </button>
+          <button type="button" class="acn-page-num acn-page-active">1</button>
+          <button type="button" class="acn-page-num bg-primary/10 text-primary hover:bg-primary/20">
+            2
+          </button>
+          <span class="acn-page-num"><app-lucide name="ellipsis" class="size-4" /></span>
+          <button type="button" class="acn-page-btn" aria-label="Go to next page">
+            Next <app-lucide name="chevron-right" class="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-admincn-shell>

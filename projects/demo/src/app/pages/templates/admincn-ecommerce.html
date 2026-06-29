@@ -1,0 +1,452 @@
+<app-admincn-shell active="eCommerce">
+  @if (openMenu() !== null) {
+    <button
+      type="button"
+      class="fixed inset-0 z-10 cursor-default"
+      aria-label="Close menu"
+      (click)="closeMenu()"
+    ></button>
+  }
+  <div class="grid grid-cols-6 gap-6">
+    <!-- ============ KPI tiles (2x2 block) ============ -->
+    <div class="col-span-full grid grid-cols-2 gap-6 lg:col-span-2">
+      @for (k of kpis; track k.label) {
+        <div class="acn-card acn-kpi gap-3 p-5">
+          <div class="flex items-center justify-between gap-2">
+            <span class="acn-icon-tile size-9" [class]="k.tile">
+              <app-lucide [name]="k.icon" class="size-5" />
+            </span>
+            <span
+              class="flex items-center gap-0.5 text-sm font-medium"
+              [class.text-chart-2]="k.up"
+              [class.text-destructive]="!k.up"
+            >
+              {{ k.badge }}
+              <app-lucide [name]="k.up ? 'chevron-up' : 'chevron-down'" class="size-3.5" />
+            </span>
+          </div>
+          <div class="flex flex-col gap-0.5">
+            <span class="text-xl font-semibold tracking-tight">{{ k.value }}</span>
+            <span class="text-sm text-muted-foreground">{{ k.label }}</span>
+          </div>
+          <span class="acn-chip self-start">{{ k.period }}</span>
+        </div>
+      }
+    </div>
+
+    <!-- ============ Earning insights ============ -->
+    <div class="acn-card col-span-full flex flex-col gap-6 p-6 lg:col-span-4">
+      <div class="flex items-start justify-between">
+        <div class="flex flex-col gap-1">
+          <h3 class="font-heading text-lg font-semibold">Earning insights</h3>
+          <p class="text-sm text-muted-foreground">Weekly Earning overview</p>
+        </div>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('earning')"
+          >
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+          @if (openMenu() === 'earning') {
+            <div
+              class="absolute top-full right-0 z-20 mt-1 w-36 rounded-lg border p-1 shadow-md ring-1 ring-border"
+              style="background: var(--card)"
+            >
+              @for (item of menuItems; track item) {
+                <button
+                  type="button"
+                  class="flex w-full items-center rounded-md px-2.5 py-1.5 text-left text-sm hover:bg-muted"
+                  (click)="closeMenu()"
+                >
+                  {{ item }}
+                </button>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div class="flex flex-col gap-3">
+          <div class="flex items-center gap-2">
+            <span class="text-4xl font-semibold tracking-tight">$4.6K</span>
+            <span class="acn-badge-green">+10%</span>
+          </div>
+          <p class="max-w-xs text-sm text-muted-foreground">
+            Earning of this week compared to last week. it's increasing keep it up.
+          </p>
+        </div>
+        <div class="acn-barchart acn-barchart-sm self-end">
+          @for (b of earnBars; track b.label) {
+            <div class="acn-barcol">
+              <div class="acn-bartrack">
+                <div
+                  class="acn-barfill"
+                  [class.acn-barfill-hi]="b.label === earnHighlight"
+                  [style.height.%]="b.value"
+                ></div>
+              </div>
+              <span class="acn-barlabel">{{ b.label }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-4 border-t pt-5 sm:grid-cols-3">
+        @for (s of earnSubStats; track s.label) {
+          <div class="flex items-center gap-3">
+            <span class="acn-icon-tile size-10" [class]="s.tile">
+              <app-lucide [name]="s.icon" class="size-5" />
+            </span>
+            <div class="flex flex-col">
+              <span class="text-sm text-muted-foreground">{{ s.label }}</span>
+              <span class="text-lg font-semibold tracking-tight">{{ s.value }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- ============ Profile / Packing ============ -->
+    <div class="acn-card col-span-full flex flex-col gap-5 p-6 sm:col-span-3 lg:col-span-2">
+      <div class="flex items-center gap-3">
+        <img
+          [src]="img + '/avatars/avatar-16.webp'"
+          alt="jackwilliams"
+          class="size-10 rounded-full"
+        />
+        <div class="flex flex-1 flex-col">
+          <span class="font-medium">@jackwilliams</span>
+          <span class="text-xs text-muted-foreground">Business</span>
+        </div>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('packing')"
+          >
+            <app-lucide name="ellipsis" class="size-4" />
+          </button>
+          @if (openMenu() === 'packing') {
+            <div
+              class="absolute top-full right-0 z-20 mt-1 w-36 rounded-lg border p-1 shadow-md ring-1 ring-border"
+              style="background: var(--card)"
+            >
+              @for (item of menuItems; track item) {
+                <button
+                  type="button"
+                  class="flex w-full items-center rounded-md px-2.5 py-1.5 text-left text-sm hover:bg-muted"
+                  (click)="closeMenu()"
+                >
+                  {{ item }}
+                </button>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="flex items-baseline gap-2">
+        <span class="text-3xl font-semibold tracking-tight">4,689</span>
+        <span class="text-sm text-muted-foreground">Orders</span>
+      </div>
+
+      <div class="grid grid-cols-3 gap-1 rounded-lg bg-muted p-1">
+        @for (t of packTabs; track t.label) {
+          <button
+            type="button"
+            class="flex items-center justify-center gap-1.5 rounded-md px-2 py-1.5 text-sm font-medium"
+            [class.bg-card]="activePackTab() === t.label"
+            [class.shadow-sm]="activePackTab() === t.label"
+            [class.text-muted-foreground]="activePackTab() !== t.label"
+            (click)="setPackTab(t.label)"
+          >
+            <app-lucide [name]="t.icon" class="size-4" /> {{ t.label }}
+          </button>
+        }
+      </div>
+
+      <div class="flex flex-col gap-4">
+        @for (p of packRows(); track p.label) {
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center justify-between gap-2 text-sm">
+              <span class="font-medium">{{ p.label }}</span>
+              @if (p.buy) {
+                <button type="button" class="acn-btn-primary !h-7 !px-3 !text-xs">Buy Now</button>
+              } @else {
+                <span class="text-muted-foreground">{{ p.value }}</span>
+              }
+            </div>
+            <div class="h-2 w-full overflow-hidden rounded-full bg-muted">
+              <div class="h-full rounded-full bg-primary" [style.width.%]="p.pct"></div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- ============ Orders ============ -->
+    <div class="acn-card col-span-full flex flex-col gap-5 p-6 sm:col-span-3 lg:col-span-2">
+      <div class="flex items-start justify-between">
+        <div class="flex flex-col gap-1">
+          <h3 class="font-heading text-lg font-semibold">Orders</h3>
+          <p class="text-sm text-muted-foreground">75 Deliveries in progress</p>
+        </div>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('orders')"
+          >
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+          @if (openMenu() === 'orders') {
+            <div
+              class="absolute top-full right-0 z-20 mt-1 w-36 rounded-lg border p-1 shadow-md ring-1 ring-border"
+              style="background: var(--card)"
+            >
+              @for (item of menuItems; track item) {
+                <button
+                  type="button"
+                  class="flex w-full items-center rounded-md px-2.5 py-1.5 text-left text-sm hover:bg-muted"
+                  (click)="closeMenu()"
+                >
+                  {{ item }}
+                </button>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4 border-b text-sm">
+        @for (t of orderTabs; track t) {
+          <button
+            type="button"
+            class="-mb-px border-b-2 px-1 pb-2.5 font-medium"
+            [class.border-primary]="activeOrderTab() === t"
+            [class.text-foreground]="activeOrderTab() === t"
+            [class.border-transparent]="activeOrderTab() !== t"
+            [class.text-muted-foreground]="activeOrderTab() !== t"
+            (click)="setOrderTab(t)"
+          >
+            {{ t }}
+          </button>
+        }
+      </div>
+
+      <div class="flex flex-col gap-4">
+        @for (o of orders(); track $index) {
+          <div class="flex items-center gap-3">
+            <span class="acn-icon-tile acn-tile-muted size-9">
+              <app-lucide [name]="o.icon" class="size-4" />
+            </span>
+            <div class="flex flex-1 flex-col">
+              <span class="text-xs text-muted-foreground">{{ o.role }}</span>
+              <span class="text-sm font-medium">{{ o.name }}</span>
+              <span class="text-xs text-muted-foreground">{{ o.address }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- ============ Popular product ============ -->
+    <div class="acn-card col-span-full flex flex-col gap-5 p-6 sm:col-span-3 lg:col-span-2">
+      <div class="flex items-start justify-between">
+        <div class="flex flex-col gap-1">
+          <h3 class="font-heading text-lg font-semibold">Popular product</h3>
+          <p class="text-sm text-muted-foreground">Total 10.4K visitors</p>
+        </div>
+        <div class="relative">
+          <button
+            type="button"
+            class="acn-menu-btn"
+            aria-label="Menu"
+            (click)="toggleMenu('popular')"
+          >
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+          @if (openMenu() === 'popular') {
+            <div
+              class="absolute top-full right-0 z-20 mt-1 w-36 rounded-lg border p-1 shadow-md ring-1 ring-border"
+              style="background: var(--card)"
+            >
+              @for (item of menuItems; track item) {
+                <button
+                  type="button"
+                  class="flex w-full items-center rounded-md px-2.5 py-1.5 text-left text-sm hover:bg-muted"
+                  (click)="closeMenu()"
+                >
+                  {{ item }}
+                </button>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        @for (p of products; track p.name) {
+          <div class="flex items-center gap-3">
+            <span class="acn-icon-tile size-10" [class]="p.tile">
+              <app-lucide [name]="p.icon" class="size-5" />
+            </span>
+            <div class="flex flex-1 flex-col">
+              <span class="text-sm font-medium">{{ p.name }}</span>
+              <span class="text-xs text-muted-foreground">{{ p.price }}</span>
+            </div>
+            <span class="text-sm font-medium text-muted-foreground">{{ p.stat }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- ============ Filters + Product table ============ -->
+    <div class="acn-card col-span-full flex flex-col py-6">
+      <div class="grid grid-cols-1 gap-4 px-6 sm:grid-cols-3">
+        @for (s of selects; track s) {
+          <div class="flex flex-col gap-1.5">
+            <span class="text-sm font-medium">Select {{ s }}</span>
+            <button type="button" class="acn-select w-full justify-between">
+              All <app-lucide name="chevron-down" class="size-4 opacity-60" />
+            </button>
+          </div>
+        }
+      </div>
+
+      <div class="mt-6 flex flex-col gap-4 px-6 lg:flex-row lg:items-center lg:justify-between">
+        <div class="acn-input flex-1 lg:max-w-xs">
+          <app-lucide name="search" class="size-4 text-muted-foreground" />
+          <input type="search" placeholder="Search product" aria-label="Search product" />
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <button type="button" class="acn-select">
+            5 <app-lucide name="chevron-down" class="size-4 opacity-60" />
+          </button>
+          <button
+            type="button"
+            class="acn-btn-primary"
+            style="
+              background: var(--background);
+              color: var(--foreground);
+              border: 1px solid var(--border);
+            "
+          >
+            <app-lucide name="download" class="size-4" /> Export
+          </button>
+          <button type="button" class="acn-btn-primary">
+            <app-lucide name="plus" class="size-4" /> Add Product
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-2 overflow-x-auto px-2">
+        <table class="acn-table">
+          <thead>
+            <tr>
+              <th class="w-12"><span class="acn-checkbox"></span></th>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Stock</th>
+              <th>Amount</th>
+              <th>QTY</th>
+              <th>Status</th>
+              <th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (r of rows; track r.name) {
+              <tr>
+                <td><span class="acn-checkbox"></span></td>
+                <td>
+                  <div class="flex items-center gap-2.5">
+                    <span class="acn-icon-tile acn-tile-muted size-9">
+                      <app-lucide [name]="r.icon" class="size-4" />
+                    </span>
+                    <div class="flex flex-col">
+                      <span class="font-medium whitespace-nowrap">{{ r.name }}</span>
+                      <span class="text-sm whitespace-nowrap text-muted-foreground">{{
+                        r.brand
+                      }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="whitespace-nowrap text-muted-foreground">{{ r.category }}</td>
+                <td>
+                  <span
+                    class="inline-flex h-5 w-9 items-center rounded-full p-0.5"
+                    [class.bg-primary]="r.stock"
+                    [class.bg-muted]="!r.stock"
+                    [class.justify-end]="r.stock"
+                  >
+                    <span class="size-4 rounded-full bg-card shadow-sm"></span>
+                  </span>
+                </td>
+                <td class="font-medium whitespace-nowrap">{{ r.amount }}</td>
+                <td class="text-muted-foreground">{{ r.qty }}</td>
+                <td>
+                  @if (r.status === 'publish') {
+                    <span class="acn-badge-green capitalize">{{ r.status }}</span>
+                  } @else {
+                    <span class="acn-badge-red capitalize">{{ r.status }}</span>
+                  }
+                </td>
+                <td>
+                  <div class="relative flex items-center justify-end">
+                    <button
+                      type="button"
+                      class="acn-row-btn"
+                      aria-label="More"
+                      (click)="toggleMenu('row-' + r.name)"
+                    >
+                      <app-lucide name="ellipsis-vertical" class="size-4" />
+                    </button>
+                    @if (openMenu() === 'row-' + r.name) {
+                      <div
+                        class="absolute top-full right-0 z-20 mt-1 w-36 rounded-lg border p-1 shadow-md ring-1 ring-border"
+                        style="background: var(--card)"
+                      >
+                        @for (item of menuItems; track item) {
+                          <button
+                            type="button"
+                            class="flex w-full items-center rounded-md px-2.5 py-1.5 text-left text-sm hover:bg-muted"
+                            (click)="closeMenu()"
+                          >
+                            {{ item }}
+                          </button>
+                        }
+                      </div>
+                    }
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
+        <span class="text-sm text-muted-foreground">Showing 1 to 5 of 25 entries</span>
+        <div class="flex items-center gap-1">
+          <button type="button" class="acn-page-btn" aria-label="Previous">
+            <app-lucide name="chevron-left" class="size-4" /> Previous
+          </button>
+          <button type="button" class="acn-page-num acn-page-active">1</button>
+          <button type="button" class="acn-page-num">2</button>
+          <button type="button" class="acn-page-num">
+            <app-lucide name="ellipsis" class="size-4" />
+          </button>
+          <button type="button" class="acn-page-btn" aria-label="Next">
+            Next <app-lucide name="chevron-right" class="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-admincn-shell>

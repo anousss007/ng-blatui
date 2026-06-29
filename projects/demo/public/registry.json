@@ -6,12 +6,12 @@
   "description": "Accessible Angular UI library (Angular 21 & 22, standalone, signals, zoneless, SSR-ready) ported from BlatUI. Components, blocks, charts and ready-made page templates, themed with Tailwind CSS v4 + oklch design tokens.",
   "install": "npm i ng-blatui",
   "llms": "https://ngblatui.remix-it.com/llms.txt",
-  "generatedAt": "2026-06-24",
+  "generatedAt": "2026-06-29",
   "counts": {
     "components": 154,
     "blocks": 16,
     "charts": 70,
-    "templates": 34
+    "templates": 35
   },
   "items": [
     {
@@ -794,7 +794,7 @@
           },
           {
             "name": "trend",
-            "type": "\"down\" | \"up\" | \"neutral\" | null"
+            "type": "\"neutral\" | \"up\" | \"down\" | null"
           },
           {
             "name": "caption",
@@ -1505,7 +1505,7 @@
         "inputs": [
           {
             "name": "direction",
-            "type": "\"row\" | \"col\""
+            "type": "\"col\" | \"row\""
           },
           {
             "name": "gap",
@@ -2128,7 +2128,7 @@
           },
           {
             "name": "direction",
-            "type": "\"down\" | \"up\" | \"left\" | \"right\""
+            "type": "\"right\" | \"left\" | \"up\" | \"down\""
           },
           {
             "name": "duration",
@@ -2392,7 +2392,7 @@
           },
           {
             "name": "direction",
-            "type": "\"down\" | \"up\""
+            "type": "\"up\" | \"down\""
           },
           {
             "name": "label",
@@ -3976,7 +3976,7 @@
         "inputs": [
           {
             "name": "direction",
-            "type": "\"left\" | \"right\" | \"top\" | \"bottom\""
+            "type": "\"top\" | \"right\" | \"bottom\" | \"left\""
           },
           {
             "name": "ariaLabel",
@@ -4038,7 +4038,7 @@
         "inputs": [
           {
             "name": "side",
-            "type": "\"left\" | \"right\" | \"top\" | \"bottom\""
+            "type": "\"top\" | \"right\" | \"bottom\" | \"left\""
           },
           {
             "name": "ariaLabel",
@@ -4314,7 +4314,7 @@
         "inputs": [
           {
             "name": "side",
-            "type": "\"left\" | \"right\""
+            "type": "\"right\" | \"left\""
           },
           {
             "name": "collapsible",
@@ -4907,6 +4907,12 @@
       "label": "Radar Chart — Radius Axis",
       "type": "chart",
       "url": "https://ngblatui.remix-it.com/charts/chart-radar-radius"
+    },
+    {
+      "name": "admincn",
+      "label": "Admincn",
+      "type": "template",
+      "url": "https://ngblatui.remix-it.com/templates/admincn"
     },
     {
       "name": "auth",

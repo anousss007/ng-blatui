@@ -22,7 +22,7 @@ jobs:
       - run: npm run check:api-docs # extract API from the typed source + fail on any undocumented member
       - name: API docs are regenerated & committed
         run: |
-          git diff --exit-status -- projects/demo/src/app/generated/api.ts projects/demo/public/api.json \
+          git diff --quiet -- projects/demo/src/app/generated/api.ts projects/demo/public/api.json \
             || { echo "::error::Component API is out of date — run \`npm run extract:api\` (and \`npm run build:registry\`) and commit."; exit 1; }
       - run: npm run lint
       - run: npm run test:ci
