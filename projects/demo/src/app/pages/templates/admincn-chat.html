@@ -1,0 +1,321 @@
+<app-admincn-shell active="Chat">
+  <!-- ============================================================
+       CHAT APP — two-pane messaging UI.
+       Left: searchable/segmented conversation list (pinned + recent).
+       Right: active chat thread (header + bubbles + composer); on the
+       desktop reference this replaces the "Select a conversation" empty
+       state. List collapses to a single full-width column on mobile.
+       Styling uses the shared acn-* classes plus Tailwind utilities only
+       (no extra stylesheet — this page has no styleUrl).
+  ============================================================ -->
+  <div
+    class="acn-card grid h-[calc(100vh-9.5rem)] min-h-[34rem] grid-cols-1 overflow-hidden md:grid-cols-[20rem_1fr] lg:grid-cols-[22rem_1fr]"
+  >
+    <!-- ===================== CONVERSATION LIST ===================== -->
+    <aside class="flex min-h-0 flex-col border-r max-md:border-r-0">
+      <!-- List header -->
+      <div class="flex items-center justify-between gap-2 px-4 py-3.5">
+        <div class="flex items-center gap-2.5">
+          <span class="relative inline-flex size-8 shrink-0">
+            <img [src]="me" alt="Chats" class="size-full rounded-full object-cover" />
+            <span
+              class="absolute right-0 bottom-0 size-2.5 rounded-full border-2 border-background bg-green-500"
+            ></span>
+          </span>
+          <h2 class="truncate text-lg font-semibold">Chats</h2>
+        </div>
+        <button type="button" class="acn-icon-btn size-9" aria-label="New conversation">
+          <app-lucide name="user" class="size-4" />
+        </button>
+      </div>
+
+      <!-- Search -->
+      <div class="px-3">
+        <div class="acn-input h-9">
+          <app-lucide name="search" class="size-4 text-muted-foreground" />
+          <input
+            type="search"
+            placeholder="Search conversations..."
+            aria-label="Search conversations"
+            [value]="query()"
+            (input)="onSearch($event)"
+          />
+        </div>
+      </div>
+
+      <!-- Filter tabs -->
+      <div class="mt-3 flex items-center gap-4 border-b px-4 text-sm">
+        @for (t of tabs; track t.label) {
+          <button
+            type="button"
+            class="-mb-px border-b-2 py-2 font-medium whitespace-nowrap transition-colors"
+            [class.border-primary]="activeTab() === t.label"
+            [class.text-foreground]="activeTab() === t.label"
+            [class.border-transparent]="activeTab() !== t.label"
+            [class.text-muted-foreground]="activeTab() !== t.label"
+            (click)="selectTab(t.label)"
+          >
+            {{ t.label }} <span class="text-muted-foreground">({{ t.count }})</span>
+          </button>
+        }
+      </div>
+
+      <!-- Scrollable list -->
+      <div class="mt-1 flex-1 overflow-y-auto px-2 pb-3">
+        <!-- Pinned -->
+        @if (visiblePinned().length) {
+          <div class="flex items-center justify-between px-2.5 pt-3 pb-1">
+            <span class="text-xs font-medium text-muted-foreground">Pinned</span>
+            <app-lucide name="chevron-up" class="size-4 text-muted-foreground" />
+          </div>
+          <div class="flex flex-col gap-1">
+            @for (c of visiblePinned(); track c.name) {
+              <button
+                type="button"
+                class="w-full overflow-hidden rounded-lg px-2.5 py-2.5 text-left transition-colors ring-inset hover:bg-muted/75"
+                [class.bg-muted]="active().name === c.name"
+                (click)="openConversation(c)"
+              >
+                <div class="flex min-w-0 items-start gap-2.5">
+                  <span class="relative inline-flex size-10 shrink-0">
+                    <img
+                      [src]="c.avatar"
+                      [alt]="c.name"
+                      class="size-full rounded-full object-cover"
+                    />
+                    @if (c.status) {
+                      <span
+                        class="absolute right-0 bottom-0 size-2.5 rounded-full border-2 border-background"
+                        [class]="statusClass[c.status]"
+                      ></span>
+                    }
+                  </span>
+                  <div class="w-0 min-w-0 flex-1 overflow-hidden">
+                    <div class="flex w-full items-center justify-between gap-2">
+                      <div
+                        class="truncate text-sm leading-5 text-foreground"
+                        [class.font-semibold]="c.unread"
+                        [class.font-medium]="!c.unread"
+                      >
+                        {{ c.name }}
+                      </div>
+                      <span class="shrink-0 text-xs leading-5 text-muted-foreground tabular-nums">{{
+                        c.time
+                      }}</span>
+                    </div>
+                    <div class="mt-0.5 flex min-w-0 items-end gap-2">
+                      <div class="w-0 min-w-0 flex-1 overflow-hidden">
+                        <div class="truncate text-xs leading-4 text-muted-foreground">
+                          @if (c.outgoing) {
+                            <span class="text-muted-foreground/80">You: </span>
+                          }
+                          {{ c.preview }}
+                        </div>
+                      </div>
+                      <div class="flex shrink-0 items-center gap-1">
+                        @if (c.pinned) {
+                          <app-lucide name="star" class="size-3 text-muted-foreground opacity-70" />
+                        }
+                        @if (c.unread) {
+                          <span
+                            class="grid size-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-xs font-medium text-primary-foreground"
+                            >{{ c.unread }}</span
+                          >
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </button>
+            }
+          </div>
+        }
+
+        <!-- Recent -->
+        @if (visibleRecent().length) {
+          <div class="flex items-center justify-between px-2.5 pt-3 pb-1">
+            <span class="text-xs font-medium text-muted-foreground">Recent</span>
+            <app-lucide name="chevron-up" class="size-4 text-muted-foreground" />
+          </div>
+          <div class="flex flex-col gap-1">
+            @for (c of visibleRecent(); track c.name) {
+              <button
+                type="button"
+                class="w-full overflow-hidden rounded-lg px-2.5 py-2.5 text-left transition-colors ring-inset hover:bg-muted/75"
+                [class.bg-muted]="active().name === c.name"
+                (click)="openConversation(c)"
+              >
+                <div class="flex min-w-0 items-start gap-2.5">
+                  <span class="relative inline-flex size-10 shrink-0">
+                    <img
+                      [src]="c.avatar"
+                      [alt]="c.name"
+                      class="size-full rounded-full object-cover"
+                    />
+                    @if (c.status) {
+                      <span
+                        class="absolute right-0 bottom-0 size-2.5 rounded-full border-2 border-background"
+                        [class]="statusClass[c.status]"
+                      ></span>
+                    }
+                  </span>
+                  <div class="w-0 min-w-0 flex-1 overflow-hidden">
+                    <div class="flex w-full items-center justify-between gap-2">
+                      <div
+                        class="truncate text-sm leading-5 text-foreground"
+                        [class.font-semibold]="c.unread"
+                        [class.font-medium]="!c.unread"
+                      >
+                        {{ c.name }}
+                      </div>
+                      <span class="shrink-0 text-xs leading-5 text-muted-foreground tabular-nums">{{
+                        c.time
+                      }}</span>
+                    </div>
+                    <div class="mt-0.5 flex min-w-0 items-end gap-2">
+                      <div class="w-0 min-w-0 flex-1 overflow-hidden">
+                        <div class="truncate text-xs leading-4 text-muted-foreground">
+                          @if (c.outgoing) {
+                            <span class="text-muted-foreground/80">You: </span>
+                          }
+                          {{ c.preview }}
+                        </div>
+                      </div>
+                      <div class="flex shrink-0 items-center gap-1">
+                        @if (c.pinned) {
+                          <app-lucide name="star" class="size-3 text-muted-foreground opacity-70" />
+                        }
+                        @if (c.unread) {
+                          <span
+                            class="grid size-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-xs font-medium text-primary-foreground"
+                            >{{ c.unread }}</span
+                          >
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </button>
+            }
+          </div>
+        }
+      </div>
+    </aside>
+
+    <!-- ===================== ACTIVE THREAD ===================== -->
+    <section class="flex min-h-0 flex-col bg-background max-md:hidden">
+      <!-- Thread header -->
+      <header class="flex items-center justify-between gap-2 border-b px-4 py-3">
+        <div class="flex min-w-0 items-center gap-2.5">
+          <span class="relative inline-flex size-9 shrink-0">
+            <img
+              [src]="active().avatar"
+              [alt]="active().name"
+              class="size-full rounded-full object-cover"
+            />
+            @if (active().status) {
+              <span
+                class="absolute right-0 bottom-0 size-2.5 rounded-full border-2 border-background"
+                [class]="statusClass[active().status!]"
+              ></span>
+            }
+          </span>
+          <div class="flex min-w-0 flex-col">
+            <span class="truncate text-sm leading-5 font-semibold">{{ active().name }}</span>
+            <span class="truncate text-xs leading-4 text-muted-foreground">
+              @if (active().status === 'online') {
+                Online ·
+              }
+              {{ active().role }}</span
+            >
+          </div>
+        </div>
+        <div class="flex items-center gap-1 text-foreground">
+          <button type="button" class="acn-icon-btn size-9" aria-label="Call">
+            <app-lucide name="phone" class="size-4" />
+          </button>
+          <button type="button" class="acn-icon-btn size-9" aria-label="Video call">
+            <app-lucide name="video" class="size-4" />
+          </button>
+          <button type="button" class="acn-icon-btn size-9" aria-label="Search in conversation">
+            <app-lucide name="search" class="size-4" />
+          </button>
+          <button type="button" class="acn-icon-btn size-9" aria-label="More">
+            <app-lucide name="ellipsis-vertical" class="size-4" />
+          </button>
+        </div>
+      </header>
+
+      <!-- Messages -->
+      <div class="flex flex-1 flex-col gap-4 overflow-y-auto p-4">
+        <div class="flex justify-center">
+          <span class="rounded-full bg-muted px-2.5 py-0.5 text-xs text-muted-foreground"
+            >Jun 11</span
+          >
+        </div>
+        @for (m of active().messages; track $index) {
+          <div class="flex items-end gap-2.5" [class.flex-row-reverse]="m.outgoing">
+            @if (!m.outgoing) {
+              <img
+                [src]="m.avatar"
+                [alt]="m.sender"
+                class="size-7 shrink-0 rounded-full object-cover"
+              />
+            }
+            <div class="flex max-w-[78%] flex-col gap-1" [class.items-end]="m.outgoing">
+              @if (!m.outgoing && m.sender) {
+                <span class="px-1 text-xs font-medium text-muted-foreground">{{ m.sender }}</span>
+              }
+              <div
+                class="rounded-2xl px-3.5 py-2 text-sm leading-relaxed"
+                [class.bg-primary]="m.outgoing"
+                [class.text-primary-foreground]="m.outgoing"
+                [class.rounded-br-sm]="m.outgoing"
+                [class.bg-muted]="!m.outgoing"
+                [class.text-foreground]="!m.outgoing"
+                [class.rounded-bl-sm]="!m.outgoing"
+              >
+                {{ m.text }}
+              </div>
+              <span class="px-1 text-[0.7rem] text-muted-foreground">{{ m.time }}</span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Composer -->
+      <div class="border-t p-3">
+        <div class="flex items-center gap-1 rounded-xl border bg-background px-2 py-1.5">
+          <button type="button" class="acn-menu-btn size-8 shrink-0" aria-label="Attach file">
+            <app-lucide name="file-text" class="size-4" />
+          </button>
+          <button type="button" class="acn-menu-btn size-8 shrink-0" aria-label="Attach image">
+            <app-lucide name="images" class="size-4" />
+          </button>
+          <input
+            #composer
+            type="text"
+            class="min-w-0 flex-1 border-0 bg-transparent px-1 text-sm text-foreground outline-none placeholder:text-muted-foreground"
+            placeholder="Type a message..."
+            aria-label="Type a message"
+            (keydown.enter)="send(composer)"
+          />
+          <button type="button" class="acn-menu-btn size-8 shrink-0" aria-label="Emoji">
+            <app-lucide name="smile" class="size-4" />
+          </button>
+          <button type="button" class="acn-menu-btn size-8 shrink-0" aria-label="Voice message">
+            <app-lucide name="mic" class="size-4" />
+          </button>
+          <button
+            type="button"
+            class="acn-btn-primary size-9 shrink-0 !px-0"
+            aria-label="Send"
+            (click)="send(composer)"
+          >
+            <app-lucide name="send" class="size-4" />
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+</app-admincn-shell>

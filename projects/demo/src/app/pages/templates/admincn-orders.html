@@ -1,0 +1,443 @@
+<app-admincn-shell active="Orders">
+  @if (openMenu() !== null) {
+    <button
+      type="button"
+      class="fixed inset-0 z-10 cursor-default"
+      aria-label="Close menu"
+      (click)="closeMenu()"
+    ></button>
+  }
+  <div class="grid grid-cols-6 gap-6">
+    <!-- ============ KPI row — Shipped / Damaged / Missed ============ -->
+    @for (k of kpis; track k.label) {
+      <div class="acn-card col-span-full flex flex-col gap-2 p-6 sm:col-span-2">
+        <div class="flex items-center gap-2">
+          <span
+            class="acn-icon-tile size-8"
+            style="
+              background: color-mix(in oklab, var(--primary) 10%, transparent);
+              color: var(--primary);
+            "
+          >
+            <app-lucide [name]="k.icon" class="size-4" />
+          </span>
+          <span class="text-2xl">{{ k.value }}</span>
+        </div>
+        <span class="text-base font-semibold">{{ k.label }}</span>
+        <p class="flex items-center gap-2 text-sm">
+          <span
+            [class.text-primary]="k.deltaTone === 'up'"
+            [class.text-destructive]="k.deltaTone === 'down'"
+            >{{ k.delta }}</span
+          >
+          <span class="text-muted-foreground">than last week</span>
+        </p>
+      </div>
+    }
+
+    <!-- ============ Left column — Product insight + Total Earning ============ -->
+    <div class="col-span-full flex flex-col gap-6 lg:col-span-2">
+      <!-- Product insight -->
+      <div class="acn-card flex flex-col gap-6 p-6">
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex flex-col gap-1">
+            <h3 class="font-heading text-lg font-semibold">Product insight</h3>
+            <p class="text-sm text-muted-foreground">Published on 12 MAY 2025 - 6:10 PM</p>
+          </div>
+          <img
+            [src]="img + '/widgets/image-6.webp'"
+            alt="product insight"
+            class="size-16 rounded-lg object-cover"
+          />
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="flex flex-col gap-2">
+            <div class="flex flex-col">
+              <span class="text-sm text-muted-foreground">Product reached</span>
+              <span class="text-2xl font-semibold tracking-tight">21,153</span>
+            </div>
+            <svg viewBox="0 0 100 40" class="h-10 w-full" preserveAspectRatio="none">
+              @for (b of reachBars; track $index) {
+                <rect
+                  [attr.x]="$index * 20 + 4"
+                  [attr.y]="40 - (b / 100) * 40"
+                  width="12"
+                  [attr.height]="(b / 100) * 40"
+                  rx="2"
+                  class="acn-bar-orange"
+                  style="fill: var(--primary)"
+                />
+              }
+            </svg>
+          </div>
+          <div class="flex flex-col gap-2">
+            <div class="flex flex-col">
+              <span class="text-sm text-muted-foreground">Order placed</span>
+              <span class="text-2xl font-semibold tracking-tight">2,123</span>
+            </div>
+            <svg viewBox="0 0 100 40" class="h-10 w-full" preserveAspectRatio="none">
+              @for (b of placedBars; track $index) {
+                <rect
+                  [attr.x]="$index * 20 + 4"
+                  [attr.y]="40 - (b / 100) * 40"
+                  width="12"
+                  [attr.height]="(b / 100) * 40"
+                  rx="2"
+                  class="acn-bar-track"
+                />
+              }
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Earning -->
+      <div class="acn-card flex flex-1 flex-col gap-5 p-6">
+        <div class="flex items-start justify-between">
+          <h3 class="font-heading text-lg font-semibold">Total Earning</h3>
+          <div class="relative">
+            <button
+              type="button"
+              class="acn-menu-btn"
+              aria-label="Menu"
+              (click)="toggleMenu('earning')"
+            >
+              <app-lucide name="ellipsis-vertical" class="size-4" />
+            </button>
+            @if (openMenu() === 'earning') {
+              <div
+                class="absolute top-full right-0 z-20 mt-1 w-36 rounded-lg border p-1 shadow-md ring-1 ring-border"
+                style="background: var(--card)"
+              >
+                @for (item of menuItems; track item) {
+                  <button
+                    type="button"
+                    class="flex w-full items-center rounded-md px-2.5 py-1.5 text-left text-sm hover:bg-muted"
+                    (click)="closeMenu()"
+                  >
+                    {{ item }}
+                  </button>
+                }
+              </div>
+            }
+          </div>
+        </div>
+        <div class="flex flex-col gap-1">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl font-semibold tracking-tight">$24650</span>
+            <span class="flex items-center gap-1 text-sm text-primary">
+              <app-lucide name="chevron-up" class="size-3.5" />10%
+            </span>
+          </div>
+          <p class="text-sm text-muted-foreground">Compare to last year ($84,325)</p>
+        </div>
+        <div class="mt-auto flex flex-col gap-4">
+          @for (e of earnings; track e.name) {
+            <div class="flex items-center gap-3">
+              <img [src]="e.logo" [alt]="e.name" class="size-10 rounded-md object-cover" />
+              <div class="flex flex-1 flex-col">
+                <span class="text-base font-medium">{{ e.name }}</span>
+                <span class="text-sm text-muted-foreground">{{ e.tech }}</span>
+              </div>
+              <div class="flex flex-col items-end gap-1.5">
+                <span class="text-sm text-muted-foreground">{{ e.amount }}</span>
+                <span class="block h-1.5 w-28 overflow-hidden rounded-full bg-muted">
+                  <span
+                    class="block h-full rounded-full bg-primary"
+                    [style.width.%]="e.progress"
+                  ></span>
+                </span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ Right block — metrics / revenue / sales-plan ============ -->
+    <div class="col-span-full grid grid-cols-1 gap-6 lg:col-span-4 lg:grid-cols-5">
+      <!-- Sales metrics -->
+      <div class="acn-card flex flex-col gap-6 p-6 lg:col-span-3">
+        <div class="flex items-center gap-3">
+          <img
+            [src]="img + '/avatars/avatar-6.webp'"
+            alt="Sandy' Company"
+            class="size-10 rounded-full object-cover"
+          />
+          <div class="flex flex-col">
+            <h3 class="font-heading text-lg font-semibold">Sales metrics</h3>
+            <p class="text-sm text-muted-foreground">Sandy' Company · sandy@company.com</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          @for (m of metrics; track m.label) {
+            <div class="acn-card flex items-center gap-3 p-4">
+              <span class="acn-icon-tile size-9" [class]="'acn-tile-' + m.tile">
+                <app-lucide [name]="m.icon" class="size-5" />
+              </span>
+              <div class="flex flex-col">
+                <span class="text-sm text-muted-foreground">{{ m.label }}</span>
+                <span class="text-lg font-semibold tracking-tight">{{ m.value }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Right rail — Revenue goal -->
+      <div class="acn-card flex flex-col gap-4 p-6 lg:col-span-2">
+        <h3 class="font-heading text-lg font-semibold">Revenue goal</h3>
+        <div class="flex flex-1 items-center justify-center">
+          <div class="relative size-[150px]">
+            <svg viewBox="0 0 100 100" class="size-full -rotate-90">
+              <circle cx="50" cy="50" r="40" fill="none" class="acn-bar-track" stroke-width="11" />
+              @for (a of revenueArcs; track $index) {
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="40"
+                  fill="none"
+                  [attr.stroke]="a.color"
+                  stroke-width="11"
+                  [attr.stroke-dasharray]="arcDash(a.pct)"
+                  [attr.stroke-dashoffset]="arcOffset($index)"
+                />
+              }
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center leading-none">
+              <span class="text-2xl font-semibold tracking-tight">256.24</span>
+              <span class="text-xs text-muted-foreground">Total Profit</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center justify-between gap-2">
+          <span class="text-sm text-muted-foreground">Plan completed</span>
+          <span class="text-lg font-semibold">56%</span>
+        </div>
+      </div>
+
+      <!-- Sales plan + Cohort analysis -->
+      <div class="acn-card grid grid-cols-1 gap-6 p-6 lg:col-span-5 lg:grid-cols-5">
+        <div class="flex flex-col gap-2 lg:col-span-1">
+          <span class="font-heading text-base font-semibold">Sales plan</span>
+          <span class="text-6xl font-semibold tracking-tight">54%</span>
+          <span class="text-sm text-muted-foreground">Percentage profit from total sales</span>
+        </div>
+        <div class="flex flex-col gap-6 lg:col-span-4">
+          <div class="flex flex-col gap-1">
+            <span class="font-medium">Cohort analysis indicators</span>
+            <span class="text-sm text-muted-foreground">
+              Analyzes the behaviour of a group of users who joined a product/service at the same
+              time. over a certain period.
+            </span>
+          </div>
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div class="flex items-center gap-2">
+              <span class="acn-icon-tile acn-tile-teal size-9">
+                <app-lucide name="chart-column" class="size-5" />
+              </span>
+              <span class="text-base font-medium">Open Statistics</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="acn-icon-tile acn-tile-amber size-9">
+                <app-lucide name="pie-chart" class="size-5" />
+              </span>
+              <span class="text-base font-medium">Percentage Change</span>
+            </div>
+          </div>
+          <div class="flex h-12 items-end gap-1.5">
+            @for (b of cohortBars; track $index) {
+              <span
+                class="flex-1 rounded-sm"
+                [style.height.px]="b.h"
+                [style.background]="
+                  b.on
+                    ? 'var(--primary)'
+                    : 'color-mix(in oklab, var(--muted-foreground) 20%, transparent)'
+                "
+              ></span>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ Orders table ============ -->
+    <div class="acn-card col-span-full flex flex-col py-6">
+      <div
+        class="flex flex-col gap-4 px-6 max-lg:flex-col lg:flex-row lg:items-center lg:justify-between"
+      >
+        <div class="flex items-center gap-3">
+          <span class="text-sm text-muted-foreground max-sm:sr-only">Show</span>
+          <label class="acn-select">
+            <select
+              class="bg-transparent outline-none"
+              aria-label="Show entries"
+              [value]="pageSize()"
+              (change)="setPageSize(+$any($event.target).value)"
+            >
+              @for (n of pageSizeOptions; track n) {
+                <option [value]="n">{{ n }}</option>
+              }
+            </select>
+            <app-lucide name="chevron-down" class="size-4 opacity-60" />
+          </label>
+        </div>
+        <div class="flex flex-1 flex-wrap items-center gap-3 lg:max-w-md lg:justify-end">
+          <div class="acn-input flex-1">
+            <app-lucide name="search" class="size-4 text-muted-foreground" />
+            <input
+              type="search"
+              placeholder="Search client"
+              aria-label="Search client"
+              [value]="search()"
+              (input)="onSearch($any($event.target).value)"
+            />
+          </div>
+          <label class="acn-select w-28 justify-between">
+            <select
+              class="bg-transparent capitalize outline-none"
+              aria-label="Filter status"
+              [value]="statusFilter()"
+              (change)="setStatus($any($event.target).value)"
+            >
+              @for (s of statusOptions; track s) {
+                <option [value]="s">{{ s === 'all' ? 'All' : s }}</option>
+              }
+            </select>
+            <app-lucide name="chevron-down" class="size-4 opacity-60" />
+          </label>
+        </div>
+      </div>
+
+      <div class="mt-2 overflow-x-auto px-2">
+        <table class="acn-table">
+          <thead>
+            <tr>
+              <th class="w-12">
+                <span
+                  class="acn-checkbox"
+                  role="checkbox"
+                  [attr.aria-checked]="allChecked()"
+                  (click)="toggleAll()"
+                  [style.background]="allChecked() ? 'var(--primary)' : null"
+                  [style.cursor]="'pointer'"
+                ></span>
+              </th>
+              <th [style.cursor]="'pointer'" (click)="sortBy('name')">Customer</th>
+              <th [style.cursor]="'pointer'" (click)="sortBy('amount')">Amount</th>
+              <th [style.cursor]="'pointer'" (click)="sortBy('status')">Status</th>
+              <th>Paid by</th>
+              <th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (o of pageRows(); track o.email) {
+              <tr>
+                <td>
+                  <span
+                    class="acn-checkbox"
+                    role="checkbox"
+                    [attr.aria-checked]="isChecked(o.email)"
+                    (click)="toggleRow(o.email)"
+                    [style.background]="isChecked(o.email) ? 'var(--primary)' : null"
+                    [style.cursor]="'pointer'"
+                  ></span>
+                </td>
+                <td>
+                  <div class="flex items-center gap-2.5">
+                    <img [src]="o.avatar" [alt]="o.name" class="size-8 rounded-full" />
+                    <div class="flex flex-col">
+                      <span class="font-medium whitespace-nowrap">{{ o.name }}</span>
+                      <span class="text-sm whitespace-nowrap text-muted-foreground">{{
+                        o.email
+                      }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="font-medium whitespace-nowrap">{{ o.amount }}</td>
+                <td>
+                  <span
+                    class="inline-flex w-fit items-center rounded-sm px-1.5 py-0.5 text-xs font-medium capitalize"
+                    style="
+                      background: color-mix(in oklab, var(--primary) 10%, transparent);
+                      color: var(--primary);
+                    "
+                    >{{ o.status }}</span
+                  >
+                </td>
+                <td>
+                  <img [src]="o.card" [alt]="o.status" class="h-6 w-9 object-contain" />
+                </td>
+                <td>
+                  <div class="relative flex items-center justify-end">
+                    <button
+                      type="button"
+                      class="acn-row-btn"
+                      aria-label="Actions"
+                      (click)="toggleMenu('row-' + o.email)"
+                    >
+                      <app-lucide name="ellipsis-vertical" class="size-4" />
+                    </button>
+                    @if (openMenu() === 'row-' + o.email) {
+                      <div
+                        class="absolute top-full right-0 z-20 mt-1 w-36 rounded-lg border p-1 shadow-md ring-1 ring-border"
+                        style="background: var(--card)"
+                      >
+                        @for (item of menuItems; track item) {
+                          <button
+                            type="button"
+                            class="flex w-full items-center rounded-md px-2.5 py-1.5 text-left text-sm hover:bg-muted"
+                            (click)="closeMenu()"
+                          >
+                            {{ item }}
+                          </button>
+                        }
+                      </div>
+                    }
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
+        <span class="text-sm text-muted-foreground"
+          >Showing {{ rangeStart() }} to {{ rangeEnd() }} of {{ total() }} entries</span
+        >
+        <div class="flex items-center gap-1">
+          <button
+            type="button"
+            class="acn-page-btn"
+            aria-label="Previous"
+            [disabled]="currentPage() === 1"
+            (click)="prev()"
+          >
+            <app-lucide name="chevron-left" class="size-4" /> Previous
+          </button>
+          @for (p of pageNumbers(); track p) {
+            <button
+              type="button"
+              class="acn-page-num"
+              [class.acn-page-active]="p === currentPage()"
+              (click)="goTo(p)"
+            >
+              {{ p }}
+            </button>
+          }
+          <button
+            type="button"
+            class="acn-page-btn"
+            aria-label="Next"
+            [disabled]="currentPage() === totalPages()"
+            (click)="next()"
+          >
+            Next <app-lucide name="chevron-right" class="size-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-admincn-shell>

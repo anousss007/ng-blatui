@@ -1,0 +1,1114 @@
+<app-admincn-shell active="Form Validation">
+  <div class="flex flex-col gap-6">
+    <!-- ============================================================= -->
+    <!-- Validation Types                                              -->
+    <!-- ============================================================= -->
+    <div class="acn-card flex flex-col gap-6 p-6">
+      <h2 class="font-heading text-lg font-semibold">Validation Types</h2>
+
+      <div class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2">
+        <!-- Required Field -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Required Field</span>
+          <div
+            class="acn-input"
+            [style.borderColor]="
+              borderColor(requiredField.showError(), requiredField.showSuccess())
+            "
+          >
+            <input
+              type="text"
+              placeholder="This field is required"
+              aria-label="Required Field"
+              [value]="requiredField.value()"
+              [attr.aria-invalid]="requiredField.showError() || null"
+              (input)="requiredField.onInput($any($event.target).value)"
+              (blur)="requiredField.onBlur()"
+            />
+            @if (requiredField.showSuccess()) {
+              <app-lucide name="check-circle-2" class="size-4" [style.color]="green" />
+            } @else if (requiredField.showError()) {
+              <app-lucide name="triangle-alert" class="size-4 text-destructive" />
+            }
+          </div>
+          @if (requiredField.showError()) {
+            <p class="text-xs text-destructive">{{ requiredField.error() }}</p>
+          }
+        </div>
+
+        <!-- Numeric Only -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Numeric Only</span>
+          <div
+            class="acn-input"
+            [style.borderColor]="borderColor(numeric.showError(), numeric.showSuccess())"
+          >
+            <input
+              type="text"
+              placeholder="Must only consist of numbers"
+              aria-label="Numeric Only"
+              [value]="numeric.value()"
+              [attr.aria-invalid]="numeric.showError() || null"
+              (input)="numeric.onInput($any($event.target).value)"
+              (blur)="numeric.onBlur()"
+            />
+            @if (numeric.showSuccess()) {
+              <app-lucide name="check-circle-2" class="size-4" [style.color]="green" />
+            } @else if (numeric.showError()) {
+              <app-lucide name="triangle-alert" class="size-4 text-destructive" />
+            }
+          </div>
+          @if (numeric.showError()) {
+            <p class="text-xs text-destructive">{{ numeric.error() }}</p>
+          }
+        </div>
+
+        <!-- Alphabetic Only -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Alphabetic Only</span>
+          <div
+            class="acn-input"
+            [style.borderColor]="borderColor(alphabetic.showError(), alphabetic.showSuccess())"
+          >
+            <input
+              type="text"
+              placeholder="Only alphabetic characters"
+              aria-label="Alphabetic Only"
+              [value]="alphabetic.value()"
+              [attr.aria-invalid]="alphabetic.showError() || null"
+              (input)="alphabetic.onInput($any($event.target).value)"
+              (blur)="alphabetic.onBlur()"
+            />
+            @if (alphabetic.showSuccess()) {
+              <app-lucide name="check-circle-2" class="size-4" [style.color]="green" />
+            } @else if (alphabetic.showError()) {
+              <app-lucide name="triangle-alert" class="size-4 text-destructive" />
+            }
+          </div>
+          @if (alphabetic.showError()) {
+            <p class="text-xs text-destructive">{{ alphabetic.error() }}</p>
+          }
+        </div>
+
+        <!-- Password -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Password</span>
+          <div
+            class="acn-input"
+            [style.borderColor]="borderColor(password.showError(), password.showSuccess())"
+          >
+            <app-lucide name="lock" class="size-4 text-muted-foreground" />
+            <input
+              [type]="showPassword() ? 'text' : 'password'"
+              placeholder="Password Input Field"
+              aria-label="Password"
+              [value]="password.value()"
+              [attr.aria-invalid]="password.showError() || null"
+              (input)="password.onInput($any($event.target).value)"
+              (blur)="password.onBlur()"
+            />
+            <button
+              type="button"
+              class="text-muted-foreground hover:text-foreground"
+              aria-label="Show password"
+              (click)="showPassword.set(!showPassword())"
+            >
+              <app-lucide name="eye" class="size-4" />
+            </button>
+          </div>
+          @if (password.showError()) {
+            <p class="text-xs text-destructive">{{ password.error() }}</p>
+          }
+        </div>
+
+        <!-- Min & Max Length -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Min &amp; Max Length</span>
+          <div
+            class="acn-input"
+            [style.borderColor]="borderColor(minMax.showError(), minMax.showSuccess())"
+          >
+            <input
+              type="text"
+              placeholder="Must be between 5 and 10 characters"
+              aria-label="Min and Max Length"
+              [value]="minMax.value()"
+              [attr.aria-invalid]="minMax.showError() || null"
+              (input)="minMax.onInput($any($event.target).value)"
+              (blur)="minMax.onBlur()"
+            />
+            @if (minMax.showSuccess()) {
+              <app-lucide name="check-circle-2" class="size-4" [style.color]="green" />
+            } @else if (minMax.showError()) {
+              <app-lucide name="triangle-alert" class="size-4 text-destructive" />
+            }
+          </div>
+          @if (minMax.showError()) {
+            <p class="text-xs text-destructive">{{ minMax.error() }}</p>
+          }
+        </div>
+
+        <!-- Email -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Email</span>
+          <div
+            class="acn-input"
+            [style.borderColor]="borderColor(email.showError(), email.showSuccess())"
+          >
+            <app-lucide
+              name="mail"
+              class="size-4"
+              [class.text-muted-foreground]="!email.showError()"
+              [class.text-destructive]="email.showError()"
+            />
+            <input
+              type="email"
+              placeholder="Must be a valid email"
+              aria-label="Email"
+              [value]="email.value()"
+              [attr.aria-invalid]="email.showError() || null"
+              (input)="email.onInput($any($event.target).value)"
+              (blur)="email.onBlur()"
+            />
+            @if (email.showSuccess()) {
+              <app-lucide name="check-circle-2" class="size-4" [style.color]="green" />
+            } @else if (email.showError()) {
+              <app-lucide name="triangle-alert" class="size-4 text-destructive" />
+            }
+          </div>
+          @if (email.showError()) {
+            <p class="text-xs text-destructive">{{ email.error() }}</p>
+          }
+        </div>
+
+        <!-- Number Range -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Number Range</span>
+          <div
+            class="acn-input"
+            [style.borderColor]="borderColor(numberRange.showError(), numberRange.showSuccess())"
+          >
+            <input
+              type="text"
+              placeholder="Enter Number between 10 &amp; 20"
+              aria-label="Number Range"
+              [value]="numberRange.value()"
+              [attr.aria-invalid]="numberRange.showError() || null"
+              (input)="numberRange.onInput($any($event.target).value)"
+              (blur)="numberRange.onBlur()"
+            />
+            @if (numberRange.showSuccess()) {
+              <app-lucide name="check-circle-2" class="size-4" [style.color]="green" />
+            } @else if (numberRange.showError()) {
+              <app-lucide name="triangle-alert" class="size-4 text-destructive" />
+            }
+          </div>
+          @if (numberRange.showError()) {
+            <p class="text-xs text-destructive">{{ numberRange.error() }}</p>
+          }
+        </div>
+
+        <!-- Regex Pattern -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Regex Pattern</span>
+          <div
+            class="acn-input"
+            [style.borderColor]="borderColor(regex.showError(), regex.showSuccess())"
+          >
+            <input
+              type="text"
+              placeholder="Must match regular expression : ^([0-9]+)$ - numbers only"
+              aria-label="Regex Pattern"
+              [value]="regex.value()"
+              [attr.aria-invalid]="regex.showError() || null"
+              (input)="regex.onInput($any($event.target).value)"
+              (blur)="regex.onBlur()"
+            />
+            @if (regex.showSuccess()) {
+              <app-lucide name="check-circle-2" class="size-4" [style.color]="green" />
+            } @else if (regex.showError()) {
+              <app-lucide name="triangle-alert" class="size-4 text-destructive" />
+            }
+          </div>
+          @if (regex.showError()) {
+            <p class="text-xs text-destructive">{{ regex.error() }}</p>
+          }
+        </div>
+
+        <!-- Exact Length -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Exact Length</span>
+          <div
+            class="acn-input"
+            [style.borderColor]="borderColor(exactLength.showError(), exactLength.showSuccess())"
+          >
+            <input
+              type="text"
+              placeholder="Length must be exactly 3 characters."
+              aria-label="Exact Length"
+              [value]="exactLength.value()"
+              [attr.aria-invalid]="exactLength.showError() || null"
+              (input)="exactLength.onInput($any($event.target).value)"
+              (blur)="exactLength.onBlur()"
+            />
+            @if (exactLength.showSuccess()) {
+              <app-lucide name="check-circle-2" class="size-4" [style.color]="green" />
+            } @else if (exactLength.showError()) {
+              <app-lucide name="triangle-alert" class="size-4 text-destructive" />
+            }
+          </div>
+          @if (exactLength.showError()) {
+            <p class="text-xs text-destructive">{{ exactLength.error() }}</p>
+          }
+        </div>
+
+        <!-- Digits -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Digits</span>
+          <div
+            class="acn-input"
+            [style.borderColor]="borderColor(digits.showError(), digits.showSuccess())"
+          >
+            <input
+              type="text"
+              placeholder="The digits field must be numeric and exactly contain 3 digits"
+              aria-label="Digits"
+              [value]="digits.value()"
+              [attr.aria-invalid]="digits.showError() || null"
+              (input)="digits.onInput($any($event.target).value)"
+              (blur)="digits.onBlur()"
+            />
+            @if (digits.showSuccess()) {
+              <app-lucide name="check-circle-2" class="size-4" [style.color]="green" />
+            } @else if (digits.showError()) {
+              <app-lucide name="triangle-alert" class="size-4 text-destructive" />
+            }
+          </div>
+          @if (digits.showError()) {
+            <p class="text-xs text-destructive">{{ digits.error() }}</p>
+          }
+        </div>
+
+        <!-- Alphanumeric & Symbols -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">Alphanumeric &amp; Symbols</span>
+          <div
+            class="acn-input"
+            [style.borderColor]="borderColor(alphanumeric.showError(), alphanumeric.showSuccess())"
+          >
+            <input
+              type="text"
+              placeholder="Only alphabetic characters, numbers, dashes or underscores"
+              aria-label="Alphanumeric and Symbols"
+              [value]="alphanumeric.value()"
+              [attr.aria-invalid]="alphanumeric.showError() || null"
+              (input)="alphanumeric.onInput($any($event.target).value)"
+              (blur)="alphanumeric.onBlur()"
+            />
+            @if (alphanumeric.showSuccess()) {
+              <app-lucide name="check-circle-2" class="size-4" [style.color]="green" />
+            } @else if (alphanumeric.showError()) {
+              <app-lucide name="triangle-alert" class="size-4 text-destructive" />
+            }
+          </div>
+          @if (alphanumeric.showError()) {
+            <p class="text-xs text-destructive">{{ alphanumeric.error() }}</p>
+          }
+        </div>
+
+        <!-- URL -->
+        <div class="flex flex-col gap-2">
+          <span class="text-sm font-medium">URL</span>
+          <div
+            class="acn-input"
+            [style.borderColor]="borderColor(url.showError(), url.showSuccess())"
+          >
+            <input
+              type="text"
+              placeholder="Must be a valid url"
+              aria-label="URL"
+              [value]="url.value()"
+              [attr.aria-invalid]="url.showError() || null"
+              (input)="url.onInput($any($event.target).value)"
+              (blur)="url.onBlur()"
+            />
+            @if (url.showSuccess()) {
+              <app-lucide name="check-circle-2" class="size-4" [style.color]="green" />
+            } @else if (url.showError()) {
+              <app-lucide name="triangle-alert" class="size-4 text-destructive" />
+            }
+          </div>
+          @if (url.showError()) {
+            <p class="text-xs text-destructive">{{ url.error() }}</p>
+          }
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button type="button" class="acn-btn-primary" (click)="submitTypes()">Submit</button>
+        <button
+          type="button"
+          class="inline-flex h-9 items-center justify-center rounded-md border border-border bg-background px-3.5 text-sm font-medium text-foreground hover:bg-accent"
+          (click)="resetTypes()"
+        >
+          Reset
+        </button>
+        @if (typesSubmitted()) {
+          <span class="text-sm font-medium" [style.color]="green">All fields are valid.</span>
+        }
+      </div>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- Validation Modes Demo                                         -->
+    <!-- ============================================================= -->
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-1">
+        <h2 class="font-heading text-lg font-semibold">Validation Modes Demo</h2>
+        <p class="text-sm text-muted-foreground">
+          Experience how different validation modes affect user experience. Try typing in each field
+          to see when validation occurs.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <!-- onChange -->
+        <div class="acn-card flex flex-col gap-4 p-5">
+          <div class="flex flex-col gap-1">
+            <h3 class="font-heading text-base font-semibold">onChange Mode</h3>
+            <p class="text-sm text-muted-foreground">Validates on every keystroke</p>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Demo Input</span>
+            <div
+              class="acn-input"
+              [style.borderColor]="borderColor(onChangeShowError(), onChangeShowSuccess())"
+            >
+              <input
+                type="text"
+                placeholder="Type here..."
+                aria-label="onChange demo input"
+                [value]="onChange.value()"
+                [attr.aria-invalid]="onChangeShowError() || null"
+                (input)="onChangeInput($any($event.target).value)"
+              />
+            </div>
+            @if (onChangeShowError()) {
+              <p class="text-xs text-destructive">{{ onChange.error() }}</p>
+            } @else {
+              <p class="text-xs text-muted-foreground">
+                Error appears <span class="font-medium text-foreground">instantly</span> as you type
+              </p>
+            }
+          </div>
+          <div class="mt-auto flex items-center gap-2">
+            <button
+              type="button"
+              class="inline-flex h-8 items-center justify-center rounded-md border-none bg-primary px-3 text-sm font-medium text-primary-foreground"
+              (click)="submitOnChange()"
+            >
+              Submit
+            </button>
+            <button
+              type="button"
+              class="inline-flex h-8 items-center justify-center rounded-md border border-border bg-background px-3 text-sm font-medium text-foreground hover:bg-accent"
+              (click)="resetOnChange()"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- onBlur -->
+        <div class="acn-card flex flex-col gap-4 p-5">
+          <div class="flex flex-col gap-1">
+            <h3 class="font-heading text-base font-semibold">onBlur Mode</h3>
+            <p class="text-sm text-muted-foreground">Validates when you leave the field</p>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Demo Input</span>
+            <div
+              class="acn-input"
+              [style.borderColor]="borderColor(onBlurShowError(), onBlurShowSuccess())"
+            >
+              <input
+                type="text"
+                placeholder="Type here..."
+                aria-label="onBlur demo input"
+                [value]="onBlur.value()"
+                [attr.aria-invalid]="onBlurShowError() || null"
+                (input)="onBlur.onInput($any($event.target).value)"
+                (blur)="onBlur.onBlur()"
+              />
+            </div>
+            @if (onBlurShowError()) {
+              <p class="text-xs text-destructive">{{ onBlur.error() }}</p>
+            } @else {
+              <p class="text-xs text-muted-foreground">
+                Error appears <span class="font-medium text-foreground">after</span> you leave the
+                field
+              </p>
+            }
+          </div>
+          <div class="mt-auto flex items-center gap-2">
+            <button
+              type="button"
+              class="inline-flex h-8 items-center justify-center rounded-md border-none bg-primary px-3 text-sm font-medium text-primary-foreground"
+              (click)="submitOnBlur()"
+            >
+              Submit
+            </button>
+            <button
+              type="button"
+              class="inline-flex h-8 items-center justify-center rounded-md border border-border bg-background px-3 text-sm font-medium text-foreground hover:bg-accent"
+              (click)="resetOnBlur()"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- onSubmit -->
+        <div class="acn-card flex flex-col gap-4 p-5">
+          <div class="flex flex-col gap-1">
+            <h3 class="font-heading text-base font-semibold">onSubmit Mode (Default)</h3>
+            <p class="text-sm text-muted-foreground">Validates only when you click submit</p>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Demo Input</span>
+            <div
+              class="acn-input"
+              [style.borderColor]="borderColor(onSubmitShowError(), onSubmitShowSuccess())"
+            >
+              <input
+                type="text"
+                placeholder="Type here..."
+                aria-label="onSubmit demo input"
+                [value]="onSubmit.value()"
+                [attr.aria-invalid]="onSubmitShowError() || null"
+                (input)="onSubmit.onInput($any($event.target).value)"
+              />
+            </div>
+            @if (onSubmitShowError()) {
+              <p class="text-xs text-destructive">{{ onSubmit.error() }}</p>
+            } @else {
+              <p class="text-xs text-muted-foreground">
+                Error appears <span class="font-medium text-foreground">only</span> after clicking
+                submit
+              </p>
+            }
+          </div>
+          <div class="mt-auto flex items-center gap-2">
+            <button
+              type="button"
+              class="inline-flex h-8 items-center justify-center rounded-md border-none bg-primary px-3 text-sm font-medium text-primary-foreground"
+              (click)="submitOnSubmit()"
+            >
+              Submit
+            </button>
+            <button
+              type="button"
+              class="inline-flex h-8 items-center justify-center rounded-md border border-border bg-background px-3 text-sm font-medium text-foreground hover:bg-accent"
+              (click)="resetOnSubmit()"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- onTouched -->
+        <div class="acn-card flex flex-col gap-4 p-5">
+          <div class="flex flex-col gap-1">
+            <h3 class="font-heading text-base font-semibold">onTouched Mode</h3>
+            <p class="text-sm text-muted-foreground">Validates on blur, then on every change</p>
+          </div>
+          <div class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Demo Input</span>
+            <div
+              class="acn-input"
+              [style.borderColor]="borderColor(onTouchedShowError(), onTouchedShowSuccess())"
+            >
+              <input
+                type="text"
+                placeholder="Type here..."
+                aria-label="onTouched demo input"
+                [value]="onTouched.value()"
+                [attr.aria-invalid]="onTouchedShowError() || null"
+                (input)="onTouched.onInput($any($event.target).value)"
+                (blur)="onTouched.onBlur()"
+              />
+            </div>
+            @if (onTouchedShowError()) {
+              <p class="text-xs text-destructive">{{ onTouched.error() }}</p>
+            } @else {
+              <p class="text-xs text-muted-foreground">
+                First validation on blur, then
+                <span class="font-medium text-foreground">real-time</span>
+              </p>
+            }
+          </div>
+          <div class="mt-auto flex items-center gap-2">
+            <button
+              type="button"
+              class="inline-flex h-8 items-center justify-center rounded-md border-none bg-primary px-3 text-sm font-medium text-primary-foreground"
+              (click)="submitOnTouched()"
+            >
+              Submit
+            </button>
+            <button
+              type="button"
+              class="inline-flex h-8 items-center justify-center rounded-md border border-border bg-background px-3 text-sm font-medium text-foreground hover:bg-accent"
+              (click)="resetOnTouched()"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modes reference table -->
+      <div class="acn-card overflow-x-auto">
+        <table class="acn-table">
+          <thead>
+            <tr>
+              <th>Mode</th>
+              <th>When Validation Occurs</th>
+              <th>Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="acn-badge-muted font-mono">onChange</span></td>
+              <td class="text-muted-foreground">Every keystroke</td>
+              <td class="text-muted-foreground">Real-time feedback (e.g., password strength)</td>
+            </tr>
+            <tr>
+              <td><span class="acn-badge-muted font-mono">onBlur</span></td>
+              <td class="text-muted-foreground">When leaving the field</td>
+              <td class="text-muted-foreground">
+                Less intrusive validation (recommended for most cases)
+              </td>
+            </tr>
+            <tr>
+              <td><span class="acn-badge-muted font-mono">onSubmit</span></td>
+              <td class="text-muted-foreground">When form is submitted</td>
+              <td class="text-muted-foreground">Simple forms, minimal interruption</td>
+            </tr>
+            <tr>
+              <td><span class="acn-badge-muted font-mono">onTouched</span></td>
+              <td class="text-muted-foreground">First blur, then every change</td>
+              <td class="text-muted-foreground">Balance between UX and feedback</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- Registration Form                                             -->
+    <!-- ============================================================= -->
+    <div class="flex flex-col gap-4">
+      <h2 class="font-heading text-lg font-semibold">Registration Form</h2>
+
+      <!-- Personal Information -->
+      <div class="acn-card flex flex-col gap-6 p-6">
+        <div class="flex flex-col gap-1">
+          <h3 class="font-heading text-base font-semibold">Personal Information</h3>
+          <p class="text-sm text-muted-foreground">Please provide your basic information</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2">
+          <!-- Full Name (valid / success) -->
+          <div class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Full Name</span>
+            <div
+              class="acn-input"
+              [style.borderColor]="borderColor(regName.showError(), regName.showSuccess())"
+            >
+              <app-lucide name="user" class="size-4 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="John Doe"
+                aria-label="Full Name"
+                [value]="regName.value()"
+                [attr.aria-invalid]="regName.showError() || null"
+                (input)="regName.onInput($any($event.target).value)"
+                (blur)="regName.onBlur()"
+              />
+              @if (regName.showSuccess()) {
+                <app-lucide name="check-circle-2" class="size-4" [style.color]="green" />
+              } @else if (regName.showError()) {
+                <app-lucide name="triangle-alert" class="size-4 text-destructive" />
+              }
+            </div>
+            @if (regName.showError()) {
+              <p class="text-xs text-destructive">{{ regName.error() }}</p>
+            } @else {
+              <p class="text-xs text-muted-foreground">
+                Your full name as it appears on official documents
+              </p>
+            }
+          </div>
+
+          <!-- Email Address (error) -->
+          <div class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Email Address</span>
+            <div
+              class="acn-input"
+              [class.border-destructive]="regEmail.showError()"
+              [style.borderColor]="borderColor(regEmail.showError(), regEmail.showSuccess())"
+            >
+              <app-lucide
+                name="mail"
+                class="size-4"
+                [class.text-muted-foreground]="!regEmail.showError()"
+                [class.text-destructive]="regEmail.showError()"
+              />
+              <input
+                type="email"
+                placeholder="john.doe@example.com"
+                aria-label="Email Address"
+                [value]="regEmail.value()"
+                [attr.aria-invalid]="regEmail.showError() || null"
+                (input)="regEmail.onInput($any($event.target).value)"
+                (blur)="regEmail.onBlur()"
+              />
+              @if (regEmail.showSuccess()) {
+                <app-lucide name="check-circle-2" class="size-4" [style.color]="green" />
+              } @else if (regEmail.showError()) {
+                <app-lucide name="triangle-alert" class="size-4 text-destructive" />
+              }
+            </div>
+            @if (regEmail.showError()) {
+              <p class="text-xs text-destructive">{{ regEmail.error() }}</p>
+            } @else {
+              <p class="text-xs text-muted-foreground">
+                We'll never share your email with anyone else
+              </p>
+            }
+          </div>
+
+          <!-- Password (full width) -->
+          <div class="flex flex-col gap-2 md:col-span-2">
+            <span class="text-sm font-medium">Password</span>
+            <div
+              class="acn-input"
+              [style.borderColor]="borderColor(regPassword.showError(), regPassword.showSuccess())"
+            >
+              <app-lucide name="lock" class="size-4 text-muted-foreground" />
+              <input
+                [type]="showRegPassword() ? 'text' : 'password'"
+                placeholder="••••••••"
+                aria-label="Password"
+                [value]="regPassword.value()"
+                [attr.aria-invalid]="regPassword.showError() || null"
+                (input)="regPassword.onInput($any($event.target).value)"
+                (blur)="regPassword.onBlur()"
+              />
+              <button
+                type="button"
+                class="text-muted-foreground hover:text-foreground"
+                aria-label="Show password"
+                (click)="showRegPassword.set(!showRegPassword())"
+              >
+                <app-lucide name="eye" class="size-4" />
+              </button>
+            </div>
+            @if (regPassword.showError()) {
+              <p class="text-xs text-destructive">{{ regPassword.error() }}</p>
+            } @else {
+              <p class="text-xs text-muted-foreground">
+                Must be at least 8 characters with uppercase, lowercase, and numbers
+              </p>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Details -->
+      <div class="acn-card flex flex-col gap-6 p-6">
+        <div class="flex flex-col gap-1">
+          <h3 class="font-heading text-base font-semibold">Profile Details</h3>
+          <p class="text-sm text-muted-foreground">Tell us more about yourself</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-x-6 gap-y-5 md:grid-cols-2">
+          <!-- Date of Birth -->
+          <div class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Date of Birth</span>
+            <div
+              class="acn-input"
+              [style.borderColor]="borderColor(regDob.showError(), regDob.showSuccess())"
+            >
+              <app-lucide name="calendar" class="size-4 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="YYYY-MM-DD"
+                aria-label="Date of Birth"
+                [value]="regDob.value()"
+                [attr.aria-invalid]="regDob.showError() || null"
+                (input)="regDob.onInput($any($event.target).value)"
+                (blur)="regDob.onBlur()"
+              />
+            </div>
+            @if (regDob.showError()) {
+              <p class="text-xs text-destructive">{{ regDob.error() }}</p>
+            } @else {
+              <p class="text-xs text-muted-foreground">Select your date of birth</p>
+            }
+          </div>
+
+          <!-- Age -->
+          <div class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Age</span>
+            <div
+              class="acn-input"
+              [style.borderColor]="borderColor(regAge.showError(), regAge.showSuccess())"
+            >
+              <input
+                type="number"
+                placeholder="25"
+                aria-label="Age"
+                [value]="regAge.value()"
+                [attr.aria-invalid]="regAge.showError() || null"
+                (input)="regAge.onInput($any($event.target).value)"
+                (blur)="regAge.onBlur()"
+              />
+            </div>
+            @if (regAge.showError()) {
+              <p class="text-xs text-destructive">{{ regAge.error() }}</p>
+            } @else {
+              <p class="text-xs text-muted-foreground">
+                You must be at least 18 years old to register
+              </p>
+            }
+          </div>
+
+          <!-- Country -->
+          <div class="flex flex-col gap-2">
+            <span class="text-sm font-medium">Country</span>
+            <button
+              type="button"
+              class="flex h-10 items-center justify-between rounded-md border border-border bg-background px-3 text-sm text-foreground"
+            >
+              <span class="text-muted-foreground">Select your country</span>
+              <app-lucide name="chevron-down" class="size-4 text-muted-foreground" />
+            </button>
+            <p class="text-xs text-muted-foreground">Your country of residence</p>
+          </div>
+
+          <!-- Preferred Language -->
+          <div class="flex flex-col gap-2">
+            <span class="flex items-center gap-1.5 text-sm font-medium">
+              Preferred Language
+              <span class="text-xs font-normal text-muted-foreground">(Optional)</span>
+            </span>
+            <button
+              type="button"
+              class="flex h-10 items-center justify-between rounded-md border border-border bg-background px-3 text-sm text-foreground"
+            >
+              <span class="text-muted-foreground">Select a language</span>
+              <app-lucide name="chevron-down" class="size-4 text-muted-foreground" />
+            </button>
+            <p class="text-xs text-muted-foreground">
+              Choose your preferred communication language
+            </p>
+          </div>
+
+          <!-- Bio (full width) -->
+          <div class="flex flex-col gap-2 md:col-span-2">
+            <span class="text-sm font-medium">Bio</span>
+            <textarea
+              class="w-full resize-y rounded-md border border-border bg-background p-3 text-sm text-foreground outline-none placeholder:text-muted-foreground"
+              rows="4"
+              placeholder="Tell us about yourself..."
+              aria-label="Bio"
+              maxlength="500"
+              [value]="bio()"
+              (input)="onBioInput($any($event.target).value)"
+            ></textarea>
+            <p class="text-xs text-muted-foreground">
+              Brief description about yourself ({{ bioCount() }}/500 characters)
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preferences -->
+      <div class="acn-card flex flex-col gap-6 p-6">
+        <div class="flex flex-col gap-1">
+          <h3 class="font-heading text-base font-semibold">Preferences</h3>
+          <p class="text-sm text-muted-foreground">Customize your experience</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <!-- Newsletter Topics -->
+          <div class="flex flex-col gap-3">
+            <div class="flex flex-col gap-1">
+              <p class="text-sm font-medium">Newsletter Topics</p>
+              <p class="text-xs text-muted-foreground">
+                Choose the topics you want to receive updates about
+              </p>
+            </div>
+            <button
+              type="button"
+              class="flex cursor-pointer items-center gap-2.5 text-left"
+              role="checkbox"
+              [attr.aria-checked]="productUpdates()"
+              (click)="toggleProductUpdates()"
+            >
+              <span
+                class="acn-checkbox flex items-center justify-center"
+                [style.borderColor]="productUpdates() ? 'var(--primary)' : null"
+                [style.backgroundColor]="productUpdates() ? 'var(--primary)' : null"
+                aria-hidden="true"
+              >
+                @if (productUpdates()) {
+                  <app-lucide name="check" class="size-3 text-primary-foreground" />
+                }
+              </span>
+              <span class="text-sm">Product Updates</span>
+            </button>
+            <button
+              type="button"
+              class="flex cursor-pointer items-center gap-2.5 text-left"
+              role="checkbox"
+              [attr.aria-checked]="industryNews()"
+              (click)="toggleIndustryNews()"
+            >
+              <span
+                class="acn-checkbox flex items-center justify-center"
+                [style.borderColor]="industryNews() ? 'var(--primary)' : null"
+                [style.backgroundColor]="industryNews() ? 'var(--primary)' : null"
+                aria-hidden="true"
+              >
+                @if (industryNews()) {
+                  <app-lucide name="check" class="size-3 text-primary-foreground" />
+                }
+              </span>
+              <span class="text-sm">Industry News</span>
+            </button>
+            <button
+              type="button"
+              class="flex cursor-pointer items-center gap-2.5 text-left"
+              role="checkbox"
+              [attr.aria-checked]="tipsTricks()"
+              (click)="toggleTipsTricks()"
+            >
+              <span
+                class="acn-checkbox flex items-center justify-center"
+                [style.borderColor]="tipsTricks() ? 'var(--primary)' : null"
+                [style.backgroundColor]="tipsTricks() ? 'var(--primary)' : null"
+                aria-hidden="true"
+              >
+                @if (tipsTricks()) {
+                  <app-lucide name="check" class="size-3 text-primary-foreground" />
+                }
+              </span>
+              <span class="text-sm">Tips &amp; Tricks</span>
+            </button>
+          </div>
+
+          <!-- Communication Settings -->
+          <div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-1">
+              <p class="text-sm font-medium">Communication Settings</p>
+              <p class="text-xs text-muted-foreground">Manage your notification preferences</p>
+            </div>
+
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex flex-col gap-0.5">
+                <span class="text-sm font-medium">Email Notifications</span>
+                <span class="text-xs text-muted-foreground">
+                  Receive notifications about your account activity
+                </span>
+              </div>
+              <button
+                type="button"
+                role="switch"
+                [attr.aria-checked]="emailNotifications()"
+                aria-label="Email Notifications"
+                class="relative inline-flex h-5 w-9 flex-shrink-0 items-center rounded-full transition-colors"
+                [class.bg-primary]="emailNotifications()"
+                [style.backgroundColor]="emailNotifications() ? null : 'var(--input)'"
+                (click)="toggleEmailNotifications()"
+              >
+                <span
+                  class="size-4 rounded-full bg-white transition-transform"
+                  [style.marginLeft]="emailNotifications() ? '1.125rem' : '0.125rem'"
+                ></span>
+              </button>
+            </div>
+
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex flex-col gap-0.5">
+                <span class="text-sm font-medium">Marketing Emails</span>
+                <span class="text-xs text-muted-foreground">
+                  Receive emails about new products and features
+                </span>
+              </div>
+              <button
+                type="button"
+                role="switch"
+                [attr.aria-checked]="marketingEmails()"
+                aria-label="Marketing Emails"
+                class="relative inline-flex h-5 w-9 flex-shrink-0 items-center rounded-full transition-colors"
+                [class.bg-primary]="marketingEmails()"
+                [style.backgroundColor]="marketingEmails() ? null : 'var(--input)'"
+                (click)="toggleMarketing()"
+              >
+                <span
+                  class="size-4 rounded-full bg-white transition-transform"
+                  [style.marginLeft]="marketingEmails() ? '1.125rem' : '0.125rem'"
+                ></span>
+              </button>
+            </div>
+
+            <div class="flex items-center justify-between gap-4">
+              <div class="flex flex-col gap-0.5">
+                <span class="text-sm font-medium">Two-Factor Authentication</span>
+                <span class="text-xs text-muted-foreground">
+                  Add an extra layer of security to your account
+                </span>
+              </div>
+              <button
+                type="button"
+                role="switch"
+                [attr.aria-checked]="twoFactor()"
+                aria-label="Two-Factor Authentication"
+                class="relative inline-flex h-5 w-9 flex-shrink-0 items-center rounded-full transition-colors"
+                [class.bg-primary]="twoFactor()"
+                [style.backgroundColor]="twoFactor() ? null : 'var(--input)'"
+                (click)="toggleTwoFactor()"
+              >
+                <span
+                  class="size-4 rounded-full bg-white transition-transform"
+                  [style.marginLeft]="twoFactor() ? '1.125rem' : '0.125rem'"
+                ></span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Account Type -->
+        <div class="flex flex-col gap-3">
+          <div class="flex flex-col gap-1">
+            <p class="text-sm font-medium">Account Type</p>
+            <p class="text-xs text-muted-foreground">Choose the plan that best fits your needs</p>
+          </div>
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <button
+              type="button"
+              role="radio"
+              [attr.aria-checked]="accountType() === 'personal'"
+              class="flex cursor-pointer items-start gap-3 rounded-lg border-2 p-4 text-left"
+              [class.border-border]="accountType() !== 'personal'"
+              [class.hover:bg-accent]="accountType() !== 'personal'"
+              [style.borderColor]="accountType() === 'personal' ? 'var(--primary)' : null"
+              [style.backgroundColor]="
+                accountType() === 'personal'
+                  ? 'color-mix(in oklab, var(--primary) 6%, transparent)'
+                  : null
+              "
+              (click)="selectAccountType('personal')"
+            >
+              <span
+                class="mt-0.5 flex size-4 flex-shrink-0 items-center justify-center rounded-full border-2"
+                [style.borderColor]="
+                  accountType() === 'personal' ? 'var(--primary)' : 'var(--border)'
+                "
+                aria-hidden="true"
+              >
+                @if (accountType() === 'personal') {
+                  <span class="size-2 rounded-full" style="background-color: var(--primary)"></span>
+                }
+              </span>
+              <span class="flex flex-col gap-0.5">
+                <span class="text-sm font-medium">Personal</span>
+                <span class="text-xs text-muted-foreground"
+                  >For individual use with basic features</span
+                >
+              </span>
+            </button>
+            <button
+              type="button"
+              role="radio"
+              [attr.aria-checked]="accountType() === 'business'"
+              class="flex cursor-pointer items-start gap-3 rounded-lg border-2 p-4 text-left"
+              [class.border-border]="accountType() !== 'business'"
+              [class.hover:bg-accent]="accountType() !== 'business'"
+              [style.borderColor]="accountType() === 'business' ? 'var(--primary)' : null"
+              [style.backgroundColor]="
+                accountType() === 'business'
+                  ? 'color-mix(in oklab, var(--primary) 6%, transparent)'
+                  : null
+              "
+              (click)="selectAccountType('business')"
+            >
+              <span
+                class="mt-0.5 flex size-4 flex-shrink-0 items-center justify-center rounded-full border-2"
+                [style.borderColor]="
+                  accountType() === 'business' ? 'var(--primary)' : 'var(--border)'
+                "
+                aria-hidden="true"
+              >
+                @if (accountType() === 'business') {
+                  <span class="size-2 rounded-full" style="background-color: var(--primary)"></span>
+                }
+              </span>
+              <span class="flex flex-col gap-0.5">
+                <span class="text-sm font-medium">Business</span>
+                <span class="text-xs text-muted-foreground">For small to medium-sized teams</span>
+              </span>
+            </button>
+            <button
+              type="button"
+              role="radio"
+              [attr.aria-checked]="accountType() === 'enterprise'"
+              class="flex cursor-pointer items-start gap-3 rounded-lg border-2 p-4 text-left"
+              [class.border-border]="accountType() !== 'enterprise'"
+              [class.hover:bg-accent]="accountType() !== 'enterprise'"
+              [style.borderColor]="accountType() === 'enterprise' ? 'var(--primary)' : null"
+              [style.backgroundColor]="
+                accountType() === 'enterprise'
+                  ? 'color-mix(in oklab, var(--primary) 6%, transparent)'
+                  : null
+              "
+              (click)="selectAccountType('enterprise')"
+            >
+              <span
+                class="mt-0.5 flex size-4 flex-shrink-0 items-center justify-center rounded-full border-2"
+                [style.borderColor]="
+                  accountType() === 'enterprise' ? 'var(--primary)' : 'var(--border)'
+                "
+                aria-hidden="true"
+              >
+                @if (accountType() === 'enterprise') {
+                  <span class="size-2 rounded-full" style="background-color: var(--primary)"></span>
+                }
+              </span>
+              <span class="flex flex-col gap-0.5">
+                <span class="text-sm font-medium">Enterprise</span>
+                <span class="text-xs text-muted-foreground">For large organizations</span>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button type="button" class="acn-btn-primary" (click)="register()">Register</button>
+          <button
+            type="button"
+            class="inline-flex h-9 items-center justify-center rounded-md border border-border bg-background px-3.5 text-sm font-medium text-foreground hover:bg-accent"
+            (click)="resetRegistration()"
+          >
+            Reset
+          </button>
+          @if (registered()) {
+            <span class="text-sm font-medium" [style.color]="green">Registration successful.</span>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</app-admincn-shell>

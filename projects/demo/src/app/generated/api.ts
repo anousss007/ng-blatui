@@ -1220,7 +1220,7 @@ export const API_DOCS = {
           },
           {
             "name": "trend",
-            "type": "\"down\" | \"up\" | \"neutral\" | null",
+            "type": "\"neutral\" | \"up\" | \"down\" | null",
             "default": "null",
             "required": false,
             "description": "Explicit trend direction; inferred from `change`'s sign when null."
@@ -2358,7 +2358,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "direction",
-            "type": "\"row\" | \"col\"",
+            "type": "\"col\" | \"row\"",
             "default": "'col'",
             "required": false,
             "description": "Flex direction: vertical (`col`) or horizontal (`row`)."
@@ -3381,7 +3381,7 @@ export const API_DOCS = {
           },
           {
             "name": "direction",
-            "type": "\"down\" | \"up\" | \"left\" | \"right\"",
+            "type": "\"right\" | \"left\" | \"up\" | \"down\"",
             "default": "'left'",
             "required": false,
             "description": "Scroll direction; `up`/`down` switch the marquee to a vertical track."
@@ -3814,7 +3814,7 @@ export const API_DOCS = {
           },
           {
             "name": "direction",
-            "type": "\"down\" | \"up\"",
+            "type": "\"up\" | \"down\"",
             "default": "'up'",
             "required": false,
             "description": "Direction the action stack expands relative to the trigger button."
@@ -6702,7 +6702,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "direction",
-            "type": "\"left\" | \"right\" | \"top\" | \"bottom\"",
+            "type": "\"top\" | \"right\" | \"bottom\" | \"left\"",
             "default": "'bottom'",
             "required": false,
             "description": "Screen edge the drawer is anchored to and slides in from."
@@ -6792,7 +6792,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "side",
-            "type": "\"left\" | \"right\" | \"top\" | \"bottom\"",
+            "type": "\"top\" | \"right\" | \"bottom\" | \"left\"",
             "default": "'right'",
             "required": false,
             "description": "Screen edge the sheet slides in from."
@@ -7419,7 +7419,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "side",
-            "type": "\"left\" | \"right\"",
+            "type": "\"right\" | \"left\"",
             "default": "'left'",
             "required": false,
             "description": "Edge the sidebar is docked to, which sets its border side."
