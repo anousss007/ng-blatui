@@ -56,6 +56,53 @@ const DONUT_C = 251.33;
           <ng-content />
         </div>
       </div>
+    } @else if (type() === 'gauge') {
+      <div class="relative mx-auto w-full" [style.maxWidth.px]="height() * 1.9">
+        <svg viewBox="0 0 100 56" class="w-full" role="img" [attr.aria-label]="label()">
+          <path
+            d="M10,50 A40,40 0 0 1 90,50"
+            fill="none"
+            class="stroke-muted"
+            stroke-linecap="round"
+            [attr.stroke-width]="thickness()"
+          />
+          <path
+            d="M10,50 A40,40 0 0 1 90,50"
+            fill="none"
+            stroke-linecap="round"
+            [attr.stroke]="gauge().color"
+            [attr.stroke-width]="thickness()"
+            [attr.stroke-dasharray]="gauge().dash + ' ' + gauge().gap"
+          />
+        </svg>
+        <div class="absolute inset-x-0 bottom-0 flex flex-col items-center leading-none">
+          <ng-content />
+        </div>
+      </div>
+    } @else if (type() === 'bar' && grouped()) {
+      <div
+        class="flex items-end gap-2"
+        [style.height.px]="height()"
+        role="img"
+        [attr.aria-label]="label()"
+      >
+        @for (group of barGroups(); track group.id) {
+          <div class="flex h-full flex-1 flex-col items-center justify-end gap-2">
+            <div class="flex w-full flex-1 items-end justify-center gap-1">
+              @for (sub of group.bars; track sub.id) {
+                <div
+                  class="min-h-1 w-2 max-w-3 rounded-t-[4px] rounded-b-[2px] transition-[height]"
+                  [style.height.%]="sub.pct"
+                  [style.background]="sub.fill"
+                ></div>
+              }
+            </div>
+            @if (group.label) {
+              <span class="text-xs text-muted-foreground">{{ group.label }}</span>
+            }
+          </div>
+        }
+      </div>
     } @else if (type() === 'bar') {
       <div
         class="flex items-end gap-1"
@@ -146,8 +193,8 @@ const DONUT_C = 251.33;
   `,
 })
 export class BuiChart {
-  /** Chart render style: line, bar, filled area, or a donut ring. */
-  readonly type = input<'line' | 'bar' | 'area' | 'donut'>('line');
+  /** Chart render style: line, bar, filled area, a donut ring, or a half-ring gauge. */
+  readonly type = input<'line' | 'bar' | 'area' | 'donut' | 'gauge'>('line');
   /** Series to plot; bar/donut use only the first series. */
   readonly series = input<readonly ChartSeries[]>([]);
   /** X-axis tick labels rendered below the chart. */
@@ -171,6 +218,10 @@ export class BuiChart {
   readonly barLabels = input<readonly string[]>([]);
   /** Stack every series into one bar per data point, bottom-to-top (bar charts). */
   readonly stacked = input(false);
+  /** Render every series side-by-side within each data slot (grouped bar charts). */
+  readonly grouped = input(false);
+  /** Per-bar fill colors (bar charts); index-aligned with the first series' data. Overrides the series color. */
+  readonly barColors = input<readonly string[]>([]);
   /** Draw a faint full-height track behind each bar (bar charts). */
   readonly track = input(false);
   /** Render a dot marker at each data point (line/area charts). */
@@ -224,10 +275,12 @@ export class BuiChart {
     const total = this.scaleMax();
     const active = this.activeIndex();
     const valueLabels = this.barLabels();
+    const perBar = this.barColors();
     const color = first.color ?? PALETTE[0];
     return first.data.map((value, index) => {
+      const base = perBar[index] ?? color;
       const isDimmed = active !== null && active !== index;
-      const fill = isDimmed ? `color-mix(in oklab, ${color} 20%, transparent)` : color;
+      const fill = isDimmed ? `color-mix(in oklab, ${base} 20%, transparent)` : base;
       return {
         id: index,
         pct: Math.max(0, (Math.max(0, value) / total) * 100),
@@ -236,6 +289,40 @@ export class BuiChart {
         label: axisLabels[index] ?? '',
       };
     });
+  });
+
+  /** Grouped bars: one slot per data point, each holding a side-by-side sub-bar per series. */
+  protected readonly barGroups = computed(() => {
+    const seriesList = this.series();
+    const first = seriesList.at(0);
+    if (!first || first.data.length === 0) {
+      return [];
+    }
+    const axisLabels = this.labels();
+    const total = this.scaleMax();
+    return first.data.map((_, index) => ({
+      id: index,
+      label: axisLabels[index] ?? '',
+      bars: seriesList.map((s, si) => ({
+        id: si,
+        pct: Math.max(0, (Math.max(0, s.data[index] ?? 0) / total) * 100),
+        fill: s.color ?? PALETTE[si % PALETTE.length],
+      })),
+    }));
+  });
+
+  /** Half-ring gauge geometry: a 180° arc filled to the first value's share of `max`. */
+  protected readonly gauge = computed(() => {
+    const value = this.series().at(0)?.data.at(0) ?? 0;
+    const total = this.max() ?? 100;
+    const fraction = Math.min(1, Math.max(0, value / total));
+    // Semicircle path length for r=40 in the 100×60 viewBox (π·r).
+    const arc = Math.PI * 40;
+    return {
+      dash: (fraction * arc).toFixed(2),
+      gap: arc.toFixed(2),
+      color: this.series().at(0)?.color,
+    };
   });
 
   /** Dot markers (line/area) as viewBox-relative percentages, immune to the non-uniform SVG scale. */

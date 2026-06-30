@@ -52,4 +52,17 @@ describe('BuiCheckbox', () => {
     expect(fixture.componentInstance.indeterminate()).toBe(false);
     expect(fixture.componentInstance.checked()).toBe(true);
   });
+
+  it('colors the checked fill by tone', () => {
+    @Component({
+      imports: [BuiCheckbox],
+      template: `<button buiCheckbox tone="success" aria-label="x"></button>`,
+    })
+    class ToneHost {}
+    const fixture = TestBed.createComponent(ToneHost);
+    fixture.detectChanges();
+    const element = (fixture.nativeElement as HTMLElement).querySelector('button')!;
+    expect(element.className).toContain('data-[state=checked]:bg-success');
+    expect(element.className).not.toContain('data-[state=checked]:bg-primary');
+  });
 });

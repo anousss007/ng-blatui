@@ -7,7 +7,23 @@ import { type ClassValue, cn } from '../utils/cn';
 const noop = (): void => {};
 
 const CHECKBOX_BASE =
-  'peer border-input dark:bg-input/30 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground dark:data-[state=checked]:bg-primary data-[state=checked]:border-primary data-[state=indeterminate]:bg-primary data-[state=indeterminate]:text-primary-foreground data-[state=indeterminate]:border-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive size-4 shrink-0 rounded-[4px] border shadow-xs transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 flex items-center justify-center';
+  'peer border-input dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive size-4 shrink-0 rounded-[4px] border shadow-xs transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 flex items-center justify-center';
+
+/** Per-tone checked/indeterminate fill colors. `primary` is the default (unchanged) look. */
+const CHECKBOX_TONES = {
+  primary:
+    'data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground dark:data-[state=checked]:bg-primary data-[state=checked]:border-primary data-[state=indeterminate]:bg-primary data-[state=indeterminate]:text-primary-foreground data-[state=indeterminate]:border-primary',
+  success:
+    'data-[state=checked]:bg-success data-[state=checked]:text-success-foreground data-[state=checked]:border-success data-[state=indeterminate]:bg-success data-[state=indeterminate]:text-success-foreground data-[state=indeterminate]:border-success',
+  warning:
+    'data-[state=checked]:bg-warning data-[state=checked]:text-warning-foreground data-[state=checked]:border-warning data-[state=indeterminate]:bg-warning data-[state=indeterminate]:text-warning-foreground data-[state=indeterminate]:border-warning',
+  danger:
+    'data-[state=checked]:bg-destructive data-[state=checked]:text-white data-[state=checked]:border-destructive data-[state=indeterminate]:bg-destructive data-[state=indeterminate]:text-white data-[state=indeterminate]:border-destructive',
+  info: 'data-[state=checked]:bg-info data-[state=checked]:text-info-foreground data-[state=checked]:border-info data-[state=indeterminate]:bg-info data-[state=indeterminate]:text-info-foreground data-[state=indeterminate]:border-info',
+} as const;
+
+/** Semantic color of the checkbox's checked/indeterminate fill. */
+export type CheckboxTone = keyof typeof CHECKBOX_TONES;
 
 /**
  * BlatUI checkbox. A native `<button role="checkbox">` (Space/Enter toggle for free)
@@ -72,6 +88,8 @@ export class BuiCheckbox implements ControlValueAccessor {
   readonly indeterminate = model(false);
   /** Whether the checkbox is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
+  /** Semantic color of the checked/indeterminate fill. */
+  readonly tone = input<CheckboxTone>('primary');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
   private onChange: (isChecked: boolean) => void = noop;
@@ -86,7 +104,9 @@ export class BuiCheckbox implements ControlValueAccessor {
   protected readonly ariaChecked = computed(() =>
     this.indeterminate() ? 'mixed' : String(this.checked()),
   );
-  protected readonly computedClass = computed(() => cn(CHECKBOX_BASE, this.userClass()));
+  protected readonly computedClass = computed(() =>
+    cn(CHECKBOX_BASE, CHECKBOX_TONES[this.tone()], this.userClass()),
+  );
 
   protected toggle(): void {
     if (this.disabled()) {

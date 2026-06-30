@@ -95,6 +95,68 @@ describe('BuiChart', () => {
     expect(path?.getAttribute('d')?.startsWith('M')).toBe(true);
   });
 
+  it('renders grouped side-by-side bars (one per series per slot)', () => {
+    @Component({
+      imports: [BuiChart],
+      template: `<bui-chart type="bar" [grouped]="true" [series]="series" label="Grouped" />`,
+    })
+    class GroupHost {
+      readonly series: ChartSeries[] = [
+        { data: [10, 20], color: '#f00' },
+        { data: [5, 8], color: '#0f0' },
+      ];
+    }
+    const fixture = TestBed.createComponent(GroupHost);
+    fixture.detectChanges();
+    const group = (fixture.nativeElement as HTMLElement).querySelector('[role="img"]')!;
+    expect(group.children).toHaveLength(2); // 2 slots
+    // each slot holds 2 side-by-side sub-bars
+    expect(group.firstElementChild!.querySelectorAll('[style*="background"]')).toHaveLength(2);
+  });
+
+  it('applies per-bar colors from barColors', () => {
+    @Component({
+      imports: [BuiChart],
+      template: `<bui-chart type="bar" [series]="series" [barColors]="colors" label="PerBar" />`,
+    })
+    class PerBarHost {
+      readonly series: ChartSeries[] = [{ data: [3, 6, 9] }];
+      readonly colors = ['#111', '#222', '#333'];
+    }
+    const fixture = TestBed.createComponent(PerBarHost);
+    fixture.detectChanges();
+    const fills = [
+      ...(fixture.nativeElement as HTMLElement).querySelectorAll<HTMLElement>(
+        '[role="img"] [style*="background"]',
+      ),
+    ];
+    expect(fills.map((f) => f.style.background)).toEqual([
+      'rgb(17, 17, 17)',
+      'rgb(34, 34, 34)',
+      'rgb(51, 51, 51)',
+    ]);
+  });
+
+  it('renders a half-ring gauge filled to the value share of max', () => {
+    @Component({
+      imports: [BuiChart],
+      template: `<bui-chart type="gauge" [series]="series" [max]="100" label="Gauge"
+        ><b>75%</b></bui-chart
+      >`,
+    })
+    class GaugeHost {
+      readonly series: ChartSeries[] = [{ data: [75], color: '#09f' }];
+    }
+    const fixture = TestBed.createComponent(GaugeHost);
+    fixture.detectChanges();
+    const arcs = (fixture.nativeElement as HTMLElement).querySelectorAll('svg path');
+    expect(arcs).toHaveLength(2); // track + value arc
+    const dash = arcs[1].getAttribute('stroke-dasharray')!;
+    const [filled, gap] = dash.split(' ').map(Number);
+    expect(filled / gap).toBeCloseTo(0.75, 2);
+    expect((fixture.nativeElement as HTMLElement).querySelector('b')?.textContent).toBe('75%');
+  });
+
   it('renders donut segments scaled against max', () => {
     const fixture = TestBed.createComponent(TestHost);
     fixture.componentInstance.type = 'donut';
