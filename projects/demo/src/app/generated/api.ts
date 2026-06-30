@@ -58,7 +58,7 @@ export const API_DOCS = {
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"info\" | \"danger\" | \"neutral\" | null",
+            "type": "\"danger\" | \"info\" | \"neutral\" | \"success\" | \"warning\" | null",
             "default": "null",
             "required": false,
             "description": "Optional semantic tone; when set it overrides the brand variant's color."
@@ -121,7 +121,7 @@ export const API_DOCS = {
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"info\" | \"danger\" | \"neutral\" | null",
+            "type": "\"danger\" | \"info\" | \"neutral\" | \"success\" | \"warning\" | null",
             "default": "null",
             "required": false,
             "description": "Semantic tone; when set, overrides `variant`."
@@ -737,7 +737,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\" | null",
+            "type": "\"default\" | \"lg\" | \"sm\" | null",
             "default": "'default'",
             "required": false,
             "description": "Button size."
@@ -1220,7 +1220,7 @@ export const API_DOCS = {
           },
           {
             "name": "trend",
-            "type": "\"neutral\" | \"up\" | \"down\" | null",
+            "type": "\"down\" | \"neutral\" | \"up\" | null",
             "default": "null",
             "required": false,
             "description": "Explicit trend direction; inferred from `change`'s sign when null."
