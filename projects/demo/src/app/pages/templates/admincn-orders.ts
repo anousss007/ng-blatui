@@ -165,14 +165,14 @@ export class AdmincnOrders {
   protected readonly revenueSeries = [{ data: [30, 16, 10], color: 'var(--primary)' }];
 
   /* Cohort analysis indicator bars ---------------------------------------- */
-  // First ~16 of 26 filled (primary), the rest muted.
-  protected readonly cohortBars = Array.from({ length: 26 }, (_, index) => ({
-    h: [
-      22, 30, 18, 34, 26, 38, 24, 32, 20, 36, 28, 34, 22, 30, 26, 32, 18, 24, 20, 28, 22, 30, 18,
-      26, 22, 16,
-    ][index],
-    on: index < 16,
-  }));
+  // Bar heights (26 slots); the first 16 are filled (primary), the rest muted.
+  protected readonly cohortBars = [
+    22, 30, 18, 34, 26, 38, 24, 32, 20, 36, 28, 34, 22, 30, 26, 32, 18, 24, 20, 28, 22, 30, 18, 26,
+    22, 16,
+  ];
+  protected readonly cohortColors = this.cohortBars.map((_, index) =>
+    index < 16 ? 'var(--primary)' : 'color-mix(in oklab, var(--muted-foreground) 25%, transparent)',
+  );
 
   /* Orders table — first 5 rows are the original customers (page 1); the rest
      are varied duplicates so pagination is meaningful (25 total). */

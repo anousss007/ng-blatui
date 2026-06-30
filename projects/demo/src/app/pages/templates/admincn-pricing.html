@@ -85,14 +85,7 @@
             <span class="text-3xl font-semibold tracking-tight">${{ plan.price }}</span>
             <span class="text-sm text-muted-foreground">{{ plan.period }}</span>
             @if (billing() === 'yearly') {
-              <span
-                class="ml-1 inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium"
-                style="
-                  background: color-mix(in oklab, var(--primary) 12%, transparent);
-                  color: var(--primary);
-                "
-                >Save 20%</span
-              >
+              <span buiBadge tone="primary" variant="soft" class="ml-1 rounded-full">Save 20%</span>
             }
           </p>
 
