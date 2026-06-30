@@ -35,14 +35,32 @@ const titleToPascal = (slug) =>
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join('');
 
+/**
+ * Canonicalise a union of string literals into a stable, sorted order. TypeScript's
+ * `.d.ts` emit (and the checker's `t.types`) order a union differently for incremental
+ * vs clean builds, which made the generated docs flip between local and CI runs. Sorting
+ * pure string-literal unions removes that non-determinism. Mixed unions (e.g. `T | null`)
+ * are left untouched so their authored order is preserved.
+ */
+function sortUnion(text) {
+  if (!text.includes(' | ')) return text;
+  const parts = text.split(' | ');
+  if (parts.every((p) => /^(['"]).*\1$/.test(p.trim()))) {
+    return [...parts].sort().join(' | ');
+  }
+  return text;
+}
+
 /** Strip import-namespace prefixes (_angular_core., i0., import("…").) for readable type text. */
 function cleanType(text) {
-  return text
-    .replace(/import\([^)]*\)\./g, '')
-    .replace(/\b_angular_core\./g, '')
-    .replace(/\bi\d+\./g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
+  return sortUnion(
+    text
+      .replace(/import\([^)]*\)\./g, '')
+      .replace(/\b_angular_core\./g, '')
+      .replace(/\bi\d+\./g, '')
+      .replace(/\s+/g, ' ')
+      .trim(),
+  );
 }
 
 function wrapperName(typeNode) {
@@ -93,7 +111,7 @@ function renderType(node) {
           .map((x) => cleanType(checker.typeToString(x))),
       ),
     ];
-    if (parts.length) return parts.join(' | ');
+    if (parts.length) return sortUnion(parts.join(' | '));
   }
   return cleanType(checker.typeToString(t, node, ts.TypeFormatFlags.NoTruncation));
 }
@@ -110,7 +128,7 @@ function renderAlias(node) {
           .map((x) => cleanType(checker.typeToString(x))),
       ),
     ];
-    if (parts.length) return parts.join(' | ');
+    if (parts.length) return sortUnion(parts.join(' | '));
   }
   return cleanType(node.type.getText());
 }
