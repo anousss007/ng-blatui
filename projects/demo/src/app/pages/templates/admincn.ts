@@ -138,11 +138,15 @@ export class AdmincnTemplate {
   protected readonly txAxis = this.txBars.map((b) => b.label);
   protected readonly txActive = this.txBars.findIndex((b) => b.label === this.txHighlight);
 
-  /* Total sales step-area chart ------------------------------------------- */
-  protected readonly salesPath =
-    '12.875,74.56 38.625,74.56 64.375,39.28 90.125,39.28 115.875,61.33 141.625,61.33 167.375,90.94 193.125,90.94 218.875,39.28 244.625,39.28 270.375,4 296.125,4';
-  protected readonly salesArea =
-    'M12.875,74.56 L38.625,74.56 L64.375,39.28 L90.125,39.28 L115.875,61.33 L141.625,61.33 L167.375,90.94 L193.125,90.94 L218.875,39.28 L244.625,39.28 L270.375,4 L296.125,4 L296.125,130 L12.875,130 Z';
+  /* Total sales area chart ------------------------------------------------- */
+  // y-values from the original 130-tall viewBox inverted to data magnitudes
+  // (flat pairs + diagonal connectors give the characteristic stepped profile).
+  protected readonly salesSeries = [
+    {
+      data: [55.44, 55.44, 90.72, 90.72, 68.67, 68.67, 39.06, 39.06, 90.72, 90.72, 126, 126],
+      color: 'var(--chart-2)',
+    },
+  ];
   protected readonly salesTimes = ['11:00', '14:00', '17:00', '20:00'];
 
   /* Earning Report bar chart ---------------------------------------------- */
