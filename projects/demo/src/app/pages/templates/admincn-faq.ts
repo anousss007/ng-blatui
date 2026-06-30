@@ -1,6 +1,13 @@
 import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation } from '@angular/core';
 
-import { BuiBadge, BuiButton, BuiIconTile } from 'ng-blatui';
+import {
+  BuiBadge,
+  BuiButton,
+  BuiCard,
+  BuiIconTile,
+  BuiInputGroup,
+  BuiInputGroupInput,
+} from 'ng-blatui';
 
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
@@ -33,7 +40,16 @@ interface SupportCard {
   selector: 'app-tpl-admincn-faq',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell, BuiIconTile, BuiBadge, BuiButton],
+  imports: [
+    Lucide,
+    AdmincnShell,
+    BuiIconTile,
+    BuiBadge,
+    BuiButton,
+    BuiCard,
+    BuiInputGroup,
+    BuiInputGroupInput,
+  ],
   templateUrl: './admincn-faq.html',
 })
 export class AdmincnFaq {

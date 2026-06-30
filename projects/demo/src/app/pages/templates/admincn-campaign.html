@@ -3,7 +3,7 @@
     <!-- ============ KPI strip (4 cards) ============ -->
     <div class="col-span-full grid grid-cols-2 gap-6 sm:grid-cols-4 lg:col-span-4">
       @for (k of kpis; track k.label) {
-        <div class="acn-card acn-kpi justify-between">
+        <div buiCard class="acn-kpi justify-between overflow-hidden p-0">
           <div class="flex items-center justify-between">
             <bui-icon-tile [tone]="k.tile" class="size-9.5 rounded-md">
               <app-lucide [name]="k.icon" class="size-5" />
@@ -27,7 +27,8 @@
 
     <!-- ============ Customers ============ -->
     <div
-      class="acn-card relative col-span-full flex flex-col justify-between gap-3 p-6 sm:col-span-3 lg:col-span-2"
+      buiCard
+      class="relative col-span-full flex flex-col justify-between gap-3 overflow-hidden p-6 sm:col-span-3 lg:col-span-2"
     >
       <div class="flex flex-col gap-3">
         <span class="text-base font-medium">Customers</span>
@@ -48,7 +49,10 @@
     </div>
 
     <!-- ============ Total Income + Report ============ -->
-    <div class="acn-card col-span-full grid grid-cols-1 gap-0 p-0 lg:col-span-4 lg:grid-cols-3">
+    <div
+      buiCard
+      class="col-span-full grid grid-cols-1 gap-0 overflow-hidden p-0 lg:col-span-4 lg:grid-cols-3"
+    >
       <!-- Total Income -->
       <div class="flex flex-col gap-6 p-6 max-lg:border-b lg:col-span-2 lg:border-r">
         <div class="flex items-start justify-between">
@@ -168,7 +172,10 @@
     </div>
 
     <!-- ============ Monthly campaign state ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-6 p-6 sm:col-span-3 lg:col-span-2">
+    <div
+      buiCard
+      class="col-span-full flex flex-col gap-6 overflow-hidden p-6 sm:col-span-3 lg:col-span-2"
+    >
       <div class="flex items-start justify-between">
         <div class="flex flex-col gap-1">
           <h3 class="text-lg font-semibold">Monthly campaign state</h3>
@@ -228,7 +235,10 @@
     </div>
 
     <!-- ============ Total earning ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-4 p-6 sm:col-span-3 lg:col-span-2">
+    <div
+      buiCard
+      class="col-span-full flex flex-col gap-4 overflow-hidden p-6 sm:col-span-3 lg:col-span-2"
+    >
       <div class="flex items-start justify-between">
         <div class="flex flex-col gap-4">
           <span class="text-lg font-semibold">Total earning</span>
@@ -310,7 +320,10 @@
     </div>
 
     <!-- ============ For Business Shark ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-4 p-6 sm:col-span-3 lg:col-span-2">
+    <div
+      buiCard
+      class="col-span-full flex flex-col gap-4 overflow-hidden p-6 sm:col-span-3 lg:col-span-2"
+    >
       <div class="flex items-start justify-between">
         <h3 class="text-lg font-semibold">For Business Shark</h3>
         <div class="relative">
@@ -390,7 +403,10 @@
     </div>
 
     <!-- ============ Vehicles Condition ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-6 p-6 sm:col-span-3 lg:col-span-2">
+    <div
+      buiCard
+      class="col-span-full flex flex-col gap-6 overflow-hidden p-6 sm:col-span-3 lg:col-span-2"
+    >
       <div class="flex items-center justify-between">
         <h3 class="text-lg font-semibold">Vehicles Condition</h3>
         <div class="relative">
@@ -458,25 +474,37 @@
     </div>
 
     <!-- ============ Users table ============ -->
-    <div class="acn-card col-span-full flex flex-col py-0">
+    <div buiCard class="col-span-full flex flex-col overflow-hidden p-0 py-0">
       <div class="grid grid-cols-1 gap-6 border-b p-6 sm:grid-cols-2 md:grid-cols-3">
         <div class="flex w-full flex-col gap-2">
           <span class="text-sm font-medium">Select Role</span>
-          <button type="button" class="acn-select w-full justify-between">
-            All <app-lucide name="chevron-down" class="size-4 opacity-60" />
-          </button>
+          <bui-select
+            aria-label="Filter"
+            class="w-full"
+            [options]="roleOptions"
+            [value]="role()"
+            (valueChange)="role.set($event)"
+          />
         </div>
         <div class="flex w-full flex-col gap-2">
           <span class="text-sm font-medium">Select Plan</span>
-          <button type="button" class="acn-select w-full justify-between">
-            All <app-lucide name="chevron-down" class="size-4 opacity-60" />
-          </button>
+          <bui-select
+            aria-label="Filter"
+            class="w-full"
+            [options]="planOptions"
+            [value]="plan()"
+            (valueChange)="plan.set($event)"
+          />
         </div>
         <div class="flex w-full flex-col gap-2">
           <span class="text-sm font-medium">Select Status</span>
-          <button type="button" class="acn-select w-full justify-between">
-            All <app-lucide name="chevron-down" class="size-4 opacity-60" />
-          </button>
+          <bui-select
+            aria-label="Filter"
+            class="w-full"
+            [options]="statusOptions"
+            [value]="statusFilter()"
+            (valueChange)="statusFilter.set($event)"
+          />
         </div>
       </div>
 

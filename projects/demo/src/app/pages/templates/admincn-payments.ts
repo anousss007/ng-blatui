@@ -10,13 +10,18 @@ import {
   BuiAvatar,
   BuiBadge,
   BuiButton,
+  BuiCard,
   BuiChart,
   BuiCheckbox,
   BuiIconTile,
+  BuiInputGroup,
+  BuiInputGroupAddon,
+  BuiInputGroupInput,
   BuiPagination,
   BuiPaginationContent,
   BuiPaginationItem,
   BuiPaginationLink,
+  BuiSelect,
   BuiTable,
   BuiTableBody,
   BuiTableCell,
@@ -24,6 +29,7 @@ import {
   BuiTableHead,
   BuiTableHeader,
   BuiTableRow,
+  type SelectOption,
 } from 'ng-blatui';
 
 import { AdmincnShell } from './admincn-shell';
@@ -102,7 +108,12 @@ interface Invoice {
     BuiBadge,
     BuiButton,
     BuiAvatar,
+    BuiCard,
     BuiCheckbox,
+    BuiInputGroup,
+    BuiInputGroupAddon,
+    BuiInputGroupInput,
+    BuiSelect,
     BuiTableContainer,
     BuiTable,
     BuiTableHeader,
@@ -380,8 +391,17 @@ export class AdmincnPayments {
   protected readonly sortDir = signal<'asc' | 'desc'>('asc');
   protected readonly checked = signal<Set<string>>(new Set());
 
-  protected readonly statusOptions = ['all', 'paid', 'unpaid'] as const;
-  protected readonly pageSizeOptions = [5, 10, 25];
+  protected readonly statusOptions: SelectOption[] = [
+    { value: 'all', label: 'All' },
+    { value: 'paid', label: 'Paid' },
+    { value: 'unpaid', label: 'Unpaid' },
+  ];
+  protected readonly pageSizeOptions: SelectOption[] = [
+    { value: '5', label: '5' },
+    { value: '10', label: '10' },
+    { value: '25', label: '25' },
+  ];
+  protected readonly pageSizeValue = computed(() => String(this.pageSize()));
 
   protected readonly filtered = computed(() => {
     const q = this.search().toLowerCase().trim();

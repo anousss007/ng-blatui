@@ -14,10 +14,17 @@ import {
   BuiChart,
   BuiCheckbox,
   BuiIconTile,
+  BuiInputGroup,
+  BuiInputGroupAddon,
+  BuiInputGroupInput,
+  BuiItem,
+  BuiItemContent,
+  BuiItemMedia,
   BuiPagination,
   BuiPaginationContent,
   BuiPaginationItem,
   BuiPaginationLink,
+  BuiSelect,
   BuiTable,
   BuiTableBody,
   BuiTableCell,
@@ -25,6 +32,7 @@ import {
   BuiTableHead,
   BuiTableHeader,
   BuiTableRow,
+  type SelectOption,
 } from 'ng-blatui';
 
 import { AdmincnShell } from './admincn-shell';
@@ -81,6 +89,13 @@ interface Invoice {
     BuiAvatar,
     BuiButton,
     BuiCheckbox,
+    BuiInputGroup,
+    BuiInputGroupAddon,
+    BuiInputGroupInput,
+    BuiItem,
+    BuiItemMedia,
+    BuiItemContent,
+    BuiSelect,
     BuiTableContainer,
     BuiTable,
     BuiTableHeader,
@@ -304,6 +319,19 @@ export class AdmincnTemplate {
 
   protected readonly statusOptions = ['all', 'paid', 'unpaid'] as const;
   protected readonly pageSizeOptions = [5, 10, 25];
+
+  /** bui-select options mirroring the former native <option>s. */
+  protected readonly pageSizeSelectOptions: SelectOption[] = this.pageSizeOptions.map((n) => ({
+    value: String(n),
+    label: String(n),
+  }));
+  protected readonly statusSelectOptions: SelectOption[] = this.statusOptions.map((s) => ({
+    value: s,
+    // The former native <select> upper-cased these via a `capitalize` class.
+    label: s === 'all' ? 'All' : s.charAt(0).toUpperCase() + s.slice(1),
+  }));
+  /** String view of pageSize for the bui-select value contract. */
+  protected readonly pageSizeValue = computed(() => String(this.pageSize()));
 
   protected readonly filtered = computed(() => {
     const q = this.search().toLowerCase().trim();

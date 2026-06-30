@@ -6,7 +6,15 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
-import { BuiAvatar, BuiButton, BuiPresence } from 'ng-blatui';
+import {
+  BuiAvatar,
+  BuiButton,
+  BuiCard,
+  BuiInputGroup,
+  BuiInputGroupAddon,
+  BuiInputGroupInput,
+  BuiPresence,
+} from 'ng-blatui';
 
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
@@ -50,7 +58,17 @@ interface Message {
   selector: 'app-tpl-admincn-chat',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell, BuiAvatar, BuiButton, BuiPresence],
+  imports: [
+    Lucide,
+    AdmincnShell,
+    BuiAvatar,
+    BuiButton,
+    BuiCard,
+    BuiInputGroup,
+    BuiInputGroupAddon,
+    BuiInputGroupInput,
+    BuiPresence,
+  ],
   templateUrl: './admincn-chat.html',
 })
 export class AdmincnChat {

@@ -11,7 +11,7 @@
     <!-- ============ KPI tiles (2x2 block) ============ -->
     <div class="col-span-full grid grid-cols-2 gap-6 lg:col-span-2">
       @for (k of kpis; track k.label) {
-        <div class="acn-card acn-kpi gap-3 p-5">
+        <div buiCard class="acn-kpi gap-3 overflow-hidden p-5">
           <div class="flex items-center justify-between gap-2">
             <bui-icon-tile [tone]="k.tile" class="size-9 rounded-md">
               <app-lucide [name]="k.icon" class="size-5" />
@@ -35,7 +35,7 @@
     </div>
 
     <!-- ============ Earning insights ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-6 p-6 lg:col-span-4">
+    <div buiCard class="col-span-full flex flex-col gap-6 overflow-hidden p-6 lg:col-span-4">
       <div class="flex items-start justify-between">
         <div class="flex flex-col gap-1">
           <h3 class="font-heading text-lg font-semibold">Earning insights</h3>
@@ -109,7 +109,10 @@
     </div>
 
     <!-- ============ Profile / Packing ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-5 p-6 sm:col-span-3 lg:col-span-2">
+    <div
+      buiCard
+      class="col-span-full flex flex-col gap-5 overflow-hidden p-6 sm:col-span-3 lg:col-span-2"
+    >
       <div class="flex items-center gap-3">
         <bui-avatar [src]="img + '/avatars/avatar-16.webp'" alt="jackwilliams" class="size-10" />
         <div class="flex flex-1 flex-col">
@@ -186,7 +189,10 @@
     </div>
 
     <!-- ============ Orders ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-5 p-6 sm:col-span-3 lg:col-span-2">
+    <div
+      buiCard
+      class="col-span-full flex flex-col gap-5 overflow-hidden p-6 sm:col-span-3 lg:col-span-2"
+    >
       <div class="flex items-start justify-between">
         <div class="flex flex-col gap-1">
           <h3 class="font-heading text-lg font-semibold">Orders</h3>
@@ -255,7 +261,10 @@
     </div>
 
     <!-- ============ Popular product ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-5 p-6 sm:col-span-3 lg:col-span-2">
+    <div
+      buiCard
+      class="col-span-full flex flex-col gap-5 overflow-hidden p-6 sm:col-span-3 lg:col-span-2"
+    >
       <div class="flex items-start justify-between">
         <div class="flex flex-col gap-1">
           <h3 class="font-heading text-lg font-semibold">Popular product</h3>
@@ -308,27 +317,41 @@
     </div>
 
     <!-- ============ Filters + Product table ============ -->
-    <div class="acn-card col-span-full flex flex-col py-6">
+    <div buiCard class="col-span-full flex flex-col overflow-hidden px-0 py-6">
       <div class="grid grid-cols-1 gap-4 px-6 sm:grid-cols-3">
         @for (s of selects; track s) {
           <div class="flex flex-col gap-1.5">
             <span class="text-sm font-medium">Select {{ s }}</span>
-            <button type="button" class="acn-select w-full justify-between">
-              All <app-lucide name="chevron-down" class="size-4 opacity-60" />
-            </button>
+            <bui-select
+              aria-label="Filter"
+              [options]="filterOptions"
+              [value]="filterValue()"
+              (valueChange)="filterValue.set($event)"
+              class="w-full"
+            />
           </div>
         }
       </div>
 
       <div class="mt-6 flex flex-col gap-4 px-6 lg:flex-row lg:items-center lg:justify-between">
-        <div class="acn-input flex-1 lg:max-w-xs">
-          <app-lucide name="search" class="size-4 text-muted-foreground" />
-          <input type="search" placeholder="Search product" aria-label="Search product" />
+        <div buiInputGroup class="flex-1 lg:max-w-xs">
+          <span buiInputGroupAddon>
+            <app-lucide name="search" class="size-4 text-muted-foreground" />
+          </span>
+          <input
+            buiInputGroupInput
+            type="search"
+            placeholder="Search product"
+            aria-label="Search product"
+          />
         </div>
         <div class="flex flex-wrap items-center gap-3">
-          <button type="button" class="acn-select">
-            5 <app-lucide name="chevron-down" class="size-4 opacity-60" />
-          </button>
+          <bui-select
+            aria-label="Filter"
+            [options]="pageSizeOptions"
+            [value]="pageSize()"
+            (valueChange)="pageSize.set($event)"
+          />
           <button buiButton variant="outline">
             <app-lucide name="download" class="size-4" /> Export
           </button>

@@ -1,7 +1,7 @@
 <app-admincn-shell active="Payments">
   <div class="grid grid-cols-6 gap-6">
     <!-- ============ KPI 1 — Income this month ============ -->
-    <div class="acn-card acn-kpi col-span-2 max-lg:col-span-full">
+    <div buiCard class="acn-card acn-kpi col-span-2 overflow-hidden p-0 max-lg:col-span-full">
       <div class="flex flex-1 items-center justify-between gap-4">
         <div class="flex shrink-0 flex-col justify-between gap-6 self-stretch">
           <div class="flex flex-col gap-1">
@@ -24,7 +24,7 @@
     </div>
 
     <!-- ============ KPI 2 — Expense this month ============ -->
-    <div class="acn-card acn-kpi col-span-2 max-lg:col-span-full">
+    <div buiCard class="acn-card acn-kpi col-span-2 overflow-hidden p-0 max-lg:col-span-full">
       <div class="flex flex-1 items-center justify-between gap-4">
         <div class="flex shrink-0 flex-col justify-between gap-6 self-stretch">
           <div class="flex flex-col gap-1">
@@ -47,7 +47,10 @@
     </div>
 
     <!-- ============ KPI 3 — Total orders ============ -->
-    <div class="acn-card acn-kpi relative col-span-2 overflow-hidden max-lg:col-span-full">
+    <div
+      buiCard
+      class="acn-card acn-kpi relative col-span-2 overflow-hidden p-0 max-lg:col-span-full"
+    >
       <div class="flex flex-col gap-1">
         <span class="font-heading text-base font-semibold">Total orders</span>
         <p class="text-sm text-muted-foreground">Last Week</p>
@@ -64,7 +67,10 @@
     </div>
 
     <!-- ============ Payment History ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-4 py-6 lg:col-span-3 2xl:col-span-2">
+    <div
+      buiCard
+      class="acn-card col-span-full flex flex-col gap-4 overflow-hidden p-0 py-6 lg:col-span-3 2xl:col-span-2"
+    >
       <div class="flex items-center justify-between gap-2 px-6">
         <h3 class="font-heading text-lg font-semibold">Payment History</h3>
         <button
@@ -127,7 +133,10 @@
     </div>
 
     <!-- ============ Total Revenue + Report ============ -->
-    <div class="acn-card col-span-full grid grid-cols-1 gap-4 py-6 md:grid-cols-5 2xl:col-span-4">
+    <div
+      buiCard
+      class="acn-card col-span-full grid grid-cols-1 gap-4 overflow-hidden p-0 py-6 md:grid-cols-5 2xl:col-span-4"
+    >
       <!-- Revenue chart -->
       <div
         class="flex flex-col gap-6 px-6 max-md:border-b max-md:pb-4 md:col-span-3 md:border-r md:pr-4"
@@ -221,7 +230,10 @@
     </div>
 
     <!-- ============ Sales by countries ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-5 p-6 lg:col-span-3 2xl:col-span-2">
+    <div
+      buiCard
+      class="acn-card col-span-full flex flex-col gap-5 overflow-hidden p-6 lg:col-span-3 2xl:col-span-2"
+    >
       <div class="flex items-start justify-between">
         <div class="flex flex-col gap-1">
           <h3 class="font-heading text-lg font-semibold">Sales by countries</h3>
@@ -260,7 +272,10 @@
     </div>
 
     <!-- ============ Transactions ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-5 p-6 lg:col-span-3 2xl:col-span-2">
+    <div
+      buiCard
+      class="acn-card col-span-full flex flex-col gap-5 overflow-hidden p-6 lg:col-span-3 2xl:col-span-2"
+    >
       <div class="flex items-start justify-between">
         <h3 class="font-heading text-lg font-semibold">Transactions</h3>
         <button
@@ -295,7 +310,10 @@
     </div>
 
     <!-- ============ Total Earning ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-6 p-6 lg:col-span-3 2xl:col-span-2">
+    <div
+      buiCard
+      class="acn-card col-span-full flex flex-col gap-6 overflow-hidden p-6 lg:col-span-3 2xl:col-span-2"
+    >
       <div class="flex items-start justify-between">
         <div class="flex flex-col gap-1">
           <div class="flex items-center gap-2">
@@ -345,31 +363,27 @@
     </div>
 
     <!-- ============ Invoice table ============ -->
-    <div class="acn-card col-span-full flex flex-col py-6">
+    <div buiCard class="acn-card col-span-full flex flex-col overflow-hidden p-0 py-6">
       <div
         class="flex flex-col gap-4 px-6 max-lg:flex-col lg:flex-row lg:items-center lg:justify-between"
       >
         <div class="flex items-center gap-3">
           <span class="text-sm text-muted-foreground max-sm:sr-only">Show</span>
-          <label class="acn-select">
-            <select
-              class="bg-transparent outline-none"
-              aria-label="Show entries"
-              [value]="pageSize()"
-              (change)="setPageSize(+$any($event.target).value)"
-            >
-              @for (n of pageSizeOptions; track n) {
-                <option [value]="n">{{ n }}</option>
-              }
-            </select>
-            <app-lucide name="chevron-down" class="size-4 opacity-60" />
-          </label>
+          <bui-select
+            aria-label="Show entries"
+            [options]="pageSizeOptions"
+            [value]="pageSizeValue()"
+            (valueChange)="setPageSize(+$event)"
+          />
           <button buiButton>Create Invoice</button>
         </div>
         <div class="flex flex-1 flex-wrap items-center gap-3 lg:max-w-md lg:justify-end">
-          <div class="acn-input flex-1">
-            <app-lucide name="search" class="size-4 text-muted-foreground" />
+          <div buiInputGroup class="flex-1">
+            <span buiInputGroupAddon>
+              <app-lucide name="search" class="size-4 text-muted-foreground" />
+            </span>
             <input
+              buiInputGroupInput
               type="search"
               placeholder="Search client"
               aria-label="Search client"
@@ -377,19 +391,13 @@
               (input)="onSearch($any($event.target).value)"
             />
           </div>
-          <label class="acn-select w-24 justify-between">
-            <select
-              class="bg-transparent capitalize outline-none"
-              aria-label="Filter status"
-              [value]="statusFilter()"
-              (change)="setStatus($any($event.target).value)"
-            >
-              @for (s of statusOptions; track s) {
-                <option [value]="s">{{ s === 'all' ? 'All' : s }}</option>
-              }
-            </select>
-            <app-lucide name="chevron-down" class="size-4 opacity-60" />
-          </label>
+          <bui-select
+            class="w-24"
+            aria-label="Filter status"
+            [options]="statusOptions"
+            [value]="statusFilter()"
+            (valueChange)="setStatus($any($event))"
+          />
         </div>
       </div>
 

@@ -22,38 +22,39 @@
               >{{ cardCount(col) }}</span
             >
           </div>
-          <div class="acn-menu-wrap">
+          <div class="relative inline-block">
             <button
               buiButton
+              ngMenuTrigger
+              [menu]="colMenu"
               variant="ghost"
               size="icon-xs"
               class="rounded-full text-muted-foreground"
               aria-label="Column actions"
-              (click)="toggleMenu('col-' + colIndex)"
             >
               <app-lucide name="ellipsis-vertical" class="size-4" />
             </button>
-            @if (openMenu() === 'col-' + colIndex) {
-              <div class="acn-menu-catcher" (click)="closeMenu()"></div>
-              <div class="acn-dropdown" style="width: 12rem">
-                <button
-                  type="button"
-                  class="acn-dropdown-item"
-                  style="width: 100%; border: none; background: transparent; cursor: pointer"
-                  (click)="startAdding(colIndex)"
-                >
-                  <app-lucide name="plus" class="size-4" />
-                  Add New Item
-                </button>
-              </div>
-            }
+            <div ngMenu #colMenu="ngMenu" buiDropdownMenu style="width: 12rem">
+              <button
+                ngMenuItem
+                value="item-1"
+                buiDropdownMenuItem
+                type="button"
+                style="width: 100%; border: none; background: transparent; cursor: pointer"
+                (click)="startAdding(colIndex)"
+              >
+                <app-lucide name="plus" class="size-4" />
+                Add New Item
+              </button>
+            </div>
           </div>
         </div>
 
         <!-- Cards -->
         @for (card of col.cards; track card.id) {
           <div
-            class="acn-card flex flex-col gap-3"
+            buiCard
+            class="flex flex-col gap-3 overflow-hidden p-0"
             style="
               padding: 0.875rem;
               border-radius: var(--radius);
@@ -115,59 +116,63 @@
                 >
                   <app-lucide name="chevron-right" class="size-4" />
                 </button>
-                <div class="acn-menu-wrap">
+                <div class="relative inline-block">
                   <button
                     buiButton
+                    ngMenuTrigger
+                    [menu]="cardMenu"
                     variant="ghost"
                     size="icon-xs"
                     class="rounded-full text-muted-foreground"
                     aria-label="Card actions"
-                    (click)="toggleMenu('card-' + card.id)"
                   >
                     <app-lucide name="ellipsis-vertical" class="size-4" />
                   </button>
-                  @if (openMenu() === 'card-' + card.id) {
-                    <div class="acn-menu-catcher" (click)="closeMenu()"></div>
-                    <div class="acn-dropdown" style="width: 12rem">
-                      <button
-                        type="button"
-                        class="acn-dropdown-item"
-                        style="width: 100%; border: none; background: transparent; cursor: pointer"
-                        [disabled]="!canMove(colIndex, -1)"
-                        [style.opacity]="canMove(colIndex, -1) ? 1 : 0.45"
-                        (click)="moveCard(colIndex, card.id, -1)"
-                      >
-                        <app-lucide name="chevron-left" class="size-4" />
-                        Move Left
-                      </button>
-                      <button
-                        type="button"
-                        class="acn-dropdown-item"
-                        style="width: 100%; border: none; background: transparent; cursor: pointer"
-                        [disabled]="!canMove(colIndex, 1)"
-                        [style.opacity]="canMove(colIndex, 1) ? 1 : 0.45"
-                        (click)="moveCard(colIndex, card.id, 1)"
-                      >
-                        <app-lucide name="chevron-right" class="size-4" />
-                        Move Right
-                      </button>
-                      <button
-                        type="button"
-                        class="acn-dropdown-item"
-                        style="
-                          width: 100%;
-                          border: none;
-                          background: transparent;
-                          cursor: pointer;
-                          color: var(--destructive);
-                        "
-                        (click)="deleteCard(colIndex, card.id)"
-                      >
-                        <app-lucide name="trash-2" class="size-4" />
-                        Delete
-                      </button>
-                    </div>
-                  }
+                  <div ngMenu #cardMenu="ngMenu" buiDropdownMenu style="width: 12rem">
+                    <button
+                      ngMenuItem
+                      value="item-2"
+                      buiDropdownMenuItem
+                      type="button"
+                      style="width: 100%; border: none; background: transparent; cursor: pointer"
+                      [disabled]="!canMove(colIndex, -1)"
+                      [style.opacity]="canMove(colIndex, -1) ? 1 : 0.45"
+                      (click)="moveCard(colIndex, card.id, -1)"
+                    >
+                      <app-lucide name="chevron-left" class="size-4" />
+                      Move Left
+                    </button>
+                    <button
+                      ngMenuItem
+                      value="item-3"
+                      buiDropdownMenuItem
+                      type="button"
+                      style="width: 100%; border: none; background: transparent; cursor: pointer"
+                      [disabled]="!canMove(colIndex, 1)"
+                      [style.opacity]="canMove(colIndex, 1) ? 1 : 0.45"
+                      (click)="moveCard(colIndex, card.id, 1)"
+                    >
+                      <app-lucide name="chevron-right" class="size-4" />
+                      Move Right
+                    </button>
+                    <button
+                      ngMenuItem
+                      value="item-4"
+                      buiDropdownMenuItem
+                      type="button"
+                      style="
+                        width: 100%;
+                        border: none;
+                        background: transparent;
+                        cursor: pointer;
+                        color: var(--destructive);
+                      "
+                      (click)="deleteCard(colIndex, card.id)"
+                    >
+                      <app-lucide name="trash-2" class="size-4" />
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -210,8 +215,9 @@
 
         <!-- Inline add input -->
         @if (addingColumn() === colIndex) {
-          <div class="acn-input">
+          <div buiInputGroup>
             <input
+              buiInputGroupInput
               type="text"
               placeholder="Item title…"
               [value]="draftTitle()"
@@ -220,16 +226,18 @@
               (keydown.escape)="cancelAdding()"
               (blur)="cancelAdding()"
             />
-            <button
-              buiButton
-              variant="ghost"
-              size="icon-xs"
-              class="rounded-full text-muted-foreground"
-              aria-label="Add item"
-              (mousedown)="confirmAdding(colIndex)"
-            >
-              <app-lucide name="plus" class="size-4" />
-            </button>
+            <span buiInputGroupAddon align="inline-end">
+              <button
+                buiButton
+                variant="ghost"
+                size="icon-xs"
+                class="rounded-full text-muted-foreground"
+                aria-label="Add item"
+                (mousedown)="confirmAdding(colIndex)"
+              >
+                <app-lucide name="plus" class="size-4" />
+              </button>
+            </span>
           </div>
         }
 

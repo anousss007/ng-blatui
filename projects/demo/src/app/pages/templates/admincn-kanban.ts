@@ -1,6 +1,19 @@
 import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation } from '@angular/core';
 
-import { BuiAvatar, BuiBadge, BuiButton } from 'ng-blatui';
+import {
+  BuiAvatar,
+  BuiBadge,
+  BuiButton,
+  BuiCard,
+  BuiDropdownMenu,
+  BuiDropdownMenuItem,
+  BuiInputGroup,
+  BuiInputGroupAddon,
+  BuiInputGroupInput,
+  Menu,
+  MenuItem,
+  MenuTrigger,
+} from 'ng-blatui';
 
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
@@ -36,7 +49,22 @@ interface Column {
   selector: 'app-tpl-admincn-kanban',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell, BuiAvatar, BuiBadge, BuiButton],
+  imports: [
+    Lucide,
+    AdmincnShell,
+    BuiAvatar,
+    BuiBadge,
+    BuiButton,
+    BuiCard,
+    BuiDropdownMenu,
+    BuiDropdownMenuItem,
+    BuiInputGroup,
+    BuiInputGroupAddon,
+    BuiInputGroupInput,
+    Menu,
+    MenuItem,
+    MenuTrigger,
+  ],
   templateUrl: './admincn-kanban.html',
 })
 export class AdmincnKanban {
@@ -180,8 +208,6 @@ export class AdmincnKanban {
   protected readonly addingColumn = signal(-1);
   /** Draft title for the inline add input. */
   protected readonly draftTitle = signal('');
-  /** Open ⋮ menu, identified by a string key, or '' when none is open. */
-  protected readonly openMenu = signal('');
 
   protected cardCount(column: Column): number {
     return column.cards.length;
@@ -189,7 +215,6 @@ export class AdmincnKanban {
 
   // ----- Add new item -----
   protected startAdding(columnIndex: number): void {
-    this.closeMenu();
     this.draftTitle.set('');
     this.addingColumn.set(columnIndex);
   }
@@ -241,7 +266,6 @@ export class AdmincnKanban {
         return column;
       });
     });
-    this.closeMenu();
   }
 
   protected canMove(columnIndex: number, direction: -1 | 1): boolean {
@@ -258,15 +282,5 @@ export class AdmincnKanban {
           : column,
       ),
     );
-    this.closeMenu();
-  }
-
-  // ----- ⋮ menus -----
-  protected toggleMenu(key: string): void {
-    this.openMenu.update((current) => (current === key ? '' : key));
-  }
-
-  protected closeMenu(): void {
-    this.openMenu.set('');
   }
 }

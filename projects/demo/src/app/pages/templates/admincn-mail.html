@@ -1,5 +1,5 @@
 <app-admincn-shell active="Mail">
-  <div class="acn-card flex h-[calc(100vh-9rem)] min-h-[640px] w-full overflow-hidden">
+  <div buiCard class="flex h-[calc(100vh-9rem)] min-h-[640px] w-full overflow-hidden p-0">
     <!-- ============ Mailbox / label sidebar ============ -->
     <aside class="hidden w-56 shrink-0 flex-col border-r md:flex">
       <div class="p-3">
@@ -103,9 +103,12 @@
 
       <!-- search + sort -->
       <div class="flex items-center gap-2 border-b px-4 py-3">
-        <div class="acn-input h-9 flex-1">
-          <app-lucide name="search" class="size-4 text-muted-foreground" />
+        <div buiInputGroup class="h-9 flex-1">
+          <span buiInputGroupAddon>
+            <app-lucide name="search" class="size-4 text-muted-foreground" />
+          </span>
           <input
+            buiInputGroupInput
             type="search"
             placeholder="Search mail"
             aria-label="Search mail"
@@ -121,17 +124,25 @@
       <!-- email rows -->
       <div class="flex-1 overflow-y-auto">
         @for (e of visibleEmails(); track e.id) {
-          <button
-            type="button"
-            class="flex w-full gap-3 border-b border-l-2 border-l-transparent px-4 py-3.5 text-left hover:bg-muted/50"
+          <div
+            class="relative flex w-full gap-3 border-b border-l-2 border-l-transparent px-4 py-3.5 text-left hover:bg-muted/50"
             [class.!bg-muted]="selectedId() === e.id"
             [style.border-left-color]="selectedId() === e.id ? 'var(--primary)' : null"
-            (click)="openEmail(e.id)"
           >
-            <bui-avatar [src]="e.avatar ?? null" [alt]="e.sender" class="size-9">
+            <button
+              type="button"
+              class="absolute inset-0 z-0"
+              [attr.aria-label]="'Open email from ' + e.sender"
+              (click)="openEmail(e.id)"
+            ></button>
+            <bui-avatar
+              [src]="e.avatar ?? null"
+              [alt]="e.sender"
+              class="pointer-events-none relative z-10 size-9"
+            >
               <span class="text-xs font-medium text-muted-foreground">{{ e.initials }}</span>
             </bui-avatar>
-            <div class="flex min-w-0 flex-1 flex-col gap-0.5">
+            <div class="pointer-events-none relative z-10 flex min-w-0 flex-1 flex-col gap-0.5">
               <div class="flex items-center gap-2">
                 <span
                   class="truncate text-sm"
@@ -139,14 +150,11 @@
                   [class.font-medium]="!e.unread"
                   >{{ e.sender }}</span
                 >
-                <span
-                  role="button"
-                  tabindex="0"
+                <button
+                  type="button"
                   aria-label="Toggle star"
-                  class="shrink-0 cursor-pointer"
+                  class="pointer-events-auto relative z-20 shrink-0 cursor-pointer"
                   (click)="toggleStar(e.id, $event)"
-                  (keydown.enter)="toggleStar(e.id, $event)"
-                  (keydown.space)="toggleStar(e.id, $event)"
                 >
                   <app-lucide
                     name="star"
@@ -155,7 +163,7 @@
                     [class.text-foreground]="e.starred"
                     [class.text-muted-foreground]="!e.starred"
                   />
-                </span>
+                </button>
                 <span class="ml-auto shrink-0 text-xs text-muted-foreground">{{ e.time }}</span>
               </div>
               <div class="flex items-center gap-2">
@@ -176,7 +184,7 @@
               </div>
               <p class="truncate text-xs text-muted-foreground">{{ e.preview }}</p>
             </div>
-          </button>
+          </div>
         } @empty {
           <div
             class="flex h-full flex-col items-center justify-center gap-2 px-6 py-16 text-center text-sm text-muted-foreground"

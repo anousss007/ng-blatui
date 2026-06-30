@@ -10,7 +10,7 @@
   <div class="grid grid-cols-6 gap-6">
     <!-- ============ KPI row — Shipped / Damaged / Missed ============ -->
     @for (k of kpis; track k.label) {
-      <div class="acn-card col-span-full flex flex-col gap-2 p-6 sm:col-span-2">
+      <div buiCard class="col-span-full flex flex-col gap-2 overflow-hidden p-6 sm:col-span-2">
         <div class="flex items-center gap-2">
           <bui-icon-tile tone="primary" class="size-8 rounded-md">
             <app-lucide [name]="k.icon" class="size-4" />
@@ -32,7 +32,7 @@
     <!-- ============ Left column — Product insight + Total Earning ============ -->
     <div class="col-span-full flex flex-col gap-6 lg:col-span-2">
       <!-- Product insight -->
-      <div class="acn-card flex flex-col gap-6 p-6">
+      <div buiCard class="flex flex-col gap-6 overflow-hidden p-6">
         <div class="flex items-start justify-between gap-4">
           <div class="flex flex-col gap-1">
             <h3 class="font-heading text-lg font-semibold">Product insight</h3>
@@ -77,7 +77,7 @@
       </div>
 
       <!-- Total Earning -->
-      <div class="acn-card flex flex-1 flex-col gap-5 p-6">
+      <div buiCard class="flex flex-1 flex-col gap-5 overflow-hidden p-6">
         <div class="flex items-start justify-between">
           <h3 class="font-heading text-lg font-semibold">Total Earning</h3>
           <div class="relative">
@@ -144,7 +144,7 @@
     <!-- ============ Right block — metrics / revenue / sales-plan ============ -->
     <div class="col-span-full grid grid-cols-1 gap-6 lg:col-span-4 lg:grid-cols-5">
       <!-- Sales metrics -->
-      <div class="acn-card flex flex-col gap-6 p-6 lg:col-span-3">
+      <div buiCard class="flex flex-col gap-6 overflow-hidden p-6 lg:col-span-3">
         <div class="flex items-center gap-3">
           <bui-avatar [src]="img + '/avatars/avatar-6.webp'" alt="Sandy' Company" class="size-10" />
           <div class="flex flex-col">
@@ -154,7 +154,7 @@
         </div>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           @for (m of metrics; track m.label) {
-            <div class="acn-card flex items-center gap-3 p-4">
+            <div buiCard class="flex items-center gap-3 overflow-hidden p-4">
               <bui-icon-tile [tone]="tileTone[m.tile]" class="size-9 rounded-md">
                 <app-lucide [name]="m.icon" class="size-5" />
               </bui-icon-tile>
@@ -168,7 +168,7 @@
       </div>
 
       <!-- Right rail — Revenue goal -->
-      <div class="acn-card flex flex-col gap-4 p-6 lg:col-span-2">
+      <div buiCard class="flex flex-col gap-4 overflow-hidden p-6 lg:col-span-2">
         <h3 class="font-heading text-lg font-semibold">Revenue goal</h3>
         <div class="flex flex-1 items-center justify-center">
           <bui-chart
@@ -190,7 +190,7 @@
       </div>
 
       <!-- Sales plan + Cohort analysis -->
-      <div class="acn-card grid grid-cols-1 gap-6 p-6 lg:col-span-5 lg:grid-cols-5">
+      <div buiCard class="grid grid-cols-1 gap-6 overflow-hidden p-6 lg:col-span-5 lg:grid-cols-5">
         <div class="flex flex-col gap-2 lg:col-span-1">
           <span class="font-heading text-base font-semibold">Sales plan</span>
           <span class="text-6xl font-semibold tracking-tight">54%</span>
@@ -231,30 +231,26 @@
     </div>
 
     <!-- ============ Orders table ============ -->
-    <div class="acn-card col-span-full flex flex-col py-6">
+    <div buiCard class="col-span-full flex flex-col overflow-hidden py-6">
       <div
         class="flex flex-col gap-4 px-6 max-lg:flex-col lg:flex-row lg:items-center lg:justify-between"
       >
         <div class="flex items-center gap-3">
           <span class="text-sm text-muted-foreground max-sm:sr-only">Show</span>
-          <label class="acn-select">
-            <select
-              class="bg-transparent outline-none"
-              aria-label="Show entries"
-              [value]="pageSize()"
-              (change)="setPageSize(+$any($event.target).value)"
-            >
-              @for (n of pageSizeOptions; track n) {
-                <option [value]="n">{{ n }}</option>
-              }
-            </select>
-            <app-lucide name="chevron-down" class="size-4 opacity-60" />
-          </label>
+          <bui-select
+            [options]="pageSizeOptions"
+            [value]="pageSize().toString()"
+            (valueChange)="setPageSize(+$event)"
+            aria-label="Show entries"
+          />
         </div>
         <div class="flex flex-1 flex-wrap items-center gap-3 lg:max-w-md lg:justify-end">
-          <div class="acn-input flex-1">
-            <app-lucide name="search" class="size-4 text-muted-foreground" />
+          <div buiInputGroup class="flex-1">
+            <span buiInputGroupAddon>
+              <app-lucide name="search" class="size-4 text-muted-foreground" />
+            </span>
             <input
+              buiInputGroupInput
               type="search"
               placeholder="Search client"
               aria-label="Search client"
@@ -262,19 +258,13 @@
               (input)="onSearch($any($event.target).value)"
             />
           </div>
-          <label class="acn-select w-28 justify-between">
-            <select
-              class="bg-transparent capitalize outline-none"
-              aria-label="Filter status"
-              [value]="statusFilter()"
-              (change)="setStatus($any($event.target).value)"
-            >
-              @for (s of statusOptions; track s) {
-                <option [value]="s">{{ s === 'all' ? 'All' : s }}</option>
-              }
-            </select>
-            <app-lucide name="chevron-down" class="size-4 opacity-60" />
-          </label>
+          <bui-select
+            class="w-28 capitalize"
+            [options]="statusOptions"
+            [value]="statusFilter()"
+            (valueChange)="setStatus($event)"
+            aria-label="Filter status"
+          />
         </div>
       </div>
 

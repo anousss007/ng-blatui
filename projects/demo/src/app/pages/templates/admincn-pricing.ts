@@ -6,7 +6,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
-import { BuiBadge, BuiButton, BuiIconTile } from 'ng-blatui';
+import { BuiBadge, BuiButton, BuiCard, BuiIconTile } from 'ng-blatui';
 
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
@@ -49,7 +49,7 @@ const txt = (value: string): Cell => ({ kind: 'text', value });
   selector: 'app-tpl-admincn-pricing',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell, BuiBadge, BuiButton, BuiIconTile],
+  imports: [Lucide, AdmincnShell, BuiBadge, BuiButton, BuiCard, BuiIconTile],
   templateUrl: './admincn-pricing.html',
 })
 export class AdmincnPricing {

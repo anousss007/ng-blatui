@@ -12,13 +12,19 @@ import {
   BuiAvatar,
   BuiBadge,
   BuiButton,
+  BuiCard,
   BuiChart,
   BuiCheckbox,
   BuiIconTile,
+  BuiInputGroup,
+  BuiInputGroupAddon,
+  BuiInputGroupInput,
   BuiPagination,
   BuiPaginationContent,
   BuiPaginationItem,
   BuiPaginationLink,
+  BuiProgress,
+  BuiSelect,
   BuiTable,
   BuiTableBody,
   BuiTableCell,
@@ -26,6 +32,7 @@ import {
   BuiTableHead,
   BuiTableHeader,
   BuiTableRow,
+  type SelectOption,
 } from 'ng-blatui';
 
 import { AdmincnShell } from './admincn-shell';
@@ -301,6 +308,19 @@ class DataTable<T> {
   }
 }
 
+/**
+ * Build `bui-select` options from a list of raw string values. The original
+ * `acn-select` dropdowns rendered their items with CSS `capitalize`, so labels
+ * are title-cased here to stay pixel-faithful while values keep the raw text the
+ * filter handlers expect.
+ */
+function toSelectOptions(values: readonly string[]): SelectOption[] {
+  return values.map((value) => ({
+    value,
+    label: value.replaceAll(/\b\w/g, (char) => char.toUpperCase()),
+  }));
+}
+
 /** Duplicate a 5-row seed up to `count` rows so pagination is demonstrable. */
 function expand<T>(seed: readonly T[], count: number, clone: (row: T, index: number) => T): T[] {
   const out: T[] = [...seed];
@@ -326,13 +346,19 @@ function expand<T>(seed: readonly T[], count: number, clone: (row: T, index: num
     BuiAvatar,
     BuiBadge,
     BuiButton,
+    BuiCard,
     BuiChart,
     BuiCheckbox,
     BuiIconTile,
+    BuiInputGroup,
+    BuiInputGroupAddon,
+    BuiInputGroupInput,
     BuiPagination,
     BuiPaginationContent,
     BuiPaginationItem,
     BuiPaginationLink,
+    BuiProgress,
+    BuiSelect,
     BuiTable,
     BuiTableBody,
     BuiTableCell,
@@ -356,7 +382,10 @@ export class AdmincnDatatable {
     '/admincn/avatars/avatar-16.webp',
   ];
 
-  protected readonly pageSizes = [5, 10, 25];
+  protected readonly pageSizeSelectOptions: SelectOption[] = [5, 10, 25].map((size) => ({
+    value: size.toString(),
+    label: size.toString(),
+  }));
 
   /* 1 — Basic Data Table */
   private readonly basicSeed: BasicRow[] = [
@@ -518,10 +547,27 @@ export class AdmincnDatatable {
   protected readonly roleFilter = signal('all');
   protected readonly planFilter = signal('all');
   protected readonly statusFilter = signal('all');
-  protected readonly openFilterMenu = signal<string | null>(null);
-  protected readonly roleOptions = ['all', 'maintainer', 'admin', 'editor', 'author', 'subscriber'];
-  protected readonly planOptions = ['all', 'enterprise', 'team', 'basic', 'company'];
-  protected readonly statusOptions = ['all', 'active', 'pending', 'inactive'];
+  protected readonly roleSelectOptions = toSelectOptions([
+    'all',
+    'maintainer',
+    'admin',
+    'editor',
+    'author',
+    'subscriber',
+  ]);
+  protected readonly planSelectOptions = toSelectOptions([
+    'all',
+    'enterprise',
+    'team',
+    'basic',
+    'company',
+  ]);
+  protected readonly statusSelectOptions = toSelectOptions([
+    'all',
+    'active',
+    'pending',
+    'inactive',
+  ]);
   private applyUserFilters(): void {
     const role = this.roleFilter();
     const plan = this.planFilter();
@@ -548,11 +594,7 @@ export class AdmincnDatatable {
         break;
       }
     }
-    this.openFilterMenu.set(null);
     this.applyUserFilters();
-  }
-  protected toggleFilterMenu(kind: string): void {
-    this.openFilterMenu.set(this.openFilterMenu() === kind ? null : kind);
   }
 
   /* 4 — Resizable Columns (support tickets) */
@@ -748,11 +790,9 @@ export class AdmincnDatatable {
       k === 'total' ? Number(r.total.replaceAll(/[^0-9.]/g, '')) : ({ id: r.id }[k] ?? r.name),
   );
   protected readonly invoiceStatusFilter = signal('all');
-  protected readonly invoiceStatusOptions = ['all', 'paid', 'unpaid'];
-  protected readonly invoiceStatusMenuOpen = signal(false);
+  protected readonly invoiceStatusSelectOptions = toSelectOptions(['all', 'paid', 'unpaid']);
   protected pickInvoiceStatus(value: string): void {
     this.invoiceStatusFilter.set(value);
-    this.invoiceStatusMenuOpen.set(false);
     this.invoices.setExtraFilter((inv) => {
       if (value === 'all') return true;
       return value === 'paid' ? inv.paid : !inv.paid;
@@ -1061,16 +1101,15 @@ export class AdmincnDatatable {
   protected readonly productCategoryFilter = signal('all');
   protected readonly productStockFilter = signal('all');
   protected readonly productStatusFilter = signal('all');
-  protected readonly productMenuOpen = signal<string | null>(null);
-  protected readonly productCategoryOptions = [
+  protected readonly productCategorySelectOptions = toSelectOptions([
     'all',
     'smartphone',
     'laptop',
     'headphone',
     'smartwatch',
-  ];
-  protected readonly productStockOptions = ['all', 'in stock', 'low stock'];
-  protected readonly productStatusOptions = ['all', 'publish', 'inactive'];
+  ]);
+  protected readonly productStockSelectOptions = toSelectOptions(['all', 'in stock', 'low stock']);
+  protected readonly productStatusSelectOptions = toSelectOptions(['all', 'publish', 'inactive']);
   private applyProductFilters(): void {
     const cat = this.productCategoryFilter();
     const stock = this.productStockFilter();
@@ -1097,11 +1136,7 @@ export class AdmincnDatatable {
         break;
       }
     }
-    this.productMenuOpen.set(null);
     this.applyProductFilters();
-  }
-  protected toggleProductMenu(kind: string): void {
-    this.productMenuOpen.set(this.productMenuOpen() === kind ? null : kind);
   }
 
   /* 11 — Graph (products with sparkline) */

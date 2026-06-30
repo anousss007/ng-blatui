@@ -10,13 +10,18 @@ import {
   BuiAvatar,
   BuiBadge,
   BuiButton,
+  BuiCard,
   BuiChart,
   BuiCheckbox,
   BuiIconTile,
+  BuiInputGroup,
+  BuiInputGroupAddon,
+  BuiInputGroupInput,
   BuiPagination,
   BuiPaginationContent,
   BuiPaginationItem,
   BuiPaginationLink,
+  BuiSelect,
   BuiTable,
   BuiTableBody,
   BuiTableCell,
@@ -24,6 +29,7 @@ import {
   BuiTableHead,
   BuiTableHeader,
   BuiTableRow,
+  type SelectOption,
 } from 'ng-blatui';
 
 import { AdmincnShell } from './admincn-shell';
@@ -92,9 +98,14 @@ interface Row {
     BuiIconTile,
     BuiBadge,
     BuiButton,
+    BuiCard,
     BuiChart,
     BuiAvatar,
     BuiCheckbox,
+    BuiInputGroup,
+    BuiInputGroupAddon,
+    BuiInputGroupInput,
+    BuiSelect,
     BuiTableContainer,
     BuiTable,
     BuiTableHeader,
@@ -371,6 +382,21 @@ export class AdmincnEcommerce {
   ];
 
   protected readonly selects = ['Category', 'Stock', 'Status'];
+
+  /* ---- Filter + page-size selects ---- */
+  protected readonly filterOptions: SelectOption[] = [
+    { value: 'all', label: 'All' },
+    { value: 'active', label: 'Active' },
+    { value: 'inactive', label: 'Inactive' },
+  ];
+  protected readonly filterValue = signal('all');
+  protected readonly pageSizeOptions: SelectOption[] = [
+    { value: '5', label: '5' },
+    { value: '10', label: '10' },
+    { value: '25', label: '25' },
+    { value: '50', label: '50' },
+  ];
+  protected readonly pageSize = signal('5');
 
   /* ---- Per-card ellipsis menus (one open at a time) ---- */
   protected readonly openMenu = signal<string | null>(null);

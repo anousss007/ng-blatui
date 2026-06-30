@@ -6,7 +6,20 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
-import { BuiAvatar, BuiBadge, BuiButton } from 'ng-blatui';
+import {
+  BuiAvatar,
+  BuiBadge,
+  BuiButton,
+  BuiCard,
+  BuiDropdownMenu,
+  BuiDropdownMenuItem,
+  BuiInputGroup,
+  BuiInputGroupAddon,
+  BuiInputGroupInput,
+  Menu,
+  MenuItem,
+  MenuTrigger,
+} from 'ng-blatui';
 
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
@@ -57,7 +70,22 @@ interface Label {
   selector: 'app-tpl-admincn-contact',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell, BuiAvatar, BuiBadge, BuiButton],
+  imports: [
+    Lucide,
+    AdmincnShell,
+    BuiAvatar,
+    BuiBadge,
+    BuiButton,
+    BuiCard,
+    BuiDropdownMenu,
+    BuiDropdownMenuItem,
+    BuiInputGroup,
+    BuiInputGroupAddon,
+    BuiInputGroupInput,
+    Menu,
+    MenuItem,
+    MenuTrigger,
+  ],
   templateUrl: './admincn-contact.html',
 })
 export class AdmincnContact {
@@ -279,8 +307,6 @@ export class AdmincnContact {
   protected readonly activeLabel = signal<string | null>(null);
   /** Emails removed via the row menu's Delete action. */
   private readonly removed = signal<readonly string[]>([]);
-  /** Email of the contact whose row menu is currently open, or null. */
-  protected readonly openMenu = signal<string | null>(null);
 
   /* Derived list, then grouped into A–Z sections --------------------------- */
   private readonly visibleContacts = computed<Contact[]>(() => {
@@ -348,16 +374,7 @@ export class AdmincnContact {
     this.activeLabel.update((current) => (current === label ? null : label));
   }
 
-  protected toggleMenu(email: string): void {
-    this.openMenu.update((current) => (current === email ? null : email));
-  }
-
-  protected closeMenu(): void {
-    this.openMenu.set(null);
-  }
-
   protected deleteContact(email: string): void {
     this.removed.update((list) => [...list, email]);
-    this.closeMenu();
   }
 }

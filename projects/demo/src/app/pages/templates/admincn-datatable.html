@@ -1,12 +1,15 @@
 <app-admincn-shell active="Data Table">
   <div class="grid grid-cols-6 gap-6">
     <!-- ================= 1 — Basic Data Table ================= -->
-    <div class="acn-card col-span-full flex flex-col py-6">
+    <div buiCard class="col-span-full flex flex-col overflow-hidden p-0 py-6">
       <div class="flex flex-col gap-4 px-6 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="font-heading text-lg font-semibold">Basic Data Table</h2>
-        <div class="acn-input sm:w-64">
-          <app-lucide name="search" class="size-4 text-muted-foreground" />
+        <div buiInputGroup class="sm:w-64">
+          <span buiInputGroupAddon>
+            <app-lucide name="search" class="size-4 text-muted-foreground" />
+          </span>
           <input
+            buiInputGroupInput
             type="search"
             placeholder="Search"
             aria-label="Search customers"
@@ -176,7 +179,7 @@
     </div>
 
     <!-- ================= 2 — Column Visibility ================= -->
-    <div class="acn-card col-span-full flex flex-col py-6">
+    <div buiCard class="col-span-full flex flex-col overflow-hidden p-0 py-6">
       <div class="flex flex-col gap-4 px-6 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="font-heading text-lg font-semibold">Data Table with Column Visibility</h2>
         <div class="relative">
@@ -419,85 +422,31 @@
     </div>
 
     <!-- ================= 3 — Filters ================= -->
-    <div class="acn-card col-span-full flex flex-col py-6">
+    <div buiCard class="col-span-full flex flex-col overflow-hidden p-0 py-6">
       <div class="flex flex-col gap-4 px-6">
         <h2 class="font-heading text-lg font-semibold">Data table with Filters</h2>
         <div class="flex flex-wrap items-center gap-3">
-          <div class="relative">
-            <button
-              type="button"
-              class="acn-select w-32 justify-between"
-              (click)="toggleFilterMenu('role')"
-            >
-              <span class="capitalize">Role: {{ roleFilter() }}</span>
-              <app-lucide name="chevron-down" class="size-4 opacity-60" />
-            </button>
-            @if (openFilterMenu() === 'role') {
-              <div
-                class="absolute z-10 mt-1 w-40 rounded-md border border-border bg-background p-1 shadow-md"
-              >
-                @for (o of roleOptions; track o) {
-                  <button
-                    type="button"
-                    class="block w-full rounded-sm px-2 py-1.5 text-left text-sm capitalize hover:bg-accent"
-                    (click)="pickFilter('role', o)"
-                  >
-                    {{ o }}
-                  </button>
-                }
-              </div>
-            }
-          </div>
-          <div class="relative">
-            <button
-              type="button"
-              class="acn-select w-32 justify-between"
-              (click)="toggleFilterMenu('plan')"
-            >
-              <span class="capitalize">Plan: {{ planFilter() }}</span>
-              <app-lucide name="chevron-down" class="size-4 opacity-60" />
-            </button>
-            @if (openFilterMenu() === 'plan') {
-              <div
-                class="absolute z-10 mt-1 w-40 rounded-md border border-border bg-background p-1 shadow-md"
-              >
-                @for (o of planOptions; track o) {
-                  <button
-                    type="button"
-                    class="block w-full rounded-sm px-2 py-1.5 text-left text-sm capitalize hover:bg-accent"
-                    (click)="pickFilter('plan', o)"
-                  >
-                    {{ o }}
-                  </button>
-                }
-              </div>
-            }
-          </div>
-          <div class="relative">
-            <button
-              type="button"
-              class="acn-select w-32 justify-between"
-              (click)="toggleFilterMenu('status')"
-            >
-              <span class="capitalize">Status: {{ statusFilter() }}</span>
-              <app-lucide name="chevron-down" class="size-4 opacity-60" />
-            </button>
-            @if (openFilterMenu() === 'status') {
-              <div
-                class="absolute z-10 mt-1 w-40 rounded-md border border-border bg-background p-1 shadow-md"
-              >
-                @for (o of statusOptions; track o) {
-                  <button
-                    type="button"
-                    class="block w-full rounded-sm px-2 py-1.5 text-left text-sm capitalize hover:bg-accent"
-                    (click)="pickFilter('status', o)"
-                  >
-                    {{ o }}
-                  </button>
-                }
-              </div>
-            }
-          </div>
+          <bui-select
+            aria-label="Filter"
+            class="w-32"
+            [options]="roleSelectOptions"
+            [value]="roleFilter()"
+            (valueChange)="pickFilter('role', $event)"
+          />
+          <bui-select
+            aria-label="Filter"
+            class="w-32"
+            [options]="planSelectOptions"
+            [value]="planFilter()"
+            (valueChange)="pickFilter('plan', $event)"
+          />
+          <bui-select
+            aria-label="Filter"
+            class="w-32"
+            [options]="statusSelectOptions"
+            [value]="statusFilter()"
+            (valueChange)="pickFilter('status', $event)"
+          />
         </div>
       </div>
       <div buiTableContainer class="mt-2 min-w-[42rem] overflow-x-auto px-2">
@@ -633,12 +582,15 @@
     </div>
 
     <!-- ================= 4 — Resizable Columns ================= -->
-    <div class="acn-card col-span-full flex flex-col py-6">
+    <div buiCard class="col-span-full flex flex-col overflow-hidden p-0 py-6">
       <div class="flex flex-col gap-4 px-6 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="font-heading text-lg font-semibold">Data table with Resizable Columns</h2>
-        <div class="acn-input sm:w-64">
-          <app-lucide name="search" class="size-4 text-muted-foreground" />
+        <div buiInputGroup class="sm:w-64">
+          <span buiInputGroupAddon>
+            <app-lucide name="search" class="size-4 text-muted-foreground" />
+          </span>
           <input
+            buiInputGroupInput
             type="search"
             placeholder="Search"
             aria-label="Search tickets"
@@ -832,12 +784,15 @@
     </div>
 
     <!-- ================= 5 — Pinnable Columns ================= -->
-    <div class="acn-card col-span-full flex flex-col py-6">
+    <div buiCard class="col-span-full flex flex-col overflow-hidden p-0 py-6">
       <div class="flex flex-col gap-4 px-6 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="font-heading text-lg font-semibold">Data table with Pinnable Columns</h2>
-        <div class="acn-input sm:w-64">
-          <app-lucide name="search" class="size-4 text-muted-foreground" />
+        <div buiInputGroup class="sm:w-64">
+          <span buiInputGroupAddon>
+            <app-lucide name="search" class="size-4 text-muted-foreground" />
+          </span>
           <input
+            buiInputGroupInput
             type="search"
             placeholder="Search"
             aria-label="Search employees"
@@ -1035,43 +990,27 @@
     </div>
 
     <!-- ================= 6 — Page Size Selector (invoices) ================= -->
-    <div class="acn-card col-span-full flex flex-col py-6">
+    <div buiCard class="col-span-full flex flex-col overflow-hidden p-0 py-6">
       <div class="px-6">
         <h2 class="mb-4 font-heading text-lg font-semibold">Data Table with Page Size Selector</h2>
         <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div class="flex items-center gap-3">
             <span class="text-sm text-muted-foreground max-sm:sr-only">Show</span>
-            <div class="relative">
-              <button
-                type="button"
-                class="acn-select"
-                (click)="productMenuOpen.set(productMenuOpen() === 'invsize' ? null : 'invsize')"
-              >
-                {{ invoices.pageSize() }}
-                <app-lucide name="chevron-down" class="size-4 opacity-60" />
-              </button>
-              @if (productMenuOpen() === 'invsize') {
-                <div
-                  class="absolute z-10 mt-1 w-20 rounded-md border border-border bg-background p-1 shadow-md"
-                >
-                  @for (s of pageSizes; track s) {
-                    <button
-                      type="button"
-                      class="block w-full rounded-sm px-2 py-1.5 text-left text-sm hover:bg-accent"
-                      (click)="invoices.setPageSize(s); productMenuOpen.set(null)"
-                    >
-                      {{ s }}
-                    </button>
-                  }
-                </div>
-              }
-            </div>
+            <bui-select
+              [options]="pageSizeSelectOptions"
+              [value]="invoices.pageSize().toString()"
+              (valueChange)="invoices.setPageSize(+$event)"
+              aria-label="Rows per page"
+            />
             <button buiButton>Create Invoice</button>
           </div>
           <div class="flex flex-1 flex-wrap items-center gap-3 lg:max-w-md lg:justify-end">
-            <div class="acn-input flex-1">
-              <app-lucide name="search" class="size-4 text-muted-foreground" />
+            <div buiInputGroup class="flex-1">
+              <span buiInputGroupAddon>
+                <app-lucide name="search" class="size-4 text-muted-foreground" />
+              </span>
               <input
+                buiInputGroupInput
                 type="search"
                 placeholder="Client"
                 aria-label="Search client"
@@ -1079,31 +1018,13 @@
                 (input)="invoices.setQuery($any($event.target).value)"
               />
             </div>
-            <div class="relative">
-              <button
-                type="button"
-                class="acn-select w-28 justify-between"
-                (click)="invoiceStatusMenuOpen.set(!invoiceStatusMenuOpen())"
-              >
-                <span class="capitalize">Status: {{ invoiceStatusFilter() }}</span>
-                <app-lucide name="chevron-down" class="size-4 opacity-60" />
-              </button>
-              @if (invoiceStatusMenuOpen()) {
-                <div
-                  class="absolute right-0 z-10 mt-1 w-28 rounded-md border border-border bg-background p-1 shadow-md"
-                >
-                  @for (o of invoiceStatusOptions; track o) {
-                    <button
-                      type="button"
-                      class="block w-full rounded-sm px-2 py-1.5 text-left text-sm capitalize hover:bg-accent"
-                      (click)="pickInvoiceStatus(o)"
-                    >
-                      {{ o }}
-                    </button>
-                  }
-                </div>
-              }
-            </div>
+            <bui-select
+              aria-label="Filter"
+              class="w-28"
+              [options]="invoiceStatusSelectOptions"
+              [value]="invoiceStatusFilter()"
+              (valueChange)="pickInvoiceStatus($event)"
+            />
           </div>
         </div>
       </div>
@@ -1279,12 +1200,15 @@
     </div>
 
     <!-- ================= 7 — Draggable Columns ================= -->
-    <div class="acn-card col-span-full flex flex-col py-6">
+    <div buiCard class="col-span-full flex flex-col overflow-hidden p-0 py-6">
       <div class="flex flex-col gap-4 px-6 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="font-heading text-lg font-semibold">Data table with Draggable Columns</h2>
-        <div class="acn-input sm:w-64">
-          <app-lucide name="search" class="size-4 text-muted-foreground" />
+        <div buiInputGroup class="sm:w-64">
+          <span buiInputGroupAddon>
+            <app-lucide name="search" class="size-4 text-muted-foreground" />
+          </span>
           <input
+            buiInputGroupInput
             type="search"
             placeholder="Search"
             aria-label="Search contracts"
@@ -1429,12 +1353,15 @@
     </div>
 
     <!-- ================= 8 — Expandable Rows ================= -->
-    <div class="acn-card col-span-full flex flex-col py-6">
+    <div buiCard class="col-span-full flex flex-col overflow-hidden p-0 py-6">
       <div class="flex flex-col gap-4 px-6 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="font-heading text-lg font-semibold">Data table with Expandable Rows</h2>
-        <div class="acn-input sm:w-64">
-          <app-lucide name="search" class="size-4 text-muted-foreground" />
+        <div buiInputGroup class="sm:w-64">
+          <span buiInputGroupAddon>
+            <app-lucide name="search" class="size-4 text-muted-foreground" />
+          </span>
           <input
+            buiInputGroupInput
             type="search"
             placeholder="Search"
             aria-label="Search launches"
@@ -1612,15 +1539,18 @@
     </div>
 
     <!-- ================= 9 — Progress (courses) ================= -->
-    <div class="acn-card col-span-full flex flex-col py-6">
+    <div buiCard class="col-span-full flex flex-col overflow-hidden p-0 py-6">
       <div class="flex flex-col gap-4 px-6 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h2 class="font-heading text-lg font-semibold">Data table with Progress</h2>
           <p class="text-sm text-muted-foreground">Course you are taking</p>
         </div>
-        <div class="acn-input sm:w-64">
-          <app-lucide name="search" class="size-4 text-muted-foreground" />
+        <div buiInputGroup class="sm:w-64">
+          <span buiInputGroupAddon>
+            <app-lucide name="search" class="size-4 text-muted-foreground" />
+          </span>
           <input
+            buiInputGroupInput
             type="search"
             placeholder="Search"
             aria-label="Search courses"
@@ -1708,9 +1638,7 @@
                       >{{ c.percent }}%
                       <span class="text-muted-foreground">x {{ c.done }}/{{ c.total }}</span></span
                     >
-                    <span class="acn-progress"
-                      ><span class="acn-progress-bar" [style.width.%]="c.percent"></span
-                    ></span>
+                    <bui-progress [value]="c.percent" ariaLabel="Course progress" />
                   </div>
                 </td>
                 <td buiTableCell class="h-14 px-3">
@@ -1793,91 +1721,40 @@
     </div>
 
     <!-- ================= 10 — Export Buttons (products) ================= -->
-    <div class="acn-card col-span-full flex flex-col py-6">
+    <div buiCard class="col-span-full flex flex-col overflow-hidden p-0 py-6">
       <div class="px-6">
         <h2 class="mb-4 font-heading text-lg font-semibold">Data table with Export Buttons</h2>
         <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div class="flex flex-wrap items-center gap-3">
-            <div class="relative">
-              <button
-                type="button"
-                class="acn-select w-32 justify-between"
-                (click)="toggleProductMenu('category')"
-              >
-                <span class="capitalize">Category: {{ productCategoryFilter() }}</span>
-                <app-lucide name="chevron-down" class="size-4 opacity-60" />
-              </button>
-              @if (productMenuOpen() === 'category') {
-                <div
-                  class="absolute z-10 mt-1 w-40 rounded-md border border-border bg-background p-1 shadow-md"
-                >
-                  @for (o of productCategoryOptions; track o) {
-                    <button
-                      type="button"
-                      class="block w-full rounded-sm px-2 py-1.5 text-left text-sm capitalize hover:bg-accent"
-                      (click)="pickProductFilter('category', o)"
-                    >
-                      {{ o }}
-                    </button>
-                  }
-                </div>
-              }
-            </div>
-            <div class="relative">
-              <button
-                type="button"
-                class="acn-select w-28 justify-between"
-                (click)="toggleProductMenu('stock')"
-              >
-                <span class="capitalize">Stock: {{ productStockFilter() }}</span>
-                <app-lucide name="chevron-down" class="size-4 opacity-60" />
-              </button>
-              @if (productMenuOpen() === 'stock') {
-                <div
-                  class="absolute z-10 mt-1 w-36 rounded-md border border-border bg-background p-1 shadow-md"
-                >
-                  @for (o of productStockOptions; track o) {
-                    <button
-                      type="button"
-                      class="block w-full rounded-sm px-2 py-1.5 text-left text-sm capitalize hover:bg-accent"
-                      (click)="pickProductFilter('stock', o)"
-                    >
-                      {{ o }}
-                    </button>
-                  }
-                </div>
-              }
-            </div>
-            <div class="relative">
-              <button
-                type="button"
-                class="acn-select w-28 justify-between"
-                (click)="toggleProductMenu('status')"
-              >
-                <span class="capitalize">Status: {{ productStatusFilter() }}</span>
-                <app-lucide name="chevron-down" class="size-4 opacity-60" />
-              </button>
-              @if (productMenuOpen() === 'status') {
-                <div
-                  class="absolute z-10 mt-1 w-32 rounded-md border border-border bg-background p-1 shadow-md"
-                >
-                  @for (o of productStatusOptions; track o) {
-                    <button
-                      type="button"
-                      class="block w-full rounded-sm px-2 py-1.5 text-left text-sm capitalize hover:bg-accent"
-                      (click)="pickProductFilter('status', o)"
-                    >
-                      {{ o }}
-                    </button>
-                  }
-                </div>
-              }
-            </div>
+            <bui-select
+              aria-label="Filter"
+              class="w-32"
+              [options]="productCategorySelectOptions"
+              [value]="productCategoryFilter()"
+              (valueChange)="pickProductFilter('category', $event)"
+            />
+            <bui-select
+              aria-label="Filter"
+              class="w-28"
+              [options]="productStockSelectOptions"
+              [value]="productStockFilter()"
+              (valueChange)="pickProductFilter('stock', $event)"
+            />
+            <bui-select
+              aria-label="Filter"
+              class="w-28"
+              [options]="productStatusSelectOptions"
+              [value]="productStatusFilter()"
+              (valueChange)="pickProductFilter('status', $event)"
+            />
           </div>
           <div class="flex flex-wrap items-center gap-3">
-            <div class="acn-input">
-              <app-lucide name="search" class="size-4 text-muted-foreground" />
+            <div buiInputGroup>
+              <span buiInputGroupAddon>
+                <app-lucide name="search" class="size-4 text-muted-foreground" />
+              </span>
               <input
+                buiInputGroupInput
                 type="search"
                 placeholder="Product"
                 aria-label="Search product"
@@ -1885,27 +1762,12 @@
                 (input)="products.setQuery($any($event.target).value)"
               />
             </div>
-            <div class="relative">
-              <button type="button" class="acn-select" (click)="toggleProductMenu('size')">
-                {{ products.pageSize() }}
-                <app-lucide name="chevron-down" class="size-4 opacity-60" />
-              </button>
-              @if (productMenuOpen() === 'size') {
-                <div
-                  class="absolute z-10 mt-1 w-20 rounded-md border border-border bg-background p-1 shadow-md"
-                >
-                  @for (s of pageSizes; track s) {
-                    <button
-                      type="button"
-                      class="block w-full rounded-sm px-2 py-1.5 text-left text-sm hover:bg-accent"
-                      (click)="products.setPageSize(s); productMenuOpen.set(null)"
-                    >
-                      {{ s }}
-                    </button>
-                  }
-                </div>
-              }
-            </div>
+            <bui-select
+              [options]="pageSizeSelectOptions"
+              [value]="products.pageSize().toString()"
+              (valueChange)="products.setPageSize(+$event)"
+              aria-label="Rows per page"
+            />
             <button type="button" class="acn-select">
               <app-lucide name="upload" class="size-4" /> Export
             </button>
@@ -2102,13 +1964,16 @@
     </div>
 
     <!-- ================= 11 — Graph (products with sparkline) ================= -->
-    <div class="acn-card col-span-full flex flex-col py-6">
+    <div buiCard class="col-span-full flex flex-col overflow-hidden p-0 py-6">
       <div class="px-6">
         <h2 class="mb-4 font-heading text-lg font-semibold">Data table with Graph</h2>
         <div class="flex flex-wrap items-center gap-3">
-          <div class="acn-input flex-1 lg:max-w-xs">
-            <app-lucide name="search" class="size-4 text-muted-foreground" />
+          <div buiInputGroup class="flex-1 lg:max-w-xs">
+            <span buiInputGroupAddon>
+              <app-lucide name="search" class="size-4 text-muted-foreground" />
+            </span>
             <input
+              buiInputGroupInput
               type="search"
               placeholder="Product"
               aria-label="Search product"
@@ -2116,30 +1981,12 @@
               (input)="graphs.setQuery($any($event.target).value)"
             />
           </div>
-          <div class="relative">
-            <button
-              type="button"
-              class="acn-select"
-              (click)="productMenuOpen.set(productMenuOpen() === 'graphsize' ? null : 'graphsize')"
-            >
-              {{ graphs.pageSize() }} <app-lucide name="chevron-down" class="size-4 opacity-60" />
-            </button>
-            @if (productMenuOpen() === 'graphsize') {
-              <div
-                class="absolute z-10 mt-1 w-20 rounded-md border border-border bg-background p-1 shadow-md"
-              >
-                @for (s of pageSizes; track s) {
-                  <button
-                    type="button"
-                    class="block w-full rounded-sm px-2 py-1.5 text-left text-sm hover:bg-accent"
-                    (click)="graphs.setPageSize(s); productMenuOpen.set(null)"
-                  >
-                    {{ s }}
-                  </button>
-                }
-              </div>
-            }
-          </div>
+          <bui-select
+            [options]="pageSizeSelectOptions"
+            [value]="graphs.pageSize().toString()"
+            (valueChange)="graphs.setPageSize(+$event)"
+            aria-label="Rows per page"
+          />
           <button type="button" class="acn-select">
             <app-lucide name="upload" class="size-4" /> Export
           </button>

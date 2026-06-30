@@ -43,7 +43,7 @@
     <!-- ============ Promo + Pricing tiers ============ -->
     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
       <!-- FLAT 20% OFF promo -->
-      <div class="acn-card flex flex-col justify-center gap-2 p-6">
+      <div buiCard class="flex flex-col justify-center gap-2 p-6">
         <p class="text-2xl font-semibold tracking-tight uppercase">Flat</p>
         <p class="flex items-baseline gap-2">
           <span class="text-5xl font-bold" style="color: var(--destructive)">20%</span>
@@ -55,7 +55,8 @@
       <!-- Tier cards -->
       @for (plan of displayPlans(); track plan.name) {
         <div
-          class="acn-card relative flex flex-col gap-4 p-6"
+          buiCard
+          class="relative flex flex-col gap-4 p-6"
           [style.box-shadow]="
             selected() === plan.name
               ? '0 0 0 2px var(--primary), 0 0 0 6px color-mix(in oklab, var(--primary) 25%, transparent), 0 8px 24px rgb(0 0 0 / 0.08)'
@@ -117,7 +118,7 @@
         </button>
 
         @if (isOpen(section.title)) {
-          <div class="acn-card">
+          <div buiCard class="overflow-hidden p-0">
             @for (row of section.rows; track row.label) {
               <div
                 class="grid w-full grid-cols-4 not-last:border-b"

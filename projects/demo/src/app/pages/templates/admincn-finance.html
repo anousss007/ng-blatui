@@ -2,7 +2,8 @@
   <div class="grid grid-cols-6 gap-6">
     <!-- ============ Finance (yearly stacked) + Report ============ -->
     <div
-      class="acn-card col-span-full grid grid-cols-1 gap-x-2 gap-y-4 py-6 lg:grid-cols-5 xl:col-span-4"
+      buiCard
+      class="col-span-full grid grid-cols-1 gap-x-2 gap-y-4 overflow-hidden p-0 py-6 lg:grid-cols-5 xl:col-span-4"
     >
       <!-- Yearly report -->
       <div
@@ -52,11 +53,11 @@
         </div>
         <div class="flex flex-col gap-6">
           @for (r of reportRows; track r.label) {
-            <div class="acn-earn-row">
-              <bui-icon-tile [tone]="reportTone[r.tone]" class="size-9 rounded-md">
+            <div buiItem class="gap-3 p-0">
+              <bui-icon-tile buiItemMedia [tone]="reportTone[r.tone]" class="size-9 rounded-md">
                 <app-lucide [name]="r.icon" class="size-5" />
               </bui-icon-tile>
-              <div class="flex flex-1 flex-col">
+              <div buiItemContent class="gap-0">
                 <span class="text-sm text-muted-foreground">{{ r.label }}</span>
                 <span class="text-base font-semibold tracking-tight">{{ r.value }}</span>
               </div>
@@ -70,7 +71,7 @@
     <!-- ============ KPI cluster (2x2) ============ -->
     <div class="col-span-full grid grid-cols-2 gap-6 lg:col-span-3 xl:col-span-2">
       <!-- Total Orders -->
-      <div class="acn-card acn-kpi justify-between">
+      <div buiCard class="acn-kpi justify-between overflow-hidden p-0">
         <div class="flex items-center justify-between">
           <bui-icon-tile tone="chart-2" class="size-9 rounded-md">
             <app-lucide name="shopping-cart" class="size-5" />
@@ -87,7 +88,7 @@
       </div>
 
       <!-- Total Profit -->
-      <div class="acn-card acn-kpi justify-between">
+      <div buiCard class="acn-kpi justify-between overflow-hidden p-0">
         <div class="flex items-center justify-between">
           <bui-icon-tile tone="chart-1" class="size-9 rounded-md">
             <app-lucide name="dollar-sign" class="size-5" />
@@ -104,7 +105,7 @@
       </div>
 
       <!-- Total Revenue (mini bars) -->
-      <div class="acn-card acn-kpi justify-between">
+      <div buiCard class="acn-kpi justify-between overflow-hidden p-0">
         <div class="flex items-baseline gap-2">
           <span class="text-2xl font-semibold tracking-tight">$42.5k</span>
           <span class="text-sm text-muted-foreground">-22%</span>
@@ -123,7 +124,7 @@
       </div>
 
       <!-- Impression (mini line) -->
-      <div class="acn-card acn-kpi justify-between">
+      <div buiCard class="acn-kpi justify-between overflow-hidden p-0">
         <div class="flex flex-col gap-1">
           <span class="font-heading text-base font-semibold">Impression</span>
           <p class="text-sm text-muted-foreground">Last year</p>
@@ -145,7 +146,10 @@
     </div>
 
     <!-- ============ Total visitors ============ -->
-    <div class="acn-card col-span-full grid grid-cols-2 gap-6 p-6 lg:col-span-3 xl:col-span-2">
+    <div
+      buiCard
+      class="col-span-full grid grid-cols-2 gap-6 overflow-hidden p-0 p-6 lg:col-span-3 xl:col-span-2"
+    >
       <div class="col-span-2 flex items-start justify-between">
         <h3 class="flex items-center gap-2 font-heading text-base font-semibold">
           <bui-icon-tile tone="muted" class="size-8 rounded-md">
@@ -181,7 +185,8 @@
 
     <!-- ============ Top Products by Sales ============ -->
     <div
-      class="acn-card col-span-full flex flex-col gap-4 p-6 sm:col-span-3 lg:col-span-3 xl:col-span-2"
+      buiCard
+      class="col-span-full flex flex-col gap-4 overflow-hidden p-0 p-6 sm:col-span-3 lg:col-span-3 xl:col-span-2"
     >
       <div class="flex items-start justify-between">
         <h3 class="font-heading text-lg font-semibold">Top Products by Sales</h3>
@@ -213,7 +218,8 @@
 
     <!-- ============ Top Products by Volume ============ -->
     <div
-      class="acn-card col-span-full flex flex-col gap-4 p-6 sm:col-span-3 lg:col-span-3 xl:col-span-2"
+      buiCard
+      class="col-span-full flex flex-col gap-4 overflow-hidden p-0 p-6 sm:col-span-3 lg:col-span-3 xl:col-span-2"
     >
       <div class="flex items-start justify-between">
         <h3 class="font-heading text-lg font-semibold">Top Products by Volume</h3>
@@ -249,57 +255,39 @@
     </div>
 
     <!-- ============ Users table ============ -->
-    <div class="acn-card col-span-full flex flex-col py-6">
+    <div buiCard class="col-span-full flex flex-col overflow-hidden p-0 py-6">
       <div
         class="grid grid-cols-1 gap-6 px-6 max-md:*:last:col-span-full sm:grid-cols-2 md:grid-cols-3"
       >
         <div class="flex flex-col gap-1.5">
           <span class="text-sm font-medium">Select Role</span>
-          <label class="acn-select justify-between">
-            <select
-              class="w-full bg-transparent capitalize outline-none"
-              aria-label="Select Role"
-              [value]="roleFilter()"
-              (change)="setRole($any($event.target).value)"
-            >
-              @for (r of roleOptions(); track r) {
-                <option [value]="r">{{ r === 'all' ? 'All' : r }}</option>
-              }
-            </select>
-            <app-lucide name="chevron-down" class="size-4 opacity-60" />
-          </label>
+          <bui-select
+            class="capitalize"
+            aria-label="Select Role"
+            [options]="roleSelectOptions()"
+            [value]="roleFilter()"
+            (valueChange)="setRole($event)"
+          />
         </div>
         <div class="flex flex-col gap-1.5">
           <span class="text-sm font-medium">Select Plan</span>
-          <label class="acn-select justify-between">
-            <select
-              class="w-full bg-transparent capitalize outline-none"
-              aria-label="Select Plan"
-              [value]="planFilter()"
-              (change)="setPlan($any($event.target).value)"
-            >
-              @for (p of planOptions(); track p) {
-                <option [value]="p">{{ p === 'all' ? 'All' : p }}</option>
-              }
-            </select>
-            <app-lucide name="chevron-down" class="size-4 opacity-60" />
-          </label>
+          <bui-select
+            class="capitalize"
+            aria-label="Select Plan"
+            [options]="planSelectOptions()"
+            [value]="planFilter()"
+            (valueChange)="setPlan($event)"
+          />
         </div>
         <div class="flex flex-col gap-1.5">
           <span class="text-sm font-medium">Select Status</span>
-          <label class="acn-select justify-between">
-            <select
-              class="w-full bg-transparent capitalize outline-none"
-              aria-label="Select Status"
-              [value]="statusFilter()"
-              (change)="setStatus($any($event.target).value)"
-            >
-              @for (s of statusOptions; track s) {
-                <option [value]="s">{{ s === 'all' ? 'All' : s }}</option>
-              }
-            </select>
-            <app-lucide name="chevron-down" class="size-4 opacity-60" />
-          </label>
+          <bui-select
+            class="capitalize"
+            aria-label="Select Status"
+            [options]="statusSelectOptions"
+            [value]="statusFilter()"
+            (valueChange)="setStatus($event)"
+          />
         </div>
       </div>
 

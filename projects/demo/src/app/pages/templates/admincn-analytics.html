@@ -10,7 +10,8 @@
   <div class="grid grid-cols-6 gap-6">
     <!-- ============ KPI 1 — Total Profit ============ -->
     <div
-      class="acn-card acn-kpi justify-between max-2xl:col-span-2 max-lg:col-span-3 max-sm:col-span-full"
+      buiCard
+      class="acn-kpi justify-between overflow-hidden p-0 max-2xl:col-span-2 max-lg:col-span-3 max-sm:col-span-full"
     >
       <div class="flex flex-col gap-1">
         <div class="flex items-baseline gap-2">
@@ -31,7 +32,8 @@
 
     <!-- ============ KPI 2 — Total Revenue ============ -->
     <div
-      class="acn-card acn-kpi justify-between max-2xl:col-span-2 max-lg:col-span-3 max-sm:col-span-full"
+      buiCard
+      class="acn-kpi justify-between overflow-hidden p-0 max-2xl:col-span-2 max-lg:col-span-3 max-sm:col-span-full"
     >
       <div class="flex flex-col gap-1">
         <div class="flex items-baseline gap-2">
@@ -53,7 +55,8 @@
 
     <!-- ============ KPI 3 — Impression ============ -->
     <div
-      class="acn-card acn-kpi justify-between max-2xl:col-span-2 max-lg:col-span-3 max-sm:col-span-full"
+      buiCard
+      class="acn-kpi justify-between overflow-hidden p-0 max-2xl:col-span-2 max-lg:col-span-3 max-sm:col-span-full"
     >
       <div class="flex items-start justify-between">
         <div class="flex flex-col gap-1">
@@ -76,7 +79,8 @@
 
     <!-- ============ KPI 4 — Total Orders ============ -->
     <div
-      class="acn-card acn-kpi justify-between max-2xl:col-span-2 max-lg:col-span-3 max-sm:col-span-full"
+      buiCard
+      class="acn-kpi justify-between overflow-hidden p-0 max-2xl:col-span-2 max-lg:col-span-3 max-sm:col-span-full"
     >
       <div class="flex items-start justify-between">
         <bui-icon-tile tone="chart-2" class="size-10 rounded-md">
@@ -95,7 +99,8 @@
 
     <!-- ============ KPI 5 — Total Profit ============ -->
     <div
-      class="acn-card acn-kpi justify-between max-2xl:col-span-2 max-lg:col-span-3 max-sm:col-span-full"
+      buiCard
+      class="acn-kpi justify-between overflow-hidden p-0 max-2xl:col-span-2 max-lg:col-span-3 max-sm:col-span-full"
     >
       <div class="flex items-start justify-between">
         <bui-icon-tile tone="chart-1" class="size-10 rounded-md">
@@ -114,7 +119,8 @@
 
     <!-- ============ KPI 6 — Bookmarks ============ -->
     <div
-      class="acn-card acn-kpi justify-between max-2xl:col-span-2 max-lg:col-span-3 max-sm:col-span-full"
+      buiCard
+      class="acn-kpi justify-between overflow-hidden p-0 max-2xl:col-span-2 max-lg:col-span-3 max-sm:col-span-full"
     >
       <div class="flex items-start justify-between">
         <bui-icon-tile tone="chart-3" class="size-10 rounded-md">
@@ -132,7 +138,7 @@
     </div>
 
     <!-- ============ Top Services by Sales ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-6 p-6 2xl:col-span-4">
+    <div buiCard class="col-span-full flex flex-col gap-6 overflow-hidden p-0 p-6 2xl:col-span-4">
       <div class="flex items-start justify-between">
         <h3 class="font-heading text-lg font-semibold">Top Services by Sales</h3>
         <div class="relative">
@@ -204,7 +210,10 @@
     </div>
 
     <!-- ============ Conversion rate ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-6 p-6 lg:col-span-3 2xl:col-span-2">
+    <div
+      buiCard
+      class="col-span-full flex flex-col gap-6 overflow-hidden p-0 p-6 lg:col-span-3 2xl:col-span-2"
+    >
       <div class="flex items-start justify-between">
         <div class="flex flex-col gap-1">
           <h3 class="font-heading text-lg font-semibold">Conversion rate</h3>
@@ -278,7 +287,10 @@
     </div>
 
     <!-- ============ Performance ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-6 p-6 lg:col-span-3 2xl:col-span-2">
+    <div
+      buiCard
+      class="col-span-full flex flex-col gap-6 overflow-hidden p-0 p-6 lg:col-span-3 2xl:col-span-2"
+    >
       <div class="flex items-start justify-between">
         <h3 class="flex items-center gap-2 font-heading text-lg font-semibold">
           <app-lucide name="activity" class="size-5 text-chart-2" /> Performance
@@ -369,7 +381,8 @@
 
     <!-- ============ Earning Report ============ -->
     <div
-      class="acn-card col-span-full flex flex-col justify-between gap-6 p-6 lg:col-span-3 2xl:col-span-2"
+      buiCard
+      class="col-span-full flex flex-col justify-between gap-6 overflow-hidden p-0 p-6 lg:col-span-3 2xl:col-span-2"
     >
       <div class="flex items-start justify-between">
         <div class="flex flex-col gap-1">
@@ -409,11 +422,11 @@
 
       <div class="flex flex-col gap-4">
         @for (e of earnRows; track e.title) {
-          <div class="acn-earn-row">
-            <bui-icon-tile [tone]="e.tone" class="size-9 rounded-md">
+          <div buiItem class="gap-3 p-0">
+            <bui-icon-tile buiItemMedia [tone]="e.tone" class="size-9 rounded-md">
               <app-lucide [name]="e.icon" class="size-5" />
             </bui-icon-tile>
-            <div class="flex flex-1 flex-col">
+            <div buiItemContent class="flex flex-1 flex-col gap-0">
               <span class="text-sm font-medium">{{ e.title }}</span>
               <span class="text-xs text-muted-foreground">{{ e.sub }}</span>
             </div>
@@ -438,7 +451,10 @@
     </div>
 
     <!-- ============ Payment History ============ -->
-    <div class="acn-card col-span-full flex flex-col py-6 lg:col-span-3 2xl:col-span-2">
+    <div
+      buiCard
+      class="col-span-full flex flex-col overflow-hidden p-0 py-6 lg:col-span-3 2xl:col-span-2"
+    >
       <div class="flex items-start justify-between px-6">
         <h3 class="font-heading text-lg font-semibold">Payment History</h3>
         <div class="relative">
@@ -520,12 +536,19 @@
     </div>
 
     <!-- ============ Course you are taking ============ -->
-    <div class="acn-card col-span-full flex flex-col py-6">
+    <div buiCard class="col-span-full flex flex-col overflow-hidden p-0 py-6">
       <div class="flex flex-col gap-4 px-6 sm:flex-row sm:items-center sm:justify-between">
         <h3 class="font-heading text-lg font-semibold">Course you are taking</h3>
-        <div class="acn-input sm:max-w-xs sm:flex-1">
-          <app-lucide name="search" class="size-4 text-muted-foreground" />
-          <input type="search" placeholder="Search course" aria-label="Search course" />
+        <div buiInputGroup class="h-10 sm:max-w-xs sm:flex-1">
+          <span buiInputGroupAddon>
+            <app-lucide name="search" class="size-4 text-muted-foreground" />
+          </span>
+          <input
+            buiInputGroupInput
+            type="search"
+            placeholder="Search course"
+            aria-label="Search course"
+          />
         </div>
       </div>
 
