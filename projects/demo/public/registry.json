@@ -1223,6 +1223,10 @@
           {
             "name": "placeholder",
             "type": "string"
+          },
+          {
+            "name": "aria-label",
+            "type": "string"
           }
         ],
         "models": [

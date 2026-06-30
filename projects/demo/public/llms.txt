@@ -35,7 +35,7 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Rating](https://ngblatui.remix-it.com/components/rating) — props: max, readonly, size, color, ariaLabel · two-way: value, disabled
 - [Autosize Textarea](https://ngblatui.remix-it.com/components/autosize-textarea)
 - [Segmented Control](https://ngblatui.remix-it.com/components/segmented-control) — props: options · two-way: value, disabled · types: SegmentOption
-- [Select](https://ngblatui.remix-it.com/components/select) — props: multiple, options, placeholder · two-way: value, values, disabled · types: SelectOption
+- [Select](https://ngblatui.remix-it.com/components/select) — props: multiple, options, placeholder, aria-label · two-way: value, values, disabled · types: SelectOption
 - [Combobox](https://ngblatui.remix-it.com/components/combobox) — props: multiple, options, placeholder, searchable · two-way: value, values, disabled · types: ComboboxOption
 - [Number Input](https://ngblatui.remix-it.com/components/number-input) — props: min, max, step, size, ariaLabel, decreaseLabel, increaseLabel · two-way: value, disabled · types: NumberInputSize
 - [Password Strength](https://ngblatui.remix-it.com/components/password-strength) — props: name, id, placeholder, showChecklist, minLength, label · two-way: password
