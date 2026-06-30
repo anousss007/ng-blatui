@@ -20,6 +20,11 @@ const VARIANTS = {
 } as const;
 
 const TONES = {
+  primary: {
+    soft: 'border-transparent bg-primary/10 text-primary dark:bg-primary/15',
+    solid: 'border-transparent bg-primary text-primary-foreground',
+    outline: 'text-primary border-primary/40',
+  },
   success: {
     soft: 'border-transparent bg-success/10 text-success dark:bg-success/15',
     solid: 'border-transparent bg-success text-success-foreground',
@@ -79,7 +84,7 @@ function intensityFor(variant: BadgeVariant): BadgeIntensity {
 
 /**
  * BlatUI badge. Brand variants (`default | secondary | destructive | outline`)
- * or semantic `tone` (`success | warning | danger | info | neutral`) where
+ * or semantic `tone` (`primary | success | warning | danger | info | neutral`) where
  * `variant` then selects intensity (`soft | solid | outline`). Built on a native
  * element so it stays in the document flow and screen-reader friendly.
  */

@@ -43,4 +43,12 @@ describe('BuiBadge', () => {
     expect(el.className).toContain('bg-destructive');
     expect(el.className).toContain('text-destructive-foreground');
   });
+
+  it('supports a soft primary tone', () => {
+    const { fixture, el } = setup();
+    fixture.componentInstance.tone.set('primary');
+    fixture.detectChanges();
+    expect(el.className).toContain('text-primary');
+    expect(el.className).toContain('bg-primary/10');
+  });
 });
