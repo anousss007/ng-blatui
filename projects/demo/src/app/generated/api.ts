@@ -6304,6 +6304,34 @@ export const API_DOCS = {
             "description": "Value text shown above each bar (bar charts); pass one entry per data point."
           },
           {
+            "name": "stacked",
+            "type": "boolean",
+            "default": "false",
+            "required": false,
+            "description": "Stack every series into one bar per data point, bottom-to-top (bar charts)."
+          },
+          {
+            "name": "track",
+            "type": "boolean",
+            "default": "false",
+            "required": false,
+            "description": "Draw a faint full-height track behind each bar (bar charts)."
+          },
+          {
+            "name": "dots",
+            "type": "boolean",
+            "default": "false",
+            "required": false,
+            "description": "Render a dot marker at each data point (line/area charts)."
+          },
+          {
+            "name": "gridX",
+            "type": "number",
+            "default": "0",
+            "required": false,
+            "description": "Number of evenly-spaced vertical grid lines (line/area charts; 0 hides them)."
+          },
+          {
             "name": "label",
             "type": "string",
             "default": "'Chart'",

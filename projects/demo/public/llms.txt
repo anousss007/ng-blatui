@@ -92,7 +92,7 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Tree Table](https://ngblatui.remix-it.com/components/tree-table) — props: columns, rows, toggleLabel, copyable, copyLabel, copiedLabel · types: TreeTableColumn, TreeTableRow
 - [Carousel](https://ngblatui.remix-it.com/components/carousel) — props: orientation, perView, previousLabel, nextLabel, goToSlideLabel · two-way: index · types: CarouselOrientation
 - [Data Table](https://ngblatui.remix-it.com/components/data-table) — props: columns, rows, searchable, searchPlaceholder, selectable, pageSize, searchLabel, selectAllLabel, selectRowLabel · types: DataRow, DataTableColumn
-- [Chart](https://ngblatui.remix-it.com/components/chart) — props: type, series, labels, height, max, thickness, activeIndex, barLabels, label · types: ChartSeries
+- [Chart](https://ngblatui.remix-it.com/components/chart) — props: type, series, labels, height, max, thickness, activeIndex, barLabels, stacked, track, dots, gridX, label · types: ChartSeries
 - [Comparison Slider](https://ngblatui.remix-it.com/components/comparison-slider) — props: before, after, beforeLabel, afterLabel, beforeAlt, afterAlt, positionLabel · two-way: value
 - [Gantt](https://ngblatui.remix-it.com/components/gantt) — props: tasks, milestones, start, end · types: GanttMilestone, GanttTask
 - [Scheduler](https://ngblatui.remix-it.com/components/scheduler) — props: events, days, startHour, endHour, view, label · types: SchedulerEvent
