@@ -345,7 +345,7 @@
       </div>
 
       <div class="flex items-center gap-3">
-        <button type="button" class="acn-btn-primary" (click)="submitTypes()">Submit</button>
+        <button type="button" buiButton (click)="submitTypes()">Submit</button>
         <button
           type="button"
           class="inline-flex h-9 items-center justify-center rounded-md border border-border bg-background px-3.5 text-sm font-medium text-foreground hover:bg-accent"
@@ -567,37 +567,55 @@
       </div>
 
       <!-- Modes reference table -->
-      <div class="acn-card overflow-x-auto">
-        <table class="acn-table">
-          <thead>
-            <tr>
-              <th>Mode</th>
-              <th>When Validation Occurs</th>
-              <th>Best For</th>
+      <div buiTableContainer class="acn-card overflow-x-auto">
+        <table buiTable class="min-w-[42rem]">
+          <thead buiTableHeader>
+            <tr buiTableRow class="hover:bg-transparent">
+              <th buiTableHead class="h-[3.25rem] px-3 text-muted-foreground">Mode</th>
+              <th buiTableHead class="h-[3.25rem] px-3 text-muted-foreground">
+                When Validation Occurs
+              </th>
+              <th buiTableHead class="h-[3.25rem] px-3 text-muted-foreground">Best For</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td><span class="acn-badge-muted font-mono">onChange</span></td>
-              <td class="text-muted-foreground">Every keystroke</td>
-              <td class="text-muted-foreground">Real-time feedback (e.g., password strength)</td>
+          <tbody buiTableBody>
+            <tr buiTableRow>
+              <td buiTableCell class="h-14 px-3">
+                <span buiBadge tone="neutral" variant="soft" class="font-mono">onChange</span>
+              </td>
+              <td buiTableCell class="h-14 px-3 text-muted-foreground">Every keystroke</td>
+              <td buiTableCell class="h-14 px-3 text-muted-foreground">
+                Real-time feedback (e.g., password strength)
+              </td>
             </tr>
-            <tr>
-              <td><span class="acn-badge-muted font-mono">onBlur</span></td>
-              <td class="text-muted-foreground">When leaving the field</td>
-              <td class="text-muted-foreground">
+            <tr buiTableRow>
+              <td buiTableCell class="h-14 px-3">
+                <span buiBadge tone="neutral" variant="soft" class="font-mono">onBlur</span>
+              </td>
+              <td buiTableCell class="h-14 px-3 text-muted-foreground">When leaving the field</td>
+              <td buiTableCell class="h-14 px-3 text-muted-foreground">
                 Less intrusive validation (recommended for most cases)
               </td>
             </tr>
-            <tr>
-              <td><span class="acn-badge-muted font-mono">onSubmit</span></td>
-              <td class="text-muted-foreground">When form is submitted</td>
-              <td class="text-muted-foreground">Simple forms, minimal interruption</td>
+            <tr buiTableRow>
+              <td buiTableCell class="h-14 px-3">
+                <span buiBadge tone="neutral" variant="soft" class="font-mono">onSubmit</span>
+              </td>
+              <td buiTableCell class="h-14 px-3 text-muted-foreground">When form is submitted</td>
+              <td buiTableCell class="h-14 px-3 text-muted-foreground">
+                Simple forms, minimal interruption
+              </td>
             </tr>
-            <tr>
-              <td><span class="acn-badge-muted font-mono">onTouched</span></td>
-              <td class="text-muted-foreground">First blur, then every change</td>
-              <td class="text-muted-foreground">Balance between UX and feedback</td>
+            <tr buiTableRow>
+              <td buiTableCell class="h-14 px-3">
+                <span buiBadge tone="neutral" variant="soft" class="font-mono">onTouched</span>
+              </td>
+              <td buiTableCell class="h-14 px-3 text-muted-foreground">
+                First blur, then every change
+              </td>
+              <td buiTableCell class="h-14 px-3 text-muted-foreground">
+                Balance between UX and feedback
+              </td>
             </tr>
           </tbody>
         </table>
@@ -1096,7 +1114,7 @@
         </div>
 
         <div class="flex items-center gap-3">
-          <button type="button" class="acn-btn-primary" (click)="register()">Register</button>
+          <button type="button" buiButton (click)="register()">Register</button>
           <button
             type="button"
             class="inline-flex h-9 items-center justify-center rounded-md border border-border bg-background px-3.5 text-sm font-medium text-foreground hover:bg-accent"

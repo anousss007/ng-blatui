@@ -1,11 +1,40 @@
-import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  signal,
+  ViewEncapsulation,
+} from '@angular/core';
+
+import {
+  BuiAvatar,
+  BuiBadge,
+  BuiButton,
+  BuiChart,
+  BuiCheckbox,
+  BuiIconTile,
+  BuiPagination,
+  BuiPaginationContent,
+  BuiPaginationItem,
+  BuiPaginationLink,
+  BuiTable,
+  BuiTableBody,
+  BuiTableCell,
+  BuiTableContainer,
+  BuiTableHead,
+  BuiTableHeader,
+  BuiTableRow,
+} from 'ng-blatui';
 
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
 
+/** ng-blatui icon-tile tone values used by this page. */
+type Tone = 'chart-1' | 'chart-2' | 'chart-5' | 'muted';
+
 interface Kpi {
   icon: string;
-  tile: string;
+  tile: Tone;
   badge: string;
   up: boolean;
   value: string;
@@ -14,7 +43,7 @@ interface Kpi {
 }
 interface SubStat {
   icon: string;
-  tile: string;
+  tile: Tone;
   label: string;
   value: string;
 }
@@ -32,7 +61,7 @@ interface OrderRow {
 }
 interface Product {
   icon: string;
-  tile: string;
+  tile: Tone;
   name: string;
   price: string;
   stat: string;
@@ -57,7 +86,27 @@ interface Row {
   selector: 'app-tpl-admincn-ecommerce',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell],
+  imports: [
+    Lucide,
+    AdmincnShell,
+    BuiIconTile,
+    BuiBadge,
+    BuiButton,
+    BuiChart,
+    BuiAvatar,
+    BuiCheckbox,
+    BuiTableContainer,
+    BuiTable,
+    BuiTableHeader,
+    BuiTableBody,
+    BuiTableRow,
+    BuiTableHead,
+    BuiTableCell,
+    BuiPagination,
+    BuiPaginationContent,
+    BuiPaginationItem,
+    BuiPaginationLink,
+  ],
   templateUrl: './admincn-ecommerce.html',
 })
 export class AdmincnEcommerce {
@@ -67,7 +116,7 @@ export class AdmincnEcommerce {
   protected readonly kpis: Kpi[] = [
     {
       icon: 'badge-check',
-      tile: 'acn-tile-teal',
+      tile: 'chart-2',
       badge: '+38%',
       up: true,
       value: '$13.4k',
@@ -76,7 +125,7 @@ export class AdmincnEcommerce {
     },
     {
       icon: 'shopping-cart',
-      tile: 'acn-tile-orange',
+      tile: 'chart-1',
       badge: '+22%',
       up: true,
       value: '155K',
@@ -85,7 +134,7 @@ export class AdmincnEcommerce {
     },
     {
       icon: 'dollar-sign',
-      tile: 'acn-tile-amber',
+      tile: 'chart-5',
       badge: '-16%',
       up: false,
       value: '$89.34k',
@@ -94,7 +143,7 @@ export class AdmincnEcommerce {
     },
     {
       icon: 'shopping-bag',
-      tile: 'acn-tile-muted',
+      tile: 'muted',
       badge: '+38%',
       up: true,
       value: '$1,200',
@@ -114,10 +163,17 @@ export class AdmincnEcommerce {
     { label: 'Su', value: 74 },
   ];
   protected readonly earnHighlight = 'Th';
+  // Weekly earning bars: chart-2 fill, the highlighted day (Th) is solid.
+  // Original bar heights are percentages of the 130px track (max 100).
+  protected readonly earnSeries = [
+    { data: this.earnBars.map((b) => b.value), color: 'var(--chart-2)' },
+  ];
+  protected readonly earnAxis = this.earnBars.map((b) => b.label);
+  protected readonly earnActive = this.earnBars.findIndex((b) => b.label === this.earnHighlight);
   protected readonly earnSubStats: SubStat[] = [
-    { icon: 'wallet', tile: 'acn-tile-amber', label: 'Earning', value: '$1,236' },
-    { icon: 'dollar-sign', tile: 'acn-tile-teal', label: 'Profit', value: '$2,300' },
-    { icon: 'credit-card', tile: 'acn-tile-orange', label: 'Expense', value: '$1,500' },
+    { icon: 'wallet', tile: 'chart-5', label: 'Earning', value: '$1,236' },
+    { icon: 'dollar-sign', tile: 'chart-2', label: 'Profit', value: '$2,300' },
+    { icon: 'credit-card', tile: 'chart-1', label: 'Expense', value: '$1,500' },
   ];
 
   /* ---- Packing / profile card ---- */
@@ -225,35 +281,35 @@ export class AdmincnEcommerce {
   protected readonly products: Product[] = [
     {
       icon: 'footprints',
-      tile: 'acn-tile-muted',
+      tile: 'muted',
       name: 'Nike Vision Low Shoes',
       price: '$5,600',
       stat: '10.6K',
     },
     {
       icon: 'footprints',
-      tile: 'acn-tile-muted',
+      tile: 'muted',
       name: 'Adidas Ultraboost 21',
       price: '$4,500',
       stat: '4.5K',
     },
     {
       icon: 'footprints',
-      tile: 'acn-tile-muted',
+      tile: 'muted',
       name: 'Puma RS-X Toys',
       price: '$3,200',
       stat: '2K',
     },
     {
       icon: 'footprints',
-      tile: 'acn-tile-muted',
+      tile: 'muted',
       name: 'New Balance 550',
       price: '$2,800',
       stat: '1.8K',
     },
     {
       icon: 'footprints',
-      tile: 'acn-tile-muted',
+      tile: 'muted',
       name: 'Reebok Classic Leather',
       price: '$2,200',
       stat: '1.2K',
@@ -324,5 +380,26 @@ export class AdmincnEcommerce {
   }
   protected closeMenu(): void {
     this.openMenu.set(null);
+  }
+
+  /* ---- Product table row selection ---- */
+  protected readonly checked = signal<Set<string>>(new Set());
+  protected isChecked(name: string): boolean {
+    return this.checked().has(name);
+  }
+  protected toggleRow(name: string): void {
+    const set = new Set(this.checked());
+    if (set.has(name)) set.delete(name);
+    else set.add(name);
+    this.checked.set(set);
+  }
+  protected readonly allChecked = computed(
+    () => this.rows.length > 0 && this.rows.every((r) => this.checked().has(r.name)),
+  );
+  protected toggleAll(): void {
+    const set = new Set(this.checked());
+    if (this.allChecked()) for (const r of this.rows) set.delete(r.name);
+    else for (const r of this.rows) set.add(r.name);
+    this.checked.set(set);
   }
 }

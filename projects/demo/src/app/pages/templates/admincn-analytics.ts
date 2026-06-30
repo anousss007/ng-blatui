@@ -1,5 +1,25 @@
 import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation } from '@angular/core';
 
+import {
+  BuiAvatar,
+  BuiBadge,
+  BuiButton,
+  BuiChart,
+  BuiCheckbox,
+  BuiIconTile,
+  BuiPagination,
+  BuiPaginationContent,
+  BuiPaginationItem,
+  BuiPaginationLink,
+  BuiTable,
+  BuiTableBody,
+  BuiTableCell,
+  BuiTableContainer,
+  BuiTableHead,
+  BuiTableHeader,
+  BuiTableRow,
+} from 'ng-blatui';
+
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
 
@@ -17,7 +37,7 @@ interface ConvRow {
 }
 interface EarnRow {
   icon: string;
-  tile: string;
+  tone: 'chart-1' | 'chart-2' | 'chart-5';
   title: string;
   sub: string;
   amount: string;
@@ -54,7 +74,27 @@ interface CourseRow {
   selector: 'app-tpl-admincn-analytics',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell],
+  imports: [
+    Lucide,
+    AdmincnShell,
+    BuiChart,
+    BuiIconTile,
+    BuiBadge,
+    BuiButton,
+    BuiAvatar,
+    BuiCheckbox,
+    BuiTableContainer,
+    BuiTable,
+    BuiTableHeader,
+    BuiTableBody,
+    BuiTableRow,
+    BuiTableHead,
+    BuiTableCell,
+    BuiPagination,
+    BuiPaginationContent,
+    BuiPaginationItem,
+    BuiPaginationLink,
+  ],
   templateUrl: './admincn-analytics.html',
 })
 export class AdmincnAnalytics {
@@ -68,13 +108,19 @@ export class AdmincnAnalytics {
     { amber: 36, teal: 8 },
     { amber: 45, teal: 10 },
   ];
+  protected readonly profitSeries = [
+    { data: this.profitBars.map((b) => b.amber), color: 'var(--chart-4)' },
+    { data: this.profitBars.map((b) => b.teal), color: 'var(--chart-2)' },
+  ];
 
   /* KPI 2 — Total Revenue: teal bars over a faint full-height track. */
   protected readonly revenueBars = [78, 96, 64, 100, 52, 41, 70];
+  protected readonly revenueSeries = [{ data: this.revenueBars, color: 'var(--chart-2)' }];
 
-  /* KPI 3 — Impression: orange step-line over a year. */
-  protected readonly impressionLine =
-    '4,70 31.909,70 59.818,49 87.727,49 115.636,63 143.545,63 171.455,80.5 199.364,80.5 227.273,49 255.182,49 283.091,10.5 311,10.5';
+  /* KPI 3 — Impression: orange step-line over a year (data inverted from the 84-tall viewBox). */
+  protected readonly impressionSeries = [
+    { data: [14, 14, 35, 35, 21, 21, 3.5, 3.5, 35, 35, 73.5, 73.5], color: 'var(--chart-1)' },
+  ];
 
   /* Top Services by Sales — horizontal bars. */
   protected readonly services: ServiceBar[] = [
@@ -86,11 +132,10 @@ export class AdmincnAnalytics {
     { label: 'SEO', percent: 45, color: 'var(--primary)', dot: 'var(--primary)' },
   ];
 
-  /* Conversion rate spark area (viewBox 0 0 341 80). */
-  protected readonly convLine =
-    'M4,48C22.5,48.766,41,49.533,59.5,44C78,38.467,96.5,26.635,115,29.333C133.5,32.031,152,49.259,170.5,49.333C189,49.407,207.5,32.328,226,20C244.5,7.672,263,0.097,281.5,4C300,7.903,318.5,23.285,337,38.667';
-  protected readonly convArea =
-    'M4,48C22.5,48.766,41,49.533,59.5,44C78,38.467,96.5,26.635,115,29.333C133.5,32.031,152,49.259,170.5,49.333C189,49.407,207.5,32.328,226,20C244.5,7.672,263,0.097,281.5,4C300,7.903,318.5,23.285,337,38.667L337,80L4,80Z';
+  /* Conversion rate spark area (endpoints inverted from the 80-tall viewBox). */
+  protected readonly convSeries = [
+    { data: [32, 36, 50.667, 30.667, 60, 76, 41.333], color: 'var(--chart-2)' },
+  ];
   protected readonly convRows: ConvRow[] = [
     { label: 'Impressions', sub: '12.2K Visits', pct: '20.3', dir: 'up' },
     { label: 'Added to cart', sub: '32 product in cart', pct: '6.3', dir: 'up' },
@@ -110,7 +155,7 @@ export class AdmincnAnalytics {
   protected readonly earnRows: EarnRow[] = [
     {
       icon: 'pie-chart',
-      tile: 'acn-tile-orange',
+      tone: 'chart-1',
       title: 'Net profit',
       sub: 'Sales',
       amount: '$1,623',
@@ -118,7 +163,7 @@ export class AdmincnAnalytics {
     },
     {
       icon: 'dollar-sign',
-      tile: 'acn-tile-teal',
+      tone: 'chart-2',
       title: 'Total income',
       sub: 'Sales, Affiliation',
       amount: '$5,600',
@@ -126,7 +171,7 @@ export class AdmincnAnalytics {
     },
     {
       icon: 'wallet',
-      tile: 'acn-tile-amber',
+      tone: 'chart-5',
       title: 'Total expense',
       sub: 'ADVT, Marketing',
       amount: '$3,200',
@@ -144,6 +189,11 @@ export class AdmincnAnalytics {
   ];
   protected readonly earnHighlight = 'Th';
   protected readonly earnMax = 165;
+  protected readonly earnSeries = [
+    { data: this.earnBars.map((b) => b.value), color: 'var(--chart-2)' },
+  ];
+  protected readonly earnAxis = this.earnBars.map((b) => b.label);
+  protected readonly earnActive = this.earnBars.findIndex((b) => b.label === this.earnHighlight);
 
   /* Payment History table. */
   protected readonly payments: PayRow[] = [
@@ -261,8 +311,33 @@ export class AdmincnAnalytics {
     },
   ];
 
-  protected barH(value: number, max: number): number {
-    return Math.round((value / max) * 1000) / 10;
+  /* ---- Course table checkbox state ---- */
+  protected readonly checkedCourses = signal<Set<string>>(new Set());
+  protected isCourseChecked(title: string): boolean {
+    return this.checkedCourses().has(title);
+  }
+  protected toggleCourse(title: string): void {
+    const set = new Set(this.checkedCourses());
+    if (set.has(title)) set.delete(title);
+    else set.add(title);
+    this.checkedCourses.set(set);
+  }
+  protected allCoursesChecked(): boolean {
+    return this.courses.length > 0 && this.courses.every((c) => this.checkedCourses().has(c.title));
+  }
+  protected toggleAllCourses(): void {
+    if (this.allCoursesChecked()) {
+      this.checkedCourses.set(new Set());
+    } else {
+      this.checkedCourses.set(new Set(this.courses.map((c) => c.title)));
+    }
+  }
+
+  /* ---- Course table pagination (static demo controls) ---- */
+  protected readonly coursePages = [1, 2];
+  protected readonly currentCoursePage = signal(1);
+  protected goToCoursePage(p: number): void {
+    this.currentCoursePage.set(p);
   }
 
   /* ---- Performance card tabs ---- */
