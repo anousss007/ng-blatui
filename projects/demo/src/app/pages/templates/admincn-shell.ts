@@ -1,16 +1,25 @@
-import { isPlatformBrowser } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   inject,
   input,
-  PLATFORM_ID,
   signal,
   ViewEncapsulation,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { BuiAvatar, BuiButton, BuiIconTile, BuiKbd, BuiPresence, ThemeStore } from 'ng-blatui';
+import {
+  BuiAvatar,
+  BuiButton,
+  BuiIconTile,
+  BuiKbd,
+  BuiPresence,
+  BuiSidebar,
+  BuiSidebarInset,
+  BuiSidebarProvider,
+  BuiSidebarTrigger,
+  ThemeStore,
+} from 'ng-blatui';
 
 import { Lucide } from './lucide';
 
@@ -36,7 +45,19 @@ const BASE = '/templates/admincn';
   selector: 'app-admincn-shell',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, RouterLink, BuiAvatar, BuiButton, BuiIconTile, BuiKbd, BuiPresence],
+  imports: [
+    Lucide,
+    RouterLink,
+    BuiAvatar,
+    BuiButton,
+    BuiIconTile,
+    BuiKbd,
+    BuiPresence,
+    BuiSidebarProvider,
+    BuiSidebar,
+    BuiSidebarInset,
+    BuiSidebarTrigger,
+  ],
   host: { '(document:keydown)': 'onKeydown($event)' },
   templateUrl: './admincn-shell.html',
   styleUrl: './admincn.css',
@@ -46,26 +67,13 @@ export class AdmincnShell {
   readonly active = input<string>('Sales');
 
   protected readonly theme = inject(ThemeStore);
-  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
-  /** Mobile off-canvas sidebar open state. */
-  protected readonly sidebarOpen = signal(false);
-  /** Desktop icon-rail collapse state. */
-  protected readonly collapsed = signal(false);
   /** Command palette (⌘K) open state. */
   protected readonly paletteOpen = signal(false);
   /** Which topbar dropdown is open ('bell' | 'avatar' | null). */
   protected readonly openMenu = signal<string | null>(null);
   /** Expanded collapsible nav items (by label). */
   protected readonly expanded = signal<ReadonlySet<string>>(new Set());
-
-  protected toggleSidebar(): void {
-    if (this.isBrowser && window.innerWidth >= 1024) {
-      this.collapsed.update((v) => !v);
-    } else {
-      this.sidebarOpen.update((v) => !v);
-    }
-  }
 
   protected toggleMenu(name: string): void {
     this.openMenu.update((current) => (current === name ? null : name));

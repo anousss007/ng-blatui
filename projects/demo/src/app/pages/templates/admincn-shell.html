@@ -1,19 +1,11 @@
 <div id="tpl-admincn" class="acn-page">
-  <div class="flex min-h-screen">
-    <!-- Mobile backdrop -->
-    <div
-      class="acn-backdrop"
-      [class.acn-backdrop-open]="sidebarOpen()"
-      (click)="sidebarOpen.set(false)"
-    ></div>
-
+  <bui-sidebar-provider #sb class="min-h-screen">
     <!-- ===================== SIDEBAR ===================== -->
-    <aside
-      class="acn-sidebar"
-      [class.acn-sidebar-open]="sidebarOpen()"
-      [class.acn-rail]="collapsed()"
+    <bui-sidebar
+      collapsible="icon"
+      class="gap-0 border-0 bg-background p-0 text-sidebar-foreground"
     >
-      <div class="acn-sidebar-header">
+      <div class="acn-sidebar-header md:group-data-[state=collapsed]/sidebar:justify-center">
         <span class="acn-logo">
           <svg
             viewBox="0 0 24 24"
@@ -29,7 +21,7 @@
             <path d="m18.6 5.4-13.2 13.2" />
           </svg>
         </span>
-        <div class="acn-logo-text min-w-0 leading-tight">
+        <div class="min-w-0 leading-tight md:group-data-[state=collapsed]/sidebar:hidden">
           <div class="truncate text-[0.95rem] font-semibold">AdminCN</div>
           <div class="truncate text-xs text-muted-foreground">Dashboard Template</div>
         </div>
@@ -38,32 +30,36 @@
       <nav class="acn-sidebar-nav">
         @for (group of nav; track group.label) {
           <div class="acn-nav-group">
-            <p class="acn-nav-label">{{ group.label }}</p>
+            <p class="acn-nav-label md:group-data-[state=collapsed]/sidebar:hidden">
+              {{ group.label }}
+            </p>
             @for (item of group.items; track item.label) {
               <a
                 [routerLink]="item.chevron ? null : (item.route ?? null)"
                 [attr.href]="item.route || item.chevron ? null : '#'"
-                class="acn-nav-item"
+                class="acn-nav-item md:group-data-[state=collapsed]/sidebar:justify-center md:group-data-[state=collapsed]/sidebar:px-0"
                 [class.acn-nav-active]="item.label === active()"
                 [attr.title]="item.label"
                 (click)="
-                  item.chevron ? toggleExpanded(item.label) : sidebarOpen.set(false);
+                  item.chevron ? toggleExpanded(item.label) : sb.closeMobile();
                   $event.stopPropagation()
                 "
               >
                 <app-lucide [name]="item.icon" class="size-4 shrink-0" />
-                <span class="acn-nav-text flex-1 truncate">{{ item.label }}</span>
+                <span class="flex-1 truncate md:group-data-[state=collapsed]/sidebar:hidden">{{
+                  item.label
+                }}</span>
                 @if (item.chevron) {
                   <app-lucide
                     name="chevron-right"
-                    class="acn-nav-text size-4 shrink-0 opacity-60 transition-transform"
+                    class="size-4 shrink-0 opacity-60 transition-transform md:group-data-[state=collapsed]/sidebar:hidden"
                     [class.rotate-90]="expanded().has(item.label)"
                   />
                 }
                 @if (item.external) {
                   <app-lucide
                     name="external-link"
-                    class="acn-nav-text size-3.5 shrink-0 opacity-50"
+                    class="size-3.5 shrink-0 opacity-50 md:group-data-[state=collapsed]/sidebar:hidden"
                   />
                 }
               </a>
@@ -71,19 +67,19 @@
           </div>
         }
       </nav>
-    </aside>
+    </bui-sidebar>
 
     <!-- ===================== INSET MAIN ===================== -->
-    <main class="acn-main">
+    <main buiSidebarInset class="relative bg-background md:m-2 md:ml-0 md:rounded-xl md:shadow-sm">
       <!-- Topbar -->
       <header class="acn-topbar">
         <button
           buiButton
+          buiSidebarTrigger
           variant="ghost"
           size="icon"
           class="rounded-full"
           aria-label="Toggle sidebar"
-          (click)="toggleSidebar()"
         >
           <app-lucide name="panel-left" class="size-4.5" />
         </button>
@@ -263,5 +259,5 @@
         </div>
       </div>
     }
-  </div>
+  </bui-sidebar-provider>
 </div>
