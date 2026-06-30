@@ -17,15 +17,23 @@ const ICON_TILE_TONES = {
 } as const;
 
 const ICON_TILE_SIZES = {
-  sm: 'size-8 rounded-md [&_svg]:size-4',
-  default: 'size-10 rounded-lg [&_svg]:size-5',
-  lg: 'size-12 rounded-xl [&_svg]:size-6',
+  sm: 'size-8 [&_svg]:size-4',
+  default: 'size-10 [&_svg]:size-5',
+  lg: 'size-12 [&_svg]:size-6',
+} as const;
+
+const ICON_TILE_SHAPES = {
+  sm: 'rounded-md',
+  default: 'rounded-lg',
+  lg: 'rounded-xl',
 } as const;
 
 /** Tone of the icon tile's tinted background + foreground. */
 export type IconTileTone = keyof typeof ICON_TILE_TONES;
 /** Preset square size of the icon tile. */
 export type IconTileSize = keyof typeof ICON_TILE_SIZES;
+/** Tile shape: a rounded square (default) or a full circle. */
+export type IconTileShape = 'square' | 'circle';
 
 /**
  * A tinted rounded square that frames a projected icon — the small "tile" used
@@ -43,12 +51,15 @@ export class BuiIconTile {
   readonly tone = input<IconTileTone>('primary');
   /** Square size preset. */
   readonly size = input<IconTileSize>('default');
+  /** Tile shape — a rounded square (default) or a full circle. */
+  readonly shape = input<IconTileShape>('square');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
   protected readonly computedClass = computed(() =>
     cn(
       'inline-flex shrink-0 items-center justify-center',
       ICON_TILE_SIZES[this.size()],
+      this.shape() === 'circle' ? 'rounded-full' : ICON_TILE_SHAPES[this.size()],
       ICON_TILE_TONES[this.tone()],
       this.userClass(),
     ),

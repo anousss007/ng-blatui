@@ -6,10 +6,33 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
-import { BuiBadge, BuiCard, BuiChart, BuiIconTile } from 'ng-blatui';
+import {
+  BuiAvatar,
+  BuiBadge,
+  BuiButton,
+  BuiCard,
+  BuiChart,
+  BuiCheckbox,
+  BuiIconTile,
+  BuiPagination,
+  BuiPaginationContent,
+  BuiPaginationEllipsis,
+  BuiPaginationItem,
+  BuiPaginationLink,
+  BuiTable,
+  BuiTableBody,
+  BuiTableCell,
+  BuiTableContainer,
+  BuiTableHead,
+  BuiTableHeader,
+  BuiTableRow,
+} from 'ng-blatui';
 
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
+
+/** AdminCN status tone → ng-blatui semantic tone for the round status badge. */
+const STATUS_TONE = { green: 'success', amber: 'warning', sky: 'info' } as const;
 
 interface NavItem {
   label: string;
@@ -49,12 +72,35 @@ interface Invoice {
   selector: 'app-tpl-admincn',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell, BuiCard, BuiIconTile, BuiBadge, BuiChart],
+  imports: [
+    Lucide,
+    AdmincnShell,
+    BuiCard,
+    BuiIconTile,
+    BuiBadge,
+    BuiChart,
+    BuiAvatar,
+    BuiButton,
+    BuiCheckbox,
+    BuiTableContainer,
+    BuiTable,
+    BuiTableHeader,
+    BuiTableBody,
+    BuiTableRow,
+    BuiTableHead,
+    BuiTableCell,
+    BuiPagination,
+    BuiPaginationContent,
+    BuiPaginationItem,
+    BuiPaginationLink,
+    BuiPaginationEllipsis,
+  ],
   templateUrl: './admincn.html',
   styleUrl: './admincn.css',
 })
 export class AdmincnTemplate {
   protected readonly img = '/admincn';
+  protected readonly statusTone = STATUS_TONE;
 
   protected readonly nav: NavGroup[] = [
     {
