@@ -9,28 +9,14 @@
         </div>
         <p class="text-sm text-muted-foreground">Total Profit</p>
       </div>
-      <div class="acn-kpi-chart">
-        <svg viewBox="0 0 120 56" class="h-14 w-full" preserveAspectRatio="none">
-          @for (b of profitBars; track $index) {
-            <rect
-              [attr.x]="$index * 24 + 6"
-              [attr.y]="56 - b.amber"
-              width="12"
-              [attr.height]="b.amber"
-              rx="2.5"
-              class="acn-bar-amber"
-            />
-            <rect
-              [attr.x]="$index * 24 + 6"
-              [attr.y]="56 - b.amber - b.teal"
-              width="12"
-              [attr.height]="b.teal + 3"
-              rx="2.5"
-              class="acn-bar-teal"
-            />
-          }
-        </svg>
-      </div>
+      <bui-chart
+        type="bar"
+        class="h-14"
+        [series]="profitSeries"
+        [stacked]="true"
+        [height]="56"
+        label="Total profit trend"
+      />
     </div>
 
     <!-- ============ KPI 2 — Order ============ -->
@@ -39,28 +25,15 @@
         <span class="font-heading text-base font-semibold">Order</span>
         <p class="text-sm text-muted-foreground">Last week</p>
       </div>
-      <div class="acn-kpi-chart">
-        <svg viewBox="0 0 120 56" class="h-14 w-full" preserveAspectRatio="none">
-          @for (v of orderBars; track $index) {
-            <rect
-              [attr.x]="$index * 17 + 4"
-              y="0"
-              width="10"
-              height="56"
-              rx="3"
-              class="acn-bar-track"
-            />
-            <rect
-              [attr.x]="$index * 17 + 4"
-              [attr.y]="56 - (v / 100) * 56"
-              width="10"
-              [attr.height]="(v / 100) * 56"
-              rx="3"
-              class="acn-bar-orange"
-            />
-          }
-        </svg>
-      </div>
+      <bui-chart
+        type="bar"
+        class="h-14"
+        [series]="orderSeries"
+        [track]="true"
+        [max]="100"
+        [height]="56"
+        label="Order volume"
+      />
       <div class="flex items-baseline gap-2">
         <span class="text-lg font-semibold tracking-tight">124K</span>
         <span class="text-sm text-primary">+12.6%</span>
@@ -73,24 +46,15 @@
         <span class="font-heading text-base font-semibold">Profit</span>
         <p class="text-sm text-muted-foreground">Last Month</p>
       </div>
-      <div class="acn-kpi-chart">
-        <svg viewBox="0 0 104 56" class="h-14 w-full">
-          @for (g of [20, 40, 60, 80]; track g) {
-            <line [attr.x1]="g" y1="2" [attr.x2]="g" y2="54" class="acn-grid-line" />
-          }
-          <polyline
-            [attr.points]="profitLine"
-            fill="none"
-            stroke="var(--chart-2)"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          @for (d of profitDots; track $index) {
-            <circle [attr.cx]="d[0]" [attr.cy]="d[1]" r="2.6" class="acn-dot" />
-          }
-        </svg>
-      </div>
+      <bui-chart
+        type="line"
+        class="h-14"
+        [series]="profitSparkSeries"
+        [dots]="true"
+        [gridX]="4"
+        [height]="56"
+        label="Profit trend"
+      />
       <div class="flex items-baseline gap-2">
         <span class="text-lg font-semibold tracking-tight">624K</span>
         <span class="text-sm text-primary">+12.6%</span>
