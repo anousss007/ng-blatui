@@ -7,8 +7,32 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
+import {
+  type BadgeTone,
+  BuiAvatar,
+  BuiBadge,
+  BuiButton,
+  BuiChart,
+  BuiCheckbox,
+  BuiIconTile,
+  BuiPagination,
+  BuiPaginationContent,
+  BuiPaginationItem,
+  BuiPaginationLink,
+  BuiTable,
+  BuiTableBody,
+  BuiTableCell,
+  BuiTableContainer,
+  BuiTableHead,
+  BuiTableHeader,
+  BuiTableRow,
+} from 'ng-blatui';
+
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
+
+/** AdminCN status tone → ng-blatui semantic tone for the round status badge. */
+const STATUS_TONE = { green: 'success', amber: 'warning', sky: 'info' } as const;
 
 /* ----- Row models for each table variant ----- */
 interface BasicRow {
@@ -296,11 +320,32 @@ function expand<T>(seed: readonly T[], count: number, clone: (row: T, index: num
   selector: 'app-tpl-admincn-datatable',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell],
+  imports: [
+    Lucide,
+    AdmincnShell,
+    BuiAvatar,
+    BuiBadge,
+    BuiButton,
+    BuiChart,
+    BuiCheckbox,
+    BuiIconTile,
+    BuiPagination,
+    BuiPaginationContent,
+    BuiPaginationItem,
+    BuiPaginationLink,
+    BuiTable,
+    BuiTableBody,
+    BuiTableCell,
+    BuiTableContainer,
+    BuiTableHead,
+    BuiTableHeader,
+    BuiTableRow,
+  ],
   templateUrl: './admincn-datatable.html',
 })
 export class AdmincnDatatable {
   protected readonly img = '/admincn';
+  protected readonly statusTone = STATUS_TONE;
   protected readonly avatars = [
     '/admincn/avatars/avatar-1.webp',
     '/admincn/avatars/avatar-2.webp',
@@ -1129,13 +1174,30 @@ export class AdmincnDatatable {
       })[k] ?? r.name,
   );
 
-  /** Filled-checkbox inline fill (CSS is shared & must not be edited). */
+  /**
+   * Filled-checkbox inline fill for the column-visibility dropdown indicator
+   * (a menu-item button can't nest a bui-checkbox button, so that one stays a
+   * styled span). CSS is shared & must not be edited.
+   */
   protected checkboxFill(isOn: boolean): string | null {
     return isOn ? 'var(--primary)' : null;
   }
 
-  /** Map a status/role string to a badge tone class. */
-  protected badgeTone(value: string): string {
+  /**
+   * Sparkline series for a graph row. The seed `spark` is an SVG points string
+   * (`x,y` pairs over a 0 0 72 22 viewBox, y inverted); convert each y to a data
+   * magnitude (`22 - y`) and colour by the row's trend arrow.
+   */
+  protected sparkSeries(row: GraphRow): { data: number[]; color: string }[] {
+    const data = row.spark
+      .trim()
+      .split(/\s+/)
+      .map((pair) => 22 - Number(pair.slice(pair.indexOf(',') + 1)));
+    return [{ data, color: row.arrow === 'down' ? 'var(--destructive)' : 'var(--chart-2)' }];
+  }
+
+  /** Map a status/role string to a ng-blatui badge tone. */
+  protected badgeTone(value: string): BadgeTone {
     switch (value) {
       case 'active':
       case 'paid':
@@ -1143,14 +1205,14 @@ export class AdmincnDatatable {
       case 'on track':
       case 'launched':
       case 'resolved': {
-        return 'acn-badge-green';
+        return 'success';
       }
       case 'inactive':
       case 'expired':
       case 'delayed':
       case 'closed':
       case 'urgent': {
-        return 'acn-badge-red';
+        return 'danger';
       }
       case 'pending':
       case 'review due':
@@ -1158,14 +1220,14 @@ export class AdmincnDatatable {
       case 'high':
       case 'in progress':
       case 'negotiating': {
-        return 'acn-badge-amber';
+        return 'warning';
       }
       case 'open':
       case 'medium': {
-        return 'acn-badge-sky';
+        return 'info';
       }
       default: {
-        return 'acn-badge-primary';
+        return 'neutral';
       }
     }
   }

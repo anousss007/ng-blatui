@@ -13,62 +13,25 @@
             <h3 class="font-heading text-lg font-semibold">Finance</h3>
             <p class="text-sm text-muted-foreground">Yearly report overview</p>
           </div>
-          <button type="button" class="acn-menu-btn" aria-label="Menu">
+          <button
+            buiButton
+            variant="ghost"
+            size="icon-xs"
+            class="rounded-full text-muted-foreground"
+            aria-label="Menu"
+          >
             <app-lucide name="ellipsis-vertical" class="size-4" />
           </button>
         </div>
-        <svg viewBox="0 0 380 340" class="h-64 w-full" preserveAspectRatio="none">
-          @for (g of chartGrid; track g) {
-            <line
-              [attr.x1]="0"
-              [attr.y1]="g + 2"
-              [attr.x2]="380"
-              [attr.y2]="g + 2"
-              class="acn-grid-line"
-            />
-          }
-          @for (b of financeBars; track b.label) {
-            <!-- profit (teal, bottom) -->
-            <rect
-              [attr.x]="$index * 51.286 + 49"
-              [attr.y]="chartH - b.profit"
-              width="12"
-              [attr.height]="b.profit"
-              rx="2"
-              fill="var(--chart-2)"
-            />
-            <!-- income (orange, middle) -->
-            @if (b.income > 0) {
-              <rect
-                [attr.x]="$index * 51.286 + 49"
-                [attr.y]="chartH - b.profit - b.income"
-                width="12"
-                [attr.height]="b.income"
-                fill="var(--chart-1)"
-              />
-            }
-            <!-- expense (amber, top) -->
-            @if (b.expense > 0) {
-              <rect
-                [attr.x]="$index * 51.286 + 49"
-                [attr.y]="chartH - b.profit - b.income - b.expense"
-                width="12"
-                [attr.height]="b.expense"
-                rx="2"
-                fill="var(--chart-4)"
-              />
-            }
-            <text
-              [attr.x]="$index * 51.286 + 55"
-              y="335"
-              text-anchor="middle"
-              fill="var(--muted-foreground)"
-              font-size="12"
-            >
-              {{ b.label }}
-            </text>
-          }
-        </svg>
+        <bui-chart
+          type="bar"
+          class="h-64"
+          [series]="financeSeries"
+          [labels]="financeAxis"
+          [stacked]="true"
+          [height]="256"
+          label="Finance yearly report"
+        />
       </div>
       <!-- Report -->
       <div class="flex flex-col gap-10 px-6 lg:col-span-2">
@@ -77,16 +40,22 @@
             <h3 class="font-heading text-lg font-semibold">Report</h3>
             <p class="text-sm text-muted-foreground">Monthly Avg. $45.578k</p>
           </div>
-          <button type="button" class="acn-menu-btn" aria-label="Menu">
+          <button
+            buiButton
+            variant="ghost"
+            size="icon-xs"
+            class="rounded-full text-muted-foreground"
+            aria-label="Menu"
+          >
             <app-lucide name="ellipsis-vertical" class="size-4" />
           </button>
         </div>
         <div class="flex flex-col gap-6">
           @for (r of reportRows; track r.label) {
             <div class="acn-earn-row">
-              <span class="acn-icon-tile size-9" [class]="'acn-tile-' + r.tone">
+              <bui-icon-tile [tone]="reportTone[r.tone]" class="size-9 rounded-md">
                 <app-lucide [name]="r.icon" class="size-5" />
-              </span>
+              </bui-icon-tile>
               <div class="flex flex-1 flex-col">
                 <span class="text-sm text-muted-foreground">{{ r.label }}</span>
                 <span class="text-base font-semibold tracking-tight">{{ r.value }}</span>
@@ -94,7 +63,7 @@
             </div>
           }
         </div>
-        <button type="button" class="acn-btn-primary mt-auto w-full">View Report</button>
+        <button buiButton class="mt-auto w-full">View Report</button>
       </div>
     </div>
 
@@ -103,9 +72,9 @@
       <!-- Total Orders -->
       <div class="acn-card acn-kpi justify-between">
         <div class="flex items-center justify-between">
-          <span class="acn-icon-tile acn-tile-teal size-9">
+          <bui-icon-tile tone="chart-2" class="size-9 rounded-md">
             <app-lucide name="shopping-cart" class="size-5" />
-          </span>
+          </bui-icon-tile>
           <span class="flex items-center gap-1 text-base text-primary">
             +22% <app-lucide name="chevron-up" class="size-4" />
           </span>
@@ -120,9 +89,9 @@
       <!-- Total Profit -->
       <div class="acn-card acn-kpi justify-between">
         <div class="flex items-center justify-between">
-          <span class="acn-icon-tile acn-tile-orange size-9">
+          <bui-icon-tile tone="chart-1" class="size-9 rounded-md">
             <app-lucide name="dollar-sign" class="size-5" />
-          </span>
+          </bui-icon-tile>
           <span class="flex items-center gap-1 text-base text-destructive">
             -16% <app-lucide name="chevron-down" class="size-4" />
           </span>
@@ -142,26 +111,14 @@
         </div>
         <p class="text-sm text-muted-foreground">Total Revenue</p>
         <div class="acn-kpi-chart">
-          <svg viewBox="0 0 120 56" class="h-14 w-full" preserveAspectRatio="none">
-            @for (v of revenueBars; track $index) {
-              <rect
-                [attr.x]="$index * 24 + 6"
-                [attr.y]="56 - (v / 100) * 56"
-                width="6"
-                [attr.height]="(v / 100) * 56"
-                rx="2"
-                fill="var(--chart-2)"
-              />
-              <rect
-                [attr.x]="$index * 24 + 13"
-                [attr.y]="56 - (v / 100) * 36"
-                width="6"
-                [attr.height]="(v / 100) * 36"
-                rx="2"
-                fill="color-mix(in oklab, var(--chart-2) 20%, transparent)"
-              />
-            }
-          </svg>
+          <bui-chart
+            type="bar"
+            class="h-14"
+            [series]="revenueSeries"
+            [max]="100"
+            [height]="56"
+            label="Total revenue trend"
+          />
         </div>
       </div>
 
@@ -172,17 +129,13 @@
           <p class="text-sm text-muted-foreground">Last year</p>
         </div>
         <div class="acn-kpi-chart">
-          <svg viewBox="0 0 120 48" class="h-14 w-full" preserveAspectRatio="none">
-            <path [attr.d]="impressionArea" fill="var(--chart-5)" fill-opacity="0.12" />
-            <polyline
-              [attr.points]="impressionLine"
-              fill="none"
-              stroke="var(--chart-5)"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
+          <bui-chart
+            type="area"
+            class="h-14"
+            [series]="impressionSeries"
+            [height]="56"
+            label="Impression trend"
+          />
         </div>
         <div class="flex items-baseline gap-2">
           <span class="text-lg font-semibold tracking-tight">175K</span>
@@ -195,16 +148,16 @@
     <div class="acn-card col-span-full grid grid-cols-2 gap-6 p-6 lg:col-span-3 xl:col-span-2">
       <div class="col-span-2 flex items-start justify-between">
         <h3 class="flex items-center gap-2 font-heading text-base font-semibold">
-          <span class="acn-icon-tile acn-tile-muted size-8">
+          <bui-icon-tile tone="muted" class="size-8 rounded-md">
             <app-lucide name="users" class="size-4" />
-          </span>
+          </bui-icon-tile>
           Total visitors
         </h3>
-        <button type="button" class="acn-btn-outline-xs">Details</button>
+        <button buiButton variant="outline" size="xs">Details</button>
       </div>
       <div class="col-span-2 flex items-baseline gap-2">
         <span class="text-2xl font-semibold tracking-tight">23.02K</span>
-        <span class="acn-badge-red">-6%</span>
+        <span buiBadge tone="danger" variant="soft">-6%</span>
       </div>
       <div class="col-span-2 flex">
         @for (v of visitors; track v.label) {
@@ -232,16 +185,22 @@
     >
       <div class="flex items-start justify-between">
         <h3 class="font-heading text-lg font-semibold">Top Products by Sales</h3>
-        <button type="button" class="acn-menu-btn" aria-label="Edit menu">
+        <button
+          buiButton
+          variant="ghost"
+          size="icon-xs"
+          class="rounded-full text-muted-foreground"
+          aria-label="Edit menu"
+        >
           <app-lucide name="ellipsis-vertical" class="size-4" />
         </button>
       </div>
       <div class="flex flex-col gap-5">
         @for (p of salesProducts; track p.name) {
           <div class="flex items-center gap-3">
-            <span class="acn-icon-tile acn-tile-muted size-9">
+            <bui-icon-tile tone="muted" class="size-9 rounded-md">
               <app-lucide [name]="p.icon" class="size-5" />
-            </span>
+            </bui-icon-tile>
             <div class="flex flex-1 flex-col">
               <span class="text-sm font-medium">{{ p.name }}</span>
               <span class="text-xs text-muted-foreground">{{ p.brand }}</span>
@@ -258,25 +217,31 @@
     >
       <div class="flex items-start justify-between">
         <h3 class="font-heading text-lg font-semibold">Top Products by Volume</h3>
-        <button type="button" class="acn-menu-btn" aria-label="Menu">
+        <button
+          buiButton
+          variant="ghost"
+          size="icon-xs"
+          class="rounded-full text-muted-foreground"
+          aria-label="Menu"
+        >
           <app-lucide name="ellipsis-vertical" class="size-4" />
         </button>
       </div>
       <div class="flex flex-col gap-5">
         @for (p of volumeProducts; track p.name) {
           <div class="flex items-center gap-3">
-            <span class="acn-icon-tile acn-tile-muted size-9">
+            <bui-icon-tile tone="muted" class="size-9 rounded-md">
               <app-lucide [name]="p.icon" class="size-5" />
-            </span>
+            </bui-icon-tile>
             <div class="flex flex-1 flex-col">
               <span class="text-sm font-medium">{{ p.name }}</span>
               <span class="text-xs text-muted-foreground">{{ p.brand }}</span>
             </div>
             <span class="font-medium">{{ p.value }}</span>
             @if (p.up) {
-              <span class="acn-badge-green">{{ p.delta }}</span>
+              <span buiBadge tone="success" variant="soft">{{ p.delta }}</span>
             } @else {
-              <span class="acn-badge-red">{{ p.delta }}</span>
+              <span buiBadge tone="danger" variant="soft">{{ p.delta }}</span>
             }
           </div>
         }
@@ -338,44 +303,72 @@
         </div>
       </div>
 
-      <div class="mt-4 overflow-x-auto px-2">
-        <table class="acn-table">
-          <thead>
-            <tr>
-              <th class="w-12">
-                <span
-                  class="acn-checkbox"
-                  role="checkbox"
-                  [attr.aria-checked]="allChecked()"
-                  (click)="toggleAll()"
-                  [style.background]="allChecked() ? 'var(--primary)' : null"
-                  [style.cursor]="'pointer'"
-                ></span>
+      <div buiTableContainer class="mt-4 px-2">
+        <table buiTable class="min-w-[42rem]">
+          <thead buiTableHeader>
+            <tr buiTableRow class="hover:bg-transparent">
+              <th buiTableHead class="h-[3.25rem] w-12 px-3 text-muted-foreground">
+                <button
+                  buiCheckbox
+                  [checked]="allChecked()"
+                  (checkedChange)="toggleAll()"
+                  aria-label="Select all"
+                ></button>
               </th>
-              <th [style.cursor]="'pointer'" (click)="sortBy('name')">User</th>
-              <th [style.cursor]="'pointer'" (click)="sortBy('role')">Role</th>
-              <th [style.cursor]="'pointer'" (click)="sortBy('plan')">Plan</th>
-              <th [style.cursor]="'pointer'" (click)="sortBy('billing')">Billing</th>
-              <th [style.cursor]="'pointer'" (click)="sortBy('status')">Status</th>
-              <th class="text-right">Actions</th>
+              <th
+                buiTableHead
+                class="h-[3.25rem] cursor-pointer px-3 text-muted-foreground"
+                (click)="sortBy('name')"
+              >
+                User
+              </th>
+              <th
+                buiTableHead
+                class="h-[3.25rem] cursor-pointer px-3 text-muted-foreground"
+                (click)="sortBy('role')"
+              >
+                Role
+              </th>
+              <th
+                buiTableHead
+                class="h-[3.25rem] cursor-pointer px-3 text-muted-foreground"
+                (click)="sortBy('plan')"
+              >
+                Plan
+              </th>
+              <th
+                buiTableHead
+                class="h-[3.25rem] cursor-pointer px-3 text-muted-foreground"
+                (click)="sortBy('billing')"
+              >
+                Billing
+              </th>
+              <th
+                buiTableHead
+                class="h-[3.25rem] cursor-pointer px-3 text-muted-foreground"
+                (click)="sortBy('status')"
+              >
+                Status
+              </th>
+              <th buiTableHead class="h-[3.25rem] px-3 text-right text-muted-foreground">
+                Actions
+              </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody buiTableBody>
             @for (u of pageRows(); track u.email) {
-              <tr>
-                <td>
-                  <span
-                    class="acn-checkbox"
-                    role="checkbox"
-                    [attr.aria-checked]="isChecked(u.email)"
-                    (click)="toggleRow(u.email)"
-                    [style.background]="isChecked(u.email) ? 'var(--primary)' : null"
-                    [style.cursor]="'pointer'"
-                  ></span>
+              <tr buiTableRow>
+                <td buiTableCell class="h-14 px-3">
+                  <button
+                    buiCheckbox
+                    [checked]="isChecked(u.email)"
+                    (checkedChange)="toggleRow(u.email)"
+                    aria-label="Select row"
+                  ></button>
                 </td>
-                <td>
+                <td buiTableCell class="h-14 px-3">
                   <div class="flex items-center gap-2.5">
-                    <img [src]="u.avatar" [alt]="u.name" class="size-8 rounded-full" />
+                    <bui-avatar [src]="u.avatar" [alt]="u.name" class="size-8" />
                     <div class="flex flex-col">
                       <span class="font-medium whitespace-nowrap">{{ u.name }}</span>
                       <span class="text-sm whitespace-nowrap text-muted-foreground">{{
@@ -384,39 +377,42 @@
                     </div>
                   </div>
                 </td>
-                <td>
+                <td buiTableCell class="h-14 px-3">
                   <span class="flex items-center gap-1.5 whitespace-nowrap capitalize">
                     <app-lucide [name]="u.roleIcon" class="size-4 text-muted-foreground" />
                     {{ u.role }}
                   </span>
                 </td>
-                <td class="text-muted-foreground capitalize">{{ u.plan }}</td>
-                <td class="whitespace-nowrap text-muted-foreground">{{ u.billing }}</td>
-                <td>
+                <td buiTableCell class="h-14 px-3 text-muted-foreground capitalize">
+                  {{ u.plan }}
+                </td>
+                <td buiTableCell class="h-14 px-3 whitespace-nowrap text-muted-foreground">
+                  {{ u.billing }}
+                </td>
+                <td buiTableCell class="h-14 px-3">
                   @if (u.status === 'active') {
-                    <span class="acn-badge-green capitalize">{{ u.status }}</span>
+                    <span buiBadge tone="success" variant="soft" class="capitalize">{{
+                      u.status
+                    }}</span>
                   } @else if (u.status === 'pending') {
-                    <span
-                      class="acn-badge-muted capitalize"
-                      style="
-                        background: color-mix(in oklab, #d97706 14%, transparent);
-                        color: #d97706;
-                      "
-                      >{{ u.status }}</span
-                    >
+                    <span buiBadge tone="warning" variant="soft" class="capitalize">{{
+                      u.status
+                    }}</span>
                   } @else {
-                    <span class="acn-badge-red capitalize">{{ u.status }}</span>
+                    <span buiBadge tone="danger" variant="soft" class="capitalize">{{
+                      u.status
+                    }}</span>
                   }
                 </td>
-                <td>
+                <td buiTableCell class="h-14 px-3">
                   <div class="flex items-center justify-end gap-1 text-muted-foreground">
-                    <button type="button" class="acn-row-btn" aria-label="Delete">
+                    <button buiButton variant="ghost" size="icon-sm" aria-label="Delete">
                       <app-lucide name="trash-2" class="size-4" />
                     </button>
-                    <button type="button" class="acn-row-btn" aria-label="View">
+                    <button buiButton variant="ghost" size="icon-sm" aria-label="View">
                       <app-lucide name="eye" class="size-4" />
                     </button>
-                    <button type="button" class="acn-row-btn" aria-label="More">
+                    <button buiButton variant="ghost" size="icon-sm" aria-label="More">
                       <app-lucide name="ellipsis-vertical" class="size-4" />
                     </button>
                   </div>
@@ -431,36 +427,57 @@
         <span class="text-sm text-muted-foreground"
           >Showing {{ rangeStart() }} to {{ rangeEnd() }} of {{ total() }} entries</span
         >
-        <div class="flex items-center gap-1">
-          <button
-            type="button"
-            class="acn-page-btn"
-            aria-label="Previous"
-            [disabled]="currentPage() === 1"
-            (click)="prev()"
-          >
-            <app-lucide name="chevron-left" class="size-4" /> Previous
-          </button>
-          @for (p of pageNumbers(); track p) {
-            <button
-              type="button"
-              class="acn-page-num"
-              [class.acn-page-active]="p === currentPage()"
-              (click)="goTo(p)"
-            >
-              {{ p }}
-            </button>
-          }
-          <button
-            type="button"
-            class="acn-page-btn"
-            aria-label="Next"
-            [disabled]="currentPage() === totalPages()"
-            (click)="next()"
-          >
-            Next <app-lucide name="chevron-right" class="size-4" />
-          </button>
-        </div>
+        <nav buiPagination>
+          <ul buiPaginationContent>
+            <li buiPaginationItem>
+              <a
+                buiPaginationLink
+                size="default"
+                role="button"
+                aria-label="Previous"
+                [class]="
+                  'cursor-pointer gap-1' +
+                  (currentPage() === 1 ? ' pointer-events-none opacity-50' : '')
+                "
+                (click)="prev()"
+              >
+                <app-lucide name="chevron-left" class="size-4" /> Previous
+              </a>
+            </li>
+            @for (p of pageNumbers(); track p) {
+              <li buiPaginationItem>
+                <a
+                  buiPaginationLink
+                  role="button"
+                  [active]="p === currentPage()"
+                  [class]="
+                    'cursor-pointer' +
+                    (p === currentPage()
+                      ? ' border-transparent bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground'
+                      : '')
+                  "
+                  (click)="goTo(p)"
+                  >{{ p }}</a
+                >
+              </li>
+            }
+            <li buiPaginationItem>
+              <a
+                buiPaginationLink
+                size="default"
+                role="button"
+                aria-label="Next"
+                [class]="
+                  'cursor-pointer gap-1' +
+                  (currentPage() === totalPages() ? ' pointer-events-none opacity-50' : '')
+                "
+                (click)="next()"
+              >
+                Next <app-lucide name="chevron-right" class="size-4" />
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>

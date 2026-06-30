@@ -6,6 +6,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
+import { BuiAvatar, BuiButton, BuiPresence } from 'ng-blatui';
+
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
 
@@ -48,7 +50,7 @@ interface Message {
   selector: 'app-tpl-admincn-chat',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell],
+  imports: [Lucide, AdmincnShell, BuiAvatar, BuiButton, BuiPresence],
   templateUrl: './admincn-chat.html',
 })
 export class AdmincnChat {
@@ -525,14 +527,6 @@ export class AdmincnChat {
       ],
     },
   ]);
-
-  /** Maps a presence status to its dot colour class. */
-  protected readonly statusClass: Record<string, string> = {
-    online: 'bg-green-500',
-    away: 'bg-yellow-500',
-    busy: 'bg-red-500',
-    offline: 'bg-muted-foreground',
-  };
 
   protected readonly me = '/admincn/avatars/avatar-1.webp';
 
