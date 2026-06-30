@@ -1,6 +1,6 @@
 #tpl-admincn {
   --acn-ring: color-mix(in oklab, var(--foreground) 10%, transparent);
-  --acn-green: #16a34a;
+  --acn-green: #15803d;
   --acn-amber: #d97706;
   --acn-sky: #0284c7;
   background: var(--sidebar);
