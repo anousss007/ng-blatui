@@ -32,13 +32,13 @@ export const API_DOCS = {
         "name": "ButtonSize",
         "kind": "type",
         "description": "Size preset controlling height, padding and icon scale.",
-        "definition": "\"default\" | \"sm\" | \"lg\" | \"xs\" | \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\""
+        "definition": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\""
       },
       {
         "name": "ButtonVariant",
         "kind": "type",
         "description": "Visual style of the button.",
-        "definition": "\"destructive\" | \"default\" | \"outline\" | \"secondary\" | \"ghost\" | \"link\""
+        "definition": "\"default\" | \"destructive\" | \"outline\" | \"secondary\" | \"ghost\" | \"link\""
       }
     ]
   },
@@ -58,14 +58,14 @@ export const API_DOCS = {
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"info\" | \"danger\" | \"neutral\" | null",
+            "type": "\"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | null",
             "default": "null",
             "required": false,
             "description": "Optional semantic tone; when set it overrides the brand variant's color."
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\"",
+            "type": "\"default\" | \"sm\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Badge size preset."
@@ -80,7 +80,7 @@ export const API_DOCS = {
         "name": "BadgeVariant",
         "kind": "type",
         "description": "Badge brand style, or `soft`/`solid` intensity when a `tone` is set.",
-        "definition": "\"destructive\" | \"default\" | \"outline\" | \"secondary\" | \"soft\" | \"solid\""
+        "definition": "\"default\" | \"destructive\" | \"outline\" | \"secondary\" | \"soft\" | \"solid\""
       }
     ]
   },
@@ -114,14 +114,14 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "variant",
-            "type": "\"destructive\" | \"default\"",
+            "type": "\"default\" | \"destructive\"",
             "default": "'default'",
             "required": false,
             "description": "Brand style; ignored when `tone` is set."
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"info\" | \"danger\" | \"neutral\" | null",
+            "type": "\"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | null",
             "default": "null",
             "required": false,
             "description": "Semantic tone; when set, overrides `variant`."
@@ -142,7 +142,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\"",
+            "type": "\"default\" | \"sm\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Size preset controlling input height, padding and text size."
@@ -163,7 +163,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\"",
+            "type": "\"default\" | \"sm\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Size preset controlling minimum height, padding and text size."
@@ -352,7 +352,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\"",
+            "type": "\"default\" | \"sm\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Track and thumb size."
@@ -737,7 +737,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\" | null",
+            "type": "\"default\" | \"sm\" | \"lg\" | null",
             "default": "'default'",
             "required": false,
             "description": "Button size."
@@ -820,7 +820,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "tone",
-            "type": "\"primary\" | \"success\" | \"warning\" | \"info\" | \"default\" | \"danger\"",
+            "type": "\"default\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"primary\"",
             "default": "'default'",
             "required": false,
             "description": "Color tone (`default | primary | info | success | warning | danger`)."
@@ -904,7 +904,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\"",
+            "type": "\"default\" | \"sm\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Avatar size preset, which also controls overlap and ring width."
@@ -982,7 +982,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\" | \"icon\"",
+            "type": "\"default\" | \"sm\" | \"lg\" | \"icon\"",
             "default": "'icon'",
             "required": false,
             "description": "Size variant controlling link dimensions and padding."
@@ -1038,14 +1038,14 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "variant",
-            "type": "\"muted\" | \"default\" | \"outline\"",
+            "type": "\"default\" | \"outline\" | \"muted\"",
             "default": "'default'",
             "required": false,
             "description": "Visual style of the item: transparent, outlined, or muted background."
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\"",
+            "type": "\"default\" | \"sm\"",
             "default": "'default'",
             "required": false,
             "description": "Item density: standard padding or a more compact `sm` size."
@@ -1108,7 +1108,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"xs\" | \"icon-xs\" | \"icon-sm\"",
+            "type": "\"xs\" | \"sm\" | \"icon-xs\" | \"icon-sm\"",
             "default": "'xs'",
             "required": false,
             "description": "Size preset for the addon button (text or icon variants)."
@@ -1157,7 +1157,7 @@ export const API_DOCS = {
           },
           {
             "name": "tone",
-            "type": "\"warning\" | \"default\" | \"danger\" | \"good\"",
+            "type": "\"default\" | \"warning\" | \"danger\" | \"good\"",
             "default": "'default'",
             "required": false,
             "description": "Fill colour tone; overridden by any matching threshold."
@@ -1449,7 +1449,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\"",
+            "type": "\"default\" | \"sm\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Size of each star."
@@ -1517,7 +1517,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "variant",
-            "type": "\"muted\" | \"blockquote\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"p\" | \"small\" | \"list\" | \"lead\" | \"large\" | \"inline-code\" | \"gradient\"",
+            "type": "\"blockquote\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"p\" | \"small\" | \"list\" | \"muted\" | \"lead\" | \"large\" | \"inline-code\" | \"gradient\"",
             "default": "'p'",
             "required": false,
             "description": "Typographic style to apply (e.g. `h1`, `lead`, `blockquote`, `gradient`)."
@@ -2155,7 +2155,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "variant",
-            "type": "\"muted\" | \"default\" | \"subtle\"",
+            "type": "\"default\" | \"muted\" | \"subtle\"",
             "default": "'default'",
             "required": false,
             "description": "Visual style of the link: default, muted, or subtle."
@@ -2330,7 +2330,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\"",
+            "type": "\"default\" | \"sm\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Text size preset for the price."
@@ -2447,7 +2447,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\"",
+            "type": "\"default\" | \"sm\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Size preset for the status dot."
@@ -3883,7 +3883,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\"",
+            "type": "\"default\" | \"sm\" | \"lg\"",
             "default": "'default'",
             "required": false,
             "description": "Size preset controlling the knob's diameter and text size."
@@ -6241,7 +6241,7 @@ export const API_DOCS = {
     ]
   },
   "chart": {
-    "summary": "A lightweight SVG chart (line / area / bar). Pure + SSR-safe.",
+    "summary": "A lightweight SVG chart (line / area / bar / donut). Pure + SSR-safe.",
     "components": [
       {
         "class": "BuiChart",
@@ -6249,17 +6249,17 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "type",
-            "type": "\"area\" | \"line\" | \"bar\"",
+            "type": "\"line\" | \"bar\" | \"area\" | \"donut\"",
             "default": "'line'",
             "required": false,
-            "description": "Chart render style: line, bar, or filled area."
+            "description": "Chart render style: line, bar, filled area, or a donut ring."
           },
           {
             "name": "series",
             "type": "readonly ChartSeries[]",
             "default": "[]",
             "required": false,
-            "description": "Series to plot; bar charts use only the first series."
+            "description": "Series to plot; bar/donut use only the first series."
           },
           {
             "name": "labels",
@@ -6273,7 +6273,21 @@ export const API_DOCS = {
             "type": "number",
             "default": "220",
             "required": false,
-            "description": "Chart height in pixels (SVG viewBox height)."
+            "description": "Chart height in pixels (SVG viewBox height / donut diameter)."
+          },
+          {
+            "name": "max",
+            "type": "number | null",
+            "default": "null",
+            "required": false,
+            "description": "Override for the value the chart scales against. For a donut it defines the\nfull ring (e.g. `max=100` with data `[62]` fills 62%); otherwise the max of\nthe series data is used."
+          },
+          {
+            "name": "thickness",
+            "type": "number",
+            "default": "12",
+            "required": false,
+            "description": "Donut ring thickness, in the 100×100 viewBox units."
           },
           {
             "name": "label",
