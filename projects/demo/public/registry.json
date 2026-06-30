@@ -3712,7 +3712,7 @@
         "inputs": [
           {
             "name": "type",
-            "type": "\"area\" | \"line\" | \"bar\" | \"donut\""
+            "type": "\"line\" | \"bar\" | \"area\" | \"donut\""
           },
           {
             "name": "series",
@@ -3733,6 +3733,14 @@
           {
             "name": "thickness",
             "type": "number"
+          },
+          {
+            "name": "activeIndex",
+            "type": "number | null"
+          },
+          {
+            "name": "barLabels",
+            "type": "readonly string[]"
           },
           {
             "name": "label",
