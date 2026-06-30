@@ -51,11 +51,11 @@
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"info\" | \"danger\" | \"neutral\" | null"
+            "type": "\"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | null"
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\""
+            "type": "\"default\" | \"sm\" | \"lg\""
           }
         ],
         "types": [
@@ -88,11 +88,11 @@
         "inputs": [
           {
             "name": "variant",
-            "type": "\"destructive\" | \"default\""
+            "type": "\"default\" | \"destructive\""
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"info\" | \"danger\" | \"neutral\" | null"
+            "type": "\"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | null"
           }
         ]
       }
@@ -107,7 +107,7 @@
         "inputs": [
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\""
+            "type": "\"default\" | \"sm\" | \"lg\""
           }
         ]
       }
@@ -122,7 +122,7 @@
         "inputs": [
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\""
+            "type": "\"default\" | \"sm\" | \"lg\""
           },
           {
             "name": "maxRows",
@@ -254,7 +254,7 @@
         "inputs": [
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\""
+            "type": "\"default\" | \"sm\" | \"lg\""
           },
           {
             "name": "iconOn",
@@ -505,7 +505,7 @@
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\" | null"
+            "type": "\"default\" | \"sm\" | \"lg\" | null"
           }
         ],
         "models": [
@@ -564,7 +564,7 @@
         "inputs": [
           {
             "name": "tone",
-            "type": "\"primary\" | \"success\" | \"warning\" | \"info\" | \"default\" | \"danger\""
+            "type": "\"default\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"primary\""
           },
           {
             "name": "dismissible",
@@ -618,7 +618,7 @@
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\""
+            "type": "\"default\" | \"sm\" | \"lg\""
           }
         ],
         "types": [
@@ -648,7 +648,7 @@
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\" | \"icon\""
+            "type": "\"default\" | \"sm\" | \"lg\" | \"icon\""
           }
         ]
       }
@@ -686,11 +686,11 @@
         "inputs": [
           {
             "name": "variant",
-            "type": "\"muted\" | \"default\" | \"outline\""
+            "type": "\"default\" | \"outline\" | \"muted\""
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\""
+            "type": "\"default\" | \"sm\""
           },
           {
             "name": "variant",
@@ -724,7 +724,7 @@
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"xs\" | \"icon-xs\" | \"icon-sm\""
+            "type": "\"xs\" | \"sm\" | \"icon-xs\" | \"icon-sm\""
           }
         ]
       }
@@ -755,7 +755,7 @@
           },
           {
             "name": "tone",
-            "type": "\"warning\" | \"default\" | \"danger\" | \"good\""
+            "type": "\"default\" | \"warning\" | \"danger\" | \"good\""
           },
           {
             "name": "thresholds",
@@ -944,7 +944,7 @@
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\""
+            "type": "\"default\" | \"sm\" | \"lg\""
           },
           {
             "name": "color",
@@ -1005,7 +1005,7 @@
         "inputs": [
           {
             "name": "variant",
-            "type": "\"muted\" | \"blockquote\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"p\" | \"small\" | \"list\" | \"lead\" | \"large\" | \"inline-code\" | \"gradient\""
+            "type": "\"blockquote\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"p\" | \"small\" | \"list\" | \"muted\" | \"lead\" | \"large\" | \"inline-code\" | \"gradient\""
           }
         ]
       }
@@ -1374,7 +1374,7 @@
         "inputs": [
           {
             "name": "variant",
-            "type": "\"muted\" | \"default\" | \"subtle\""
+            "type": "\"default\" | \"muted\" | \"subtle\""
           },
           {
             "name": "external",
@@ -1486,7 +1486,7 @@
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\""
+            "type": "\"default\" | \"sm\" | \"lg\""
           },
           {
             "name": "showDiscount",
@@ -1566,7 +1566,7 @@
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\""
+            "type": "\"default\" | \"sm\" | \"lg\""
           },
           {
             "name": "pulse",
@@ -2426,7 +2426,7 @@
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\""
+            "type": "\"default\" | \"sm\" | \"lg\""
           },
           {
             "name": "label",
@@ -3712,7 +3712,7 @@
         "inputs": [
           {
             "name": "type",
-            "type": "\"area\" | \"line\" | \"bar\""
+            "type": "\"line\" | \"bar\" | \"area\" | \"donut\""
           },
           {
             "name": "series",
@@ -3724,6 +3724,14 @@
           },
           {
             "name": "height",
+            "type": "number"
+          },
+          {
+            "name": "max",
+            "type": "number | null"
+          },
+          {
+            "name": "thickness",
             "type": "number"
           },
           {
