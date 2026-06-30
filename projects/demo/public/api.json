@@ -6247,7 +6247,7 @@
         "inputs": [
           {
             "name": "type",
-            "type": "\"area\" | \"line\" | \"bar\" | \"donut\"",
+            "type": "\"line\" | \"bar\" | \"area\" | \"donut\"",
             "default": "'line'",
             "required": false,
             "description": "Chart render style: line, bar, filled area, or a donut ring."
@@ -6286,6 +6286,20 @@
             "default": "12",
             "required": false,
             "description": "Donut ring thickness, in the 100×100 viewBox units."
+          },
+          {
+            "name": "activeIndex",
+            "type": "number | null",
+            "default": "null",
+            "required": false,
+            "description": "Index of the highlighted bar (bar charts). When set, the active bar renders\nsolid and the rest are tinted; when `null` every bar renders solid."
+          },
+          {
+            "name": "barLabels",
+            "type": "readonly string[]",
+            "default": "[]",
+            "required": false,
+            "description": "Value text shown above each bar (bar charts); pass one entry per data point."
           },
           {
             "name": "label",
