@@ -78,8 +78,10 @@
       <!-- Topbar -->
       <header class="acn-topbar">
         <button
-          type="button"
-          class="acn-icon-btn"
+          buiButton
+          variant="ghost"
+          size="icon"
+          class="rounded-full"
           aria-label="Toggle sidebar"
           (click)="toggleSidebar()"
         >
@@ -89,19 +91,27 @@
         <button type="button" class="acn-search" (click)="paletteOpen.set(true)">
           <app-lucide name="search" class="size-4" />
           <span class="max-sm:hidden">Type to search...</span>
-          <kbd class="acn-kbd max-sm:hidden">⌘K</kbd>
+          <kbd buiKbd class="max-sm:hidden">⌘K</kbd>
         </button>
 
         <div class="ml-auto flex items-center gap-0.5 sm:gap-1">
-          <button type="button" class="acn-icon-btn max-sm:hidden" aria-label="Activity">
+          <button
+            buiButton
+            variant="ghost"
+            size="icon"
+            class="rounded-full max-sm:hidden"
+            aria-label="Activity"
+          >
             <app-lucide name="activity" class="size-4.5" />
           </button>
 
           <!-- Notifications dropdown -->
           <div class="acn-menu-wrap">
             <button
-              type="button"
-              class="acn-icon-btn relative"
+              buiButton
+              variant="ghost"
+              size="icon"
+              class="relative rounded-full"
               aria-label="Notifications"
               (click)="toggleMenu('bell')"
             >
@@ -115,9 +125,9 @@
                 </div>
                 @for (n of notifications; track n.title) {
                   <a href="#" class="acn-dropdown-item">
-                    <span class="acn-icon-tile acn-tile-teal size-8">
+                    <bui-icon-tile tone="chart-2" class="size-8 rounded-md">
                       <app-lucide [name]="n.icon" class="size-4" />
-                    </span>
+                    </bui-icon-tile>
                     <span class="flex min-w-0 flex-1 flex-col">
                       <span class="truncate text-sm font-medium">{{ n.title }}</span>
                       <span class="truncate text-xs text-muted-foreground">{{ n.time }}</span>
@@ -131,8 +141,10 @@
 
           <!-- Theme toggle -->
           <button
-            type="button"
-            class="acn-icon-btn"
+            buiButton
+            variant="ghost"
+            size="icon"
+            class="rounded-full"
             aria-label="Toggle theme"
             (click)="theme.toggle()"
           >
@@ -143,7 +155,13 @@
             }
           </button>
 
-          <button type="button" class="acn-icon-btn max-sm:hidden" aria-label="Customize">
+          <button
+            buiButton
+            variant="ghost"
+            size="icon"
+            class="rounded-full max-sm:hidden"
+            aria-label="Customize"
+          >
             <app-lucide name="palette" class="size-4.5" />
           </button>
 
@@ -155,17 +173,13 @@
               aria-label="Account"
               (click)="toggleMenu('avatar')"
             >
-              <img
-                src="/admincn/avatars/avatar-1.webp"
-                alt="John Doe"
-                class="size-8 rounded-full"
-              />
-              <span class="acn-dot-green"></span>
+              <bui-avatar src="/admincn/avatars/avatar-1.webp" alt="John Doe" />
+              <bui-presence status="online" size="sm" class="absolute right-0 bottom-0 ring-card" />
             </button>
             @if (openMenu() === 'avatar') {
               <div class="acn-dropdown">
                 <div class="acn-dropdown-user">
-                  <img src="/admincn/avatars/avatar-1.webp" alt="" class="size-9 rounded-full" />
+                  <bui-avatar src="/admincn/avatars/avatar-1.webp" alt="" class="size-9" />
                   <span class="flex min-w-0 flex-col">
                     <span class="truncate text-sm font-medium">John Doe</span>
                     <span class="truncate text-xs text-muted-foreground">john&#64;example.com</span>
@@ -220,7 +234,7 @@
               placeholder="Type a command or search…"
               (input)="query.set(cmd.value)"
             />
-            <kbd class="acn-kbd">esc</kbd>
+            <kbd buiKbd>esc</kbd>
           </div>
           <div class="acn-palette-list">
             @for (group of nav; track group.label) {

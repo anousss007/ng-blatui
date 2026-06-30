@@ -6,8 +6,31 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
+import {
+  BuiAvatar,
+  BuiBadge,
+  BuiButton,
+  BuiChart,
+  BuiCheckbox,
+  BuiIconTile,
+  BuiPagination,
+  BuiPaginationContent,
+  BuiPaginationItem,
+  BuiPaginationLink,
+  BuiTable,
+  BuiTableBody,
+  BuiTableCell,
+  BuiTableContainer,
+  BuiTableHead,
+  BuiTableHeader,
+  BuiTableRow,
+} from 'ng-blatui';
+
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
+
+/** AdminCN report-row tone → ng-blatui icon-tile tone. */
+const REPORT_TONE = { teal: 'chart-2', orange: 'chart-1', amber: 'chart-5' } as const;
 
 interface StackBar {
   label: string;
@@ -57,15 +80,36 @@ interface UserRow {
   selector: 'app-tpl-admincn-finance',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell],
+  imports: [
+    Lucide,
+    AdmincnShell,
+    BuiIconTile,
+    BuiBadge,
+    BuiButton,
+    BuiChart,
+    BuiAvatar,
+    BuiCheckbox,
+    BuiTableContainer,
+    BuiTable,
+    BuiTableHeader,
+    BuiTableBody,
+    BuiTableRow,
+    BuiTableHead,
+    BuiTableCell,
+    BuiPagination,
+    BuiPaginationContent,
+    BuiPaginationItem,
+    BuiPaginationLink,
+  ],
   templateUrl: './admincn-finance.html',
 })
 export class AdmincnFinance {
   protected readonly img = '/admincn';
+  protected readonly reportTone = REPORT_TONE;
 
   /* Yearly report — stacked bars (profit teal / income orange / expense amber).
-     Raw SVG-unit heights mined from the reference; chart height = 321. */
-  protected readonly chartH = 321;
+     Raw SVG-unit heights mined from the reference (chart height = 321); fed to
+     bui-chart as three stacked series rendered bottom-to-top. */
   protected readonly financeBars: StackBar[] = [
     { label: 'Jan', profit: 128.4, income: 0, expense: 0 },
     { label: 'Feb', profit: 128.4, income: 51.36, expense: 0 },
@@ -75,7 +119,12 @@ export class AdmincnFinance {
     { label: 'Jun', profit: 96.3, income: 141.24, expense: 83.46 },
     { label: 'Jul', profit: 160.5, income: 44.94, expense: 77.04 },
   ];
-  protected readonly chartGrid = [0, 80.25, 160.5, 240.75];
+  protected readonly financeSeries = [
+    { data: this.financeBars.map((b) => b.profit), color: 'var(--chart-2)' },
+    { data: this.financeBars.map((b) => b.income), color: 'var(--chart-1)' },
+    { data: this.financeBars.map((b) => b.expense), color: 'var(--chart-4)' },
+  ];
+  protected readonly financeAxis = this.financeBars.map((b) => b.label);
 
   /* Report breakdown rows */
   protected readonly reportRows: ReportRow[] = [
@@ -84,13 +133,15 @@ export class AdmincnFinance {
     { label: 'Total Expense', value: '$2,453.45', icon: 'wallet', tone: 'amber' },
   ];
 
-  /* Revenue mini bar chart (desktop teal / mobile light teal pairs) */
+  /* Revenue mini bar chart (teal bars, scaled against a fixed max of 100). */
   protected readonly revenueBars = [40, 70, 55, 90, 60];
+  protected readonly revenueSeries = [{ data: this.revenueBars, color: 'var(--chart-2)' }];
 
-  /* Impression mini line/area chart */
-  protected readonly impressionLine = '0,40 18,28 36,34 54,16 72,30 90,10 108,22 120,6';
-  protected readonly impressionArea =
-    'M0,40 L18,28 L36,34 L54,16 L72,30 L90,10 L108,22 L120,6 L120,48 L0,48 Z';
+  /* Impression mini area chart — y-values from the original 48-tall viewBox
+     inverted to data magnitudes (48 − y). */
+  protected readonly impressionSeries = [
+    { data: [8, 20, 14, 32, 18, 38, 26, 42], color: 'var(--chart-5)' },
+  ];
 
   /* Visitors split */
   protected readonly visitors: Visitor[] = [

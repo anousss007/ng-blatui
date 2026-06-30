@@ -6,12 +6,41 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
+import {
+  type BadgeTone,
+  BuiAvatar,
+  BuiBadge,
+  BuiButton,
+  BuiChart,
+  BuiCheckbox,
+  BuiIconTile,
+  BuiPagination,
+  BuiPaginationContent,
+  BuiPaginationItem,
+  BuiPaginationLink,
+  BuiTable,
+  BuiTableBody,
+  BuiTableCell,
+  BuiTableContainer,
+  BuiTableHead,
+  BuiTableHeader,
+  BuiTableRow,
+  type IconTileTone,
+} from 'ng-blatui';
+
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
 
+/** AdminCN user status → ng-blatui badge tone. */
+const STATUS_TONE: Record<UserRow['status'], BadgeTone> = {
+  active: 'success',
+  pending: 'warning',
+  inactive: 'danger',
+};
+
 interface Kpi {
   icon: string;
-  tile: string; // text/bg chart colour key, e.g. 'chart-1'
+  tile: IconTileTone; // icon-tile tone key, e.g. 'chart-1'
   delta: string;
   up: boolean;
   value: string;
@@ -20,7 +49,7 @@ interface Kpi {
 }
 interface CampaignRow {
   icon: string;
-  tile: string;
+  tile: IconTileTone;
   label: string;
   value: string;
   rate: string;
@@ -35,7 +64,7 @@ interface Plan {
 interface Condition {
   pct: number; // 0..100 ring fill
   display: string;
-  ring: string; // stroke-* class
+  color: string; // donut ring colour, e.g. 'var(--chart-1)'
   label: string;
   sub: string;
   delta: string;
@@ -62,7 +91,27 @@ interface UserRow {
   selector: 'app-tpl-admincn-campaign',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell],
+  imports: [
+    Lucide,
+    AdmincnShell,
+    BuiIconTile,
+    BuiBadge,
+    BuiButton,
+    BuiChart,
+    BuiAvatar,
+    BuiCheckbox,
+    BuiTableContainer,
+    BuiTable,
+    BuiTableHeader,
+    BuiTableBody,
+    BuiTableRow,
+    BuiTableHead,
+    BuiTableCell,
+    BuiPagination,
+    BuiPaginationContent,
+    BuiPaginationItem,
+    BuiPaginationLink,
+  ],
   templateUrl: './admincn-campaign.html',
   host: { '(document:click)': 'closeMenus()' },
 })
@@ -110,10 +159,11 @@ export class AdmincnCampaign {
   ];
 
   /* Total Income area chart ---------------------------------------------- */
-  protected readonly incomeArea =
-    'M42,134.38L108.167,134.38L174.333,54.2L240.5,54.2L306.667,96.4L372.833,96.4L439,15.376L439,265.2L372.833,265.2L306.667,265.2L240.5,265.2L174.333,265.2L108.167,265.2L42,265.2Z';
-  protected readonly incomeLine =
-    '42,134.38 108.167,134.38 174.333,54.2 240.5,54.2 306.667,96.4 372.833,96.4 439,15.376';
+  // y-values from the original 266-tall viewBox inverted to data magnitudes
+  // (flat pairs + a final rise give the stepped weekly income profile).
+  protected readonly incomeSeries = [
+    { data: [131.62, 131.62, 211.8, 211.8, 169.6, 169.6, 250.624], color: 'var(--chart-2)' },
+  ];
   protected readonly incomeDays = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
   protected readonly incomeAxis = ['$6k', '$5k', '$4k', '$3k', '$2k', '$1k'];
 
@@ -134,17 +184,13 @@ export class AdmincnCampaign {
     { icon: 'circle', tile: 'primary', label: 'Unsubscribed', value: '86', rate: '0.6%' },
   ];
 
-  /* Total earning grouped bar chart (baseline y=88.5 of 177 vbox) -------- */
-  // pv = amber (chart-5) up; uv = chart-3 down. x is left edge of 12-wide bar.
-  protected readonly earnBars = [
-    { x: 13, pvY: 27.14, pvH: 61.36, uvH: 62.54 },
-    { x: 52.375, pvY: 42.48, pvH: 46.02, uvH: 50.74 },
-    { x: 91.75, pvY: 20.06, pvH: 68.44, uvH: 83.81 },
-    { x: 131.125, pvY: 27.14, pvH: 61.36, uvH: 50.74 },
-    { x: 170.5, pvY: 54.28, pvH: 34.22, uvH: 64.9 },
-    { x: 209.875, pvY: 15.34, pvH: 73.16, uvH: 64.9 },
-    { x: 249.25, pvY: 9.381, pvH: 79.119, uvH: 35.4 },
-    { x: 288.625, pvY: 60.18, pvH: 28.32, uvH: 64.9 },
+  /* Total earning stacked bar chart -------------------------------------- */
+  // Original diverging bars (baseline y=88.5 of a 177-tall vbox): chart-3 below
+  // the baseline, chart-5 (amber) above. As a bottom-up stack the lower segment
+  // is chart-3 (the original downward height) and the upper is chart-5.
+  protected readonly earnSeries = [
+    { data: [62.54, 50.74, 83.81, 50.74, 64.9, 64.9, 35.4, 64.9], color: 'var(--chart-3)' },
+    { data: [61.36, 46.02, 68.44, 61.36, 34.22, 73.16, 79.12, 28.32], color: 'var(--chart-5)' },
   ];
 
   /* For Business Shark — plan selector ------------------------------------ */
@@ -178,12 +224,12 @@ export class AdmincnCampaign {
     this.openMenu.set(null);
   }
 
-  /* Vehicles Condition (ring r=23.5 => circumference 147.65) -------------- */
+  /* Vehicles Condition donut rings --------------------------------------- */
   protected readonly conditions: Condition[] = [
     {
       pct: 55,
       display: '55%',
-      ring: 'stroke-chart-1',
+      color: 'var(--chart-1)',
       label: 'Excellent',
       sub: '12% increase',
       delta: '+25%',
@@ -191,7 +237,7 @@ export class AdmincnCampaign {
     {
       pct: 20,
       display: '20%',
-      ring: 'stroke-chart-2',
+      color: 'var(--chart-2)',
       label: 'Good',
       sub: '24 vehicles',
       delta: '+30%',
@@ -199,7 +245,7 @@ export class AdmincnCampaign {
     {
       pct: 12,
       display: '12%',
-      ring: 'stroke-chart-3',
+      color: 'var(--chart-3)',
       label: 'Average',
       sub: '182 Tasks',
       delta: '-15%',
@@ -207,7 +253,7 @@ export class AdmincnCampaign {
     {
       pct: 7,
       display: '7%',
-      ring: 'stroke-chart-4',
+      color: 'var(--chart-4)',
       label: 'Bad',
       sub: '9 vehicles',
       delta: '+35%',
@@ -215,7 +261,7 @@ export class AdmincnCampaign {
     {
       pct: 4,
       display: '4%',
-      ring: 'stroke-chart-5',
+      color: 'var(--chart-5)',
       label: 'Not Working',
       sub: '3 vehicles',
       delta: '-2%',
@@ -223,17 +269,12 @@ export class AdmincnCampaign {
     {
       pct: 2,
       display: '2%',
-      ring: 'stroke-primary',
+      color: 'var(--primary)',
       label: 'Scraped',
       sub: '2 vehicles',
       delta: '+1%',
     },
   ];
-  protected readonly ringCirc = 147.65;
-  protected ringDash(pct: number): string {
-    const fill = (pct / 100) * this.ringCirc;
-    return `${fill} ${this.ringCirc}`;
-  }
 
   /* Users table ----------------------------------------------------------- */
   protected readonly users: UserRow[] = [
@@ -294,10 +335,33 @@ export class AdmincnCampaign {
     },
   ];
 
-  protected statusClass(status: string): string {
-    if (status === 'pending')
-      return 'bg-amber-600/10 text-amber-600 dark:bg-amber-400/10 dark:text-amber-400';
-    if (status === 'inactive') return 'bg-destructive/10 text-destructive';
-    return 'bg-green-600/10 text-green-600 dark:bg-green-400/10 dark:text-green-400';
+  protected statusTone(status: UserRow['status']): BadgeTone {
+    return STATUS_TONE[status];
+  }
+
+  /* Table selection + pagination (display-only) --------------------------- */
+  protected readonly page = signal(1);
+  protected goTo(p: number): void {
+    this.page.set(p);
+  }
+
+  private readonly checked = signal<Set<string>>(new Set());
+  protected isChecked(email: string): boolean {
+    return this.checked().has(email);
+  }
+  protected toggleRow(email: string): void {
+    const set = new Set(this.checked());
+    if (set.has(email)) set.delete(email);
+    else set.add(email);
+    this.checked.set(set);
+  }
+  protected readonly allChecked = computed(
+    () => this.users.length > 0 && this.users.every((u) => this.checked().has(u.email)),
+  );
+  protected toggleAll(): void {
+    const set = new Set(this.checked());
+    if (this.allChecked()) for (const u of this.users) set.delete(u.email);
+    else for (const u of this.users) set.add(u.email);
+    this.checked.set(set);
   }
 }

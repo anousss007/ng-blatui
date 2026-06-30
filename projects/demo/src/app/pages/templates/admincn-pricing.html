@@ -66,21 +66,18 @@
         >
           @if (plan.badge) {
             <span
-              class="absolute top-3 right-3 z-10 inline-flex h-auto w-fit items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium whitespace-nowrap"
-              style="background: var(--destructive); color: white"
+              buiBadge
+              variant="destructive"
+              class="absolute top-3 right-3 z-10 gap-1 rounded-full px-2 py-0.5 text-xs"
             >
               <app-lucide name="zap" class="size-3" />
               {{ plan.badge }}
             </span>
           }
 
-          <span
-            class="acn-icon-tile size-9"
-            [class.acn-tile-primary]="plan.popular"
-            [class.acn-tile-muted]="!plan.popular"
-          >
+          <bui-icon-tile [tone]="plan.popular ? 'primary' : 'muted'" class="size-9 rounded-md">
             <app-lucide [name]="plan.icon" class="size-5" />
-          </span>
+          </bui-icon-tile>
 
           <p class="text-lg font-semibold">{{ plan.name }}</p>
 
@@ -99,7 +96,7 @@
             }
           </p>
 
-          <button type="button" class="acn-btn-primary mt-2 w-full" (click)="selectPlan(plan.name)">
+          <button type="button" buiButton class="mt-2 w-full" (click)="selectPlan(plan.name)">
             {{ plan.cta }}
           </button>
         </div>
@@ -115,9 +112,9 @@
           (click)="toggleSection(section.title)"
           [attr.aria-expanded]="isOpen(section.title)"
         >
-          <span class="acn-icon-tile acn-tile-muted size-8">
+          <bui-icon-tile tone="muted" class="size-8 rounded-md">
             <app-lucide [name]="section.icon" class="size-4" />
-          </span>
+          </bui-icon-tile>
           <p class="text-xl font-medium">{{ section.title }}</p>
           <app-lucide
             name="chevron-down"
@@ -138,12 +135,13 @@
                   <div class="flex items-center justify-center px-2 py-3">
                     @switch (cell.kind) {
                       @case ('check') {
-                        <span
-                          class="flex size-[1.375rem] items-center justify-center rounded-full"
-                          style="background: color-mix(in oklab, var(--primary) 10%, transparent)"
+                        <bui-icon-tile
+                          tone="primary"
+                          shape="circle"
+                          class="size-[1.375rem] [&_svg]:size-3.5"
                         >
-                          <app-lucide name="check" class="size-3.5" style="color: var(--primary)" />
-                        </span>
+                          <app-lucide name="check" class="size-3.5" />
+                        </bui-icon-tile>
                       }
                       @case ('dash') {
                         <app-lucide name="minus" class="size-4 text-muted-foreground" />
@@ -164,13 +162,11 @@
     <!-- ============ Footer CTAs ============ -->
     <div class="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
       @for (cta of footerCtas; track cta) {
-        <button type="button" class="acn-btn-primary w-full">{{ cta }}</button>
+        <button type="button" buiButton class="w-full">{{ cta }}</button>
       }
     </div>
   </section>
 
   <!-- Floating Buy Now CTA -->
-  <a href="#pricing-details" class="acn-btn-primary fixed right-6 bottom-8 z-50 gap-1.5">
-    Buy Now
-  </a>
+  <a href="#pricing-details" buiButton class="fixed right-6 bottom-8 z-50 gap-1.5"> Buy Now </a>
 </app-admincn-shell>

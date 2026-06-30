@@ -12,15 +12,9 @@
     @for (k of kpis; track k.label) {
       <div class="acn-card col-span-full flex flex-col gap-2 p-6 sm:col-span-2">
         <div class="flex items-center gap-2">
-          <span
-            class="acn-icon-tile size-8"
-            style="
-              background: color-mix(in oklab, var(--primary) 10%, transparent);
-              color: var(--primary);
-            "
-          >
+          <bui-icon-tile tone="primary" class="size-8 rounded-md">
             <app-lucide [name]="k.icon" class="size-4" />
-          </span>
+          </bui-icon-tile>
           <span class="text-2xl">{{ k.value }}</span>
         </div>
         <span class="text-base font-semibold">{{ k.label }}</span>
@@ -56,37 +50,28 @@
               <span class="text-sm text-muted-foreground">Product reached</span>
               <span class="text-2xl font-semibold tracking-tight">21,153</span>
             </div>
-            <svg viewBox="0 0 100 40" class="h-10 w-full" preserveAspectRatio="none">
-              @for (b of reachBars; track $index) {
-                <rect
-                  [attr.x]="$index * 20 + 4"
-                  [attr.y]="40 - (b / 100) * 40"
-                  width="12"
-                  [attr.height]="(b / 100) * 40"
-                  rx="2"
-                  class="acn-bar-orange"
-                  style="fill: var(--primary)"
-                />
-              }
-            </svg>
+            <bui-chart
+              type="bar"
+              class="h-10"
+              [series]="reachSeries"
+              [max]="100"
+              [height]="40"
+              label="Product reached"
+            />
           </div>
           <div class="flex flex-col gap-2">
             <div class="flex flex-col">
               <span class="text-sm text-muted-foreground">Order placed</span>
               <span class="text-2xl font-semibold tracking-tight">2,123</span>
             </div>
-            <svg viewBox="0 0 100 40" class="h-10 w-full" preserveAspectRatio="none">
-              @for (b of placedBars; track $index) {
-                <rect
-                  [attr.x]="$index * 20 + 4"
-                  [attr.y]="40 - (b / 100) * 40"
-                  width="12"
-                  [attr.height]="(b / 100) * 40"
-                  rx="2"
-                  class="acn-bar-track"
-                />
-              }
-            </svg>
+            <bui-chart
+              type="bar"
+              class="h-10"
+              [series]="placedSeries"
+              [max]="100"
+              [height]="40"
+              label="Order placed"
+            />
           </div>
         </div>
       </div>
@@ -97,8 +82,10 @@
           <h3 class="font-heading text-lg font-semibold">Total Earning</h3>
           <div class="relative">
             <button
-              type="button"
-              class="acn-menu-btn"
+              buiButton
+              variant="ghost"
+              size="icon-xs"
+              class="rounded-full text-muted-foreground"
               aria-label="Menu"
               (click)="toggleMenu('earning')"
             >
@@ -159,11 +146,7 @@
       <!-- Sales metrics -->
       <div class="acn-card flex flex-col gap-6 p-6 lg:col-span-3">
         <div class="flex items-center gap-3">
-          <img
-            [src]="img + '/avatars/avatar-6.webp'"
-            alt="Sandy' Company"
-            class="size-10 rounded-full object-cover"
-          />
+          <bui-avatar [src]="img + '/avatars/avatar-6.webp'" alt="Sandy' Company" class="size-10" />
           <div class="flex flex-col">
             <h3 class="font-heading text-lg font-semibold">Sales metrics</h3>
             <p class="text-sm text-muted-foreground">Sandy' Company · sandy@company.com</p>
@@ -172,9 +155,9 @@
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           @for (m of metrics; track m.label) {
             <div class="acn-card flex items-center gap-3 p-4">
-              <span class="acn-icon-tile size-9" [class]="'acn-tile-' + m.tile">
+              <bui-icon-tile [tone]="tileTone[m.tile]" class="size-9 rounded-md">
                 <app-lucide [name]="m.icon" class="size-5" />
-              </span>
+              </bui-icon-tile>
               <div class="flex flex-col">
                 <span class="text-sm text-muted-foreground">{{ m.label }}</span>
                 <span class="text-lg font-semibold tracking-tight">{{ m.value }}</span>
@@ -188,27 +171,17 @@
       <div class="acn-card flex flex-col gap-4 p-6 lg:col-span-2">
         <h3 class="font-heading text-lg font-semibold">Revenue goal</h3>
         <div class="flex flex-1 items-center justify-center">
-          <div class="relative size-[150px]">
-            <svg viewBox="0 0 100 100" class="size-full -rotate-90">
-              <circle cx="50" cy="50" r="40" fill="none" class="acn-bar-track" stroke-width="11" />
-              @for (a of revenueArcs; track $index) {
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="40"
-                  fill="none"
-                  [attr.stroke]="a.color"
-                  stroke-width="11"
-                  [attr.stroke-dasharray]="arcDash(a.pct)"
-                  [attr.stroke-dashoffset]="arcOffset($index)"
-                />
-              }
-            </svg>
-            <div class="absolute inset-0 flex flex-col items-center justify-center leading-none">
-              <span class="text-2xl font-semibold tracking-tight">256.24</span>
-              <span class="text-xs text-muted-foreground">Total Profit</span>
-            </div>
-          </div>
+          <bui-chart
+            type="donut"
+            [series]="revenueSeries"
+            [max]="100"
+            [height]="150"
+            [thickness]="11"
+            label="Revenue goal"
+          >
+            <span class="text-2xl font-semibold tracking-tight">256.24</span>
+            <span class="text-xs text-muted-foreground">Total Profit</span>
+          </bui-chart>
         </div>
         <div class="flex items-center justify-between gap-2">
           <span class="text-sm text-muted-foreground">Plan completed</span>
@@ -233,15 +206,15 @@
           </div>
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div class="flex items-center gap-2">
-              <span class="acn-icon-tile acn-tile-teal size-9">
+              <bui-icon-tile tone="chart-2" class="size-9 rounded-md">
                 <app-lucide name="chart-column" class="size-5" />
-              </span>
+              </bui-icon-tile>
               <span class="text-base font-medium">Open Statistics</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="acn-icon-tile acn-tile-amber size-9">
+              <bui-icon-tile tone="chart-5" class="size-9 rounded-md">
                 <app-lucide name="pie-chart" class="size-5" />
-              </span>
+              </bui-icon-tile>
               <span class="text-base font-medium">Percentage Change</span>
             </div>
           </div>
@@ -310,43 +283,59 @@
         </div>
       </div>
 
-      <div class="mt-2 overflow-x-auto px-2">
-        <table class="acn-table">
-          <thead>
-            <tr>
-              <th class="w-12">
-                <span
-                  class="acn-checkbox"
-                  role="checkbox"
-                  [attr.aria-checked]="allChecked()"
-                  (click)="toggleAll()"
-                  [style.background]="allChecked() ? 'var(--primary)' : null"
-                  [style.cursor]="'pointer'"
-                ></span>
+      <div buiTableContainer class="mt-2 min-w-[42rem] px-2">
+        <table buiTable>
+          <thead buiTableHeader>
+            <tr buiTableRow class="hover:bg-transparent">
+              <th buiTableHead class="h-[3.25rem] w-12 px-3 text-muted-foreground">
+                <button
+                  buiCheckbox
+                  [checked]="allChecked()"
+                  (checkedChange)="toggleAll()"
+                  aria-label="Select all"
+                ></button>
               </th>
-              <th [style.cursor]="'pointer'" (click)="sortBy('name')">Customer</th>
-              <th [style.cursor]="'pointer'" (click)="sortBy('amount')">Amount</th>
-              <th [style.cursor]="'pointer'" (click)="sortBy('status')">Status</th>
-              <th>Paid by</th>
-              <th class="text-right">Actions</th>
+              <th
+                buiTableHead
+                class="h-[3.25rem] cursor-pointer px-3 text-muted-foreground"
+                (click)="sortBy('name')"
+              >
+                Customer
+              </th>
+              <th
+                buiTableHead
+                class="h-[3.25rem] cursor-pointer px-3 text-muted-foreground"
+                (click)="sortBy('amount')"
+              >
+                Amount
+              </th>
+              <th
+                buiTableHead
+                class="h-[3.25rem] cursor-pointer px-3 text-muted-foreground"
+                (click)="sortBy('status')"
+              >
+                Status
+              </th>
+              <th buiTableHead class="h-[3.25rem] px-3 text-muted-foreground">Paid by</th>
+              <th buiTableHead class="h-[3.25rem] px-3 text-right text-muted-foreground">
+                Actions
+              </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody buiTableBody>
             @for (o of pageRows(); track o.email) {
-              <tr>
-                <td>
-                  <span
-                    class="acn-checkbox"
-                    role="checkbox"
-                    [attr.aria-checked]="isChecked(o.email)"
-                    (click)="toggleRow(o.email)"
-                    [style.background]="isChecked(o.email) ? 'var(--primary)' : null"
-                    [style.cursor]="'pointer'"
-                  ></span>
+              <tr buiTableRow>
+                <td buiTableCell class="h-14 px-3">
+                  <button
+                    buiCheckbox
+                    [checked]="isChecked(o.email)"
+                    (checkedChange)="toggleRow(o.email)"
+                    aria-label="Select row"
+                  ></button>
                 </td>
-                <td>
+                <td buiTableCell class="h-14 px-3">
                   <div class="flex items-center gap-2.5">
-                    <img [src]="o.avatar" [alt]="o.name" class="size-8 rounded-full" />
+                    <bui-avatar [src]="o.avatar" [alt]="o.name" class="size-8" />
                     <div class="flex flex-col">
                       <span class="font-medium whitespace-nowrap">{{ o.name }}</span>
                       <span class="text-sm whitespace-nowrap text-muted-foreground">{{
@@ -355,25 +344,21 @@
                     </div>
                   </div>
                 </td>
-                <td class="font-medium whitespace-nowrap">{{ o.amount }}</td>
-                <td>
-                  <span
-                    class="inline-flex w-fit items-center rounded-sm px-1.5 py-0.5 text-xs font-medium capitalize"
-                    style="
-                      background: color-mix(in oklab, var(--primary) 10%, transparent);
-                      color: var(--primary);
-                    "
-                    >{{ o.status }}</span
-                  >
+                <td buiTableCell class="h-14 px-3 font-medium whitespace-nowrap">{{ o.amount }}</td>
+                <td buiTableCell class="h-14 px-3">
+                  <span buiBadge tone="success" variant="soft" class="capitalize">{{
+                    o.status
+                  }}</span>
                 </td>
-                <td>
+                <td buiTableCell class="h-14 px-3">
                   <img [src]="o.card" [alt]="o.status" class="h-6 w-9 object-contain" />
                 </td>
-                <td>
+                <td buiTableCell class="h-14 px-3">
                   <div class="relative flex items-center justify-end">
                     <button
-                      type="button"
-                      class="acn-row-btn"
+                      buiButton
+                      variant="ghost"
+                      size="icon-sm"
                       aria-label="Actions"
                       (click)="toggleMenu('row-' + o.email)"
                     >
@@ -407,36 +392,57 @@
         <span class="text-sm text-muted-foreground"
           >Showing {{ rangeStart() }} to {{ rangeEnd() }} of {{ total() }} entries</span
         >
-        <div class="flex items-center gap-1">
-          <button
-            type="button"
-            class="acn-page-btn"
-            aria-label="Previous"
-            [disabled]="currentPage() === 1"
-            (click)="prev()"
-          >
-            <app-lucide name="chevron-left" class="size-4" /> Previous
-          </button>
-          @for (p of pageNumbers(); track p) {
-            <button
-              type="button"
-              class="acn-page-num"
-              [class.acn-page-active]="p === currentPage()"
-              (click)="goTo(p)"
-            >
-              {{ p }}
-            </button>
-          }
-          <button
-            type="button"
-            class="acn-page-btn"
-            aria-label="Next"
-            [disabled]="currentPage() === totalPages()"
-            (click)="next()"
-          >
-            Next <app-lucide name="chevron-right" class="size-4" />
-          </button>
-        </div>
+        <nav buiPagination>
+          <ul buiPaginationContent>
+            <li buiPaginationItem>
+              <a
+                buiPaginationLink
+                size="default"
+                role="button"
+                aria-label="Previous"
+                [class]="
+                  'cursor-pointer gap-1' +
+                  (currentPage() === 1 ? ' pointer-events-none opacity-50' : '')
+                "
+                (click)="prev()"
+              >
+                <app-lucide name="chevron-left" class="size-4" /> Previous
+              </a>
+            </li>
+            @for (p of pageNumbers(); track p) {
+              <li buiPaginationItem>
+                <a
+                  buiPaginationLink
+                  role="button"
+                  [active]="p === currentPage()"
+                  [class]="
+                    'cursor-pointer' +
+                    (p === currentPage()
+                      ? ' border-transparent bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground'
+                      : '')
+                  "
+                  (click)="goTo(p)"
+                  >{{ p }}</a
+                >
+              </li>
+            }
+            <li buiPaginationItem>
+              <a
+                buiPaginationLink
+                size="default"
+                role="button"
+                aria-label="Next"
+                [class]="
+                  'cursor-pointer gap-1' +
+                  (currentPage() === totalPages() ? ' pointer-events-none opacity-50' : '')
+                "
+                (click)="next()"
+              >
+                Next <app-lucide name="chevron-right" class="size-4" />
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>

@@ -6,6 +6,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
+import { BuiButton } from 'ng-blatui';
+
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
 
@@ -93,7 +95,7 @@ const MONTH_NAMES = [
   selector: 'app-tpl-admincn-calendar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell],
+  imports: [Lucide, AdmincnShell, BuiButton],
   templateUrl: './admincn-calendar.html',
 })
 export class AdmincnCalendar {

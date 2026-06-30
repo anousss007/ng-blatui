@@ -41,8 +41,10 @@
           </div>
           <div class="relative">
             <button
-              type="button"
-              class="acn-menu-btn"
+              buiButton
+              variant="ghost"
+              size="icon-xs"
+              class="rounded-full text-muted-foreground"
               aria-label="Menu"
               (click)="toggleMenu('projectList', $event)"
             >
@@ -75,19 +77,9 @@
         <div class="flex h-full flex-col justify-between gap-6">
           @for (p of projects; track p.name) {
             <div class="flex items-center gap-3">
-              <span
-                class="acn-icon-tile size-8 rounded-sm"
-                [class.bg-chart-2/10]="p.tone === 'teal'"
-                [class.text-chart-2]="p.tone === 'teal'"
-                [class.bg-chart-5/10]="p.tone === 'amber'"
-                [class.text-chart-5]="p.tone === 'amber'"
-                [class.bg-chart-3/10]="p.tone === 'cyan'"
-                [class.text-chart-3]="p.tone === 'cyan'"
-                [class.bg-chart-1/10]="p.tone === 'orange'"
-                [class.text-chart-1]="p.tone === 'orange'"
-              >
+              <bui-icon-tile [tone]="projectTone[p.tone]" class="size-8 rounded-sm">
                 <app-lucide [name]="p.icon" class="size-4" />
-              </span>
+              </bui-icon-tile>
               <div class="flex flex-col gap-0.5">
                 <span class="text-sm">{{ p.name }}</span>
                 <span class="text-xs text-muted-foreground">{{ p.task }}</span>
@@ -104,8 +96,10 @@
         <span class="text-lg font-semibold">Weekly overview</span>
         <div class="relative">
           <button
-            type="button"
-            class="acn-menu-btn"
+            buiButton
+            variant="ghost"
+            size="icon-xs"
+            class="rounded-full text-muted-foreground"
             aria-label="Menu"
             (click)="toggleMenu('weekly', $event)"
           >
@@ -136,27 +130,13 @@
         </div>
       </div>
       <div>
-        <svg viewBox="0 0 336 100" class="h-36 w-full" preserveAspectRatio="none">
-          @for (v of weeklyBars; track $index) {
-            <rect
-              [attr.x]="$index * 40 + 2"
-              [attr.y]="96 - v"
-              width="14"
-              [attr.height]="v"
-              rx="4"
-              class="acn-bar-track"
-            />
-          }
-          <path [attr.d]="weeklyArea" fill="var(--chart-2)" fill-opacity="0.12" />
-          <polyline
-            [attr.points]="weeklyPath"
-            fill="none"
-            stroke="var(--chart-2)"
-            stroke-width="2.5"
-            stroke-linejoin="round"
-            stroke-linecap="round"
-          />
-        </svg>
+        <bui-chart
+          type="area"
+          class="h-36 w-full"
+          [series]="weeklySeries"
+          [height]="144"
+          label="Weekly overview"
+        />
       </div>
       <div class="flex flex-col items-stretch gap-4">
         <div class="flex items-center gap-3">
@@ -165,7 +145,7 @@
             Your sales performance is 60% Better compare to Last month
           </span>
         </div>
-        <button type="button" class="acn-btn-primary">Details</button>
+        <button buiButton>Details</button>
       </div>
     </div>
 
@@ -178,8 +158,10 @@
         </div>
         <div class="relative">
           <button
-            type="button"
-            class="acn-menu-btn"
+            buiButton
+            variant="ghost"
+            size="icon-xs"
+            class="rounded-full text-muted-foreground"
             aria-label="Menu"
             (click)="toggleMenu('conversion', $event)"
           >
@@ -215,16 +197,13 @@
         <span class="flex items-center gap-1 text-sm text-primary">
           <app-lucide name="arrow-up" class="size-4" />6.3%
         </span>
-        <svg viewBox="0 0 250 32" class="h-8 flex-1" preserveAspectRatio="none">
-          <polyline
-            [attr.points]="convSpark"
-            fill="none"
-            stroke="var(--chart-2)"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
+        <bui-chart
+          type="line"
+          class="h-8 flex-1"
+          [series]="convSparkSeries"
+          [height]="32"
+          label="Conversion rate trend"
+        />
       </div>
 
       <div class="flex flex-col gap-4 border-t pt-4">
@@ -257,8 +236,10 @@
           <span class="text-lg font-semibold">Upgrade your plan</span>
           <div class="relative">
             <button
-              type="button"
-              class="acn-menu-btn"
+              buiButton
+              variant="ghost"
+              size="icon-xs"
+              class="rounded-full text-muted-foreground"
               aria-label="Menu"
               (click)="toggleMenu('upgrade', $event)"
             >
@@ -295,9 +276,9 @@
 
       <div class="flex items-center justify-between gap-2 rounded-md bg-primary/10 px-2 py-1.5">
         <div class="flex items-center gap-2">
-          <span class="acn-icon-tile size-9 rounded-sm bg-background text-primary">
+          <bui-icon-tile class="size-9 rounded-sm bg-background text-primary">
             <app-lucide name="wallet" class="size-5" />
-          </span>
+          </bui-icon-tile>
           <div class="flex flex-col">
             <span class="font-medium">Platinum</span>
             <span class="text-sm text-muted-foreground">Last 6 months</span>
@@ -348,7 +329,7 @@
           <input type="text" placeholder="Card Number" aria-label="Card number" />
           <app-lucide name="credit-card" class="size-4 text-muted-foreground" />
         </div>
-        <button type="button" class="acn-btn-primary h-10 w-full">Pay now</button>
+        <button buiButton class="h-10 w-full">Pay now</button>
       </div>
     </div>
 
@@ -361,8 +342,10 @@
         </div>
         <div class="relative">
           <button
-            type="button"
-            class="acn-menu-btn"
+            buiButton
+            variant="ghost"
+            size="icon-xs"
+            class="rounded-full text-muted-foreground"
             aria-label="Menu"
             (click)="toggleMenu('performance', $event)"
           >
@@ -415,7 +398,7 @@
       @let perf = perfStats[perfTab()];
       <div class="flex flex-1 flex-col justify-between gap-4">
         <div class="flex items-center gap-4 rounded-xl border px-4 py-2">
-          <img [src]="perf.avatar" [alt]="perf.name" class="size-10 rounded-full object-cover" />
+          <bui-avatar [src]="perf.avatar" [alt]="perf.name" class="size-10" />
           <div class="flex flex-col">
             <span class="text-muted-foreground">{{ perf.role }}</span>
             <span class="text-lg font-medium">{{ perf.name }}</span>
@@ -437,16 +420,16 @@
               <span class="text-xl font-semibold">{{ perf.productValue }}</span>
             </div>
             <div class="flex items-center gap-2.5">
-              <span class="acn-icon-tile size-6 rounded-full bg-primary/10 text-primary">
+              <bui-icon-tile tone="primary" shape="circle" class="size-6">
                 <app-lucide name="arrow-up-right" class="size-4" />
-              </span>
+              </bui-icon-tile>
               <span class="text-xl font-semibold">{{ perf.delta }}</span>
             </div>
           </div>
           <div class="flex items-center justify-between">
             <div class="flex -space-x-2">
               @for (a of perfAvatars; track $index) {
-                <img [src]="a" alt="" class="size-8 rounded-full object-cover ring-2 ring-card" />
+                <bui-avatar [src]="a" alt="" class="size-8 ring-2 ring-card" />
               }
             </div>
             <button
@@ -492,26 +475,42 @@
         </div>
       </div>
 
-      <div class="overflow-x-auto">
-        <table class="acn-table">
-          <thead>
-            <tr>
-              <th class="w-12"><span class="acn-checkbox"></span></th>
-              <th class="w-[360px]">User</th>
-              <th>Role</th>
-              <th>Plan</th>
-              <th>Billing</th>
-              <th>Status</th>
-              <th class="text-center">Actions</th>
+      <div buiTableContainer class="min-w-[42rem] overflow-x-auto">
+        <table buiTable>
+          <thead buiTableHeader>
+            <tr buiTableRow class="hover:bg-transparent">
+              <th buiTableHead class="h-[3.25rem] w-12 px-3 text-muted-foreground">
+                <button
+                  buiCheckbox
+                  [checked]="allChecked()"
+                  (checkedChange)="toggleAll()"
+                  aria-label="Select all"
+                ></button>
+              </th>
+              <th buiTableHead class="h-[3.25rem] w-[360px] px-3 text-muted-foreground">User</th>
+              <th buiTableHead class="h-[3.25rem] px-3 text-muted-foreground">Role</th>
+              <th buiTableHead class="h-[3.25rem] px-3 text-muted-foreground">Plan</th>
+              <th buiTableHead class="h-[3.25rem] px-3 text-muted-foreground">Billing</th>
+              <th buiTableHead class="h-[3.25rem] px-3 text-muted-foreground">Status</th>
+              <th buiTableHead class="h-[3.25rem] px-3 text-center text-muted-foreground">
+                Actions
+              </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody buiTableBody>
             @for (u of users; track u.email) {
-              <tr>
-                <td><span class="acn-checkbox"></span></td>
-                <td>
+              <tr buiTableRow>
+                <td buiTableCell class="h-14 px-3">
+                  <button
+                    buiCheckbox
+                    [checked]="isChecked(u.email)"
+                    (checkedChange)="toggleRow(u.email)"
+                    aria-label="Select row"
+                  ></button>
+                </td>
+                <td buiTableCell class="h-14 px-3">
                   <div class="flex items-center gap-2.5">
-                    <img [src]="u.avatar" [alt]="u.name" class="size-9 rounded-full object-cover" />
+                    <bui-avatar [src]="u.avatar" [alt]="u.name" class="size-9" />
                     <div class="flex flex-col">
                       <span class="font-medium whitespace-nowrap">{{ u.name }}</span>
                       <span class="text-sm whitespace-nowrap text-muted-foreground">{{
@@ -520,43 +519,40 @@
                     </div>
                   </div>
                 </td>
-                <td>
+                <td buiTableCell class="h-14 px-3">
                   <div class="flex items-center gap-2">
                     <app-lucide [name]="u.roleIcon" class="size-4 text-muted-foreground" />
                     <span class="capitalize">{{ u.role }}</span>
                   </div>
                 </td>
-                <td class="text-muted-foreground capitalize">{{ u.plan }}</td>
-                <td class="whitespace-nowrap text-muted-foreground">{{ u.billing }}</td>
-                <td>
+                <td buiTableCell class="h-14 px-3 text-muted-foreground capitalize">
+                  {{ u.plan }}
+                </td>
+                <td buiTableCell class="h-14 px-3 whitespace-nowrap text-muted-foreground">
+                  {{ u.billing }}
+                </td>
+                <td buiTableCell class="h-14 px-3">
                   @switch (u.status) {
                     @case ('active') {
-                      <span class="acn-badge-green capitalize">active</span>
+                      <span buiBadge tone="success" variant="soft" class="capitalize">active</span>
                     }
                     @case ('pending') {
-                      <span
-                        class="inline-flex items-center rounded-sm px-2 py-0.5 text-xs font-medium capitalize"
-                        style="
-                          background: color-mix(in oklab, var(--acn-amber) 12%, transparent);
-                          color: var(--acn-amber);
-                        "
-                        >pending</span
-                      >
+                      <span buiBadge tone="warning" variant="soft" class="capitalize">pending</span>
                     }
                     @default {
-                      <span class="acn-badge-red capitalize">inactive</span>
+                      <span buiBadge tone="danger" variant="soft" class="capitalize">inactive</span>
                     }
                   }
                 </td>
-                <td>
+                <td buiTableCell class="h-14 px-3">
                   <div class="flex items-center justify-center gap-1">
-                    <button type="button" class="acn-row-btn" aria-label="Delete item">
+                    <button buiButton variant="ghost" size="icon-sm" aria-label="Delete item">
                       <app-lucide name="trash-2" class="size-4" />
                     </button>
-                    <button type="button" class="acn-row-btn" aria-label="View item">
+                    <button buiButton variant="ghost" size="icon-sm" aria-label="View item">
                       <app-lucide name="eye" class="size-4" />
                     </button>
-                    <button type="button" class="acn-row-btn" aria-label="Edit item">
+                    <button buiButton variant="ghost" size="icon-sm" aria-label="Edit item">
                       <app-lucide name="ellipsis-vertical" class="size-4" />
                     </button>
                   </div>
@@ -569,19 +565,52 @@
 
       <div class="flex items-center justify-between gap-3 px-6 py-4 max-sm:flex-col">
         <p class="text-sm whitespace-nowrap text-muted-foreground">Showing 1 to 5 of 25 entries</p>
-        <div class="flex items-center gap-1">
-          <button type="button" class="acn-page-btn" disabled aria-label="Go to previous page">
-            <app-lucide name="chevron-left" class="size-4" /> Previous
-          </button>
-          <button type="button" class="acn-page-num acn-page-active">1</button>
-          <button type="button" class="acn-page-num bg-primary/10 text-primary hover:bg-primary/20">
-            2
-          </button>
-          <span class="acn-page-num"><app-lucide name="ellipsis" class="size-4" /></span>
-          <button type="button" class="acn-page-btn" aria-label="Go to next page">
-            Next <app-lucide name="chevron-right" class="size-4" />
-          </button>
-        </div>
+        <nav buiPagination>
+          <ul buiPaginationContent>
+            <li buiPaginationItem>
+              <a
+                buiPaginationLink
+                size="default"
+                role="button"
+                aria-label="Go to previous page"
+                [class]="'pointer-events-none cursor-pointer gap-1 opacity-50'"
+              >
+                <app-lucide name="chevron-left" class="size-4" /> Previous
+              </a>
+            </li>
+            <li buiPaginationItem>
+              <a
+                buiPaginationLink
+                role="button"
+                [active]="true"
+                [class]="'cursor-pointer border-transparent bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground'"
+                >1</a
+              >
+            </li>
+            <li buiPaginationItem>
+              <a
+                buiPaginationLink
+                role="button"
+                [class]="'cursor-pointer bg-primary/10 text-primary hover:bg-primary/20'"
+                >2</a
+              >
+            </li>
+            <li buiPaginationItem>
+              <bui-pagination-ellipsis />
+            </li>
+            <li buiPaginationItem>
+              <a
+                buiPaginationLink
+                size="default"
+                role="button"
+                aria-label="Go to next page"
+                [class]="'cursor-pointer gap-1'"
+              >
+                Next <app-lucide name="chevron-right" class="size-4" />
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>

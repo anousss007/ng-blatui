@@ -6,6 +6,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
+import { BuiAvatar, BuiBadge, BuiButton } from 'ng-blatui';
+
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
 
@@ -55,7 +57,7 @@ interface Label {
   selector: 'app-tpl-admincn-contact',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell],
+  imports: [Lucide, AdmincnShell, BuiAvatar, BuiBadge, BuiButton],
   templateUrl: './admincn-contact.html',
 })
 export class AdmincnContact {

@@ -3,7 +3,7 @@
     <!-- ============ LEFT PANEL ============ -->
     <aside class="flex w-full flex-shrink-0 flex-col gap-6 lg:w-[260px]">
       <!-- New event -->
-      <button type="button" class="acn-btn-primary w-full">
+      <button buiButton type="button" class="w-full">
         <app-lucide name="plus" class="size-4" />
         <span>New event</span>
       </button>
@@ -12,15 +12,26 @@
       <div class="acn-card p-3">
         <div class="mb-2 flex items-center justify-between px-1">
           <button
+            buiButton
+            variant="ghost"
+            size="icon-xs"
             type="button"
-            class="acn-menu-btn"
+            class="rounded-full text-muted-foreground"
             aria-label="Previous month"
             (click)="prevMonth()"
           >
             <app-lucide name="chevron-left" class="size-4" />
           </button>
           <span class="text-sm font-semibold">{{ label() }}</span>
-          <button type="button" class="acn-menu-btn" aria-label="Next month" (click)="nextMonth()">
+          <button
+            buiButton
+            variant="ghost"
+            size="icon-xs"
+            type="button"
+            class="rounded-full text-muted-foreground"
+            aria-label="Next month"
+            (click)="nextMonth()"
+          >
             <app-lucide name="chevron-right" class="size-4" />
           </button>
         </div>
@@ -95,11 +106,27 @@
         </button>
 
         <div class="mx-auto flex items-center gap-1">
-          <button type="button" class="acn-menu-btn" aria-label="Previous" (click)="prevMonth()">
+          <button
+            buiButton
+            variant="ghost"
+            size="icon-xs"
+            type="button"
+            class="rounded-full text-muted-foreground"
+            aria-label="Previous"
+            (click)="prevMonth()"
+          >
             <app-lucide name="chevron-left" class="size-4" />
           </button>
           <span class="px-1 text-base font-semibold sm:text-lg">{{ label() }}</span>
-          <button type="button" class="acn-menu-btn" aria-label="Next" (click)="nextMonth()">
+          <button
+            buiButton
+            variant="ghost"
+            size="icon-xs"
+            type="button"
+            class="rounded-full text-muted-foreground"
+            aria-label="Next"
+            (click)="nextMonth()"
+          >
             <app-lucide name="chevron-right" class="size-4" />
           </button>
         </div>

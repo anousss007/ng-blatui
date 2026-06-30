@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation } from '@angular/core';
 
+import { BuiAvatar, BuiBadge, BuiButton } from 'ng-blatui';
+
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
 
@@ -34,7 +36,7 @@ interface Column {
   selector: 'app-tpl-admincn-kanban',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell],
+  imports: [Lucide, AdmincnShell, BuiAvatar, BuiBadge, BuiButton],
   templateUrl: './admincn-kanban.html',
 })
 export class AdmincnKanban {

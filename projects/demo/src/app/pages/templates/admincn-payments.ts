@@ -6,8 +6,31 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
+import {
+  BuiAvatar,
+  BuiBadge,
+  BuiButton,
+  BuiChart,
+  BuiCheckbox,
+  BuiIconTile,
+  BuiPagination,
+  BuiPaginationContent,
+  BuiPaginationItem,
+  BuiPaginationLink,
+  BuiTable,
+  BuiTableBody,
+  BuiTableCell,
+  BuiTableContainer,
+  BuiTableHead,
+  BuiTableHeader,
+  BuiTableRow,
+} from 'ng-blatui';
+
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
+
+/** AdminCN status tone → ng-blatui semantic tone for the round status badge. */
+const STATUS_TONE = { green: 'success', amber: 'warning', sky: 'info' } as const;
 
 interface PayHistory {
   /** masked card label incl. leading asterisks, e.g. "*5688" or "**5688" */
@@ -71,17 +94,41 @@ interface Invoice {
   selector: 'app-tpl-admincn-payments',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell],
+  imports: [
+    Lucide,
+    AdmincnShell,
+    BuiChart,
+    BuiIconTile,
+    BuiBadge,
+    BuiButton,
+    BuiAvatar,
+    BuiCheckbox,
+    BuiTableContainer,
+    BuiTable,
+    BuiTableHeader,
+    BuiTableBody,
+    BuiTableRow,
+    BuiTableHead,
+    BuiTableCell,
+    BuiPagination,
+    BuiPaginationContent,
+    BuiPaginationItem,
+    BuiPaginationLink,
+  ],
   templateUrl: './admincn-payments.html',
 })
 export class AdmincnPayments {
   protected readonly img = '/admincn';
+  protected readonly statusTone = STATUS_TONE;
 
-  /* KPI mini area charts (income teal, expense amber) ---------------------- */
-  protected readonly incomeArea =
-    'M0,40 L20,30 L40,34 L60,18 L80,26 L100,12 L120,20 L140,8 L160,16';
-  protected readonly expenseArea =
-    'M0,18 L20,26 L40,14 L60,24 L80,16 L100,30 L120,22 L140,34 L160,24';
+  /* KPI mini area charts (income teal, expense amber). Data are the original
+     SVG path y-values inverted off the 48-tall viewBox (data = 48 - y). */
+  protected readonly incomeSeries = [
+    { data: [8, 18, 14, 30, 22, 36, 28, 40, 32], color: 'var(--chart-2)' },
+  ];
+  protected readonly expenseSeries = [
+    { data: [30, 22, 34, 24, 32, 18, 26, 14, 24], color: 'var(--chart-4)' },
+  ];
 
   /* Payment History -------------------------------------------------------- */
   protected readonly payments: PayHistory[] = [
@@ -434,5 +481,15 @@ export class AdmincnPayments {
 
   protected barH(value: number, max: number): number {
     return Math.round((value / max) * 1000) / 10;
+  }
+
+  /** AdminCN palette tone → ng-blatui icon-tile chart tone. */
+  protected tileTone(
+    tone: 'red' | 'amber' | 'teal' | 'orange' | 'green' | 'muted',
+  ): 'chart-1' | 'chart-2' | 'chart-5' | 'muted' {
+    if (tone === 'muted') return 'muted';
+    if (tone === 'amber') return 'chart-5';
+    if (tone === 'teal' || tone === 'green') return 'chart-2';
+    return 'chart-1';
   }
 }

@@ -6,6 +6,18 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
+import {
+  BuiBadge,
+  BuiButton,
+  BuiTable,
+  BuiTableBody,
+  BuiTableCell,
+  BuiTableContainer,
+  BuiTableHead,
+  BuiTableHeader,
+  BuiTableRow,
+} from 'ng-blatui';
+
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
 
@@ -132,7 +144,19 @@ const dateOfBirth: Validator = (v) => {
   selector: 'app-tpl-admincn-form-validation',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell],
+  imports: [
+    Lucide,
+    AdmincnShell,
+    BuiBadge,
+    BuiButton,
+    BuiTable,
+    BuiTableBody,
+    BuiTableCell,
+    BuiTableContainer,
+    BuiTableHead,
+    BuiTableHeader,
+    BuiTableRow,
+  ],
   templateUrl: './admincn-form-validation.html',
 })
 export class AdmincnFormValidation {
