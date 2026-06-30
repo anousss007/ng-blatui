@@ -6,7 +6,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
-import { BuiBadge, BuiCard, BuiIconTile } from 'ng-blatui';
+import { BuiBadge, BuiCard, BuiChart, BuiIconTile } from 'ng-blatui';
 
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
@@ -49,7 +49,7 @@ interface Invoice {
   selector: 'app-tpl-admincn',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell, BuiCard, BuiIconTile, BuiBadge],
+  imports: [Lucide, AdmincnShell, BuiCard, BuiIconTile, BuiBadge, BuiChart],
   templateUrl: './admincn.html',
   styleUrl: './admincn.css',
 })

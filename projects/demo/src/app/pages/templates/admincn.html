@@ -104,25 +104,16 @@
         <p class="text-sm text-muted-foreground">Last week</p>
       </div>
       <div class="flex flex-1 items-center justify-center">
-        <div class="relative size-[88px]">
-          <svg viewBox="0 0 100 100" class="size-full -rotate-90">
-            <circle cx="50" cy="50" r="40" fill="none" class="acn-bar-track" stroke-width="11" />
-            <circle
-              cx="50"
-              cy="50"
-              r="40"
-              fill="none"
-              stroke="var(--chart-5)"
-              stroke-width="11"
-              stroke-linecap="round"
-              [attr.stroke-dasharray]="donutDash * 2.513 + ' 251.3'"
-            />
-          </svg>
-          <div class="absolute inset-0 flex flex-col items-center justify-center leading-none">
-            <span class="text-base font-semibold">500</span>
-            <span class="text-xs text-muted-foreground">Visitors</span>
-          </div>
-        </div>
+        <bui-chart
+          type="donut"
+          [series]="[{ data: [donutDash], color: 'var(--chart-5)' }]"
+          [max]="100"
+          [height]="88"
+          [thickness]="11"
+        >
+          <span class="text-base font-semibold">500</span>
+          <span class="text-xs text-muted-foreground">Visitors</span>
+        </bui-chart>
       </div>
       <div class="flex items-baseline gap-2">
         <span class="text-lg font-semibold tracking-tight">32K</span>
