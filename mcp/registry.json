@@ -51,7 +51,7 @@
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"info\" | \"danger\" | \"neutral\" | null"
+            "type": "\"danger\" | \"info\" | \"neutral\" | \"success\" | \"warning\" | null"
           },
           {
             "name": "size",
@@ -92,7 +92,7 @@
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"info\" | \"danger\" | \"neutral\" | null"
+            "type": "\"danger\" | \"info\" | \"neutral\" | \"success\" | \"warning\" | null"
           }
         ]
       }
@@ -505,7 +505,7 @@
           },
           {
             "name": "size",
-            "type": "\"sm\" | \"default\" | \"lg\" | null"
+            "type": "\"default\" | \"lg\" | \"sm\" | null"
           }
         ],
         "models": [
@@ -794,7 +794,7 @@
           },
           {
             "name": "trend",
-            "type": "\"neutral\" | \"up\" | \"down\" | null"
+            "type": "\"down\" | \"neutral\" | \"up\" | null"
           },
           {
             "name": "caption",

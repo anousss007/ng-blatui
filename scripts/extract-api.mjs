@@ -45,10 +45,17 @@ const titleToPascal = (slug) =>
 function sortUnion(text) {
   if (!text.includes(' | ')) return text;
   const parts = text.split(' | ');
-  if (parts.every((p) => /^(['"]).*\1$/.test(p.trim()))) {
-    return [...parts].sort().join(' | ');
+  const isLiteral = (p) => /^(['"]).*\1$/.test(p.trim());
+  const literals = parts.filter((p) => isLiteral(p));
+  // Only canonicalise enum-like unions (≥2 string literals, e.g. a tone/size union,
+  // possibly with a trailing `| null`). Sort the literals, then append any non-literal
+  // members (null, type refs) in a stable order so the result never depends on the
+  // .d.ts emit order. Plain `T | null` / `string | number` unions are left untouched.
+  if (literals.length < 2) {
+    return text;
   }
-  return text;
+  const others = parts.filter((p) => !isLiteral(p));
+  return [...literals.sort(), ...others.sort()].join(' | ');
 }
 
 /** Strip import-namespace prefixes (_angular_core., i0., import("…").) for readable type text. */
