@@ -206,25 +206,120 @@ interface Flagship {
           <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
             Art-directed, ready to ship
           </h2>
+          <p class="mt-3 text-muted-foreground">
+            Full-page starters with their own visual identity — clone a look in one click and make
+            it yours.
+          </p>
         </div>
         <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           @for (flagship of flagships; track flagship.slug) {
-            <a [routerLink]="['/templates', flagship.slug]" class="group block">
+            <a
+              [routerLink]="['/templates', flagship.slug]"
+              class="group block focus-visible:outline-none"
+              [attr.aria-label]="flagship.name + ' template — ' + flagship.kind"
+            >
               <div
                 buiCard
                 variant="sectioned"
-                class="h-full transition-shadow group-hover:shadow-md"
+                class="h-full overflow-hidden transition-all duration-200 group-hover:-translate-y-1 group-hover:shadow-lg group-focus-visible:ring-2 group-focus-visible:ring-ring"
               >
-                <div class="grid h-28 place-items-center rounded-t-xl bg-muted text-sm font-medium">
-                  {{ flagship.name }}
-                </div>
-                <div buiCardContent class="pt-4">
-                  <p class="font-medium">{{ flagship.name }}</p>
-                  <p class="text-xs text-muted-foreground">{{ flagship.kind }}</p>
+                @switch (flagship.slug) {
+                  @case ('aurora') {
+                    <!-- Gradient hero on deep space -->
+                    <div class="relative h-32 overflow-hidden bg-[#06070f]">
+                      <div
+                        class="absolute -top-6 -left-6 h-20 w-20 rounded-full bg-[#3b82f6] opacity-60 blur-2xl"
+                      ></div>
+                      <div
+                        class="absolute top-2 -right-4 h-16 w-16 rounded-full bg-[#ec4899] opacity-60 blur-2xl"
+                      ></div>
+                      <div
+                        class="absolute bottom-2 left-1/2 h-12 w-24 -translate-x-1/2 rounded-full bg-[#22d3ee] opacity-40 blur-2xl"
+                      ></div>
+                      <div
+                        class="relative flex h-full flex-col items-center justify-center gap-1.5"
+                      >
+                        <div class="h-1.5 w-20 rounded-full bg-white/80"></div>
+                        <div class="h-1.5 w-14 rounded-full bg-white/40"></div>
+                        <div
+                          class="mt-1 h-4 w-16 rounded-md bg-gradient-to-r from-[#60a5fa] to-[#f472b6]"
+                        ></div>
+                      </div>
+                    </div>
+                  }
+                  @case ('cosmos') {
+                    <!-- Dark analytics dashboard -->
+                    <div class="h-32 bg-[#05060f] p-3">
+                      <div class="grid grid-cols-3 gap-1.5">
+                        <div class="h-7 rounded bg-[#0a0e24] ring-1 ring-white/5"></div>
+                        <div class="h-7 rounded bg-[#0a0e24] ring-1 ring-white/5"></div>
+                        <div class="h-7 rounded bg-[#0a0e24] ring-1 ring-white/5"></div>
+                      </div>
+                      <div
+                        class="mt-1.5 flex h-14 items-end gap-1 rounded bg-[#0a0e24] p-1.5 ring-1 ring-white/5"
+                      >
+                        <div class="h-[40%] w-full rounded-sm bg-[#4338ca]"></div>
+                        <div class="h-[70%] w-full rounded-sm bg-[#7c3aed]"></div>
+                        <div class="h-[50%] w-full rounded-sm bg-[#db2777]"></div>
+                        <div class="h-[85%] w-full rounded-sm bg-[#06b6d4]"></div>
+                        <div class="h-[60%] w-full rounded-sm bg-[#fbbf24]"></div>
+                      </div>
+                    </div>
+                  }
+                  @case ('vinyl') {
+                    <!-- Neon retro record shop -->
+                    <div
+                      class="relative h-32 overflow-hidden bg-gradient-to-br from-[#1b0a3b] to-[#120726] p-3"
+                    >
+                      <div
+                        class="absolute top-1/2 -right-6 grid h-24 w-24 -translate-y-1/2 place-items-center rounded-full bg-black ring-2 ring-[#ff2d95]/60"
+                      >
+                        <div class="h-16 w-16 rounded-full ring-1 ring-[#00e5ff]/30"></div>
+                        <div class="absolute h-5 w-5 rounded-full bg-[#ff8a00]"></div>
+                      </div>
+                      <div class="relative flex h-full flex-col justify-end gap-1.5">
+                        <div class="h-1.5 w-16 rounded-full bg-[#ffd23f]"></div>
+                        <div class="h-1.5 w-10 rounded-full bg-[#ff2d95]"></div>
+                      </div>
+                    </div>
+                  }
+                  @case ('brut') {
+                    <!-- Brutalist blocks -->
+                    <div class="h-32 bg-[#f4f1e8] p-3">
+                      <div class="flex h-full flex-col justify-between">
+                        <div class="flex gap-1.5">
+                          <div class="h-4 w-4 border-2 border-[#111] bg-[#ff4d2e]"></div>
+                          <div class="h-4 w-4 border-2 border-[#111] bg-[#2b50ff]"></div>
+                          <div class="h-4 w-4 border-2 border-[#111] bg-[#ffd400]"></div>
+                          <div class="h-4 w-4 border-2 border-[#111] bg-[#b6ff3c]"></div>
+                        </div>
+                        <div
+                          class="border-2 border-[#111] bg-white px-2 py-1.5 shadow-[3px_3px_0_#111]"
+                        >
+                          <div class="h-1.5 w-16 bg-[#111]"></div>
+                          <div class="mt-1 h-1.5 w-10 bg-[#111]/40"></div>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                }
+                <div buiCardContent class="flex items-center justify-between pt-4">
+                  <div>
+                    <p class="font-medium">{{ flagship.name }}</p>
+                    <p class="text-xs text-muted-foreground">{{ flagship.kind }}</p>
+                  </div>
+                  <span
+                    class="text-muted-foreground transition-transform group-hover:translate-x-0.5"
+                    aria-hidden="true"
+                    >→</span
+                  >
                 </div>
               </div>
             </a>
           }
+        </div>
+        <div class="mt-8 text-center">
+          <a buiButton variant="outline" routerLink="/templates">Browse all 34 templates →</a>
         </div>
       </div>
     </section>
