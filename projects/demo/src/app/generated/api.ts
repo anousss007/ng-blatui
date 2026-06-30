@@ -1876,6 +1876,13 @@ export const API_DOCS = {
             "default": "'Select…'",
             "required": false,
             "description": "Text shown on the trigger when nothing is selected."
+          },
+          {
+            "name": "aria-label",
+            "type": "string",
+            "default": "''",
+            "required": false,
+            "description": "Accessible name for the combobox. Bound from a plain `aria-label=\"…\"` on the host\n(consumed as an input, so it's applied to the inner combobox button rather than left\nas a prohibited ARIA attribute on the custom element)."
           }
         ],
         "models": [
