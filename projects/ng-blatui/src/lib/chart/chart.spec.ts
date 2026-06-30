@@ -43,11 +43,48 @@ describe('BuiChart', () => {
     fixture.detectChanges();
     const fills = [
       ...(fixture.nativeElement as HTMLElement).querySelectorAll<HTMLElement>(
-        '[role="img"] [style*="height"]',
+        '[role="img"] [style*="background"]',
       ),
     ];
     expect(fills[1].style.background).toContain('rgb(99, 102, 241)');
     expect(fills[0].style.background).toContain('color-mix');
+  });
+
+  it('stacks every series into one bar per data point when stacked', () => {
+    @Component({
+      imports: [BuiChart],
+      template: `<bui-chart type="bar" [stacked]="true" [series]="series" label="Stacked" />`,
+    })
+    class StackHost {
+      readonly series: ChartSeries[] = [
+        { data: [10, 20], color: '#f00' },
+        { data: [5, 5], color: '#0f0' },
+      ];
+    }
+    const fixture = TestBed.createComponent(StackHost);
+    fixture.detectChanges();
+    const group = (fixture.nativeElement as HTMLElement).querySelector('[role="img"]')!;
+    // 2 data points → 2 columns
+    expect(group.children).toHaveLength(2);
+    // first column stacks 2 segments
+    const segs = group
+      .querySelector('[style*="height"]')!
+      .querySelectorAll('[style*="background"]');
+    expect(segs).toHaveLength(2);
+  });
+
+  it('draws a dot marker per point when dots is set', () => {
+    @Component({
+      imports: [BuiChart],
+      template: `<bui-chart type="line" [dots]="true" [series]="series" label="Dots" />`,
+    })
+    class DotsHost {
+      readonly series: ChartSeries[] = [{ data: [5, 12, 8, 15], color: '#6366f1' }];
+    }
+    const fixture = TestBed.createComponent(DotsHost);
+    fixture.detectChanges();
+    const dots = (fixture.nativeElement as HTMLElement).querySelectorAll('.rounded-full');
+    expect(dots).toHaveLength(4);
   });
 
   it('renders a line path for line charts', () => {

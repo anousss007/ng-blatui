@@ -102,18 +102,17 @@ export class AdmincnTemplate {
     { amber: 36, teal: 8 },
     { amber: 45, teal: 10 },
   ];
+  // Card 1 — Total Profit: stacked amber (body) + teal (cap) per bar.
+  protected readonly profitSeries = [
+    { data: this.profitBars.map((b) => b.amber), color: 'var(--chart-4)' },
+    { data: this.profitBars.map((b) => b.teal), color: 'var(--chart-2)' },
+  ];
   // Card 2 — Order: orange bars over a faint full-height track.
   protected readonly orderBars = [62, 90, 74, 96, 58, 80, 70];
-  // Card 3 — Profit: teal line points (0..100 each axis).
-  protected readonly profitLine = '4,70 20,44 36,58 52,30 68,46 84,20 100,8';
-  protected readonly profitDots = [
-    [4, 70],
-    [20, 44],
-    [36, 58],
-    [52, 30],
-    [68, 46],
-    [84, 20],
-    [100, 8],
+  protected readonly orderSeries = [{ data: this.orderBars, color: 'var(--chart-1)' }];
+  // Card 3 — Profit: teal line + dots (data inverted from the original 56-tall viewBox).
+  protected readonly profitSparkSeries = [
+    { data: [8, 34, 20, 48, 32, 58, 70], color: 'var(--chart-2)' },
   ];
   // Card 4 — User reach donut: amber arc, ~62% sweep.
   protected readonly donutDash = 62; // percent filled
