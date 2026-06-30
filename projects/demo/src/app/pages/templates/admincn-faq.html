@@ -1,14 +1,19 @@
 <app-admincn-shell active="FAQ">
   <!-- ============ HERO ============ -->
-  <section class="acn-card mb-6 px-6 py-12 text-center sm:px-8" style="background: var(--muted)">
+  <section
+    buiCard
+    class="mb-6 overflow-hidden px-6 py-12 text-center sm:px-8"
+    style="background: var(--muted)"
+  >
     <p class="mb-3 text-sm font-medium text-muted-foreground">FAQs</p>
     <h1 class="font-heading text-3xl tracking-tight sm:text-4xl">Frequently Inquired Queries</h1>
     <p class="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:text-base">
       Find answers about analytics, permissions, billing, and operational support for your team.
     </p>
     <div class="mx-auto mt-6 flex max-w-md flex-col gap-2 sm:flex-row">
-      <div class="acn-input flex-1" style="background: var(--card)">
+      <div buiInputGroup class="h-10 flex-1" style="background: var(--card)">
         <input
+          buiInputGroupInput
           type="text"
           placeholder="Search for an admin question"
           aria-label="Search for an admin question"
@@ -25,7 +30,8 @@
       @for (cat of categories; track cat.id; let i = $index) {
         <button
           type="button"
-          class="acn-card flex w-full items-center gap-3 px-4 py-3 text-left transition-colors"
+          buiCard
+          class="flex w-full items-center gap-3 overflow-hidden px-4 py-3 text-left transition-colors"
           [style.background]="
             activeCategory() === i
               ? 'color-mix(in oklab, var(--primary) 8%, var(--card))'
@@ -61,7 +67,7 @@
 
     <!-- Accordion panel -->
     @let active = categories[activeCategory()];
-    <div class="acn-card relative p-6">
+    <div buiCard class="relative overflow-hidden p-6">
       <span buiBadge class="absolute -top-2.5 right-6 z-[2] rounded-full px-3 py-1.5 shadow-lg"
         >Buy Now</span
       >
@@ -111,7 +117,7 @@
 
     <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
       @for (card of supportCards; track card.title) {
-        <div class="acn-card flex flex-col items-center p-8 text-center">
+        <div buiCard class="flex flex-col items-center overflow-hidden p-8 text-center">
           <bui-icon-tile tone="muted" class="mb-4 size-12 rounded-md">
             <app-lucide [name]="card.icon" class="size-5" />
           </bui-icon-tile>

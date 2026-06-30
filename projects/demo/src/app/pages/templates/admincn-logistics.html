@@ -1,42 +1,29 @@
 <app-admincn-shell active="Logistics">
   <div class="grid grid-cols-6 gap-6">
     <!-- ============ Vehicle overview ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-5 p-6 xl:col-span-3">
+    <div buiCard class="acn-card col-span-full flex flex-col gap-5 p-6 xl:col-span-3">
       <div class="flex items-start justify-between">
         <h3 class="font-heading text-lg font-semibold">Vehicle overview</h3>
-        <div class="relative">
+        <div class="relative inline-block">
           <button
             buiButton
+            ngMenuTrigger
+            [menu]="vehicleOverviewMenu"
             variant="ghost"
             size="icon-xs"
             class="rounded-full text-muted-foreground"
             aria-label="Menu"
-            (click)="toggleMenu('vehicleOverview', $event)"
           >
             <app-lucide name="ellipsis-vertical" class="size-4" />
           </button>
-          @if (openMenu() === 'vehicleOverview') {
-            <div
-              class="absolute right-0 z-20 mt-1 flex w-36 flex-col rounded-md border bg-[var(--popover,var(--card))] p-1 text-sm shadow-md ring-1 ring-black/5"
-              (click)="$event.stopPropagation()"
-            >
-              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
-                View
-              </button>
-              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
-                Refresh
-              </button>
-              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
-                Export
-              </button>
-              <button
-                type="button"
-                class="rounded-sm px-2 py-1.5 text-left text-destructive hover:bg-muted"
-              >
-                Remove
-              </button>
-            </div>
-          }
+          <div ngMenu #vehicleOverviewMenu="ngMenu" buiDropdownMenu class="w-36">
+            <button ngMenuItem value="view" buiDropdownMenuItem>View</button>
+            <button ngMenuItem value="refresh" buiDropdownMenuItem>Refresh</button>
+            <button ngMenuItem value="export" buiDropdownMenuItem>Export</button>
+            <button ngMenuItem value="remove" buiDropdownMenuItem class="text-destructive">
+              Remove
+            </button>
+          </div>
         </div>
       </div>
 
@@ -78,7 +65,7 @@
     </div>
 
     <!-- ============ Order (@jackwilliams) ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-5 p-6 md:col-span-3">
+    <div buiCard class="acn-card col-span-full flex flex-col gap-5 p-6 md:col-span-3">
       <div class="flex items-start justify-between">
         <div class="flex items-center gap-3">
           <bui-avatar [src]="img + '/avatars/avatar-1.webp'" alt="@jackwilliams" class="size-10" />
@@ -87,39 +74,26 @@
             <span class="text-sm text-muted-foreground">Business</span>
           </div>
         </div>
-        <div class="relative">
+        <div class="relative inline-block">
           <button
             buiButton
+            ngMenuTrigger
+            [menu]="orderMenu"
             variant="ghost"
             size="icon-xs"
             class="rounded-full text-muted-foreground"
             aria-label="Menu"
-            (click)="toggleMenu('order', $event)"
           >
             <app-lucide name="ellipsis-vertical" class="size-4" />
           </button>
-          @if (openMenu() === 'order') {
-            <div
-              class="absolute right-0 z-20 mt-1 flex w-36 flex-col rounded-md border bg-[var(--popover,var(--card))] p-1 text-sm shadow-md ring-1 ring-black/5"
-              (click)="$event.stopPropagation()"
-            >
-              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
-                View
-              </button>
-              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
-                Refresh
-              </button>
-              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
-                Export
-              </button>
-              <button
-                type="button"
-                class="rounded-sm px-2 py-1.5 text-left text-destructive hover:bg-muted"
-              >
-                Remove
-              </button>
-            </div>
-          }
+          <div ngMenu #orderMenu="ngMenu" buiDropdownMenu class="w-36">
+            <button ngMenuItem value="view" buiDropdownMenuItem>View</button>
+            <button ngMenuItem value="refresh" buiDropdownMenuItem>Refresh</button>
+            <button ngMenuItem value="export" buiDropdownMenuItem>Export</button>
+            <button ngMenuItem value="remove" buiDropdownMenuItem class="text-destructive">
+              Remove
+            </button>
+          </div>
         </div>
       </div>
 
@@ -161,7 +135,7 @@
     </div>
 
     <!-- ============ Sales performance ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-5 p-6 md:col-span-3 xl:col-span-2">
+    <div buiCard class="acn-card col-span-full flex flex-col gap-5 p-6 md:col-span-3 xl:col-span-2">
       <div class="flex items-start justify-between">
         <h3 class="font-heading text-lg font-semibold">Sales performance</h3>
         <button buiButton variant="outline" size="xs">Details</button>
@@ -204,42 +178,29 @@
     </div>
 
     <!-- ============ Vehicles Condition ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-5 p-6 md:col-span-3 xl:col-span-2">
+    <div buiCard class="acn-card col-span-full flex flex-col gap-5 p-6 md:col-span-3 xl:col-span-2">
       <div class="flex items-start justify-between">
         <h3 class="font-heading text-lg font-semibold">Vehicles Condition</h3>
-        <div class="relative">
+        <div class="relative inline-block">
           <button
             buiButton
+            ngMenuTrigger
+            [menu]="conditionMenu"
             variant="ghost"
             size="icon-xs"
             class="rounded-full text-muted-foreground"
             aria-label="Menu"
-            (click)="toggleMenu('condition', $event)"
           >
             <app-lucide name="ellipsis-vertical" class="size-4" />
           </button>
-          @if (openMenu() === 'condition') {
-            <div
-              class="absolute right-0 z-20 mt-1 flex w-36 flex-col rounded-md border bg-[var(--popover,var(--card))] p-1 text-sm shadow-md ring-1 ring-black/5"
-              (click)="$event.stopPropagation()"
-            >
-              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
-                View
-              </button>
-              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
-                Refresh
-              </button>
-              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
-                Export
-              </button>
-              <button
-                type="button"
-                class="rounded-sm px-2 py-1.5 text-left text-destructive hover:bg-muted"
-              >
-                Remove
-              </button>
-            </div>
-          }
+          <div ngMenu #conditionMenu="ngMenu" buiDropdownMenu class="w-36">
+            <button ngMenuItem value="view" buiDropdownMenuItem>View</button>
+            <button ngMenuItem value="refresh" buiDropdownMenuItem>Refresh</button>
+            <button ngMenuItem value="export" buiDropdownMenuItem>Export</button>
+            <button ngMenuItem value="remove" buiDropdownMenuItem class="text-destructive">
+              Remove
+            </button>
+          </div>
         </div>
       </div>
 
@@ -268,42 +229,29 @@
     </div>
 
     <!-- ============ Customer Ratings ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-5 p-6 md:col-span-3 xl:col-span-2">
+    <div buiCard class="acn-card col-span-full flex flex-col gap-5 p-6 md:col-span-3 xl:col-span-2">
       <div class="flex items-start justify-between">
         <h3 class="font-heading text-lg font-semibold">Customer Ratings</h3>
-        <div class="relative">
+        <div class="relative inline-block">
           <button
             buiButton
+            ngMenuTrigger
+            [menu]="ratingsMenu"
             variant="ghost"
             size="icon-xs"
             class="rounded-full text-muted-foreground"
             aria-label="Menu"
-            (click)="toggleMenu('ratings', $event)"
           >
             <app-lucide name="ellipsis-vertical" class="size-4" />
           </button>
-          @if (openMenu() === 'ratings') {
-            <div
-              class="absolute right-0 z-20 mt-1 flex w-36 flex-col rounded-md border bg-[var(--popover,var(--card))] p-1 text-sm shadow-md ring-1 ring-black/5"
-              (click)="$event.stopPropagation()"
-            >
-              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
-                View
-              </button>
-              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
-                Refresh
-              </button>
-              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
-                Export
-              </button>
-              <button
-                type="button"
-                class="rounded-sm px-2 py-1.5 text-left text-destructive hover:bg-muted"
-              >
-                Remove
-              </button>
-            </div>
-          }
+          <div ngMenu #ratingsMenu="ngMenu" buiDropdownMenu class="w-36">
+            <button ngMenuItem value="view" buiDropdownMenuItem>View</button>
+            <button ngMenuItem value="refresh" buiDropdownMenuItem>Refresh</button>
+            <button ngMenuItem value="export" buiDropdownMenuItem>Export</button>
+            <button ngMenuItem value="remove" buiDropdownMenuItem class="text-destructive">
+              Remove
+            </button>
+          </div>
         </div>
       </div>
 
@@ -343,42 +291,29 @@
     </div>
 
     <!-- ============ On route vehicle table ============ -->
-    <div class="acn-card col-span-full flex flex-col py-6">
+    <div buiCard class="acn-card col-span-full flex flex-col overflow-hidden py-6">
       <div class="flex items-start justify-between px-6">
         <h3 class="font-heading text-lg font-semibold">On route vehicle</h3>
-        <div class="relative">
+        <div class="relative inline-block">
           <button
             buiButton
+            ngMenuTrigger
+            [menu]="onRouteMenu"
             variant="ghost"
             size="icon-xs"
             class="rounded-full text-muted-foreground"
             aria-label="Menu"
-            (click)="toggleMenu('onRoute', $event)"
           >
             <app-lucide name="ellipsis-vertical" class="size-4" />
           </button>
-          @if (openMenu() === 'onRoute') {
-            <div
-              class="absolute right-0 z-20 mt-1 flex w-36 flex-col rounded-md border bg-[var(--popover,var(--card))] p-1 text-sm shadow-md ring-1 ring-black/5"
-              (click)="$event.stopPropagation()"
-            >
-              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
-                View
-              </button>
-              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
-                Refresh
-              </button>
-              <button type="button" class="rounded-sm px-2 py-1.5 text-left hover:bg-muted">
-                Export
-              </button>
-              <button
-                type="button"
-                class="rounded-sm px-2 py-1.5 text-left text-destructive hover:bg-muted"
-              >
-                Remove
-              </button>
-            </div>
-          }
+          <div ngMenu #onRouteMenu="ngMenu" buiDropdownMenu class="w-36">
+            <button ngMenuItem value="view" buiDropdownMenuItem>View</button>
+            <button ngMenuItem value="refresh" buiDropdownMenuItem>Refresh</button>
+            <button ngMenuItem value="export" buiDropdownMenuItem>Export</button>
+            <button ngMenuItem value="remove" buiDropdownMenuItem class="text-destructive">
+              Remove
+            </button>
+          </div>
         </div>
       </div>
 

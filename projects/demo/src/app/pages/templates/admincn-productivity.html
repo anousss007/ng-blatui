@@ -1,7 +1,10 @@
 <app-admincn-shell active="Productivity">
   <div class="grid grid-cols-6 gap-6">
     <!-- ============ Project Timeline + Project List ============ -->
-    <div class="acn-card col-span-full grid grid-cols-1 lg:grid-cols-3 2xl:col-span-4">
+    <div
+      buiCard
+      class="col-span-full grid grid-cols-1 overflow-hidden p-0 lg:grid-cols-3 2xl:col-span-4"
+    >
       <!-- Timeline -->
       <div class="flex flex-col gap-4 p-6 max-lg:border-b lg:col-span-2 lg:border-r">
         <div class="flex flex-col gap-1">
@@ -91,7 +94,7 @@
     </div>
 
     <!-- ============ Weekly overview ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-6 p-6 lg:col-span-3 2xl:col-span-2">
+    <div buiCard class="col-span-full flex flex-col gap-6 p-6 lg:col-span-3 2xl:col-span-2">
       <div class="flex items-start justify-between">
         <span class="text-lg font-semibold">Weekly overview</span>
         <div class="relative">
@@ -150,7 +153,7 @@
     </div>
 
     <!-- ============ Conversion rate ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-4 p-6 lg:col-span-3 2xl:col-span-2">
+    <div buiCard class="col-span-full flex flex-col gap-4 p-6 lg:col-span-3 2xl:col-span-2">
       <div class="flex items-start justify-between">
         <div class="flex flex-col gap-1">
           <span class="text-lg font-semibold">Conversion rate</span>
@@ -229,7 +232,8 @@
 
     <!-- ============ Upgrade your plan ============ -->
     <div
-      class="acn-card col-span-full flex flex-col justify-between gap-6 p-6 lg:col-span-3 2xl:col-span-2"
+      buiCard
+      class="col-span-full flex flex-col justify-between gap-6 p-6 lg:col-span-3 2xl:col-span-2"
     >
       <div class="flex flex-col gap-1">
         <div class="flex items-center justify-between gap-2">
@@ -302,8 +306,8 @@
                 <span class="text-xs text-muted-foreground">5688 xxxx xxxx 2356</span>
               </div>
             </div>
-            <div class="acn-input h-7 max-w-16">
-              <input type="text" placeholder="CVC" aria-label="CVC" />
+            <div buiInputGroup class="h-7 max-w-16">
+              <input buiInputGroupInput type="text" placeholder="CVC" aria-label="CVC" />
             </div>
           </div>
           <div class="flex items-center justify-between gap-2">
@@ -316,8 +320,8 @@
                 <span class="text-xs text-muted-foreground">8562 xxxx xxxx 4563</span>
               </div>
             </div>
-            <div class="acn-input h-7 max-w-16">
-              <input type="text" placeholder="CVC" aria-label="CVC" />
+            <div buiInputGroup class="h-7 max-w-16">
+              <input buiInputGroupInput type="text" placeholder="CVC" aria-label="CVC" />
             </div>
           </div>
         </div>
@@ -325,16 +329,23 @@
 
       <div class="flex flex-col gap-3">
         <span class="font-semibold">Add Payment method</span>
-        <div class="acn-input">
-          <input type="text" placeholder="Card Number" aria-label="Card number" />
-          <app-lucide name="credit-card" class="size-4 text-muted-foreground" />
+        <div buiInputGroup>
+          <input
+            buiInputGroupInput
+            type="text"
+            placeholder="Card Number"
+            aria-label="Card number"
+          />
+          <span buiInputGroupAddon align="inline-end">
+            <app-lucide name="credit-card" class="size-4 text-muted-foreground" />
+          </span>
         </div>
         <button buiButton class="h-10 w-full">Pay now</button>
       </div>
     </div>
 
     <!-- ============ Performance ============ -->
-    <div class="acn-card col-span-full flex flex-col gap-6 p-6 lg:col-span-3 2xl:col-span-2">
+    <div buiCard class="col-span-full flex flex-col gap-6 p-6 lg:col-span-3 2xl:col-span-2">
       <div class="flex items-start justify-between">
         <div class="flex items-center gap-2">
           <app-lucide name="activity" class="size-5" />
@@ -451,26 +462,38 @@
     </div>
 
     <!-- ============ Users table ============ -->
-    <div class="acn-card col-span-full flex flex-col">
+    <div buiCard class="col-span-full flex flex-col overflow-hidden p-0">
       <div class="flex flex-col gap-4 border-b p-6">
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
           <div class="flex w-full flex-col gap-2">
             <span class="text-sm font-medium">Select Role</span>
-            <button type="button" class="acn-select w-full justify-between">
-              All <app-lucide name="chevron-down" class="size-4 opacity-60" />
-            </button>
+            <bui-select
+              aria-label="Filter"
+              [options]="roleOptions"
+              [value]="roleFilter()"
+              (valueChange)="roleFilter.set($event)"
+              class="w-full"
+            />
           </div>
           <div class="flex w-full flex-col gap-2">
             <span class="text-sm font-medium">Select Plan</span>
-            <button type="button" class="acn-select w-full justify-between">
-              All <app-lucide name="chevron-down" class="size-4 opacity-60" />
-            </button>
+            <bui-select
+              aria-label="Filter"
+              [options]="planOptions"
+              [value]="planFilter()"
+              (valueChange)="planFilter.set($event)"
+              class="w-full"
+            />
           </div>
           <div class="flex w-full flex-col gap-2 max-md:col-span-full">
             <span class="text-sm font-medium">Select Status</span>
-            <button type="button" class="acn-select w-full justify-between">
-              All <app-lucide name="chevron-down" class="size-4 opacity-60" />
-            </button>
+            <bui-select
+              aria-label="Filter"
+              [options]="statusOptions"
+              [value]="statusFilter()"
+              (valueChange)="statusFilter.set($event)"
+              class="w-full"
+            />
           </div>
         </div>
       </div>

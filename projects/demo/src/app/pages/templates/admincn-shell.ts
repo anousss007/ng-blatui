@@ -1,23 +1,33 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   input,
   signal,
+  type TemplateRef,
+  viewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 import {
   BuiAvatar,
+  BuiBadge,
   BuiButton,
+  BuiCommand,
   BuiIconTile,
   BuiKbd,
+  BuiPopover,
+  BuiPopoverContent,
   BuiPresence,
   BuiSidebar,
   BuiSidebarInset,
   BuiSidebarProvider,
   BuiSidebarTrigger,
+  type CommandGroup,
+  type CommandItem,
+  Dialog,
   ThemeStore,
 } from 'ng-blatui';
 
@@ -49,9 +59,13 @@ const BASE = '/templates/admincn';
     Lucide,
     RouterLink,
     BuiAvatar,
+    BuiBadge,
     BuiButton,
+    BuiCommand,
     BuiIconTile,
     BuiKbd,
+    BuiPopover,
+    BuiPopoverContent,
     BuiPresence,
     BuiSidebarProvider,
     BuiSidebar,
@@ -67,16 +81,34 @@ export class AdmincnShell {
   readonly active = input<string>('Sales');
 
   protected readonly theme = inject(ThemeStore);
+  private readonly dialog = inject(Dialog);
+  private readonly router = inject(Router);
 
-  /** Command palette (⌘K) open state. */
-  protected readonly paletteOpen = signal(false);
-  /** Which topbar dropdown is open ('bell' | 'avatar' | null). */
-  protected readonly openMenu = signal<string | null>(null);
   /** Expanded collapsible nav items (by label). */
   protected readonly expanded = signal<ReadonlySet<string>>(new Set());
 
-  protected toggleMenu(name: string): void {
-    this.openMenu.update((current) => (current === name ? null : name));
+  /** Command-palette content template, opened in a modal dialog on ⌘K. */
+  protected readonly paletteTpl = viewChild.required<TemplateRef<unknown>>('paletteTpl');
+
+  /** Nav groups mapped to `bui-command` groups (value = route). */
+  protected readonly commandGroups = computed<CommandGroup[]>(() =>
+    this.nav.map((group) => ({
+      label: group.label,
+      items: group.items
+        .filter((item) => item.route)
+        .map((item) => ({ label: item.label, value: item.route })),
+    })),
+  );
+
+  protected openPalette(): void {
+    this.dialog.open(this.paletteTpl(), { ariaModal: true });
+  }
+
+  protected onCommandSelect(item: CommandItem): void {
+    this.dialog.closeAll();
+    if (item.value) {
+      void this.router.navigateByUrl(item.value);
+    }
   }
 
   protected toggleExpanded(label: string): void {
@@ -89,21 +121,6 @@ export class AdmincnShell {
       }
       return next;
     });
-  }
-
-  /** Command-palette search query. */
-  protected readonly query = signal('');
-
-  protected filteredItems(items: NavItem[]): NavItem[] {
-    const q = this.query().trim().toLowerCase();
-    if (!q) {
-      return items;
-    }
-    return items.filter((index) => index.label.toLowerCase().includes(q));
-  }
-
-  protected hasResults(): boolean {
-    return this.nav.some((g) => this.filteredItems(g.items).length > 0);
   }
 
   protected readonly notifications = [
@@ -121,13 +138,11 @@ export class AdmincnShell {
   ];
 
   protected onKeydown(event: KeyboardEvent): void {
-    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
-      event.preventDefault();
-      this.paletteOpen.set(true);
-    } else if (event.key === 'Escape') {
-      this.paletteOpen.set(false);
-      this.openMenu.set(null);
+    if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== 'k') {
+      return;
     }
+    event.preventDefault();
+    this.openPalette();
   }
 
   protected readonly nav: NavGroup[] = [

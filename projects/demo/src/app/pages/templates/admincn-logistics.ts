@@ -10,8 +10,11 @@ import {
   BuiAvatar,
   BuiBadge,
   BuiButton,
+  BuiCard,
   BuiChart,
   BuiCheckbox,
+  BuiDropdownMenu,
+  BuiDropdownMenuItem,
   BuiIconTile,
   BuiPagination,
   BuiPaginationContent,
@@ -24,6 +27,9 @@ import {
   BuiTableHead,
   BuiTableHeader,
   BuiTableRow,
+  Menu,
+  MenuItem,
+  MenuTrigger,
 } from 'ng-blatui';
 
 import { AdmincnShell } from './admincn-shell';
@@ -74,12 +80,18 @@ interface RouteRow {
   imports: [
     Lucide,
     AdmincnShell,
+    BuiCard,
     BuiChart,
     BuiBadge,
     BuiButton,
     BuiIconTile,
     BuiAvatar,
     BuiCheckbox,
+    BuiDropdownMenu,
+    BuiDropdownMenuItem,
+    Menu,
+    MenuItem,
+    MenuTrigger,
     BuiTableContainer,
     BuiTable,
     BuiTableHeader,
@@ -93,7 +105,6 @@ interface RouteRow {
     BuiPaginationLink,
   ],
   templateUrl: './admincn-logistics.html',
-  host: { '(document:click)': 'closeMenus()' },
 })
 export class AdmincnLogistics {
   protected readonly img = '/admincn';
@@ -138,16 +149,6 @@ export class AdmincnLogistics {
   protected readonly packing = computed(() => this.packingSets[this.packTab()]);
   protected setPackTab(index: number): void {
     this.packTab.set(index);
-  }
-
-  /* Per-card ellipsis menus ----------------------------------------------- */
-  protected readonly openMenu = signal<string | null>(null);
-  protected toggleMenu(id: string, event: MouseEvent): void {
-    event.stopPropagation();
-    this.openMenu.update((current) => (current === id ? null : id));
-  }
-  protected closeMenus(): void {
-    this.openMenu.set(null);
   }
 
   /* Sales performance — twin bar columns ---------------------------------- */

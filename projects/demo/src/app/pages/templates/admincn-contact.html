@@ -1,5 +1,5 @@
 <app-admincn-shell active="Contact">
-  <div class="acn-card flex min-h-[calc(100vh-9rem)] overflow-hidden">
+  <div buiCard class="flex min-h-[calc(100vh-9rem)] overflow-hidden p-0">
     <!-- ============ Left rail ============ -->
     <aside
       class="hidden w-64 shrink-0 flex-col gap-4 border-r p-4 lg:flex"
@@ -61,9 +61,12 @@
         >
           <app-lucide name="menu" class="size-4" />
         </button>
-        <div class="acn-input h-9 flex-1">
-          <app-lucide name="search" class="size-4 text-muted-foreground" />
+        <div buiInputGroup class="h-9 flex-1">
+          <span buiInputGroupAddon>
+            <app-lucide name="search" class="size-4 text-muted-foreground" />
+          </span>
           <input
+            buiInputGroupInput
             type="search"
             placeholder="Search Contact"
             aria-label="Search Contact"
@@ -146,7 +149,7 @@
                   @if (c.tags.length > 1) {
                     <span buiBadge tone="neutral" variant="soft">+{{ c.tags.length - 1 }}</span>
                   }
-                  <div class="acn-menu-wrap">
+                  <div class="relative inline-block">
                     <button
                       buiButton
                       variant="ghost"
@@ -154,37 +157,28 @@
                       type="button"
                       class="rounded-full text-muted-foreground"
                       aria-label="More"
-                      (click)="toggleMenu(c.email)"
+                      ngMenuTrigger
+                      [menu]="rowMenu"
                     >
                       <app-lucide name="ellipsis-vertical" class="size-4" />
                     </button>
-                    @if (openMenu() === c.email) {
-                      <div class="acn-menu-catcher" (click)="closeMenu()"></div>
-                      <div class="acn-dropdown" style="width: 11rem">
-                        <button
-                          type="button"
-                          class="acn-dropdown-item w-full"
-                          (click)="closeMenu()"
-                        >
-                          <app-lucide name="eye" class="size-4" /> View
-                        </button>
-                        <button
-                          type="button"
-                          class="acn-dropdown-item w-full"
-                          (click)="closeMenu()"
-                        >
-                          <app-lucide name="pencil" class="size-4" /> Edit
-                        </button>
-                        <button
-                          type="button"
-                          class="acn-dropdown-item w-full"
-                          style="color: var(--destructive)"
-                          (click)="deleteContact(c.email)"
-                        >
-                          <app-lucide name="trash-2" class="size-4" /> Delete
-                        </button>
+                    <div ngMenu #rowMenu="ngMenu" buiDropdownMenu style="width: 11rem">
+                      <div ngMenuItem value="view" buiDropdownMenuItem>
+                        <app-lucide name="eye" class="size-4" /> View
                       </div>
-                    }
+                      <div ngMenuItem value="edit" buiDropdownMenuItem>
+                        <app-lucide name="pencil" class="size-4" /> Edit
+                      </div>
+                      <div
+                        ngMenuItem
+                        value="delete"
+                        buiDropdownMenuItem
+                        style="color: var(--destructive)"
+                        (click)="deleteContact(c.email)"
+                      >
+                        <app-lucide name="trash-2" class="size-4" /> Delete
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

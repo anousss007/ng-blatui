@@ -84,7 +84,7 @@
           <app-lucide name="panel-left" class="size-4.5" />
         </button>
         <span class="acn-topbar-divider"></span>
-        <button type="button" class="acn-search" (click)="paletteOpen.set(true)">
+        <button type="button" class="acn-search" (click)="openPalette()">
           <app-lucide name="search" class="size-4" />
           <span class="max-sm:hidden">Type to search...</span>
           <kbd buiKbd class="max-sm:hidden">⌘K</kbd>
@@ -101,26 +101,26 @@
             <app-lucide name="activity" class="size-4.5" />
           </button>
 
-          <!-- Notifications dropdown -->
-          <div class="acn-menu-wrap">
-            <button
-              buiButton
-              variant="ghost"
-              size="icon"
-              class="relative rounded-full"
-              aria-label="Notifications"
-              (click)="toggleMenu('bell')"
-            >
-              <app-lucide name="bell" class="size-4.5" />
-              <span class="acn-dot-red"></span>
-            </button>
-            @if (openMenu() === 'bell') {
-              <div class="acn-dropdown acn-dropdown-wide">
-                <div class="acn-dropdown-head">
-                  Notifications <span class="acn-badge-primary">3 new</span>
-                </div>
+          <!-- Notifications popover -->
+          <button
+            buiButton
+            variant="ghost"
+            size="icon"
+            class="relative rounded-full"
+            aria-label="Notifications"
+            [buiPopover]="bellTpl"
+          >
+            <app-lucide name="bell" class="size-4.5" />
+            <span class="acn-dot-red"></span>
+          </button>
+          <ng-template #bellTpl>
+            <div buiPopoverContent class="w-80 p-0">
+              <div class="flex items-center justify-between border-b px-4 py-3 text-sm font-medium">
+                Notifications <span buiBadge tone="primary" variant="soft">3 new</span>
+              </div>
+              <div class="max-h-80 overflow-y-auto py-1">
                 @for (n of notifications; track n.title) {
-                  <a href="#" class="acn-dropdown-item">
+                  <a href="#" class="flex items-center gap-3 px-4 py-2.5 hover:bg-accent">
                     <bui-icon-tile tone="chart-2" class="size-8 rounded-md">
                       <app-lucide [name]="n.icon" class="size-4" />
                     </bui-icon-tile>
@@ -130,10 +130,14 @@
                     </span>
                   </a>
                 }
-                <a href="#" class="acn-dropdown-foot">View all notifications</a>
               </div>
-            }
-          </div>
+              <a
+                href="#"
+                class="block border-t px-4 py-2.5 text-center text-sm font-medium text-primary hover:bg-accent"
+                >View all notifications</a
+              >
+            </div>
+          </ng-template>
 
           <!-- Theme toggle -->
           <button
@@ -161,35 +165,38 @@
             <app-lucide name="palette" class="size-4.5" />
           </button>
 
-          <!-- Account dropdown -->
-          <div class="acn-menu-wrap">
-            <button
-              type="button"
-              class="acn-avatar-btn"
-              aria-label="Account"
-              (click)="toggleMenu('avatar')"
-            >
-              <bui-avatar src="/admincn/avatars/avatar-1.webp" alt="John Doe" />
-              <bui-presence status="online" size="sm" class="absolute right-0 bottom-0 ring-card" />
-            </button>
-            @if (openMenu() === 'avatar') {
-              <div class="acn-dropdown">
-                <div class="acn-dropdown-user">
-                  <bui-avatar src="/admincn/avatars/avatar-1.webp" alt="" class="size-9" />
-                  <span class="flex min-w-0 flex-col">
-                    <span class="truncate text-sm font-medium">John Doe</span>
-                    <span class="truncate text-xs text-muted-foreground">john&#64;example.com</span>
-                  </span>
-                </div>
+          <!-- Account popover -->
+          <button
+            type="button"
+            class="relative ml-1 inline-flex cursor-pointer rounded-full"
+            aria-label="Account"
+            [buiPopover]="acctTpl"
+          >
+            <bui-avatar src="/admincn/avatars/avatar-1.webp" alt="John Doe" />
+            <bui-presence status="online" size="sm" class="absolute right-0 bottom-0 ring-card" />
+          </button>
+          <ng-template #acctTpl>
+            <div buiPopoverContent class="w-56 p-0">
+              <div class="flex items-center gap-2.5 border-b px-3 py-3">
+                <bui-avatar src="/admincn/avatars/avatar-1.webp" alt="" class="size-9" />
+                <span class="flex min-w-0 flex-col">
+                  <span class="truncate text-sm font-medium">John Doe</span>
+                  <span class="truncate text-xs text-muted-foreground">john&#64;example.com</span>
+                </span>
+              </div>
+              <div class="p-1">
                 @for (m of accountMenu; track m.label) {
-                  <a href="#" class="acn-dropdown-item">
+                  <a
+                    href="#"
+                    class="flex items-center gap-2 rounded-md px-2.5 py-2 text-sm hover:bg-accent"
+                  >
                     <app-lucide [name]="m.icon" class="size-4 text-muted-foreground" />
-                    <span class="text-sm">{{ m.label }}</span>
+                    <span>{{ m.label }}</span>
                   </a>
                 }
               </div>
-            }
-          </div>
+            </div>
+          </ng-template>
         </div>
       </header>
 
@@ -213,51 +220,13 @@
       </div>
     </main>
 
-    <!-- Dropdown click-away catcher -->
-    @if (openMenu()) {
-      <div class="acn-menu-catcher" (click)="openMenu.set(null)"></div>
-    }
-
-    <!-- ===================== COMMAND PALETTE (⌘K) ===================== -->
-    @if (paletteOpen()) {
-      <div class="acn-palette-overlay" (click)="paletteOpen.set(false)">
-        <div class="acn-palette" (click)="$event.stopPropagation()">
-          <div class="acn-palette-input">
-            <app-lucide name="search" class="size-4 text-muted-foreground" />
-            <input
-              #cmd
-              type="text"
-              placeholder="Type a command or search…"
-              (input)="query.set(cmd.value)"
-            />
-            <kbd buiKbd>esc</kbd>
-          </div>
-          <div class="acn-palette-list">
-            @for (group of nav; track group.label) {
-              @if (filteredItems(group.items).length) {
-                <p class="acn-palette-group">{{ group.label }}</p>
-                @for (item of filteredItems(group.items); track item.label) {
-                  <a
-                    [routerLink]="item.route ?? null"
-                    [attr.href]="item.route ? null : '#'"
-                    class="acn-palette-item"
-                    (click)="paletteOpen.set(false)"
-                  >
-                    <app-lucide [name]="item.icon" class="size-4 text-muted-foreground" />
-                    <span>{{ item.label }}</span>
-                    @if (item.route) {
-                      <app-lucide name="arrow-up-right" class="ml-auto size-3.5 opacity-40" />
-                    }
-                  </a>
-                }
-              }
-            }
-            @if (!hasResults()) {
-              <p class="acn-palette-empty">No results found.</p>
-            }
-          </div>
-        </div>
-      </div>
-    }
+    <!-- ===================== COMMAND PALETTE (⌘K) — bui-command in a modal dialog ===== -->
+    <ng-template #paletteTpl>
+      <bui-command
+        [groups]="commandGroups()"
+        (selected)="onCommandSelect($event)"
+        class="w-[min(36rem,calc(100vw-2rem))] shadow-lg"
+      />
+    </ng-template>
   </bui-sidebar-provider>
 </div>

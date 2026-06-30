@@ -10,14 +10,19 @@ import {
   BuiAvatar,
   BuiBadge,
   BuiButton,
+  BuiCard,
   BuiChart,
   BuiCheckbox,
   BuiIconTile,
+  BuiInputGroup,
+  BuiInputGroupAddon,
+  BuiInputGroupInput,
   BuiPagination,
   BuiPaginationContent,
   BuiPaginationEllipsis,
   BuiPaginationItem,
   BuiPaginationLink,
+  BuiSelect,
   BuiTable,
   BuiTableBody,
   BuiTableCell,
@@ -25,6 +30,7 @@ import {
   BuiTableHead,
   BuiTableHeader,
   BuiTableRow,
+  type SelectOption,
 } from 'ng-blatui';
 
 import { AdmincnShell } from './admincn-shell';
@@ -96,9 +102,14 @@ interface UserRow {
     BuiIconTile,
     BuiBadge,
     BuiButton,
+    BuiCard,
     BuiChart,
     BuiAvatar,
     BuiCheckbox,
+    BuiInputGroup,
+    BuiInputGroupAddon,
+    BuiInputGroupInput,
+    BuiSelect,
     BuiTableContainer,
     BuiTable,
     BuiTableHeader,
@@ -228,6 +239,32 @@ export class AdmincnProductivity {
   protected closeMenus(): void {
     this.openMenu.set(null);
   }
+
+  /* Users table filters ---------------------------------------------------- */
+  protected readonly roleOptions: SelectOption[] = [
+    { value: 'all', label: 'All' },
+    { value: 'maintainer', label: 'Maintainer' },
+    { value: 'admin', label: 'Admin' },
+    { value: 'editor', label: 'Editor' },
+    { value: 'author', label: 'Author' },
+    { value: 'subscriber', label: 'Subscriber' },
+  ];
+  protected readonly planOptions: SelectOption[] = [
+    { value: 'all', label: 'All' },
+    { value: 'enterprise', label: 'Enterprise' },
+    { value: 'team', label: 'Team' },
+    { value: 'company', label: 'Company' },
+    { value: 'basic', label: 'Basic' },
+  ];
+  protected readonly statusOptions: SelectOption[] = [
+    { value: 'all', label: 'All' },
+    { value: 'active', label: 'Active' },
+    { value: 'pending', label: 'Pending' },
+    { value: 'inactive', label: 'Inactive' },
+  ];
+  protected readonly roleFilter = signal('all');
+  protected readonly planFilter = signal('all');
+  protected readonly statusFilter = signal('all');
 
   /* Users table ------------------------------------------------------------ */
   protected readonly users: UserRow[] = [

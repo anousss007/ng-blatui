@@ -10,13 +10,18 @@ import {
   BuiAvatar,
   BuiBadge,
   BuiButton,
+  BuiCard,
   BuiChart,
   BuiCheckbox,
   BuiIconTile,
+  BuiItem,
+  BuiItemContent,
+  BuiItemMedia,
   BuiPagination,
   BuiPaginationContent,
   BuiPaginationItem,
   BuiPaginationLink,
+  BuiSelect,
   BuiTable,
   BuiTableBody,
   BuiTableCell,
@@ -24,6 +29,7 @@ import {
   BuiTableHead,
   BuiTableHeader,
   BuiTableRow,
+  type SelectOption,
 } from 'ng-blatui';
 
 import { AdmincnShell } from './admincn-shell';
@@ -83,12 +89,17 @@ interface UserRow {
   imports: [
     Lucide,
     AdmincnShell,
+    BuiCard,
     BuiIconTile,
+    BuiItem,
+    BuiItemMedia,
+    BuiItemContent,
     BuiBadge,
     BuiButton,
     BuiChart,
     BuiAvatar,
     BuiCheckbox,
+    BuiSelect,
     BuiTableContainer,
     BuiTable,
     BuiTableHeader,
@@ -302,6 +313,18 @@ export class AdmincnFinance {
     ...new Set(this.allUsers.map((u) => u.plan)),
   ]);
   protected readonly statusOptions = ['all', 'active', 'pending', 'inactive'];
+
+  /* Select-option shapes for bui-select (label 'all' → 'All', else the raw value). */
+  protected readonly roleSelectOptions = computed<SelectOption[]>(() =>
+    this.roleOptions().map((r) => ({ value: r, label: r === 'all' ? 'All' : r })),
+  );
+  protected readonly planSelectOptions = computed<SelectOption[]>(() =>
+    this.planOptions().map((p) => ({ value: p, label: p === 'all' ? 'All' : p })),
+  );
+  protected readonly statusSelectOptions: SelectOption[] = this.statusOptions.map((s) => ({
+    value: s,
+    label: s === 'all' ? 'All' : s,
+  }));
 
   protected readonly filtered = computed(() => {
     const q = this.search().toLowerCase().trim();

@@ -9,6 +9,11 @@ import {
 import {
   BuiBadge,
   BuiButton,
+  BuiCard,
+  BuiCheckbox,
+  BuiInputGroup,
+  BuiInputGroupAddon,
+  BuiInputGroupInput,
   BuiTable,
   BuiTableBody,
   BuiTableCell,
@@ -149,6 +154,11 @@ const dateOfBirth: Validator = (v) => {
     AdmincnShell,
     BuiBadge,
     BuiButton,
+    BuiCard,
+    BuiCheckbox,
+    BuiInputGroup,
+    BuiInputGroupAddon,
+    BuiInputGroupInput,
     BuiTable,
     BuiTableBody,
     BuiTableCell,
@@ -368,7 +378,7 @@ export class AdmincnFormValidation {
   readonly green = '#16a34a';
   readonly destructive = 'var(--destructive)';
 
-  /** Inline border colour for an .acn-input wrapper based on a Field's state. */
+  /** Inline border colour for an input-group wrapper based on a Field's state. */
   borderColor(hasError: boolean, hasSuccess: boolean): string | null {
     if (hasError) return this.destructive;
     if (hasSuccess) return this.green;

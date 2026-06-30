@@ -11,6 +11,7 @@ import {
   BuiAvatar,
   BuiBadge,
   BuiButton,
+  BuiCard,
   BuiChart,
   BuiCheckbox,
   BuiIconTile,
@@ -18,6 +19,7 @@ import {
   BuiPaginationContent,
   BuiPaginationItem,
   BuiPaginationLink,
+  BuiSelect,
   BuiTable,
   BuiTableBody,
   BuiTableCell,
@@ -26,6 +28,7 @@ import {
   BuiTableHeader,
   BuiTableRow,
   type IconTileTone,
+  type SelectOption,
 } from 'ng-blatui';
 
 import { AdmincnShell } from './admincn-shell';
@@ -94,12 +97,14 @@ interface UserRow {
   imports: [
     Lucide,
     AdmincnShell,
+    BuiCard,
     BuiIconTile,
     BuiBadge,
     BuiButton,
     BuiChart,
     BuiAvatar,
     BuiCheckbox,
+    BuiSelect,
     BuiTableContainer,
     BuiTable,
     BuiTableHeader,
@@ -338,6 +343,32 @@ export class AdmincnCampaign {
   protected statusTone(status: UserRow['status']): BadgeTone {
     return STATUS_TONE[status];
   }
+
+  /* Filters (display-only) ------------------------------------------------- */
+  protected readonly roleOptions: SelectOption[] = [
+    { value: 'all', label: 'All' },
+    { value: 'admin', label: 'Admin' },
+    { value: 'author', label: 'Author' },
+    { value: 'editor', label: 'Editor' },
+    { value: 'maintainer', label: 'Maintainer' },
+    { value: 'subscriber', label: 'Subscriber' },
+  ];
+  protected readonly planOptions: SelectOption[] = [
+    { value: 'all', label: 'All' },
+    { value: 'basic', label: 'Basic' },
+    { value: 'team', label: 'Team' },
+    { value: 'company', label: 'Company' },
+    { value: 'enterprise', label: 'Enterprise' },
+  ];
+  protected readonly statusOptions: SelectOption[] = [
+    { value: 'all', label: 'All' },
+    { value: 'active', label: 'Active' },
+    { value: 'pending', label: 'Pending' },
+    { value: 'inactive', label: 'Inactive' },
+  ];
+  protected readonly role = signal('all');
+  protected readonly plan = signal('all');
+  protected readonly statusFilter = signal('all');
 
   /* Table selection + pagination (display-only) --------------------------- */
   protected readonly page = signal(1);

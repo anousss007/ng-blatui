@@ -9,7 +9,8 @@
        (no extra stylesheet — this page has no styleUrl).
   ============================================================ -->
   <div
-    class="acn-card grid h-[calc(100vh-9.5rem)] min-h-[34rem] grid-cols-1 overflow-hidden md:grid-cols-[20rem_1fr] lg:grid-cols-[22rem_1fr]"
+    buiCard
+    class="grid h-[calc(100vh-9.5rem)] min-h-[34rem] grid-cols-1 overflow-hidden p-0 md:grid-cols-[20rem_1fr] lg:grid-cols-[22rem_1fr]"
   >
     <!-- ===================== CONVERSATION LIST ===================== -->
     <aside class="flex min-h-0 flex-col border-r max-md:border-r-0">
@@ -35,9 +36,12 @@
 
       <!-- Search -->
       <div class="px-3">
-        <div class="acn-input h-9">
-          <app-lucide name="search" class="size-4 text-muted-foreground" />
+        <div buiInputGroup class="h-9">
+          <span buiInputGroupAddon>
+            <app-lucide name="search" class="size-4 text-muted-foreground" />
+          </span>
           <input
+            buiInputGroupInput
             type="search"
             placeholder="Search conversations..."
             aria-label="Search conversations"
