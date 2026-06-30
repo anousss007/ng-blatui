@@ -7489,7 +7489,7 @@ export const API_DOCS = {
     "types": []
   },
   "sidebar": {
-    "summary": "A collapsible vertical navigation sidebar. Toggle width with the `open` model.",
+    "summary": "A collapsible vertical navigation sidebar. Standalone it toggles via the `open` model;\ninside a  it reads shared state and becomes a mobile off-canvas\ndrawer + desktop icon-rail automatically.",
     "components": [
       {
         "class": "BuiSidebar",
@@ -7515,7 +7515,7 @@ export const API_DOCS = {
             "name": "open",
             "type": "boolean",
             "default": "true",
-            "description": "Whether the sidebar is expanded. Two-way bindable with `[(open)]`."
+            "description": "Whether the sidebar is expanded. Two-way bindable with `[(open)]` (standalone use)."
           }
         ],
         "outputs": []
