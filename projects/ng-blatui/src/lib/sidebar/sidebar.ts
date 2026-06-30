@@ -56,6 +56,7 @@ export class BuiSidebarState {
  */
 @Component({
   selector: 'bui-sidebar-provider',
+  exportAs: 'buiSidebar',
   providers: [BuiSidebarState],
   host: { 'data-slot': 'sidebar-provider', '[class]': 'computedClass()' },
   template: `
@@ -71,9 +72,15 @@ export class BuiSidebarState {
   `,
 })
 export class BuiSidebarProvider {
-  protected readonly state = inject(BuiSidebarState);
+  /** Shared sidebar state; exposed (via `exportAs="buiSidebar"`) for template access. */
+  readonly state = inject(BuiSidebarState);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() => cn('flex min-h-svh w-full', this.userClass()));
+
+  /** Close the mobile drawer (e.g. after a nav item is chosen). */
+  closeMobile(): void {
+    this.state.mobileOpen.set(false);
+  }
 }
 
 /**
@@ -108,11 +115,11 @@ export class BuiSidebar {
   );
   protected readonly computedClass = computed(() => {
     const base =
-      'group/sidebar flex h-full flex-col gap-2 overflow-hidden bg-card p-2 text-card-foreground transition-[width,transform] duration-200';
+      'group/sidebar flex flex-col gap-2 overflow-hidden bg-card p-2 text-card-foreground transition-[width,transform] duration-200';
     const border = this.side() === 'left' ? 'border-r' : 'border-l';
     if (this.state) {
-      // Inset shell mode: mobile off-canvas drawer + desktop expand/icon-rail. All
-      // Tailwind classes are literals so the JIT scanner can see them.
+      // Inset shell mode: mobile off-canvas drawer, desktop sticky expand/icon-rail.
+      // All Tailwind classes are literals so the JIT scanner can see them.
       const dock =
         this.side() === 'left'
           ? 'left-0 -translate-x-full md:translate-x-0'
@@ -124,14 +131,20 @@ export class BuiSidebar {
       return cn(
         base,
         border,
-        'fixed inset-y-0 z-50 w-64 md:static md:z-auto',
+        'fixed inset-y-0 z-50 h-svh w-64 md:sticky md:top-0 md:z-auto md:h-svh',
         dock,
         drawer,
         desktop,
         this.userClass(),
       );
     }
-    return cn(base, border, this.expanded() ? 'w-64' : this.collapsedWidth(), this.userClass());
+    return cn(
+      base,
+      border,
+      'h-full',
+      this.expanded() ? 'w-64' : this.collapsedWidth(),
+      this.userClass(),
+    );
   });
 }
 
