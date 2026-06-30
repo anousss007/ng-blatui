@@ -130,32 +130,32 @@
       </div>
     </div>
 
-    <!-- ============ KPI 5 — Total Income ============ -->
-    <div class="acn-card acn-kpi acn-span justify-between">
-      <span class="acn-icon-tile acn-tile-teal size-10">
+    <!-- ============ KPI 5 — Total Income (ng-blatui components) ============ -->
+    <div buiCard class="acn-span flex flex-col justify-between gap-4 p-6">
+      <bui-icon-tile tone="chart-2">
         <app-lucide name="circle-dollar-sign" class="size-5" />
-      </span>
+      </bui-icon-tile>
       <div class="flex flex-col gap-1">
         <span class="font-heading text-base font-semibold">Total Income</span>
         <p class="text-sm text-muted-foreground">Last week</p>
         <div class="mt-1 flex items-center justify-between gap-2">
           <span class="text-xl font-semibold tracking-tight">$4,673</span>
-          <span class="acn-badge-green">+25.2%</span>
+          <span buiBadge tone="success" variant="soft">+25.2%</span>
         </div>
       </div>
     </div>
 
-    <!-- ============ KPI 6 — Total Expense ============ -->
-    <div class="acn-card acn-kpi acn-span justify-between">
-      <span class="acn-icon-tile acn-tile-amber size-10">
+    <!-- ============ KPI 6 — Total Expense (ng-blatui components) ============ -->
+    <div buiCard class="acn-span flex flex-col justify-between gap-4 p-6">
+      <bui-icon-tile tone="chart-5">
         <app-lucide name="wallet" class="size-5" />
-      </span>
+      </bui-icon-tile>
       <div class="flex flex-col gap-1">
         <span class="font-heading text-base font-semibold">Total Expense</span>
         <p class="text-sm text-muted-foreground">Last month</p>
         <div class="mt-1 flex items-center justify-between gap-2">
           <span class="text-xl font-semibold tracking-tight">$1.28K</span>
-          <span class="acn-badge-red">-12.2%</span>
+          <span buiBadge tone="danger" variant="soft">-12.2%</span>
         </div>
       </div>
     </div>
