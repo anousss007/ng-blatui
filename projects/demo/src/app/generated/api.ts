@@ -43,7 +43,7 @@ export const API_DOCS = {
     ]
   },
   "badge": {
-    "summary": "BlatUI badge. Brand variants (`default | secondary | destructive | outline`)\nor semantic `tone` (`success | warning | danger | info | neutral`) where\n`variant` then selects intensity (`soft | solid | outline`). Built on a native\nelement so it stays in the document flow and screen-reader friendly.",
+    "summary": "BlatUI badge. Brand variants (`default | secondary | destructive | outline`)\nor semantic `tone` (`primary | success | warning | danger | info | neutral`) where\n`variant` then selects intensity (`soft | solid | outline`). Built on a native\nelement so it stays in the document flow and screen-reader friendly.",
     "components": [
       {
         "class": "BuiBadge",
@@ -58,7 +58,7 @@ export const API_DOCS = {
           },
           {
             "name": "tone",
-            "type": "\"danger\" | \"info\" | \"neutral\" | \"success\" | \"warning\" | null",
+            "type": "\"danger\" | \"info\" | \"neutral\" | \"primary\" | \"success\" | \"warning\" | null",
             "default": "null",
             "required": false,
             "description": "Optional semantic tone; when set it overrides the brand variant's color."
@@ -317,7 +317,15 @@ export const API_DOCS = {
       {
         "class": "BuiCheckbox",
         "selector": "button[buiCheckbox]",
-        "inputs": [],
+        "inputs": [
+          {
+            "name": "tone",
+            "type": "\"danger\" | \"info\" | \"primary\" | \"success\" | \"warning\"",
+            "default": "'primary'",
+            "required": false,
+            "description": "Semantic color of the checked/indeterminate fill."
+          }
+        ],
         "models": [
           {
             "name": "checked",
@@ -6249,10 +6257,10 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "type",
-            "type": "\"area\" | \"bar\" | \"donut\" | \"line\"",
+            "type": "\"area\" | \"bar\" | \"donut\" | \"gauge\" | \"line\"",
             "default": "'line'",
             "required": false,
-            "description": "Chart render style: line, bar, filled area, or a donut ring."
+            "description": "Chart render style: line, bar, filled area, a donut ring, or a half-ring gauge."
           },
           {
             "name": "series",
@@ -6309,6 +6317,20 @@ export const API_DOCS = {
             "default": "false",
             "required": false,
             "description": "Stack every series into one bar per data point, bottom-to-top (bar charts)."
+          },
+          {
+            "name": "grouped",
+            "type": "boolean",
+            "default": "false",
+            "required": false,
+            "description": "Render every series side-by-side within each data slot (grouped bar charts)."
+          },
+          {
+            "name": "barColors",
+            "type": "readonly string[]",
+            "default": "[]",
+            "required": false,
+            "description": "Per-bar fill colors (bar charts); index-aligned with the first series' data. Overrides the series color."
           },
           {
             "name": "track",

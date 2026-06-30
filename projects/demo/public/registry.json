@@ -51,7 +51,7 @@
           },
           {
             "name": "tone",
-            "type": "\"danger\" | \"info\" | \"neutral\" | \"success\" | \"warning\" | null"
+            "type": "\"danger\" | \"info\" | \"neutral\" | \"primary\" | \"success\" | \"warning\" | null"
           },
           {
             "name": "size",
@@ -228,6 +228,12 @@
       "category": "Forms & Input",
       "url": "https://ngblatui.remix-it.com/components/checkbox",
       "api": {
+        "inputs": [
+          {
+            "name": "tone",
+            "type": "\"danger\" | \"info\" | \"primary\" | \"success\" | \"warning\""
+          }
+        ],
         "models": [
           {
             "name": "checked",
@@ -3712,7 +3718,7 @@
         "inputs": [
           {
             "name": "type",
-            "type": "\"area\" | \"bar\" | \"donut\" | \"line\""
+            "type": "\"area\" | \"bar\" | \"donut\" | \"gauge\" | \"line\""
           },
           {
             "name": "series",
@@ -3745,6 +3751,14 @@
           {
             "name": "stacked",
             "type": "boolean"
+          },
+          {
+            "name": "grouped",
+            "type": "boolean"
+          },
+          {
+            "name": "barColors",
+            "type": "readonly string[]"
           },
           {
             "name": "track",
