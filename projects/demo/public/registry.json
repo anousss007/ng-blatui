@@ -51,7 +51,7 @@
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | null"
+            "type": "\"success\" | \"warning\" | \"info\" | \"danger\" | \"neutral\" | null"
           },
           {
             "name": "size",
@@ -92,7 +92,7 @@
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | null"
+            "type": "\"success\" | \"warning\" | \"info\" | \"danger\" | \"neutral\" | null"
           }
         ]
       }
@@ -505,7 +505,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\" | null"
+            "type": "\"sm\" | \"default\" | \"lg\" | null"
           }
         ],
         "models": [
