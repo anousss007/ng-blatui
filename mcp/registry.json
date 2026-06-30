@@ -3712,7 +3712,7 @@
         "inputs": [
           {
             "name": "type",
-            "type": "\"line\" | \"bar\" | \"area\" | \"donut\""
+            "type": "\"area\" | \"line\" | \"bar\" | \"donut\""
           },
           {
             "name": "series",

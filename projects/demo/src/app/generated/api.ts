@@ -6249,7 +6249,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "type",
-            "type": "\"line\" | \"bar\" | \"area\" | \"donut\"",
+            "type": "\"area\" | \"line\" | \"bar\" | \"donut\"",
             "default": "'line'",
             "required": false,
             "description": "Chart render style: line, bar, filled area, or a donut ring."
