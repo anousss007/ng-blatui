@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { ThemeStore } from 'ng-blatui';
+import { BuiAvatar, BuiButton, BuiIconTile, BuiKbd, BuiPresence, ThemeStore } from 'ng-blatui';
 
 import { Lucide } from './lucide';
 
@@ -36,7 +36,7 @@ const BASE = '/templates/admincn';
   selector: 'app-admincn-shell',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, RouterLink],
+  imports: [Lucide, RouterLink, BuiAvatar, BuiButton, BuiIconTile, BuiKbd, BuiPresence],
   host: { '(document:keydown)': 'onKeydown($event)' },
   templateUrl: './admincn-shell.html',
   styleUrl: './admincn.css',
