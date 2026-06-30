@@ -253,24 +253,14 @@
           </span>
         </div>
       </div>
-      <div class="mt-1">
-        <svg viewBox="0 0 309 130" class="h-28 w-full" preserveAspectRatio="none">
-          <path [attr.d]="salesArea" fill="var(--chart-2)" fill-opacity="0.1" />
-          <polyline
-            [attr.points]="salesPath"
-            fill="none"
-            stroke="var(--chart-2)"
-            stroke-width="2.5"
-            stroke-linejoin="round"
-            stroke-linecap="round"
-          />
-        </svg>
-        <div class="flex justify-between px-1 text-xs text-muted-foreground">
-          @for (t of salesTimes; track t) {
-            <span>{{ t }}</span>
-          }
-        </div>
-      </div>
+      <bui-chart
+        type="area"
+        class="mt-1"
+        [series]="salesSeries"
+        [labels]="salesTimes"
+        [height]="112"
+        label="Total sales over time"
+      />
     </div>
 
     <!-- ============ Upgrade your plan ============ -->
