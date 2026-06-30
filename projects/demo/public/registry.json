@@ -3743,6 +3743,22 @@
             "type": "readonly string[]"
           },
           {
+            "name": "stacked",
+            "type": "boolean"
+          },
+          {
+            "name": "track",
+            "type": "boolean"
+          },
+          {
+            "name": "dots",
+            "type": "boolean"
+          },
+          {
+            "name": "gridX",
+            "type": "number"
+          },
+          {
             "name": "label",
             "type": "string"
           }
