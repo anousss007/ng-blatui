@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import { BuiOrgChart, type OrgNode } from './org-chart';
-import { BuiOrgChartNode } from './org-chart-node';
 
 @Component({
-  imports: [BuiOrgChart, BuiOrgChartNode],
+  imports: [BuiOrgChart],
   template: `<bui-org-chart [node]="root" />`,
 })
 class TestHost {
