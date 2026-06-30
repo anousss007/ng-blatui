@@ -131,6 +131,12 @@ export class AdmincnTemplate {
   ];
   protected readonly txHighlight = 'Feb';
   protected readonly txMax = 60;
+  protected readonly txSeries = [
+    { data: this.txBars.map((b) => b.value), color: 'var(--chart-2)' },
+  ];
+  protected readonly txDisplays = this.txBars.map((b) => b.display);
+  protected readonly txAxis = this.txBars.map((b) => b.label);
+  protected readonly txActive = this.txBars.findIndex((b) => b.label === this.txHighlight);
 
   /* Total sales step-area chart ------------------------------------------- */
   protected readonly salesPath =
@@ -151,6 +157,11 @@ export class AdmincnTemplate {
   ];
   protected readonly earnHighlight = 'Th';
   protected readonly earnMax = 165;
+  protected readonly earnSeries = [
+    { data: this.earnBars.map((b) => b.value), color: 'var(--chart-2)' },
+  ];
+  protected readonly earnAxis = this.earnBars.map((b) => b.label);
+  protected readonly earnActive = this.earnBars.findIndex((b) => b.label === this.earnHighlight);
 
   /* Invoice table --------------------------------------------------------- */
   // First 5 rows are the originally-shown invoices (page 1); the remaining 20
@@ -350,9 +361,5 @@ export class AdmincnTemplate {
     if (this.allChecked()) for (const r of rows) set.delete(r.id);
     else for (const r of rows) set.add(r.id);
     this.checked.set(set);
-  }
-
-  protected barH(value: number, max: number): number {
-    return Math.round((value / max) * 1000) / 10;
   }
 }

@@ -56,6 +56,35 @@ const DONUT_C = 251.33;
           <ng-content />
         </div>
       </div>
+    } @else if (type() === 'bar') {
+      <div
+        class="flex items-end gap-1"
+        [style.height.px]="height()"
+        role="img"
+        [attr.aria-label]="label()"
+      >
+        @for (bar of barColumns(); track bar.id) {
+          <div class="flex h-full flex-1 flex-col items-center justify-end gap-2">
+            <div class="relative flex w-full flex-1 items-end justify-center">
+              <div
+                class="relative flex min-h-1 w-[70%] max-w-9 justify-center rounded-t-[10px] rounded-b-[4px] transition-[height]"
+                [style.height.%]="bar.pct"
+                [style.background]="bar.fill"
+              >
+                @if (bar.value) {
+                  <span
+                    class="absolute -top-6 text-sm font-semibold whitespace-nowrap text-foreground"
+                    >{{ bar.value }}</span
+                  >
+                }
+              </div>
+            </div>
+            @if (bar.label) {
+              <span class="text-xs text-muted-foreground">{{ bar.label }}</span>
+            }
+          </div>
+        }
+      </div>
     } @else {
       <svg
         [attr.viewBox]="'0 0 ' + width + ' ' + height()"
@@ -65,31 +94,18 @@ const DONUT_C = 251.33;
         [attr.aria-label]="label()"
         preserveAspectRatio="none"
       >
-        @if (type() === 'bar') {
-          @for (bar of bars(); track bar.id) {
-            <rect
-              [attr.x]="bar.x"
-              [attr.y]="bar.y"
-              [attr.width]="bar.w"
-              [attr.height]="bar.h"
-              [attr.fill]="bar.color"
-              rx="3"
-            />
+        @for (path of paths(); track path.id) {
+          @if (type() === 'area') {
+            <path [attr.d]="path.area" [attr.fill]="path.color" fill-opacity="0.12" />
           }
-        } @else {
-          @for (path of paths(); track path.id) {
-            @if (type() === 'area') {
-              <path [attr.d]="path.area" [attr.fill]="path.color" fill-opacity="0.12" />
-            }
-            <path
-              [attr.d]="path.line"
-              fill="none"
-              [attr.stroke]="path.color"
-              stroke-width="2"
-              stroke-linejoin="round"
-              stroke-linecap="round"
-            />
-          }
+          <path
+            [attr.d]="path.line"
+            fill="none"
+            [attr.stroke]="path.color"
+            stroke-width="2"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+          />
         }
       </svg>
       @if (labels().length > 0) {
@@ -119,6 +135,13 @@ export class BuiChart {
   readonly max = input<number | null>(null);
   /** Donut ring thickness, in the 100×100 viewBox units. */
   readonly thickness = input(12);
+  /**
+   * Index of the highlighted bar (bar charts). When set, the active bar renders
+   * solid and the rest are tinted; when `null` every bar renders solid.
+   */
+  readonly activeIndex = input<number | null>(null);
+  /** Value text shown above each bar (bar charts); pass one entry per data point. */
+  readonly barLabels = input<readonly string[]>([]);
   /** Accessible label for the chart's `aria-label`. */
   readonly label = input('Chart');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
@@ -129,24 +152,25 @@ export class BuiChart {
     () => this.max() ?? Math.max(1, ...this.series().flatMap((s) => s.data)),
   );
 
-  protected readonly bars = computed(() => {
+  /** HTML bar columns: scaled height %, fill (tinted when another bar is active), value + axis label. */
+  protected readonly barColumns = computed(() => {
     const series = this.series().at(0);
     if (!series) {
       return [];
     }
-    const height = this.height();
-    const count = series.data.length;
-    const gap = 8;
-    const barWidth = (WIDTH - gap * (count + 1)) / Math.max(1, count);
+    const total = this.scaleMax();
+    const active = this.activeIndex();
+    const valueLabels = this.barLabels();
+    const axisLabels = this.labels();
+    const color = series.color ?? PALETTE[0];
     return series.data.map((value, index) => {
-      const barHeight = (value / this.scaleMax()) * (height - PAD * 2);
+      const isDimmed = active !== null && active !== index;
       return {
         id: index,
-        x: gap + index * (barWidth + gap),
-        y: height - PAD - barHeight,
-        w: barWidth,
-        h: barHeight,
-        color: series.color ?? PALETTE[0],
+        pct: Math.max(0, (Math.max(0, value) / total) * 100),
+        fill: isDimmed ? `color-mix(in oklab, ${color} 20%, transparent)` : color,
+        value: valueLabels[index] ?? '',
+        label: axisLabels[index] ?? '',
       };
     });
   });

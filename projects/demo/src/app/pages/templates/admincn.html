@@ -166,22 +166,16 @@
             <app-lucide name="ellipsis-vertical" class="size-4" />
           </button>
         </div>
-        <div class="acn-barchart">
-          @for (b of txBars; track b.label) {
-            <div class="acn-barcol">
-              <div class="acn-bartrack">
-                <div
-                  class="acn-barfill"
-                  [class.acn-barfill-hi]="b.label === txHighlight"
-                  [style.height.%]="barH(b.value, txMax)"
-                >
-                  <span class="acn-barval">{{ b.display }}</span>
-                </div>
-              </div>
-              <span class="acn-barlabel">{{ b.label }}</span>
-            </div>
-          }
-        </div>
+        <bui-chart
+          type="bar"
+          [series]="txSeries"
+          [labels]="txAxis"
+          [barLabels]="txDisplays"
+          [activeIndex]="txActive"
+          [max]="txMax"
+          [height]="240"
+          label="Total transaction overview"
+        />
       </div>
       <!-- Report -->
       <div class="flex flex-col gap-6 px-6 md:col-span-2">
@@ -390,20 +384,16 @@
         </div>
       </div>
 
-      <div class="acn-barchart acn-barchart-sm mt-auto">
-        @for (b of earnBars; track b.label) {
-          <div class="acn-barcol">
-            <div class="acn-bartrack">
-              <div
-                class="acn-barfill"
-                [class.acn-barfill-hi]="b.label === earnHighlight"
-                [style.height.%]="barH(b.value, earnMax)"
-              ></div>
-            </div>
-            <span class="acn-barlabel">{{ b.label }}</span>
-          </div>
-        }
-      </div>
+      <bui-chart
+        type="bar"
+        class="mt-auto"
+        [series]="earnSeries"
+        [labels]="earnAxis"
+        [activeIndex]="earnActive"
+        [max]="earnMax"
+        [height]="130"
+        label="Weekly earning overview"
+      />
     </div>
 
     <!-- ============ Design strategy master class ============ -->
