@@ -186,11 +186,20 @@ export class AdmincnPayments {
   ];
   protected readonly revYAxis = ['30', '20', '10', '0', '-10', '-20'];
   protected readonly revMax = 32;
+  // Grouped bar series/labels derived from revBars (2024 primary, 2023 muted),
+  // keeping the exact fills the bespoke bars used.
+  protected readonly revLabels = this.revBars.map((b) => b.label);
+  protected readonly revSeries = [
+    { name: '2024', data: this.revBars.map((b) => b.y2024), color: 'var(--primary)' },
+    {
+      name: '2023',
+      data: this.revBars.map((b) => b.y2023),
+      color: 'color-mix(in oklab, var(--primary) 20%, var(--background))',
+    },
+  ];
 
   /* Report growth gauge (78% of a 180° arc) -------------------------------- */
   protected readonly gaugePct = 78;
-  // semicircle path length used for stroke-dasharray (r = 80, half-circle).
-  protected readonly gaugeLen = Math.PI * 80;
 
   /* Sales by countries ----------------------------------------------------- */
   protected readonly countries: CountrySale[] = [
@@ -477,10 +486,6 @@ export class AdmincnPayments {
     if (this.allChecked()) for (const r of rows) set.delete(r.id);
     else for (const r of rows) set.add(r.id);
     this.checked.set(set);
-  }
-
-  protected barH(value: number, max: number): number {
-    return Math.round((value / max) * 1000) / 10;
   }
 
   /** AdminCN palette tone → ng-blatui icon-tile chart tone. */

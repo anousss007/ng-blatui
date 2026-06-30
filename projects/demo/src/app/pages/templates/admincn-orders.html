@@ -218,19 +218,14 @@
               <span class="text-base font-medium">Percentage Change</span>
             </div>
           </div>
-          <div class="flex h-12 items-end gap-1.5">
-            @for (b of cohortBars; track $index) {
-              <span
-                class="flex-1 rounded-sm"
-                [style.height.px]="b.h"
-                [style.background]="
-                  b.on
-                    ? 'var(--primary)'
-                    : 'color-mix(in oklab, var(--muted-foreground) 20%, transparent)'
-                "
-              ></span>
-            }
-          </div>
+          <bui-chart
+            type="bar"
+            [series]="[{ data: cohortBars }]"
+            [barColors]="cohortColors"
+            [max]="48"
+            [height]="48"
+            label="Cohort analysis indicators"
+          />
         </div>
       </div>
     </div>

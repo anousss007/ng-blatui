@@ -9,16 +9,7 @@
             <span class="text-3xl font-semibold tracking-tight">$5,280</span>
           </div>
           <div class="flex items-center gap-2">
-            <span
-              buiBadge
-              tone="neutral"
-              variant="soft"
-              style="
-                background: color-mix(in oklab, var(--primary) 10%, transparent);
-                color: var(--primary);
-              "
-              >+12.2%</span
-            >
+            <span buiBadge tone="primary" variant="soft">+12.2%</span>
             <span class="text-sm text-muted-foreground">vs Last month</span>
           </div>
         </div>
@@ -41,16 +32,7 @@
             <span class="text-3xl font-semibold tracking-tight">$4,120</span>
           </div>
           <div class="flex items-center gap-2">
-            <span
-              buiBadge
-              tone="neutral"
-              variant="soft"
-              style="
-                background: color-mix(in oklab, var(--primary) 10%, transparent);
-                color: var(--primary);
-              "
-              >-12.2%</span
-            >
+            <span buiBadge tone="primary" variant="soft">-12.2%</span>
             <span class="text-sm text-muted-foreground">vs Last month</span>
           </div>
         </div>
@@ -175,25 +157,16 @@
               <span>{{ y }}</span>
             }
           </div>
-          <div class="acn-barchart flex-1" style="height: 220px">
-            @for (b of revBars; track b.label) {
-              <div class="acn-barcol">
-                <div class="acn-bartrack" style="gap: 0.2rem">
-                  <div
-                    class="w-2.5 rounded-t-md"
-                    style="background: var(--primary)"
-                    [style.height.%]="barH(b.y2024, revMax)"
-                  ></div>
-                  <div
-                    class="w-2.5 rounded-t-md"
-                    style="background: color-mix(in oklab, var(--primary) 20%, var(--background))"
-                    [style.height.%]="barH(b.y2023, revMax)"
-                  ></div>
-                </div>
-                <span class="acn-barlabel">{{ b.label }}</span>
-              </div>
-            }
-          </div>
+          <bui-chart
+            type="bar"
+            class="flex-1"
+            [grouped]="true"
+            [series]="revSeries"
+            [labels]="revLabels"
+            [max]="revMax"
+            [height]="220"
+            label="Total revenue: 2024 vs 2023"
+          />
         </div>
       </div>
       <!-- Report -->
@@ -211,28 +184,17 @@
           </button>
         </div>
         <div class="flex flex-1 flex-col items-center justify-center gap-1">
-          <div class="relative h-24 w-44">
-            <svg viewBox="0 0 200 110" class="h-full w-full">
-              <path
-                d="M20,100 A80,80 0 0 1 180,100"
-                fill="none"
-                stroke="var(--muted)"
-                stroke-width="12"
-                stroke-linecap="round"
-              />
-              <path
-                d="M20,100 A80,80 0 0 1 180,100"
-                fill="none"
-                stroke="var(--primary)"
-                stroke-width="12"
-                stroke-linecap="round"
-                [attr.stroke-dasharray]="(gaugePct / 100) * gaugeLen + ' ' + gaugeLen"
-              />
-            </svg>
-            <div class="absolute inset-x-0 bottom-1 flex flex-col items-center leading-none">
-              <span class="text-2xl font-semibold">78%</span>
-            </div>
-          </div>
+          <bui-chart
+            type="gauge"
+            class="w-44"
+            [series]="[{ data: [gaugePct], color: 'var(--primary)' }]"
+            [max]="100"
+            [height]="96"
+            [thickness]="6"
+            label="Company growth"
+          >
+            <span class="text-2xl font-semibold">78%</span>
+          </bui-chart>
           <p class="text-sm text-muted-foreground">62% Company Growth</p>
         </div>
         <div class="mt-auto grid grid-cols-2 gap-3 border-t pt-4">
