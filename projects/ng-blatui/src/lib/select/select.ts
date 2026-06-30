@@ -50,6 +50,7 @@ export interface SelectOption {
     <button
       type="button"
       role="combobox"
+      [attr.aria-label]="ariaLabel() || placeholder()"
       [attr.aria-expanded]="open()"
       aria-haspopup="listbox"
       [attr.aria-controls]="listId"
@@ -163,6 +164,12 @@ export class BuiSelect implements ControlValueAccessor {
   readonly placeholder = input('Select…');
   /** Whether the select is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
+  /**
+   * Accessible name for the combobox. Bound from a plain `aria-label="…"` on the host
+   * (consumed as an input, so it's applied to the inner combobox button rather than left
+   * as a prohibited ARIA attribute on the custom element).
+   */
+  readonly ariaLabel = input<string>('', { alias: 'aria-label' });
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
   private onChange: (value: SelectValue) => void = noop;
