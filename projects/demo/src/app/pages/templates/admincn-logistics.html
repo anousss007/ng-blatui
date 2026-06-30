@@ -6,8 +6,10 @@
         <h3 class="font-heading text-lg font-semibold">Vehicle overview</h3>
         <div class="relative">
           <button
-            type="button"
-            class="acn-menu-btn"
+            buiButton
+            variant="ghost"
+            size="icon-xs"
+            class="rounded-full text-muted-foreground"
             aria-label="Menu"
             (click)="toggleMenu('vehicleOverview', $event)"
           >
@@ -79,11 +81,7 @@
     <div class="acn-card col-span-full flex flex-col gap-5 p-6 md:col-span-3">
       <div class="flex items-start justify-between">
         <div class="flex items-center gap-3">
-          <img
-            [src]="img + '/avatars/avatar-1.webp'"
-            alt="@jackwilliams"
-            class="size-10 rounded-full"
-          />
+          <bui-avatar [src]="img + '/avatars/avatar-1.webp'" alt="@jackwilliams" class="size-10" />
           <div class="flex flex-col leading-tight">
             <span class="font-heading font-semibold">&#64;jackwilliams</span>
             <span class="text-sm text-muted-foreground">Business</span>
@@ -91,8 +89,10 @@
         </div>
         <div class="relative">
           <button
-            type="button"
-            class="acn-menu-btn"
+            buiButton
+            variant="ghost"
+            size="icon-xs"
+            class="rounded-full text-muted-foreground"
             aria-label="Menu"
             (click)="toggleMenu('order', $event)"
           >
@@ -164,11 +164,11 @@
     <div class="acn-card col-span-full flex flex-col gap-5 p-6 md:col-span-3 xl:col-span-2">
       <div class="flex items-start justify-between">
         <h3 class="font-heading text-lg font-semibold">Sales performance</h3>
-        <button type="button" class="acn-btn-outline-xs">Details</button>
+        <button buiButton variant="outline" size="xs">Details</button>
       </div>
       <div class="flex items-baseline gap-2">
         <span class="text-2xl font-semibold tracking-tight">68K</span>
-        <span class="acn-badge-muted">-6%</span>
+        <span buiBadge tone="neutral" variant="soft">-6%</span>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
@@ -177,7 +177,7 @@
             <span class="text-sm text-muted-foreground">Online Store</span>
             <span class="flex items-baseline gap-1.5">
               <span class="font-semibold">88</span>
-              <span class="acn-badge-muted">Good</span>
+              <span buiBadge tone="neutral" variant="soft">Good</span>
             </span>
           </div>
           <div class="flex flex-col gap-1.5">
@@ -191,7 +191,7 @@
             <span class="text-sm text-muted-foreground">Offline Store</span>
             <span class="flex items-baseline gap-1.5">
               <span class="font-semibold">64</span>
-              <span class="acn-badge-muted">Average</span>
+              <span buiBadge tone="neutral" variant="soft">Average</span>
             </span>
           </div>
           <div class="flex flex-col gap-1.5">
@@ -209,8 +209,10 @@
         <h3 class="font-heading text-lg font-semibold">Vehicles Condition</h3>
         <div class="relative">
           <button
-            type="button"
-            class="acn-menu-btn"
+            buiButton
+            variant="ghost"
+            size="icon-xs"
+            class="rounded-full text-muted-foreground"
             aria-label="Menu"
             (click)="toggleMenu('condition', $event)"
           >
@@ -244,38 +246,22 @@
       <div class="flex flex-col gap-4">
         @for (c of conditions; track c.label) {
           <div class="flex items-center gap-3">
-            <div class="relative size-11 shrink-0">
-              <svg viewBox="0 0 36 36" class="size-full -rotate-90">
-                <circle
-                  cx="18"
-                  cy="18"
-                  r="16"
-                  fill="none"
-                  stroke="currentColor"
-                  class="text-primary/20"
-                  stroke-width="3"
-                />
-                <circle
-                  cx="18"
-                  cy="18"
-                  r="16"
-                  fill="none"
-                  stroke="currentColor"
-                  [class]="c.stroke"
-                  stroke-width="3"
-                  stroke-linecap="round"
-                  [attr.stroke-dasharray]="ringDash(c.ring)"
-                />
-              </svg>
-              <span class="absolute inset-0 flex items-center justify-center text-xs font-medium">
-                {{ c.ring }}%
-              </span>
-            </div>
+            <bui-chart
+              type="donut"
+              class="shrink-0"
+              [series]="[{ data: [c.ring], color: c.color }]"
+              [max]="100"
+              [height]="44"
+              [thickness]="8"
+              [label]="c.label + ' condition'"
+            >
+              <span class="text-xs font-medium">{{ c.ring }}%</span>
+            </bui-chart>
             <div class="flex flex-1 flex-col leading-tight">
               <span class="text-sm font-medium">{{ c.label }}</span>
               <span class="text-xs text-muted-foreground">{{ c.sub }}</span>
             </div>
-            <span class="acn-badge-muted">{{ c.delta }}</span>
+            <span buiBadge tone="neutral" variant="soft">{{ c.delta }}</span>
           </div>
         }
       </div>
@@ -287,8 +273,10 @@
         <h3 class="font-heading text-lg font-semibold">Customer Ratings</h3>
         <div class="relative">
           <button
-            type="button"
-            class="acn-menu-btn"
+            buiButton
+            variant="ghost"
+            size="icon-xs"
+            class="rounded-full text-muted-foreground"
             aria-label="Menu"
             (click)="toggleMenu('ratings', $event)"
           >
@@ -329,33 +317,18 @@
           </span>
         </div>
         <div class="flex items-center gap-2 text-sm">
-          <span class="acn-chip">+ 5.0</span>
+          <span buiBadge variant="outline" class="rounded-full">+ 5.0</span>
           <span class="text-muted-foreground">Points from last month</span>
         </div>
       </div>
 
       <div class="relative mt-1">
-        <svg viewBox="0 0 296 96" class="h-28 w-full" preserveAspectRatio="none">
-          <path [attr.d]="ratingArea" fill="var(--chart-2)" fill-opacity="0.1" />
-          <polyline
-            [attr.points]="ratingDash"
-            fill="none"
-            stroke="var(--muted-foreground)"
-            stroke-opacity="0.4"
-            stroke-width="2"
-            stroke-dasharray="4 4"
-            stroke-linejoin="round"
-            stroke-linecap="round"
-          />
-          <polyline
-            [attr.points]="ratingPath"
-            fill="none"
-            stroke="var(--chart-2)"
-            stroke-width="2.5"
-            stroke-linejoin="round"
-            stroke-linecap="round"
-          />
-        </svg>
+        <bui-chart
+          type="area"
+          [series]="ratingSeries"
+          [height]="112"
+          label="Customer ratings trend"
+        />
         <span
           class="absolute top-2 right-6 inline-flex items-center rounded-md bg-foreground px-2.5 py-1 text-xs font-medium text-background shadow-md"
         >
@@ -375,8 +348,10 @@
         <h3 class="font-heading text-lg font-semibold">On route vehicle</h3>
         <div class="relative">
           <button
-            type="button"
-            class="acn-menu-btn"
+            buiButton
+            variant="ghost"
+            size="icon-xs"
+            class="rounded-full text-muted-foreground"
             aria-label="Menu"
             (click)="toggleMenu('onRoute', $event)"
           >
@@ -407,36 +382,54 @@
         </div>
       </div>
 
-      <div class="mt-2 overflow-x-auto px-2">
-        <table class="acn-table">
-          <thead>
-            <tr>
-              <th class="w-12"><span class="acn-checkbox"></span></th>
-              <th>Vehicle</th>
-              <th>Starting route</th>
-              <th>Ending route</th>
-              <th>Warnings</th>
-              <th>Progress</th>
+      <div buiTableContainer class="mt-2 px-2">
+        <table buiTable class="min-w-[42rem]">
+          <thead buiTableHeader>
+            <tr buiTableRow class="hover:bg-transparent">
+              <th buiTableHead class="h-[3.25rem] w-12 px-3 text-muted-foreground">
+                <button
+                  buiCheckbox
+                  [checked]="allChecked()"
+                  (checkedChange)="toggleAll()"
+                  aria-label="Select all"
+                ></button>
+              </th>
+              <th buiTableHead class="h-[3.25rem] px-3 text-muted-foreground">Vehicle</th>
+              <th buiTableHead class="h-[3.25rem] px-3 text-muted-foreground">Starting route</th>
+              <th buiTableHead class="h-[3.25rem] px-3 text-muted-foreground">Ending route</th>
+              <th buiTableHead class="h-[3.25rem] px-3 text-muted-foreground">Warnings</th>
+              <th buiTableHead class="h-[3.25rem] px-3 text-muted-foreground">Progress</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody buiTableBody>
             @for (r of routes; track r.vol) {
-              <tr>
-                <td><span class="acn-checkbox"></span></td>
-                <td>
+              <tr buiTableRow>
+                <td buiTableCell class="h-14 px-3">
+                  <button
+                    buiCheckbox
+                    [checked]="isChecked(r.vol)"
+                    (checkedChange)="toggleRow(r.vol)"
+                    aria-label="Select row"
+                  ></button>
+                </td>
+                <td buiTableCell class="h-14 px-3">
                   <div class="flex items-center gap-2.5">
-                    <span class="acn-icon-tile acn-tile-muted size-8">
+                    <bui-icon-tile tone="muted" class="size-8 rounded-md">
                       <app-lucide name="truck" class="size-4" />
-                    </span>
+                    </bui-icon-tile>
                     <span class="font-medium whitespace-nowrap">{{ r.vol }}</span>
                   </div>
                 </td>
-                <td class="whitespace-nowrap text-muted-foreground">{{ r.start }}</td>
-                <td class="whitespace-nowrap text-muted-foreground">{{ r.end }}</td>
-                <td>
-                  <span class="acn-badge-muted">{{ r.warning }}</span>
+                <td buiTableCell class="h-14 px-3 whitespace-nowrap text-muted-foreground">
+                  {{ r.start }}
                 </td>
-                <td>
+                <td buiTableCell class="h-14 px-3 whitespace-nowrap text-muted-foreground">
+                  {{ r.end }}
+                </td>
+                <td buiTableCell class="h-14 px-3">
+                  <span buiBadge tone="neutral" variant="soft">{{ r.warning }}</span>
+                </td>
+                <td buiTableCell class="h-14 px-3">
                   <div class="flex items-center gap-3">
                     <div class="h-1.5 w-32 overflow-hidden rounded-full bg-muted">
                       <div
@@ -456,19 +449,60 @@
 
       <div class="mt-4 flex flex-col items-center justify-between gap-3 px-6 sm:flex-row">
         <span class="text-sm text-muted-foreground">Showing 1 to 5 of 25 entries</span>
-        <div class="flex items-center gap-1">
-          <button type="button" class="acn-page-btn" aria-label="Previous">
-            <app-lucide name="chevron-left" class="size-4" /> Previous
-          </button>
-          <button type="button" class="acn-page-num acn-page-active">1</button>
-          <button type="button" class="acn-page-num">2</button>
-          <button type="button" class="acn-page-num">
-            <app-lucide name="ellipsis" class="size-4" />
-          </button>
-          <button type="button" class="acn-page-btn" aria-label="Next">
-            Next <app-lucide name="chevron-right" class="size-4" />
-          </button>
-        </div>
+        <nav buiPagination>
+          <ul buiPaginationContent>
+            <li buiPaginationItem>
+              <a
+                buiPaginationLink
+                size="default"
+                role="button"
+                aria-label="Previous"
+                [class]="
+                  'cursor-pointer gap-1' + (page() === 1 ? ' pointer-events-none opacity-50' : '')
+                "
+                (click)="goTo(page() - 1)"
+              >
+                <app-lucide name="chevron-left" class="size-4" /> Previous
+              </a>
+            </li>
+            @for (p of pageNumbers; track p) {
+              <li buiPaginationItem>
+                <a
+                  buiPaginationLink
+                  role="button"
+                  [active]="p === page()"
+                  [class]="
+                    'cursor-pointer' +
+                    (p === page()
+                      ? ' border-transparent bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground'
+                      : '')
+                  "
+                  (click)="goTo(p)"
+                  >{{ p }}</a
+                >
+              </li>
+            }
+            <li buiPaginationItem>
+              <a buiPaginationLink role="button" aria-label="More pages" class="cursor-pointer">
+                <app-lucide name="ellipsis" class="size-4" />
+              </a>
+            </li>
+            <li buiPaginationItem>
+              <a
+                buiPaginationLink
+                size="default"
+                role="button"
+                aria-label="Next"
+                [class]="
+                  'cursor-pointer gap-1' + (page() === 2 ? ' pointer-events-none opacity-50' : '')
+                "
+                (click)="goTo(page() + 1)"
+              >
+                Next <app-lucide name="chevron-right" class="size-4" />
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>

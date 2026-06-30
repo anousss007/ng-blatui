@@ -6,6 +6,26 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
+import {
+  BuiAvatar,
+  BuiBadge,
+  BuiButton,
+  BuiChart,
+  BuiCheckbox,
+  BuiIconTile,
+  BuiPagination,
+  BuiPaginationContent,
+  BuiPaginationItem,
+  BuiPaginationLink,
+  BuiTable,
+  BuiTableBody,
+  BuiTableCell,
+  BuiTableContainer,
+  BuiTableHead,
+  BuiTableHeader,
+  BuiTableRow,
+} from 'ng-blatui';
+
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
 
@@ -29,7 +49,7 @@ interface ConditionRow {
   label: string;
   sub: string;
   ring: number; // 0..100 sweep
-  stroke: string; // text-chart-* class for arc
+  color: string; // var(--chart-*) for the ring arc
   delta: string;
 }
 interface RouteRow {
@@ -51,7 +71,27 @@ interface RouteRow {
   selector: 'app-tpl-admincn-logistics',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell],
+  imports: [
+    Lucide,
+    AdmincnShell,
+    BuiChart,
+    BuiBadge,
+    BuiButton,
+    BuiIconTile,
+    BuiAvatar,
+    BuiCheckbox,
+    BuiTableContainer,
+    BuiTable,
+    BuiTableHeader,
+    BuiTableBody,
+    BuiTableRow,
+    BuiTableHead,
+    BuiTableCell,
+    BuiPagination,
+    BuiPaginationContent,
+    BuiPaginationItem,
+    BuiPaginationLink,
+  ],
   templateUrl: './admincn-logistics.html',
   host: { '(document:click)': 'closeMenus()' },
 })
@@ -115,19 +155,19 @@ export class AdmincnLogistics {
 
   /* Vehicles condition — rings ------------------------------------------- */
   protected readonly conditions: ConditionRow[] = [
-    { label: 'Excellent', sub: '12% increase', ring: 55, stroke: 'text-chart-1', delta: '+25%' },
-    { label: 'Good', sub: '24 vehicles', ring: 20, stroke: 'text-chart-2', delta: '+30%' },
-    { label: 'Average', sub: '182 Tasks', ring: 12, stroke: 'text-chart-3', delta: '-15%' },
-    { label: 'Bad', sub: '9 vehicles', ring: 8, stroke: 'text-chart-5', delta: '+35%' },
-    { label: 'Not Working', sub: '3 vehicles', ring: 5, stroke: 'text-chart-5', delta: '-2%' },
+    { label: 'Excellent', sub: '12% increase', ring: 55, color: 'var(--chart-1)', delta: '+25%' },
+    { label: 'Good', sub: '24 vehicles', ring: 20, color: 'var(--chart-2)', delta: '+30%' },
+    { label: 'Average', sub: '182 Tasks', ring: 12, color: 'var(--chart-3)', delta: '-15%' },
+    { label: 'Bad', sub: '9 vehicles', ring: 8, color: 'var(--chart-5)', delta: '+35%' },
+    { label: 'Not Working', sub: '3 vehicles', ring: 5, color: 'var(--chart-5)', delta: '-2%' },
   ];
 
   /* Customer ratings — area chart ---------------------------------------- */
+  // y-values from the original 96-tall viewBox inverted to data magnitudes.
   protected readonly ratingMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
-  protected readonly ratingPath = '4,70 52,58 100,40 148,62 196,30 244,52 292,8';
-  protected readonly ratingArea =
-    'M4,70 L52,58 L100,40 L148,62 L196,30 L244,52 L292,8 L292,90 L4,90 Z';
-  protected readonly ratingDash = '4,82 52,74 100,80 148,66 196,76 244,60 292,66';
+  protected readonly ratingSeries = [
+    { data: [26, 38, 56, 34, 66, 44, 88], color: 'var(--chart-2)' },
+  ];
 
   /* On route vehicle table ----------------------------------------------- */
   protected readonly routes: RouteRow[] = [
@@ -173,8 +213,31 @@ export class AdmincnLogistics {
     },
   ];
 
-  /** Stroke-dasharray helper for a 0..100 ring (r=16 → circumference ≈ 100.5). */
-  protected ringDash(pct: number): string {
-    return `${pct} ${100.5 - pct}`;
+  /* Table row selection --------------------------------------------------- */
+  protected readonly checked = signal<Set<string>>(new Set());
+  protected toggleRow(id: string): void {
+    const set = new Set(this.checked());
+    if (set.has(id)) set.delete(id);
+    else set.add(id);
+    this.checked.set(set);
+  }
+  protected isChecked(id: string): boolean {
+    return this.checked().has(id);
+  }
+  protected readonly allChecked = computed(
+    () => this.routes.length > 0 && this.routes.every((r) => this.checked().has(r.vol)),
+  );
+  protected toggleAll(): void {
+    const set = new Set(this.checked());
+    if (this.allChecked()) for (const r of this.routes) set.delete(r.vol);
+    else for (const r of this.routes) set.add(r.vol);
+    this.checked.set(set);
+  }
+
+  /* Pagination (static — 25 entries across 2 visible pages) --------------- */
+  protected readonly page = signal(1);
+  protected readonly pageNumbers = [1, 2];
+  protected goTo(p: number): void {
+    this.page.set(p);
   }
 }

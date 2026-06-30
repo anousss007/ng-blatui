@@ -6,8 +6,36 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
+import {
+  BuiAvatar,
+  BuiBadge,
+  BuiButton,
+  BuiChart,
+  BuiCheckbox,
+  BuiIconTile,
+  BuiPagination,
+  BuiPaginationContent,
+  BuiPaginationItem,
+  BuiPaginationLink,
+  BuiTable,
+  BuiTableBody,
+  BuiTableCell,
+  BuiTableContainer,
+  BuiTableHead,
+  BuiTableHeader,
+  BuiTableRow,
+} from 'ng-blatui';
+
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
+
+/** AdminCN metric tile tone → ng-blatui icon-tile semantic tone. */
+const TILE_TONE = {
+  teal: 'chart-2',
+  amber: 'chart-5',
+  orange: 'chart-1',
+  muted: 'muted',
+} as const;
 
 interface Kpi {
   icon: string;
@@ -47,11 +75,32 @@ interface OrderRow {
   selector: 'app-tpl-admincn-orders',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell],
+  imports: [
+    Lucide,
+    AdmincnShell,
+    BuiIconTile,
+    BuiBadge,
+    BuiChart,
+    BuiAvatar,
+    BuiButton,
+    BuiCheckbox,
+    BuiTableContainer,
+    BuiTable,
+    BuiTableHeader,
+    BuiTableBody,
+    BuiTableRow,
+    BuiTableHead,
+    BuiTableCell,
+    BuiPagination,
+    BuiPaginationContent,
+    BuiPaginationItem,
+    BuiPaginationLink,
+  ],
   templateUrl: './admincn-orders.html',
 })
 export class AdmincnOrders {
   protected readonly img = '/admincn';
+  protected readonly tileTone = TILE_TONE;
 
   /* Top KPI cards --------------------------------------------------------- */
   protected readonly kpis: Kpi[] = [
@@ -73,8 +122,17 @@ export class AdmincnOrders {
   ];
 
   /* Product insight mini bar charts --------------------------------------- */
+  // Heights as % of the 40-tall viewBox; reach bars use primary, placed bars
+  // the faint muted-track fill (matching the original svg styling).
   protected readonly reachBars = [40, 64, 52, 78, 96];
   protected readonly placedBars = [30, 48, 38, 60, 44];
+  protected readonly reachSeries = [{ data: this.reachBars, color: 'var(--primary)' }];
+  protected readonly placedSeries = [
+    {
+      data: this.placedBars,
+      color: 'color-mix(in oklab, var(--muted-foreground) 14%, transparent)',
+    },
+  ];
 
   /* Total Earning rows ---------------------------------------------------- */
   protected readonly earnings: Earning[] = [
@@ -103,12 +161,8 @@ export class AdmincnOrders {
   ];
 
   /* Revenue goal radial (multi-segment donut) ----------------------------- */
-  // Three stacked arcs over a faint track. Values are percent of circle.
-  protected readonly revenueArcs = [
-    { pct: 30, color: 'var(--primary)' },
-    { pct: 16, color: 'color-mix(in oklab, var(--primary) 60%, transparent)' },
-    { pct: 10, color: 'color-mix(in oklab, var(--primary) 20%, transparent)' },
-  ];
+  // Three stacked arcs (30 + 16 + 10 = 56% of the ring) over a faint track.
+  protected readonly revenueSeries = [{ data: [30, 16, 10], color: 'var(--primary)' }];
 
   /* Cohort analysis indicator bars ---------------------------------------- */
   // First ~16 of 26 filled (primary), the rest muted.
@@ -286,16 +340,6 @@ export class AdmincnOrders {
     if (this.allChecked()) for (const r of rows) set.delete(r.email);
     else for (const r of rows) set.add(r.email);
     this.checked.set(set);
-  }
-
-  /** Cumulative dash-offset start for stacked radial arcs (circumference 251.3). */
-  protected arcOffset(index: number): number {
-    let accumulator = 0;
-    for (let index_ = 0; index_ < index; index_++) accumulator += this.revenueArcs[index_].pct;
-    return -(accumulator / 100) * 251.3;
-  }
-  protected arcDash(pct: number): string {
-    return `${(pct / 100) * 251.3} 251.3`;
   }
 
   /* ---- Per-card / per-row ellipsis menus (one open at a time) ---- */

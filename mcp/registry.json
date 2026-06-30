@@ -6,7 +6,7 @@
   "description": "Accessible Angular UI library (Angular 21 & 22, standalone, signals, zoneless, SSR-ready) ported from BlatUI. Components, blocks, charts and ready-made page templates, themed with Tailwind CSS v4 + oklch design tokens.",
   "install": "npm i ng-blatui",
   "llms": "https://ngblatui.remix-it.com/llms.txt",
-  "generatedAt": "2026-06-29",
+  "generatedAt": "2026-06-30",
   "counts": {
     "components": 154,
     "blocks": 16,
@@ -51,11 +51,11 @@
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | null"
+            "type": "\"danger\" | \"info\" | \"neutral\" | \"success\" | \"warning\" | null"
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"default\" | \"lg\" | \"sm\""
           }
         ],
         "types": [
@@ -92,7 +92,7 @@
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | null"
+            "type": "\"danger\" | \"info\" | \"neutral\" | \"success\" | \"warning\" | null"
           }
         ]
       }
@@ -107,7 +107,7 @@
         "inputs": [
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"default\" | \"lg\" | \"sm\""
           }
         ]
       }
@@ -122,7 +122,7 @@
         "inputs": [
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"default\" | \"lg\" | \"sm\""
           },
           {
             "name": "maxRows",
@@ -254,7 +254,7 @@
         "inputs": [
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"default\" | \"lg\" | \"sm\""
           },
           {
             "name": "iconOn",
@@ -463,7 +463,7 @@
         "inputs": [
           {
             "name": "orientation",
-            "type": "\"horizontal\" | \"vertical\" | \"responsive\""
+            "type": "\"horizontal\" | \"responsive\" | \"vertical\""
           },
           {
             "name": "for",
@@ -486,7 +486,7 @@
         "inputs": [
           {
             "name": "size",
-            "type": "\"sm\" | \"lg\" | \"xl\" | \"md\" | \"prose\" | \"full\""
+            "type": "\"full\" | \"lg\" | \"md\" | \"prose\" | \"sm\" | \"xl\""
           }
         ]
       }
@@ -505,7 +505,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\" | null"
+            "type": "\"default\" | \"lg\" | \"sm\" | null"
           }
         ],
         "models": [
@@ -564,7 +564,7 @@
         "inputs": [
           {
             "name": "tone",
-            "type": "\"default\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"primary\""
+            "type": "\"danger\" | \"default\" | \"info\" | \"primary\" | \"success\" | \"warning\""
           },
           {
             "name": "dismissible",
@@ -595,7 +595,7 @@
         "inputs": [
           {
             "name": "variant",
-            "type": "\"default\" | \"card\""
+            "type": "\"card\" | \"default\""
           }
         ]
       }
@@ -618,7 +618,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"default\" | \"lg\" | \"sm\""
           }
         ],
         "types": [
@@ -648,7 +648,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\" | \"icon\""
+            "type": "\"default\" | \"icon\" | \"lg\" | \"sm\""
           }
         ]
       }
@@ -686,7 +686,7 @@
         "inputs": [
           {
             "name": "variant",
-            "type": "\"default\" | \"outline\" | \"muted\""
+            "type": "\"default\" | \"muted\" | \"outline\""
           },
           {
             "name": "size",
@@ -716,15 +716,15 @@
         "inputs": [
           {
             "name": "align",
-            "type": "\"inline-start\" | \"inline-end\" | \"block-start\" | \"block-end\""
+            "type": "\"block-end\" | \"block-start\" | \"inline-end\" | \"inline-start\""
           },
           {
             "name": "variant",
-            "type": "\"default\" | \"outline\" | \"ghost\""
+            "type": "\"default\" | \"ghost\" | \"outline\""
           },
           {
             "name": "size",
-            "type": "\"xs\" | \"sm\" | \"icon-xs\" | \"icon-sm\""
+            "type": "\"icon-sm\" | \"icon-xs\" | \"sm\" | \"xs\""
           }
         ]
       }
@@ -755,7 +755,7 @@
           },
           {
             "name": "tone",
-            "type": "\"default\" | \"warning\" | \"danger\" | \"good\""
+            "type": "\"danger\" | \"default\" | \"good\" | \"warning\""
           },
           {
             "name": "thresholds",
@@ -794,7 +794,7 @@
           },
           {
             "name": "trend",
-            "type": "\"neutral\" | \"up\" | \"down\" | null"
+            "type": "\"down\" | \"neutral\" | \"up\" | null"
           },
           {
             "name": "caption",
@@ -944,7 +944,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"default\" | \"lg\" | \"sm\""
           },
           {
             "name": "color",
@@ -1005,7 +1005,7 @@
         "inputs": [
           {
             "name": "variant",
-            "type": "\"blockquote\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"p\" | \"small\" | \"list\" | \"muted\" | \"lead\" | \"large\" | \"inline-code\" | \"gradient\""
+            "type": "\"blockquote\" | \"gradient\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"inline-code\" | \"large\" | \"lead\" | \"list\" | \"muted\" | \"p\" | \"small\""
           }
         ]
       }
@@ -1393,7 +1393,7 @@
         "inputs": [
           {
             "name": "preset",
-            "type": "\"brand\" | \"sunset\" | \"ocean\" | \"candy\" | \"gold\" | \"aurora\" | \"flamingo\" | \"mint\""
+            "type": "\"aurora\" | \"brand\" | \"candy\" | \"flamingo\" | \"gold\" | \"mint\" | \"ocean\" | \"sunset\""
           },
           {
             "name": "from",
@@ -1486,7 +1486,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"default\" | \"lg\" | \"sm\""
           },
           {
             "name": "showDiscount",
@@ -1562,11 +1562,11 @@
         "inputs": [
           {
             "name": "status",
-            "type": "\"online\" | \"away\" | \"busy\" | \"offline\""
+            "type": "\"away\" | \"busy\" | \"offline\" | \"online\""
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"default\" | \"lg\" | \"sm\""
           },
           {
             "name": "pulse",
@@ -1794,7 +1794,7 @@
           },
           {
             "name": "type",
-            "type": "\"pill\" | \"color\""
+            "type": "\"color\" | \"pill\""
           },
           {
             "name": "label",
@@ -2128,7 +2128,7 @@
           },
           {
             "name": "direction",
-            "type": "\"right\" | \"left\" | \"up\" | \"down\""
+            "type": "\"down\" | \"left\" | \"right\" | \"up\""
           },
           {
             "name": "duration",
@@ -2294,7 +2294,7 @@
         "inputs": [
           {
             "name": "type",
-            "type": "\"single\" | \"multiple\""
+            "type": "\"multiple\" | \"single\""
           },
           {
             "name": "orientation",
@@ -2392,7 +2392,7 @@
           },
           {
             "name": "direction",
-            "type": "\"up\" | \"down\""
+            "type": "\"down\" | \"up\""
           },
           {
             "name": "label",
@@ -2426,7 +2426,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"default\" | \"lg\" | \"sm\""
           },
           {
             "name": "label",
@@ -2475,7 +2475,7 @@
           },
           {
             "name": "fit",
-            "type": "\"cover\" | \"contain\""
+            "type": "\"contain\" | \"cover\""
           }
         ]
       }
@@ -2519,7 +2519,7 @@
           },
           {
             "name": "status",
-            "type": "\"success\" | \"error\" | \"pending\" | \"running\""
+            "type": "\"error\" | \"pending\" | \"running\" | \"success\""
           },
           {
             "name": "args",
@@ -3434,7 +3434,7 @@
           },
           {
             "name": "captionLayout",
-            "type": "\"label\" | \"dropdown\""
+            "type": "\"dropdown\" | \"label\""
           },
           {
             "name": "hideOutsideDays",
@@ -3527,7 +3527,7 @@
           },
           {
             "name": "captionLayout",
-            "type": "\"label\" | \"dropdown\""
+            "type": "\"dropdown\" | \"label\""
           },
           {
             "name": "hideOutsideDays",
@@ -3712,7 +3712,7 @@
         "inputs": [
           {
             "name": "type",
-            "type": "\"area\" | \"line\" | \"bar\""
+            "type": "\"area\" | \"bar\" | \"donut\" | \"line\""
           },
           {
             "name": "series",
@@ -3724,6 +3724,38 @@
           },
           {
             "name": "height",
+            "type": "number"
+          },
+          {
+            "name": "max",
+            "type": "number | null"
+          },
+          {
+            "name": "thickness",
+            "type": "number"
+          },
+          {
+            "name": "activeIndex",
+            "type": "number | null"
+          },
+          {
+            "name": "barLabels",
+            "type": "readonly string[]"
+          },
+          {
+            "name": "stacked",
+            "type": "boolean"
+          },
+          {
+            "name": "track",
+            "type": "boolean"
+          },
+          {
+            "name": "dots",
+            "type": "boolean"
+          },
+          {
+            "name": "gridX",
             "type": "number"
           },
           {
@@ -3766,7 +3798,7 @@
           },
           {
             "name": "captionLayout",
-            "type": "\"label\" | \"dropdown\""
+            "type": "\"dropdown\" | \"label\""
           },
           {
             "name": "seconds",
@@ -3976,7 +4008,7 @@
         "inputs": [
           {
             "name": "direction",
-            "type": "\"top\" | \"right\" | \"bottom\" | \"left\""
+            "type": "\"bottom\" | \"left\" | \"right\" | \"top\""
           },
           {
             "name": "ariaLabel",
@@ -4038,7 +4070,7 @@
         "inputs": [
           {
             "name": "side",
-            "type": "\"top\" | \"right\" | \"bottom\" | \"left\""
+            "type": "\"bottom\" | \"left\" | \"right\" | \"top\""
           },
           {
             "name": "ariaLabel",
@@ -4314,7 +4346,7 @@
         "inputs": [
           {
             "name": "side",
-            "type": "\"right\" | \"left\""
+            "type": "\"left\" | \"right\""
           },
           {
             "name": "collapsible",

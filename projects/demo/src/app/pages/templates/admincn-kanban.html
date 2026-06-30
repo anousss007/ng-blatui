@@ -14,14 +14,20 @@
               class="line-clamp-1 max-w-40 overflow-hidden text-sm font-semibold text-ellipsis"
               >{{ col.title }}</span
             >
-            <span class="acn-chip" style="height: 1.25rem; padding: 0 0.5rem; line-height: 1">{{
-              cardCount(col)
-            }}</span>
+            <span
+              buiBadge
+              variant="outline"
+              class="rounded-full"
+              style="height: 1.25rem; padding: 0 0.5rem; line-height: 1"
+              >{{ cardCount(col) }}</span
+            >
           </div>
           <div class="acn-menu-wrap">
             <button
-              type="button"
-              class="acn-menu-btn"
+              buiButton
+              variant="ghost"
+              size="icon-xs"
+              class="rounded-full text-muted-foreground"
               aria-label="Column actions"
               (click)="toggleMenu('col-' + colIndex)"
             >
@@ -60,29 +66,21 @@
             <div class="flex items-center justify-between gap-2">
               @switch (card.priority) {
                 @case ('high') {
-                  <span
-                    class="acn-badge-red"
-                    style="border-radius: 9999px; text-transform: capitalize"
+                  <span buiBadge tone="danger" variant="soft" class="rounded-full capitalize"
                     >high</span
                   >
                 }
                 @case ('medium') {
-                  <span
-                    class="acn-badge-amber"
-                    style="border-radius: 9999px; text-transform: capitalize"
+                  <span buiBadge tone="warning" variant="soft" class="rounded-full capitalize"
                     >medium</span
                   >
                 }
                 @case ('low') {
                   <span
+                    buiBadge
+                    variant="soft"
+                    class="rounded-full capitalize"
                     style="
-                      display: inline-flex;
-                      align-items: center;
-                      border-radius: 9999px;
-                      padding: 0.075rem 0.5rem;
-                      font-size: 0.75rem;
-                      font-weight: 500;
-                      text-transform: capitalize;
                       background: color-mix(in oklab, var(--chart-1, #6366f1) 12%, transparent);
                       color: #6366f1;
                     "
@@ -92,8 +90,10 @@
               }
               <div class="flex items-center gap-1">
                 <button
-                  type="button"
-                  class="acn-menu-btn"
+                  buiButton
+                  variant="ghost"
+                  size="icon-xs"
+                  class="rounded-full text-muted-foreground"
                   aria-label="Move card to previous column"
                   [disabled]="!canMove(colIndex, -1)"
                   [style.opacity]="canMove(colIndex, -1) ? 1 : 0.35"
@@ -103,8 +103,10 @@
                   <app-lucide name="chevron-left" class="size-4" />
                 </button>
                 <button
-                  type="button"
-                  class="acn-menu-btn"
+                  buiButton
+                  variant="ghost"
+                  size="icon-xs"
+                  class="rounded-full text-muted-foreground"
                   aria-label="Move card to next column"
                   [disabled]="!canMove(colIndex, 1)"
                   [style.opacity]="canMove(colIndex, 1) ? 1 : 0.35"
@@ -115,8 +117,10 @@
                 </button>
                 <div class="acn-menu-wrap">
                   <button
-                    type="button"
-                    class="acn-menu-btn"
+                    buiButton
+                    variant="ghost"
+                    size="icon-xs"
+                    class="rounded-full text-muted-foreground"
                     aria-label="Card actions"
                     (click)="toggleMenu('card-' + card.id)"
                   >
@@ -187,18 +191,12 @@
             <div class="flex items-center justify-between gap-2">
               <div class="flex items-center" style="padding-left: 0.5rem">
                 @for (assignee of card.assignees; track assignee.name) {
-                  <img
+                  <bui-avatar
                     [src]="assignee.avatar"
                     [alt]="assignee.name"
                     [title]="assignee.name"
-                    class="object-cover"
-                    style="
-                      height: 1.5rem;
-                      width: 1.5rem;
-                      border-radius: 9999px;
-                      margin-left: -0.5rem;
-                      box-shadow: 0 0 0 2px var(--card);
-                    "
+                    class="size-6"
+                    style="margin-left: -0.5rem; box-shadow: 0 0 0 2px var(--card)"
                   />
                 }
               </div>
@@ -223,8 +221,10 @@
               (blur)="cancelAdding()"
             />
             <button
-              type="button"
-              class="acn-menu-btn"
+              buiButton
+              variant="ghost"
+              size="icon-xs"
+              class="rounded-full text-muted-foreground"
               aria-label="Add item"
               (mousedown)="confirmAdding(colIndex)"
             >

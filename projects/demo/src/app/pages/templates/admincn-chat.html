@@ -17,14 +17,18 @@
       <div class="flex items-center justify-between gap-2 px-4 py-3.5">
         <div class="flex items-center gap-2.5">
           <span class="relative inline-flex size-8 shrink-0">
-            <img [src]="me" alt="Chats" class="size-full rounded-full object-cover" />
-            <span
-              class="absolute right-0 bottom-0 size-2.5 rounded-full border-2 border-background bg-green-500"
-            ></span>
+            <bui-avatar [src]="me" alt="Chats" class="size-full" />
+            <bui-presence status="online" class="absolute right-0 bottom-0" />
           </span>
           <h2 class="truncate text-lg font-semibold">Chats</h2>
         </div>
-        <button type="button" class="acn-icon-btn size-9" aria-label="New conversation">
+        <button
+          buiButton
+          variant="ghost"
+          size="icon"
+          class="size-9 rounded-full"
+          aria-label="New conversation"
+        >
           <app-lucide name="user" class="size-4" />
         </button>
       </div>
@@ -78,16 +82,9 @@
               >
                 <div class="flex min-w-0 items-start gap-2.5">
                   <span class="relative inline-flex size-10 shrink-0">
-                    <img
-                      [src]="c.avatar"
-                      [alt]="c.name"
-                      class="size-full rounded-full object-cover"
-                    />
+                    <bui-avatar [src]="c.avatar" [alt]="c.name" class="size-full" />
                     @if (c.status) {
-                      <span
-                        class="absolute right-0 bottom-0 size-2.5 rounded-full border-2 border-background"
-                        [class]="statusClass[c.status]"
-                      ></span>
+                      <bui-presence [status]="c.status" class="absolute right-0 bottom-0" />
                     }
                   </span>
                   <div class="w-0 min-w-0 flex-1 overflow-hidden">
@@ -147,16 +144,9 @@
               >
                 <div class="flex min-w-0 items-start gap-2.5">
                   <span class="relative inline-flex size-10 shrink-0">
-                    <img
-                      [src]="c.avatar"
-                      [alt]="c.name"
-                      class="size-full rounded-full object-cover"
-                    />
+                    <bui-avatar [src]="c.avatar" [alt]="c.name" class="size-full" />
                     @if (c.status) {
-                      <span
-                        class="absolute right-0 bottom-0 size-2.5 rounded-full border-2 border-background"
-                        [class]="statusClass[c.status]"
-                      ></span>
+                      <bui-presence [status]="c.status" class="absolute right-0 bottom-0" />
                     }
                   </span>
                   <div class="w-0 min-w-0 flex-1 overflow-hidden">
@@ -208,16 +198,9 @@
       <header class="flex items-center justify-between gap-2 border-b px-4 py-3">
         <div class="flex min-w-0 items-center gap-2.5">
           <span class="relative inline-flex size-9 shrink-0">
-            <img
-              [src]="active().avatar"
-              [alt]="active().name"
-              class="size-full rounded-full object-cover"
-            />
+            <bui-avatar [src]="active().avatar" [alt]="active().name" class="size-full" />
             @if (active().status) {
-              <span
-                class="absolute right-0 bottom-0 size-2.5 rounded-full border-2 border-background"
-                [class]="statusClass[active().status!]"
-              ></span>
+              <bui-presence [status]="active().status!" class="absolute right-0 bottom-0" />
             }
           </span>
           <div class="flex min-w-0 flex-col">
@@ -231,16 +214,40 @@
           </div>
         </div>
         <div class="flex items-center gap-1 text-foreground">
-          <button type="button" class="acn-icon-btn size-9" aria-label="Call">
+          <button
+            buiButton
+            variant="ghost"
+            size="icon"
+            class="size-9 rounded-full"
+            aria-label="Call"
+          >
             <app-lucide name="phone" class="size-4" />
           </button>
-          <button type="button" class="acn-icon-btn size-9" aria-label="Video call">
+          <button
+            buiButton
+            variant="ghost"
+            size="icon"
+            class="size-9 rounded-full"
+            aria-label="Video call"
+          >
             <app-lucide name="video" class="size-4" />
           </button>
-          <button type="button" class="acn-icon-btn size-9" aria-label="Search in conversation">
+          <button
+            buiButton
+            variant="ghost"
+            size="icon"
+            class="size-9 rounded-full"
+            aria-label="Search in conversation"
+          >
             <app-lucide name="search" class="size-4" />
           </button>
-          <button type="button" class="acn-icon-btn size-9" aria-label="More">
+          <button
+            buiButton
+            variant="ghost"
+            size="icon"
+            class="size-9 rounded-full"
+            aria-label="More"
+          >
             <app-lucide name="ellipsis-vertical" class="size-4" />
           </button>
         </div>
@@ -256,11 +263,7 @@
         @for (m of active().messages; track $index) {
           <div class="flex items-end gap-2.5" [class.flex-row-reverse]="m.outgoing">
             @if (!m.outgoing) {
-              <img
-                [src]="m.avatar"
-                [alt]="m.sender"
-                class="size-7 shrink-0 rounded-full object-cover"
-              />
+              <bui-avatar [src]="m.avatar ?? null" [alt]="m.sender ?? ''" class="size-7" />
             }
             <div class="flex max-w-[78%] flex-col gap-1" [class.items-end]="m.outgoing">
               @if (!m.outgoing && m.sender) {
@@ -286,10 +289,22 @@
       <!-- Composer -->
       <div class="border-t p-3">
         <div class="flex items-center gap-1 rounded-xl border bg-background px-2 py-1.5">
-          <button type="button" class="acn-menu-btn size-8 shrink-0" aria-label="Attach file">
+          <button
+            buiButton
+            variant="ghost"
+            size="icon-xs"
+            class="size-8 shrink-0 rounded-full text-muted-foreground"
+            aria-label="Attach file"
+          >
             <app-lucide name="file-text" class="size-4" />
           </button>
-          <button type="button" class="acn-menu-btn size-8 shrink-0" aria-label="Attach image">
+          <button
+            buiButton
+            variant="ghost"
+            size="icon-xs"
+            class="size-8 shrink-0 rounded-full text-muted-foreground"
+            aria-label="Attach image"
+          >
             <app-lucide name="images" class="size-4" />
           </button>
           <input
@@ -300,15 +315,27 @@
             aria-label="Type a message"
             (keydown.enter)="send(composer)"
           />
-          <button type="button" class="acn-menu-btn size-8 shrink-0" aria-label="Emoji">
+          <button
+            buiButton
+            variant="ghost"
+            size="icon-xs"
+            class="size-8 shrink-0 rounded-full text-muted-foreground"
+            aria-label="Emoji"
+          >
             <app-lucide name="smile" class="size-4" />
           </button>
-          <button type="button" class="acn-menu-btn size-8 shrink-0" aria-label="Voice message">
+          <button
+            buiButton
+            variant="ghost"
+            size="icon-xs"
+            class="size-8 shrink-0 rounded-full text-muted-foreground"
+            aria-label="Voice message"
+          >
             <app-lucide name="mic" class="size-4" />
           </button>
           <button
-            type="button"
-            class="acn-btn-primary size-9 shrink-0 !px-0"
+            buiButton
+            class="size-9 shrink-0 !px-0"
             aria-label="Send"
             (click)="send(composer)"
           >

@@ -6,6 +6,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
+import { BuiAvatar, BuiBadge, BuiButton } from 'ng-blatui';
+
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
 
@@ -49,7 +51,7 @@ interface Email {
   selector: 'app-tpl-admincn-mail',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell],
+  imports: [Lucide, AdmincnShell, BuiButton, BuiBadge, BuiAvatar],
   templateUrl: './admincn-mail.html',
 })
 export class AdmincnMail {

@@ -32,13 +32,13 @@ export const API_DOCS = {
         "name": "ButtonSize",
         "kind": "type",
         "description": "Size preset controlling height, padding and icon scale.",
-        "definition": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"icon\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\""
+        "definition": "\"default\" | \"icon\" | \"icon-lg\" | \"icon-sm\" | \"icon-xs\" | \"lg\" | \"sm\" | \"xs\""
       },
       {
         "name": "ButtonVariant",
         "kind": "type",
         "description": "Visual style of the button.",
-        "definition": "\"default\" | \"destructive\" | \"outline\" | \"secondary\" | \"ghost\" | \"link\""
+        "definition": "\"default\" | \"destructive\" | \"ghost\" | \"link\" | \"outline\" | \"secondary\""
       }
     ]
   },
@@ -58,14 +58,14 @@ export const API_DOCS = {
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | null",
+            "type": "\"danger\" | \"info\" | \"neutral\" | \"success\" | \"warning\" | null",
             "default": "null",
             "required": false,
             "description": "Optional semantic tone; when set it overrides the brand variant's color."
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
+            "type": "\"default\" | \"lg\" | \"sm\"",
             "default": "'default'",
             "required": false,
             "description": "Badge size preset."
@@ -121,7 +121,7 @@ export const API_DOCS = {
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | null",
+            "type": "\"danger\" | \"info\" | \"neutral\" | \"success\" | \"warning\" | null",
             "default": "null",
             "required": false,
             "description": "Semantic tone; when set, overrides `variant`."
@@ -142,7 +142,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
+            "type": "\"default\" | \"lg\" | \"sm\"",
             "default": "'default'",
             "required": false,
             "description": "Size preset controlling input height, padding and text size."
@@ -163,7 +163,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
+            "type": "\"default\" | \"lg\" | \"sm\"",
             "default": "'default'",
             "required": false,
             "description": "Size preset controlling minimum height, padding and text size."
@@ -352,7 +352,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
+            "type": "\"default\" | \"lg\" | \"sm\"",
             "default": "'default'",
             "required": false,
             "description": "Track and thumb size."
@@ -521,7 +521,7 @@ export const API_DOCS = {
         "name": "TooltipSide",
         "kind": "type",
         "description": "Side of the host the tooltip prefers to appear on.",
-        "definition": "\"top\" | \"right\" | \"bottom\" | \"left\""
+        "definition": "\"bottom\" | \"left\" | \"right\" | \"top\""
       }
     ]
   },
@@ -658,7 +658,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "orientation",
-            "type": "\"horizontal\" | \"vertical\" | \"responsive\"",
+            "type": "\"horizontal\" | \"responsive\" | \"vertical\"",
             "default": "'vertical'",
             "required": false,
             "description": "How the label and control are arranged within the field."
@@ -709,7 +709,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "size",
-            "type": "\"sm\" | \"lg\" | \"xl\" | \"md\" | \"prose\" | \"full\"",
+            "type": "\"full\" | \"lg\" | \"md\" | \"prose\" | \"sm\" | \"xl\"",
             "default": "'lg'",
             "required": false,
             "description": "Maximum width preset for the container."
@@ -737,7 +737,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\" | null",
+            "type": "\"default\" | \"lg\" | \"sm\" | null",
             "default": "'default'",
             "required": false,
             "description": "Button size."
@@ -820,7 +820,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "tone",
-            "type": "\"default\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"primary\"",
+            "type": "\"danger\" | \"default\" | \"info\" | \"primary\" | \"success\" | \"warning\"",
             "default": "'default'",
             "required": false,
             "description": "Color tone (`default | primary | info | success | warning | danger`)."
@@ -869,7 +869,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "variant",
-            "type": "\"default\" | \"card\"",
+            "type": "\"card\" | \"default\"",
             "default": "'default'",
             "required": false,
             "description": "Wrapper style; `card` adds a bordered, shadowed card around the table."
@@ -904,7 +904,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
+            "type": "\"default\" | \"lg\" | \"sm\"",
             "default": "'default'",
             "required": false,
             "description": "Avatar size preset, which also controls overlap and ring width."
@@ -982,7 +982,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\" | \"icon\"",
+            "type": "\"default\" | \"icon\" | \"lg\" | \"sm\"",
             "default": "'icon'",
             "required": false,
             "description": "Size variant controlling link dimensions and padding."
@@ -1025,7 +1025,7 @@ export const API_DOCS = {
         "name": "PopoverSide",
         "kind": "type",
         "description": "Side of the trigger the popover opens on.",
-        "definition": "\"top\" | \"right\" | \"bottom\" | \"left\""
+        "definition": "\"bottom\" | \"left\" | \"right\" | \"top\""
       }
     ]
   },
@@ -1038,7 +1038,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "variant",
-            "type": "\"default\" | \"outline\" | \"muted\"",
+            "type": "\"default\" | \"muted\" | \"outline\"",
             "default": "'default'",
             "required": false,
             "description": "Visual style of the item: transparent, outlined, or muted background."
@@ -1086,7 +1086,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "align",
-            "type": "\"inline-start\" | \"inline-end\" | \"block-start\" | \"block-end\"",
+            "type": "\"block-end\" | \"block-start\" | \"inline-end\" | \"inline-start\"",
             "default": "'inline-start'",
             "required": false,
             "description": "Where the addon sits relative to the input (inline or block, start or end)."
@@ -1101,14 +1101,14 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "variant",
-            "type": "\"default\" | \"outline\" | \"ghost\"",
+            "type": "\"default\" | \"ghost\" | \"outline\"",
             "default": "'ghost'",
             "required": false,
             "description": "Visual style of the addon button."
           },
           {
             "name": "size",
-            "type": "\"xs\" | \"sm\" | \"icon-xs\" | \"icon-sm\"",
+            "type": "\"icon-sm\" | \"icon-xs\" | \"sm\" | \"xs\"",
             "default": "'xs'",
             "required": false,
             "description": "Size preset for the addon button (text or icon variants)."
@@ -1157,7 +1157,7 @@ export const API_DOCS = {
           },
           {
             "name": "tone",
-            "type": "\"default\" | \"warning\" | \"danger\" | \"good\"",
+            "type": "\"danger\" | \"default\" | \"good\" | \"warning\"",
             "default": "'default'",
             "required": false,
             "description": "Fill colour tone; overridden by any matching threshold."
@@ -1220,7 +1220,7 @@ export const API_DOCS = {
           },
           {
             "name": "trend",
-            "type": "\"neutral\" | \"up\" | \"down\" | null",
+            "type": "\"down\" | \"neutral\" | \"up\" | null",
             "default": "null",
             "required": false,
             "description": "Explicit trend direction; inferred from `change`'s sign when null."
@@ -1449,7 +1449,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
+            "type": "\"default\" | \"lg\" | \"sm\"",
             "default": "'default'",
             "required": false,
             "description": "Size of each star."
@@ -1517,7 +1517,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "variant",
-            "type": "\"blockquote\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"p\" | \"small\" | \"list\" | \"muted\" | \"lead\" | \"large\" | \"inline-code\" | \"gradient\"",
+            "type": "\"blockquote\" | \"gradient\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"inline-code\" | \"large\" | \"lead\" | \"list\" | \"muted\" | \"p\" | \"small\"",
             "default": "'p'",
             "required": false,
             "description": "Typographic style to apply (e.g. `h1`, `lead`, `blockquote`, `gradient`)."
@@ -2183,7 +2183,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "preset",
-            "type": "\"brand\" | \"sunset\" | \"ocean\" | \"candy\" | \"gold\" | \"aurora\" | \"flamingo\" | \"mint\"",
+            "type": "\"aurora\" | \"brand\" | \"candy\" | \"flamingo\" | \"gold\" | \"mint\" | \"ocean\" | \"sunset\"",
             "default": "'brand'",
             "required": false,
             "description": "Named colour preset used when from/via/to are not set."
@@ -2330,7 +2330,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
+            "type": "\"default\" | \"lg\" | \"sm\"",
             "default": "'default'",
             "required": false,
             "description": "Text size preset for the price."
@@ -2440,14 +2440,14 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "status",
-            "type": "\"online\" | \"away\" | \"busy\" | \"offline\"",
+            "type": "\"away\" | \"busy\" | \"offline\" | \"online\"",
             "default": "'online'",
             "required": false,
             "description": "Presence state, which sets the dot color and default label."
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
+            "type": "\"default\" | \"lg\" | \"sm\"",
             "default": "'default'",
             "required": false,
             "description": "Size preset for the status dot."
@@ -2812,7 +2812,7 @@ export const API_DOCS = {
         "name": "NumberInputSize",
         "kind": "type",
         "description": "Size preset controlling stepper button and field dimensions.",
-        "definition": "\"default\" | \"sm\" | \"lg\""
+        "definition": "\"default\" | \"lg\" | \"sm\""
       }
     ]
   },
@@ -2832,7 +2832,7 @@ export const API_DOCS = {
           },
           {
             "name": "type",
-            "type": "\"pill\" | \"color\"",
+            "type": "\"color\" | \"pill\"",
             "default": "'pill'",
             "required": false,
             "description": "Render style: text pills or colour swatches."
@@ -2997,7 +2997,7 @@ export const API_DOCS = {
         "name": "AddToCartSize",
         "kind": "type",
         "description": "Size preset controlling button height and padding.",
-        "definition": "\"default\" | \"sm\" | \"lg\""
+        "definition": "\"default\" | \"lg\" | \"sm\""
       }
     ]
   },
@@ -3381,7 +3381,7 @@ export const API_DOCS = {
           },
           {
             "name": "direction",
-            "type": "\"right\" | \"left\" | \"up\" | \"down\"",
+            "type": "\"down\" | \"left\" | \"right\" | \"up\"",
             "default": "'left'",
             "required": false,
             "description": "Scroll direction; `up`/`down` switch the marquee to a vertical track."
@@ -3660,7 +3660,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "type",
-            "type": "\"single\" | \"multiple\"",
+            "type": "\"multiple\" | \"single\"",
             "default": "'single'",
             "required": false,
             "description": "Selection mode: single value or an array of values."
@@ -3814,7 +3814,7 @@ export const API_DOCS = {
           },
           {
             "name": "direction",
-            "type": "\"up\" | \"down\"",
+            "type": "\"down\" | \"up\"",
             "default": "'up'",
             "required": false,
             "description": "Direction the action stack expands relative to the trigger button."
@@ -3883,7 +3883,7 @@ export const API_DOCS = {
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\"",
+            "type": "\"default\" | \"lg\" | \"sm\"",
             "default": "'default'",
             "required": false,
             "description": "Size preset controlling the knob's diameter and text size."
@@ -3959,7 +3959,7 @@ export const API_DOCS = {
           },
           {
             "name": "fit",
-            "type": "\"cover\" | \"contain\"",
+            "type": "\"contain\" | \"cover\"",
             "default": "'cover'",
             "required": false,
             "description": "How the image fills its box: `cover` crops, `contain` letterboxes."
@@ -4022,7 +4022,7 @@ export const API_DOCS = {
           },
           {
             "name": "status",
-            "type": "\"success\" | \"error\" | \"pending\" | \"running\"",
+            "type": "\"error\" | \"pending\" | \"running\" | \"success\"",
             "default": "'success'",
             "required": false,
             "description": "Execution status; drives the colored status dot and label."
@@ -4171,7 +4171,7 @@ export const API_DOCS = {
         "name": "ConfettiDirection",
         "kind": "type",
         "description": "Burst direction of the confetti particles.",
-        "definition": "\"right\" | \"left\" | \"down\" | \"up\" | \"radial\""
+        "definition": "\"down\" | \"left\" | \"radial\" | \"right\" | \"up\""
       }
     ]
   },
@@ -5531,7 +5531,7 @@ export const API_DOCS = {
           },
           {
             "name": "align",
-            "type": "\"right\" | \"left\" | \"center\"",
+            "type": "\"center\" | \"left\" | \"right\"",
             "optional": true,
             "description": "Horizontal text alignment for the column's cells."
           }
@@ -5665,7 +5665,7 @@ export const API_DOCS = {
           },
           {
             "name": "captionLayout",
-            "type": "\"label\" | \"dropdown\"",
+            "type": "\"dropdown\" | \"label\"",
             "default": "'label'",
             "required": false,
             "description": "`dropdown` swaps the month label for month + year selects (single month only)."
@@ -5740,7 +5740,7 @@ export const API_DOCS = {
         "name": "CalendarMode",
         "kind": "type",
         "description": "Selection behavior of the calendar.",
-        "definition": "\"single\" | \"range\" | \"multiple\""
+        "definition": "\"multiple\" | \"range\" | \"single\""
       },
       {
         "name": "CalendarRange",
@@ -5835,7 +5835,7 @@ export const API_DOCS = {
           },
           {
             "name": "captionLayout",
-            "type": "\"label\" | \"dropdown\"",
+            "type": "\"dropdown\" | \"label\"",
             "default": "'label'",
             "required": false,
             "description": "`dropdown` swaps the month label for month + year selects."
@@ -5876,7 +5876,7 @@ export const API_DOCS = {
         "name": "CalendarMode",
         "kind": "type",
         "description": "Selection behavior of the calendar.",
-        "definition": "\"single\" | \"range\" | \"multiple\""
+        "definition": "\"multiple\" | \"range\" | \"single\""
       },
       {
         "name": "CalendarRange",
@@ -6232,7 +6232,7 @@ export const API_DOCS = {
           },
           {
             "name": "align",
-            "type": "\"right\" | \"left\" | \"center\"",
+            "type": "\"center\" | \"left\" | \"right\"",
             "optional": true,
             "description": "Horizontal text alignment for the column's header and cells."
           }
@@ -6241,7 +6241,7 @@ export const API_DOCS = {
     ]
   },
   "chart": {
-    "summary": "A lightweight SVG chart (line / area / bar). Pure + SSR-safe.",
+    "summary": "A lightweight SVG chart (line / area / bar / donut). Pure + SSR-safe.",
     "components": [
       {
         "class": "BuiChart",
@@ -6249,17 +6249,17 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "type",
-            "type": "\"area\" | \"line\" | \"bar\"",
+            "type": "\"area\" | \"bar\" | \"donut\" | \"line\"",
             "default": "'line'",
             "required": false,
-            "description": "Chart render style: line, bar, or filled area."
+            "description": "Chart render style: line, bar, filled area, or a donut ring."
           },
           {
             "name": "series",
             "type": "readonly ChartSeries[]",
             "default": "[]",
             "required": false,
-            "description": "Series to plot; bar charts use only the first series."
+            "description": "Series to plot; bar/donut use only the first series."
           },
           {
             "name": "labels",
@@ -6273,7 +6273,63 @@ export const API_DOCS = {
             "type": "number",
             "default": "220",
             "required": false,
-            "description": "Chart height in pixels (SVG viewBox height)."
+            "description": "Chart height in pixels (SVG viewBox height / donut diameter)."
+          },
+          {
+            "name": "max",
+            "type": "number | null",
+            "default": "null",
+            "required": false,
+            "description": "Override for the value the chart scales against. For a donut it defines the\nfull ring (e.g. `max=100` with data `[62]` fills 62%); otherwise the max of\nthe series data is used."
+          },
+          {
+            "name": "thickness",
+            "type": "number",
+            "default": "12",
+            "required": false,
+            "description": "Donut ring thickness, in the 100×100 viewBox units."
+          },
+          {
+            "name": "activeIndex",
+            "type": "number | null",
+            "default": "null",
+            "required": false,
+            "description": "Index of the highlighted bar (bar charts). When set, the active bar renders\nsolid and the rest are tinted; when `null` every bar renders solid."
+          },
+          {
+            "name": "barLabels",
+            "type": "readonly string[]",
+            "default": "[]",
+            "required": false,
+            "description": "Value text shown above each bar (bar charts); pass one entry per data point."
+          },
+          {
+            "name": "stacked",
+            "type": "boolean",
+            "default": "false",
+            "required": false,
+            "description": "Stack every series into one bar per data point, bottom-to-top (bar charts)."
+          },
+          {
+            "name": "track",
+            "type": "boolean",
+            "default": "false",
+            "required": false,
+            "description": "Draw a faint full-height track behind each bar (bar charts)."
+          },
+          {
+            "name": "dots",
+            "type": "boolean",
+            "default": "false",
+            "required": false,
+            "description": "Render a dot marker at each data point (line/area charts)."
+          },
+          {
+            "name": "gridX",
+            "type": "number",
+            "default": "0",
+            "required": false,
+            "description": "Number of evenly-spaced vertical grid lines (line/area charts; 0 hides them)."
           },
           {
             "name": "label",
@@ -6359,7 +6415,7 @@ export const API_DOCS = {
           },
           {
             "name": "captionLayout",
-            "type": "\"label\" | \"dropdown\"",
+            "type": "\"dropdown\" | \"label\"",
             "default": "'label'",
             "required": false,
             "description": "`dropdown` swaps the month label for month + year selects."
@@ -6400,7 +6456,7 @@ export const API_DOCS = {
         "name": "CalendarMode",
         "kind": "type",
         "description": "Selection behavior of the calendar.",
-        "definition": "\"single\" | \"range\" | \"multiple\""
+        "definition": "\"multiple\" | \"range\" | \"single\""
       },
       {
         "name": "CalendarRange",
@@ -6508,7 +6564,7 @@ export const API_DOCS = {
         "name": "AutocompleteSize",
         "kind": "type",
         "description": "Height and font size of the autocomplete input.",
-        "definition": "\"default\" | \"sm\" | \"lg\""
+        "definition": "\"default\" | \"lg\" | \"sm\""
       }
     ]
   },
@@ -6702,7 +6758,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "direction",
-            "type": "\"top\" | \"right\" | \"bottom\" | \"left\"",
+            "type": "\"bottom\" | \"left\" | \"right\" | \"top\"",
             "default": "'bottom'",
             "required": false,
             "description": "Screen edge the drawer is anchored to and slides in from."
@@ -6792,7 +6848,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "side",
-            "type": "\"top\" | \"right\" | \"bottom\" | \"left\"",
+            "type": "\"bottom\" | \"left\" | \"right\" | \"top\"",
             "default": "'right'",
             "required": false,
             "description": "Screen edge the sheet slides in from."
@@ -7419,7 +7475,7 @@ export const API_DOCS = {
         "inputs": [
           {
             "name": "side",
-            "type": "\"right\" | \"left\"",
+            "type": "\"left\" | \"right\"",
             "default": "'left'",
             "required": false,
             "description": "Edge the sidebar is docked to, which sets its border side."

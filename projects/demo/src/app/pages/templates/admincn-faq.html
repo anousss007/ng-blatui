@@ -14,7 +14,7 @@
           aria-label="Search for an admin question"
         />
       </div>
-      <button type="button" class="acn-btn-primary">Search</button>
+      <button type="button" buiButton>Search</button>
     </div>
   </section>
 
@@ -38,13 +38,12 @@
           "
           (click)="selectCategory(i)"
         >
-          <span
-            class="acn-icon-tile size-9"
-            [class.acn-tile-primary]="activeCategory() === i"
-            [class.acn-tile-muted]="activeCategory() !== i"
+          <bui-icon-tile
+            [tone]="activeCategory() === i ? 'primary' : 'muted'"
+            class="size-9 rounded-md"
           >
             <app-lucide [name]="cat.icon" class="size-4" />
-          </span>
+          </bui-icon-tile>
           <span class="flex-1 text-sm font-medium">{{ cat.title }}</span>
           <app-lucide name="chevron-right" class="size-4 text-muted-foreground" />
         </button>
@@ -63,12 +62,14 @@
     <!-- Accordion panel -->
     @let active = categories[activeCategory()];
     <div class="acn-card relative p-6">
-      <span class="acn-buy-now">Buy Now</span>
+      <span buiBadge class="absolute -top-2.5 right-6 z-[2] rounded-full px-3 py-1.5 shadow-lg"
+        >Buy Now</span
+      >
 
       <div class="mb-4 flex items-start gap-3">
-        <span class="acn-icon-tile acn-tile-muted size-10">
+        <bui-icon-tile tone="muted" class="size-10 rounded-md">
           <app-lucide [name]="active.icon" class="size-5" />
-        </span>
+        </bui-icon-tile>
         <div>
           <h2 class="font-heading text-base">{{ active.title }}</h2>
           <p class="mt-0.5 text-sm text-muted-foreground">{{ active.description }}</p>
@@ -111,16 +112,19 @@
     <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
       @for (card of supportCards; track card.title) {
         <div class="acn-card flex flex-col items-center p-8 text-center">
-          <span class="acn-icon-tile acn-tile-muted mb-4 size-12">
+          <bui-icon-tile tone="muted" class="mb-4 size-12 rounded-md">
             <app-lucide [name]="card.icon" class="size-5" />
-          </span>
+          </bui-icon-tile>
           <h3 class="font-heading text-base">{{ card.title }}</h3>
           <p class="mt-2 mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">
             {{ card.description }}
           </p>
           <button
             type="button"
-            class="acn-btn-outline-xs mt-auto w-full justify-center"
+            buiButton
+            variant="outline"
+            size="xs"
+            class="mt-auto w-full justify-center"
             style="height: 2.25rem"
           >
             {{ card.buttonText }}

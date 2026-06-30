@@ -1,7 +1,42 @@
-import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  signal,
+  ViewEncapsulation,
+} from '@angular/core';
+
+import {
+  BuiAvatar,
+  BuiBadge,
+  BuiButton,
+  BuiChart,
+  BuiCheckbox,
+  BuiIconTile,
+  BuiPagination,
+  BuiPaginationContent,
+  BuiPaginationEllipsis,
+  BuiPaginationItem,
+  BuiPaginationLink,
+  BuiTable,
+  BuiTableBody,
+  BuiTableCell,
+  BuiTableContainer,
+  BuiTableHead,
+  BuiTableHeader,
+  BuiTableRow,
+} from 'ng-blatui';
 
 import { AdmincnShell } from './admincn-shell';
 import { Lucide } from './lucide';
+
+/** AdminCN project-list tone → ng-blatui icon-tile chart tone. */
+const PROJECT_TONE = {
+  teal: 'chart-2',
+  amber: 'chart-5',
+  cyan: 'chart-3',
+  orange: 'chart-1',
+} as const;
 
 interface PerformanceStat {
   role: string;
@@ -55,12 +90,34 @@ interface UserRow {
   selector: 'app-tpl-admincn-productivity',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  imports: [Lucide, AdmincnShell],
+  imports: [
+    Lucide,
+    AdmincnShell,
+    BuiIconTile,
+    BuiBadge,
+    BuiButton,
+    BuiChart,
+    BuiAvatar,
+    BuiCheckbox,
+    BuiTableContainer,
+    BuiTable,
+    BuiTableHeader,
+    BuiTableBody,
+    BuiTableRow,
+    BuiTableHead,
+    BuiTableCell,
+    BuiPagination,
+    BuiPaginationContent,
+    BuiPaginationItem,
+    BuiPaginationLink,
+    BuiPaginationEllipsis,
+  ],
   templateUrl: './admincn-productivity.html',
   host: { '(document:click)': 'closeMenus()' },
 })
 export class AdmincnProductivity {
   protected readonly img = '/admincn';
+  protected readonly projectTone = PROJECT_TONE;
 
   /* Project Timeline — Gantt rows over a 12-month (Jan..Dec) track ---------- */
   protected readonly months = [
@@ -94,14 +151,16 @@ export class AdmincnProductivity {
   ];
 
   /* Weekly overview — area chart (chart-2 teal) ---------------------------- */
-  protected readonly weeklyPath = '8,70 48,46 88,52 128,18 168,40 208,62 248,30 288,48 328,22';
-  protected readonly weeklyArea =
-    'M8,70 L48,46 L88,52 L128,18 L168,40 L208,62 L248,30 L288,48 L328,22 L328,96 L8,96 Z';
-  // faint background bars behind the line
-  protected readonly weeklyBars = [60, 78, 70, 92, 66, 48, 84, 58, 88];
+  // y-values from the original 100-tall viewBox inverted to data magnitudes.
+  protected readonly weeklySeries = [
+    { data: [30, 54, 48, 82, 60, 38, 70, 52, 78], color: 'var(--chart-2)' },
+  ];
 
   /* Conversion rate funnel ------------------------------------------------- */
-  protected readonly convSpark = '0,28 30,22 60,26 95,12 130,20 170,8 210,16 250,4';
+  // sparkline y-values from the original 32-tall viewBox inverted to magnitudes.
+  protected readonly convSparkSeries = [
+    { data: [4, 10, 6, 20, 12, 24, 16, 28], color: 'var(--chart-2)' },
+  ];
   protected readonly convRows: ConvRow[] = [
     { label: 'Impressions', meta: '12.2K Visits', delta: '20.3%', icon: 'arrow-up' },
     { label: 'Added to cart', meta: '32 product in cart', delta: '6.3%', icon: 'arrow-up' },
@@ -223,4 +282,25 @@ export class AdmincnProductivity {
       status: 'active',
     },
   ];
+
+  /* Row selection (keyed by email) ---------------------------------------- */
+  protected readonly checked = signal<Set<string>>(new Set());
+  protected isChecked(email: string): boolean {
+    return this.checked().has(email);
+  }
+  protected toggleRow(email: string): void {
+    const set = new Set(this.checked());
+    if (set.has(email)) set.delete(email);
+    else set.add(email);
+    this.checked.set(set);
+  }
+  protected readonly allChecked = computed(
+    () => this.users.length > 0 && this.users.every((u) => this.checked().has(u.email)),
+  );
+  protected toggleAll(): void {
+    const set = new Set(this.checked());
+    if (this.allChecked()) for (const u of this.users) set.delete(u.email);
+    else for (const u of this.users) set.add(u.email);
+    this.checked.set(set);
+  }
 }

@@ -3,7 +3,7 @@
     <!-- ============ Mailbox / label sidebar ============ -->
     <aside class="hidden w-56 shrink-0 flex-col border-r md:flex">
       <div class="p-3">
-        <button type="button" class="acn-btn-primary w-full" (click)="toggleCompose()">
+        <button type="button" buiButton class="w-full" (click)="toggleCompose()">
           <app-lucide name="pencil" class="size-4" /> Compose
         </button>
       </div>
@@ -62,7 +62,14 @@
     <section class="flex w-full shrink-0 flex-col border-r md:w-[22rem] lg:w-[24rem]">
       <!-- list header: title + tabs -->
       <div class="flex h-14 items-center gap-2 border-b px-4">
-        <button type="button" class="acn-icon-btn size-9 md:hidden" aria-label="Menu">
+        <button
+          type="button"
+          buiButton
+          variant="ghost"
+          size="icon"
+          class="rounded-full md:hidden"
+          aria-label="Menu"
+        >
           <app-lucide name="menu" class="size-5" />
         </button>
         <h1 class="flex-1 text-lg font-semibold">{{ activeFolder() }}</h1>
@@ -121,18 +128,9 @@
             [style.border-left-color]="selectedId() === e.id ? 'var(--primary)' : null"
             (click)="openEmail(e.id)"
           >
-            @if (e.avatar) {
-              <img
-                [src]="e.avatar"
-                [alt]="e.sender"
-                class="size-9 shrink-0 rounded-full object-cover"
-              />
-            } @else {
-              <span
-                class="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-medium text-muted-foreground"
-                >{{ e.initials }}</span
-              >
-            }
+            <bui-avatar [src]="e.avatar ?? null" [alt]="e.sender" class="size-9">
+              <span class="text-xs font-medium text-muted-foreground">{{ e.initials }}</span>
+            </bui-avatar>
             <div class="flex min-w-0 flex-1 flex-col gap-0.5">
               <div class="flex items-center gap-2">
                 <span
@@ -195,38 +193,97 @@
       @if (selectedEmail(); as sel) {
         <!-- reading toolbar -->
         <div class="flex h-14 items-center gap-1 border-b px-3">
-          <button type="button" class="acn-icon-btn size-9" aria-label="Archive">
+          <button
+            type="button"
+            buiButton
+            variant="ghost"
+            size="icon"
+            class="rounded-full"
+            aria-label="Archive"
+          >
             <app-lucide name="package" class="size-4" />
           </button>
-          <button type="button" class="acn-icon-btn size-9" aria-label="Move to spam">
+          <button
+            type="button"
+            buiButton
+            variant="ghost"
+            size="icon"
+            class="rounded-full"
+            aria-label="Move to spam"
+          >
             <app-lucide name="triangle-alert" class="size-4" />
           </button>
-          <button type="button" class="acn-icon-btn size-9" aria-label="Move to trash">
+          <button
+            type="button"
+            buiButton
+            variant="ghost"
+            size="icon"
+            class="rounded-full"
+            aria-label="Move to trash"
+          >
             <app-lucide name="trash-2" class="size-4" />
           </button>
-          <button type="button" class="acn-icon-btn size-9" aria-label="Manage labels">
+          <button
+            type="button"
+            buiButton
+            variant="ghost"
+            size="icon"
+            class="rounded-full"
+            aria-label="Manage labels"
+          >
             <app-lucide name="circle" class="size-4" />
           </button>
           <button
             type="button"
-            class="acn-icon-btn size-9"
+            buiButton
+            variant="ghost"
+            size="icon"
+            class="rounded-full"
             aria-label="Star"
             (click)="toggleStar(sel.id, $event)"
           >
             <app-lucide name="star" class="size-4" [class.fill-current]="sel.starred" />
           </button>
-          <span class="acn-badge-muted ml-1">updates</span>
+          <span buiBadge tone="neutral" variant="soft" class="ml-1">updates</span>
           <div class="ml-auto flex items-center gap-1">
-            <button type="button" class="acn-icon-btn size-9" aria-label="Reply">
+            <button
+              type="button"
+              buiButton
+              variant="ghost"
+              size="icon"
+              class="rounded-full"
+              aria-label="Reply"
+            >
               <app-lucide name="arrow-left" class="size-4" />
             </button>
-            <button type="button" class="acn-icon-btn size-9" aria-label="Reply all">
+            <button
+              type="button"
+              buiButton
+              variant="ghost"
+              size="icon"
+              class="rounded-full"
+              aria-label="Reply all"
+            >
               <app-lucide name="arrow-left-right" class="size-4" />
             </button>
-            <button type="button" class="acn-icon-btn size-9" aria-label="Forward">
+            <button
+              type="button"
+              buiButton
+              variant="ghost"
+              size="icon"
+              class="rounded-full"
+              aria-label="Forward"
+            >
               <app-lucide name="arrow-right" class="size-4" />
             </button>
-            <button type="button" class="acn-icon-btn size-9" aria-label="More">
+            <button
+              type="button"
+              buiButton
+              variant="ghost"
+              size="icon"
+              class="rounded-full"
+              aria-label="More"
+            >
               <app-lucide name="ellipsis-vertical" class="size-4" />
             </button>
           </div>
@@ -258,18 +315,9 @@
 
           <div class="flex flex-col gap-3">
             <div class="flex items-center gap-3">
-              @if (sel.avatar) {
-                <img
-                  [src]="sel.avatar"
-                  [alt]="sel.sender"
-                  class="size-9 rounded-full object-cover"
-                />
-              } @else {
-                <span
-                  class="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-medium text-muted-foreground"
-                  >{{ sel.initials }}</span
-                >
-              }
+              <bui-avatar [src]="sel.avatar ?? null" [alt]="sel.sender" class="size-9">
+                <span class="text-xs font-medium text-muted-foreground">{{ sel.initials }}</span>
+              </bui-avatar>
               <div class="flex flex-1 flex-col">
                 <span class="text-sm font-semibold">{{ sel.sender }}</span>
                 <span class="text-xs text-muted-foreground">{{ sel.email }}</span>
@@ -303,7 +351,7 @@
               >
                 <app-lucide name="volume-2" class="size-4" /> Mute this thread
               </button>
-              <button type="button" class="acn-btn-primary h-8">
+              <button type="button" buiButton class="h-8">
                 Send <app-lucide name="send" class="size-4" />
               </button>
             </div>

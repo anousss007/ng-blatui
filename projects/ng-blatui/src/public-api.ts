@@ -111,6 +111,7 @@ export * from './lib/tags-input/tags-input';
 export * from './lib/editable/editable';
 export * from './lib/speed-dial/speed-dial';
 export * from './lib/knob/knob';
+export * from './lib/icon-tile/icon-tile';
 export * from './lib/image/image';
 export * from './lib/reasoning/reasoning';
 export * from './lib/tool-call/tool-call';

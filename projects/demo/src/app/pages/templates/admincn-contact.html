@@ -5,7 +5,7 @@
       class="hidden w-64 shrink-0 flex-col gap-4 border-r p-4 lg:flex"
       style="border-color: var(--border)"
     >
-      <button type="button" class="acn-btn-primary w-full">
+      <button buiButton type="button" class="w-full">
         <app-lucide name="plus" class="size-4" /> New Contact
       </button>
 
@@ -51,7 +51,14 @@
     <div class="flex min-w-0 flex-1 flex-col">
       <!-- Toolbar -->
       <div class="flex items-center gap-2 border-b p-3" style="border-color: var(--border)">
-        <button type="button" class="acn-icon-btn shrink-0 border lg:hidden" aria-label="Folders">
+        <button
+          buiButton
+          variant="ghost"
+          size="icon"
+          type="button"
+          class="shrink-0 rounded-full border lg:hidden"
+          aria-label="Folders"
+        >
           <app-lucide name="menu" class="size-4" />
         </button>
         <div class="acn-input h-9 flex-1">
@@ -64,13 +71,34 @@
             (input)="onSearch($any($event.target).value)"
           />
         </div>
-        <button type="button" class="acn-icon-btn shrink-0 border" aria-label="Sort">
+        <button
+          buiButton
+          variant="ghost"
+          size="icon"
+          type="button"
+          class="shrink-0 rounded-full border"
+          aria-label="Sort"
+        >
           <app-lucide name="arrow-down-up" class="size-4" />
         </button>
-        <button type="button" class="acn-icon-btn shrink-0 border" aria-label="Filter">
+        <button
+          buiButton
+          variant="ghost"
+          size="icon"
+          type="button"
+          class="shrink-0 rounded-full border"
+          aria-label="Filter"
+        >
           <app-lucide name="list-filter" class="size-4" />
         </button>
-        <button type="button" class="acn-icon-btn shrink-0 border max-md:hidden" aria-label="View">
+        <button
+          buiButton
+          variant="ghost"
+          size="icon"
+          type="button"
+          class="shrink-0 rounded-full border max-md:hidden"
+          aria-label="View"
+        >
           <app-lucide name="menu" class="size-4" />
         </button>
       </div>
@@ -92,11 +120,7 @@
               >
                 <div class="flex min-w-0 items-center gap-3">
                   @if (c.avatar) {
-                    <img
-                      [src]="c.avatar"
-                      [alt]="c.name"
-                      class="size-10 shrink-0 rounded-full object-cover"
-                    />
+                    <bui-avatar [src]="c.avatar" [alt]="c.name" class="size-10 shrink-0" />
                   } @else {
                     <span
                       class="flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-medium"
@@ -110,17 +134,25 @@
                   </div>
                 </div>
                 <div class="flex shrink-0 items-center gap-2">
-                  <span class="acn-badge-muted gap-1 capitalize max-[420px]:hidden">
+                  <span
+                    buiBadge
+                    tone="neutral"
+                    variant="soft"
+                    class="gap-1 capitalize max-[420px]:hidden"
+                  >
                     <span class="size-1.5 shrink-0 rounded-full" [class]="c.tags[0].dot"></span>
                     {{ c.tags[0].label }}
                   </span>
                   @if (c.tags.length > 1) {
-                    <span class="acn-badge-muted">+{{ c.tags.length - 1 }}</span>
+                    <span buiBadge tone="neutral" variant="soft">+{{ c.tags.length - 1 }}</span>
                   }
                   <div class="acn-menu-wrap">
                     <button
+                      buiButton
+                      variant="ghost"
+                      size="icon-xs"
                       type="button"
-                      class="acn-menu-btn"
+                      class="rounded-full text-muted-foreground"
                       aria-label="More"
                       (click)="toggleMenu(c.email)"
                     >
