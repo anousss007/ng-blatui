@@ -22,47 +22,6 @@
 #tpl-admincn .font-heading {
   font-weight: 600;
 }
-
-/* ===================== SIDEBAR ===================== */
-#tpl-admincn .acn-sidebar {
-  display: none;
-}
-@media (min-width: 1024px) {
-  #tpl-admincn .acn-sidebar {
-    position: sticky;
-    top: 0;
-    display: flex;
-    height: 100vh;
-    width: 16rem;
-    flex-shrink: 0;
-    flex-direction: column;
-    color: var(--sidebar-foreground);
-  }
-}
-/* Mobile off-canvas drawer + backdrop */
-#tpl-admincn .acn-backdrop {
-  display: none;
-}
-@media (max-width: 1023px) {
-  #tpl-admincn .acn-sidebar.acn-sidebar-open {
-    position: fixed;
-    inset: 0 auto 0 0;
-    z-index: 50;
-    display: flex;
-    width: 16rem;
-    flex-direction: column;
-    background: var(--sidebar);
-    color: var(--sidebar-foreground);
-    box-shadow: 0 0 40px rgb(0 0 0 / 0.25);
-  }
-  #tpl-admincn .acn-backdrop.acn-backdrop-open {
-    position: fixed;
-    inset: 0;
-    z-index: 40;
-    display: block;
-    background: rgb(0 0 0 / 0.4);
-  }
-}
 #tpl-admincn .acn-sidebar-header {
   display: flex;
   align-items: center;
@@ -117,26 +76,6 @@
   background: color-mix(in oklab, var(--primary) 10%, transparent);
   color: var(--primary);
   font-weight: 500;
-}
-
-/* ===================== MAIN / INSET ===================== */
-#tpl-admincn .acn-main {
-  position: relative;
-  display: flex;
-  min-width: 0;
-  flex: 1;
-  flex-direction: column;
-  background: var(--background);
-}
-@media (min-width: 768px) {
-  #tpl-admincn .acn-main {
-    margin: 0.5rem;
-    margin-left: 0;
-    border-radius: calc(var(--radius) + 4px);
-    box-shadow:
-      0 1px 2px rgb(0 0 0 / 0.04),
-      0 1px 3px rgb(0 0 0 / 0.06);
-  }
 }
 
 /* ===================== TOPBAR ===================== */
@@ -279,34 +218,6 @@
   background: var(--chart-2);
 }
 
-/* Bar charts (Total Transaction, Earning Report) */
-#tpl-admincn .acn-barchart {
-  display: flex;
-  align-items: flex-end;
-  gap: 0.25rem;
-  height: 240px;
-}
-#tpl-admincn .acn-barcol {
-  display: flex;
-  height: 100%;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-}
-#tpl-admincn .acn-bartrack {
-  position: relative;
-  display: flex;
-  width: 100%;
-  flex: 1;
-  align-items: flex-end;
-  justify-content: center;
-}
-#tpl-admincn .acn-barlabel {
-  margin-top: 0.6rem;
-  font-size: 0.8rem;
-  color: var(--muted-foreground);
-}
-
 /* Plan / payment rows + input */
 #tpl-admincn .acn-plan-row {
   display: flex;
@@ -418,24 +329,7 @@
   color: var(--foreground);
 }
 
-/* ===================== INTERACTIVE: rail / dropdowns / palette ===================== */
-@media (min-width: 1024px) {
-  #tpl-admincn .acn-sidebar.acn-rail {
-    width: 4.5rem;
-  }
-  #tpl-admincn .acn-sidebar.acn-rail .acn-nav-text,
-  #tpl-admincn .acn-sidebar.acn-rail .acn-logo-text,
-  #tpl-admincn .acn-sidebar.acn-rail .acn-nav-label {
-    display: none;
-  }
-  #tpl-admincn .acn-sidebar.acn-rail .acn-nav-item {
-    justify-content: center;
-    padding-inline: 0;
-  }
-  #tpl-admincn .acn-sidebar.acn-rail .acn-sidebar-header {
-    justify-content: center;
-  }
-}
+/* ===================== INTERACTIVE: dropdowns / palette ===================== */
 #tpl-admincn .acn-menu-wrap {
   position: relative;
 }
