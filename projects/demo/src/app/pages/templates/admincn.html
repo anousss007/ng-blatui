@@ -452,80 +452,106 @@
         </div>
       </div>
 
-      <div class="mt-2 overflow-x-auto px-2">
-        <table class="acn-table">
-          <thead>
-            <tr>
-              <th class="w-12">
-                <span
-                  class="acn-checkbox"
-                  role="checkbox"
-                  [attr.aria-checked]="allChecked()"
-                  (click)="toggleAll()"
-                  [style.background]="allChecked() ? 'var(--primary)' : null"
-                  [style.cursor]="'pointer'"
-                ></span>
+      <div buiTableContainer class="mt-2 px-2">
+        <table buiTable class="min-w-[42rem]">
+          <thead buiTableHeader>
+            <tr buiTableRow class="hover:bg-transparent">
+              <th buiTableHead class="h-[3.25rem] w-12 px-3 text-muted-foreground">
+                <button
+                  buiCheckbox
+                  [checked]="allChecked()"
+                  (checkedChange)="toggleAll()"
+                  aria-label="Select all"
+                ></button>
               </th>
-              <th [style.cursor]="'pointer'" (click)="sortBy('id')">ID</th>
-              <th [style.cursor]="'pointer'" (click)="sortBy('status')">Status</th>
-              <th [style.cursor]="'pointer'" (click)="sortBy('name')">Client</th>
-              <th [style.cursor]="'pointer'" (click)="sortBy('total')">Total</th>
-              <th [style.cursor]="'pointer'" (click)="sortBy('date')">Issued Date</th>
-              <th>Balance</th>
-              <th class="text-right">Actions</th>
+              <th
+                buiTableHead
+                class="h-[3.25rem] cursor-pointer px-3 text-muted-foreground"
+                (click)="sortBy('id')"
+              >
+                ID
+              </th>
+              <th
+                buiTableHead
+                class="h-[3.25rem] cursor-pointer px-3 text-muted-foreground"
+                (click)="sortBy('status')"
+              >
+                Status
+              </th>
+              <th
+                buiTableHead
+                class="h-[3.25rem] cursor-pointer px-3 text-muted-foreground"
+                (click)="sortBy('name')"
+              >
+                Client
+              </th>
+              <th
+                buiTableHead
+                class="h-[3.25rem] cursor-pointer px-3 text-muted-foreground"
+                (click)="sortBy('total')"
+              >
+                Total
+              </th>
+              <th
+                buiTableHead
+                class="h-[3.25rem] cursor-pointer px-3 text-muted-foreground"
+                (click)="sortBy('date')"
+              >
+                Issued Date
+              </th>
+              <th buiTableHead class="h-[3.25rem] px-3 text-muted-foreground">Balance</th>
+              <th buiTableHead class="h-[3.25rem] px-3 text-right text-muted-foreground">
+                Actions
+              </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody buiTableBody>
             @for (inv of pageRows(); track inv.id) {
-              <tr>
-                <td>
-                  <span
-                    class="acn-checkbox"
-                    role="checkbox"
-                    [attr.aria-checked]="isChecked(inv.id)"
-                    (click)="toggleRow(inv.id)"
-                    [style.background]="isChecked(inv.id) ? 'var(--primary)' : null"
-                    [style.cursor]="'pointer'"
-                  ></span>
+              <tr buiTableRow>
+                <td buiTableCell class="h-14 px-3">
+                  <button
+                    buiCheckbox
+                    [checked]="isChecked(inv.id)"
+                    (checkedChange)="toggleRow(inv.id)"
+                    aria-label="Select row"
+                  ></button>
                 </td>
-                <td class="font-medium">{{ inv.id }}</td>
-                <td>
-                  <span class="acn-status" [class]="'acn-status-' + inv.statusTone">
+                <td buiTableCell class="h-14 px-3 font-medium">{{ inv.id }}</td>
+                <td buiTableCell class="h-14 px-3">
+                  <bui-icon-tile [tone]="statusTone[inv.statusTone]" size="sm" shape="circle">
                     <app-lucide [name]="inv.statusIcon" class="size-4" />
-                  </span>
+                  </bui-icon-tile>
                 </td>
-                <td>
+                <td buiTableCell class="h-14 px-3">
                   <div class="flex items-center gap-2.5">
-                    <img [src]="inv.avatar" [alt]="inv.name" class="size-8 rounded-full" />
+                    <bui-avatar [src]="inv.avatar" [alt]="inv.name" class="size-8" />
                     <div class="flex flex-col">
-                      <span class="font-medium whitespace-nowrap">{{ inv.name }}</span>
-                      <span class="text-sm whitespace-nowrap text-muted-foreground">{{
-                        inv.role
-                      }}</span>
+                      <span class="font-medium">{{ inv.name }}</span>
+                      <span class="text-sm text-muted-foreground">{{ inv.role }}</span>
                     </div>
                   </div>
                 </td>
-                <td class="font-medium whitespace-nowrap">{{ inv.total }}</td>
-                <td class="whitespace-nowrap text-muted-foreground">{{ inv.date }}</td>
-                <td>
+                <td buiTableCell class="h-14 px-3 font-medium">{{ inv.total }}</td>
+                <td buiTableCell class="h-14 px-3 text-muted-foreground">{{ inv.date }}</td>
+                <td buiTableCell class="h-14 px-3">
                   @if (inv.paid) {
-                    <span class="acn-badge-green">Paid</span>
+                    <span buiBadge tone="success" variant="soft">Paid</span>
                   } @else {
                     <span class="font-medium text-destructive">{{ inv.balance }}</span>
                   }
                 </td>
-                <td>
+                <td buiTableCell class="h-14 px-3">
                   <div class="flex items-center justify-end gap-1 text-chart-2">
-                    <button type="button" class="acn-row-btn" aria-label="Send">
+                    <button buiButton variant="ghost" size="icon-sm" aria-label="Send">
                       <app-lucide name="send" class="size-4" />
                     </button>
-                    <button type="button" class="acn-row-btn" aria-label="Delete">
+                    <button buiButton variant="ghost" size="icon-sm" aria-label="Delete">
                       <app-lucide name="trash-2" class="size-4" />
                     </button>
-                    <button type="button" class="acn-row-btn" aria-label="View">
+                    <button buiButton variant="ghost" size="icon-sm" aria-label="View">
                       <app-lucide name="eye" class="size-4" />
                     </button>
-                    <button type="button" class="acn-row-btn" aria-label="More">
+                    <button buiButton variant="ghost" size="icon-sm" aria-label="More">
                       <app-lucide name="ellipsis-vertical" class="size-4" />
                     </button>
                   </div>
@@ -540,36 +566,57 @@
         <span class="text-sm text-muted-foreground"
           >Showing {{ rangeStart() }} to {{ rangeEnd() }} of {{ total() }} entries</span
         >
-        <div class="flex items-center gap-1">
-          <button
-            type="button"
-            class="acn-page-btn"
-            aria-label="Previous"
-            [disabled]="currentPage() === 1"
-            (click)="prev()"
-          >
-            <app-lucide name="chevron-left" class="size-4" /> Previous
-          </button>
-          @for (p of pageNumbers(); track p) {
-            <button
-              type="button"
-              class="acn-page-num"
-              [class.acn-page-active]="p === currentPage()"
-              (click)="goTo(p)"
-            >
-              {{ p }}
-            </button>
-          }
-          <button
-            type="button"
-            class="acn-page-btn"
-            aria-label="Next"
-            [disabled]="currentPage() === totalPages()"
-            (click)="next()"
-          >
-            Next <app-lucide name="chevron-right" class="size-4" />
-          </button>
-        </div>
+        <nav buiPagination>
+          <ul buiPaginationContent>
+            <li buiPaginationItem>
+              <a
+                buiPaginationLink
+                size="default"
+                role="button"
+                aria-label="Previous"
+                [class]="
+                  'cursor-pointer gap-1' +
+                  (currentPage() === 1 ? ' pointer-events-none opacity-50' : '')
+                "
+                (click)="prev()"
+              >
+                <app-lucide name="chevron-left" class="size-4" /> Previous
+              </a>
+            </li>
+            @for (p of pageNumbers(); track p) {
+              <li buiPaginationItem>
+                <a
+                  buiPaginationLink
+                  role="button"
+                  [active]="p === currentPage()"
+                  [class]="
+                    'cursor-pointer' +
+                    (p === currentPage()
+                      ? ' border-transparent bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground'
+                      : '')
+                  "
+                  (click)="goTo(p)"
+                  >{{ p }}</a
+                >
+              </li>
+            }
+            <li buiPaginationItem>
+              <a
+                buiPaginationLink
+                size="default"
+                role="button"
+                aria-label="Next"
+                [class]="
+                  'cursor-pointer gap-1' +
+                  (currentPage() === totalPages() ? ' pointer-events-none opacity-50' : '')
+                "
+                (click)="next()"
+              >
+                Next <app-lucide name="chevron-right" class="size-4" />
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>
