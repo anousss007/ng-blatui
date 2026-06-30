@@ -6,7 +6,7 @@
   "description": "Accessible Angular UI library (Angular 21 & 22, standalone, signals, zoneless, SSR-ready) ported from BlatUI. Components, blocks, charts and ready-made page templates, themed with Tailwind CSS v4 + oklch design tokens.",
   "install": "npm i ng-blatui",
   "llms": "https://ngblatui.remix-it.com/llms.txt",
-  "generatedAt": "2026-06-29",
+  "generatedAt": "2026-06-30",
   "counts": {
     "components": 154,
     "blocks": 16,
@@ -51,11 +51,11 @@
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | null"
+            "type": "\"success\" | \"warning\" | \"info\" | \"danger\" | \"neutral\" | null"
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"sm\" | \"default\" | \"lg\""
           }
         ],
         "types": [
@@ -88,11 +88,11 @@
         "inputs": [
           {
             "name": "variant",
-            "type": "\"default\" | \"destructive\""
+            "type": "\"destructive\" | \"default\""
           },
           {
             "name": "tone",
-            "type": "\"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\" | null"
+            "type": "\"success\" | \"warning\" | \"info\" | \"danger\" | \"neutral\" | null"
           }
         ]
       }
@@ -107,7 +107,7 @@
         "inputs": [
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"sm\" | \"default\" | \"lg\""
           }
         ]
       }
@@ -122,7 +122,7 @@
         "inputs": [
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"sm\" | \"default\" | \"lg\""
           },
           {
             "name": "maxRows",
@@ -254,7 +254,7 @@
         "inputs": [
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"sm\" | \"default\" | \"lg\""
           },
           {
             "name": "iconOn",
@@ -505,7 +505,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\" | null"
+            "type": "\"sm\" | \"default\" | \"lg\" | null"
           }
         ],
         "models": [
@@ -564,7 +564,7 @@
         "inputs": [
           {
             "name": "tone",
-            "type": "\"default\" | \"success\" | \"warning\" | \"danger\" | \"info\" | \"primary\""
+            "type": "\"primary\" | \"success\" | \"warning\" | \"info\" | \"default\" | \"danger\""
           },
           {
             "name": "dismissible",
@@ -618,7 +618,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"sm\" | \"default\" | \"lg\""
           }
         ],
         "types": [
@@ -648,7 +648,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\" | \"icon\""
+            "type": "\"sm\" | \"default\" | \"lg\" | \"icon\""
           }
         ]
       }
@@ -686,11 +686,11 @@
         "inputs": [
           {
             "name": "variant",
-            "type": "\"default\" | \"outline\" | \"muted\""
+            "type": "\"muted\" | \"default\" | \"outline\""
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\""
+            "type": "\"sm\" | \"default\""
           },
           {
             "name": "variant",
@@ -724,7 +724,7 @@
           },
           {
             "name": "size",
-            "type": "\"xs\" | \"sm\" | \"icon-xs\" | \"icon-sm\""
+            "type": "\"sm\" | \"xs\" | \"icon-xs\" | \"icon-sm\""
           }
         ]
       }
@@ -755,7 +755,7 @@
           },
           {
             "name": "tone",
-            "type": "\"default\" | \"warning\" | \"danger\" | \"good\""
+            "type": "\"warning\" | \"default\" | \"danger\" | \"good\""
           },
           {
             "name": "thresholds",
@@ -944,7 +944,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"sm\" | \"default\" | \"lg\""
           },
           {
             "name": "color",
@@ -1005,7 +1005,7 @@
         "inputs": [
           {
             "name": "variant",
-            "type": "\"blockquote\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"p\" | \"small\" | \"list\" | \"muted\" | \"lead\" | \"large\" | \"inline-code\" | \"gradient\""
+            "type": "\"muted\" | \"blockquote\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"p\" | \"small\" | \"list\" | \"lead\" | \"large\" | \"inline-code\" | \"gradient\""
           }
         ]
       }
@@ -1374,7 +1374,7 @@
         "inputs": [
           {
             "name": "variant",
-            "type": "\"default\" | \"muted\" | \"subtle\""
+            "type": "\"muted\" | \"default\" | \"subtle\""
           },
           {
             "name": "external",
@@ -1486,7 +1486,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"sm\" | \"default\" | \"lg\""
           },
           {
             "name": "showDiscount",
@@ -1566,7 +1566,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"sm\" | \"default\" | \"lg\""
           },
           {
             "name": "pulse",
@@ -2426,7 +2426,7 @@
           },
           {
             "name": "size",
-            "type": "\"default\" | \"sm\" | \"lg\""
+            "type": "\"sm\" | \"default\" | \"lg\""
           },
           {
             "name": "label",
