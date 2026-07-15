@@ -87,6 +87,7 @@ import {
   BuiCountdown,
   BuiDataTable,
   BuiDatePicker,
+  BuiDateRangePicker,
   BuiDatetimePicker,
   BuiDescriptionItem,
   BuiDescriptionList,
@@ -130,6 +131,7 @@ import {
   BuiImage,
   BuiInfiniteScroll,
   BuiInput,
+  BuiInputField,
   BuiInputGroup,
   BuiInputGroupAddon,
   BuiInputGroupButton,
@@ -162,6 +164,7 @@ import {
   BuiMeteors,
   BuiMeter,
   BuiMiniCart,
+  BuiMoneyInput,
   BuiNavigationMenu,
   BuiNotificationCenter,
   BuiNumberInput,
@@ -251,6 +254,7 @@ import {
   BuiVariantSelector,
   BuiVideo,
   BuiVisuallyHidden,
+  type CalendarRange,
   Dialog,
   type DialogRef,
   Menu,
@@ -421,6 +425,14 @@ const META: Record<string, { title: string; description: string }> = {
   stepper: { title: 'Stepper', description: 'A multi-step progress indicator.' },
   'input-otp': { title: 'Input OTP', description: 'A one-time-password box input.' },
   'phone-input': { title: 'Phone input', description: 'A phone field with country code.' },
+  'money-input': {
+    title: 'Money input',
+    description: 'A localized currency field on Intl.NumberFormat.',
+  },
+  'input-field': {
+    title: 'Input field',
+    description: 'A batteries-included field: label, input, hint and error.',
+  },
   'prompt-input': { title: 'Prompt input', description: 'An autosizing chat composer.' },
   heatmap: { title: 'Heatmap', description: 'A contribution-style activity grid.' },
   citation: { title: 'Citation', description: 'An inline source citation marker.' },
@@ -444,6 +456,10 @@ const META: Record<string, { title: string; description: string }> = {
   'markdown-editor': { title: 'Markdown editor', description: 'A textarea with live preview.' },
   calendar: { title: 'Calendar', description: 'A single-month date calendar.' },
   'date-picker': { title: 'Date picker', description: 'A date input with a calendar popover.' },
+  'date-range-picker': {
+    title: 'Date range picker',
+    description: 'A start→end range picker with presets, on the CDK overlay.',
+  },
   carousel: { title: 'Carousel', description: 'A slide carousel with arrows and dots.' },
   command: { title: 'Command', description: 'A command palette (filterable actions).' },
   'context-menu': { title: 'Context menu', description: 'A right-click menu at the cursor.' },
@@ -652,6 +668,8 @@ type ToggleValue = string | string[] | null;
     BuiGallery,
     BuiLoadingOverlay,
     BuiNumberInput,
+    BuiMoneyInput,
+    BuiInputField,
     BuiVariantSelector,
     BuiSparkline,
     BuiAddToCart,
@@ -711,6 +729,7 @@ type ToggleValue = string | string[] | null;
     BuiMarkdownEditor,
     BuiCalendar,
     BuiDatePicker,
+    BuiDateRangePicker,
     BuiCarousel,
     BuiCommand,
     BuiContextMenu,
@@ -1172,6 +1191,11 @@ export class ComponentPage {
   protected readonly otpValue = signal('');
   protected readonly phoneNumber = signal('');
   protected readonly phoneCountry = signal('US');
+  protected readonly moneyAmount = signal<number | null>(1499.9);
+  protected readonly moneyMad = signal<number | null>(2500);
+  protected readonly fieldEmail = signal('');
+  protected readonly fieldEmailError = signal('');
+  protected readonly dateRange = signal<CalendarRange>({ start: '', end: '' });
   protected readonly toggleAlign = signal<ToggleValue>('center');
   protected readonly toggleStyles = signal<ToggleValue>(['bold']);
   protected readonly tagList = signal(['angular', 'signals']);
@@ -3059,6 +3083,29 @@ fruitForm = new FormControl('banana');
 <bui-phone-input [(value)]="phone" [(country)]="country" />`,
     phoneInputLabel: `<label buiLabel for="phone">Phone number</label>
 <bui-phone-input id="phone" [(value)]="phone" [(country)]="country" />`,
+    dateRangePicker: `import { BuiDateRangePicker } from 'ng-blatui';
+
+<!-- start→end range, quick-pick presets, never clipped (CDK overlay) -->
+<bui-date-range-picker [(value)]="range" />`,
+    inputField: `import { BuiInputField } from 'ng-blatui';
+
+<bui-input-field
+  label="Email"
+  type="email"
+  hint="We'll never share it."
+  [(value)]="email"
+/>`,
+    inputFieldError: `<bui-input-field
+  label="Email"
+  type="email"
+  [(value)]="email"
+  [error]="email() ? '' : 'Email is required'"
+/>`,
+    moneyInput: `import { BuiMoneyInput } from 'ng-blatui';
+
+<bui-money-input [(value)]="amount" currency="USD" />`,
+    moneyInputCurrency: `<!-- symbol="DH" overrides the ISO code (MAD) ICU would otherwise show -->
+<bui-money-input [(value)]="price" currency="MAD" locale="fr-MA" symbol="DH" />`,
     promptInput: `import { BuiPromptInput } from 'ng-blatui';
 
 <bui-prompt-input [attachable]="true" (submitted)="send($event)" />`,

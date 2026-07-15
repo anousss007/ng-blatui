@@ -15,12 +15,13 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Installation](https://ngblatui.remix-it.com/docs/installation)
 - [Theming](https://ngblatui.remix-it.com/docs/theming)
 
-## Components (154)
+## Components (157)
 
 ### Forms & Input
 
 - [Button](https://ngblatui.remix-it.com/components/button) — props: variant, size · types: ButtonSize, ButtonVariant
 - [Input](https://ngblatui.remix-it.com/components/input) — props: size
+- [Input Field](https://ngblatui.remix-it.com/components/input-field) — props: label, hint, error, type, placeholder, required, size, name, autocomplete, inputmode, aria-label · two-way: value, disabled
 - [Textarea](https://ngblatui.remix-it.com/components/textarea) — props: size, maxRows
 - [Label](https://ngblatui.remix-it.com/components/label)
 - [Checkbox](https://ngblatui.remix-it.com/components/checkbox) — props: tone · two-way: checked, indeterminate, disabled
@@ -46,12 +47,14 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Knob](https://ngblatui.remix-it.com/components/knob) — props: min, max, step, size, label · two-way: value, disabled
 - [Input OTP](https://ngblatui.remix-it.com/components/input-otp) — props: maxlength, alphanumeric, groupSize, ariaLabel · two-way: value, disabled
 - [Phone Input](https://ngblatui.remix-it.com/components/phone-input) — props: name, id, placeholder, countryLabel, numberLabel · two-way: value, country
+- [Money Input](https://ngblatui.remix-it.com/components/money-input) — props: locale, currency, currencyDisplay, symbol, minimumFractionDigits, maximumFractionDigits, placeholder, name, id, aria-label · two-way: value, disabled · types: CurrencyDisplay
 - [Color Picker](https://ngblatui.remix-it.com/components/color-picker) — props: swatches, disabled, pickLabel, hexLabel · two-way: value
 - [Signature Pad](https://ngblatui.remix-it.com/components/signature-pad) — props: height, penColor
 - [Repeater](https://ngblatui.remix-it.com/components/repeater) — props: fields, min, max, addLabel, removeLabel · two-way: rows · types: RepeaterField
 - [Markdown Editor](https://ngblatui.remix-it.com/components/markdown-editor) — props: name, placeholder, rows · two-way: value
 - [Calendar](https://ngblatui.remix-it.com/components/calendar) — props: mode, months, weekStart, minDate, maxDate, disabledDates, disableWeekends, showWeekNumbers, captionLayout, hideOutsideDays, previousMonthLabel, monthSelectLabel, yearLabel, nextMonthLabel · two-way: value, range, values, disabled · types: CalendarMode, CalendarRange
 - [Date Picker](https://ngblatui.remix-it.com/components/date-picker) — props: mode, months, placeholder, minDate, maxDate, weekStart, disabledDates, disableWeekends, showWeekNumbers, captionLayout, hideOutsideDays · two-way: value, range, disabled · types: CalendarMode, CalendarRange
+- [Date Range Picker](https://ngblatui.remix-it.com/components/date-range-picker) — props: months, minDate, maxDate, placeholder, presets, aria-label · two-way: value, disabled · types: CalendarRange, DateRangePreset
 - [Datetime Picker](https://ngblatui.remix-it.com/components/datetime-picker) — props: mode, months, placeholder, minDate, maxDate, captionLayout, seconds · two-way: value, range, disabled · types: CalendarMode, CalendarRange
 - [Autocomplete](https://ngblatui.remix-it.com/components/autocomplete) — props: multiple, options, placeholder, empty, name, size, icon · two-way: value, values, disabled · types: AutocompleteSize
 - [File Upload](https://ngblatui.remix-it.com/components/file-upload) — props: multiple, accept, name, hint, disabled, dropzoneLabel, removeLabel · emits: filesChange
@@ -148,7 +151,7 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 
 ### Overlays
 
-- [Dialog](https://ngblatui.remix-it.com/components/dialog)
+- [Dialog](https://ngblatui.remix-it.com/components/dialog) — props: size
 - [Popover](https://ngblatui.remix-it.com/components/popover) — props: buiPopover, side · types: PopoverSide
 - [Alert Dialog](https://ngblatui.remix-it.com/components/alert-dialog)
 - [Dropdown Menu](https://ngblatui.remix-it.com/components/dropdown-menu)

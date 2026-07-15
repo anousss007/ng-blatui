@@ -7797,6 +7797,44 @@ This content is read-only and cannot be edited.</textarea
         </div>
       </app-example>
     }
+    @case ('input-field') {
+      <app-example [code]="code.inputField">
+        <bui-input-field
+          class="max-w-xs"
+          label="Email"
+          type="email"
+          hint="We'll never share it."
+          [(value)]="fieldEmail"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">With error</h2>
+      <app-example [code]="code.inputFieldError">
+        <bui-input-field
+          class="max-w-xs"
+          label="Email"
+          type="email"
+          [(value)]="fieldEmail"
+          [error]="fieldEmail() ? '' : 'Email is required'"
+        />
+      </app-example>
+    }
+    @case ('money-input') {
+      <app-example [code]="code.moneyInput">
+        <bui-money-input class="max-w-xs" [(value)]="moneyAmount" currency="USD" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Localized currency</h2>
+      <app-example [code]="code.moneyInputCurrency">
+        <bui-money-input
+          class="max-w-xs"
+          [(value)]="moneyMad"
+          currency="MAD"
+          locale="fr-MA"
+          symbol="DH"
+        />
+      </app-example>
+    }
     @case ('prompt-input') {
       <app-example [code]="code.promptInput">
         <bui-prompt-input class="w-full max-w-md" [attachable]="true" />
@@ -8385,6 +8423,17 @@ This content is read-only and cannot be edited.</textarea
           </p>
         </div>
       </app-example>
+    }
+    @case ('date-range-picker') {
+      <app-example [code]="code.dateRangePicker">
+        <bui-date-range-picker class="w-72" [(value)]="dateRange" />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Selected range</h2>
+      <p class="text-sm text-muted-foreground">
+        Value: <code class="text-foreground">{{ dateRange().start || '—' }}</code> →
+        <code class="text-foreground">{{ dateRange().end || '—' }}</code>
+      </p>
     }
     @case ('carousel') {
       <app-example [code]="code.carousel">

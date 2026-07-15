@@ -6,9 +6,9 @@
   "description": "Accessible Angular UI library (Angular 21 & 22, standalone, signals, zoneless, SSR-ready) ported from BlatUI. Components, blocks, charts and ready-made page templates, themed with Tailwind CSS v4 + oklch design tokens.",
   "install": "npm i ng-blatui",
   "llms": "https://ngblatui.remix-it.com/llms.txt",
-  "generatedAt": "2026-06-30",
+  "generatedAt": "2026-07-15",
   "counts": {
-    "components": 154,
+    "components": 157,
     "blocks": 16,
     "charts": 70,
     "templates": 35
@@ -108,6 +108,71 @@
           {
             "name": "size",
             "type": "\"default\" | \"lg\" | \"sm\""
+          }
+        ]
+      }
+    },
+    {
+      "name": "input-field",
+      "label": "Input Field",
+      "type": "component",
+      "category": "Forms & Input",
+      "url": "https://ngblatui.remix-it.com/components/input-field",
+      "api": {
+        "inputs": [
+          {
+            "name": "label",
+            "type": "string"
+          },
+          {
+            "name": "hint",
+            "type": "string"
+          },
+          {
+            "name": "error",
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "type": "string"
+          },
+          {
+            "name": "placeholder",
+            "type": "string"
+          },
+          {
+            "name": "required",
+            "type": "boolean"
+          },
+          {
+            "name": "size",
+            "type": "\"default\" | \"lg\" | \"sm\""
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "autocomplete",
+            "type": "string"
+          },
+          {
+            "name": "inputmode",
+            "type": "string"
+          },
+          {
+            "name": "aria-label",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
           }
         ]
       }
@@ -332,7 +397,15 @@
       "label": "Dialog",
       "type": "component",
       "category": "Overlays",
-      "url": "https://ngblatui.remix-it.com/components/dialog"
+      "url": "https://ngblatui.remix-it.com/components/dialog",
+      "api": {
+        "inputs": [
+          {
+            "name": "size",
+            "type": "\"2xl\" | \"full\" | \"lg\" | \"md\" | \"sm\" | \"xl\""
+          }
+        ]
+      }
     },
     {
       "name": "tooltip",
@@ -2719,6 +2792,70 @@
       }
     },
     {
+      "name": "money-input",
+      "label": "Money Input",
+      "type": "component",
+      "category": "Forms & Input",
+      "url": "https://ngblatui.remix-it.com/components/money-input",
+      "api": {
+        "inputs": [
+          {
+            "name": "locale",
+            "type": "string"
+          },
+          {
+            "name": "currency",
+            "type": "string"
+          },
+          {
+            "name": "currencyDisplay",
+            "type": "CurrencyDisplay"
+          },
+          {
+            "name": "symbol",
+            "type": "string"
+          },
+          {
+            "name": "minimumFractionDigits",
+            "type": "number | null"
+          },
+          {
+            "name": "maximumFractionDigits",
+            "type": "number | null"
+          },
+          {
+            "name": "placeholder",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "aria-label",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "number | null"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ],
+        "types": [
+          "CurrencyDisplay"
+        ]
+      }
+    },
+    {
       "name": "prompt-input",
       "label": "Prompt Input",
       "type": "component",
@@ -3561,6 +3698,55 @@
         "types": [
           "CalendarMode",
           "CalendarRange"
+        ]
+      }
+    },
+    {
+      "name": "date-range-picker",
+      "label": "Date Range Picker",
+      "type": "component",
+      "category": "Forms & Input",
+      "url": "https://ngblatui.remix-it.com/components/date-range-picker",
+      "api": {
+        "inputs": [
+          {
+            "name": "months",
+            "type": "number"
+          },
+          {
+            "name": "minDate",
+            "type": "string"
+          },
+          {
+            "name": "maxDate",
+            "type": "string"
+          },
+          {
+            "name": "placeholder",
+            "type": "string"
+          },
+          {
+            "name": "presets",
+            "type": "DateRangePreset[] | null"
+          },
+          {
+            "name": "aria-label",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "CalendarRange"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean"
+          }
+        ],
+        "types": [
+          "CalendarRange",
+          "DateRangePreset"
         ]
       }
     },

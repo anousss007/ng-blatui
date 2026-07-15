@@ -154,6 +154,110 @@ export const API_DOCS = {
     ],
     "types": []
   },
+  "input-field": {
+    "summary": "A batteries-included text field: label, control, hint and error wired together with the right\n`for` / `id` / `aria-describedby` / `aria-invalid` relationships, on top of the `buiField` +\n`buiInput` primitives. Reach for the primitives directly when you need a custom layout.\n\n```html\n<bui-input-field label=\"Email\" hint=\"We'll never share it.\" type=\"email\" [(value)]=\"email\" />\n```",
+    "components": [
+      {
+        "class": "BuiInputField",
+        "selector": "bui-input-field",
+        "inputs": [
+          {
+            "name": "label",
+            "type": "string",
+            "default": "''",
+            "required": false,
+            "description": "Visible label. When empty, pass `aria-label` for an accessible name."
+          },
+          {
+            "name": "hint",
+            "type": "string",
+            "default": "''",
+            "required": false,
+            "description": "Helper text shown below the control while there is no error."
+          },
+          {
+            "name": "error",
+            "type": "string",
+            "default": "''",
+            "required": false,
+            "description": "Error message; when set, the control is marked invalid and this replaces the hint."
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "default": "'text'",
+            "required": false,
+            "description": "Native input type (`text`, `email`, `password`, `number`, …)."
+          },
+          {
+            "name": "placeholder",
+            "type": "string",
+            "default": "''",
+            "required": false,
+            "description": "Placeholder shown when the field is empty."
+          },
+          {
+            "name": "required",
+            "type": "boolean",
+            "default": "false",
+            "required": false,
+            "description": "Whether the field is required (adds a marker and the `required` attribute)."
+          },
+          {
+            "name": "size",
+            "type": "\"default\" | \"lg\" | \"sm\"",
+            "default": "'default'",
+            "required": false,
+            "description": "Size preset controlling input height, padding and text size."
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "default": "''",
+            "required": false,
+            "description": "Native `name` attribute."
+          },
+          {
+            "name": "autocomplete",
+            "type": "string",
+            "default": "''",
+            "required": false,
+            "description": "Native `autocomplete` attribute."
+          },
+          {
+            "name": "inputmode",
+            "type": "string",
+            "default": "''",
+            "required": false,
+            "description": "Native `inputmode` attribute."
+          },
+          {
+            "name": "aria-label",
+            "type": "string",
+            "default": "''",
+            "required": false,
+            "description": "Accessible name applied to the input when there is no visible `label`."
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "string",
+            "default": "''",
+            "description": "The field value. Two-way bindable with `[(value)]`."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Whether the field is disabled. Two-way bindable with `[(disabled)]`."
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "types": []
+  },
   "textarea": {
     "summary": "Applies BlatUI textarea styling to a native `<textarea>`. Auto-grows with its content via CSS\n`field-sizing-content` (no JS). Set `[maxRows]` to cap the growth — past it the field scrolls.",
     "components": [
@@ -459,7 +563,23 @@ export const API_DOCS = {
   },
   "dialog": {
     "summary": "",
-    "components": [],
+    "components": [
+      {
+        "class": "BuiDialogContent",
+        "selector": "[buiDialogContent]",
+        "inputs": [
+          {
+            "name": "size",
+            "type": "\"2xl\" | \"full\" | \"lg\" | \"md\" | \"sm\" | \"xl\"",
+            "default": "'lg'",
+            "required": false,
+            "description": "Width preset: `sm` | `md` | `lg` | `xl` | `2xl` | `full`. Defaults to `lg`."
+          }
+        ],
+        "models": [],
+        "outputs": []
+      }
+    ],
     "types": []
   },
   "tooltip": {
@@ -4350,6 +4470,110 @@ export const API_DOCS = {
     ],
     "types": []
   },
+  "money-input": {
+    "summary": "A localized currency input backed by `Intl.NumberFormat`. Stores a numeric amount and displays\nit formatted while unfocused; while focused it shows a plain editable number so the caret and\ntyping behave predictably. Works with template-driven and reactive forms (ControlValueAccessor).\n\nWhen ICU has no local glyph for a currency (so it renders the ISO code, e.g. `MAD`), pass a\n`symbol` to override it in the locale's correct position — `symbol=\"DH\"` shows `DH`.",
+    "components": [
+      {
+        "class": "BuiMoneyInput",
+        "selector": "bui-money-input",
+        "inputs": [
+          {
+            "name": "locale",
+            "type": "string",
+            "default": "''",
+            "required": false,
+            "description": "BCP 47 locale for formatting/parsing. Defaults to the runtime locale."
+          },
+          {
+            "name": "currency",
+            "type": "string",
+            "default": "'USD'",
+            "required": false,
+            "description": "ISO 4217 currency code, e.g. `USD`, `EUR`, `MAD`."
+          },
+          {
+            "name": "currencyDisplay",
+            "type": "CurrencyDisplay",
+            "default": "'narrowSymbol'",
+            "required": false,
+            "description": "How the currency is shown. `narrowSymbol` renders the local symbol when ICU has one."
+          },
+          {
+            "name": "symbol",
+            "type": "string",
+            "default": "''",
+            "required": false,
+            "description": "Custom currency symbol that overrides the one ICU would render, kept in the locale's correct\nposition and spacing. Use it when the ISO data has no local glyph — e.g. `symbol=\"DH\"` shows\n`DH` instead of the `MAD` code for Moroccan dirham."
+          },
+          {
+            "name": "minimumFractionDigits",
+            "type": "number | null",
+            "default": "null",
+            "required": false,
+            "description": "Minimum fraction digits shown when formatted. Defaults to the currency's own default."
+          },
+          {
+            "name": "maximumFractionDigits",
+            "type": "number | null",
+            "default": "null",
+            "required": false,
+            "description": "Maximum fraction digits shown when formatted. Defaults to the currency's own default."
+          },
+          {
+            "name": "placeholder",
+            "type": "string",
+            "default": "''",
+            "required": false,
+            "description": "Placeholder shown when the field is empty."
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "default": "''",
+            "required": false,
+            "description": "Native `name` attribute for the input."
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "default": "''",
+            "required": false,
+            "description": "Native `id` attribute; falls back to a generated id."
+          },
+          {
+            "name": "aria-label",
+            "type": "string",
+            "default": "''",
+            "required": false,
+            "description": "Accessible name, applied to the inner input."
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "number | null",
+            "default": "null",
+            "description": "The numeric amount. Two-way bindable with `[(value)]`. `null` when the field is empty."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Whether the field is disabled. Two-way bindable with `[(disabled)]`."
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "types": [
+      {
+        "name": "CurrencyDisplay",
+        "kind": "type",
+        "description": "How the currency is shown: local symbol, narrow symbol, ISO code, or full name.",
+        "definition": "\"code\" | \"name\" | \"narrowSymbol\" | \"symbol\""
+      }
+    ]
+  },
   "prompt-input": {
     "summary": "A chat composer: an autosizing textarea with a send button. Emits `submitted` on send.",
     "components": [
@@ -5779,7 +6003,7 @@ export const API_DOCS = {
     ]
   },
   "date-picker": {
-    "summary": "A date input that opens a calendar popover.",
+    "summary": "A date input that opens a calendar popover. The popover renders in a CDK overlay, so it escapes\nany `overflow: hidden` ancestor (no clipping) and flips to stay on-screen.",
     "components": [
       {
         "class": "BuiDatePicker",
@@ -5909,6 +6133,114 @@ export const API_DOCS = {
             "type": "string",
             "optional": false,
             "description": "End date of the range, as `yyyy-mm-dd`."
+          }
+        ]
+      }
+    ]
+  },
+  "date-range-picker": {
+    "summary": "A start→end date range picker: a trigger that opens a two-month calendar (in a CDK overlay, so\nit is never clipped by an `overflow: hidden` ancestor) alongside quick-pick presets. Two-way\nbind the range with `[(value)]` or use it as a form control.\n\n```html\n<bui-date-range-picker [(value)]=\"range\" />\n```",
+    "components": [
+      {
+        "class": "BuiDateRangePicker",
+        "selector": "bui-date-range-picker",
+        "inputs": [
+          {
+            "name": "months",
+            "type": "number",
+            "default": "2",
+            "required": false,
+            "description": "Month grids shown side by side in the popover."
+          },
+          {
+            "name": "minDate",
+            "type": "string",
+            "default": "''",
+            "required": false,
+            "description": "Earliest selectable date (`yyyy-mm-dd`)."
+          },
+          {
+            "name": "maxDate",
+            "type": "string",
+            "default": "''",
+            "required": false,
+            "description": "Latest selectable date (`yyyy-mm-dd`)."
+          },
+          {
+            "name": "placeholder",
+            "type": "string",
+            "default": "'Pick a date range'",
+            "required": false,
+            "description": "Text shown on the trigger when nothing is selected."
+          },
+          {
+            "name": "presets",
+            "type": "DateRangePreset[] | null",
+            "default": "null",
+            "required": false,
+            "description": "Quick-pick shortcuts. Pass `[]` to hide them; omit for a sensible default set."
+          },
+          {
+            "name": "aria-label",
+            "type": "string",
+            "default": "''",
+            "required": false,
+            "description": "Accessible name applied to the trigger."
+          }
+        ],
+        "models": [
+          {
+            "name": "value",
+            "type": "CalendarRange",
+            "default": "{ start: '', end: '' }",
+            "description": "Selected range as `yyyy-mm-dd` bounds. Two-way bindable with `[(value)]`."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Whether the picker is disabled. Two-way bindable with `[(disabled)]`."
+          }
+        ],
+        "outputs": []
+      }
+    ],
+    "types": [
+      {
+        "name": "CalendarRange",
+        "kind": "interface",
+        "description": "",
+        "fields": [
+          {
+            "name": "start",
+            "type": "string",
+            "optional": false,
+            "description": "Start date of the range, as `yyyy-mm-dd`."
+          },
+          {
+            "name": "end",
+            "type": "string",
+            "optional": false,
+            "description": "End date of the range, as `yyyy-mm-dd`."
+          }
+        ]
+      },
+      {
+        "name": "DateRangePreset",
+        "kind": "interface",
+        "description": "A named shortcut shown beside the calendar, e.g. \"Last 7 days\".",
+        "fields": [
+          {
+            "name": "label",
+            "type": "string",
+            "optional": false,
+            "description": "Text shown for the shortcut."
+          },
+          {
+            "name": "range",
+            "type": "CalendarRange",
+            "optional": false,
+            "description": "The range it applies, as `yyyy-mm-dd` bounds."
           }
         ]
       }
@@ -6401,7 +6733,7 @@ export const API_DOCS = {
     ]
   },
   "datetime-picker": {
-    "summary": "A combined date + time picker in a popover. Value is `YYYY-MM-DDTHH:mm`.",
+    "summary": "A combined date + time picker in a popover. Value is `YYYY-MM-DDTHH:mm`. The popover renders in a\nCDK overlay, so it escapes any `overflow: hidden` ancestor (no clipping) and flips on-screen.",
     "components": [
       {
         "class": "BuiDatetimePicker",
@@ -6953,7 +7285,7 @@ export const API_DOCS = {
     ]
   },
   "navigation-menu": {
-    "summary": "A horizontal navigation menu with hover/click dropdown panels.",
+    "summary": "A horizontal navigation menu with hover/click dropdown panels. The panels open in a CDK overlay\nso they escape any `overflow: hidden` ancestor (e.g. a clipping header) and flip when they would\nrun off-screen. A short close delay bridges the gap between a trigger and its panel so moving the\ncursor across it doesn't snap the menu shut.",
     "components": [
       {
         "class": "BuiNavigationMenu",
