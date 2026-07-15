@@ -9,7 +9,7 @@ export type AddToCartSize = 'sm' | 'default' | 'lg';
 /** A stateful add-to-cart button: idle → adding → added → idle. Emits `triggered` on click. */
 @Component({
   selector: 'bui-add-to-cart',
-  host: { 'data-slot': 'add-to-cart' },
+  host: { 'data-slot': 'add-to-cart', class: 'inline-flex' },
   template: `
     <button
       type="button"

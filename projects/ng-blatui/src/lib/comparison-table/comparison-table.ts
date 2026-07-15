@@ -102,6 +102,6 @@ export class BuiComparisonTable {
     return highlight === null ? -1 : this.tiers().indexOf(highlight);
   });
   protected readonly computedClass = computed(() =>
-    cn('w-full overflow-x-auto rounded-xl border', this.userClass()),
+    cn('block w-full overflow-x-auto rounded-xl border', this.userClass()),
   );
 }

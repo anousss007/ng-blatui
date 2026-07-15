@@ -37,7 +37,7 @@ export class BuiDrawer {
 
   protected readonly panelClass = computed(() =>
     cn(
-      'fixed z-50 flex flex-col gap-3 border bg-background p-4 shadow-lg',
+      'fixed z-50 flex flex-col gap-3 overflow-y-auto border bg-background p-4 shadow-lg',
       POSITION[this.direction()],
       this.userClass(),
     ),

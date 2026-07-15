@@ -37,7 +37,7 @@ export class BuiSpotlightCard {
   });
   protected readonly computedClass = computed(() =>
     cn(
-      'relative overflow-hidden rounded-xl border bg-card p-6 text-card-foreground shadow-sm',
+      'relative block overflow-hidden rounded-xl border bg-card p-6 text-card-foreground shadow-sm',
       this.userClass(),
     ),
   );

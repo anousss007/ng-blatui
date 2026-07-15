@@ -37,7 +37,7 @@ export class BuiSheet {
 
   protected readonly panelClass = computed(() =>
     cn(
-      'fixed z-50 flex flex-col gap-4 border bg-background p-6 shadow-lg',
+      'fixed z-50 flex flex-col gap-4 overflow-y-auto border bg-background p-6 shadow-lg',
       SIDE[this.side()],
       this.userClass(),
     ),
