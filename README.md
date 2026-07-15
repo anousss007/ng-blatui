@@ -27,7 +27,29 @@ Accessible **Angular UI library** — a faithful port of [BlatUI](https://ngblat
 npm i ng-blatui
 ```
 
-Peer dependencies (Angular **21 or 22**): `@angular/core`, `@angular/common`, `@angular/forms`, `@angular/cdk`, `@angular/aria`. Styling is **Tailwind CSS v4** — import the ng-blatui tokens/preset into your global stylesheet and Tailwind config. Full setup: **https://ngblatui.remix-it.com/docs/installation**.
+Peer dependencies (Angular **21 or 22**): `@angular/core`, `@angular/common`, `@angular/forms`, `@angular/cdk`, `@angular/aria`.
+
+### Tailwind CSS setup
+
+Styling is **Tailwind CSS v4**. In your app's global stylesheet (e.g. `src/styles.css`) add three lines:
+
+```css
+@import 'tailwindcss';
+@import 'ng-blatui/foundations/blatui.css'; /* design tokens + dark theme */
+@source '../node_modules/ng-blatui'; /* ← generate the utilities the lib's classes use */
+```
+
+The **`@source`** line is the easy one to miss: without it Tailwind never scans ng-blatui's
+compiled templates, so the components render **unstyled**. Point it at wherever `ng-blatui` lives
+relative to the stylesheet (adjust the `../` depth). Dark mode is a `dark` class on a parent
+(`<html class="dark">`); override any oklch token in `:root` / `.dark` to re-theme. Full guide:
+**https://ngblatui.remix-it.com/docs/installation**.
+
+### Icons
+
+ng-blatui ships no icon set — wire your own (e.g. [`@ng-icons`](https://ng-icons.github.io/ng-icons/))
+with `provideIcons(...)` and register each icon you use. Components that take an icon accept an SVG
+path `d` string, so any icon source works.
 
 ## Usage
 
@@ -56,6 +78,18 @@ export class Demo {}
 - **Signals**: bind `[checked]` / `(checkedChange)` etc.; works under zoneless CD and SSR with no extra setup.
 - **Forms**: `formControlName`, `[(ngModel)]` or `[formControl]` all work — every control is a `ControlValueAccessor`.
 
+### Form fields: two levels
+
+- **Batteries-included** components wire label + hint + error + ARIA for you: `BuiInputField`,
+  `BuiMoneyInput` (localized currency; `symbol="DH"` overrides the ISO code), `BuiDateRangePicker`
+  (start→end with presets), plus `BuiSelect`, `BuiCombobox`, `BuiAutocomplete`, `BuiPhoneInput`.
+- **Composition primitives** for custom layouts: `buiField` + `buiFieldLabel` / `buiFieldDescription`
+  / `buiFieldError` wrap a bare `buiInput` / `.blat-*` control and manage the a11y relationships.
+
+Reach for a bare control (`buiInput`) only when you also add the `buiField` scaffolding yourself.
+Other easy-to-miss building blocks: `buiEmpty` (empty states), `bui-stat` (stat cards),
+`buiFieldSet` / `buiFieldLegend` (grouped fields).
+
 ## Theming
 
 Styling is Tailwind v4 + CSS variables. Override the oklch design tokens (`--background`, `--foreground`, `--primary`, `--border`, `--muted`, `--radius`, …) to restyle everything globally; toggle a `dark` class for dark mode. See **https://ngblatui.remix-it.com/docs/theming**.
@@ -64,7 +98,7 @@ Styling is Tailwind v4 + CSS variables. Override the oklch design tokens (`--bac
 
 | Category       | Count | Browse                                   |
 | -------------- | ----- | ---------------------------------------- |
-| **Components** | 155   | https://ngblatui.remix-it.com/components |
+| **Components** | 157   | https://ngblatui.remix-it.com/components |
 | **Blocks**     | 16    | https://ngblatui.remix-it.com/blocks     |
 | **Charts**     | 70    | https://ngblatui.remix-it.com/charts     |
 | **Templates**  | 34    | https://ngblatui.remix-it.com/templates  |

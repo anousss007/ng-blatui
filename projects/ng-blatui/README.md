@@ -1,64 +1,75 @@
-# NgBlatui
+# ng-blatui
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.0.
+A large Angular 21/22 UI library — 157 signal-based, standalone, zoneless- and SSR-safe components
+styled with Tailwind CSS v4. Selectors are prefixed **`bui`**.
 
-## Code scaffolding
+Full docs & live catalog: **https://ngblatui.remix-it.com**
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Installation
 
 ```bash
-ng generate --help
+npm i ng-blatui
 ```
 
-## Building
+Peer dependencies: `@angular/core`, `@angular/common`, `@angular/forms`, `@angular/cdk`,
+`@angular/aria` (Angular 21 or 22).
 
-To build the library, run:
+### Tailwind CSS setup
 
-```bash
-ng build ng-blatui
+Styling is **Tailwind CSS v4**. In your app's global stylesheet (e.g. `src/styles.css`):
+
+```css
+@import 'tailwindcss';
+@import 'ng-blatui/foundations/blatui.css'; /* design tokens + dark theme */
+@source '../node_modules/ng-blatui'; /* ← generate the utilities the lib's classes use */
 ```
 
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
+The **`@source`** line is the one to not forget: without it Tailwind never scans ng-blatui's
+compiled templates, so components render **unstyled**. Adjust the `../` depth so it points at
+`node_modules/ng-blatui` relative to the stylesheet. Dark mode is a `dark` class on a parent;
+override any oklch token in `:root` / `.dark` to re-theme.
 
-### Publishing the Library
+### Icons
 
-Once the project is built, you can publish your library by following these steps:
+ng-blatui ships no icon set — wire your own (e.g. `@ng-icons`) with `provideIcons(...)`. Components
+that take an icon accept an SVG path `d` string, so any source works.
 
-1. Navigate to the `dist` directory:
+## Usage
 
-   ```bash
-   cd dist/ng-blatui
-   ```
+Import the component from the `ng-blatui` barrel into a standalone component's `imports[]` — no
+NgModule.
 
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
+```ts
+import { Component } from '@angular/core';
+import { BuiButton, BuiBadge } from 'ng-blatui';
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+@Component({
+  selector: 'app-demo',
+  imports: [BuiButton, BuiBadge],
+  template: `<button buiButton>Save <span buiBadge tone="success">New</span></button>`,
+})
+export class Demo {}
 ```
 
-## Running end-to-end tests
+Signals throughout (`input()` / `model()`); every form control is a `ControlValueAccessor`
+(`formControlName`, `[(ngModel)]`, `[formControl]` all work).
 
-For end-to-end (e2e) testing, run:
+### Form fields: two levels
 
-```bash
-ng e2e
-```
+- **Batteries-included** (label + hint + error + ARIA handled for you): `BuiInputField`,
+  `BuiMoneyInput` (localized currency; `symbol="DH"` overrides the ISO code), `BuiDateRangePicker`
+  (start→end with presets), `BuiSelect`, `BuiCombobox`, `BuiAutocomplete`, `BuiPhoneInput`.
+- **Composition primitives** for custom layouts: `buiField` + `buiFieldLabel` /
+  `buiFieldDescription` / `buiFieldError` around a bare `buiInput`.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Other easy-to-miss building blocks: `buiEmpty` (empty states), `bui-stat` (stat cards).
 
-## Additional Resources
+## Discover the whole catalog
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Live docs: **https://ngblatui.remix-it.com/components**
+- `llms.txt` (for AI tools): **https://ngblatui.remix-it.com/llms.txt**
+- MCP server: `npx ng-blatui-mcp`
+
+## License
+
+MIT
