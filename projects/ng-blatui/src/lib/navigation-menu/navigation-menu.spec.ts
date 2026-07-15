@@ -24,7 +24,8 @@ describe('BuiNavigationMenu', () => {
     const trigger = root.querySelector('li')!;
     trigger.dispatchEvent(new MouseEvent('mouseenter'));
     fixture.detectChanges();
-    const links = root.querySelectorAll('a');
-    expect(links.length).toBeGreaterThanOrEqual(3); // Web + Mobile + Pricing
+    // The dropdown panel opens in a CDK overlay (attached to the document), not inside the host.
+    const panelLinks = document.querySelectorAll('.cdk-overlay-container a');
+    expect(panelLinks.length).toBeGreaterThanOrEqual(2); // Web + Mobile
   });
 });

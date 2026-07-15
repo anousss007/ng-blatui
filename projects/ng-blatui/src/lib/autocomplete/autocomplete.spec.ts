@@ -21,7 +21,8 @@ describe('BuiAutocomplete', () => {
     input.value = 'an';
     input.dispatchEvent(new Event('input'));
     fixture.detectChanges();
-    const options = root.querySelectorAll<HTMLElement>('[role="option"]');
+    // The suggestion list is portalled into the CDK overlay (attached to the document), not the host.
+    const options = document.querySelectorAll<HTMLElement>('[role="option"]');
     expect(options).toHaveLength(1);
     expect(options[0].textContent).toContain('Banana');
 

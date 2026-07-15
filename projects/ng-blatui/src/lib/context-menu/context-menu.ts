@@ -1,4 +1,15 @@
-import { Component, computed, input, output, signal } from '@angular/core';
+import {
+  afterNextRender,
+  Component,
+  computed,
+  type ElementRef,
+  inject,
+  Injector,
+  input,
+  output,
+  signal,
+  viewChild,
+} from '@angular/core';
 
 import { type ClassValue, cn } from '../utils/cn';
 
@@ -36,6 +47,7 @@ export interface ContextMenuItem {
     <ng-content />
     @if (open()) {
       <div
+        #menuEl
         role="menu"
         class="fixed z-50 min-w-44 rounded-md border bg-popover p-1 text-popover-foreground shadow-md"
         [style.left.px]="x()"
@@ -147,11 +159,37 @@ export class BuiContextMenu {
   protected readonly y = signal(0);
   protected readonly computedClass = computed(() => cn('block', this.userClass()));
 
+  private readonly menuEl = viewChild<ElementRef<HTMLElement>>('menuEl');
+  private readonly injector = inject(Injector);
+
   protected onContext(event: MouseEvent): void {
     event.preventDefault();
     this.x.set(event.clientX);
     this.y.set(event.clientY);
     this.open.set(true);
+    // Once the menu has rendered we know its size, so nudge it back inside the viewport when the
+    // click was near a right/bottom edge — otherwise it would overflow off-screen (no flip).
+    afterNextRender(
+      () => {
+        this.clampToViewport();
+      },
+      { injector: this.injector },
+    );
+  }
+
+  private clampToViewport(): void {
+    const element = this.menuEl()?.nativeElement;
+    if (!element) {
+      return;
+    }
+    const pad = 8;
+    const { width, height } = element.getBoundingClientRect();
+    if (this.x() + width > window.innerWidth - pad) {
+      this.x.set(Math.max(pad, window.innerWidth - width - pad));
+    }
+    if (this.y() + height > window.innerHeight - pad) {
+      this.y.set(Math.max(pad, window.innerHeight - height - pad));
+    }
   }
 
   protected select(item: ContextMenuItem): void {

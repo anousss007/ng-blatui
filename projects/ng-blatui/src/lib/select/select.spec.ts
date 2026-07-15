@@ -28,12 +28,13 @@ describe('BuiSelect', () => {
     trigger.click();
     fixture.detectChanges();
     expect(trigger.getAttribute('aria-expanded')).toBe('true');
-    const options = root.querySelectorAll<HTMLElement>('[role="option"]');
+    // The listbox is portalled into the CDK overlay (attached to the document), not the host.
+    const options = document.querySelectorAll<HTMLElement>('[role="option"]');
     expect(options).toHaveLength(2);
 
     options[1].click();
     fixture.detectChanges();
     expect(fixture.componentInstance.fruit()).toBe('banana');
-    expect(root.querySelector('[role="listbox"]')).toBeNull();
+    expect(document.querySelector('[role="listbox"]')).toBeNull();
   });
 });

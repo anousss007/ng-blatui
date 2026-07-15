@@ -1,4 +1,5 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { type ConnectedPosition, OverlayModule } from '@angular/cdk/overlay';
+import { Component, computed, input, type OnDestroy, signal } from '@angular/core';
 
 import { type ClassValue, cn } from '../utils/cn';
 
@@ -21,20 +22,29 @@ export interface NavMenuItem {
   featured?: NavMenuLink;
 }
 
-/** A horizontal navigation menu with hover/click dropdown panels. */
+const PANEL_POSITIONS: ConnectedPosition[] = [
+  { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetY: 6 },
+  { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom', offsetY: -6 },
+];
+
+/**
+ * A horizontal navigation menu with hover/click dropdown panels. The panels open in a CDK overlay
+ * so they escape any `overflow: hidden` ancestor (e.g. a clipping header) and flip when they would
+ * run off-screen. A short close delay bridges the gap between a trigger and its panel so moving the
+ * cursor across it doesn't snap the menu shut.
+ */
 @Component({
   selector: 'bui-navigation-menu',
-  host: {
-    'data-slot': 'navigation-menu',
-    '[class]': 'computedClass()',
-    '(mouseleave)': 'active.set(-1)',
-  },
+  host: { 'data-slot': 'navigation-menu', '[class]': 'computedClass()' },
+  imports: [OverlayModule],
   template: `
     <ul class="flex items-center gap-1">
       @for (item of items(); track item.label; let i = $index) {
-        <li class="relative" (mouseenter)="onEnter(i, item)">
+        <li (mouseenter)="onEnter(i, item)" (mouseleave)="scheduleClose()">
           @if (item.links && item.links.length > 0) {
             <button
+              cdkOverlayOrigin
+              #origin="cdkOverlayOrigin"
               type="button"
               class="inline-flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium hover:bg-accent"
               [attr.aria-expanded]="active() === i"
@@ -55,41 +65,51 @@ export interface NavMenuItem {
                 <path d="m6 9 6 6 6-6" />
               </svg>
             </button>
-            @if (active() === i) {
-              <!-- pt-1.5 (not mt-1.5) keeps the gap below the trigger hoverable, so moving the
-                   cursor onto the panel doesn't leave the menu and snap it shut. -->
-              <div class="absolute start-0 top-full z-50 w-64 pt-1.5">
-                <div class="rounded-lg border bg-popover p-2 shadow-md">
-                  @if (item.featured; as featured) {
-                    <a
-                      [href]="href(featured.href)"
-                      class="mb-1 block rounded-md bg-accent/50 p-3 hover:bg-accent"
-                    >
-                      <span class="text-sm font-semibold">{{ featured.label }}</span>
-                      @if (featured.description) {
-                        <span class="mt-0.5 block text-xs text-muted-foreground">{{
-                          featured.description
-                        }}</span>
-                      }
-                    </a>
-                  }
-                  <ul class="space-y-1">
-                    @for (link of item.links; track link.label) {
-                      <li>
-                        <a [href]="href(link.href)" class="block rounded-md p-2 hover:bg-accent">
-                          <span class="text-sm font-medium">{{ link.label }}</span>
-                          @if (link.description) {
-                            <span class="block text-xs text-muted-foreground">{{
-                              link.description
-                            }}</span>
-                          }
-                        </a>
-                      </li>
+            <ng-template
+              cdkConnectedOverlay
+              [cdkConnectedOverlayOrigin]="origin"
+              [cdkConnectedOverlayOpen]="active() === i"
+              [cdkConnectedOverlayPositions]="panelPositions"
+              [cdkConnectedOverlayViewportMargin]="8"
+            >
+              <div
+                class="w-64 rounded-lg border bg-popover p-2 shadow-md"
+                (mouseenter)="cancelClose()"
+                (mouseleave)="scheduleClose()"
+              >
+                @if (item.featured; as featured) {
+                  <a
+                    [href]="href(featured.href)"
+                    class="mb-1 block rounded-md bg-accent/50 p-3 hover:bg-accent"
+                  >
+                    <span class="text-sm font-semibold">{{ featured.label }}</span>
+                    @if (featured.description) {
+                      <span class="mt-0.5 block text-xs text-muted-foreground">{{
+                        featured.description
+                      }}</span>
                     }
-                  </ul>
-                </div>
+                  </a>
+                }
+                <ul class="space-y-1">
+                  @for (link of item.links; track link.label) {
+                    <li>
+                      <a
+                        [href]="href(link.href)"
+                        class="block rounded-md p-2 hover:bg-accent"
+                        (click)="close()"
+                      >
+                        <span class="text-sm font-medium">{{ link.label }}</span>
+                        @if (link.description) {
+                          <span class="block text-xs text-muted-foreground">{{
+                            link.description
+                          }}</span>
+                        }
+                      </a>
+                    </li>
+                  }
+                </ul>
               </div>
-            }
+            </ng-template>
           } @else {
             <a
               [href]="href(item.href)"
@@ -102,27 +122,56 @@ export interface NavMenuItem {
     </ul>
   `,
 })
-export class BuiNavigationMenu {
+export class BuiNavigationMenu implements OnDestroy {
   /** Top-level menu entries, each optionally opening a dropdown panel. */
   readonly items = input<readonly NavMenuItem[]>([]);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
   protected readonly active = signal(-1);
-  protected readonly computedClass = computed(() =>
-    cn('relative block max-w-max', this.userClass()),
-  );
+  protected readonly panelPositions = PANEL_POSITIONS;
+  private closeTimer: ReturnType<typeof setTimeout> | undefined;
+
+  protected readonly computedClass = computed(() => cn('block max-w-max', this.userClass()));
 
   protected href(value: string | undefined): string {
     return value && value !== '' ? value : '#';
   }
 
   protected onEnter(index: number, item: NavMenuItem): void {
+    this.cancelClose();
     if (item.links && item.links.length > 0) {
       this.active.set(index);
     }
   }
 
   protected toggle(index: number): void {
+    this.cancelClose();
     this.active.set(this.active() === index ? -1 : index);
+  }
+
+  protected close(): void {
+    this.cancelClose();
+    this.active.set(-1);
+  }
+
+  // Close after a short delay so the cursor can cross the gap between a trigger and its panel
+  // (which now lives in a detached overlay) without the menu snapping shut.
+  protected scheduleClose(): void {
+    this.cancelClose();
+    this.closeTimer = setTimeout(() => {
+      this.active.set(-1);
+    }, 120);
+  }
+
+  protected cancelClose(): void {
+    if (this.closeTimer === undefined) {
+      return;
+    }
+    clearTimeout(this.closeTimer);
+    this.closeTimer = undefined;
+  }
+
+  ngOnDestroy(): void {
+    this.cancelClose();
   }
 }

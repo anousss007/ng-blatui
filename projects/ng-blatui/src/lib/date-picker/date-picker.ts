@@ -1,3 +1,4 @@
+import { type ConnectedPosition, OverlayModule } from '@angular/cdk/overlay';
 import {
   Component,
   computed,
@@ -16,20 +17,29 @@ import { type ClassValue, cn } from '../utils/cn';
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = (): void => {};
 
-/** A date input that opens a calendar popover. */
+const POPUP_POSITIONS: ConnectedPosition[] = [
+  { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetY: 4 },
+  { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom', offsetY: -4 },
+];
+
+/**
+ * A date input that opens a calendar popover. The popover renders in a CDK overlay, so it escapes
+ * any `overflow: hidden` ancestor (no clipping) and flips to stay on-screen.
+ */
 @Component({
   selector: 'bui-date-picker',
-  imports: [BuiCalendar],
+  imports: [OverlayModule, BuiCalendar],
   host: {
     'data-slot': 'date-picker',
     '[class]': 'computedClass()',
-    '(document:click)': 'onDocumentClick($event)',
   },
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiDatePicker), multi: true },
   ],
   template: `
     <button
+      cdkOverlayOrigin
+      #origin="cdkOverlayOrigin"
       type="button"
       class="flex h-9 w-full items-center gap-2 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50"
       [attr.aria-expanded]="open()"
@@ -51,8 +61,15 @@ const noop = (): void => {};
       </svg>
       <span [class]="hasValue() ? '' : 'text-muted-foreground'">{{ display() }}</span>
     </button>
-    @if (open()) {
-      <div class="absolute z-50 mt-1 rounded-lg border bg-popover shadow-md">
+    <ng-template
+      cdkConnectedOverlay
+      [cdkConnectedOverlayOrigin]="origin"
+      [cdkConnectedOverlayOpen]="open()"
+      [cdkConnectedOverlayPositions]="popupPositions"
+      [cdkConnectedOverlayViewportMargin]="8"
+      (overlayOutsideClick)="onOutsideClick($event)"
+    >
+      <div class="z-50 rounded-lg border bg-popover shadow-md">
         <bui-calendar
           [mode]="mode()"
           [months]="months()"
@@ -70,7 +87,7 @@ const noop = (): void => {};
           (rangeChange)="onRange($event)"
         />
       </div>
-    }
+    </ng-template>
   `,
 })
 export class BuiDatePicker implements ControlValueAccessor {
@@ -122,7 +139,8 @@ export class BuiDatePicker implements ControlValueAccessor {
     const value = this.value();
     return value === '' ? this.placeholder() : this.fmt(value);
   });
-  protected readonly computedClass = computed(() => cn('relative inline-block', this.userClass()));
+  protected readonly popupPositions = POPUP_POSITIONS;
+  protected readonly computedClass = computed(() => cn('inline-block', this.userClass()));
 
   protected onPick(iso: string): void {
     this.value.set(iso);
@@ -146,7 +164,9 @@ export class BuiDatePicker implements ControlValueAccessor {
     });
   }
 
-  protected onDocumentClick(event: MouseEvent): void {
+  // The calendar is portalled into a CDK overlay (outside the host); rely on the overlay's own
+  // outside-click signal. Clicks on the trigger stay inside the host and are ignored here.
+  protected onOutsideClick(event: MouseEvent): void {
     if (!(this.open() && !this.host.nativeElement.contains(event.target as Node))) {
       return;
     }

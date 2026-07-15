@@ -21,11 +21,12 @@ describe('BuiDatePicker', () => {
 
     trigger.click();
     fixture.detectChanges();
-    expect(root.querySelector('bui-calendar')).not.toBeNull();
+    // The calendar is portalled into the CDK overlay (attached to the document), not the host.
+    expect(document.querySelector('bui-calendar')).not.toBeNull();
 
-    root.querySelectorAll<HTMLButtonElement>('tbody button')[15].click();
+    document.querySelectorAll<HTMLButtonElement>('.cdk-overlay-container tbody button')[15].click();
     fixture.detectChanges();
     expect(fixture.componentInstance.date()).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-    expect(root.querySelector('bui-calendar')).toBeNull(); // closed after pick
+    expect(document.querySelector('bui-calendar')).toBeNull(); // closed after pick
   });
 });

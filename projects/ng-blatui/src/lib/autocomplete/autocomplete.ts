@@ -1,4 +1,5 @@
 import { _IdGenerator } from '@angular/cdk/a11y';
+import { type ConnectedPosition, OverlayModule } from '@angular/cdk/overlay';
 import {
   Component,
   computed,
@@ -12,6 +13,12 @@ import {
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
+
+/** Suggestion panel placement relative to the field, in CDK preference order. */
+const PANEL_POSITIONS: ConnectedPosition[] = [
+  { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetY: 4 },
+  { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom', offsetY: -4 },
+];
 
 type AutocompleteValue = string | readonly string[];
 
@@ -32,8 +39,8 @@ const AC_SIZE: Record<AutocompleteSize, string> = {
   host: {
     'data-slot': 'autocomplete',
     '[class]': 'computedClass()',
-    '(document:click)': 'onDocumentClick($event)',
   },
+  imports: [OverlayModule],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiAutocomplete), multi: true },
   ],
@@ -112,12 +119,20 @@ const AC_SIZE: Record<AutocompleteSize, string> = {
         (keydown)="onKeydown($event)"
       />
     }
-    @if (open() && filtered().length > 0) {
+    <ng-template
+      cdkConnectedOverlay
+      [cdkConnectedOverlayOrigin]="host"
+      [cdkConnectedOverlayOpen]="open() && filtered().length > 0"
+      [cdkConnectedOverlayPositions]="panelPositions"
+      [cdkConnectedOverlayWidth]="host.nativeElement.offsetWidth"
+      [cdkConnectedOverlayViewportMargin]="8"
+      (overlayOutsideClick)="onOutsideClick($event)"
+    >
       <ul
         [id]="listId"
         role="listbox"
         [attr.aria-multiselectable]="multiple() ? true : null"
-        class="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-popover p-1 shadow-md"
+        class="z-50 max-h-60 w-full overflow-auto rounded-md border bg-popover p-1 shadow-md"
       >
         @for (option of filtered(); track option; let i = $index) {
           <li
@@ -132,13 +147,22 @@ const AC_SIZE: Record<AutocompleteSize, string> = {
           </li>
         }
       </ul>
-    } @else if (open() && value() !== '') {
+    </ng-template>
+    <ng-template
+      cdkConnectedOverlay
+      [cdkConnectedOverlayOrigin]="host"
+      [cdkConnectedOverlayOpen]="open() && filtered().length === 0 && value() !== ''"
+      [cdkConnectedOverlayPositions]="panelPositions"
+      [cdkConnectedOverlayWidth]="host.nativeElement.offsetWidth"
+      [cdkConnectedOverlayViewportMargin]="8"
+      (overlayOutsideClick)="onOutsideClick($event)"
+    >
       <div
-        class="absolute z-50 mt-1 w-full rounded-md border bg-popover p-3 text-sm text-muted-foreground shadow-md"
+        class="z-50 w-full rounded-md border bg-popover p-3 text-sm text-muted-foreground shadow-md"
       >
         {{ empty() }}
       </div>
-    }
+    </ng-template>
   `,
 })
 export class BuiAutocomplete implements ControlValueAccessor {
@@ -179,7 +203,9 @@ export class BuiAutocomplete implements ControlValueAccessor {
 
   private onChange: (value: AutocompleteValue) => void = noop;
   protected onTouched: () => void = noop;
-  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+  // Protected (not private) so the template can anchor the suggestion overlays to the host element.
+  protected readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+  protected readonly panelPositions = PANEL_POSITIONS;
   protected readonly listId = inject(_IdGenerator).getId('bui-autocomplete-');
   protected readonly open = signal(false);
   protected readonly active = signal(0);
@@ -194,7 +220,7 @@ export class BuiAutocomplete implements ControlValueAccessor {
     }
     return pool.filter((option) => option.toLowerCase().includes(query));
   });
-  protected readonly computedClass = computed(() => cn('relative block', this.userClass()));
+  protected readonly computedClass = computed(() => cn('block', this.userClass()));
 
   protected onInput(event: Event): void {
     this.value.set((event.target as HTMLInputElement).value);
@@ -248,7 +274,9 @@ export class BuiAutocomplete implements ControlValueAccessor {
     this.onChange(this.values());
   }
 
-  protected onDocumentClick(event: MouseEvent): void {
+  // Suggestions are portalled into a CDK overlay (outside the host); rely on the overlay's own
+  // outside-click signal. Clicks on the field itself stay inside the host and are ignored here.
+  protected onOutsideClick(event: MouseEvent): void {
     if (!(this.open() && !this.host.nativeElement.contains(event.target as Node))) {
       return;
     }

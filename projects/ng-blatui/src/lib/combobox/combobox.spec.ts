@@ -26,12 +26,13 @@ describe('BuiCombobox', () => {
     input.dispatchEvent(new Event('focus'));
     fixture.detectChanges();
     expect(input.getAttribute('aria-expanded')).toBe('true');
-    expect(root.querySelectorAll('[role="option"]')).toHaveLength(3);
+    // The listbox is portalled into the CDK overlay (attached to the document), not the host.
+    expect(document.querySelectorAll('[role="option"]')).toHaveLength(3);
 
     input.value = 'an';
     input.dispatchEvent(new Event('input'));
     fixture.detectChanges();
-    const filtered = root.querySelectorAll<HTMLElement>('[role="option"]');
+    const filtered = document.querySelectorAll<HTMLElement>('[role="option"]');
     expect(filtered).toHaveLength(1);
     expect(filtered[0].textContent).toContain('Angular');
 

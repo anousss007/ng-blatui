@@ -1,4 +1,5 @@
 import { _IdGenerator } from '@angular/cdk/a11y';
+import { type ConnectedPosition, OverlayModule } from '@angular/cdk/overlay';
 import {
   Component,
   computed,
@@ -12,6 +13,12 @@ import {
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
+
+/** Listbox placement relative to the field, in CDK preference order (first that fits wins). */
+const LISTBOX_POSITIONS: ConnectedPosition[] = [
+  { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetY: 4 },
+  { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom', offsetY: -4 },
+];
 
 export interface ComboboxOption {
   /** Value stored when this option is selected. */
@@ -36,13 +43,16 @@ const noop = (): void => {};
   host: {
     'data-slot': 'combobox',
     '[class]': 'computedClass()',
-    '(document:click)': 'onDocumentClick($event)',
   },
+  imports: [OverlayModule],
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => BuiCombobox), multi: true },
   ],
   template: `
     <input
+      #trigger
+      cdkOverlayOrigin
+      #triggerOrigin="cdkOverlayOrigin"
       type="text"
       role="combobox"
       aria-autocomplete="list"
@@ -72,12 +82,20 @@ const noop = (): void => {};
     >
       <path d="m6 9 6 6 6-6" />
     </svg>
-    @if (open() && filtered().length > 0) {
+    <ng-template
+      cdkConnectedOverlay
+      [cdkConnectedOverlayOrigin]="triggerOrigin"
+      [cdkConnectedOverlayOpen]="open() && filtered().length > 0"
+      [cdkConnectedOverlayPositions]="listboxPositions"
+      [cdkConnectedOverlayWidth]="trigger.offsetWidth"
+      [cdkConnectedOverlayViewportMargin]="8"
+      (overlayOutsideClick)="onOutsideClick($event)"
+    >
       <ul
         [id]="listId"
         role="listbox"
         [attr.aria-multiselectable]="multiple() ? true : null"
-        class="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md"
+        class="z-50 max-h-60 w-full overflow-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md"
       >
         @for (option of filtered(); track option.value; let i = $index) {
           <li
@@ -123,7 +141,7 @@ const noop = (): void => {};
           </li>
         }
       </ul>
-    }
+    </ng-template>
   `,
 })
 export class BuiCombobox implements ControlValueAccessor {
@@ -170,7 +188,8 @@ export class BuiCombobox implements ControlValueAccessor {
       ? this.options()
       : this.options().filter((option) => option.label.toLowerCase().includes(query));
   });
-  protected readonly computedClass = computed(() => cn('relative block', this.userClass()));
+  protected readonly listboxPositions = LISTBOX_POSITIONS;
+  protected readonly computedClass = computed(() => cn('block', this.userClass()));
 
   protected onInput(event: Event): void {
     if (!this.searchable()) {
@@ -249,7 +268,9 @@ export class BuiCombobox implements ControlValueAccessor {
     }
   }
 
-  protected onDocumentClick(event: MouseEvent): void {
+  // The listbox is portalled into a CDK overlay (outside the host); rely on the overlay's own
+  // outside-click signal. Clicks on the field itself stay inside the host and are ignored here.
+  protected onOutsideClick(event: MouseEvent): void {
     if (!(this.open() && !this.host.nativeElement.contains(event.target as Node))) {
       return;
     }

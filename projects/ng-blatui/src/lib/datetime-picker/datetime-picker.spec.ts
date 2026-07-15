@@ -18,10 +18,11 @@ describe('BuiDatetimePicker', () => {
     const root = fixture.nativeElement as HTMLElement;
     root.querySelector<HTMLButtonElement>('button[aria-expanded]')!.click();
     fixture.detectChanges();
-    expect(root.querySelector('bui-calendar')).not.toBeNull();
-    expect(root.querySelector('bui-time-field')).not.toBeNull();
+    // The popover is portalled into the CDK overlay (attached to the document), not the host.
+    expect(document.querySelector('bui-calendar')).not.toBeNull();
+    expect(document.querySelector('bui-time-field')).not.toBeNull();
 
-    root.querySelectorAll<HTMLButtonElement>('tbody button')[15].click();
+    document.querySelectorAll<HTMLButtonElement>('.cdk-overlay-container tbody button')[15].click();
     fixture.detectChanges();
     expect(fixture.componentInstance.value()).toContain('T');
   });
