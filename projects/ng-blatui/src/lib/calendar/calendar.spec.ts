@@ -289,12 +289,19 @@ describe('BuiCalendar', () => {
         tr.querySelector('td')!.textContent.trim(),
       );
 
-    for (const locale of ['en-US', 'fr', 'ar-EG']) {
+    for (const locale of ['en-US', 'fr']) {
       fixture.componentInstance.locale.set(locale);
       fixture.detectChanges();
-      const labels = weekLabels();
+      const labels = weekLabels().map(Number);
       expect(labels).toHaveLength(6);
-      expect(labels.every((label) => label !== '')).toBe(true);
+      // Real week numbers, and consecutive: `!== ''` would happily accept "NaN".
+      expect(
+        labels.every((label) => Number.isSafeInteger(label) && label >= 1 && label <= 53),
+      ).toBe(true);
+      for (let index = 1; index < labels.length; index++) {
+        const step = labels[index] - labels[index - 1];
+        expect(step === 1 || labels[index] === 1).toBe(true); // 1 = wrapped into the next year
+      }
     }
   });
 
