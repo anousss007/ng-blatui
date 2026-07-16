@@ -47,6 +47,19 @@ export interface BuiLabels {
   calendarMonth: string;
   calendarYear: string;
   calendarNextMonth: string;
+  calendarWeek: string;
+  // date-picker
+  datePickerPlaceholder: string;
+  // date-range-picker
+  dateRangePickerPlaceholder: string;
+  dateRangePresetToday: string;
+  dateRangePresetLast7Days: string;
+  dateRangePresetLast30Days: string;
+  dateRangePresetThisMonth: string;
+  dateRangePresetLastMonth: string;
+  // datetime-picker
+  datetimePickerPlaceholder: string;
+  datetimePickerTime: string;
   // carousel
   carouselPrevious: string;
   carouselNext: string;
@@ -72,9 +85,16 @@ export interface BuiLabels {
   // file-upload
   fileUploadDropzone: string;
   fileUploadRemove: string;
+  // gantt
+  ganttEmpty: string;
+  // markdown-editor
+  markdownEditorWrite: string;
+  markdownEditorPreview: string;
   // mini-cart
   miniCartTrigger: string;
   miniCart: string;
+  miniCartTitle: string;
+  miniCartSubtotal: string;
   // notification-center
   notificationCenter: string;
   notificationCenterUnread: string;
@@ -88,6 +108,7 @@ export interface BuiLabels {
   phoneInputNumber: string;
   // product-card
   productCardWishlist: string;
+  productCardAddToCart: string;
   // prompt-input
   promptInputAttach: string;
   promptInputSend: string;
@@ -105,6 +126,27 @@ export interface BuiLabels {
   sonnerDismiss: string;
   // theme-customizer
   themeCustomizer: string;
+  themeCustomizerOpen: string;
+  themeCustomizerClose: string;
+  themeCustomizerTagline: string;
+  themeCustomizerReset: string;
+  themeCustomizerMode: string;
+  themeCustomizerBaseColor: string;
+  themeCustomizerAccent: string;
+  themeCustomizerRadius: string;
+  themeCustomizerInputStyle: string;
+  themeCustomizerBodyFont: string;
+  themeCustomizerHeadingFont: string;
+  themeCustomizerShadow: string;
+  themeCustomizerSpacing: string;
+  themeCustomizerTracking: string;
+  // time-field
+  timeField: string;
+  timeFieldHours: string;
+  timeFieldMinutes: string;
+  // tool-call
+  toolCallArguments: string;
+  toolCallResult: string;
   // tree-table
   treeTableToggle: string;
   treeTableCopy: string;
@@ -135,6 +177,16 @@ export const BUI_DEFAULT_LABELS: BuiLabels = {
   calendarMonth: 'Month',
   calendarYear: 'Year',
   calendarNextMonth: 'Next month',
+  calendarWeek: 'Week',
+  datePickerPlaceholder: 'Pick a date',
+  dateRangePickerPlaceholder: 'Pick a date range',
+  dateRangePresetToday: 'Today',
+  dateRangePresetLast7Days: 'Last 7 days',
+  dateRangePresetLast30Days: 'Last 30 days',
+  dateRangePresetThisMonth: 'This month',
+  dateRangePresetLastMonth: 'Last month',
+  datetimePickerPlaceholder: 'Pick date & time',
+  datetimePickerTime: 'Time',
   carouselPrevious: 'Previous slide',
   carouselNext: 'Next slide',
   carouselGoToSlide: 'Go to slide',
@@ -152,8 +204,13 @@ export const BUI_DEFAULT_LABELS: BuiLabels = {
   dock: 'Dock',
   fileUploadDropzone: 'Click to upload or drag & drop',
   fileUploadRemove: 'Remove file',
+  ganttEmpty: 'No tasks.',
+  markdownEditorWrite: 'Write',
+  markdownEditorPreview: 'Preview',
   miniCartTrigger: 'Cart',
   miniCart: 'Shopping cart',
+  miniCartTitle: 'Your cart',
+  miniCartSubtotal: 'Subtotal',
   notificationCenter: 'Notifications',
   notificationCenterUnread: 'Unread',
   notificationCenterMarkAllRead: 'Mark all read',
@@ -163,6 +220,7 @@ export const BUI_DEFAULT_LABELS: BuiLabels = {
   phoneInputCountry: 'Country code',
   phoneInputNumber: 'Phone number',
   productCardWishlist: 'Add to wishlist',
+  productCardAddToCart: 'Add to cart',
   promptInputAttach: 'Attach file',
   promptInputSend: 'Send',
   quantitySelectorDecrease: 'Decrease quantity',
@@ -173,6 +231,25 @@ export const BUI_DEFAULT_LABELS: BuiLabels = {
   sonner: 'Notifications',
   sonnerDismiss: 'Dismiss notification',
   themeCustomizer: 'Theme customizer',
+  themeCustomizerOpen: 'Customize',
+  themeCustomizerClose: 'Close',
+  themeCustomizerTagline: 'Tune it live. Every preset is pure CSS variables.',
+  themeCustomizerReset: 'Reset',
+  themeCustomizerMode: 'Mode',
+  themeCustomizerBaseColor: 'Base color',
+  themeCustomizerAccent: 'Accent',
+  themeCustomizerRadius: 'Radius',
+  themeCustomizerInputStyle: 'Input style',
+  themeCustomizerBodyFont: 'Body font',
+  themeCustomizerHeadingFont: 'Heading font',
+  themeCustomizerShadow: 'Shadow',
+  themeCustomizerSpacing: 'Spacing',
+  themeCustomizerTracking: 'Tracking',
+  timeField: 'Time',
+  timeFieldHours: 'hours',
+  timeFieldMinutes: 'minutes',
+  toolCallArguments: 'Arguments',
+  toolCallResult: 'Result',
   treeTableToggle: 'Toggle row',
   treeTableCopy: 'Copy as tree',
   treeTableCopied: 'Copied',

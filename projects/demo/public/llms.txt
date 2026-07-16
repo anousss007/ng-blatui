@@ -40,7 +40,7 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Combobox](https://ngblatui.remix-it.com/components/combobox) — props: multiple, options, placeholder, searchable · two-way: value, values, disabled · types: ComboboxOption
 - [Number Input](https://ngblatui.remix-it.com/components/number-input) — props: min, max, step, size, ariaLabel, decreaseLabel, increaseLabel · two-way: value, disabled · types: NumberInputSize
 - [Password Strength](https://ngblatui.remix-it.com/components/password-strength) — props: name, id, placeholder, showChecklist, minLength, label · two-way: password
-- [Time Field](https://ngblatui.remix-it.com/components/time-field) — props: name, id, min, max, seconds, mode, minuteStep, ariaLabel · two-way: value, disabled · types: TimeFieldMode
+- [Time Field](https://ngblatui.remix-it.com/components/time-field) — props: name, id, min, max, seconds, mode, minuteStep, ariaLabel, locale, hourCycle · two-way: value, disabled · types: TimeFieldHourCycle, TimeFieldMode
 - [Toggle Group](https://ngblatui.remix-it.com/components/toggle-group) — props: type, orientation, value, disabled · two-way: value · types: ToggleValue
 - [Tags Input](https://ngblatui.remix-it.com/components/tags-input) — props: placeholder, max · two-way: tags, disabled
 - [Editable](https://ngblatui.remix-it.com/components/editable) — props: placeholder, label, multiline · two-way: value
@@ -51,11 +51,11 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Color Picker](https://ngblatui.remix-it.com/components/color-picker) — props: swatches, disabled, pickLabel, hexLabel · two-way: value
 - [Signature Pad](https://ngblatui.remix-it.com/components/signature-pad) — props: height, penColor
 - [Repeater](https://ngblatui.remix-it.com/components/repeater) — props: fields, min, max, addLabel, removeLabel · two-way: rows · types: RepeaterField
-- [Markdown Editor](https://ngblatui.remix-it.com/components/markdown-editor) — props: name, placeholder, rows · two-way: value
-- [Calendar](https://ngblatui.remix-it.com/components/calendar) — props: mode, months, weekStart, minDate, maxDate, disabledDates, disableWeekends, showWeekNumbers, captionLayout, hideOutsideDays, previousMonthLabel, monthSelectLabel, yearLabel, nextMonthLabel · two-way: value, range, values, disabled · types: CalendarMode, CalendarRange
-- [Date Picker](https://ngblatui.remix-it.com/components/date-picker) — props: mode, months, placeholder, minDate, maxDate, weekStart, disabledDates, disableWeekends, showWeekNumbers, captionLayout, hideOutsideDays · two-way: value, range, disabled · types: CalendarMode, CalendarRange
-- [Date Range Picker](https://ngblatui.remix-it.com/components/date-range-picker) — props: months, minDate, maxDate, placeholder, presets, aria-label · two-way: value, disabled · types: CalendarRange, DateRangePreset
-- [Datetime Picker](https://ngblatui.remix-it.com/components/datetime-picker) — props: mode, months, placeholder, minDate, maxDate, captionLayout, seconds · two-way: value, range, disabled · types: CalendarMode, CalendarRange
+- [Markdown Editor](https://ngblatui.remix-it.com/components/markdown-editor) — props: name, placeholder, rows, writeLabel, previewLabel · two-way: value
+- [Calendar](https://ngblatui.remix-it.com/components/calendar) — props: mode, months, weekStart, minDate, maxDate, disabledDates, disableWeekends, showWeekNumbers, captionLayout, hideOutsideDays, locale, monthFormat, weekdayFormat, weekdayLabels, previousMonthLabel, monthSelectLabel, yearLabel, nextMonthLabel, weekLabel · two-way: value, range, values, disabled · types: CalendarMode, CalendarRange, WeekdayFormat
+- [Date Picker](https://ngblatui.remix-it.com/components/date-picker) — props: mode, months, placeholder, minDate, maxDate, weekStart, disabledDates, disableWeekends, showWeekNumbers, captionLayout, hideOutsideDays, locale, dateFormat · two-way: value, range, disabled · types: CalendarMode, CalendarRange
+- [Date Range Picker](https://ngblatui.remix-it.com/components/date-range-picker) — props: months, minDate, maxDate, placeholder, presets, aria-label, locale, dateFormat · two-way: value, disabled · types: CalendarRange, DateRangePreset
+- [Datetime Picker](https://ngblatui.remix-it.com/components/datetime-picker) — props: mode, months, placeholder, timeLabel, minDate, maxDate, captionLayout, seconds, timeMode, locale, dateFormat · two-way: value, range, disabled · types: CalendarMode, CalendarRange, TimeFieldMode
 - [Autocomplete](https://ngblatui.remix-it.com/components/autocomplete) — props: multiple, options, placeholder, empty, name, size, icon · two-way: value, values, disabled · types: AutocompleteSize
 - [File Upload](https://ngblatui.remix-it.com/components/file-upload) — props: multiple, accept, name, hint, disabled, dropzoneLabel, removeLabel · emits: filesChange
 - [Input Mask](https://ngblatui.remix-it.com/components/input-mask) — props: mask, placeholder, inputmode, name · two-way: value, disabled
@@ -97,7 +97,7 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Data Table](https://ngblatui.remix-it.com/components/data-table) — props: columns, rows, searchable, searchPlaceholder, selectable, pageSize, searchLabel, selectAllLabel, selectRowLabel · types: DataRow, DataTableColumn
 - [Chart](https://ngblatui.remix-it.com/components/chart) — props: type, series, labels, height, max, thickness, activeIndex, barLabels, stacked, grouped, barColors, track, dots, gridX, label · types: ChartSeries
 - [Comparison Slider](https://ngblatui.remix-it.com/components/comparison-slider) — props: before, after, beforeLabel, afterLabel, beforeAlt, afterAlt, positionLabel · two-way: value
-- [Gantt](https://ngblatui.remix-it.com/components/gantt) — props: tasks, milestones, start, end · types: GanttMilestone, GanttTask
+- [Gantt](https://ngblatui.remix-it.com/components/gantt) — props: tasks, milestones, start, end, locale, dateFormat, emptyLabel · types: GanttMilestone, GanttTask
 - [Scheduler](https://ngblatui.remix-it.com/components/scheduler) — props: events, days, startHour, endHour, view, label · types: SchedulerEvent
 - [Kanban](https://ngblatui.remix-it.com/components/kanban) — props: columns · emits: changed · types: KanbanCard, KanbanColumn
 
@@ -184,18 +184,18 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Terminal](https://ngblatui.remix-it.com/components/terminal) — props: title, buttons
 - [Streaming Text](https://ngblatui.remix-it.com/components/streaming-text) — props: text, speed, startDelay, by, caret
 - [Reasoning](https://ngblatui.remix-it.com/components/reasoning) — props: label, duration · two-way: open
-- [Tool Call](https://ngblatui.remix-it.com/components/tool-call) — props: name, status, args, result · two-way: open
+- [Tool Call](https://ngblatui.remix-it.com/components/tool-call) — props: name, status, args, result, argumentsLabel, resultLabel · two-way: open
 - [Chat](https://ngblatui.remix-it.com/components/chat) — props: ariaLabel, role, name, time, avatar, typing
 - [Prompt Input](https://ngblatui.remix-it.com/components/prompt-input) — props: placeholder, attachable, disabled, ariaLabel, attachLabel, sendLabel · two-way: value · emits: submitted
 - [Citation](https://ngblatui.remix-it.com/components/citation) — props: index, title, url, snippet
 
 ### E-commerce
 
-- [Price](https://ngblatui.remix-it.com/components/price) — props: amount, compareAt, currency, size, showDiscount
+- [Price](https://ngblatui.remix-it.com/components/price) — props: amount, compareAt, currency, size, showDiscount, locale, numberFormat
 - [Variant Selector](https://ngblatui.remix-it.com/components/variant-selector) — props: options, type, label, disabled · two-way: value · types: VariantOption
 - [Add To Cart](https://ngblatui.remix-it.com/components/add-to-cart) — props: label, addedLabel, size · emits: triggered · types: AddToCartSize
-- [Product Card](https://ngblatui.remix-it.com/components/product-card) — props: title, href, image, imageAlt, price, compareAt, currency, badge, category, rating, reviews, wishlist, wishlistLabel
-- [Mini Cart](https://ngblatui.remix-it.com/components/mini-cart) — props: items, currency, triggerLabel, label · two-way: open · types: CartItem
+- [Product Card](https://ngblatui.remix-it.com/components/product-card) — props: title, href, image, imageAlt, price, compareAt, currency, badge, category, rating, reviews, wishlist, wishlistLabel, addToCartLabel
+- [Mini Cart](https://ngblatui.remix-it.com/components/mini-cart) — props: items, currency, triggerLabel, label, title, subtotalLabel, locale, numberFormat · two-way: open · types: CartItem
 
 ### Components
 

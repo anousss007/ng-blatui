@@ -1,7 +1,14 @@
 import { Component, computed, input, model } from '@angular/core';
 
 import { buiLabel } from '../i18n/labels';
+import { buiLocale } from '../i18n/locale';
 import { type ClassValue, cn } from '../utils/cn';
+
+/** Two fraction digits ("1,234.50") — matches the pre-locale rendering in `en-US`. */
+const DEFAULT_NUMBER_FORMAT: Intl.NumberFormatOptions = {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+};
 
 export interface CartItem {
   /** Product name shown as the line-item label. */
@@ -56,7 +63,7 @@ export interface CartItem {
         role="dialog"
         [attr.aria-label]="labelText()"
       >
-        <div class="border-b p-3 text-sm font-medium">Your cart</div>
+        <div class="border-b p-3 text-sm font-medium">{{ titleText() }}</div>
         @if (items().length === 0) {
           <p class="p-6 text-center text-sm text-muted-foreground">Your cart is empty.</p>
         } @else {
@@ -82,7 +89,7 @@ export interface CartItem {
             }
           </ul>
           <div class="flex items-center justify-between border-t p-3">
-            <span class="text-sm font-medium">Subtotal</span>
+            <span class="text-sm font-medium">{{ subtotalText() }}</span>
             <span class="text-sm font-semibold tabular-nums">{{ format(subtotal()) }}</span>
           </div>
           <div class="p-3 pt-0">
@@ -110,9 +117,27 @@ export class BuiMiniCart {
   readonly triggerLabel = input<string>();
   /** Accessible label override for the cart dropdown dialog. */
   readonly label = input<string>();
+  /** Heading shown at the top of the cart panel. Falls back to `provideBuiLabels`. */
+  readonly title = input<string>();
+  /** Label for the subtotal row. Falls back to `provideBuiLabels`. */
+  readonly subtotalLabel = input<string>();
+  /** BCP 47 locale for number formatting. Defaults to the app's `LOCALE_ID`. */
+  readonly locale = input<string>();
+  /**
+   * `Intl.NumberFormat` options for prices and subtotal. Replaces the default wholesale — pass
+   * `{ style: 'currency', currency: 'EUR' }` to let ICU place the symbol itself.
+   */
+  readonly numberFormat = input<Intl.NumberFormatOptions>(DEFAULT_NUMBER_FORMAT);
+
+  private readonly resolvedLocale = buiLocale(this.locale);
+  private readonly formatter = computed(
+    () => new Intl.NumberFormat(this.resolvedLocale(), this.numberFormat()),
+  );
 
   protected readonly triggerText = buiLabel('miniCartTrigger', this.triggerLabel);
   protected readonly labelText = buiLabel('miniCart', this.label);
+  protected readonly titleText = buiLabel('miniCartTitle', this.title);
+  protected readonly subtotalText = buiLabel('miniCartSubtotal', this.subtotalLabel);
 
   protected readonly count = computed(() =>
     this.items().reduce((total, item) => total + item.qty, 0),
@@ -123,9 +148,6 @@ export class BuiMiniCart {
   protected readonly computedClass = computed(() => cn('relative inline-block', this.userClass()));
 
   protected format(value: number): string {
-    return (
-      this.currency() +
-      value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-    );
+    return this.currency() + this.formatter().format(value);
   }
 }

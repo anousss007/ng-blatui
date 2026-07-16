@@ -5,6 +5,9 @@ import { buiLabel } from '../i18n/labels';
 
 import { type ThemeMode, ThemeStore } from './theme';
 
+/** This panel's copy has no per-instance inputs — translate it with `provideBuiLabels`. */
+const NO_OVERRIDE = signal<string | undefined>(undefined);
+
 interface Option<T extends string = string> {
   readonly value: T;
   readonly label: string;
@@ -52,7 +55,7 @@ const FONTS: readonly FontOption[] = [
       [attr.aria-expanded]="open()"
       (click)="open.set(!open())"
     >
-      {{ open() ? 'Close' : 'Customize' }}
+      {{ open() ? closeText() : openText() }}
     </button>
 
     @if (open()) {
@@ -63,17 +66,19 @@ const FONTS: readonly FontOption[] = [
       >
         <div class="flex items-center justify-between">
           <div>
-            <h4 class="text-sm font-semibold">Customize</h4>
+            <h4 class="text-sm font-semibold">{{ openText() }}</h4>
             <p class="text-xs text-muted-foreground">
-              Tune it live. Every preset is pure CSS variables.
+              {{ taglineText() }}
             </p>
           </div>
-          <button buiButton variant="ghost" size="sm" (click)="theme.reset()">Reset</button>
+          <button buiButton variant="ghost" size="sm" (click)="theme.reset()">
+            {{ resetText() }}
+          </button>
         </div>
 
         <!-- Mode -->
         <div class="space-y-1.5">
-          <span class="text-xs font-medium">Mode</span>
+          <span class="text-xs font-medium">{{ modeText() }}</span>
           <div class="grid grid-cols-3 gap-2">
             @for (m of modes; track m.value) {
               <button
@@ -90,7 +95,7 @@ const FONTS: readonly FontOption[] = [
 
         <!-- Base color -->
         <div class="space-y-1.5">
-          <span class="text-xs font-medium">Base color</span>
+          <span class="text-xs font-medium">{{ baseColorText() }}</span>
           <div class="grid grid-cols-9 gap-2">
             @for (b of bases; track b.value) {
               <button
@@ -108,7 +113,7 @@ const FONTS: readonly FontOption[] = [
 
         <!-- Accent -->
         <div class="space-y-1.5">
-          <span class="text-xs font-medium">Accent</span>
+          <span class="text-xs font-medium">{{ accentText() }}</span>
           <div class="grid grid-cols-6 gap-2">
             @for (a of accents; track a.value) {
               <button
@@ -126,7 +131,7 @@ const FONTS: readonly FontOption[] = [
 
         <!-- Radius -->
         <div class="space-y-1.5">
-          <span class="text-xs font-medium">Radius</span>
+          <span class="text-xs font-medium">{{ radiusText() }}</span>
           <div class="grid grid-cols-6 gap-2">
             @for (r of radii; track r) {
               <button
@@ -143,7 +148,7 @@ const FONTS: readonly FontOption[] = [
 
         <!-- Input style -->
         <div class="space-y-1.5">
-          <span class="text-xs font-medium">Input style</span>
+          <span class="text-xs font-medium">{{ inputStyleText() }}</span>
           <div class="grid grid-cols-3 gap-2">
             @for (i of inputStyles; track i.value) {
               <button
@@ -160,7 +165,7 @@ const FONTS: readonly FontOption[] = [
 
         <!-- Body font -->
         <div class="space-y-1.5">
-          <span class="text-xs font-medium">Body font</span>
+          <span class="text-xs font-medium">{{ bodyFontText() }}</span>
           <div class="grid grid-cols-3 gap-2">
             @for (f of fonts; track f.value) {
               <button
@@ -178,7 +183,7 @@ const FONTS: readonly FontOption[] = [
 
         <!-- Heading font -->
         <div class="space-y-1.5">
-          <span class="text-xs font-medium">Heading font</span>
+          <span class="text-xs font-medium">{{ headingFontText() }}</span>
           <div class="grid grid-cols-3 gap-2">
             @for (f of fonts; track f.value) {
               <button
@@ -196,7 +201,7 @@ const FONTS: readonly FontOption[] = [
 
         <!-- Shadow -->
         <div class="space-y-1.5">
-          <span class="text-xs font-medium">Shadow</span>
+          <span class="text-xs font-medium">{{ shadowText() }}</span>
           <div class="grid grid-cols-5 gap-2">
             @for (s of shadows; track s.value) {
               <button
@@ -214,7 +219,7 @@ const FONTS: readonly FontOption[] = [
         <!-- Spacing + Tracking -->
         <div class="grid grid-cols-2 gap-4">
           <div class="space-y-1.5">
-            <span class="text-xs font-medium">Spacing</span>
+            <span class="text-xs font-medium">{{ spacingText() }}</span>
             <div class="grid grid-cols-3 gap-1.5">
               @for (s of spacings; track s.value) {
                 <button
@@ -229,7 +234,7 @@ const FONTS: readonly FontOption[] = [
             </div>
           </div>
           <div class="space-y-1.5">
-            <span class="text-xs font-medium">Tracking</span>
+            <span class="text-xs font-medium">{{ trackingText() }}</span>
             <div class="grid grid-cols-3 gap-1.5">
               @for (t of trackings; track t.value) {
                 <button
@@ -265,6 +270,22 @@ export class BuiThemeCustomizer {
   readonly ariaLabel = input<string>();
 
   protected readonly ariaLabelText = buiLabel('themeCustomizer', this.ariaLabel);
+  // Panel chrome. The option labels below ('Light', 'Flat', 'Compact'…) are still English:
+  // 29 design-system terms deserve their own decision, not 29 more keys bolted on here.
+  protected readonly openText = buiLabel('themeCustomizerOpen', NO_OVERRIDE);
+  protected readonly closeText = buiLabel('themeCustomizerClose', NO_OVERRIDE);
+  protected readonly taglineText = buiLabel('themeCustomizerTagline', NO_OVERRIDE);
+  protected readonly resetText = buiLabel('themeCustomizerReset', NO_OVERRIDE);
+  protected readonly modeText = buiLabel('themeCustomizerMode', NO_OVERRIDE);
+  protected readonly baseColorText = buiLabel('themeCustomizerBaseColor', NO_OVERRIDE);
+  protected readonly accentText = buiLabel('themeCustomizerAccent', NO_OVERRIDE);
+  protected readonly radiusText = buiLabel('themeCustomizerRadius', NO_OVERRIDE);
+  protected readonly inputStyleText = buiLabel('themeCustomizerInputStyle', NO_OVERRIDE);
+  protected readonly bodyFontText = buiLabel('themeCustomizerBodyFont', NO_OVERRIDE);
+  protected readonly headingFontText = buiLabel('themeCustomizerHeadingFont', NO_OVERRIDE);
+  protected readonly shadowText = buiLabel('themeCustomizerShadow', NO_OVERRIDE);
+  protected readonly spacingText = buiLabel('themeCustomizerSpacing', NO_OVERRIDE);
+  protected readonly trackingText = buiLabel('themeCustomizerTracking', NO_OVERRIDE);
 
   protected readonly theme = inject(ThemeStore);
   protected readonly open = signal(false);

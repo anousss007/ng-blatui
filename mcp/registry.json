@@ -6,7 +6,7 @@
   "description": "Accessible Angular UI library (Angular 21 & 22, standalone, signals, zoneless, SSR-ready) ported from BlatUI. Components, blocks, charts and ready-made page templates, themed with Tailwind CSS v4 + oklch design tokens.",
   "install": "npm i ng-blatui",
   "llms": "https://ngblatui.remix-it.com/llms.txt",
-  "generatedAt": "2026-07-15",
+  "generatedAt": "2026-07-16",
   "counts": {
     "components": 157,
     "blocks": 16,
@@ -1574,6 +1574,14 @@
           {
             "name": "showDiscount",
             "type": "boolean"
+          },
+          {
+            "name": "locale",
+            "type": "string"
+          },
+          {
+            "name": "numberFormat",
+            "type": "Intl.NumberFormatOptions"
           }
         ]
       }
@@ -2066,6 +2074,10 @@
           {
             "name": "wishlistLabel",
             "type": "string"
+          },
+          {
+            "name": "addToCartLabel",
+            "type": "string"
           }
         ]
       }
@@ -2350,6 +2362,14 @@
           {
             "name": "ariaLabel",
             "type": "string"
+          },
+          {
+            "name": "locale",
+            "type": "string"
+          },
+          {
+            "name": "hourCycle",
+            "type": "TimeFieldHourCycle"
           }
         ],
         "models": [
@@ -2363,6 +2383,7 @@
           }
         ],
         "types": [
+          "TimeFieldHourCycle",
           "TimeFieldMode"
         ]
       }
@@ -2610,6 +2631,14 @@
           },
           {
             "name": "result",
+            "type": "string"
+          },
+          {
+            "name": "argumentsLabel",
+            "type": "string"
+          },
+          {
+            "name": "resultLabel",
             "type": "string"
           }
         ],
@@ -3408,6 +3437,22 @@
           {
             "name": "label",
             "type": "string"
+          },
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "subtotalLabel",
+            "type": "string"
+          },
+          {
+            "name": "locale",
+            "type": "string"
+          },
+          {
+            "name": "numberFormat",
+            "type": "Intl.NumberFormatOptions"
           }
         ],
         "models": [
@@ -3529,6 +3574,14 @@
           {
             "name": "rows",
             "type": "number"
+          },
+          {
+            "name": "writeLabel",
+            "type": "string"
+          },
+          {
+            "name": "previewLabel",
+            "type": "string"
           }
         ],
         "models": [
@@ -3588,6 +3641,22 @@
             "type": "boolean"
           },
           {
+            "name": "locale",
+            "type": "string"
+          },
+          {
+            "name": "monthFormat",
+            "type": "Intl.DateTimeFormatOptions"
+          },
+          {
+            "name": "weekdayFormat",
+            "type": "WeekdayFormat"
+          },
+          {
+            "name": "weekdayLabels",
+            "type": "readonly string[]"
+          },
+          {
             "name": "previousMonthLabel",
             "type": "string"
           },
@@ -3601,6 +3670,10 @@
           },
           {
             "name": "nextMonthLabel",
+            "type": "string"
+          },
+          {
+            "name": "weekLabel",
             "type": "string"
           }
         ],
@@ -3624,7 +3697,8 @@
         ],
         "types": [
           "CalendarMode",
-          "CalendarRange"
+          "CalendarRange",
+          "WeekdayFormat"
         ]
       }
     },
@@ -3679,6 +3753,14 @@
           {
             "name": "hideOutsideDays",
             "type": "boolean"
+          },
+          {
+            "name": "locale",
+            "type": "string"
+          },
+          {
+            "name": "dateFormat",
+            "type": "Intl.DateTimeFormatOptions"
           }
         ],
         "models": [
@@ -3732,6 +3814,14 @@
           {
             "name": "aria-label",
             "type": "string"
+          },
+          {
+            "name": "locale",
+            "type": "string"
+          },
+          {
+            "name": "dateFormat",
+            "type": "Intl.DateTimeFormatOptions"
           }
         ],
         "models": [
@@ -3993,6 +4083,10 @@
             "type": "string"
           },
           {
+            "name": "timeLabel",
+            "type": "string"
+          },
+          {
             "name": "minDate",
             "type": "string"
           },
@@ -4007,6 +4101,18 @@
           {
             "name": "seconds",
             "type": "boolean"
+          },
+          {
+            "name": "timeMode",
+            "type": "TimeFieldMode"
+          },
+          {
+            "name": "locale",
+            "type": "string"
+          },
+          {
+            "name": "dateFormat",
+            "type": "Intl.DateTimeFormatOptions"
           }
         ],
         "models": [
@@ -4025,7 +4131,8 @@
         ],
         "types": [
           "CalendarMode",
-          "CalendarRange"
+          "CalendarRange",
+          "TimeFieldMode"
         ]
       }
     },
@@ -4435,6 +4542,18 @@
           },
           {
             "name": "end",
+            "type": "string"
+          },
+          {
+            "name": "locale",
+            "type": "string"
+          },
+          {
+            "name": "dateFormat",
+            "type": "Intl.DateTimeFormatOptions"
+          },
+          {
+            "name": "emptyLabel",
             "type": "string"
           }
         ],

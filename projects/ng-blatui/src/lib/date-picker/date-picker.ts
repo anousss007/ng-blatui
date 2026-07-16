@@ -12,10 +12,19 @@ import {
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { BuiCalendar, type CalendarMode, type CalendarRange } from '../calendar/calendar';
+import { buiLabel } from '../i18n/labels';
+import { BUI_GRID_CALENDAR, buiLocale } from '../i18n/locale';
 import { type ClassValue, cn } from '../utils/cn';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = (): void => {};
+
+/** Pattern of the trigger text ("Jul 16, 2026") — matches the pre-locale rendering in `en-US`. */
+const DEFAULT_DATE_FORMAT: Intl.DateTimeFormatOptions = {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+};
 
 const POPUP_POSITIONS: ConnectedPosition[] = [
   { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetY: 4 },
@@ -83,6 +92,7 @@ const POPUP_POSITIONS: ConnectedPosition[] = [
           [showWeekNumbers]="showWeekNumbers()"
           [captionLayout]="captionLayout()"
           [hideOutsideDays]="hideOutsideDays()"
+          [locale]="locale()"
           (valueChange)="onPick($event)"
           (rangeChange)="onRange($event)"
         />
@@ -99,14 +109,14 @@ export class BuiDatePicker implements ControlValueAccessor {
   readonly range = model<CalendarRange>({ start: '', end: '' });
   /** Month grids shown in the popover (handy for range). */
   readonly months = input(1);
-  /** Text shown on the trigger when no date is selected. */
-  readonly placeholder = input('Pick a date');
+  /** Text shown on the trigger when no date is selected. Falls back to `provideBuiLabels`. */
+  readonly placeholder = input<string>();
   /** Earliest selectable date (`yyyy-mm-dd`). */
   readonly minDate = input('');
   /** Latest selectable date (`yyyy-mm-dd`). */
   readonly maxDate = input('');
-  /** First day of the week (0 = Sunday). */
-  readonly weekStart = input(0);
+  /** First day of the week (0 = Sunday). Defaults to the locale's own convention. */
+  readonly weekStart = input<number>();
   /** Specific ISO dates (yyyy-mm-dd) to disable. */
   readonly disabledDates = input<readonly string[]>([]);
   /** Disable Saturdays and Sundays. */
@@ -120,11 +130,29 @@ export class BuiDatePicker implements ControlValueAccessor {
   /** Whether the picker is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** BCP 47 locale for the trigger text and the calendar. Defaults to the app's `LOCALE_ID`. */
+  readonly locale = input<string>();
+  /**
+   * `Intl.DateTimeFormat` options for the trigger text. Replaces the default wholesale, so
+   * `{ dateStyle: 'short' }` renders `16/07/2026` in `fr` (options cannot be mixed with it).
+   */
+  readonly dateFormat = input<Intl.DateTimeFormatOptions>(DEFAULT_DATE_FORMAT);
+
+  protected readonly placeholderText = buiLabel('datePickerPlaceholder', this.placeholder);
 
   private onChange: (value: string) => void = noop;
   protected onTouched: () => void = noop;
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly open = signal(false);
+  private readonly resolvedLocale = buiLocale(this.locale);
+  private readonly formatter = computed(
+    () =>
+      // Gregorian by default so the trigger agrees with the grid it opens; caller's options win.
+      new Intl.DateTimeFormat(this.resolvedLocale(), {
+        calendar: BUI_GRID_CALENDAR,
+        ...this.dateFormat(),
+      }),
+  );
   protected readonly hasValue = computed(
     () => (this.mode() === 'range' ? this.range().start : this.value()) !== '',
   );
@@ -132,12 +160,12 @@ export class BuiDatePicker implements ControlValueAccessor {
     if (this.mode() === 'range') {
       const { start, end } = this.range();
       if (start === '') {
-        return this.placeholder();
+        return this.placeholderText();
       }
       return end === '' ? `${this.fmt(start)} – …` : `${this.fmt(start)} – ${this.fmt(end)}`;
     }
     const value = this.value();
-    return value === '' ? this.placeholder() : this.fmt(value);
+    return value === '' ? this.placeholderText() : this.fmt(value);
   });
   protected readonly popupPositions = POPUP_POSITIONS;
   protected readonly computedClass = computed(() => cn('inline-block', this.userClass()));
@@ -157,11 +185,7 @@ export class BuiDatePicker implements ControlValueAccessor {
   }
 
   private fmt(iso: string): string {
-    return new Date(`${iso}T00:00:00`).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
+    return this.formatter().format(new Date(`${iso}T00:00:00`));
   }
 
   // The calendar is portalled into a CDK overlay (outside the host); rely on the overlay's own

@@ -81,7 +81,7 @@ import { type ClassValue, cn } from '../utils/cn';
       }
       <div class="mt-3">
         <ng-content>
-          <button buiButton class="w-full">Add to cart</button>
+          <button buiButton class="w-full">{{ addToCartText() }}</button>
         </ng-content>
       </div>
     </div>
@@ -115,8 +115,11 @@ export class BuiProductCard {
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   /** Accessible label override for the wishlist toggle button. */
   readonly wishlistLabel = input<string>();
+  /** Text of the default add-to-cart button. Falls back to `provideBuiLabels`. */
+  readonly addToCartLabel = input<string>();
 
   protected readonly wishlistText = buiLabel('productCardWishlist', this.wishlistLabel);
+  protected readonly addToCartText = buiLabel('productCardAddToCart', this.addToCartLabel);
 
   protected readonly wished = signal(false);
   protected readonly alt = computed(() => this.imageAlt() || this.title());

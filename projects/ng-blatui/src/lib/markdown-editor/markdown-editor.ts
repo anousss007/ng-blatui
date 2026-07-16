@@ -1,5 +1,6 @@
 import { Component, computed, input, model, signal } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 // HTML is escaped first, then a safe subset of markdown is applied, so user input can't inject markup.
@@ -21,9 +22,11 @@ function renderMarkdown(markdown: string): string {
   host: { 'data-slot': 'markdown-editor', '[class]': 'computedClass()' },
   template: `
     <div class="flex border-b bg-muted/40">
-      <button type="button" [class]="tabClass('write')" (click)="tab.set('write')">Write</button>
+      <button type="button" [class]="tabClass('write')" (click)="tab.set('write')">
+        {{ writeText() }}
+      </button>
       <button type="button" [class]="tabClass('preview')" (click)="tab.set('preview')">
-        Preview
+        {{ previewText() }}
       </button>
     </div>
     @if (tab() === 'write') {
@@ -54,7 +57,13 @@ export class BuiMarkdownEditor {
   /** Number of visible rows in the write textarea. */
   readonly rows = input(8);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Text of the write tab. Falls back to `provideBuiLabels`. */
+  readonly writeLabel = input<string>();
+  /** Text of the preview tab. Falls back to `provideBuiLabels`. */
+  readonly previewLabel = input<string>();
 
+  protected readonly writeText = buiLabel('markdownEditorWrite', this.writeLabel);
+  protected readonly previewText = buiLabel('markdownEditorPreview', this.previewLabel);
   protected readonly tab = signal<'write' | 'preview'>('write');
   protected readonly rendered = computed(() => renderMarkdown(this.value()));
   protected readonly computedClass = computed(() =>

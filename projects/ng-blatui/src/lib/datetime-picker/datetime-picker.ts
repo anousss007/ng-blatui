@@ -12,11 +12,24 @@ import {
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { BuiCalendar, type CalendarMode, type CalendarRange } from '../calendar/calendar';
-import { BuiTimeField } from '../time-field/time-field';
+import { buiLabel } from '../i18n/labels';
+import { BUI_GRID_CALENDAR, buiLocale } from '../i18n/locale';
+import { BuiTimeField, type TimeFieldMode } from '../time-field/time-field';
 import { type ClassValue, cn } from '../utils/cn';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = (): void => {};
+
+/**
+ * Pattern of the trigger text ("Jul 16, 2:30 PM") — matches the pre-locale rendering in `en-US`.
+ * Deliberately year-less, which is why the lever is full `Intl` options and not `dateStyle`.
+ */
+const DEFAULT_DATE_FORMAT: Intl.DateTimeFormatOptions = {
+  month: 'short',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: '2-digit',
+};
 
 const POPUP_POSITIONS: ConnectedPosition[] = [
   { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetY: 4 },
@@ -79,6 +92,7 @@ const POPUP_POSITIONS: ConnectedPosition[] = [
             [minDate]="minDate()"
             [maxDate]="maxDate()"
             [captionLayout]="captionLayout()"
+            [locale]="locale()"
             (rangeChange)="onRange($event)"
           />
         } @else {
@@ -87,14 +101,17 @@ const POPUP_POSITIONS: ConnectedPosition[] = [
             [minDate]="minDate()"
             [maxDate]="maxDate()"
             [captionLayout]="captionLayout()"
+            [locale]="locale()"
             (valueChange)="onDate($event)"
           />
         }
         <div class="flex items-center gap-2 border-t p-2">
-          <span class="text-xs text-muted-foreground">Time</span>
+          <span class="text-xs text-muted-foreground">{{ timeText() }}</span>
           <bui-time-field
             [value]="timePart()"
             [seconds]="seconds()"
+            [mode]="timeMode()"
+            [locale]="locale()"
             (valueChange)="onTime($event)"
           />
         </div>
@@ -111,8 +128,10 @@ export class BuiDatetimePicker implements ControlValueAccessor {
   readonly range = model<CalendarRange>({ start: '', end: '' });
   /** Month grids shown in the popover (handy for range). */
   readonly months = input(1);
-  /** Text shown on the trigger when nothing is selected. */
-  readonly placeholder = input('Pick date & time');
+  /** Text shown on the trigger when nothing is selected. Falls back to `provideBuiLabels`. */
+  readonly placeholder = input<string>();
+  /** Label for the time field in the popover. Falls back to `provideBuiLabels`. */
+  readonly timeLabel = input<string>();
   /** Earliest selectable date (`yyyy-mm-dd`). */
   readonly minDate = input('');
   /** Latest selectable date (`yyyy-mm-dd`). */
@@ -121,14 +140,39 @@ export class BuiDatetimePicker implements ControlValueAccessor {
   readonly captionLayout = input<'label' | 'dropdown'>('label');
   /** Whether to include seconds in the time field. */
   readonly seconds = input(false);
+  /**
+   * How the popover's time field renders. The default native `input` is drawn by the browser in
+   * *its* language, so it can disagree with a trigger formatted in `locale`; `select` follows
+   * `locale` instead and keeps the whole picker on one clock.
+   */
+  readonly timeMode = input<TimeFieldMode>('input');
   /** Whether the picker is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** BCP 47 locale for the trigger text and the calendar. Defaults to the app's `LOCALE_ID`. */
+  readonly locale = input<string>();
+  /**
+   * `Intl.DateTimeFormat` options for the trigger text. Replaces the default wholesale, so
+   * `{ dateStyle: 'short', timeStyle: 'short' }` is valid (options cannot be mixed with it).
+   */
+  readonly dateFormat = input<Intl.DateTimeFormatOptions>(DEFAULT_DATE_FORMAT);
+
+  protected readonly placeholderText = buiLabel('datetimePickerPlaceholder', this.placeholder);
+  protected readonly timeText = buiLabel('datetimePickerTime', this.timeLabel);
 
   private onChange: (value: string) => void = noop;
   protected onTouched: () => void = noop;
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly open = signal(false);
+  private readonly resolvedLocale = buiLocale(this.locale);
+  private readonly formatter = computed(
+    () =>
+      // Gregorian by default so the trigger agrees with the grid it opens; caller's options win.
+      new Intl.DateTimeFormat(this.resolvedLocale(), {
+        calendar: BUI_GRID_CALENDAR,
+        ...this.dateFormat(),
+      }),
+  );
   protected readonly datePart = computed(() => this.value().split('T', 1).at(0) ?? '');
   protected readonly timePart = computed(() => {
     const source = this.mode() === 'range' ? this.range().start : this.value();
@@ -145,12 +189,12 @@ export class BuiDatetimePicker implements ControlValueAccessor {
     if (this.mode() === 'range') {
       const { start, end } = this.range();
       if (start === '') {
-        return this.placeholder();
+        return this.placeholderText();
       }
       return end === '' ? `${this.fmt(start)} – …` : `${this.fmt(start)} – ${this.fmt(end)}`;
     }
     const value = this.value();
-    return value === '' ? this.placeholder() : this.fmt(value);
+    return value === '' ? this.placeholderText() : this.fmt(value);
   });
   protected readonly popupPositions = POPUP_POSITIONS;
   protected readonly computedClass = computed(() => cn('inline-block', this.userClass()));
@@ -183,12 +227,7 @@ export class BuiDatetimePicker implements ControlValueAccessor {
   }
 
   private fmt(value: string): string {
-    return new Date(value).toLocaleString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-    });
+    return this.formatter().format(new Date(value));
   }
 
   // The popover is portalled into a CDK overlay (outside the host); rely on the overlay's own

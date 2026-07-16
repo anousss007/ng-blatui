@@ -1,5 +1,6 @@
 import { Component, computed, input, model } from '@angular/core';
 
+import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
 
 const STATUS: Record<string, string> = {
@@ -41,13 +42,13 @@ const STATUS: Record<string, string> = {
       <div class="space-y-2 border-t border-border px-3 py-2">
         @if (args()) {
           <div>
-            <p class="text-xs font-medium text-muted-foreground">Arguments</p>
+            <p class="text-xs font-medium text-muted-foreground">{{ argumentsText() }}</p>
             <pre class="mt-1 overflow-x-auto rounded bg-muted p-2 text-xs">{{ args() }}</pre>
           </div>
         }
         @if (result()) {
           <div>
-            <p class="text-xs font-medium text-muted-foreground">Result</p>
+            <p class="text-xs font-medium text-muted-foreground">{{ resultText() }}</p>
             <pre class="mt-1 overflow-x-auto rounded bg-muted p-2 text-xs">{{ result() }}</pre>
           </div>
         }
@@ -67,6 +68,13 @@ export class BuiToolCall {
   /** Whether the arguments/result panel is expanded. Two-way bindable with `[(open)]`. */
   readonly open = model(false);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** Heading of the arguments panel. Falls back to `provideBuiLabels`. */
+  readonly argumentsLabel = input<string>();
+  /** Heading of the result panel. Falls back to `provideBuiLabels`. */
+  readonly resultLabel = input<string>();
+
+  protected readonly argumentsText = buiLabel('toolCallArguments', this.argumentsLabel);
+  protected readonly resultText = buiLabel('toolCallResult', this.resultLabel);
   protected readonly statusClass = computed(() => STATUS[this.status()]);
   protected readonly computedClass = computed(() =>
     cn('block overflow-hidden rounded-lg border bg-card', this.userClass()),

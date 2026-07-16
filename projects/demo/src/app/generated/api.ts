@@ -2476,6 +2476,20 @@ export const API_DOCS = {
             "default": "true",
             "required": false,
             "description": "Whether to show the percentage-off discount badge when on sale."
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "BCP 47 locale for number formatting. Defaults to the app's `LOCALE_ID`."
+          },
+          {
+            "name": "numberFormat",
+            "type": "Intl.NumberFormatOptions",
+            "default": "DEFAULT_NUMBER_FORMAT",
+            "required": false,
+            "description": "`Intl.NumberFormat` options for the amounts. Replaces the default wholesale — pass\n`{ style: 'currency', currency: 'EUR' }` to let ICU place the symbol itself."
           }
         ],
         "models": [],
@@ -3296,6 +3310,13 @@ export const API_DOCS = {
             "default": null,
             "required": false,
             "description": "Accessible label override for the wishlist toggle button."
+          },
+          {
+            "name": "addToCartLabel",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "Text of the default add-to-cart button. Falls back to `provideBuiLabels`."
           }
         ],
         "models": [],
@@ -3697,7 +3718,7 @@ export const API_DOCS = {
     ]
   },
   "time-field": {
-    "summary": "A styled time field: a native `<input type=\"time\">`, or hour/minute selects in `select` mode.",
+    "summary": "A styled time field: a native `<input type=\"time\">`, or hour/minute selects in `select` mode.\nThe value is always 24-hour `HH:mm`, whatever the clock shown.\n\n**Locale:** `select` mode follows `locale` — it renders the locale's clock (1–12 with AM/PM in\n`en-US`, 0–23 in `fr`) and its digits. `input` mode cannot: the browser renders native time\ninputs in *its own* UI language, and neither `lang` nor any other attribute overrides that.\nUse `mode=\"select\"` when the clock must follow the app's locale rather than the user's browser.",
     "components": [
       {
         "class": "BuiTimeField",
@@ -3758,6 +3779,20 @@ export const API_DOCS = {
             "default": "''",
             "required": false,
             "description": "Accessible label for the field."
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "BCP 47 locale driving `select` mode's clock and digits. Defaults to the app's `LOCALE_ID`.\nIt has no effect in `input` mode — see the class docs."
+          },
+          {
+            "name": "hourCycle",
+            "type": "TimeFieldHourCycle",
+            "default": null,
+            "required": false,
+            "description": "Force a clock instead of the locale's own — `h12` gives 1–12 with AM/PM, `h23` gives 0–23."
           }
         ],
         "models": [
@@ -3778,6 +3813,12 @@ export const API_DOCS = {
       }
     ],
     "types": [
+      {
+        "name": "TimeFieldHourCycle",
+        "kind": "type",
+        "description": "Which hours the clock runs through. `h12`/`h11` add a day period (AM/PM), `h23`/`h24` do not.",
+        "definition": "\"h11\" | \"h12\" | \"h23\" | \"h24\""
+      },
       {
         "name": "TimeFieldMode",
         "kind": "type",
@@ -4175,6 +4216,20 @@ export const API_DOCS = {
             "default": "''",
             "required": false,
             "description": "Tool result shown in the collapsible body when present."
+          },
+          {
+            "name": "argumentsLabel",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "Heading of the arguments panel. Falls back to `provideBuiLabels`."
+          },
+          {
+            "name": "resultLabel",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "Heading of the result panel. Falls back to `provideBuiLabels`."
           }
         ],
         "models": [
@@ -5566,6 +5621,34 @@ export const API_DOCS = {
             "default": null,
             "required": false,
             "description": "Accessible label override for the cart dropdown dialog."
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "Heading shown at the top of the cart panel. Falls back to `provideBuiLabels`."
+          },
+          {
+            "name": "subtotalLabel",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "Label for the subtotal row. Falls back to `provideBuiLabels`."
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "BCP 47 locale for number formatting. Defaults to the app's `LOCALE_ID`."
+          },
+          {
+            "name": "numberFormat",
+            "type": "Intl.NumberFormatOptions",
+            "default": "DEFAULT_NUMBER_FORMAT",
+            "required": false,
+            "description": "`Intl.NumberFormat` options for prices and subtotal. Replaces the default wholesale — pass\n`{ style: 'currency', currency: 'EUR' }` to let ICU place the symbol itself."
           }
         ],
         "models": [
@@ -5824,6 +5907,20 @@ export const API_DOCS = {
             "default": "8",
             "required": false,
             "description": "Number of visible rows in the write textarea."
+          },
+          {
+            "name": "writeLabel",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "Text of the write tab. Falls back to `provideBuiLabels`."
+          },
+          {
+            "name": "previewLabel",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "Text of the preview tab. Falls back to `provideBuiLabels`."
           }
         ],
         "models": [
@@ -5863,9 +5960,9 @@ export const API_DOCS = {
           {
             "name": "weekStart",
             "type": "number",
-            "default": "0",
+            "default": null,
             "required": false,
-            "description": "First day of the week (0 = Sunday)."
+            "description": "First day of the week (0 = Sunday). Defaults to the locale's own convention — Sunday in\n`en-US`, Monday in `fr`, Saturday in `ar-EG`."
           },
           {
             "name": "minDate",
@@ -5893,7 +5990,7 @@ export const API_DOCS = {
             "type": "boolean",
             "default": "false",
             "required": false,
-            "description": "Disable Saturdays and Sundays."
+            "description": "Disable the locale's weekend days — Saturday/Sunday in `en-US`, Friday/Saturday in `ar-EG`."
           },
           {
             "name": "showWeekNumbers",
@@ -5915,6 +6012,34 @@ export const API_DOCS = {
             "default": "false",
             "required": false,
             "description": "Hide days that fall outside the current month."
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "BCP 47 locale used for the month captions. Defaults to the app's `LOCALE_ID`."
+          },
+          {
+            "name": "monthFormat",
+            "type": "Intl.DateTimeFormatOptions",
+            "default": "DEFAULT_MONTH_FORMAT",
+            "required": false,
+            "description": "`Intl.DateTimeFormat` options for the month caption. Replaces the default wholesale, so\n`{ dateStyle: 'short' }` and `{ month: 'long' }` are both valid (they cannot be mixed)."
+          },
+          {
+            "name": "weekdayFormat",
+            "type": "WeekdayFormat",
+            "default": "'short'",
+            "required": false,
+            "description": "How weekday column headers are abbreviated: each locale's own `short` form by default."
+          },
+          {
+            "name": "weekdayLabels",
+            "type": "readonly string[]",
+            "default": null,
+            "required": false,
+            "description": "Override the weekday column headers outright — 7 entries, **Sunday first**, regardless of\n`weekStart`. For when a locale's `Intl` abbreviation is not what your design wants."
           },
           {
             "name": "previousMonthLabel",
@@ -5943,6 +6068,13 @@ export const API_DOCS = {
             "default": null,
             "required": false,
             "description": "Accessible label for the next-month button."
+          },
+          {
+            "name": "weekLabel",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "Accessible label for the week-number column."
           }
         ],
         "models": [
@@ -5999,6 +6131,12 @@ export const API_DOCS = {
             "description": "End date of the range, as `yyyy-mm-dd`."
           }
         ]
+      },
+      {
+        "name": "WeekdayFormat",
+        "kind": "type",
+        "description": "How weekday column headers are abbreviated. `short` is each locale's native abbreviation.",
+        "definition": "\"long\" | \"narrow\" | \"short\""
       }
     ]
   },
@@ -6026,9 +6164,9 @@ export const API_DOCS = {
           {
             "name": "placeholder",
             "type": "string",
-            "default": "'Pick a date'",
+            "default": null,
             "required": false,
-            "description": "Text shown on the trigger when no date is selected."
+            "description": "Text shown on the trigger when no date is selected. Falls back to `provideBuiLabels`."
           },
           {
             "name": "minDate",
@@ -6047,9 +6185,9 @@ export const API_DOCS = {
           {
             "name": "weekStart",
             "type": "number",
-            "default": "0",
+            "default": null,
             "required": false,
-            "description": "First day of the week (0 = Sunday)."
+            "description": "First day of the week (0 = Sunday). Defaults to the locale's own convention."
           },
           {
             "name": "disabledDates",
@@ -6085,6 +6223,20 @@ export const API_DOCS = {
             "default": "false",
             "required": false,
             "description": "Hide days that fall outside the current month."
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "BCP 47 locale for the trigger text and the calendar. Defaults to the app's `LOCALE_ID`."
+          },
+          {
+            "name": "dateFormat",
+            "type": "Intl.DateTimeFormatOptions",
+            "default": "DEFAULT_DATE_FORMAT",
+            "required": false,
+            "description": "`Intl.DateTimeFormat` options for the trigger text. Replaces the default wholesale, so\n`{ dateStyle: 'short' }` renders `16/07/2026` in `fr` (options cannot be mixed with it)."
           }
         ],
         "models": [
@@ -6169,9 +6321,9 @@ export const API_DOCS = {
           {
             "name": "placeholder",
             "type": "string",
-            "default": "'Pick a date range'",
+            "default": null,
             "required": false,
-            "description": "Text shown on the trigger when nothing is selected."
+            "description": "Text shown on the trigger when nothing is selected. Falls back to `provideBuiLabels`."
           },
           {
             "name": "presets",
@@ -6186,6 +6338,20 @@ export const API_DOCS = {
             "default": "''",
             "required": false,
             "description": "Accessible name applied to the trigger."
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "BCP 47 locale for the trigger text and the calendar. Defaults to the app's `LOCALE_ID`."
+          },
+          {
+            "name": "dateFormat",
+            "type": "Intl.DateTimeFormatOptions",
+            "default": "DEFAULT_DATE_FORMAT",
+            "required": false,
+            "description": "`Intl.DateTimeFormat` options for the trigger text. Replaces the default wholesale, so\n`{ dateStyle: 'short' }` renders `16/07/2026` in `fr` (options cannot be mixed with it)."
           }
         ],
         "models": [
@@ -6756,9 +6922,16 @@ export const API_DOCS = {
           {
             "name": "placeholder",
             "type": "string",
-            "default": "'Pick date & time'",
+            "default": null,
             "required": false,
-            "description": "Text shown on the trigger when nothing is selected."
+            "description": "Text shown on the trigger when nothing is selected. Falls back to `provideBuiLabels`."
+          },
+          {
+            "name": "timeLabel",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "Label for the time field in the popover. Falls back to `provideBuiLabels`."
           },
           {
             "name": "minDate",
@@ -6787,6 +6960,27 @@ export const API_DOCS = {
             "default": "false",
             "required": false,
             "description": "Whether to include seconds in the time field."
+          },
+          {
+            "name": "timeMode",
+            "type": "TimeFieldMode",
+            "default": "'input'",
+            "required": false,
+            "description": "How the popover's time field renders. The default native `input` is drawn by the browser in\n*its* language, so it can disagree with a trigger formatted in `locale`; `select` follows\n`locale` instead and keeps the whole picker on one clock."
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "BCP 47 locale for the trigger text and the calendar. Defaults to the app's `LOCALE_ID`."
+          },
+          {
+            "name": "dateFormat",
+            "type": "Intl.DateTimeFormatOptions",
+            "default": "DEFAULT_DATE_FORMAT",
+            "required": false,
+            "description": "`Intl.DateTimeFormat` options for the trigger text. Replaces the default wholesale, so\n`{ dateStyle: 'short', timeStyle: 'short' }` is valid (options cannot be mixed with it)."
           }
         ],
         "models": [
@@ -6837,6 +7031,12 @@ export const API_DOCS = {
             "description": "End date of the range, as `yyyy-mm-dd`."
           }
         ]
+      },
+      {
+        "name": "TimeFieldMode",
+        "kind": "type",
+        "description": "How the time field renders: native input or hour/minute selects.",
+        "definition": "\"input\" | \"select\""
       }
     ]
   },
@@ -7535,6 +7735,27 @@ export const API_DOCS = {
             "default": "''",
             "required": false,
             "description": "ISO end date overriding the computed range maximum; empty derives it from tasks."
+          },
+          {
+            "name": "locale",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "BCP 47 locale used for the axis bound labels. Defaults to the app's `LOCALE_ID`."
+          },
+          {
+            "name": "dateFormat",
+            "type": "Intl.DateTimeFormatOptions",
+            "default": "DEFAULT_DATE_FORMAT",
+            "required": false,
+            "description": "`Intl.DateTimeFormat` options for the axis bound labels. Replaces the default wholesale, so\n`{ dateStyle: 'short' }` is valid (its options cannot be mixed with `month`/`day`)."
+          },
+          {
+            "name": "emptyLabel",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "Text shown when there are no tasks to plot. Falls back to `provideBuiLabels`."
           }
         ],
         "models": [],

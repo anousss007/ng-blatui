@@ -3,10 +3,22 @@ import { Component, computed, forwardRef, input, model, signal } from '@angular/
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { BuiCalendar, type CalendarRange } from '../calendar/calendar';
+import { buiLabel } from '../i18n/labels';
+import { BUI_GRID_CALENDAR, buiLocale } from '../i18n/locale';
 import { type ClassValue, cn } from '../utils/cn';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = (): void => {};
+
+/** Pattern of the trigger text ("Jul 16, 2026") — matches the other pickers' default. */
+const DEFAULT_DATE_FORMAT: Intl.DateTimeFormatOptions = {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+};
+
+/** The built-in presets have no per-instance label inputs — translate them via `provideBuiLabels`. */
+const NO_LABEL_OVERRIDE = signal<string | undefined>(undefined);
 
 /** A named shortcut shown beside the calendar, e.g. "Last 7 days". */
 export interface DateRangePreset {
@@ -56,7 +68,7 @@ function addDays(date: Date, days: number): Date {
       #origin="cdkOverlayOrigin"
       type="button"
       class="flex h-9 w-full items-center gap-2 rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50"
-      [attr.aria-label]="ariaLabel() || placeholder()"
+      [attr.aria-label]="ariaLabel() || placeholderText()"
       [attr.aria-expanded]="open()"
       [disabled]="disabled()"
       (click)="open.set(!open())"
@@ -107,6 +119,7 @@ function addDays(date: Date, days: number): Date {
           [range]="value()"
           [minDate]="minDate()"
           [maxDate]="maxDate()"
+          [locale]="locale()"
           (rangeChange)="onRange($event)"
         />
       </div>
@@ -122,8 +135,8 @@ export class BuiDateRangePicker implements ControlValueAccessor {
   readonly minDate = input('');
   /** Latest selectable date (`yyyy-mm-dd`). */
   readonly maxDate = input('');
-  /** Text shown on the trigger when nothing is selected. */
-  readonly placeholder = input('Pick a date range');
+  /** Text shown on the trigger when nothing is selected. Falls back to `provideBuiLabels`. */
+  readonly placeholder = input<string>();
   /** Whether the picker is disabled. Two-way bindable with `[(disabled)]`. */
   readonly disabled = model(false);
   /** Quick-pick shortcuts. Pass `[]` to hide them; omit for a sensible default set. */
@@ -131,9 +144,34 @@ export class BuiDateRangePicker implements ControlValueAccessor {
   /** Accessible name applied to the trigger. */
   readonly ariaLabel = input<string>('', { alias: 'aria-label' });
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+  /** BCP 47 locale for the trigger text and the calendar. Defaults to the app's `LOCALE_ID`. */
+  readonly locale = input<string>();
+  /**
+   * `Intl.DateTimeFormat` options for the trigger text. Replaces the default wholesale, so
+   * `{ dateStyle: 'short' }` renders `16/07/2026` in `fr` (options cannot be mixed with it).
+   */
+  readonly dateFormat = input<Intl.DateTimeFormatOptions>(DEFAULT_DATE_FORMAT);
+
+  protected readonly placeholderText = buiLabel('dateRangePickerPlaceholder', this.placeholder);
+  private readonly presetText = {
+    today: buiLabel('dateRangePresetToday', NO_LABEL_OVERRIDE),
+    last7Days: buiLabel('dateRangePresetLast7Days', NO_LABEL_OVERRIDE),
+    last30Days: buiLabel('dateRangePresetLast30Days', NO_LABEL_OVERRIDE),
+    thisMonth: buiLabel('dateRangePresetThisMonth', NO_LABEL_OVERRIDE),
+    lastMonth: buiLabel('dateRangePresetLastMonth', NO_LABEL_OVERRIDE),
+  };
 
   protected readonly open = signal(false);
   protected readonly popupPositions = POPUP_POSITIONS;
+  private readonly resolvedLocale = buiLocale(this.locale);
+  private readonly formatter = computed(
+    () =>
+      // Gregorian by default so the trigger agrees with the grid it opens; caller's options win.
+      new Intl.DateTimeFormat(this.resolvedLocale(), {
+        calendar: BUI_GRID_CALENDAR,
+        ...this.dateFormat(),
+      }),
+  );
   private onChange: (value: CalendarRange) => void = noop;
   private onTouched: () => void = noop;
 
@@ -141,7 +179,7 @@ export class BuiDateRangePicker implements ControlValueAccessor {
   protected readonly display = computed(() => {
     const { start, end } = this.value();
     if (start === '') {
-      return this.placeholder();
+      return this.placeholderText();
     }
     return end === '' ? `${this.fmt(start)} – …` : `${this.fmt(start)} – ${this.fmt(end)}`;
   });
@@ -181,11 +219,7 @@ export class BuiDateRangePicker implements ControlValueAccessor {
 
   private fmt(iso: string): string {
     const [year, month, day] = iso.split('-').map(Number);
-    return new Date(year, month - 1, day).toLocaleDateString(undefined, {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
+    return this.formatter().format(new Date(year, month - 1, day));
   }
 
   private defaultPresets(): DateRangePreset[] {
@@ -195,12 +229,15 @@ export class BuiDateRangePicker implements ControlValueAccessor {
     const startOfLastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 1);
     const endOfLastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
     return [
-      { label: 'Today', range: { start: iso, end: iso } },
-      { label: 'Last 7 days', range: { start: isoOf(addDays(today, -6)), end: iso } },
-      { label: 'Last 30 days', range: { start: isoOf(addDays(today, -29)), end: iso } },
-      { label: 'This month', range: { start: isoOf(startOfMonth), end: iso } },
+      { label: this.presetText.today(), range: { start: iso, end: iso } },
+      { label: this.presetText.last7Days(), range: { start: isoOf(addDays(today, -6)), end: iso } },
       {
-        label: 'Last month',
+        label: this.presetText.last30Days(),
+        range: { start: isoOf(addDays(today, -29)), end: iso },
+      },
+      { label: this.presetText.thisMonth(), range: { start: isoOf(startOfMonth), end: iso } },
+      {
+        label: this.presetText.lastMonth(),
         range: { start: isoOf(startOfLastMonth), end: isoOf(endOfLastMonth) },
       },
     ];
