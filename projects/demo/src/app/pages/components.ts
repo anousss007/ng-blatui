@@ -206,7 +206,11 @@ import {
   BuiSeparator,
   BuiSheet,
   BuiSidebar,
+  BuiSidebarContent,
+  BuiSidebarInset,
   BuiSidebarMenuButton,
+  BuiSidebarProvider,
+  BuiSidebarTrigger,
   BuiSignaturePad,
   BuiSkeleton,
   BuiSlider,
@@ -752,7 +756,11 @@ type ToggleValue = string | string[] | null;
     BuiKanban,
     BuiRichTextEditor,
     BuiSidebar,
+    BuiSidebarContent,
+    BuiSidebarInset,
     BuiSidebarMenuButton,
+    BuiSidebarProvider,
+    BuiSidebarTrigger,
     BuiOnboardingTour,
     BuiQrCode,
   ],
@@ -831,6 +839,22 @@ export class ComponentPage {
   protected readonly sidebarOpen = signal(true);
   protected readonly sidebarIconOpen = signal(true);
   protected readonly sidebarRightOpen = signal(true);
+  protected readonly sidebarScrollOpen = signal(true);
+  protected readonly scrollNav = Array.from({ length: 24 }, (_, index) => index + 1);
+  protected readonly tooltipNav = [
+    {
+      label: 'Inbox',
+      icon: 'M22 12h-6l-2 3h-4l-2-3H2M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z',
+    },
+    {
+      label: 'Calendar',
+      icon: 'M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z',
+    },
+    {
+      label: 'Settings',
+      icon: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z',
+    },
+  ];
   protected readonly tourOpen = signal(false);
   protected readonly tourSteps = [
     { target: '#tour-1', title: 'Search', body: 'Find anything fast from here.' },
@@ -888,6 +912,8 @@ export class ComponentPage {
   protected readonly sheetBottomOpen = signal(false);
   protected readonly drawerBottomOpen = signal(false);
   protected readonly drawerLeftOpen = signal(false);
+  protected readonly sheetStaticOpen = signal(false);
+  protected readonly drawerStaticOpen = signal(false);
   protected readonly mentionValue = signal('');
   protected readonly mentionItems = [
     { value: 'ada', label: 'Ada Lovelace' },
@@ -3393,6 +3419,8 @@ fruitForm = new FormControl('banana');
   <button buiButton>Close</button>
 </bui-drawer>`,
     drawerLeft: `<bui-drawer [(open)]="open" direction="left">…</bui-drawer>`,
+    drawerStatic: `<!-- A stray click on the backdrop no longer discards the flow. Escape still closes. -->
+<bui-drawer [(open)]="open" direction="right" [closeOnOverlay]="false">…</bui-drawer>`,
     inputMask: `import { BuiInputMask } from 'ng-blatui';
 
 <bui-input-mask mask="(999) 999-9999" inputmode="numeric" [(value)]="phone" />`,
@@ -3405,6 +3433,8 @@ fruitForm = new FormControl('banana');
 <button (click)="open.set(true)">Open</button>
 <bui-sheet [(open)]="open" side="right">…</bui-sheet>`,
     sheetLeft: `<bui-sheet [(open)]="open" side="left">…</bui-sheet>`,
+    sheetStatic: `<!-- A stray click on the backdrop no longer discards the form. Escape still closes. -->
+<bui-sheet [(open)]="open" side="right" [closeOnOverlay]="false">…</bui-sheet>`,
     sheetBottom: `<bui-sheet [(open)]="open" side="bottom">…</bui-sheet>`,
     sheetScroll: `<bui-sheet [(open)]="open" side="right">
   <h2>Terms</h2>
@@ -3470,6 +3500,25 @@ setTimeout(() => { this.toaster.dismiss(id); this.toaster.show({ title: 'Saved',
 </bui-sidebar>`,
     sidebarIcon: `<bui-sidebar [(open)]="open" collapsible="icon">…menu…</bui-sidebar>`,
     sidebarRight: `<bui-sidebar [(open)]="open" side="right">…menu…</bui-sidebar>`,
+    sidebarScroll: `<!-- buiSidebarContent scrolls; the header and footer around it stay put -->
+<bui-sidebar [(open)]="open" collapsible="icon">
+  <div class="px-3 py-2 font-semibold">Acme</div>
+  <div buiSidebarContent>
+    <a buiSidebarMenuButton href="#">Dashboard</a>
+    …30 more items…
+  </div>
+  <a buiSidebarMenuButton href="#">Settings</a>
+</bui-sidebar>`,
+    sidebarTooltip: `<!-- The label shows only while the rail is collapsed on desktop -->
+<bui-sidebar-provider [mobileBreakpoint]="1023">
+  <bui-sidebar collapsible="icon">
+    <a buiSidebarMenuButton tooltip="Inbox" tooltipSide="right" href="#">
+      <svg …></svg>
+      <span>Inbox</span>
+    </a>
+  </bui-sidebar>
+  <main buiSidebarInset>…</main>
+</bui-sidebar-provider>`,
     onboardingTour: `import { BuiOnboardingTour } from 'ng-blatui';
 
 <button (click)="open.set(true)">Start tour</button>

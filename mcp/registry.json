@@ -6,7 +6,7 @@
   "description": "Accessible Angular UI library (Angular 21 & 22, standalone, signals, zoneless, SSR-ready) ported from BlatUI. Components, blocks, charts and ready-made page templates, themed with Tailwind CSS v4 + oklch design tokens.",
   "install": "npm i ng-blatui",
   "llms": "https://ngblatui.remix-it.com/llms.txt",
-  "generatedAt": "2026-07-16",
+  "generatedAt": "2026-08-14",
   "counts": {
     "components": 157,
     "blocks": 16,
@@ -417,8 +417,7 @@
         "inputs": [
           {
             "name": "buiTooltip",
-            "type": "string",
-            "required": true
+            "type": "string"
           },
           {
             "name": "side",
@@ -439,6 +438,12 @@
           {
             "name": "extraClass",
             "type": "ClassValue"
+          }
+        ],
+        "models": [
+          {
+            "name": "disabled",
+            "type": "boolean"
           }
         ],
         "types": [
@@ -4324,6 +4329,10 @@
           {
             "name": "ariaLabel",
             "type": "string"
+          },
+          {
+            "name": "closeOnOverlay",
+            "type": "boolean"
           }
         ],
         "models": [
@@ -4386,6 +4395,10 @@
           {
             "name": "ariaLabel",
             "type": "string"
+          },
+          {
+            "name": "closeOnOverlay",
+            "type": "boolean"
           }
         ],
         "models": [
@@ -4678,6 +4691,10 @@
           {
             "name": "isActive",
             "type": "boolean"
+          },
+          {
+            "name": "mobileBreakpoint",
+            "type": "string | number"
           }
         ],
         "models": [

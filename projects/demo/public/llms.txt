@@ -114,12 +114,12 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Accent](https://ngblatui.remix-it.com/components/accent) — props: color, foreground
 - [Bento Grid](https://ngblatui.remix-it.com/components/bento-grid) — props: columns, title, description, colSpan, rowSpan
 - [Resizable](https://ngblatui.remix-it.com/components/resizable) — props: withHandle, ariaLabel, primary, direction · two-way: size
-- [Sidebar](https://ngblatui.remix-it.com/components/sidebar) — props: side, collapsible, isActive · two-way: open
+- [Sidebar](https://ngblatui.remix-it.com/components/sidebar) — props: side, collapsible, isActive, mobileBreakpoint · two-way: open
 
 ### Feedback
 
 - [Alert](https://ngblatui.remix-it.com/components/alert) — props: variant, tone
-- [Tooltip](https://ngblatui.remix-it.com/components/tooltip) — props: buiTooltip, side, delay, tooltipClass, text, extraClass · types: TooltipSide
+- [Tooltip](https://ngblatui.remix-it.com/components/tooltip) — props: buiTooltip, side, delay, tooltipClass, text, extraClass · two-way: disabled · types: TooltipSide
 - [Empty](https://ngblatui.remix-it.com/components/empty) — props: variant
 - [Spinner](https://ngblatui.remix-it.com/components/spinner) — props: label
 - [Banner](https://ngblatui.remix-it.com/components/banner) — props: tone, dismissible, persistKey, announcementLabel, dismissLabel
@@ -159,8 +159,8 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Notification Center](https://ngblatui.remix-it.com/components/notification-center) — props: notifications, ariaLabel, unreadLabel, markAllReadLabel, emptyLabel · two-way: open · types: NotificationItem
 - [Command](https://ngblatui.remix-it.com/components/command) — props: groups, placeholder, checkable · emits: selected · types: CommandGroup, CommandItem
 - [Context Menu](https://ngblatui.remix-it.com/components/context-menu) — props: items · emits: selected · types: ContextMenuItem
-- [Drawer](https://ngblatui.remix-it.com/components/drawer) — props: direction, ariaLabel · two-way: open
-- [Sheet](https://ngblatui.remix-it.com/components/sheet) — props: side, ariaLabel · two-way: open
+- [Drawer](https://ngblatui.remix-it.com/components/drawer) — props: direction, ariaLabel, closeOnOverlay · two-way: open
+- [Sheet](https://ngblatui.remix-it.com/components/sheet) — props: side, ariaLabel, closeOnOverlay · two-way: open
 - [Onboarding Tour](https://ngblatui.remix-it.com/components/onboarding-tour) — props: steps · two-way: open · types: TourStep
 
 ### Effects

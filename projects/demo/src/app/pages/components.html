@@ -8829,6 +8829,32 @@ This content is read-only and cannot be edited.</textarea
           <button buiButton class="mt-2" (click)="drawerScrollOpen.set(false)">Close</button>
         </bui-drawer>
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Static backdrop</h2>
+      <p class="mb-3 text-sm text-muted-foreground">
+        <code class="text-xs">closeOnOverlay="false"</code> keeps a multi-step flow open when a
+        stray click lands on the backdrop. It governs the backdrop only — Escape and your own close
+        button stay wired, because a dialog you can't leave from the keyboard is a trap.
+      </p>
+      <app-example [code]="code.drawerStatic">
+        <button buiButton variant="outline" (click)="drawerStaticOpen.set(true)">
+          Open (backdrop won't close it)
+        </button>
+        <bui-drawer
+          [(open)]="drawerStaticOpen"
+          direction="right"
+          class="w-80"
+          [closeOnOverlay]="false"
+        >
+          <h2 class="text-lg font-semibold">Step 2 of 3</h2>
+          <p class="text-sm text-muted-foreground">
+            Click the dimmed area — nothing happens. Press Escape and it closes.
+          </p>
+          <button buiButton variant="outline" class="mt-auto" (click)="drawerStaticOpen.set(false)">
+            Close
+          </button>
+        </bui-drawer>
+      </app-example>
     }
     @case ('input-mask') {
       <app-example [code]="code.inputMask">
@@ -8930,6 +8956,27 @@ This content is read-only and cannot be edited.</textarea
             }
           </div>
           <button buiButton class="mt-2" (click)="sheetScrollOpen.set(false)">Accept</button>
+        </bui-sheet>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Static backdrop</h2>
+      <p class="mb-3 text-sm text-muted-foreground">
+        <code class="text-xs">closeOnOverlay="false"</code> keeps a long form open when a stray
+        click lands on the backdrop. It governs the backdrop only — Escape and your own close button
+        stay wired, because a dialog you can't leave from the keyboard is a trap.
+      </p>
+      <app-example [code]="code.sheetStatic">
+        <button buiButton variant="outline" (click)="sheetStaticOpen.set(true)">
+          Open (backdrop won't close it)
+        </button>
+        <bui-sheet [(open)]="sheetStaticOpen" side="right" [closeOnOverlay]="false">
+          <h2 class="text-lg font-semibold">Unsaved changes</h2>
+          <p class="text-sm text-muted-foreground">
+            Click the dimmed area — nothing happens. Press Escape and it closes.
+          </p>
+          <button buiButton variant="outline" class="mt-auto" (click)="sheetStaticOpen.set(false)">
+            Close
+          </button>
         </bui-sheet>
       </app-example>
     }
@@ -9126,6 +9173,81 @@ This content is read-only and cannot be edited.</textarea
             <a buiSidebarMenuButton href="#">Drafts</a>
           </bui-sidebar>
         </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Scrolling menu</h2>
+      <p class="mb-3 text-sm text-muted-foreground">
+        <code class="text-xs">buiSidebarContent</code> is the scrolling region between a pinned
+        header and footer. Without it the sidebar scrolls as a whole — either way an overflowing
+        menu stays reachable, and the icon rail hides its scrollbar rather than losing 16px of a
+        3.5rem rail to its track.
+      </p>
+      <app-example [code]="code.sidebarScroll">
+        <div class="flex h-64 w-full max-w-lg overflow-hidden rounded-lg border">
+          <bui-sidebar [(open)]="sidebarScrollOpen" collapsible="icon">
+            <div class="px-3 py-2 text-sm font-semibold">Acme</div>
+            <div buiSidebarContent>
+              @for (i of scrollNav; track i) {
+                <a buiSidebarMenuButton href="#">Item {{ i }}</a>
+              }
+            </div>
+            <a buiSidebarMenuButton href="#">Settings</a>
+          </bui-sidebar>
+          <div class="flex-1 p-4">
+            <button
+              buiButton
+              variant="outline"
+              size="sm"
+              (click)="sidebarScrollOpen.set(!sidebarScrollOpen())"
+            >
+              Toggle sidebar
+            </button>
+          </div>
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Icon rail tooltips</h2>
+      <p class="mb-3 text-sm text-muted-foreground">
+        Inside a <code class="text-xs">bui-sidebar-provider</code>, a menu button with
+        <code class="text-xs">tooltip</code> labels itself on hover and focus while it is shrunk to
+        the rail, and nowhere else. It is a visual affordance: the label stays in the DOM, so the
+        accessible name never depended on it. Collapse the rail, then hover an icon.
+        <code class="text-xs">mobileBreakpoint</code> moves the off-canvas threshold off Tailwind's
+        <code class="text-xs">md</code>.
+      </p>
+      <app-example [code]="code.sidebarTooltip">
+        <bui-sidebar-provider class="h-64 w-full max-w-lg overflow-hidden rounded-lg border">
+          <bui-sidebar collapsible="icon" class="border-e">
+            @for (item of tooltipNav; track item.label) {
+              <a
+                buiSidebarMenuButton
+                [tooltip]="item.label"
+                tooltipSide="right"
+                href="#"
+                class="justify-center md:group-data-[state=expanded]/sidebar:justify-start"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  class="size-4 shrink-0"
+                >
+                  <path [attr.d]="item.icon" />
+                </svg>
+                <span class="md:group-data-[state=collapsed]/sidebar:hidden">{{ item.label }}</span>
+              </a>
+            }
+          </bui-sidebar>
+          <main buiSidebarInset class="p-4">
+            <button buiButton variant="outline" size="sm" buiSidebarTrigger>
+              Collapse / expand
+            </button>
+          </main>
+        </bui-sidebar-provider>
       </app-example>
     }
     @case ('onboarding-tour') {

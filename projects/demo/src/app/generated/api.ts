@@ -592,9 +592,9 @@ export const API_DOCS = {
           {
             "name": "buiTooltip",
             "type": "string",
-            "default": null,
-            "required": true,
-            "description": "Tooltip text; bound via the `buiTooltip` attribute."
+            "default": "''",
+            "required": false,
+            "description": "Tooltip text; bound via the `buiTooltip` attribute. Empty text shows nothing."
           },
           {
             "name": "side",
@@ -618,7 +618,14 @@ export const API_DOCS = {
             "description": "Extra classes applied to the tooltip bubble (e.g. a semantic colour)."
           }
         ],
-        "models": [],
+        "models": [
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Suppress the tooltip without removing the directive. Written by hosts that only\nlabel themselves some of the time — a  shows its\ntooltip on the collapsed icon rail and nowhere else."
+          }
+        ],
         "outputs": []
       },
       {
@@ -7330,6 +7337,13 @@ export const API_DOCS = {
             "default": "'Drawer'",
             "required": false,
             "description": "Accessible label applied to the drawer dialog."
+          },
+          {
+            "name": "closeOnOverlay",
+            "type": "boolean",
+            "default": "true",
+            "required": false,
+            "description": "Whether clicking the backdrop closes the drawer. Set `false` for a static backdrop —\na multi-step flow a stray click shouldn't discard. It governs the backdrop and nothing\nelse: Escape stays wired, because a dialog you can't leave from the keyboard is a trap."
           }
         ],
         "models": [
@@ -7420,6 +7434,13 @@ export const API_DOCS = {
             "default": "'Sheet'",
             "required": false,
             "description": "Accessible label applied to the sheet dialog."
+          },
+          {
+            "name": "closeOnOverlay",
+            "type": "boolean",
+            "default": "true",
+            "required": false,
+            "description": "Whether clicking the backdrop closes the sheet. Set `false` for a static backdrop —\na long form a stray click shouldn't discard. It governs the backdrop and nothing\nelse: Escape stays wired, because a dialog you can't leave from the keyboard is a trap."
           }
         ],
         "models": [
@@ -8090,6 +8111,21 @@ export const API_DOCS = {
             "default": "false",
             "required": false,
             "description": "Whether this item is the current page; sets active styling and `aria-current`."
+          }
+        ],
+        "models": [],
+        "outputs": []
+      },
+      {
+        "class": "BuiSidebarProvider",
+        "selector": "bui-sidebar-provider",
+        "inputs": [
+          {
+            "name": "mobileBreakpoint",
+            "type": "string | number",
+            "default": "DEFAULT_MOBILE_BREAKPOINT",
+            "required": false,
+            "description": "Viewport width below which the sidebar becomes an off-canvas drawer instead of an\nicon rail. A bare number is read as px; anything else is used as written."
           }
         ],
         "models": [],

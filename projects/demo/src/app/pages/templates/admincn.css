@@ -39,13 +39,9 @@
   background: var(--primary);
   color: var(--primary-foreground);
 }
+/* Scrolling, the hidden rail scrollbar and min-height:0 come from buiSidebarContent. */
 #tpl-admincn .acn-sidebar-nav {
-  flex: 1;
-  overflow-y: auto;
   padding: 0.25rem 0.5rem 1rem;
-}
-#tpl-admincn .acn-sidebar-nav::-webkit-scrollbar {
-  width: 0;
 }
 #tpl-admincn .acn-nav-group {
   margin-bottom: 0.5rem;
