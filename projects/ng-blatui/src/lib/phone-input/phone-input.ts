@@ -34,7 +34,7 @@ const COUNTRIES: PhoneCountry[] = [
   template: `
     <select
       [value]="country()"
-      class="h-9 rounded-md rounded-r-none border border-r-0 border-input bg-background ps-2 pe-1 text-sm outline-none focus-visible:z-10 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+      class="h-9 rounded-md rounded-e-none border border-e-0 border-input bg-background ps-2 pe-1 text-sm outline-none focus-visible:z-10 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
       [attr.aria-label]="countryText()"
       (change)="onCountry($event)"
     >
@@ -49,7 +49,7 @@ const COUNTRIES: PhoneCountry[] = [
       [attr.name]="name() || null"
       [attr.id]="id() || null"
       [attr.aria-label]="numberText()"
-      class="h-9 w-full min-w-0 rounded-md rounded-l-none border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:z-10 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+      class="h-9 w-full min-w-0 rounded-md rounded-s-none border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:z-10 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
       (input)="onNumber($event)"
     />
   `,

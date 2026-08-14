@@ -38,19 +38,19 @@ function toMinutes(value: string): number {
       <div class="flex border-b">
         <div class="w-12 shrink-0"></div>
         @for (day of dayLabels(); track $index) {
-          <div class="flex-1 border-l p-2 text-center text-xs font-medium">{{ day }}</div>
+          <div class="flex-1 border-s p-2 text-center text-xs font-medium">{{ day }}</div>
         }
       </div>
       <div class="flex">
         <div class="w-12 shrink-0">
           @for (hour of hours(); track hour) {
-            <div class="h-14 pt-0.5 pr-1 text-right text-[10px] text-muted-foreground">
+            <div class="h-14 pe-1 pt-0.5 text-end text-[10px] text-muted-foreground">
               {{ formatHour(hour) }}
             </div>
           }
         </div>
         @for (day of dayLabels(); track $index; let di = $index) {
-          <div class="relative flex-1 border-l">
+          <div class="relative flex-1 border-s">
             @for (hour of hours(); track hour) {
               <div class="h-14 border-b border-dashed last:border-b-0"></div>
             }

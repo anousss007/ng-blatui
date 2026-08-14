@@ -13,7 +13,7 @@ import { type ClassValue, cn } from '../utils/cn';
     <span aria-hidden="true">{{ shown() }}</span>
     @if (caret() && streaming()) {
       <span
-        class="ml-0.5 inline-block w-px animate-pulse self-stretch bg-current"
+        class="ms-0.5 inline-block w-px animate-pulse self-stretch bg-current"
         aria-hidden="true"
       ></span>
     }

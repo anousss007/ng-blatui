@@ -23,7 +23,7 @@ import { type ClassValue, cn } from '../utils/cn';
         <span
           data-slot="terminal-title"
           class="truncate font-mono text-xs text-zinc-400"
-          [class.ml-2]="buttons()"
+          [class.ms-2]="buttons()"
           >{{ title() }}</span
         >
       }

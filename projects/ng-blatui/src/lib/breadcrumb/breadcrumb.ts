@@ -86,7 +86,7 @@ export class BuiBreadcrumbPage {
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
-        class="size-3.5"
+        class="blat-rtl-flip size-3.5"
       >
         <path d="m9 18 6-6-6-6" />
       </svg>

@@ -35,7 +35,7 @@ const INPUT_SIZE: Record<NumberInputSize, string> = {
   template: `
     <button
       type="button"
-      [class]="btnClass() + ' rounded-l-md'"
+      [class]="btnClass() + ' rounded-s-md'"
       (click)="step(-1)"
       [disabled]="disabled() || atMin()"
       [attr.aria-label]="decreaseText()"
@@ -68,7 +68,7 @@ const INPUT_SIZE: Record<NumberInputSize, string> = {
     />
     <button
       type="button"
-      [class]="btnClass() + ' rounded-r-md'"
+      [class]="btnClass() + ' rounded-e-md'"
       (click)="step(1)"
       [disabled]="disabled() || atMax()"
       [attr.aria-label]="increaseText()"

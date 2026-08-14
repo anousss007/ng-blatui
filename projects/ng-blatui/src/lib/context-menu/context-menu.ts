@@ -87,14 +87,14 @@ export interface ContextMenuItem {
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   aria-hidden="true"
-                  class="ms-auto size-4 opacity-60"
+                  class="blat-rtl-flip ms-auto size-4 opacity-60"
                 >
                   <path d="m9 18 6-6-6-6" />
                 </svg>
               </button>
               <div
                 role="menu"
-                class="absolute top-0 left-full z-50 ml-1 hidden min-w-44 rounded-md border bg-popover p-1 text-popover-foreground shadow-md group-hover/sub:block"
+                class="absolute start-full top-0 z-50 ms-1 hidden min-w-44 rounded-md border bg-popover p-1 text-popover-foreground shadow-md group-hover/sub:block"
               >
                 @for (child of item.children; track $index) {
                   <button

@@ -56,7 +56,7 @@ export class BuiDialogContent {
 export class BuiDialogHeader {
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>
-    cn('flex flex-col gap-2 text-center sm:text-left', this.userClass()),
+    cn('flex flex-col gap-2 text-center sm:text-start', this.userClass()),
   );
 }
 

@@ -88,7 +88,7 @@ export class BuiTableHead {
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>
     cn(
-      'h-10 px-2 text-left align-middle font-medium whitespace-nowrap text-foreground [&:has([role=checkbox])]:pr-0',
+      'h-10 px-2 text-start align-middle font-medium whitespace-nowrap text-foreground [&:has([role=checkbox])]:pe-0',
       this.userClass(),
     ),
   );
@@ -101,7 +101,7 @@ export class BuiTableHead {
 export class BuiTableCell {
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>
-    cn('p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0', this.userClass()),
+    cn('p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pe-0', this.userClass()),
   );
 }
 

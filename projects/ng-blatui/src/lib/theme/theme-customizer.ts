@@ -51,7 +51,7 @@ const FONTS: readonly FontOption[] = [
       buiButton
       variant="outline"
       size="sm"
-      class="fixed right-4 bottom-4 z-50 shadow-md"
+      class="fixed end-4 bottom-4 z-50 shadow-md"
       [attr.aria-expanded]="open()"
       (click)="open.set(!open())"
     >
@@ -62,7 +62,7 @@ const FONTS: readonly FontOption[] = [
       <div
         role="dialog"
         [attr.aria-label]="ariaLabelText()"
-        class="fixed right-4 bottom-16 z-50 max-h-[80vh] w-[340px] space-y-5 overflow-y-auto rounded-lg border bg-popover p-4 text-popover-foreground shadow-lg"
+        class="fixed end-4 bottom-16 z-50 max-h-[80vh] w-[340px] space-y-5 overflow-y-auto rounded-lg border bg-popover p-4 text-popover-foreground shadow-lg"
       >
         <div class="flex items-center justify-between">
           <div>

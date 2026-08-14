@@ -117,7 +117,7 @@ const noop = (): void => {};
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   aria-hidden="true"
-                  class="mr-2 size-4 shrink-0"
+                  class="me-2 size-4 shrink-0"
                 >
                   <path [attr.d]="icon" />
                 </svg>

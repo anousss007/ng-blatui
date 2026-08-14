@@ -18,7 +18,7 @@ export class BuiButtonGroup {
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   protected readonly computedClass = computed(() =>
     cn(
-      'flex w-fit items-stretch has-[>[data-slot=button-group]]:gap-2 data-[orientation=vertical]:flex-col [&>*]:focus-within:z-10 [&>*]:focus-visible:z-10 data-[orientation=horizontal]:[&>*:not(:first-child)]:rounded-l-none data-[orientation=horizontal]:[&>*:not(:first-child)]:border-l-0 data-[orientation=vertical]:[&>*:not(:first-child)]:rounded-t-none data-[orientation=vertical]:[&>*:not(:first-child)]:border-t-0 data-[orientation=horizontal]:[&>*:not(:last-child)]:rounded-r-none data-[orientation=vertical]:[&>*:not(:last-child)]:rounded-b-none',
+      'flex w-fit items-stretch has-[>[data-slot=button-group]]:gap-2 data-[orientation=vertical]:flex-col [&>*]:focus-within:z-10 [&>*]:focus-visible:z-10 data-[orientation=horizontal]:[&>*:not(:first-child)]:rounded-s-none data-[orientation=horizontal]:[&>*:not(:first-child)]:border-s-0 data-[orientation=vertical]:[&>*:not(:first-child)]:rounded-t-none data-[orientation=vertical]:[&>*:not(:first-child)]:border-t-0 data-[orientation=horizontal]:[&>*:not(:last-child)]:rounded-e-none data-[orientation=vertical]:[&>*:not(:last-child)]:rounded-b-none',
       this.userClass(),
     ),
   );

@@ -110,7 +110,7 @@ function isoOf(date: Date): string {
         (click)="changeMonth(-1)"
       >
         <svg
-          class="size-4"
+          class="blat-rtl-flip size-4"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -157,7 +157,7 @@ function isoOf(date: Date): string {
         (click)="changeMonth(1)"
       >
         <svg
-          class="size-4"
+          class="blat-rtl-flip size-4"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"

@@ -24,7 +24,7 @@ export interface ComparisonRow {
       </caption>
       <thead>
         <tr class="border-b bg-muted/40">
-          <th scope="col" class="px-4 py-3 text-left font-medium text-muted-foreground">
+          <th scope="col" class="px-4 py-3 text-start font-medium text-muted-foreground">
             {{ featureLabel() }}
           </th>
           @for (tier of tiers(); track tier) {
@@ -41,7 +41,7 @@ export interface ComparisonRow {
       <tbody>
         @for (row of rows(); track row.feature) {
           <tr class="border-b last:border-0">
-            <th scope="row" class="px-4 py-3 text-left font-medium">{{ row.feature }}</th>
+            <th scope="row" class="px-4 py-3 text-start font-medium">{{ row.feature }}</th>
             @for (value of row.values; track $index) {
               <td
                 class="px-4 py-3 text-center"

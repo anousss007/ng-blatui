@@ -98,7 +98,7 @@ const AC_SIZE: Record<AutocompleteSize, string> = {
           stroke-linecap="round"
           stroke-linejoin="round"
           aria-hidden="true"
-          class="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+          class="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
         >
           <path [attr.d]="icon" />
         </svg>
@@ -192,7 +192,7 @@ export class BuiAutocomplete implements ControlValueAccessor {
     cn(
       'w-full rounded-md border border-input bg-transparent shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50',
       AC_SIZE[this.size()],
-      this.icon() ? 'pr-3 pl-9' : 'px-3',
+      this.icon() ? 'ps-9 pe-3' : 'px-3',
     ),
   );
   protected readonly boxClass = computed(() =>

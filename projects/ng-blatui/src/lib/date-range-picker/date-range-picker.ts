@@ -99,12 +99,12 @@ function addDays(date: Date, days: number): Date {
     >
       <div class="z-50 flex rounded-lg border bg-popover shadow-md" role="dialog">
         @if (resolvedPresets().length > 0) {
-          <ul class="flex w-36 flex-col gap-1 border-r p-2">
+          <ul class="flex w-36 flex-col gap-1 border-e p-2">
             @for (preset of resolvedPresets(); track preset.label) {
               <li>
                 <button
                   type="button"
-                  class="w-full rounded-sm px-2 py-1.5 text-left text-sm hover:bg-accent focus-visible:bg-accent focus-visible:outline-none"
+                  class="w-full rounded-sm px-2 py-1.5 text-start text-sm hover:bg-accent focus-visible:bg-accent focus-visible:outline-none"
                   (click)="applyPreset(preset)"
                 >
                   {{ preset.label }}
