@@ -15,15 +15,21 @@ class TestHost {
   ];
 }
 
+/** The feed is portalled into the CDK overlay, so it is not under the fixture. */
+function panel(): HTMLElement | null {
+  return document.querySelector('.cdk-overlay-container [role="region"]');
+}
+
 describe('BuiNotificationCenter', () => {
   it('shows the unread count and marks all read', () => {
     const fixture = TestBed.createComponent(TestHost);
     fixture.detectChanges();
-    const root = fixture.nativeElement as HTMLElement;
-    const bell = root.querySelector('button[aria-label="Notifications"]')!;
+    const bell = (fixture.nativeElement as HTMLElement).querySelector(
+      'button[aria-label="Notifications"]',
+    )!;
     expect(bell.textContent).toContain('1');
 
-    root.querySelectorAll<HTMLButtonElement>('button')[1].click(); // "Mark all read"
+    panel()!.querySelector('button')!.click(); // "Mark all read"
     fixture.detectChanges();
     expect(bell.querySelector('span')).toBeNull(); // unread badge removed
   });
@@ -31,19 +37,16 @@ describe('BuiNotificationCenter', () => {
   it('closes on an outside click but stays open on an inside click', () => {
     const fixture = TestBed.createComponent(TestHost);
     fixture.detectChanges();
-    const root = fixture.nativeElement as HTMLElement;
-    expect(root.querySelector('[role="region"]')).not.toBeNull();
+    expect(panel()).not.toBeNull();
 
     // A click inside the panel must not dismiss it.
-    root
-      .querySelector('[role="region"]')!
-      .dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    panel()!.dispatchEvent(new MouseEvent('click', { bubbles: true }));
     fixture.detectChanges();
-    expect(root.querySelector('[role="region"]')).not.toBeNull();
+    expect(panel()).not.toBeNull();
 
     // A click outside the bell + panel closes it.
     document.body.dispatchEvent(new MouseEvent('click', { bubbles: true }));
     fixture.detectChanges();
-    expect(root.querySelector('[role="region"]')).toBeNull();
+    expect(panel()).toBeNull();
   });
 });

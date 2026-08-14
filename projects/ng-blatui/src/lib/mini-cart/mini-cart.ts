@@ -1,8 +1,10 @@
+import { OverlayModule } from '@angular/cdk/overlay';
 import { Component, computed, input, model } from '@angular/core';
 
 import { buiLabel } from '../i18n/labels';
 import { buiLocale } from '../i18n/locale';
 import { type ClassValue, cn } from '../utils/cn';
+import { PANEL_POSITIONS } from '../utils/panel-positions';
 
 /** Two fraction digits ("1,234.50") — matches the pre-locale rendering in `en-US`. */
 const DEFAULT_NUMBER_FORMAT: Intl.NumberFormatOptions = {
@@ -26,10 +28,13 @@ export interface CartItem {
 /** A cart trigger with an item-count badge and a dropdown with line items + subtotal. */
 @Component({
   selector: 'bui-mini-cart',
+  imports: [OverlayModule],
   host: { 'data-slot': 'mini-cart', '[class]': 'computedClass()' },
   template: `
     <button
       type="button"
+      cdkOverlayOrigin
+      #trigger="cdkOverlayOrigin"
       class="relative inline-flex size-9 items-center justify-center rounded-md border border-input hover:bg-accent"
       [attr.aria-expanded]="open()"
       [attr.aria-label]="triggerText()"
@@ -57,9 +62,18 @@ export interface CartItem {
         </span>
       }
     </button>
-    @if (open()) {
+    <ng-template
+      cdkConnectedOverlay
+      [cdkConnectedOverlayOrigin]="trigger"
+      [cdkConnectedOverlayOpen]="open()"
+      [cdkConnectedOverlayPositions]="panelPositions"
+      [cdkConnectedOverlayPush]="true"
+      [cdkConnectedOverlayViewportMargin]="8"
+      (overlayOutsideClick)="open.set(false)"
+      (detach)="open.set(false)"
+    >
       <div
-        class="absolute end-0 z-50 mt-2 w-80 rounded-lg border bg-popover text-popover-foreground shadow-md"
+        class="z-50 w-80 max-w-[calc(100vw-1rem)] rounded-lg border bg-popover text-popover-foreground shadow-md"
         role="dialog"
         [attr.aria-label]="labelText()"
       >
@@ -102,7 +116,7 @@ export interface CartItem {
           </div>
         }
       </div>
-    }
+    </ng-template>
   `,
 })
 export class BuiMiniCart {
@@ -129,6 +143,7 @@ export class BuiMiniCart {
    */
   readonly numberFormat = input<Intl.NumberFormatOptions>(DEFAULT_NUMBER_FORMAT);
 
+  protected readonly panelPositions = PANEL_POSITIONS;
   private readonly resolvedLocale = buiLocale(this.locale);
   private readonly formatter = computed(
     () => new Intl.NumberFormat(this.resolvedLocale(), this.numberFormat()),
@@ -145,7 +160,7 @@ export class BuiMiniCart {
   protected readonly subtotal = computed(() =>
     this.items().reduce((total, item) => total + item.price * item.qty, 0),
   );
-  protected readonly computedClass = computed(() => cn('relative inline-block', this.userClass()));
+  protected readonly computedClass = computed(() => cn('inline-block', this.userClass()));
 
   protected format(value: number): string {
     return this.currency() + this.formatter().format(value);

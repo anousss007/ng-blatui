@@ -13,15 +13,19 @@ class TestHost {
   readonly items: CartItem[] = [{ name: 'T-shirt', price: 25, qty: 2 }];
 }
 
+/** The panel is portalled into the CDK overlay, so it is not under the fixture. */
+function panelText(): string {
+  return document.querySelector('.cdk-overlay-container [role="dialog"]')!.textContent;
+}
+
 describe('BuiMiniCart', () => {
   it('shows the item count and subtotal', () => {
     const fixture = TestBed.createComponent(TestHost);
     fixture.detectChanges();
     const root = fixture.nativeElement as HTMLElement;
     expect(root.querySelector('button[aria-label="Cart"]')?.textContent).toContain('2');
-    const panel = root.querySelector('[role="dialog"]')!;
-    expect(panel.textContent).toContain('T-shirt');
-    expect(panel.textContent).toContain('$50.00');
+    expect(panelText()).toContain('T-shirt');
+    expect(panelText()).toContain('$50.00');
   });
 
   it('formats the subtotal in the app locale', () => {
@@ -36,14 +40,12 @@ describe('BuiMiniCart', () => {
 
     const fixture = TestBed.createComponent(LocaleHost);
     fixture.detectChanges();
-    const panel = (): string =>
-      (fixture.nativeElement as HTMLElement).querySelector('[role="dialog"]')!.textContent;
-    expect(panel()).toContain('€1,234.50');
+    expect(panelText()).toContain('€1,234.50');
 
     fixture.componentInstance.locale.set('fr');
     fixture.detectChanges();
-    expect(panel()).not.toContain('1,234.50');
-    expect(panel()).toContain(
+    expect(panelText()).not.toContain('1,234.50');
+    expect(panelText()).toContain(
       new Intl.NumberFormat('fr', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
@@ -59,24 +61,22 @@ describe('BuiMiniCart', () => {
     });
     const fixture = TestBed.createComponent(TestHost);
     fixture.detectChanges();
-    const panel = (fixture.nativeElement as HTMLElement).querySelector('[role="dialog"]')!;
-    expect(panel.textContent).toContain('Votre panier');
-    expect(panel.textContent).toContain('Sous-total');
-    expect(panel.textContent).not.toContain('Subtotal');
+    expect(panelText()).toContain('Votre panier');
+    expect(panelText()).toContain('Sous-total');
+    expect(panelText()).not.toContain('Subtotal');
   });
 
   it('keeps the English panel copy by default', () => {
     const fixture = TestBed.createComponent(TestHost);
     fixture.detectChanges();
-    const panel = (fixture.nativeElement as HTMLElement).querySelector('[role="dialog"]')!;
-    expect(panel.textContent).toContain('Your cart');
-    expect(panel.textContent).toContain('Subtotal');
+    expect(panelText()).toContain('Your cart');
+    expect(panelText()).toContain('Subtotal');
   });
 
   it('follows the app LOCALE_ID', () => {
     TestBed.configureTestingModule({ providers: [{ provide: LOCALE_ID, useValue: 'de-DE' }] });
     const fixture = TestBed.createComponent(TestHost);
     fixture.detectChanges();
-    expect((fixture.nativeElement as HTMLElement).textContent).toContain('50,00');
+    expect(panelText()).toContain('50,00');
   });
 });

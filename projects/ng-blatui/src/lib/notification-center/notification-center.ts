@@ -1,7 +1,9 @@
-import { Component, computed, ElementRef, inject, input, model, signal } from '@angular/core';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { Component, computed, input, model, signal } from '@angular/core';
 
 import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
+import { PANEL_POSITIONS } from '../utils/panel-positions';
 
 export interface NotificationItem {
   /** Primary heading text of the notification. */
@@ -17,16 +19,17 @@ export interface NotificationItem {
 /** A bell trigger with a dropdown feed of notifications and an unread badge. */
 @Component({
   selector: 'bui-notification-center',
+  imports: [OverlayModule],
   host: {
     'data-slot': 'notification-center',
     '[class]': 'computedClass()',
-    '(document:click)': 'onDocumentClick($event)',
     '(document:keydown.escape)': 'open.set(false)',
-    '(window:scroll)': 'open.set(false)',
   },
   template: `
     <button
       type="button"
+      cdkOverlayOrigin
+      #trigger="cdkOverlayOrigin"
       class="relative inline-flex size-9 items-center justify-center rounded-md border border-input hover:bg-accent"
       [attr.aria-expanded]="open()"
       [attr.aria-label]="ariaText()"
@@ -53,9 +56,18 @@ export interface NotificationItem {
         </span>
       }
     </button>
-    @if (open()) {
+    <ng-template
+      cdkConnectedOverlay
+      [cdkConnectedOverlayOrigin]="trigger"
+      [cdkConnectedOverlayOpen]="open()"
+      [cdkConnectedOverlayPositions]="panelPositions"
+      [cdkConnectedOverlayPush]="true"
+      [cdkConnectedOverlayViewportMargin]="8"
+      (overlayOutsideClick)="open.set(false)"
+      (detach)="open.set(false)"
+    >
       <div
-        class="absolute end-0 z-50 mt-2 w-80 rounded-lg border bg-popover text-popover-foreground shadow-md"
+        class="z-50 w-80 max-w-[calc(100vw-1rem)] rounded-lg border bg-popover text-popover-foreground shadow-md"
         role="region"
         [attr.aria-label]="ariaText()"
       >
@@ -92,7 +104,7 @@ export interface NotificationItem {
           }
         </ul>
       </div>
-    }
+    </ng-template>
   `,
 })
 export class BuiNotificationCenter {
@@ -118,20 +130,12 @@ export class BuiNotificationCenter {
   );
   protected readonly emptyText = buiLabel('notificationCenterEmpty', this.emptyLabel);
 
-  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+  protected readonly panelPositions = PANEL_POSITIONS;
   private readonly markedRead = signal<ReadonlySet<number>>(new Set());
   protected readonly unread = computed(
     () => this.notifications().filter((_, index) => !this.isRead(index)).length,
   );
-  protected readonly computedClass = computed(() => cn('relative inline-block', this.userClass()));
-
-  // Close when a click lands outside the bell + panel. The trigger's own click is contained in
-  // the host, so it toggles open without this handler immediately closing it again.
-  protected onDocumentClick(event: MouseEvent): void {
-    if (this.open() && !this.host.nativeElement.contains(event.target as Node)) {
-      this.open.set(false);
-    }
-  }
+  protected readonly computedClass = computed(() => cn('inline-block', this.userClass()));
 
   protected isRead(index: number): boolean {
     return this.markedRead().has(index) || (this.notifications()[index]?.read ?? false);
