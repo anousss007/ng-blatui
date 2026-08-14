@@ -1,7 +1,16 @@
 import { _IdGenerator } from '@angular/cdk/a11y';
 import { type ConnectedPosition, Overlay, type OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { Component, computed, Directive, ElementRef, inject, input, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  Directive,
+  ElementRef,
+  inject,
+  input,
+  model,
+  signal,
+} from '@angular/core';
 
 import { type ClassValue, cn } from '../utils/cn';
 
@@ -55,8 +64,14 @@ const FALLBACK: Record<TooltipSide, TooltipSide> = {
   },
 })
 export class BuiTooltip {
-  /** Tooltip text; bound via the `buiTooltip` attribute. */
-  readonly text = input.required<string>({ alias: 'buiTooltip' });
+  /** Tooltip text; bound via the `buiTooltip` attribute. Empty text shows nothing. */
+  readonly text = input('', { alias: 'buiTooltip' });
+  /**
+   * Suppress the tooltip without removing the directive. Written by hosts that only
+   * label themselves some of the time — a {@link BuiSidebarMenuButton} shows its
+   * tooltip on the collapsed icon rail and nowhere else.
+   */
+  readonly disabled = model(false);
   /** Preferred placement side relative to the host, with an automatic flip fallback. */
   readonly side = input<TooltipSide>('top');
   /** Delay in milliseconds before the tooltip appears on hover/focus. */
@@ -72,7 +87,7 @@ export class BuiTooltip {
   protected readonly describedBy = signal<string | null>(null);
 
   protected show(): void {
-    if (this.overlayRef || !this.text()) {
+    if (this.overlayRef || !this.text() || this.disabled()) {
       return;
     }
     const open = (): void => {
