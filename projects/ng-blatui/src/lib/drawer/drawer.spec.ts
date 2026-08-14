@@ -31,4 +31,27 @@ describe('BuiDrawer', () => {
     fixture.detectChanges();
     expect(root.querySelector('[role="dialog"]')).toBeNull();
   });
+
+  it('closeOnOverlay=false gives a static backdrop, but never traps the keyboard', () => {
+    @Component({
+      imports: [BuiDrawer],
+      template: `<bui-drawer [(open)]="open" [closeOnOverlay]="false"
+        ><h2>Settings</h2></bui-drawer
+      >`,
+    })
+    class StaticHost {
+      readonly open = signal(true);
+    }
+    const fixture = TestBed.createComponent(StaticHost);
+    fixture.detectChanges();
+    const root = fixture.nativeElement as HTMLElement;
+
+    root.querySelector<HTMLElement>('.fixed.inset-0')!.click();
+    fixture.detectChanges();
+    expect(root.querySelector('[role="dialog"]')).not.toBeNull();
+
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    fixture.detectChanges();
+    expect(root.querySelector('[role="dialog"]')).toBeNull();
+  });
 });

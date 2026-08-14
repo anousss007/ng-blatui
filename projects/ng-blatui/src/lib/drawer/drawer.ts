@@ -15,11 +15,7 @@ const POSITION: Record<string, string> = {
   host: { 'data-slot': 'drawer', '(document:keydown.escape)': 'open.set(false)' },
   template: `
     @if (open()) {
-      <div
-        class="fixed inset-0 z-50 bg-black/50"
-        (click)="open.set(false)"
-        aria-hidden="true"
-      ></div>
+      <div class="fixed inset-0 z-50 bg-black/50" (click)="dismiss()" aria-hidden="true"></div>
       <div role="dialog" aria-modal="true" [attr.aria-label]="ariaLabel()" [class]="panelClass()">
         <ng-content />
       </div>
@@ -33,7 +29,20 @@ export class BuiDrawer {
   readonly direction = input<'top' | 'bottom' | 'left' | 'right'>('bottom');
   /** Accessible label applied to the drawer dialog. */
   readonly ariaLabel = input('Drawer');
+  /**
+   * Whether clicking the backdrop closes the drawer. Set `false` for a static backdrop —
+   * a multi-step flow a stray click shouldn't discard. It governs the backdrop and nothing
+   * else: Escape stays wired, because a dialog you can't leave from the keyboard is a trap.
+   */
+  readonly closeOnOverlay = input(true);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
+
+  /** Close on a backdrop click, unless the backdrop was made static. */
+  protected dismiss(): void {
+    if (this.closeOnOverlay()) {
+      this.open.set(false);
+    }
+  }
 
   protected readonly panelClass = computed(() =>
     cn(

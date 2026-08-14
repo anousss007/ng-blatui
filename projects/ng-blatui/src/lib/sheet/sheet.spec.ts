@@ -27,4 +27,27 @@ describe('BuiSheet', () => {
     fixture.detectChanges();
     expect(root.querySelector('[role="dialog"]')).toBeNull();
   });
+
+  it('closeOnOverlay=false gives a static backdrop, but never traps the keyboard', () => {
+    @Component({
+      imports: [BuiSheet],
+      template: `<bui-sheet [(open)]="open" [closeOnOverlay]="false">
+        <p>Sheet body</p>
+      </bui-sheet>`,
+    })
+    class StaticHost {
+      readonly open = signal(true);
+    }
+    const fixture = TestBed.createComponent(StaticHost);
+    fixture.detectChanges();
+    const root = fixture.nativeElement as HTMLElement;
+
+    root.querySelector<HTMLElement>('.fixed.inset-0')!.click();
+    fixture.detectChanges();
+    expect(root.querySelector('[role="dialog"]')).not.toBeNull();
+
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    fixture.detectChanges();
+    expect(root.querySelector('[role="dialog"]')).toBeNull();
+  });
 });
