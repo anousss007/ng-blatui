@@ -9,9 +9,12 @@ const noop = (): void => {};
 const SWITCH_BASE =
   'peer data-[state=checked]:bg-primary data-[state=unchecked]:bg-input focus-visible:border-ring focus-visible:ring-ring/50 dark:data-[state=unchecked]:bg-input/80 inline-flex shrink-0 items-center rounded-full border border-transparent shadow-xs transition-all outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50';
 
+// The default track height is the one size in the scale that isn't a spacing step: it
+// tracks `--spacing` so it follows a changed spacing scale like every sibling utility.
+// 4.6 × .25rem = 1.15rem, so nothing moves at Tailwind's default.
 const SWITCH_TRACK = {
   sm: 'h-4 w-7',
-  default: 'h-[1.15rem] w-8',
+  default: 'h-[calc(var(--spacing)*4.6)] w-8',
   lg: 'h-6 w-10',
 } as const;
 
