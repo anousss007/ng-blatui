@@ -6,7 +6,7 @@
 
 Accessible **Angular UI library** — a faithful port of [BlatUI](https://ngblatui.remix-it.com)'s visual system to Angular. Built on the official Angular headless stack (Angular Aria + CDK), styled with Tailwind CSS v4 + oklch design tokens.
 
-**155 components · 16 blocks · 70 charts · 34 page templates** — all standalone, signal-based, zoneless and SSR-safe.
+**157 components · 16 blocks · 70 charts · 35 page templates** — all standalone, signal-based, zoneless and SSR-safe.
 
 🔗 **[Docs & live demo →](https://ngblatui.remix-it.com)** · 📦 **[npm](https://www.npmjs.com/package/ng-blatui)** · 🤖 **[Using with AI →](./USING-WITH-AI.md)**
 
@@ -101,7 +101,7 @@ Styling is Tailwind v4 + CSS variables. Override the oklch design tokens (`--bac
 | **Components** | 157   | https://ngblatui.remix-it.com/components |
 | **Blocks**     | 16    | https://ngblatui.remix-it.com/blocks     |
 | **Charts**     | 70    | https://ngblatui.remix-it.com/charts     |
-| **Templates**  | 34    | https://ngblatui.remix-it.com/templates  |
+| **Templates**  | 35    | https://ngblatui.remix-it.com/templates  |
 
 Templates are full, production-style pages (dashboard, pricing, auth, store, CRM, blog, docs, e-commerce product, plus 20 art-directed landing pages) — faithful 1:1 reproductions of the BlatUI originals.
 
@@ -158,7 +158,7 @@ npm start          # serve the docs/demo app at http://localhost:4200
 projects/
   ng-blatui/        # the published library (src/lib/* = 157 component dirs, public-api.ts)
   demo/             # docs + live demo site (components/blocks/charts/templates galleries)
-    src/app/pages/templates/   # the 34 page templates
+    src/app/pages/templates/   # the 35 page templates
     public/         # static assets incl. generated llms.txt + registry.json
 scripts/
   build-registry.mjs   # generates registry.json + llms.txt + mcp/registry.json

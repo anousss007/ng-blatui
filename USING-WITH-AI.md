@@ -1,6 +1,6 @@
 # Using ng-blatui with AI agents
 
-ng-blatui ships first-class support for AI coding assistants so they can **discover, choose and correctly use** its 155 components, 16 blocks, 70 charts and 34 page templates — instead of guessing.
+ng-blatui ships first-class support for AI coding assistants so they can **discover, choose and correctly use** its 157 components, 16 blocks, 70 charts and 35 page templates — instead of guessing.
 
 There are three layers; use any or all:
 
@@ -16,7 +16,7 @@ Every docs page is **server-prerendered**, so `https://ngblatui.remix-it.com/com
 
 ## MCP server
 
-`ng-blatui-mcp` exposes: `list_components` (optional `category`), `list_blocks`, `list_charts`, `list_templates`, `search({ query })`, and `get_docs({ name })` (returns full usage + code for a slug). It runs over **stdio** as `npx -y ng-blatui-mcp`, reads the live registry, and falls back to a copy bundled in the package when offline.
+`ng-blatui-mcp` exposes: `list_components` (optional `category`), `list_blocks`, `list_charts`, `list_templates`, `search({ query })`, `get_docs({ name })` (full usage + code + typed API for a slug) and `get_api({ name })` (just the typed API), plus the prompts `use-component` and `scaffold-page`. It runs over **stdio** as `npx -y ng-blatui-mcp`, reads the live registry, and falls back to a copy bundled in the package when offline.
 
 ### The standard block
 

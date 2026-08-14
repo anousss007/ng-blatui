@@ -23,13 +23,26 @@ blocks, templates, oklch design tokens, theming) to Angular. Behavior is built o
 
 ## Commands
 
-| Task                      | Command                                |
-| ------------------------- | -------------------------------------- |
-| Build library             | `npm run build` (`ng build ng-blatui`) |
-| Serve demo                | `npm start` (`ng serve demo`)          |
-| Unit tests (Vitest)       | `npm test`                             |
-| Lint (ESLint, type-aware) | `npm run lint`                         |
-| Format (Prettier)         | `npm run format`                       |
+| Task                      | Command                                                 |
+| ------------------------- | ------------------------------------------------------- |
+| Build library             | `npm run build:lib` (`ng build ng-blatui`)              |
+| Build demo site           | `npm run build`                                         |
+| Serve demo                | `npm start` (`ng serve demo`)                           |
+| Unit tests (Vitest)       | `npm test` (CI: `npm run test:ci`)                      |
+| Lint (ESLint, type-aware) | `npm run lint`                                          |
+| Format (Prettier)         | `npm run format`                                        |
+| Extract the typed API     | `npm run extract:api` → `api.json`                      |
+| Check API docs coverage   | `npm run check:api-docs`                                |
+| Regenerate the catalog    | `npm run build:registry` → `registry.json` + `llms.txt` |
+
+## After changing a component's public API
+
+`api.json`, `registry.json` and `llms.txt` are generated, committed artifacts (duplicated into
+`mcp/`, `projects/demo/public/` and `projects/demo/src/app/generated/`) — the MCP server and every
+AI consumer read them. Changing an `input()`/`output()`/`model()` or adding a component means
+running `npm run extract:api && npm run build:registry` and committing the regenerated files
+(conventionally `chore: regenerate api/registry for …`). Every public API member needs a doc
+comment; `npm run check:api-docs` is what enforces it.
 
 ## Quality gates
 
