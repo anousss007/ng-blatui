@@ -90,6 +90,7 @@ export interface BuiLabels {
   // markdown-editor
   markdownEditorWrite: string;
   markdownEditorPreview: string;
+  markdownEditorFormatting: string;
   // mini-cart
   miniCartTrigger: string;
   miniCart: string;
@@ -207,6 +208,7 @@ export const BUI_DEFAULT_LABELS: BuiLabels = {
   ganttEmpty: 'No tasks.',
   markdownEditorWrite: 'Write',
   markdownEditorPreview: 'Preview',
+  markdownEditorFormatting: 'Formatting',
   miniCartTrigger: 'Cart',
   miniCart: 'Shopping cart',
   miniCartTitle: 'Your cart',
