@@ -5888,7 +5888,7 @@ export const API_DOCS = {
     ]
   },
   "markdown-editor": {
-    "summary": "A markdown textarea with a live, sanitized HTML preview.",
+    "summary": "A markdown textarea with a formatting toolbar and a live, sanitized HTML preview.",
     "components": [
       {
         "class": "BuiMarkdownEditor",
@@ -5928,6 +5928,13 @@ export const API_DOCS = {
             "default": null,
             "required": false,
             "description": "Text of the preview tab. Falls back to `provideBuiLabels`."
+          },
+          {
+            "name": "formattingLabel",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "Accessible label override for the formatting toolbar."
           }
         ],
         "models": [

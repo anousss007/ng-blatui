@@ -51,7 +51,7 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Color Picker](https://ngblatui.remix-it.com/components/color-picker) — props: swatches, disabled, pickLabel, hexLabel · two-way: value
 - [Signature Pad](https://ngblatui.remix-it.com/components/signature-pad) — props: height, penColor
 - [Repeater](https://ngblatui.remix-it.com/components/repeater) — props: fields, min, max, addLabel, removeLabel · two-way: rows · types: RepeaterField
-- [Markdown Editor](https://ngblatui.remix-it.com/components/markdown-editor) — props: name, placeholder, rows, writeLabel, previewLabel · two-way: value
+- [Markdown Editor](https://ngblatui.remix-it.com/components/markdown-editor) — props: name, placeholder, rows, writeLabel, previewLabel, formattingLabel · two-way: value
 - [Calendar](https://ngblatui.remix-it.com/components/calendar) — props: mode, months, weekStart, minDate, maxDate, disabledDates, disableWeekends, showWeekNumbers, captionLayout, hideOutsideDays, locale, monthFormat, weekdayFormat, weekdayLabels, previousMonthLabel, monthSelectLabel, yearLabel, nextMonthLabel, weekLabel · two-way: value, range, values, disabled · types: CalendarMode, CalendarRange, WeekdayFormat
 - [Date Picker](https://ngblatui.remix-it.com/components/date-picker) — props: mode, months, placeholder, minDate, maxDate, weekStart, disabledDates, disableWeekends, showWeekNumbers, captionLayout, hideOutsideDays, locale, dateFormat · two-way: value, range, disabled · types: CalendarMode, CalendarRange
 - [Date Range Picker](https://ngblatui.remix-it.com/components/date-range-picker) — props: months, minDate, maxDate, placeholder, presets, aria-label, locale, dateFormat · two-way: value, disabled · types: CalendarRange, DateRangePreset
