@@ -94,6 +94,29 @@ Other easy-to-miss building blocks: `buiEmpty` (empty states), `bui-stat` (stat 
 
 Styling is Tailwind v4 + CSS variables. Override the oklch design tokens (`--background`, `--foreground`, `--primary`, `--border`, `--muted`, `--radius`, …) to restyle everything globally; toggle a `dark` class for dark mode. See **https://ngblatui.remix-it.com/docs/theming**.
 
+## Localization
+
+Two providers cover the whole library, both set once in your app config:
+
+```ts
+import { provideBuiLabels, provideBuiLocale } from 'ng-blatui';
+
+providers: [
+  provideBuiLocale('fr-BE'), // dates, times, numbers, week start, weekend, week numbering
+  provideBuiLabels({ fileUploadRemove: 'Supprimer le fichier' }), // built-in strings
+];
+```
+
+**Set neither and everything formats as `en-US`** — that is Angular's own `LOCALE_ID` default, and
+the usual reason pickers stay American in an app that is not. Resolution runs most-specific first:
+a component's `[locale]` input → `provideBuiLocale()` → the app's `LOCALE_ID` → `en-US`. You never
+need `registerLocaleData()` here; ng-blatui formats through `Intl`.
+
+Both providers also take a **signal**, or a factory run in an injection context — which is what
+keeps them open to any translation library (Transloco, ngx-translate, a signal store of your own)
+without ng-blatui depending on one, or knowing any translation format. Full guide, with a Transloco
+example: **https://ngblatui.remix-it.com/docs/localization**.
+
 ## What's inside
 
 | Category       | Count | Browse                                   |

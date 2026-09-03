@@ -141,6 +141,12 @@ const docs = [
     url: `${HOMEPAGE}/docs/installation`,
   },
   { name: 'theming', label: 'Theming', type: 'doc', url: `${HOMEPAGE}/docs/theming` },
+  {
+    name: 'localization',
+    label: 'Localization',
+    type: 'doc',
+    url: `${HOMEPAGE}/docs/localization`,
+  },
 ];
 
 const items = [...components, ...blocks, ...charts, ...templates, ...docs];
@@ -193,6 +199,8 @@ const llms = `# ng-blatui
 > ${registry.description}
 
 ng-blatui is an Angular port of BlatUI. Install with \`${registry.install}\`, import any component from the \`ng-blatui\` barrel (selectors are prefixed \`bui\`), and theme it with Tailwind v4 + oklch tokens. Every component is standalone, signal-based, zoneless and SSR-safe. Each page below is server-prerendered, so its full markup, props and code are fetchable as plain HTML.
+
+**Localization is app-level, not per component.** Dates, times and numbers follow one BCP 47 tag and the built-in strings one map, both set once in \`providers\`: \`provideBuiLocale('fr-BE')\` and \`provideBuiLabels({ … })\`, each of which also takes a signal for a language switched at runtime. Set neither and everything formats as \`en-US\` — Angular's own \`LOCALE_ID\` default. The per-component \`locale\` prop listed below is an override for one instance, not the way to localize an app: ${HOMEPAGE}/docs/localization
 
 - Docs & live demo: ${HOMEPAGE}
 - npm: https://www.npmjs.com/package/${PKG}

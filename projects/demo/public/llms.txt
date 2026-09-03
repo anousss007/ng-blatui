@@ -4,6 +4,8 @@
 
 ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import any component from the `ng-blatui` barrel (selectors are prefixed `bui`), and theme it with Tailwind v4 + oklch tokens. Every component is standalone, signal-based, zoneless and SSR-safe. Each page below is server-prerendered, so its full markup, props and code are fetchable as plain HTML.
 
+**Localization is app-level, not per component.** Dates, times and numbers follow one BCP 47 tag and the built-in strings one map, both set once in `providers`: `provideBuiLocale('fr-BE')` and `provideBuiLabels({ … })`, each of which also takes a signal for a language switched at runtime. Set neither and everything formats as `en-US` — Angular's own `LOCALE_ID` default. The per-component `locale` prop listed below is an override for one instance, not the way to localize an app: https://ngblatui.remix-it.com/docs/localization
+
 - Docs & live demo: https://ngblatui.remix-it.com
 - npm: https://www.npmjs.com/package/ng-blatui
 - Machine-readable registry: https://ngblatui.remix-it.com/registry.json
@@ -14,6 +16,7 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Introduction](https://ngblatui.remix-it.com/)
 - [Installation](https://ngblatui.remix-it.com/docs/installation)
 - [Theming](https://ngblatui.remix-it.com/docs/theming)
+- [Localization](https://ngblatui.remix-it.com/docs/localization)
 
 ## Components (157)
 
