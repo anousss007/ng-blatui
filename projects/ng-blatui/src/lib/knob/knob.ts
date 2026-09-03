@@ -2,6 +2,7 @@ import { Component, computed, ElementRef, forwardRef, inject, input, model } fro
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
+import { buiSnap, buiStep } from '../utils/number';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = (): void => {};
@@ -164,11 +165,11 @@ export class BuiKnob implements ControlValueAccessor {
         break;
       }
       case 'PageUp': {
-        this.commit(this.clamp(this.value() + this.bigStep()));
+        this.nudge(this.bigStep());
         break;
       }
       case 'PageDown': {
-        this.commit(this.clamp(this.value() - this.bigStep()));
+        this.nudge(-this.bigStep());
         break;
       }
       default: {
@@ -194,7 +195,13 @@ export class BuiKnob implements ControlValueAccessor {
   }
 
   private bump(direction: number): void {
-    this.commit(this.clamp(this.value() + direction * this.step()));
+    this.nudge(direction * this.step());
+  }
+
+  /** Move by `delta`, rounded to the precision the value and the delta imply. */
+  private nudge(delta: number): void {
+    const next = buiStep(this.value(), delta);
+    this.commit(this.clamp(next));
   }
 
   private bigStep(): number {
@@ -206,8 +213,7 @@ export class BuiKnob implements ControlValueAccessor {
   }
 
   private snap(value: number): number {
-    const snapped = Math.round((value - this.min()) / this.step()) * this.step() + this.min();
-    return Number.parseFloat(this.clamp(snapped).toFixed(6));
+    return this.clamp(buiSnap(value, this.min(), this.step()));
   }
 
   private commit(value: number): void {

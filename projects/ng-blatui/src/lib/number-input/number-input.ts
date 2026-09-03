@@ -3,6 +3,7 @@ import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
+import { buiStep } from '../utils/number';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = (): void => {};
@@ -130,7 +131,9 @@ export class BuiNumberInput implements ControlValueAccessor {
   );
 
   protected step(direction: number): void {
-    this.commit(this.value() + direction * this.stepBy());
+    // Through `buiStep`, so eight presses of `+0.1` land on the values the caller described
+    // rather than on `1.3666666666666667`.
+    this.commit(buiStep(this.value(), direction * this.stepBy()));
   }
 
   protected onInput(event: Event): void {
