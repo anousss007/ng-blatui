@@ -11,8 +11,12 @@ import {
 import { type ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { type ClassValue, cn } from '../utils/cn';
+import { buiSnap, buiStep } from '../utils/number';
 
 type Thumb = 'start' | 'end';
+
+/** What a `range` slider reads and writes through a form binding: `[low, high]`. */
+export type SliderRange = readonly [number, number];
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = (): void => {};
@@ -22,6 +26,10 @@ const noop = (): void => {};
  * (arrows, Home/End, PageUp/PageDown). Single value, or a two-thumb `range`
  * (binds `value` + `endValue`). Horizontal or vertical. SSR-safe — geometry is
  * only read inside browser event handlers.
+ *
+ * Through a form binding (`formControl`, `ngModel`) a single slider is a `number`, and a
+ * `range` slider is the **whole** `[low, high]` pair — both thumbs write it, so the control
+ * is never holding one end from before a drag and the other from after.
  */
 @Component({
   selector: 'bui-slider',
@@ -110,7 +118,7 @@ export class BuiSlider implements ControlValueAccessor {
   readonly ariaLabel = input('Value');
   readonly userClass = input<ClassValue>('', { alias: 'class' });
 
-  private onChange: (value: number) => void = noop;
+  private onChange: (value: number | SliderRange) => void = noop;
   protected onTouched: () => void = noop;
   private readonly track = viewChild.required<ElementRef<HTMLElement>>('track');
   private readonly active = signal<Thumb>('start');
@@ -174,12 +182,12 @@ export class BuiSlider implements ControlValueAccessor {
     switch (event.key) {
       case 'ArrowRight':
       case 'ArrowUp': {
-        next = current + this.step();
+        next = buiStep(current, this.step());
         break;
       }
       case 'ArrowLeft':
       case 'ArrowDown': {
-        next = current - this.step();
+        next = buiStep(current, -this.step());
         break;
       }
       case 'Home': {
@@ -191,11 +199,11 @@ export class BuiSlider implements ControlValueAccessor {
         break;
       }
       case 'PageUp': {
-        next = current + big;
+        next = buiStep(current, big);
         break;
       }
       case 'PageDown': {
-        next = current - big;
+        next = buiStep(current, -big);
         break;
       }
       default: {
@@ -215,8 +223,10 @@ export class BuiSlider implements ControlValueAccessor {
       this.endValue.set(next);
     } else {
       this.value.set(next);
-      this.onChange(next);
     }
+    // Both thumbs report. The upper one used to move on screen while the form control heard
+    // nothing at all, so a range slider bound to a form only ever reported its lower half.
+    this.onChange(this.range() ? [this.value(), this.endValue()] : this.value());
   }
 
   private toPct(value: number): number {
@@ -235,18 +245,28 @@ export class BuiSlider implements ControlValueAccessor {
   }
 
   private snap(raw: number): number {
-    return this.clamp(Math.round(raw / this.step()) * this.step());
+    return this.clamp(buiSnap(raw, this.min(), this.step()));
   }
 
   private clamp(value: number): number {
     return Math.max(this.min(), Math.min(this.max(), value));
   }
 
-  writeValue(value: number | null | undefined): void {
-    this.value.set(typeof value === 'number' ? value : 0);
+  /** Accepts a `number`, or the `[low, high]` pair a `range` slider reads and writes. */
+  writeValue(value: number | SliderRange | null | undefined): void {
+    if (value === null || value === undefined) {
+      this.value.set(0);
+      return;
+    }
+    if (typeof value === 'number') {
+      this.value.set(value);
+      return;
+    }
+    this.value.set(value[0]);
+    this.endValue.set(value[1]);
   }
 
-  registerOnChange(callback: (value: number) => void): void {
+  registerOnChange(callback: (value: number | SliderRange) => void): void {
     this.onChange = callback;
   }
 

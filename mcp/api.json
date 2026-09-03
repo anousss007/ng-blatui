@@ -581,7 +581,7 @@
     "types": []
   },
   "tooltip": {
-    "summary": "BlatUI tooltip. Shows an accessible `role=\"tooltip\"` bubble on hover/focus via the\nAngular CDK overlay and wires `aria-describedby` on the host. SSR-safe (the overlay\nis only created in the browser, on interaction). Configure the placement with `side`,\na hover delay with `delay`, and the bubble colour with `tooltipClass`.",
+    "summary": "BlatUI tooltip. Shows an accessible `role=\"tooltip\"` bubble via the Angular CDK overlay and\nwires `aria-describedby` on the host. It opens on hover, and on focus only when the focus came\nfrom the keyboard — a focus restored by a closing dialog is not the user asking for a tooltip.\nSSR-safe (the overlay is only created in the browser, on interaction). Configure the placement\nwith `side`, a hover delay with `delay`, and the bubble colour with `tooltipClass`.",
     "components": [
       {
         "class": "BuiTooltip",
@@ -1401,7 +1401,7 @@
     "types": []
   },
   "hover-card": {
-    "summary": "Hover-triggered card on the Angular CDK overlay. Opens on hover/focus after a delay\nand stays open while the pointer is over the card. SSR-safe (browser-only, on hover).",
+    "summary": "Hover-triggered card on the Angular CDK overlay. Opens after a delay on hover, and on focus\nonly when the focus came from the keyboard — a focus restored by a closing dialog is not the\nuser asking for a card. Stays open while the pointer is over the card. SSR-safe (browser-only,\non hover).",
     "components": [
       {
         "class": "BuiHoverCard",
@@ -1485,7 +1485,7 @@
     "types": []
   },
   "slider": {
-    "summary": "A slider (`role=\"slider\"`) with pointer drag and full keyboard support\n(arrows, Home/End, PageUp/PageDown). Single value, or a two-thumb `range`\n(binds `value` + `endValue`). Horizontal or vertical. SSR-safe — geometry is\nonly read inside browser event handlers.",
+    "summary": "A slider (`role=\"slider\"`) with pointer drag and full keyboard support\n(arrows, Home/End, PageUp/PageDown). Single value, or a two-thumb `range`\n(binds `value` + `endValue`). Horizontal or vertical. SSR-safe — geometry is\nonly read inside browser event handlers.\n\nThrough a form binding (`formControl`, `ngModel`) a single slider is a `number`, and a\n`range` slider is the **whole** `[low, high]` pair — both thumbs write it, so the control\nis never holding one end from before a drag and the other from after.",
     "components": [
       {
         "class": "BuiSlider",
@@ -6651,7 +6651,7 @@
     ]
   },
   "data-table": {
-    "summary": "A data table with search, sortable columns, row selection and pagination.",
+    "summary": "A data table with search, sortable columns, row selection and pagination. Its toolbar row also\ntakes a page-size select (`perPageOptions`), a column-visibility menu (`toggleableColumns`) and\nanything of your own marked .",
     "components": [
       {
         "class": "BuiDataTable",
@@ -6693,11 +6693,18 @@
             "description": "Whether to render row checkboxes and the select-all header checkbox."
           },
           {
-            "name": "pageSize",
-            "type": "number",
-            "default": "5",
+            "name": "perPageOptions",
+            "type": "readonly number[] | Record<number, string>",
+            "default": "[]",
             "required": false,
-            "description": "Number of rows displayed per page."
+            "description": "Page sizes offered in the toolbar. A plain list (`[10, 25, 50]`) labels each option with its\nown number; a map (`{ 10: '10 per page' }`) uses your labels. Empty renders no select."
+          },
+          {
+            "name": "toggleableColumns",
+            "type": "boolean",
+            "default": "false",
+            "required": false,
+            "description": "Whether to offer the column-visibility menu in the toolbar."
           },
           {
             "name": "searchLabel",
@@ -6719,9 +6726,36 @@
             "default": null,
             "required": false,
             "description": "Accessible label override for each row's select checkbox."
+          },
+          {
+            "name": "columnsLabel",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "Label override for the column-visibility menu's trigger."
+          },
+          {
+            "name": "perPageLabel",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "Accessible label override for the page-size select."
           }
         ],
-        "models": [],
+        "models": [
+          {
+            "name": "pageSize",
+            "type": "number",
+            "default": "5",
+            "description": "Number of rows displayed per page. Two-way bindable with `[(pageSize)]`."
+          },
+          {
+            "name": "visibleColumns",
+            "type": "readonly string[] | null",
+            "default": "null",
+            "description": "Which columns are on screen, by key. `null` means \"not controlled, show everything\"; an empty\narray means every hideable column is hidden, which is a state the menu can reach. Columns\nmarked `hideable: false` are always shown whatever this holds. Two-way bindable, so the state\nis yours to keep."
+          }
+        ],
         "outputs": []
       }
     ],
@@ -6760,6 +6794,12 @@
             "type": "\"center\" | \"left\" | \"right\"",
             "optional": true,
             "description": "Horizontal text alignment for the column's header and cells."
+          },
+          {
+            "name": "hideable",
+            "type": "false | true",
+            "optional": true,
+            "description": "Whether the column may be hidden from the `toggleableColumns` menu. `false` keeps it out of\nthe menu and always on screen — for the one column a row is unreadable without."
           }
         ]
       }
@@ -7212,7 +7252,7 @@
     "types": []
   },
   "file-upload": {
-    "summary": "A drag-and-drop file upload zone with a selected-files list.",
+    "summary": "A drag-and-drop file upload zone with a selected-files list.\n\nFiles reach it three ways and all three behave the same: the picker, a drop onto the zone, and\n`value` — the file the record already holds, which becomes an ordinary row so an edit form does\nnot have to rebuild that preview by hand. The native `<input type=\"file\">` is kept in step with\nthe list, so what a plain `<form>` submits is what is on screen, and a file that was removed can\nbe picked again.",
     "components": [
       {
         "class": "BuiFileUpload",
@@ -7254,6 +7294,13 @@
             "description": "Whether the upload zone is disabled."
           },
           {
+            "name": "value",
+            "type": "BuiFileUploadSource",
+            "default": "null",
+            "required": false,
+            "description": "The file(s) the record already holds — a URL, a list of URLs, or\n descriptors. Each becomes an ordinary row: same thumbnail, same\nname and size, same remove button. Removing one reports  rather than\nwithdrawing anything; the file belongs to your record, so dropping it from `value` is yours\nto do."
+          },
+          {
             "name": "dropzoneLabel",
             "type": "string",
             "default": null,
@@ -7273,12 +7320,74 @@
           {
             "name": "filesChange",
             "type": "readonly File[]",
-            "description": "Emitted with the current file list whenever the selection changes."
+            "description": "Emitted with the picked files whenever the selection changes. Stored files are not in it."
+          },
+          {
+            "name": "fileRemove",
+            "type": "BuiFileUploadRemoval",
+            "description": "Emitted when the remove button on a row that came from `value` is pressed."
           }
         ]
       }
     ],
-    "types": []
+    "types": [
+      {
+        "name": "BuiFileUploadRemoval",
+        "kind": "interface",
+        "description": "What  reports when a stored file's row is removed.",
+        "fields": [
+          {
+            "name": "url",
+            "type": "string",
+            "optional": false,
+            "description": "The `url` of the row that was removed."
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "optional": false,
+            "description": "The name that row was showing."
+          }
+        ]
+      },
+      {
+        "name": "BuiFileUploadSource",
+        "kind": "type",
+        "description": "Everything `value` accepts: one URL, one descriptor, or a list of either.",
+        "definition": "string | BuiFileUploadValue | readonly (string | BuiFileUploadValue)[]"
+      },
+      {
+        "name": "BuiFileUploadValue",
+        "kind": "interface",
+        "description": "A file the consumer's record already holds — an avatar, a logo, an attachment saved last week.\nIt is the field's *current value*, which is the one thing a file input cannot express: the\nnative control carries what is being picked now, never what was picked before.",
+        "fields": [
+          {
+            "name": "url",
+            "type": "string",
+            "optional": false,
+            "description": "Where the stored file lives. Doubles as the thumbnail source for an image."
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "optional": true,
+            "description": "Row label. Defaults to the last path segment of `url`."
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "optional": true,
+            "description": "Size in bytes, when the record knows it. A row without one shows no size."
+          },
+          {
+            "name": "image",
+            "type": "false | true",
+            "optional": true,
+            "description": "Render `url` as a thumbnail. Inferred from the extension when left unset."
+          }
+        ]
+      }
+    ]
   },
   "top-progress": {
     "summary": "An NProgress-style top loading bar. Drive it with `start()` / `set(0..1)` / `done()`,\nor with `top-progress:start` / `top-progress:set` / `top-progress:done` window events.",

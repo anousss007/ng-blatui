@@ -1,3 +1,4 @@
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
@@ -31,5 +32,23 @@ describe('BuiTooltip (on Angular CDK)', () => {
     button.dispatchEvent(new MouseEvent('mouseleave'));
     fixture.detectChanges();
     expect(document.querySelector('[role="tooltip"]')).toBeNull();
+  });
+
+  it('shows on keyboard focus but not on a focus the pointer caused', () => {
+    const { fixture, button } = getButton();
+    const focusMonitor = TestBed.inject(FocusMonitor);
+
+    // The shape that left a tooltip stuck on screen: a dialog opened from this button restores
+    // focus to it on close, with the pointer long gone and no `mouseleave` left to come.
+    focusMonitor.focusVia(button, 'mouse');
+    fixture.detectChanges();
+    expect(document.activeElement).toBe(button); // the focus really landed
+    expect(document.querySelector('[role="tooltip"]')).toBeNull();
+
+    focusMonitor.focusVia(button, 'keyboard');
+    fixture.detectChanges();
+    expect(document.querySelector('[role="tooltip"]')?.textContent).toContain('Helpful hint');
+
+    fixture.destroy();
   });
 });

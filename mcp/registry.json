@@ -6,7 +6,7 @@
   "description": "Accessible Angular UI library (Angular 21 & 22, standalone, signals, zoneless, SSR-ready) ported from BlatUI. Components, blocks, charts and ready-made page templates, themed with Tailwind CSS v4 + oklch design tokens.",
   "install": "npm i ng-blatui",
   "llms": "https://ngblatui.remix-it.com/llms.txt",
-  "generatedAt": "2026-08-21",
+  "generatedAt": "2026-09-02",
   "counts": {
     "components": 157,
     "blocks": 16,
@@ -3975,8 +3975,12 @@
             "type": "boolean"
           },
           {
-            "name": "pageSize",
-            "type": "number"
+            "name": "perPageOptions",
+            "type": "readonly number[] | Record<number, string>"
+          },
+          {
+            "name": "toggleableColumns",
+            "type": "boolean"
           },
           {
             "name": "searchLabel",
@@ -3989,6 +3993,24 @@
           {
             "name": "selectRowLabel",
             "type": "string"
+          },
+          {
+            "name": "columnsLabel",
+            "type": "string"
+          },
+          {
+            "name": "perPageLabel",
+            "type": "string"
+          }
+        ],
+        "models": [
+          {
+            "name": "pageSize",
+            "type": "number"
+          },
+          {
+            "name": "visibleColumns",
+            "type": "readonly string[] | null"
           }
         ],
         "types": [
@@ -4275,6 +4297,10 @@
             "type": "boolean"
           },
           {
+            "name": "value",
+            "type": "BuiFileUploadSource"
+          },
+          {
             "name": "dropzoneLabel",
             "type": "string"
           },
@@ -4287,7 +4313,16 @@
           {
             "name": "filesChange",
             "type": "readonly File[]"
+          },
+          {
+            "name": "fileRemove",
+            "type": "BuiFileUploadRemoval"
           }
+        ],
+        "types": [
+          "BuiFileUploadRemoval",
+          "BuiFileUploadSource",
+          "BuiFileUploadValue"
         ]
       }
     },

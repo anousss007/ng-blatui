@@ -3632,6 +3632,24 @@ This content is read-only and cannot be edited.</textarea
         </div>
       </app-example>
 
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Row actions</h2>
+      <app-example [code]="code.tooltipRowActions">
+        <div class="flex flex-wrap items-center gap-3">
+          <button buiButton variant="outline" size="sm" buiTooltip="Rename this row">
+            Edit row
+          </button>
+          <button
+            buiButton
+            variant="outline"
+            size="sm"
+            buiTooltip="Remove this row"
+            (click)="openDialogConfirm()"
+          >
+            Delete row
+          </button>
+        </div>
+      </app-example>
+
       <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Sides</h2>
       <app-example [code]="code.tooltipSides">
         <div class="flex flex-wrap items-center gap-3">
@@ -8534,6 +8552,25 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.dataTable">
         <bui-data-table class="w-full" [columns]="dtColumns" [rows]="dtRows" [pageSize]="5" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">
+        Toolbar, page size and column visibility
+      </h2>
+      <app-example [code]="code.dataTableToolbar">
+        <bui-data-table
+          class="w-full"
+          [columns]="dtToolbarColumns"
+          [rows]="dtRows"
+          [perPageOptions]="[5, 10, 25]"
+          [(pageSize)]="dtPageSize"
+          [toggleableColumns]="true"
+          [(visibleColumns)]="dtVisible"
+        >
+          <button buiButton buiDataTableToolbar variant="outline" size="sm" type="button">
+            Export
+          </button>
+        </bui-data-table>
+      </app-example>
     }
     @case ('chart') {
       <app-example [code]="code.chart">
@@ -8730,6 +8767,18 @@ This content is read-only and cannot be edited.</textarea
           [multiple]="true"
           accept="image/*"
           hint="PNG, JPG or GIF"
+        />
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">
+        Files the record already holds
+      </h2>
+      <app-example [code]="code.fileUploadValue">
+        <bui-file-upload
+          class="w-full max-w-md"
+          [value]="fuSaved()"
+          hint="An edit form's existing attachments"
+          (fileRemove)="dropSaved($event)"
         />
       </app-example>
 

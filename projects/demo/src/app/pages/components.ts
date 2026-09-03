@@ -86,6 +86,7 @@ import {
   BuiCopyButton,
   BuiCountdown,
   BuiDataTable,
+  BuiDataTableToolbar,
   BuiDatePicker,
   BuiDateRangePicker,
   BuiDatetimePicker,
@@ -738,6 +739,7 @@ type ToggleValue = string | string[] | null;
     BuiCommand,
     BuiContextMenu,
     BuiDataTable,
+    BuiDataTableToolbar,
     BuiChart,
     BuiDatetimePicker,
     BuiAutocomplete,
@@ -1044,7 +1046,24 @@ export class ComponentPage {
     { name: 'Margaret Hamilton', email: 'margaret@example.com', role: 'Owner' },
     { name: 'Donald Knuth', email: 'don@example.com', role: 'Member' },
   ];
+  protected readonly dtToolbarColumns = [
+    { key: 'name', label: 'Name', hideable: false },
+    { key: 'email', label: 'Email' },
+    { key: 'role', label: 'Role', align: 'right' as const },
+  ];
+  protected readonly dtPageSize = signal(5);
+  protected readonly dtVisible = signal<string[] | null>(null);
+  protected readonly fuSaved = signal([
+    { url: '/admincn/avatars/avatar-1.webp', name: 'avatar.webp', size: 42_184, image: true },
+    { url: '/files/contract-2026.pdf', name: 'contract-2026.pdf', size: 184_320 },
+  ]);
   protected readonly chartSeries = [{ data: [12, 19, 9, 22, 16, 28, 24] }];
+
+  /** The record owns its stored files, so the page is what drops one when a row is removed. */
+  protected dropSaved(removed: { url: string }): void {
+    this.fuSaved.update((files) => files.filter((file) => file.url !== removed.url));
+  }
+
   protected readonly chartLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   protected readonly dtmValue = signal('');
   protected readonly dtmRange = signal({ start: '', end: '' });
@@ -2066,6 +2085,8 @@ this.dialogRef = this.dialog.open(tpl, { ariaModal: true });`,
     tooltip: `import { BuiTooltip } from 'ng-blatui';
 
 <button buiButton variant="outline" buiTooltip="Add to library">Hover me</button>`,
+    tooltipRowActions: `<!-- the row-actions shape: a tooltip trigger that also opens a dialog -->
+<button buiButton buiTooltip="Delete row" (click)="confirm()">Delete row</button>`,
     tooltipIcon: `<button buiButton variant="outline" size="icon" buiTooltip="Add to library" aria-label="Add to library">
   <svg><!-- plus --></svg>
 </button>`,
@@ -2549,7 +2570,11 @@ this.dialogRef = this.dialog.open(tpl, { ariaModal: true });`,
 <bui-slider [range]="true" [(value)]="low" [(endValue)]="high" />`,
     sliderReactiveForm: `<!-- ControlValueAccessor: works with formControl / ngModel / signal forms -->
 <bui-slider [formControl]="volume" ariaLabel="Volume" />
-// volume = new FormControl(45)`,
+// volume = new FormControl(45)
+
+<!-- a range is the whole [low, high] pair — both thumbs write it -->
+<bui-slider [range]="true" [formControl]="price" />
+// price = new FormControl<SliderRange>([20, 60])`,
     rating: `import { BuiRating } from 'ng-blatui';
 
 <bui-rating [(value)]="score" [max]="5" ariaLabel="Rate" />`,
@@ -3355,6 +3380,20 @@ fruitForm = new FormControl('banana');
     dataTable: `import { BuiDataTable } from 'ng-blatui';
 
 <bui-data-table [columns]="columns" [rows]="rows" [pageSize]="5" />`,
+    dataTableToolbar: `<!-- perPageOptions renders a page-size select; toggleableColumns a visibility menu.
+     buiDataTableToolbar drops your own filters into the same row. -->
+<bui-data-table
+  [columns]="columns"
+  [rows]="rows"
+  [perPageOptions]="[5, 10, 25]"
+  [(pageSize)]="pageSize"
+  [toggleableColumns]="true"
+  [(visibleColumns)]="visible"
+>
+  <button buiButton buiDataTableToolbar variant="outline" size="sm">Export</button>
+</bui-data-table>
+// columns = [{ key: 'name', label: 'Name', hideable: false }, …]  ← always on screen
+// visible = signal<string[] | null>(null)  ← null means "show everything"`,
     chart: `import { BuiChart } from 'ng-blatui';
 
 <bui-chart type="area" [series]="series" [labels]="labels" />`,
@@ -3399,6 +3438,13 @@ fruitForm = new FormControl('banana');
 <bui-file-upload hint="Up to 10MB" />`,
     fileUploadMultiple: `<bui-file-upload [multiple]="true" accept=".pdf,.doc,.docx" hint="Max 5 files" />`,
     fileUploadImages: `<bui-file-upload [multiple]="true" accept="image/*" hint="PNG, JPG or GIF" />`,
+    fileUploadValue: `<!-- [value] is the file the record already holds: a URL, a list of URLs,
+     or { url, name, size, image } maps. Each becomes an ordinary row. -->
+<bui-file-upload [value]="saved()" (fileRemove)="drop($event)" />
+// saved = signal([{ url: '/uploads/avatar.png', name: 'avatar.png', size: 42184 }])
+// drop({ url }) { this.saved.update(files => files.filter(f => f.url !== url)); }
+// Removing such a row reports fileRemove rather than withdrawing anything — the file is
+// your record's, so dropping it from [value] is yours to do.`,
     fileUploadProgress: `<!-- pair an upload row with bui-progress for an in-flight upload -->
 <div class="flex items-center gap-3">
   <span class="font-medium">report-q2.pdf</span>

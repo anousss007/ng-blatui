@@ -1,6 +1,7 @@
-import { _IdGenerator } from '@angular/cdk/a11y';
+import { _IdGenerator, FocusMonitor } from '@angular/cdk/a11y';
 import { type ConnectedPosition, Overlay, type OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
+import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
   computed,
@@ -9,8 +10,11 @@ import {
   inject,
   input,
   model,
+  type OnDestroy,
+  PLATFORM_ID,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { type ClassValue, cn } from '../utils/cn';
 
@@ -48,10 +52,11 @@ const FALLBACK: Record<TooltipSide, TooltipSide> = {
 };
 
 /**
- * BlatUI tooltip. Shows an accessible `role="tooltip"` bubble on hover/focus via the
- * Angular CDK overlay and wires `aria-describedby` on the host. SSR-safe (the overlay
- * is only created in the browser, on interaction). Configure the placement with `side`,
- * a hover delay with `delay`, and the bubble colour with `tooltipClass`.
+ * BlatUI tooltip. Shows an accessible `role="tooltip"` bubble via the Angular CDK overlay and
+ * wires `aria-describedby` on the host. It opens on hover, and on focus only when the focus came
+ * from the keyboard — a focus restored by a closing dialog is not the user asking for a tooltip.
+ * SSR-safe (the overlay is only created in the browser, on interaction). Configure the placement
+ * with `side`, a hover delay with `delay`, and the bubble colour with `tooltipClass`.
  */
 @Directive({
   selector: '[buiTooltip]',
@@ -59,11 +64,9 @@ const FALLBACK: Record<TooltipSide, TooltipSide> = {
     '[attr.aria-describedby]': 'describedBy()',
     '(mouseenter)': 'show()',
     '(mouseleave)': 'hide()',
-    '(focusin)': 'show()',
-    '(focusout)': 'hide()',
   },
 })
-export class BuiTooltip {
+export class BuiTooltip implements OnDestroy {
   /** Tooltip text; bound via the `buiTooltip` attribute. Empty text shows nothing. */
   readonly text = input('', { alias: 'buiTooltip' });
   /**
@@ -81,10 +84,35 @@ export class BuiTooltip {
 
   private readonly overlay = inject(Overlay);
   private readonly idGenerator = inject(_IdGenerator);
+  private readonly focusMonitor = inject(FocusMonitor);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private overlayRef: OverlayRef | null = null;
   private timer: ReturnType<typeof setTimeout> | null = null;
   protected readonly describedBy = signal<string | null>(null);
+
+  constructor() {
+    if (!this.isBrowser) {
+      return;
+    }
+    // Focus shows the tooltip only when the browser attributes that focus to the keyboard.
+    // Closing a dialog restores focus to the control that opened it — correct, and required for
+    // keyboard users — but a plain `focusin` listener reads that restoration as "the user focused
+    // this" and shows the tooltip with the pointer nowhere near it. `mouseleave` fired long ago,
+    // so nothing is coming to take it down: it stays for good, and a stuck tooltip is a real
+    // element that takes pointer events, so it can swallow the clicks meant for what it covers.
+    // `checkChildren` is on because the directive is as often on a wrapper as on the control.
+    this.focusMonitor
+      .monitor(this.host, true)
+      .pipe(takeUntilDestroyed())
+      .subscribe((origin) => {
+        if (origin === 'keyboard') {
+          this.show();
+        } else if (origin === null) {
+          this.hide();
+        }
+      });
+  }
 
   protected show(): void {
     if (this.overlayRef || !this.text() || this.disabled()) {
@@ -126,5 +154,10 @@ export class BuiTooltip {
     this.overlayRef?.dispose();
     this.overlayRef = null;
     this.describedBy.set(null);
+  }
+
+  ngOnDestroy(): void {
+    this.focusMonitor.stopMonitoring(this.host);
+    this.hide();
   }
 }

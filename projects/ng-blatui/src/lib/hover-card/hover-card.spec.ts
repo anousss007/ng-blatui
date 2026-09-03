@@ -1,3 +1,4 @@
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
@@ -7,7 +8,7 @@ import { BuiHoverCard, BuiHoverCardContent } from './hover-card';
 @Component({
   imports: [BuiHoverCard, BuiHoverCardContent],
   template: `
-    <span [buiHoverCard]="tpl">hover me</span>
+    <span tabindex="0" [buiHoverCard]="tpl">hover me</span>
     <ng-template #tpl><div buiHoverCardContent>Profile preview</div></ng-template>
   `,
 })
@@ -32,6 +33,31 @@ describe('BuiHoverCard (on Angular CDK)', () => {
       vi.advanceTimersByTime(100);
       fixture.detectChanges();
       expect(document.querySelector('[data-slot="hover-card-content"]')).toBeNull();
+
+      fixture.destroy();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('opens on keyboard focus but not on a focus the pointer caused', () => {
+    vi.useFakeTimers();
+    try {
+      const fixture = TestBed.createComponent(TestHost);
+      fixture.detectChanges();
+      const trigger = (fixture.nativeElement as HTMLElement).querySelector('span')!;
+      const focusMonitor = TestBed.inject(FocusMonitor);
+
+      focusMonitor.focusVia(trigger, 'mouse');
+      vi.advanceTimersByTime(400);
+      fixture.detectChanges();
+      expect(document.activeElement).toBe(trigger); // the focus really landed
+      expect(document.querySelector('[data-slot="hover-card-content"]')).toBeNull();
+
+      focusMonitor.focusVia(trigger, 'keyboard');
+      vi.advanceTimersByTime(400);
+      fixture.detectChanges();
+      expect(document.querySelector('[data-slot="hover-card-content"]')).not.toBeNull();
 
       fixture.destroy();
     } finally {
