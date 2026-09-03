@@ -1,8 +1,69 @@
-import { computed, inject, LOCALE_ID, type Signal } from '@angular/core';
+import {
+  computed,
+  type EnvironmentProviders,
+  inject,
+  InjectionToken,
+  isSignal,
+  LOCALE_ID,
+  makeEnvironmentProviders,
+  type Signal,
+} from '@angular/core';
+
+/**
+ * Everything {@link provideBuiLocale} accepts: a plain tag, a signal, or a factory that runs in
+ * an injection context and returns either — which is where a translation library's own service
+ * can be injected.
+ */
+export type BuiLocaleSource = string | Signal<string> | (() => string | Signal<string>);
+
+/**
+ * The app-wide locale ng-blatui formats with, as a signal. Set it with
+ * {@link provideBuiLocale}; components read it through {@link buiLocale}.
+ */
+export const BUI_LOCALE = new InjectionToken<Signal<string>>('BUI_LOCALE');
+
+/** Normalise any accepted source into the signal the token holds. */
+function toLocaleSignal(source: BuiLocaleSource): Signal<string> {
+  // A signal is itself a function, so it has to be recognised before the factory case.
+  if (isSignal(source)) {
+    return source;
+  }
+  const resolved = typeof source === 'function' ? source() : source;
+  return isSignal(resolved) ? resolved : computed(() => resolved);
+}
+
+/**
+ * Set the locale ng-blatui formats dates, times, numbers and currencies in, for the whole app —
+ * without commandeering Angular's `LOCALE_ID`, whose reach is every pipe in the application and
+ * which cannot change after bootstrap.
+ *
+ * ```ts
+ * providers: [provideBuiLocale('fr-BE')]
+ * ```
+ *
+ * It takes a **signal** too, which is what makes it work with any translation library rather
+ * than one of them: whatever the library's own change notification is, `toSignal` bridges it,
+ * and a factory runs in an injection context so the service can be injected there.
+ *
+ * ```ts
+ * provideBuiLocale(() =>
+ *   toSignal(inject(TranslocoService).langChanges$, { initialValue: 'fr' }),
+ * )
+ * ```
+ *
+ * ng-blatui reads nothing else from the library, and knows no translation format: it is handed
+ * a tag, and the catalogue stays where it already lives.
+ */
+export function provideBuiLocale(source: BuiLocaleSource): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    { provide: BUI_LOCALE, useFactory: (): Signal<string> => toLocaleSignal(source) },
+  ]);
+}
 
 /**
  * Resolve the BCP 47 locale a component formats dates in, most-specific wins:
- * per-instance `locale` input → the app's `LOCALE_ID` → `'en-US'` (Angular's own default).
+ * per-instance `locale` input → {@link provideBuiLocale} → the app's `LOCALE_ID` → `'en-US'`
+ * (Angular's own default, which is what an app that sets none of the three gets).
  *
  * Call from an injection context (a component field initializer):
  *
@@ -11,14 +72,19 @@ import { computed, inject, LOCALE_ID, type Signal } from '@angular/core';
  * protected readonly resolvedLocale = buiLocale(this.locale);
  * ```
  *
- * The input stays a signal on purpose: apps that switch language at runtime (transloco &
- * co.) need the display to reformat, which a statically-injected `LOCALE_ID` cannot do.
+ * Both the input and the provided locale stay signals on purpose: an app that switches language
+ * at runtime needs the display to reformat, which a statically-injected `LOCALE_ID` cannot do.
  */
 export function buiLocale(override: Signal<string | undefined>): Signal<string> {
+  const provided = inject(BUI_LOCALE, { optional: true });
   const localeId = inject(LOCALE_ID);
   return computed(() => {
-    const value = override();
-    return value === undefined || value === '' ? localeId : value;
+    const own = override();
+    if (own !== undefined && own !== '') {
+      return own;
+    }
+    const app = provided?.();
+    return app === undefined || app === '' ? localeId : app;
   });
 }
 

@@ -3,6 +3,7 @@ import {
   type EnvironmentProviders,
   inject,
   InjectionToken,
+  isSignal,
   makeEnvironmentProviders,
   type Signal,
 } from '@angular/core';
@@ -263,11 +264,24 @@ export const BUI_DEFAULT_LABELS: BuiLabels = {
 };
 
 /**
+ * Everything {@link provideBuiLabels} accepts: a plain map, a signal of one, or a factory that
+ * runs in an injection context and returns either — which is where a translation library's own
+ * service can be injected.
+ */
+export type BuiLabelsSource =
+  | Partial<BuiLabels>
+  | Signal<Partial<BuiLabels>>
+  | (() => Partial<BuiLabels> | Signal<Partial<BuiLabels>>);
+
+/**
  * App-wide overrides for {@link BuiLabels}. Set it with {@link provideBuiLabels}.
  * Components read it through {@link buiLabel}; anything left unset falls back to
- * {@link BUI_DEFAULT_LABELS}.
+ * {@link BUI_DEFAULT_LABELS}. Holds a signal when the app provided one, so a language
+ * switched at runtime reaches every label.
  */
-export const BUI_LABELS = new InjectionToken<Partial<BuiLabels>>('BUI_LABELS');
+export const BUI_LABELS = new InjectionToken<Partial<BuiLabels> | Signal<Partial<BuiLabels>>>(
+  'BUI_LABELS',
+);
 
 /**
  * Provide global overrides (typically translations) for ng-blatui's built-in
@@ -278,9 +292,34 @@ export const BUI_LABELS = new InjectionToken<Partial<BuiLabels>>('BUI_LABELS');
  * ```
  *
  * Pass only the keys you want to change; the rest keep their English defaults.
+ *
+ * A **signal** works too, which is what keeps this open to every translation library rather than
+ * to one of them — a map read once at bootstrap can never follow a language switched at runtime.
+ * A factory is called once, in an injection context, so the library's own service is reachable:
+ *
+ * ```ts
+ * provideBuiLabels(() => {
+ *   const transloco = inject(TranslocoService);
+ *   const lang = toSignal(transloco.langChanges$, { initialValue: transloco.getActiveLang() });
+ *   return computed(() => {
+ *     lang(); // re-read whenever the active language changes
+ *     return { fileUploadRemove: transloco.translate('ui.remove_file') };
+ *   });
+ * })
+ * ```
+ *
+ * ng-blatui knows no translation format and loads no catalogue: it takes strings that are
+ * already resolved, never keys, so the catalogue stays in the app, in its own library's format.
  */
-export function provideBuiLabels(labels: Partial<BuiLabels>): EnvironmentProviders {
-  return makeEnvironmentProviders([{ provide: BUI_LABELS, useValue: labels }]);
+export function provideBuiLabels(source: BuiLabelsSource): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    {
+      provide: BUI_LABELS,
+      // A signal is itself a function, so it has to be recognised before the factory case.
+      useFactory: (): Partial<BuiLabels> | Signal<Partial<BuiLabels>> =>
+        !isSignal(source) && typeof source === 'function' ? source() : source,
+    },
+  ]);
 }
 
 /**
@@ -298,6 +337,10 @@ export function buiLabel(
   key: keyof BuiLabels,
   override: Signal<string | undefined>,
 ): Signal<string> {
-  const overrides = inject(BUI_LABELS, { optional: true });
-  return computed(() => override() ?? overrides?.[key] ?? BUI_DEFAULT_LABELS[key]);
+  const provided = inject(BUI_LABELS, { optional: true });
+  return computed(() => {
+    // Read inside the computed, so a signal of labels is tracked and a language change lands.
+    const overrides = provided !== null && isSignal(provided) ? provided() : provided;
+    return override() ?? overrides?.[key] ?? BUI_DEFAULT_LABELS[key];
+  });
 }
