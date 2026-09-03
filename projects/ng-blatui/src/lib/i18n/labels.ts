@@ -80,6 +80,8 @@ export interface BuiLabels {
   dataTableSearch: string;
   dataTableSelectAll: string;
   dataTableSelectRow: string;
+  dataTableColumns: string;
+  dataTablePerPage: string;
   // dock
   dock: string;
   // file-upload
@@ -202,6 +204,8 @@ export const BUI_DEFAULT_LABELS: BuiLabels = {
   dataTableSearch: 'Search',
   dataTableSelectAll: 'Select all rows',
   dataTableSelectRow: 'Select row',
+  dataTableColumns: 'Columns',
+  dataTablePerPage: 'Rows per page',
   dock: 'Dock',
   fileUploadDropzone: 'Click to upload or drag & drop',
   fileUploadRemove: 'Remove file',

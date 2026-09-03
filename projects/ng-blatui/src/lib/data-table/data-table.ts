@@ -1,7 +1,9 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { Component, computed, contentChild, Directive, input, model, signal } from '@angular/core';
 
 import { buiLabel } from '../i18n/labels';
 import { type ClassValue, cn } from '../utils/cn';
+import { PANEL_POSITIONS } from '../utils/panel-positions';
 
 export interface DataTableColumn {
   /** Row property key whose value is rendered and used for sorting/searching. */
@@ -12,8 +14,36 @@ export interface DataTableColumn {
   sortable?: boolean;
   /** Horizontal text alignment for the column's header and cells. */
   align?: 'left' | 'center' | 'right';
+  /**
+   * Whether the column may be hidden from the `toggleableColumns` menu. `false` keeps it out of
+   * the menu and always on screen — for the one column a row is unreadable without.
+   */
+  hideable?: boolean;
 }
 type DataRow = Record<string, unknown>;
+
+/** One page-size choice: the number of rows, and what the option reads. */
+interface PerPageOption {
+  value: number;
+  label: string;
+}
+
+/**
+ * Marks content for the data table's toolbar row, dropped in after the search box and before the
+ * built-in controls — the filters no input will ever cover (a status select, a date range, a bulk
+ * action). The toolbar row appears whenever anything wants to be in it.
+ *
+ * ```html
+ * <bui-data-table [columns]="columns" [rows]="rows">
+ *   <bui-select buiDataTableToolbar [options]="statuses" [(value)]="status" />
+ * </bui-data-table>
+ * ```
+ */
+@Directive({
+  selector: '[buiDataTableToolbar]',
+  host: { 'data-slot': 'data-table-toolbar' },
+})
+export class BuiDataTableToolbar {}
 
 const ALIGN: Record<string, string> = {
   left: 'text-start',
@@ -31,21 +61,100 @@ function cellText(value: unknown): string {
   return '';
 }
 
-/** A data table with search, sortable columns, row selection and pagination. */
+/**
+ * A data table with search, sortable columns, row selection and pagination. Its toolbar row also
+ * takes a page-size select (`perPageOptions`), a column-visibility menu (`toggleableColumns`) and
+ * anything of your own marked {@link BuiDataTableToolbar}.
+ */
 @Component({
   selector: 'bui-data-table',
   host: { 'data-slot': 'data-table', '[class]': 'computedClass()' },
+  imports: [OverlayModule],
   template: `
-    @if (searchable()) {
-      <input
-        type="search"
-        [value]="query()"
-        [placeholder]="searchPlaceholder()"
-        class="mb-3 h-9 w-full max-w-xs rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
-        [attr.aria-label]="searchText()"
-        (input)="onSearch($event)"
-      />
-    }
+    <!-- Always rendered so the projected toolbar content has somewhere to land; it collapses
+         to nothing when neither a control nor a consumer wants the row. -->
+    <div [class]="toolbarClass()">
+      @if (searchable()) {
+        <input
+          type="search"
+          [value]="query()"
+          [placeholder]="searchPlaceholder()"
+          class="h-9 w-full max-w-xs rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+          [attr.aria-label]="searchText()"
+          (input)="onSearch($event)"
+        />
+      }
+      <ng-content select="[buiDataTableToolbar]" />
+      <div class="ms-auto flex items-center gap-2">
+        @if (perPage().length > 0) {
+          <select
+            class="h-9 rounded-md border border-input bg-transparent px-2 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+            [value]="pageSize()"
+            [attr.aria-label]="perPageText()"
+            (change)="setPageSize($event)"
+          >
+            @for (option of perPage(); track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+        }
+        @if (toggleableColumns()) {
+          <button
+            type="button"
+            cdkOverlayOrigin
+            #columnsOrigin="cdkOverlayOrigin"
+            class="inline-flex h-9 items-center gap-1 rounded-md border border-input px-3 text-sm hover:bg-accent"
+            aria-haspopup="true"
+            [attr.aria-expanded]="columnsOpen()"
+            (click)="columnsOpen.set(!columnsOpen())"
+          >
+            {{ columnsText() }}
+            <svg
+              class="size-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+          <ng-template
+            cdkConnectedOverlay
+            [cdkConnectedOverlayOrigin]="columnsOrigin"
+            [cdkConnectedOverlayOpen]="columnsOpen()"
+            [cdkConnectedOverlayPositions]="columnsPositions"
+            [cdkConnectedOverlayPush]="true"
+            [cdkConnectedOverlayViewportMargin]="8"
+            (overlayOutsideClick)="columnsOpen.set(false)"
+            (detach)="columnsOpen.set(false)"
+          >
+            <div
+              role="group"
+              [attr.aria-label]="columnsText()"
+              class="z-50 max-h-72 min-w-[10rem] overflow-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md"
+              (keydown.escape)="columnsOpen.set(false)"
+            >
+              @for (column of hideableColumns(); track column.key) {
+                <label
+                  class="flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent"
+                >
+                  <input
+                    type="checkbox"
+                    [checked]="isVisible(column.key)"
+                    (change)="toggleColumn(column.key)"
+                  />
+                  {{ column.label }}
+                </label>
+              }
+            </div>
+          </ng-template>
+        }
+      </div>
+    </div>
     <div class="overflow-x-auto rounded-lg border">
       <table class="w-full text-sm">
         <thead>
@@ -61,7 +170,7 @@ function cellText(value: unknown): string {
                 />
               </th>
             }
-            @for (column of columns(); track column.key) {
+            @for (column of shownColumns(); track column.key) {
               <th class="p-3 font-medium" [class]="alignClass(column.align)">
                 @if (column.sortable !== false) {
                   <button
@@ -94,7 +203,7 @@ function cellText(value: unknown): string {
                   />
                 </td>
               }
-              @for (column of columns(); track column.key) {
+              @for (column of shownColumns(); track column.key) {
                 <td class="p-3" [class]="alignClass(column.align)">{{ cell(row, column.key) }}</td>
               }
             </tr>
@@ -147,8 +256,22 @@ export class BuiDataTable {
   readonly searchPlaceholder = input('Search...');
   /** Whether to render row checkboxes and the select-all header checkbox. */
   readonly selectable = input(true);
-  /** Number of rows displayed per page. */
-  readonly pageSize = input(5);
+  /** Number of rows displayed per page. Two-way bindable with `[(pageSize)]`. */
+  readonly pageSize = model(5);
+  /**
+   * Page sizes offered in the toolbar. A plain list (`[10, 25, 50]`) labels each option with its
+   * own number; a map (`{ 10: '10 per page' }`) uses your labels. Empty renders no select.
+   */
+  readonly perPageOptions = input<readonly number[] | Record<number, string>>([]);
+  /** Whether to offer the column-visibility menu in the toolbar. */
+  readonly toggleableColumns = input(false);
+  /**
+   * Which columns are on screen, by key. `null` means "not controlled, show everything"; an empty
+   * array means every hideable column is hidden, which is a state the menu can reach. Columns
+   * marked `hideable: false` are always shown whatever this holds. Two-way bindable, so the state
+   * is yours to keep.
+   */
+  readonly visibleColumns = model<readonly string[] | null>(null);
   readonly userClass = input<ClassValue>('', { alias: 'class' });
   /** Accessible label override for the search input. */
   readonly searchLabel = input<string>();
@@ -156,16 +279,56 @@ export class BuiDataTable {
   readonly selectAllLabel = input<string>();
   /** Accessible label override for each row's select checkbox. */
   readonly selectRowLabel = input<string>();
+  /** Label override for the column-visibility menu's trigger. */
+  readonly columnsLabel = input<string>();
+  /** Accessible label override for the page-size select. */
+  readonly perPageLabel = input<string>();
 
   protected readonly searchText = buiLabel('dataTableSearch', this.searchLabel);
   protected readonly selectAllText = buiLabel('dataTableSelectAll', this.selectAllLabel);
   protected readonly selectRowText = buiLabel('dataTableSelectRow', this.selectRowLabel);
+  protected readonly columnsText = buiLabel('dataTableColumns', this.columnsLabel);
+  protected readonly perPageText = buiLabel('dataTablePerPage', this.perPageLabel);
+  protected readonly columnsPositions = PANEL_POSITIONS;
+
+  private readonly projectedToolbar = contentChild(BuiDataTableToolbar);
 
   protected readonly query = signal('');
   protected readonly sortKey = signal('');
   protected readonly sortDir = signal<'asc' | 'desc'>('asc');
   protected readonly page = signal(0);
+  protected readonly columnsOpen = signal(false);
   private readonly selectedRows = signal<ReadonlySet<DataRow>>(new Set());
+
+  protected readonly perPage = computed<readonly PerPageOption[]>(() => {
+    const options = this.perPageOptions();
+    if (Array.isArray(options)) {
+      return (options as readonly number[]).map((value) => ({ value, label: String(value) }));
+    }
+    return Object.entries(options as Record<number, string>).map(([value, label]) => ({
+      value: Number(value),
+      label,
+    }));
+  });
+  protected readonly hideableColumns = computed(() =>
+    this.columns().filter((column) => column.hideable !== false),
+  );
+  protected readonly shownColumns = computed(() =>
+    this.columns().filter((column) => this.isVisible(column.key)),
+  );
+  /**
+   * The row is `hidden` until something wants to be in it — the `ng-content` outlet has to exist
+   * unconditionally for the projection to land, so presence is decided in CSS rather than by an
+   * `@if` around it.
+   */
+  protected readonly toolbarClass = computed(() =>
+    this.searchable() ||
+    this.toggleableColumns() ||
+    this.perPage().length > 0 ||
+    this.projectedToolbar() !== undefined
+      ? 'mb-3 flex flex-wrap items-center gap-2'
+      : 'hidden',
+  );
 
   protected readonly filtered = computed(() => {
     const query = this.query().trim().toLowerCase();
@@ -201,7 +364,32 @@ export class BuiDataTable {
   protected readonly computedClass = computed(() => cn('block', this.userClass()));
 
   protected colspan(): number {
-    return this.columns().length + (this.selectable() ? 1 : 0);
+    return this.shownColumns().length + (this.selectable() ? 1 : 0);
+  }
+
+  /** A column with no `visibleColumns` to answer to is shown, and so is a non-hideable one. */
+  protected isVisible(key: string): boolean {
+    const visible = this.visibleColumns();
+    if (visible === null) {
+      return true;
+    }
+    const column = this.columns().find((candidate) => candidate.key === key);
+    return column?.hideable === false || visible.includes(key);
+  }
+
+  protected toggleColumn(key: string): void {
+    // The uncontrolled `null` materialises into the list it stood for the moment one is unticked,
+    // so the answer the consumer gets back is complete rather than a delta they have to apply.
+    const visible = this.visibleColumns() ?? this.columns().map((column) => column.key);
+    this.visibleColumns.set(
+      visible.includes(key) ? visible.filter((existing) => existing !== key) : [...visible, key],
+    );
+  }
+
+  protected setPageSize(event: Event): void {
+    this.pageSize.set(Number((event.target as HTMLSelectElement).value));
+    // Page 5 at 10-per-page lands past the end of the same result set at 50.
+    this.page.set(0);
   }
 
   protected alignClass(align: string | undefined): string {
