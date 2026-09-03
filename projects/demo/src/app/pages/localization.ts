@@ -1,10 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
+
+import {
+  BuiCalendar,
+  BuiDatePicker,
+  BuiMoneyInput,
+  BuiSelect,
+  BuiTimeField,
+  type SelectOption,
+} from 'ng-blatui';
 
 import { CodeBlock } from '../ui/code-block';
+import { DEMO_DEFAULT_LOCALE, DemoLocale } from '../ui/demo-locale';
 
 @Component({
   selector: 'app-localization',
-  imports: [CodeBlock],
+  imports: [CodeBlock, BuiCalendar, BuiDatePicker, BuiMoneyInput, BuiSelect, BuiTimeField],
   template: `
     <article class="max-w-3xl space-y-10">
       <header class="space-y-2">
@@ -23,6 +33,41 @@ import { CodeBlock } from '../ui/code-block';
           and how week numbers are counted all follow one BCP&nbsp;47 tag. Set it once:
         </p>
         <app-code [code]="locale" />
+
+        <div class="rounded-lg border p-4">
+          <div class="flex flex-wrap items-center gap-3">
+            <label class="text-sm font-medium" for="demo-locale">This page's locale</label>
+            <bui-select
+              id="demo-locale"
+              class="w-56"
+              aria-label="Locale for the live example"
+              [options]="locales"
+              [value]="demoLocale.locale()"
+              (valueChange)="setLocale($event)"
+            />
+            <span class="text-xs text-muted-foreground">
+              Nothing below takes a <code>locale</code> input — they all read the provider.
+            </span>
+          </div>
+
+          <div class="mt-4 grid gap-4 sm:grid-cols-2">
+            <div class="space-y-2">
+              <p class="text-xs font-medium text-muted-foreground">Date picker</p>
+              <bui-date-picker value="2026-06-15" />
+              <p class="text-xs font-medium text-muted-foreground">Time, in the locale's clock</p>
+              <bui-time-field mode="select" value="18:30" />
+              <p class="text-xs font-medium text-muted-foreground">Amount</p>
+              <bui-money-input class="w-full" [value]="1234.5" currency="EUR" />
+            </div>
+            <div class="space-y-2">
+              <p class="text-xs font-medium text-muted-foreground">
+                Calendar — first day, weekend and week numbering follow the locale
+              </p>
+              <bui-calendar value="2026-06-15" [showWeekNumbers]="true" />
+            </div>
+          </div>
+        </div>
+
         <p class="text-sm text-muted-foreground">
           <strong>If you set nothing, you get <code>en-US</code></strong> — that is Angular's own
           default for <code>LOCALE_ID</code>, not a choice ng-blatui makes. It is the single most
@@ -35,6 +80,10 @@ import { CodeBlock } from '../ui/code-block';
           <code>Intl</code>, which every browser already carries. That import is only for Angular's
           own <code>date</code> / <code>number</code> pipes.
         </p>
+        <p class="text-sm text-muted-foreground">
+          The switcher above is not a trick for the docs — it is this site's own configuration:
+        </p>
+        <app-code [code]="siteWiring" />
       </section>
 
       <section class="space-y-3">
@@ -86,11 +135,36 @@ import { CodeBlock } from '../ui/code-block';
   `,
 })
 export class Localization {
+  /** The site's own locale store — the live example writes it, and app.config reads it. */
+  protected readonly demoLocale = inject(DemoLocale);
+  protected readonly locales: readonly SelectOption[] = [
+    { value: 'en-US', label: 'English (US) — en-US' },
+    { value: 'fr-BE', label: 'Français (Belgique) — fr-BE' },
+    { value: 'de-DE', label: 'Deutsch — de-DE' },
+    { value: 'ja-JP', label: '日本語 — ja-JP' },
+    { value: 'ar-EG', label: 'العربية (مصر) — ar-EG' },
+  ];
+
+  constructor() {
+    // The store is app-wide, so the rest of the site does not keep whatever was picked here.
+    inject(DestroyRef).onDestroy(() => {
+      this.demoLocale.locale.set(DEMO_DEFAULT_LOCALE);
+    });
+  }
+
+  protected setLocale(value: string | readonly string[]): void {
+    this.demoLocale.locale.set(typeof value === 'string' ? value : DEMO_DEFAULT_LOCALE);
+  }
+
   protected readonly locale = `import { provideBuiLocale } from 'ng-blatui';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideBuiLocale('fr-BE')],
 };`;
+
+  protected readonly siteWiring = `// This very site, in app.config.ts — a signal owned by a service,
+// which is the same shape a translation library's service is reached in.
+providers: [provideBuiLocale(() => inject(DemoLocale).locale)];`;
 
   protected readonly labels = `import { provideBuiLabels } from 'ng-blatui';
 
