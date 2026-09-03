@@ -57,7 +57,7 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Date Range Picker](https://ngblatui.remix-it.com/components/date-range-picker) — props: months, minDate, maxDate, placeholder, presets, aria-label, locale, dateFormat · two-way: value, disabled · types: CalendarRange, DateRangePreset
 - [Datetime Picker](https://ngblatui.remix-it.com/components/datetime-picker) — props: mode, months, placeholder, timeLabel, minDate, maxDate, captionLayout, seconds, timeMode, locale, dateFormat · two-way: value, range, disabled · types: CalendarMode, CalendarRange, TimeFieldMode
 - [Autocomplete](https://ngblatui.remix-it.com/components/autocomplete) — props: multiple, options, placeholder, empty, name, size, icon · two-way: value, values, disabled · types: AutocompleteSize
-- [File Upload](https://ngblatui.remix-it.com/components/file-upload) — props: multiple, accept, name, hint, disabled, dropzoneLabel, removeLabel · emits: filesChange
+- [File Upload](https://ngblatui.remix-it.com/components/file-upload) — props: multiple, accept, name, hint, disabled, value, dropzoneLabel, removeLabel · emits: filesChange, fileRemove · types: BuiFileUploadRemoval, BuiFileUploadSource, BuiFileUploadValue
 - [Input Mask](https://ngblatui.remix-it.com/components/input-mask) — props: mask, placeholder, inputmode, name · two-way: value, disabled
 - [Mention Input](https://ngblatui.remix-it.com/components/mention-input) — props: mentions, trigger, placeholder, rows, name · two-way: value · types: Mention
 - [Rich Text Editor](https://ngblatui.remix-it.com/components/rich-text-editor) — props: placeholder, ariaLabel, formattingLabel, name · two-way: value
@@ -94,7 +94,7 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Diff Viewer](https://ngblatui.remix-it.com/components/diff-viewer) — props: before, after, filename
 - [Tree Table](https://ngblatui.remix-it.com/components/tree-table) — props: columns, rows, toggleLabel, copyable, copyLabel, copiedLabel · types: TreeTableColumn, TreeTableRow
 - [Carousel](https://ngblatui.remix-it.com/components/carousel) — props: orientation, perView, previousLabel, nextLabel, goToSlideLabel · two-way: index · types: CarouselOrientation
-- [Data Table](https://ngblatui.remix-it.com/components/data-table) — props: columns, rows, searchable, searchPlaceholder, selectable, pageSize, searchLabel, selectAllLabel, selectRowLabel · types: DataRow, DataTableColumn
+- [Data Table](https://ngblatui.remix-it.com/components/data-table) — props: columns, rows, searchable, searchPlaceholder, selectable, perPageOptions, toggleableColumns, searchLabel, selectAllLabel, selectRowLabel, columnsLabel, perPageLabel · two-way: pageSize, visibleColumns · types: DataRow, DataTableColumn
 - [Chart](https://ngblatui.remix-it.com/components/chart) — props: type, series, labels, height, max, thickness, activeIndex, barLabels, stacked, grouped, barColors, track, dots, gridX, label · types: ChartSeries
 - [Comparison Slider](https://ngblatui.remix-it.com/components/comparison-slider) — props: before, after, beforeLabel, afterLabel, beforeAlt, afterAlt, positionLabel · two-way: value
 - [Gantt](https://ngblatui.remix-it.com/components/gantt) — props: tasks, milestones, start, end, locale, dateFormat, emptyLabel · types: GanttMilestone, GanttTask
