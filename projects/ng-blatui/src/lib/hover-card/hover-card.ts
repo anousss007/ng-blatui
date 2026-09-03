@@ -1,5 +1,7 @@
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { Overlay, type OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { isPlatformBrowser } from '@angular/common';
 import {
   computed,
   Directive,
@@ -7,23 +9,25 @@ import {
   inject,
   input,
   type OnDestroy,
+  PLATFORM_ID,
   type TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { type ClassValue, cn } from '../utils/cn';
 
 /**
- * Hover-triggered card on the Angular CDK overlay. Opens on hover/focus after a delay
- * and stays open while the pointer is over the card. SSR-safe (browser-only, on hover).
+ * Hover-triggered card on the Angular CDK overlay. Opens after a delay on hover, and on focus
+ * only when the focus came from the keyboard — a focus restored by a closing dialog is not the
+ * user asking for a card. Stays open while the pointer is over the card. SSR-safe (browser-only,
+ * on hover).
  */
 @Directive({
   selector: '[buiHoverCard]',
   host: {
     '(mouseenter)': 'scheduleOpen()',
     '(mouseleave)': 'scheduleClose()',
-    '(focusin)': 'scheduleOpen()',
-    '(focusout)': 'scheduleClose()',
   },
 })
 export class BuiHoverCard implements OnDestroy {
@@ -35,10 +39,31 @@ export class BuiHoverCard implements OnDestroy {
   readonly closeDelay = input(100);
 
   private readonly overlay = inject(Overlay);
+  private readonly focusMonitor = inject(FocusMonitor);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly viewContainerRef = inject(ViewContainerRef);
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private overlayRef: OverlayRef | null = null;
   private timer: ReturnType<typeof setTimeout> | undefined;
+
+  constructor() {
+    if (!this.isBrowser) {
+      return;
+    }
+    // Keyboard focus only: a dialog opened from this trigger restores focus to it on close, and
+    // a plain `focusin` listener would read that as a hover and leave a card on screen with the
+    // pointer somewhere else entirely.
+    this.focusMonitor
+      .monitor(this.host, true)
+      .pipe(takeUntilDestroyed())
+      .subscribe((origin) => {
+        if (origin === 'keyboard') {
+          this.scheduleOpen();
+        } else if (origin === null) {
+          this.scheduleClose();
+        }
+      });
+  }
 
   protected scheduleOpen(): void {
     this.clearTimer();
@@ -94,6 +119,7 @@ export class BuiHoverCard implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.focusMonitor.stopMonitoring(this.host);
     this.clearTimer();
     this.close();
   }
