@@ -98,6 +98,7 @@ For tools that read project rules files, drop this in so the assistant uses ng-b
 - Selectors are prefixed `bui`: `<bui-avatar>`, `<button buiButton>`, `<input buiInput>`, `<span buiBadge tone="success">`.
 - Inputs/outputs are signals: bind `[checked]`/`(checkedChange)` etc. Form controls implement ControlValueAccessor (Reactive/Template/Signal forms).
 - Theme with Tailwind v4 + oklch CSS tokens (`--primary`, `--background`, `--border`, `--radius`…).
+- Localization is app-level: `provideBuiLocale('fr-BE')` for dates/times/numbers and `provideBuiLabels({…})` for the built-in strings, both in `providers` (each also takes a signal for a runtime language switch). Without them everything formats as `en-US`. A component's `locale` prop overrides one instance — it is not how you localize an app.
 - Do NOT guess component names or props. Look them up via the ng-blatui MCP server (`get_docs`), https://ngblatui.remix-it.com/registry.json, or the prerendered page https://ngblatui.remix-it.com/components/<slug>.
 ```
 

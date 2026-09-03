@@ -17,6 +17,11 @@ export const routes: Routes = [
     title: 'Theming · ng-blatui',
   },
   {
+    path: 'docs/localization',
+    loadComponent: async () => (await import('./pages/localization')).Localization,
+    title: 'Localization · ng-blatui',
+  },
+  {
     path: 'docs/ai',
     loadComponent: async () => (await import('./pages/ai')).AiGuide,
     title: 'AI & MCP · ng-blatui',

@@ -223,6 +223,7 @@ export class App {
   protected readonly docsLinks: readonly NavLink[] = [
     { label: 'Installation', path: '/docs/installation' },
     { label: 'Theming', path: '/docs/theming' },
+    { label: 'Localization', path: '/docs/localization' },
     { label: 'AI & MCP', path: '/docs/ai' },
   ];
 
