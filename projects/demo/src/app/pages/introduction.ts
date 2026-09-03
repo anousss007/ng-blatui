@@ -10,6 +10,8 @@ import {
   BuiCardTitle,
 } from 'ng-blatui';
 
+import { RELEASE } from '../generated/meta';
+
 interface Feature {
   title: string;
   body: string;
@@ -48,7 +50,7 @@ interface Flagship {
             class="mb-5 inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1 text-xs font-medium shadow-sm"
           >
             <span class="inline-block size-1.5 animate-pulse rounded-full bg-primary"></span>
-            <span class="font-mono">v1.23 · 155 components · 200+ variants</span>
+            <span class="font-mono">{{ badge }}</span>
           </a>
           <h1 class="text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
             Beautiful Angular UI.<br />
@@ -106,7 +108,9 @@ interface Flagship {
             </div>
             <div class="space-y-1 px-4 py-4 font-mono text-[13px] leading-relaxed text-zinc-300">
               <div><span class="text-emerald-400">~/app $</span> npm i ng-blatui</div>
-              <div class="text-zinc-500">&nbsp;&nbsp;added 1 package · 155 components</div>
+              <div class="text-zinc-500">
+                &nbsp;&nbsp;added 1 package · {{ release.components }} components
+              </div>
               <div>
                 <span class="text-emerald-400">~/app $</span> import &#123; BuiButton &#125; from
                 'ng-blatui'
@@ -343,6 +347,11 @@ interface Flagship {
 })
 export class Introduction {
   protected readonly copied = signal(false);
+  /** Generated from the catalog and the newest git tag, so a release cannot leave it stale. */
+  protected readonly release = RELEASE;
+  protected readonly badge =
+    (RELEASE.version === '' ? '' : `v${RELEASE.version} · `) +
+    `${RELEASE.components} components · ${RELEASE.blocks} blocks · ${RELEASE.templates} templates`;
   protected readonly highlights = [
     'WAI-ARIA',
     'Keyboard & focus',
@@ -351,10 +360,10 @@ export class Introduction {
     'SSR-safe',
   ];
   protected readonly stats = [
-    { value: '155', label: 'Components' },
-    { value: '200+', label: 'Variants' },
-    { value: '16', label: 'Blocks' },
-    { value: '34', label: 'Templates' },
+    { value: String(RELEASE.components), label: 'Components' },
+    { value: String(RELEASE.charts), label: 'Charts' },
+    { value: String(RELEASE.blocks), label: 'Blocks' },
+    { value: String(RELEASE.templates), label: 'Templates' },
   ];
   protected readonly features: Feature[] = [
     {
@@ -385,19 +394,19 @@ export class Introduction {
   protected readonly explore: Explore[] = [
     {
       label: 'Components',
-      count: '155',
+      count: String(RELEASE.components),
       blurb: 'Buttons, inputs, overlays, data, charts and more — every one accessible.',
       path: '/components',
     },
     {
       label: 'Blocks',
-      count: '16',
+      count: String(RELEASE.blocks),
       blurb: 'Full-section layouts: auth, pricing, dashboards, sidebars and calendars.',
       path: '/blocks',
     },
     {
       label: 'Templates',
-      count: '34',
+      count: String(RELEASE.templates),
       blurb: 'Art-directed full pages you can drop in and theme.',
       path: '/templates',
     },
