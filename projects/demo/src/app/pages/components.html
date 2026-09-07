@@ -7487,6 +7487,42 @@ This content is read-only and cannot be edited.</textarea
       <app-example [code]="code.tagsInputPrefilled">
         <bui-tags-input class="w-full max-w-sm" [(tags)]="tagListPrefilled" />
       </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">
+        Suggestions & create on the fly
+      </h2>
+      <p class="mb-4 text-sm text-muted-foreground">
+        Focus the field to see the existing tags, type to filter them — and type something new to
+        get a <em>Create</em> row. Anything added that no suggestion matches is emitted on
+        <code class="rounded bg-muted px-1 py-0.5 text-xs">(created)</code>, which is where the
+        backend creates the tag and hands it back as a suggestion.
+      </p>
+      <app-example [code]="code.tagsInputSuggestions">
+        <div class="w-full max-w-sm">
+          <bui-tags-input
+            class="w-full"
+            [(tags)]="tagsWithSuggestions"
+            [suggestions]="tagSuggestions()"
+            (created)="onTagCreated($event)"
+          />
+          @if (lastCreatedTag(); as created) {
+            <p class="mt-2 text-sm text-muted-foreground">
+              Created on the backend: <strong class="text-foreground">{{ created }}</strong>
+            </p>
+          }
+        </div>
+      </app-example>
+
+      <h2 class="mt-10 mb-1 text-xl font-semibold tracking-tight">Suggestions only</h2>
+      <app-example [code]="code.tagsInputNoCreate">
+        <bui-tags-input
+          class="w-full max-w-sm"
+          [(tags)]="tagsFromSuggestions"
+          [suggestions]="tagSuggestions()"
+          [allowCreate]="false"
+          placeholder="Pick a tag…"
+        />
+      </app-example>
     }
     @case ('editable') {
       <app-example [code]="code.editable">

@@ -45,7 +45,7 @@ ng-blatui is an Angular port of BlatUI. Install with `npm i ng-blatui`, import a
 - [Password Strength](https://ngblatui.remix-it.com/components/password-strength) — props: name, id, placeholder, showChecklist, minLength, label · two-way: password
 - [Time Field](https://ngblatui.remix-it.com/components/time-field) — props: name, id, min, max, seconds, mode, minuteStep, ariaLabel, locale, hourCycle · two-way: value, disabled · types: TimeFieldHourCycle, TimeFieldMode
 - [Toggle Group](https://ngblatui.remix-it.com/components/toggle-group) — props: type, orientation, value, disabled · two-way: value · types: ToggleValue
-- [Tags Input](https://ngblatui.remix-it.com/components/tags-input) — props: placeholder, max · two-way: tags, disabled
+- [Tags Input](https://ngblatui.remix-it.com/components/tags-input) — props: suggestions, allowCreate, placeholder, max, createLabel, removeLabel · two-way: tags, disabled · emits: created
 - [Editable](https://ngblatui.remix-it.com/components/editable) — props: placeholder, label, multiline · two-way: value
 - [Knob](https://ngblatui.remix-it.com/components/knob) — props: min, max, step, size, label · two-way: value, disabled
 - [Input OTP](https://ngblatui.remix-it.com/components/input-otp) — props: maxlength, alphanumeric, groupSize, ariaLabel · two-way: value, disabled
