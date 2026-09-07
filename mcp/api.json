@@ -3897,12 +3897,26 @@
     ]
   },
   "tags-input": {
-    "summary": "A free-text tags input: type and press Enter (or comma) to add chips; Backspace removes.",
+    "summary": "A free-text tags input: type and press Enter (or comma) to add chips; Backspace removes.\n\nPass `suggestions` and the field becomes a combobox over the tags that already exist, while\nstill accepting anything typed: whatever is committed that no suggestion matches is emitted on\n`created`, which is where a backend creates the tag on the fly. Set `allowCreate` to false to\nrestrict entry to the suggestions.",
     "components": [
       {
         "class": "BuiTagsInput",
         "selector": "bui-tags-input",
         "inputs": [
+          {
+            "name": "suggestions",
+            "type": "readonly string[]",
+            "default": "[]",
+            "required": false,
+            "description": "Existing tags offered as a filtered suggestion list; leave empty for a plain free-text field."
+          },
+          {
+            "name": "allowCreate",
+            "type": "boolean",
+            "default": "true",
+            "required": false,
+            "description": "Whether a tag no suggestion matches can be added — the entry that `created` reports."
+          },
           {
             "name": "placeholder",
             "type": "string",
@@ -3916,6 +3930,20 @@
             "default": "null",
             "required": false,
             "description": "Maximum number of tags allowed, or `null` for no limit."
+          },
+          {
+            "name": "createLabel",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "Prefix of the create row, before the typed text. Defaults to the `tagsInputCreate` label."
+          },
+          {
+            "name": "removeLabel",
+            "type": "string",
+            "default": null,
+            "required": false,
+            "description": "Prefix of a chip's remove `aria-label`. Defaults to the `tagsInputRemove` label."
           }
         ],
         "models": [
@@ -3932,7 +3960,13 @@
             "description": "Whether the input is disabled. Two-way bindable with `[(disabled)]`."
           }
         ],
-        "outputs": []
+        "outputs": [
+          {
+            "name": "created",
+            "type": "string",
+            "description": "Emits a tag that was added without matching a suggestion — create it on the backend here."
+          }
+        ]
       }
     ],
     "types": []
