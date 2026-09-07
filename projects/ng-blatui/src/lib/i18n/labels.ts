@@ -128,6 +128,9 @@ export interface BuiLabels {
   // sonner
   sonner: string;
   sonnerDismiss: string;
+  // tags-input
+  tagsInputCreate: string;
+  tagsInputRemove: string;
   // theme-customizer
   themeCustomizer: string;
   themeCustomizerOpen: string;
@@ -237,6 +240,8 @@ export const BUI_DEFAULT_LABELS: BuiLabels = {
   scrollspy: 'On this page',
   sonner: 'Notifications',
   sonnerDismiss: 'Dismiss notification',
+  tagsInputCreate: 'Create',
+  tagsInputRemove: 'Remove',
   themeCustomizer: 'Theme customizer',
   themeCustomizerOpen: 'Customize',
   themeCustomizerClose: 'Close',

@@ -418,7 +418,10 @@ const META: Record<string, { title: string; description: string }> = {
   scrollspy: { title: 'Scrollspy', description: 'Highlights the section in view.' },
   'time-field': { title: 'Time field', description: 'A styled native time input.' },
   'toggle-group': { title: 'Toggle group', description: 'A group of toggle buttons.' },
-  'tags-input': { title: 'Tags input', description: 'Type to add removable tag chips.' },
+  'tags-input': {
+    title: 'Tags input',
+    description: 'Tag chips with suggestions and create-as-you-type.',
+  },
   editable: { title: 'Editable', description: 'Click-to-edit inline text.' },
   'speed-dial': { title: 'Speed dial', description: 'A FAB that expands to actions.' },
   knob: { title: 'Knob', description: 'A rotary dial input (role=slider).' },
@@ -1245,6 +1248,24 @@ export class ComponentPage {
   protected readonly toggleStyles = signal<ToggleValue>(['bold']);
   protected readonly tagList = signal(['angular', 'signals']);
   protected readonly tagListPrefilled = signal(['design', 'frontend', 'accessibility', 'ssr']);
+  protected readonly tagSuggestions = signal([
+    'accessibility',
+    'angular',
+    'design',
+    'frontend',
+    'performance',
+    'signals',
+    'ssr',
+  ]);
+  protected readonly tagsWithSuggestions = signal(['angular']);
+  protected readonly tagsFromSuggestions = signal<string[]>([]);
+  protected readonly lastCreatedTag = signal('');
+
+  /** Stands in for the backend creating a tag on the fly, then serving it as a suggestion. */
+  protected onTagCreated(tag: string): void {
+    this.lastCreatedTag.set(tag);
+    this.tagSuggestions.update((tags) => [...tags, tag]);
+  }
   protected readonly sheetScrollOpen = signal(false);
   protected readonly editName = signal('Ada Lovelace');
   protected readonly knobValue = signal(40);
@@ -3042,6 +3063,22 @@ fruitForm = new FormControl('banana');
     tagsInputDisabled: `<bui-tags-input [tags]="['Read-only', 'Tags']" [disabled]="true" />`,
     tagsInputPrefilled: `<bui-tags-input [(tags)]="tags" />
 // tags = signal(['design', 'frontend', 'accessibility'])`,
+    tagsInputSuggestions: `<!-- suggestions turn the field into a combobox; anything typed is still accepted -->
+<bui-tags-input
+  [(tags)]="tags"
+  [suggestions]="suggestions()"
+  (created)="createTag($event)"
+/>
+
+// A tag no suggestion matches is added as typed and reported on (created) —
+// that is where the backend creates it, then serves it as a suggestion.
+createTag(tag: string) {
+  this.api.createTag(tag).subscribe((saved) =>
+    this.suggestions.update((all) => [...all, saved.name]),
+  );
+}`,
+    tagsInputNoCreate: `<!-- [allowCreate]="false" restricts entry to the suggestions -->
+<bui-tags-input [(tags)]="tags" [suggestions]="suggestions()" [allowCreate]="false" />`,
     editable: `import { BuiEditable } from 'ng-blatui';
 
 <bui-editable [(value)]="name" label="title" />`,
